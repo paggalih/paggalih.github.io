@@ -2,13 +2,55 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<title>Implement Sticky Header and Footer with CSS</title>
+<title>HTML Div Layout</title>
 <style>
-    /* Add some padding on document's body to prevent the content
-    to go underneath the header and footer */
-    body{        
-        padding-top: 60px;
-        padding-bottom: 40px;
+    body {
+        font: 14px Arial,sans-serif; 
+        margin: 0px;
+    }
+    .header {
+        padding: 10px 20px;
+        background: #acb3b9; 
+    }
+    .header h1 {
+        font-size: 24px;
+    }
+    .container {
+        width: 100%;
+        background: #f2f2f2; 
+    }
+    .nav, .section {
+        float: left; 
+        padding: 20px;
+        min-height: 170px;
+        box-sizing: border-box;
+    }
+    .nav {            
+        width: 20%;             
+        background: #d4d7dc;
+    }
+    .section {
+        width: 80%;
+    }
+    .nav ul {
+        list-style: none; 
+        line-height: 24px;
+        padding: 0px; 
+    }
+    .nav ul li a {
+        color: #333;
+    }    
+    .clearfix:after {
+        content: ".";
+        display: block;
+        height: 0;
+        clear: both;
+        visibility: hidden;
+    }
+    .footer {
+        background: #acb3b9;            
+        text-align: center;
+        padding: 5px;
     }
     .fixed-header, .fixed-footer{
         width: 100%;
@@ -23,8 +65,8 @@
     .fixed-footer{
         bottom: 0;
     }
-    .container{
-        width: 80%;
+    .center-container{
+        width: 100%;
         margin: 0 auto; /* Center the DIV horizontally */
     }
     nav a{
@@ -36,27 +78,34 @@
 </style>
 </head>
 <body>
-    <div class="fixed-header">
-        <div class="container">
-            <nav>
-                <a href="#">Home</a>
-                <a href="#">About</a>
-                <a href="#">Products</a>
-                <a href="#">Services</a>
-                <a href="#">Contact Us</a>
-            </nav>
+    <div class="container">
+        <div class="header">
+            <div class="center-container">
+                <nav>
+                    <a href="#">Home</a>
+                    <a href="#">About</a>
+                    <a href="#">Products</a>
+                    <a href="#">Services</a>
+                    <a href="#">Contact Us</a>
+                </nav>
+            </div>
+        </div>
+        <div class="wrapper clearfix">
+            <div class="nav">
+                <ul>
+                    <li><a href="#">Home</a></li>
+                    <li><a href="#">About</a></li>
+                    <li><a href="#">Contact</a></li>
+                </ul>
+            </div>
+            <div class="section">
+                <h2>Welcome to our site</h2>
+                <p>Here you will learn how to create websites...</p>
+            </div>
+        </div>
+        <div class="footer">
+            <p>copyright &copy; tutorialrepublic.com</p>
         </div>
     </div>
-    <div class="container">
-        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit...</p>
-    </div>    
-    <div class="fixed-footer">
-        <div class="container">Copyright &copy; 2016 Your Company</div>        
-    </div>
-
-  <div id="sidebar"></div>
-  <div id="content">
-    <button id="toggle">Hide / Show sidebar</button>
-  </div>
 </body>
 </html>
