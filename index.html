@@ -23,6 +23,7 @@
         }
         .container p{
             font-size: larger; 
+            /* line-height: 200px; */
         }
 
         .fixed-header, .fixed-footer{
@@ -33,7 +34,7 @@
             color: rgb(255, 255, 255);
             /* margin: 0% 10px; */
             display: flex;
-            flex-flow: row wrap;
+            flex-flow: row;
             justify-content: left;
         }
         .fixed-header{
@@ -63,10 +64,10 @@
         .sidenav {
             height: 100%;
             width: 10%;
-            /* position: fixed; */
+            position: fixed;
             display: flex;
             flex-flow: column;
-            justify-content: center;
+            justify-content: flex-start;
             /* z-index: 1; */
             top: 0;
             left: 0;
@@ -96,7 +97,8 @@
         <div class="fixed-header">
             <a href="https://i1.rgstatic.net/ii/profile.image/736166504566784-1552527180154_Q512/Galih-Pradananta.jpg"><button>Galih Pradananta</button></a>
         </div>
-        <p>Website ini berisi catatan-catatan kecil dan rangkuman hal-hal penting yang lagi menarik pemilik website aka saya pribadi.</p>
+        <p>Website ini berisi catatan-catatan kecil dan rangkuman hal-hal penting yang lagi menarik pemilik website aka saya pribadi.
+        </p>
         <div class="fixed-footer">
             <nav>
                 <a href="https://paggalih.github.io"><button>Beranda</button></a>
