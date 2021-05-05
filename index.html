@@ -1,114 +1,111 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<title>HTML Div Layout</title>
-<style>
-    body {
-        font: 14px Arial,sans-serif; 
-        margin: 0px;
-    }
-    .header {
-        padding: 10px 20px;
-        background: #acb3b9; 
-    }
-    .header h1 {
-        font-size: 24px;
-    }
-    .container {
-        width: 100%;
-        background: #f2f2f2; 
-    }
-    .nav, .section {
-        float: left; 
-        padding: 20px;
-        min-height: 170px;
-        box-sizing: border-box;
-    }
-    .nav {            
-        width: 20%;             
-        background: #d4d7dc;
-    }
-    .section {
-        width: 80%;
-    }
-    .nav ul {
-        list-style: none; 
-        line-height: 24px;
-        padding: 0px; 
-    }
-    .nav ul li a {
-        color: #333;
-    }    
-    .clearfix:after {
-        content: ".";
-        display: block;
-        height: 0;
-        clear: both;
-        visibility: hidden;
-    }
-    .footer {
-        background: #acb3b9;            
-        text-align: center;
-        padding: 5px;
-    }
-    .fixed-header, .fixed-footer{
-        width: 100%;
-        position: fixed;        
-        background: #333;
-        padding: 10px 0;
-        color: #fff;
-    }
-    .fixed-header{
-        top: 0;
-    }
-    .fixed-footer{
-        bottom: 0;
-    }
-    .center-container{
-        width: 100%;
-        margin: 0 auto; /* Center the DIV horizontally */
-    }
-    nav a{
-        color: #fff;
-        text-decoration: none;
-        padding: 7px 25px;
-        display: inline-block;
-    }
-</style>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Sans:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,400&display=swap" rel="stylesheet">
+    <meta charset="utf-8">
+    <title>Catatan Dosen IAIN Tulungagung</title>
+    <style>
+        /* Add some padding on document's body to prevent the content
+        to go underneath the header and footer */
+        body{        
+            padding-top: 60px;
+            padding-bottom: 40px;
+        }
+
+        .container{
+            width: 90%;
+            margin: 0 10%; 
+        }
+        .container p{
+            font-size: larger; 
+        }
+
+        .fixed-header, .fixed-footer{
+            width: 100%;
+            position: fixed;        
+            background: rgb(223, 206, 238);
+            padding: 10px 0;
+            color: rgb(255, 255, 255);
+            /* margin: 0% 10px; */
+            display: flex;
+            flex-flow: row wrap;
+            justify-content: left;
+        }
+        .fixed-header{
+            top: 0;
+        }
+        .fixed-header button{
+            margin-left: 20px;
+            font-size: 20px;
+        }
+
+        .fixed-footer{
+            bottom: 0;
+        }    
+        .fixed-footer a{
+            margin-left: 20px;
+        }
+        /* Some more styles to beutify this example */
+        nav {
+            /* margin-left: 10%; */
+        }
+        nav a{
+            color: #fff;
+            /* padding: 7px 25px; */
+            display: inline-block;
+        }
+
+        .sidenav {
+            height: 100%;
+            width: 10%;
+            position: fixed;
+            /* z-index: 1; */
+            top: 0;
+            left: 0;
+            background-color: rgb(255, 255, 255);
+            /* overflow-x: hidden; */
+            /* padding-top: 60px; */
+        }
+
+        .sidenav img {
+            padding: 5px 5px 5px 5px;
+            text-decoration: none;
+            /* font-size: 25px; */
+            color: #818181;
+            display: block;
+            margin-left: 25%;
+            box-shadow: 5px 0px 5px 0px #003e7c;
+        }
+
+    /* @media screen and (max-height: 450px) {
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
+    } */
+    </style>
 </head>
 <body>
     <div class="container">
-        <div class="header">
-            <h1>Galih Pradananta (IAIN Tulungagung) </h1>
+        <div class="fixed-header">
+            <a href="https://i1.rgstatic.net/ii/profile.image/736166504566784-1552527180154_Q512/Galih-Pradananta.jpg"><button>Galih Pradananta</button></a>
         </div>
-        <div class="wrapper clearfix">
-            <div class="nav">
-                <ul>
-                    <li><a href="https://paggalih.github.io">Beranda</a></li>
-                    <li><a href="https://paggalih.github.io/profil">Profil</a></li>
-                    <li><a href="https://paggalih.github.io/kontak">Kontak</a></li>
-                </ul>
-            </div>
-            <div class="section">
-                <h2>Selamat datang</h2>
-                <p>Situs ini akan berisi catatan dan rangkuman baca saya. Semoga dapat bermanfaat lebih luas.</p>
-                <p><b>Video</b></p> 
-                <ol>
-                    <li><a href="https://www.youtube.com/watch?v=yQimoqo0-7g" target=”_blank”>2021-05-03 Menonton video pembuatan web dari <i>Youtube Easy Tutorials</i></a></li>
-                </ol>
-                <p><b>Artikel</b></p> 
-                <ol>
-                    <li><a href="https://www.youtube.com/watch?v=yQimoqo0-7g" target=”_blank”>2021-05-03 Menonton video pembuatan web dari <i>Youtube Easy Tutorials</i></a></li>
-                </ol><p><b>Website</b></p> 
-                <ol>
-                    <li><a href="https://www.youtube.com/watch?v=yQimoqo0-7g" target=”_blank”>2021-05-03 Menonton video pembuatan web dari <i>Youtube Easy Tutorials</i></a></li>
-                </ol>
-            </div>
-        </div>
-        <div class="footer">
-            <p>Terima kasih <i>template</i>-nya &copy; tutorialrepublic.com</p>
+        <p>Website ini berisi catatan-catatan kecil dan rangkuman hal-hal penting yang lagi menarik pemilik website aka saya pribadi.</p>
+        <div class="fixed-footer">
+            <nav>
+                <a href="https://paggalih.github.io"><button>Beranda</button></a>
+                <a href="https://paggalih.github.io/video"><button>Video</button></a>
+                <a href="https://paggalih.github.io/artikel"><button>Artikel</button></a>
+                <a href="https://paggalih.github.io/website"><button>Website</button></a>
+            </nav>       
         </div>
     </div>
+    
+    <div class="sidenav">
+        <img src="http://www.iain-tulungagung.ac.id/fileberita/photo/logo_iain_m_corel.jpg" alt="" width=50% >
+        <img src="https://ditsti.itb.ac.id/wp-content/uploads/2020/09/logo_itb_512.png" alt="" width=50% >
+        <img src="http://3.bp.blogspot.com/_-NbUYf-lkLI/TJn5nG5bNwI/AAAAAAAAAnM/FwCjfKo9T9o/s1600/logo+sragen+bilingual+boarding+school.jpg" alt="" width=50% >
+        <img src="https://smpn1trenggalek.sch.id/wp-content/uploads/2018/11/smp1trenggalek.jpg" alt="" width=50% >
+    </div> 
+  
 </body>
 </html>
