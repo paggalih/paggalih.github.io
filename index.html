@@ -1,136 +1,199 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
+<meta name="viewport" content="width=device-width, initial-scale=1">
+   <!-- <link rel="preconnect" href="https://fonts.gstatic.com"> -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Fira+Sans" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css2?family=Oswald" rel="stylesheet"> -->
     <!-- <link href="https://fonts.googleapis.com/css?family=Pacifico" rel="stylesheet"> -->
+    <link href="https://fonts.googleapis.com/css2?family=Material+Icons"  rel="stylesheet">
     <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css">
-    <meta charset="utf-8">
-    <title>Catatan Dosen IAIN Tulungagung</title>
-    <style>
-        /* Add some padding on document's body to prevent the content
-        to go underneath the header and footer */
-        body{        
-            /* padding-top: 20px; */
-            padding-bottom: 40px;
-            /* font-family: 'Fira Sans', sans-serif; */
-            /* font-family: 'Oswald', sans-serif; */
-            font-family: "Computer Modern Sans", sans-serif;
-            /* font-family: 'Pacifico', serif; */
-            /* text-shadow: 4px 4px 4px #aaa; */
-            text-align: center;
-        }
-        body, html{
-            height: 100%;
-        }
-        .sidenav{
-            height: 100%;
-        }
+<style>
+body {
+    /* padding-top: 20px; */
+    padding-bottom: 40px;
+    padding-left: 20px;
+    /* font-family: 'Fira Sans', sans-serif; */
+    /* font-family: 'Oswald', sans-serif; */
+    font-family: "Computer Modern Sans", sans-serif;
+    /* font-family: 'Pacifico', serif; */
+    /* text-shadow: 4px 4px 4px #aaa; */
+    /* margin-left: 10px; */
+}
 
-        .container{
-            width: 90%;
-            margin: 0 10%; 
-        }
-        .container p{
-            font-size: larger; 
-            /* line-height: 200px; */
-        }
+.navbar {
+  overflow: hidden;
+  background-color: #333;
+  /* position: fixed; */
+}
 
-        .fixed-header, .fixed-footer{
-            width: 100%;
-            position: fixed;        
-            background:rgba(255, 1, 1, 0.2);
-            padding: 10px 0;
-            color: rgb(255, 255, 255);
-            /* margin: 0% 10px; */
-            display: flex;
-            flex-flow: row;
-            justify-content: left;
-        }
-        .fixed-header{
-            top: 0;
-        }
-        .fixed-header button{
-            margin-left: 20px;
-            font-size: 20px;
-        }
+/* .navbar a {
+  float: left;
+  font-size: 16px;
+  color: white;
+  text-align: center;
+  padding: 14px 16px;
+  text-decoration: none;
+} */
 
-        .fixed-footer{
-            bottom: 0;
-        }    
-        .fixed-footer a{
-            margin-left: 20px;
-        }
-        /* Some more styles to beutify this example */
- 
-        nav a{
-            /* color: #fff; */
-            /* padding: 7px 25px; */
-            display: inline-block;
-        }
+/* .dropdown {
+  float: left;
+  overflow: hidden;
+}
 
-        .sidenav {
-            /* height: 100%; */
-            height: max-content;
-            width: 10%;
-            /* float: left; */
-            position: fixed;
-            display: flex;
-            /* flex-direction: column; */
-            flex-flow: column;
-            justify-content: flex-start;
-            /* align-items: center; */
-            z-index: 1;
-            top: 0;
-            left: 0;
-            background-color: rgb(255, 255, 255);
-            /* overflow-x: hidden; */
-            /* padding-top: 60px; */
-            overflow-y: scroll;
-            margin: auto;
-            vertical-align: middle;
-        }
+.dropdown .dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  padding: 14px 16px;
+  background-color: inherit;
+  font-family: inherit;
+  margin: 0;
+}
 
-        .sidenav a{
-            width: 100%;
-            /* position: absolute; */
-            display: flex;
-            flex-flow: row;
-            justify-content: center;
-            margin-top: 20px;
+.navbar a:hover, .dropdown:hover .dropbtn {
+  background-color: red;
+}
 
-        }
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #f9f9f9;
+  min-width: 160px;
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1;
+}
 
-        .wrapper { 
-            background:#EFEFEF; 
-            box-shadow: 1px 1px 10px #999; 
-            margin: auto; 
-            text-align: left; 
-            position: relative;
-            -webkit-border-radius: 5px;
-            -moz-border-radius: 5px;
-            border-radius: 5px;
-            margin-bottom: 20px !important;
-            width: 80%;
-            padding-top: 5px;            
-        }
-        .scrolls { 
-            overflow-x: scroll;
-            overflow-y: scroll;
-            height: 200px;
-            white-space:nowrap
-        } 
-        .imageDiv img { 
-            box-shadow: 1px 1px 10px #999; 
-            margin: 2px;
-            max-height: 50px;
-            cursor: pointer;
-            display:inline-block;
-            *display:inline;
-            *zoom:1;
-            vertical-align: top;
-        }
+.dropdown-content a {
+  float: none;
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  text-align: left;
+}
+
+.dropdown-content a:hover {
+  background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+  display: block;
+} */
+
+.footer {
+    position: fixed;
+    bottom: 0px;
+    margin: 0px;
+    padding: 0px;
+    left: 0px;
+    right: 0px;
+    width: 100%;
+    height: 40px;
+    /* border-top: 1px dashed rgba(0,0,0); */
+    background-color: rgba(0,0,0);
+}
+
+.footer li ul {
+    list-style: none;
+    padding: 0px;
+    margin-bottom: 20px;
+}
+
+.footerMenu {
+    margin: 0px;
+    padding: 0px;
+    width: auto;
+}
+.footerMenu li {
+list-style: none;
+float: left;
+font-size: 16px;
+padding: 12px 14px 14px 14px;
+color: rgb(255, 255, 255);
+border-right: 1px solid white;
+background: rgba(0,0,0);
+}
+.footerMenu li:hover {
+    /* color: rgb(255,255,255); */
+    background-color: rgb(255, 0, 0);
+}
+
+.footerMenu li ul.dropupMenu {
+    display: none;
+    border: 10px double black;
+    text-align: left;
+}
+.footerMenu li:hover ul.dropupMenu {
+    display: block;
+    position: absolute;
+    margin: 0 0 0 -15px;
+    bottom: 40px;
+    /* border: 1px solid black; */
+    border-bottom: none;
+    background: rgba(255, 255, 255);
+}
+.footerMenu li:hover li {
+    float: none;
+    background: none;
+    /* color: white; */
+    /* border: none; */
+    /* border-bottom: 1px solid black; */
+    /* border-top: 1px solid black; */
+    padding: 12px 10px 12px 10px;
+}
+.footerMenu li ul.dropupMenu li:hover {
+    background-color: rgba(255, 0, 0,0.5);
+    color: white;
+}
+
+.container{
+    width: 100%;
+}
+.container p{
+    font-size: larger; 
+    /* line-height: 20px; */
+}
+.container h1{
+    color: yellow;
+    text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
+}
+.container figcaption{
+    text-align: center; margin-right: 0%; color: blue;
+}
+
+mark{
+    color: white;
+    background-color: blue ;
+}
+
+.wrapper { 
+    background:#EFEFEF; 
+    box-shadow: 1px 1px 10px #999; 
+    margin: auto; 
+    text-align: left; 
+    position: relative;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
+    margin-bottom: 20px !important;
+    width: 90%;
+    padding-top: 5px;            
+}
+.scrolls { 
+    overflow-x: scroll;
+    overflow-y: scroll;
+    height: 200px;
+    white-space:nowrap
+} 
+
+.border-highlight{
+    border:2px dashed yellow;  
+    padding:0.03em 0.25em;
+}
+
+
 
     /* @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
@@ -177,7 +240,7 @@
         <div class="wrapper">
             <div class="scrolls">
                 <ol>
-                    <li><a href="https://paggalih.github.io/20210506-Tutorial-Excel-1/"><button>2021-05-04</button></a> Tutorial Menghitung Frekuensi Huruf pada Excel</li>
+                    <li><a href="https://paggalih.github.io/20210506-Tutorial-Excel-1/"><button><i class="material-icons" style="font-size: 150%;color:red;">ads_click</i>2021-05-04</button></a> -->Tutorial Menghitung Frekuensi Huruf pada Excel</li>
                 </ol>              
             </div>
         </div>
@@ -195,24 +258,30 @@
         </div> -->
     </div>
     
-    <div class="sidenav">
-        <a href="https://febi.iain-tulungagung.ac.id"><img src="https://seeklogo.com/images/I/iain-tulungagung-logo-857B412A10-seeklogo.com.png" alt="" width=50% ></a>
-
-        <a href="https://fmipa.itb.ac.id"><img src="https://ditsti.itb.ac.id/wp-content/uploads/2020/09/logo_itb_512.png" alt="" width=50% ></a>
-
-        <a href="#"><img src="http://3.bp.blogspot.com/_-NbUYf-lkLI/TJn5nG5bNwI/AAAAAAAAAnM/FwCjfKo9T9o/s1600/logo+sragen+bilingual+boarding+school.jpg" alt="" width=50% ></a>
-
-        <a href="https://smpn1trenggalek.sch.id"><img src="https://smpn1trenggalek.sch.id/wp-content/uploads/2018/11/smp1trenggalek.jpg" alt="" width=50% ></a>
-
-        <!-- <a href="https://i1.rgstatic.net/ii/profile.image/736166504566784-1552527180154_Q512/Galih-Pradananta.jpg"><img src="https://www.flaticon.com/svg/vstatic/svg/4412/4412398.svg?token=exp=1620350106~hmac=0cb97698205cc3cdd06771a101d20584" style="width: 50%;" alt=""></a>
-        <span style="text-align: center;">Tutorial</span> -->
-            
-        <a href="https://i1.rgstatic.net/ii/profile.image/736166504566784-1552527180154_Q512/Galih-Pradananta.jpg"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="50%" height="auto" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 576 512"><path d="M528 32H48C21.5 32 0 53.5 0 80v16h576V80c0-26.5-21.5-48-48-48zM0 432c0 26.5 21.5 48 48 48h480c26.5 0 48-21.5 48-48V128H0v304zm352-232c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zm0 64c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zm0 64c0-4.4 3.6-8 8-8h144c4.4 0 8 3.6 8 8v16c0 4.4-3.6 8-8 8H360c-4.4 0-8-3.6-8-8v-16zM176 192c35.3 0 64 28.7 64 64s-28.7 64-64 64s-64-28.7-64-64s28.7-64 64-64zM67.1 396.2C75.5 370.5 99.6 352 128 352h8.2c12.3 5.1 25.7 8 39.8 8s27.6-2.9 39.8-8h8.2c28.4 0 52.5 18.5 60.9 44.2c3.2 9.9-5.2 19.8-15.6 19.8H82.7c-10.4 0-18.8-10-15.6-19.8z" fill="#626262"/></svg></a>
-
-
-        <a href="https://paggalih.github.io"><svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" focusable="false" width="50%" height="auto" style="-ms-transform: rotate(360deg); -webkit-transform: rotate(360deg); transform: rotate(360deg);" preserveAspectRatio="xMidYMid meet" viewBox="0 0 576 512"><path d="M280.37 148.26L96 300.11V464a16 16 0 0 0 16 16l112.06-.29a16 16 0 0 0 15.92-16V368a16 16 0 0 1 16-16h64a16 16 0 0 1 16 16v95.64a16 16 0 0 0 16 16.05L464 480a16 16 0 0 0 16-16V300L295.67 148.26a12.19 12.19 0 0 0-15.3 0zM571.6 251.47L488 182.56V44.05a12 12 0 0 0-12-12h-56a12 12 0 0 0-12 12v72.61L318.47 43a48 48 0 0 0-61 0L4.34 251.47a12 12 0 0 0-1.6 16.9l25.5 31A12 12 0 0 0 45.15 301l235.22-193.74a12.19 12.19 0 0 1 15.3 0L530.9 301a12 12 0 0 0 16.9-1.6l25.5-31a12 12 0 0 0-1.7-16.93z" fill="#626262"/></svg></a>
-
-    </div> 
+    <div class="footer">
+        <ul class="footerMenu">
+            <li> <i class="material-icons" style="font-size: 100%;color:red;">menu_open</i>Daftar Menu
+                <ul class="dropupMenu">
+                    <li ><a href="https://paggalih.github.io"><i class="material-icons" style="font-size: 150%;color:red;">home</i>Beranda</a></li>
+                </ul>
+            </li>
+            <li> <i class="material-icons" style="font-size: 100%;color:red;">manage_accounts</i>Daftar Akun
+                <ul class="dropupMenu">
+                    <li><a href="https://scholar.google.com/citations?user=pD6nbRIAAAAJ&hl=en&oi=ao" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">school</i>Google Scholar</a></li>
+                    <li><a href="https://www.researchgate.net/profile/Galih-Pradananta" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">science</i>Researchgate</a></li>
+                </ul>
+            </li>
+            <li> <i class="material-icons" style="font-size: 100%;color:red;">history_edu</i>Daftar Afiliasi
+                <ul class="dropupMenu">
+                    <li><a href="https://www.facebook.com/sdnegeritumpuk/" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">square_foot</i>SDN Tumpuk</a></li>
+                    <li><a href="https://smpn1trenggalek.sch.id" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">gite</i>SMPN 1 Trenggalek</a></li>
+                    <li><a href="https://edukasi.kompas.com/read/2012/09/25/2111571/~Edukasi~News" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">school</i>SMAN SBBS</a></li>
+                    <li><a href="http://www.math.itb.ac.id" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">local_library</i>Institut Teknologi Bandung</a></li>
+                    <li><a href="https://febi.iain-tulungagung.ac.id" target="_blank"><i class="material-icons" style="font-size: 150%;color:red;">laptop_chromebook</i>IAIN Tulungagung</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
   
 </body>
 </html>
