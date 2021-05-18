@@ -4,9 +4,11 @@ body {
     padding-left: 20px;
     /* font-family: 'Fira Sans', sans-serif; */
     /* font-family: 'Oswald', sans-serif; */
-    font-family: "Computer Modern Sans", sans-serif;
+    /* font-family: "Computer Modern Sans", sans-serif; */
     /* font-family: 'Pacifico', serif; */
-/*     font-family: 'Nanum Gothic', sans-serif; */
+    /* font-family: 'Nanum Gothic', sans-serif; */
+    /* font-family: 'Nanum Gothic Coding', monospace; */
+    font-family: 'Dela Gothic One', cursive;
     /* text-shadow: 4px 4px 4px #aaa; */
     /* margin-left: 10px; */
 }
