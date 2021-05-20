@@ -4,11 +4,11 @@ body {
     padding-left: 20px;
     /* font-family: 'Fira Sans', sans-serif; */
     /* font-family: 'Oswald', sans-serif; */
-    /* font-family: "Computer Modern Sans", sans-serif; */
+    font-family: "Computer Modern Sans", sans-serif;
     /* font-family: 'Pacifico', serif; */
     /* font-family: 'Nanum Gothic', sans-serif; */
     /* font-family: 'Nanum Gothic Coding', monospace; */
-    font-family: 'Dela Gothic One', cursive;
+    /* font-family: 'Dela Gothic One', cursive; */
     /* text-shadow: 4px 4px 4px #aaa; */
     /* margin-left: 10px; */
 }
@@ -150,10 +150,11 @@ background: rgba(0,0,0);
     font-size: larger; 
     /* line-height: 20px; */
 }
-.container h1{
+h1{
     color: yellow;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
-}
+    font-family: 'Dela Gothic One', cursive;
+  }
 .container figcaption{
     text-align: center; margin-right: 0%; color: blue;
 }
@@ -167,7 +168,7 @@ mark{
     background:#EFEFEF; 
     box-shadow: 1px 1px 10px #999; 
     margin: auto; 
-    text-align: center; 
+    text-align: left; 
     position: relative;
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -183,10 +184,10 @@ mark{
     white-space:nowrap
 } 
 
-.border-highlight{
+/* .border-highlight{
     border:2px dashed yellow;  
     padding:0.03em 0.25em;
-}
+} */
 
 
 
@@ -194,3 +195,109 @@ mark{
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
     } */
+
+  /* The Modal (background) */
+  .modal {
+    display: none;
+    /* Hidden by default */
+    position: fixed;
+    /* Stay in place */
+    z-index: 1;
+    /* Sit on top */
+    padding-top: 80px;
+    /* Location of the box */
+    left: 0;
+    top: 0;
+    width: 100%;
+    /* Full width */
+    height: 100%;
+    /* Full height */
+    overflow: auto;
+    /* Enable scroll if needed */
+    background-color: rgb(0, 0, 0);
+    /* Fallback color */
+    background-color: rgba(0, 0, 0, 0.4);
+    /* Black w/ opacity */
+    overflow: auto;
+}
+
+/* Modal Content */
+.modal-content {
+    max-height: 80%;
+    overflow: auto;
+    position: relative;
+    background-color: #fefefe;
+    margin: auto;
+    padding: 0;
+    border: 1px solid #888;
+    width: 80%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    -webkit-animation-name: animatetop;
+    -webkit-animation-duration: 0.4s;
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+@keyframes animatetop {
+    from {
+        top: -300px;
+        opacity: 0
+    }
+
+    to {
+        top: 0;
+        opacity: 1
+    }
+}
+
+/* The Close Button */
+.close {
+    color: white;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: #000;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+.modal-header {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+.modal-body {
+    padding: 2px 16px;
+}
+
+.modal-footer {
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+
+#myBtn1,
+#myBtn2,
+#myBtn3,
+#myBtn4 {
+  width: 100%;
+  text-align: center;
+}
