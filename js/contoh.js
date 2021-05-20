@@ -1,1 +1,1 @@
-alert("Bismillahirahhamanirrahim");
+alert("بِسْمِ اللّهِ الرَّحْمَنِ الرَّحِيْمِ");
