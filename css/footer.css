@@ -24,24 +24,55 @@
     width: auto;
 }
 .footerMenu li {
-list-style: none;
-float: left;
-font-size: 20px;
-padding: 12px 9px 14px 9px;
-/* padding: 0 0 0 0; */
-color: rgb(255, 255, 255);
-border-right: 1px solid white;
-background: rgba(0,0,0);
+    list-style: none;
+    float: left;
+    font-size: 20px;
+    padding: 12px 9px 14px 9px;
+    /* padding: 0 0 0 0; */
+    color: rgb(255, 255, 255);
+    border-right: 1px solid white;
+    background: rgba(0,0,0);
+    /* MULAI SINI BLINK */
+    color:#fff;
+    /* font-size:40px; */
+    -webkit-animation: flash linear 1s infinite;
+    animation: flash linear 7s infinite;
 }
+
+@-webkit-keyframes flash {
+    0% { opacity: 0; } 
+    80% { opacity: 1; color:#fff; } 
+    83% { opacity: 0; color:#fff; } 
+    86% { opacity: 1; color:#fff;}  
+    89% { opacity: 0} 
+    92% { opacity: 1; color:#fff;} 
+    95% { opacity: 0; color:#fff;}
+    100% { opacity: 1; color:#fff;}
+  }
+  @keyframes flash {
+    0% { opacity: 0; } 
+    80% { opacity: 1; color:#fff; } 
+    83% { opacity: 0; color:#fff; } 
+    86% { opacity: 1; color:#fff;}  
+    89% { opacity: 0} 
+    92% { opacity: 1; color:#fff;} 
+    95% { opacity: 0; color:#fff;}
+    100% { opacity: 1; color:#fff;}
+  }
+
 .footerMenu li:hover {
     /* color: rgb(255,255,255); */
     background-color: rgb(255, 0, 0);
+    -webkit-animation: none;
+    animation: none;
 }
 
 .footerMenu li ul.dropupMenu {
     display: none;
     border: 5px double black;
     text-align: left;
+    -webkit-animation: none;
+    animation: none;
 }
 .footerMenu li:hover ul.dropupMenu {
     display: block;
@@ -51,6 +82,8 @@ background: rgba(0,0,0);
     /* border: 1px solid black; */
     border-bottom: none;
     background: rgba(255, 255, 255);
+    -webkit-animation: none;
+    animation: none;
 }
 .footerMenu li:hover li {
     float: none;
@@ -61,8 +94,12 @@ background: rgba(0,0,0);
     /* border-top: 1px solid black; */
     padding: 12px 5px 12px 5px;
     /* padding: 0 0 0 0; */
+    -webkit-animation: none;
+    animation: none;
 }
 .footerMenu li ul.dropupMenu li:hover {
     background-color: rgba(255, 0, 0,0.5);
     color: white;
+    -webkit-animation: none;
+    animation: none;
 }
