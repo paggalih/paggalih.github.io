@@ -37,27 +37,27 @@
     color:#fff;
     /* font-size:40px; */
     -webkit-animation: flash linear 1s infinite;
-    animation: flash linear 7s infinite;
+    animation: flash linear 5s infinite;
 }
 
 @-webkit-keyframes flash {
-    0% { opacity: 0; } 
+    0% { opacity: 0.3; } 
     80% { opacity: 1; color:#fff; } 
-    83% { opacity: 0; color:#fff; } 
+    83% { opacity: 0.3; color:#fff; } 
     86% { opacity: 1; color:#fff;}  
-    89% { opacity: 0} 
+    89% { opacity: 0.3} 
     92% { opacity: 1; color:#fff;} 
-    95% { opacity: 0; color:#fff;}
+    95% { opacity: 0.3; color:#fff;}
     100% { opacity: 1; color:#fff;}
   }
   @keyframes flash {
-    0% { opacity: 0; } 
+    0% { opacity: 0.3; } 
     80% { opacity: 1; color:#fff; } 
-    83% { opacity: 0; color:#fff; } 
+    83% { opacity: 0.3; color:#fff; } 
     86% { opacity: 1; color:#fff;}  
-    89% { opacity: 0} 
+    89% { opacity: 0.3} 
     92% { opacity: 1; color:#fff;} 
-    95% { opacity: 0; color:#fff;}
+    95% { opacity: 0.3; color:#fff;}
     100% { opacity: 1; color:#fff;}
   }
 
