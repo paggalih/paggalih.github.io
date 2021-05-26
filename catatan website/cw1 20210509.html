@@ -2,8 +2,7 @@
 <html>
 <head>
 
-    <title>Catatan Website</title>
-    <meta charset = "utf-8" />
+    <title>Tutorial Sederhana</title>
     <!-- JUDUL HAlAMAN DI ATAS  -->
     <!-- FONT DARI GOOGLE FONTS -->
      <!-- <link href="https://fonts.googleapis.com/css2?family=Fira+Sans" rel="stylesheet"> -->
@@ -45,64 +44,70 @@
 </div> -->
 
 <div>
-    <h1>CATATAN WEBSITE</h1>
-    <h2><span class="border-highlight">Situs Tutorial Terlengkap Beraneka Bahasa Pemrograman</span></h2>
+    <h1>TUTORIAL EXCEL</h1><h2><span class="border-highlight">Cara Mendapatkan Banyaknya Huruf dalam Kata</span></h2>
 
-    <p>Pada kesempatan kali ini saya akan bahas sebuah situs yang <mark> menyediakan tutorial </mark> banyak sekali bahasa pemrograman. Situs ini melengkapi tutorial yang diberikan dengan editor. Sehingga jika kita penasaran, kita dapat langsung mengubah-ubah dan bermain dengan <i> syntax </i> atau kodingan yang diberikan oleh website ini. Website ini adalah </p>
-    <a href="https://www.w3schools.com/" style="text-align: center;" target="_blank"><h2>W3schools</h2></a>
     <!-- Image diunggah ke devianart -->
     <figure>
         <div class="galerifoto">
             <div class="scrollfoto">
-                 <img src="gambar/cw1-1.png" height="500">                
+                 <img src="gambar/ts1-1.jpg" height="180px">                
                 </div>
-            </div>        
-        <figcaption >Gambar 1: Terlihat beraneka ragam tutorial bahasa pemograman yang disajikan.</figcaption>
+            </div>
+        
+        <figcaption >Gambar 1: Contoh cell excel.</figcaption>
     </figure>
+    <ol>
+        <li> Pertama tulis dulu kata yang ingin diekstrak banyak hurufnya pada suatu cell di excel. Pada gambar di atas, saya tuliskan kata yang ingin saya ekstrak pada cell A1(atau a1) dan A4(atau a4).</li>
+        <li> Selanjutnya jika ingin menghitung banyaknya a kecil pada kata yang terletak di cell A1 gunakan rumus  <mark> =len(a1)-len(substitute(a1,"a","")) </mark><br>
+            Keterangan:
+            <ol style="list-style: lower-latin;">
+                <li>	Rumus <mark>  =len(a1) </mark>  akan menghasilkan banyaknya huruf yang ada pada kata di cell A1 termasuk spasi. Selanjutnya huruf, angka, spasi, tanda baca, dsb akan kita sebut sebagai karakter. Maka seperti contoh pada cell B2, banyaknya huruf (dan spasi) pada kata “Galih Pradananta” adalah 16.</li>
+                <li>	Rumus <mark> =substitute(a1,"a","") </mark>  akan mengganti huruf a kecil pada cell A1 dengan karakter kosong atau dengan kata lain menghilangkan huruf a kecil pada kata. Sehingga menghasilkan “Glih Prdnnt” seperti tertera pada cell D2.</li>
+                <li>	Rumus <mark> =len(substitute(a1,"a","")) </mark>  menghitung banyaknya huruf pada kata yang telah terkena fungsi substitute.</li>
+                <li> Terakhir pada cel E2, tinggal dikurangi antara kata yang masih ada a kecilnya dengan kata yang telah dihilangkan a kecilnya untuk menghitung banyaknya a kecil.</li>
+            </ol></li> 
+            <li><mark>SELESAI</mark></li>
+    </ol>
+    <!-- <div class="fixed-footer">
+        <nav>
+            <a href="https://paggalih.github.io"><button>Beranda</button></a>
+            <a href="https://paggalih.github.io/video"><button>Video</button></a>
+            <a href="https://paggalih.github.io/artikel"><button>Artikel</button></a>
+            <a href="https://paggalih.github.io/website"><button>Website</button></a>
+            <a href="https://paggalih.github.io/tutorial"><button>Tutorial</button></a>
 
-    <p>Seperti yang tertera pada gambar di atas kita dapat belajar bahasa pemograman <mark> HTML, CSS, PHP, JavaScript </mark> untuk membuat situs atau <i>website</i>. Sekedar informasi, sebagian besar struktur situs ini (<a href="https://paggalih.github.io">paggalih.github.io</a>) juga merupakan hasil inspirasi dari situs W3schools ini. Terutama penulis sangat berterima kasih kepada W3schools yang telah memberi arahan penulis bagaimana memberikan dekorasi dan hiasan pada teks HTML. </p>
-    <p>Tidak hanya itu, situs ini juga memberikan tutorial untuk bahasa pemograman <mark>C++, Java, Python</mark> yang berguna untuk membuat pemograman fungsional. Seperti kita tahu, bahwa Python saat ini sangat digemari oleh statistikawan seluruh dunia. Karena Python menyediakan banyak <i>free tool</i> untuk menyelesaikan masalah-masalah yang muncul jika berurusan dengan data yang besar (<i>Big data</i>)</p>
+        </nav>       
+    </div> -->
+</div>
 
-    <figure>
-        <div class="galerifoto">
-            <div class="scrollfoto">
-                 <img src="gambar/cw1-2.png" height="500">                
-                </div>
-            </div>        
-        <figcaption >Gambar 2: Terlihat beraneka ragam kuis dan latihan bahasa pemograman.</figcaption>
-    </figure>
+<a href="../index.html" ><i class="material-icons" id="scberanda">home</i><a>
 
-    <p>Situs ini menjadi semakin lengkap dan sempurna dengan kehadiran latihan dan kuis pada setiap bahasa pemrograman. Pembaca dan pembelajar dapat langsung mengevaluasi hasil pembelajaran yang didapatkan dari situs ini pada fasilitasi kuis dan latihan ini.</p>
-
-    <p>Terima kasih <a href="https://w3schools.com">W3schools</a> atas ilmunya. Saya berharap akan semakin banyak situs seperti ini dan <mark> tetap gratis </mark>. Hehehe</p>
     
-</div>
-
-<div class="footer">
-    <ul class="footerMenu">
-        <li> <i class="material-icons" style="font-size: 100%;color:red;">menu_open</i>Menu
-            <ul class="dropupMenu">
-                <li ><a href="../index.html">Beranda</a></li>
-            </ul>
-        </li>
-        <li> <i class="material-icons" style="font-size: 100%;color:red;">manage_accounts</i>Akun
-            <ul class="dropupMenu">
-                <li><a href="https://scholar.google.com/citations?user=pD6nbRIAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a></li>
-                <li><a href="https://www.researchgate.net/profile/Galih-Pradananta" target="_blank">Researchgate</a></li>
-                <li><a href="https://orcid.org/0000-0002-0082-4654" target="_blank">Orcid</a></li>
-            </ul>
-        </li>
-        <li> <i class="material-icons" style="font-size: 100%;color:red;">history_edu</i>Afiliasi
-            <ul class="dropupMenu">
-                <li><a href="https://www.facebook.com/sdnegeritumpuk/" target="_blank">SDN Tumpuk</a></li>
-                <li><a href="https://smpn1trenggalek.sch.id" target="_blank">SMPN 1 Trenggalek</a></li>
-                <li><a href="https://edukasi.kompas.com/read/2012/09/25/2111571/~Edukasi~News" target="_blank">SMAN SBBS</a></li>
-                <li><a href="http://www.math.itb.ac.id" target="_blank">Institut Teknologi Bandung</a></li>
-                <li><a href="https://febi.iain-tulungagung.ac.id" target="_blank">IAIN Tulungagung</a></li>
-            </ul>
-        </li>
-    </ul>
-</div>
+    <div class="footer">
+        <ul class="footerMenu">
+            <li> <i class="material-icons">menu_open</i>Menu
+                <ul class="dropupMenu">
+                    <li ><a href="../index.html">Beranda</a></li>
+                </ul>
+            </li>
+            <li> <i class="material-icons">manage_accounts</i>Akun
+                <ul class="dropupMenu">
+                    <li><a href="https://scholar.google.com/citations?user=pD6nbRIAAAAJ&hl=en&oi=ao" target="_blank">Google Scholar</a></li>
+                    <li><a href="https://www.researchgate.net/profile/Galih-Pradananta" target="_blank">Researchgate</a></li>
+                    <li><a href="https://orcid.org/0000-0002-0082-4654" target="_blank">Orcid</a></li>
+                </ul>
+            </li>
+            <li> <i class="material-icons">history_edu</i>Afiliasi
+                <ul class="dropupMenu">
+                    <li><a href="https://www.facebook.com/sdnegeritumpuk/" target="_blank">SDN Tumpuk</a></li>
+                    <li><a href="https://smpn1trenggalek.sch.id" target="_blank">SMPN 1 Trenggalek</a></li>
+                    <li><a href="https://edukasi.kompas.com/read/2012/09/25/2111571/~Edukasi~News" target="_blank">SMAN SBBS</a></li>
+                    <li><a href="http://www.math.itb.ac.id" target="_blank">Institut Teknologi Bandung</a></li>
+                    <li><a href="https://febi.iain-tulungagung.ac.id" target="_blank">IAIN Tulungagung</a></li>
+                </ul>
+            </li>
+        </ul>
+    </div>
 
 </body>
 </html>
