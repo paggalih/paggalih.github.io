@@ -62,12 +62,12 @@ button[disabled] {
     position: fixed;
     bottom: 50px;
     /* font-size: 150px; */
-    color: black;
+    color: rgba(0, 0, 0, 0.2);
     font-size: 15vh;
     margin-left: -20px;
 }
 #scberanda:hover{
-    color: red;
+    color: rgba(255, 0, 0, 0.3);
     border-radius: 10vh;
     background-color: rgba(0, 0, 255, 0.3);
 }
