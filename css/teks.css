@@ -1,7 +1,10 @@
 body {
     /* padding-top: 20px; */
-    padding-bottom: 40px;
-    padding-left: 20px;
+    /* padding-bottom: 40px;
+    padding-left: 20px; */
+    padding-top: 1mm;
+    padding-left: 5mm;
+    padding-bottom: 40mm;
     /* font-family: 'Fira Sans', sans-serif; */
     /* font-family: 'Oswald', sans-serif; */
     font-family: "Computer Modern Sans", sans-serif;
@@ -11,16 +14,18 @@ body {
     /* font-family: 'Dela Gothic One', cursive; */
     /* text-shadow: 4px 4px 4px #aaa; */
     /* margin-left: 10px; */
-    font-size: 20px;
+    /* font-size: 20px; */
+    font-size: 5mm;
 }
 
 p{
-    font-size: 20px; 
+    font-size: 5mm; 
     /* line-height: 20px; */
 }
 
 h1{
     color: yellow;
+    border-radius: 50px 50px;
     text-shadow: -1px 0 black, 0 1px black, 1px 0 black, 0 -1px black;
     font-family: 'Dela Gothic One', cursive;
   }
@@ -40,7 +45,7 @@ mark{
 }
 button {
     background-color: rgba(0, 0, 255, 0.3) ;
-    border-radius: 10px;
+    border-radius: 20px;
     border: none;
     cursor: pointer;
     color: white;
@@ -60,14 +65,15 @@ button[disabled] {
 }
 #scberanda{
     position: fixed;
-    bottom: 50px;
+    bottom: 15mm;
     /* font-size: 150px; */
     color: rgba(0, 0, 0, 0.2);
-    font-size: 15vh;
-    margin-left: -20px;
+    font-size: 20mm;
+    /* margin-left: -20px; */
+    margin-left: -5mm;
 }
 #scberanda:hover{
     color: rgba(255, 0, 0, 0.3);
-    border-radius: 10vh;
+    border-radius: 30% 0;
     background-color: rgba(0, 0, 255, 0.3);
 }
