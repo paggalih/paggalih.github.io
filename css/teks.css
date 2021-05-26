@@ -38,3 +38,36 @@ mark{
 #noitem {
     list-style: none;
 }
+button {
+    background-color: rgba(0, 0, 255, 0.3) ;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    color: white;
+}
+
+button:hover {
+    background-color: red;
+}
+.material-icons {
+    color: white;
+}
+button:disabled,
+button[disabled] {
+    color: white;
+    cursor: not-allowed;
+    background-color: red;
+}
+#scberanda{
+    position: fixed;
+    bottom: 50px;
+    /* font-size: 150px; */
+    color: black;
+    font-size: 15vh;
+    margin-left: -20px;
+}
+#scberanda:hover{
+    color: red;
+    border-radius: 10vh;
+    background-color: rgba(0, 0, 255, 0.3);
+}
