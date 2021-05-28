@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -25,7 +26,10 @@
      <link rel="stylesheet" type="text/css" href="../css/modal.css">
      <link rel="stylesheet" type="text/css" href="../css/scroll.css">
      <!-- JAVASCRIPTS EKSTERNAL  -->
-     <!-- <script type="text/javascript" src="../js/contoh.js"></script> -->
+     <!-- <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script> -->
+     <script id="MathJax-script" async
+             src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js">
+     </script>
     
 </head>
 <body>
@@ -47,37 +51,44 @@
 
 <div>
     <h1>OLIMPIADE</h1>
-    <h2><span>Situs Tutorial Terlengkap Beraneka Bahasa Pemrograman</span></h2>
+    <h2>Ujian Akhir Semester</h2>
+    <h3>Semester Genap</h3>
+    <h4>Tahun Akademik 2020-2021</h4>
+    <div class="card" data-x="isian">
+        <h5>ISIAN SINGKAT</h5>
+        <span class="dots"></span>
+        <span class="more">
+            <ol>
+                <li class="card" data-x="isian1">Misalkan \( 2x+3y+z=18 \). Jika diketahui \( x,y,x > 0 \), maka nilai maksimum dari \( xyz \) adalah...<br><mark>Petunjuk: </mark><span class="dots1"></span>
+                    <span class="more1">Pertidaksamaan AM-GM</span><button onclick="RM1('isian1')" class="RMBtn1">Perlihatkan</button></li>
+                <li class="card" data-x="isian2">Jika \( a,b,c \) adalah bilangan riil taknol, maka banyaknya nilai yang mungkin dari ekspresi \[ \frac{a}{|a|}+\frac{b}{|b|}+\frac{c}{|c|} \] adalah...<br><mark>Petunjuk: </mark><span class="dots1"></span>
+                    <span class="more1">Lihat semua kasus negatif dan positif</span><button onclick="RM1('isian2')" class="RMBtn1">Perlihatkan</button></li>
+                <li class="card" data-x="isian3">Jika \( x^2+y^2+z^2=1 \), maka nilai maksimum dari \( x+2y+3z \) adalah...<br><mark>Petunjuk: </mark><span class="dots1"></span>
+                    <span class="more1">Pertidaksamaan Cauchy-Schwarz</span><button onclick="RM1('isian3')" class="RMBtn1">Perlihatkan</button></li>
+                <li class="card" data-x="isian4">Banyaknya bilangan bulat \( x \) yang memenuhi \[ \left\lfloor 0.5+\lfloor x\rfloor\right\rfloor =20 \] adalah...<br><mark>Petunjuk: </mark><span class="dots1"></span>
+                    <span class="more1">Maaf tidak ada</span><button onclick="RM1('isian4')" class="RMBtn1">Perlihatkan</button></li>
+                <li class="card" data-x="isian5">Nilai dari \( \phi(100)=\cdots \)<br><mark>Petunjuk: </mark><span class="dots1"></span>
+                    <span class="more1">\(\phi(n) \) adalah Euler dari \( n \)</span><button onclick="RM1('isian5')" class="RMBtn1">Perlihatkan</button></li>
+            </ol>
+        </span><button onclick="RM('isian')" class="RMBtn">Perlihatkan</button>
+    </div>
 
-    <p>Pada kesempatan kali ini saya akan bahas sebuah situs yang <mark> menyediakan tutorial </mark> banyak sekali bahasa pemrograman. Situs ini melengkapi tutorial yang diberikan dengan editor. Sehingga jika kita penasaran, kita dapat langsung mengubah-ubah dan bermain dengan <i> syntax </i> atau kodingan yang diberikan oleh website ini. Website ini adalah </p>
-    <a href="https://www.w3schools.com/" style="text-align: center;" target="_blank"><h2>W3schools</h2></a>
-    <!-- Image diunggah ke devianart -->
-    <figure>
-        <div class="galerifoto">
-            <div class="scrollfoto">
-                 <img src="gambar/cw1-1.png" height="500">                
-                </div>
-            </div>        
-        <figcaption >Gambar 1: Terlihat beraneka ragam tutorial bahasa pemograman yang disajikan.</figcaption>
-    </figure>
+    <div class="card" data-x="uraian">
+        <h5>URAIAN</h5>
+        <span class="dots"></span>
+        <span class="more">
+            <ol>
+                <li>Jika \( a,b,c \) adalah bilangan riil positif, tunjukkan \[ \frac{c}{a}+\frac{a}{b+c}+\frac{b}{c}\ge 2. \]</li>
+                <li>Tentukan semua bilangan riil yang memenuhi persamaan \[ |x||x+1|=2. \]</li>
+                <li>Bilangan riil \( a,b,c,d \) memenuhi \( a^2+b^2=c^2+d^2 \). Tentukan nilai maksimum dari \[ \frac{20bc+14bd+20ad-14ac}{a^2+b^2+c^2+d^2}. \]</li>
+                <li>Tentukan banyaknya bilangan asli \( x \) yang memenuhi \[ \left\lfloor\frac{x}{99}\right\rfloor=\left\lfloor\frac{x}{101}\right\rfloor. \]</li>
+            </ol>
+        </span><button onclick="RM('uraian')" class="RMBtn">Perlihatkan</button>
+    </div>
 
-    <p>Seperti yang tertera pada gambar di atas kita dapat belajar bahasa pemograman <mark> HTML, CSS, PHP, JavaScript </mark> untuk membuat situs atau <i>website</i>. Sekedar informasi, sebagian besar struktur situs ini (<a href="https://paggalih.github.io">paggalih.github.io</a>) juga merupakan hasil inspirasi dari situs W3schools ini. Terutama penulis sangat berterima kasih kepada W3schools yang telah memberi arahan penulis bagaimana memberikan dekorasi dan hiasan pada teks HTML. </p>
-    <p>Tidak hanya itu, situs ini juga memberikan tutorial untuk bahasa pemograman <mark>C++, Java, Python</mark> yang berguna untuk membuat pemograman fungsional. Seperti kita tahu, bahwa Python saat ini sangat digemari oleh statistikawan seluruh dunia. Karena Python menyediakan banyak <i>free tool</i> untuk menyelesaikan masalah-masalah yang muncul jika berurusan dengan data yang besar (<i>Big data</i>)</p>
 
-    <figure>
-        <div class="galerifoto">
-            <div class="scrollfoto">
-                 <img src="gambar/cw1-2.png" height="500">                
-                </div>
-            </div>        
-        <figcaption >Gambar 2: Terlihat beraneka ragam kuis dan latihan bahasa pemograman.</figcaption>
-    </figure>
-
-    <p>Situs ini menjadi semakin lengkap dan sempurna dengan kehadiran latihan dan kuis pada setiap bahasa pemrograman. Pembaca dan pembelajar dapat langsung mengevaluasi hasil pembelajaran yang didapatkan dari situs ini pada fasilitasi kuis dan latihan ini.</p>
-
-    <p>Terima kasih <a href="https://w3schools.com">W3schools</a> atas ilmunya. Saya berharap akan semakin banyak situs seperti ini dan <mark> tetap gratis </mark>. Hehehe</p>
-    
 </div>
+
 <a href="../index.html" ><i class="material-icons" id="scberanda">home</i><a>
 
     
@@ -106,6 +117,8 @@
             </li>
         </ul>
     </div>
+
+    <script type="text/javascript" src="../js/umum.js"></script>
 
 </body>
 </html>
