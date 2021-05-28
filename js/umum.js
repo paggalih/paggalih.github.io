@@ -30,3 +30,18 @@ function RM(x) {
         moreText.style.display = "inline";
     }
 }
+function RM1(x) {
+    let dots = document.querySelector(`.card[data-x="${x}"] .dots1`);
+    let moreText = document.querySelector(`.card[data-x="${x}"] .more1`); 
+    let btnText = document.querySelector(`.card[data-x="${x}"] .RMBtn1`);
+
+    if (dots.style.display === "none") {
+        dots.style.display = "inline";
+        btnText.textContent = "Perlihatkan";
+        moreText.style.display = "none";
+    } else {
+        dots.style.display = "none";
+        btnText.textContent = "---Sembunyikan---"; 
+        moreText.style.display = "inline";
+    }
+}
