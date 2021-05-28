@@ -16,6 +16,7 @@ body {
     /* margin-left: 10px; */
     /* font-size: 20px; */
     font-size: 5mm;
+    line-height: 10mm;
 }
 
 p{
@@ -36,8 +37,10 @@ figcaption{
 }
 
 mark{
+    padding: 0 5px;
+    border-radius: 10px 0 10px 0;
     color: white;
-    background-color: blue ;
+    background-color: rgba(0, 0, 255, 0.5) ;
 }
 
 #noitem {
@@ -79,6 +82,7 @@ button[disabled] {
     background-color: rgba(0, 0, 255, 0.3);
 }
 
-.more {
+.more,
+.more1{
     display: none;
 }
