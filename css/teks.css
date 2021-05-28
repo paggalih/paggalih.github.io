@@ -72,8 +72,13 @@ button[disabled] {
     /* margin-left: -20px; */
     margin-left: -5mm;
 }
+
 #scberanda:hover{
     color: rgba(255, 0, 0, 0.3);
     border-radius: 30% 0;
     background-color: rgba(0, 0, 255, 0.3);
+}
+
+#more {
+    display: none;
 }
