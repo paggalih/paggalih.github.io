@@ -88,6 +88,7 @@
 
 .modal-body {
     padding: 2px 16px;
+    line-height: 7mm;
 }
 
 .modal-footer {
@@ -103,6 +104,7 @@
   width: 100%;
   text-align: center;
   /* cursor: pointer; */
+  padding: 10px;
 }
 
 #myBtn1:hover,
