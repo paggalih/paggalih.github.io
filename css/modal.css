@@ -101,7 +101,7 @@
 #myBtn2,
 #myBtn3,
 #myBtn4 {
-  width: 100%;
+  /* width: 100%; */
   text-align: center;
   /* cursor: pointer; */
   padding: 10px;
