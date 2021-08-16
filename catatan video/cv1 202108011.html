@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <title>Daftar Video Olimpiade</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+
+<div class="container">
+  <h2>Tabel Mengajar</h2>
+  <p>Ketik sesuai yang Anda cari:</p>  
+  <input class="form-control" id="myInput" type="text" placeholder="Search..">
+  <br>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Tanggal</th>
+        <th>Sekolah / Perguruan Tinggi</th>
+        <th>Banyak Peserta</th>
+        <th>Dokumentasi</th>
+      </tr>
+    </thead>
+    <tbody id="myTable">
+		
+	<tr>
+        <td>20210814</td>
+        <td>SMA Athirah</td>
+        <td>7</td>
+        <td><h4>Kombinatorik</h4>
+  <p>Invariant Games</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/Mp4P1y_LceI"></iframe>
+  </div></td>
+      </tr>
+      
+    <tr>
+        <td>20210814</td>
+        <td>SMANU MHT</td>
+        <td>15</td>
+        <td><h4>Kombinatorik</h4>
+  <p>Kaidah Pencacahan - Aturan Penjumlahan dan Aturan Perkalian</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/obLRTY0ZL0I"></iframe>
+  </div></td>
+      </tr>
+		
+      <tr>
+        <td>20210807</td>
+        <td>SMANU MHT</td>
+        <td>16</td>
+        <td><h4>Aljabar</h4>
+  <p>Fungsi - Komposisi dan Invers</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/yKV1Rgks_yU"></iframe>
+  </div></td>
+      </tr>
+      
+      <tr>
+        <td>20210807</td>
+        <td>SMA Athirah</td>
+        <td>4</td>
+        <td><h4>Geometri</h4>
+  <p>Lingkaran - Sudut Keliling dan Sudut Pusat</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/UdxGXXbc8Qk"></iframe>
+  </div></td>
+      </tr>
+      
+      <tr>
+        <td>20210731</td>
+        <td>SMANU MHT</td>
+        <td>16</td>
+        <td><h4>Aljabar</h4>
+  <p>Fungsi - Injektif dan Surjektif</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/6c8Yq6vU1qM"></iframe>
+  </div></td>
+      </tr>
+      
+      <tr>
+        <td>20210731</td>
+        <td>SMA Athirah</td>
+        <td>4</td>
+        <td><h4>Geometri</h4>
+  <p>Lingkaran - Garis Singgung</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/AWd7rB4IvF4"></iframe>
+  </div></td>
+      </tr>
+      
+      <tr>
+        <td>20210724</td>
+        <td>SMANU MHT</td>
+        <td>15</td>
+        <td><h4>Aljabar</h4>
+  <p>Pemfaktoran</p>
+  <div class="embed-responsive embed-responsive-16by9">
+    <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/KABExjGGl18"></iframe>
+  </div></td>
+      </tr>
+      
+      <tr>
+        <td>Mary</td>
+        <td>Moe</td>
+        <td>mary@mail.com</td>
+      </tr>
+      <tr>
+        <td>July</td>
+        <td>Dooley</td>
+        <td>july@greatstuff.com</td>
+      </tr>
+      <tr>
+        <td>Anja</td>
+        <td>Ravendale</td>
+        <td>a_r@test.com</td>
+      </tr>
+    </tbody>
+  </table>
+  
+  <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
+</div>
+
+<script>
+$(document).ready(function(){
+  $("#myInput").on("keyup", function() {
+    var value = $(this).val().toLowerCase();
+    $("#myTable tr").filter(function() {
+      $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+    });
+  });
+});
+</script>
+
+</body>
+</html>
+
