@@ -7,7 +7,7 @@ body {
     padding-bottom: 40mm;
     /* font-family: 'Fira Sans', sans-serif; */
     /* font-family: 'Oswald', sans-serif; */
-    font-family: "Computer Modern Sans", sans-serif;
+/*     font-family: "Computer Modern Sans", sans-serif; */
     /* font-family: 'Pacifico', serif; */
     /* font-family: 'Nanum Gothic', sans-serif; */
     /* font-family: 'Nanum Gothic Coding', monospace; */
@@ -15,8 +15,8 @@ body {
     /* text-shadow: 4px 4px 4px #aaa; */
     /* margin-left: 10px; */
     /* font-size: 20px; */
-    font-size: 5mm;
-    line-height: 7.5mm;
+/*     font-size: 5mm; */
+/*     line-height: 7.5mm; */
 }
 
 p{
