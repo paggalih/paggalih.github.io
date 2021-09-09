@@ -5,9 +5,6 @@
     <meta charset = "utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tutorial Sederhana</title>
-     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     
     <!-- JUDUL HAlAMAN DI ATAS  -->
     <!-- FONT DARI GOOGLE FONTS -->
@@ -33,30 +30,13 @@
     
 </head>
    <body>
-    <div class="container">
       <h1>TUTORIAL BUZZSUMO</h1>
       <h2>
         <span class="border-highlight">Tutorial Menyimpan Project</span>
       </h2>
+       <iframe width="727" height="409" src="https://www.youtube.com/embed/ZCFOfcWy6sA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-<input class="form-control" id="myInput" type="text" placeholder="Search..">
-      <br>
-      <table class="table table-bordered" style="overflow:auto" >
-        <thead>
-          <tr>
-            <th>Video Tutorial</th>
-            <th>Uraian</th>
-          </tr>
-        </thead>
-        <tbody id="myTable">
-                    
-          <tr>
-            <td>
-              <div class="embed-responsive embed-responsive-16by9">
-                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ZCFOfcWy6sA"></iframe>
-              </div>
-            </td>
-              <td style="width:50%">Teknik search dan save pada buzzsumo
+Teknik search dan save pada buzzsumo
 
 1. Penamaan project
 nama negara_RF (setiap dimensi menyimpan setidaknya 100 berita, namun yang dicoding pada maxqda minimal 6 berita)
@@ -76,23 +56,6 @@ video tutorial bisa diakses pada link berikut:
 https://us06web.zoom.us/rec/share/HqYxNhUU3Q0hlZBWsXJ2zjof3Pa258kWTFmdrKX7CSIFVXmRqmD3pml6EIXnmDs-.qkWfSoJtLPbxpqa4?startTime=1631182295000
 di atas informasi mutakhir terkait search and save project pada buzzsumo. tolong diperhatikan dan terima kasih
 
-              </td>
-          </tr>
-        </tbody>
-      </table>
-      <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
-    </div>
-    <script>
-      $(document).ready(function() {
-        $("#myInput").on("keyup", function() {
-          var value = $(this).val().toLowerCase();
-          $("#myTable tr").filter(function() {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-          });
-        });
-      });
-    </script>
-    </div>
 
 <a href="../index.html" ><i class="material-icons" id="scberanda">home</i><a>
 
