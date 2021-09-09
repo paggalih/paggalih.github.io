@@ -5,6 +5,10 @@
     <meta charset = "utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Tutorial Sederhana</title>
+     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    
     <!-- JUDUL HAlAMAN DI ATAS  -->
     <!-- FONT DARI GOOGLE FONTS -->
      <!-- <link href="https://fonts.googleapis.com/css2?family=Fira+Sans" rel="stylesheet"> -->
@@ -29,37 +33,24 @@
     
 </head>
 
-<body>
-
-<!-- <div class="navbar">
-  <a href="#home">Home</a>
-  <a href="#news">News</a>
-  <div class="dropdown">
-    <button class="dropbtn">Dropdown<i class="material-icons" style="font-size: 100%;color:red;">home</i> 
-      <i class="fa fa-caret-down"></i>
-    </button>
-    <div class="dropdown-content">
-      <a href="#">Link 1</a>
-      <a href="#">Link 2</a>
-      <a href="#">Link 3</a>
-    </div>
-  </div> 
-</div> -->
-
-<div>
-    <h1>TUTORIAL BUZZSUMO</h1><h2><span class="border-highlight">Cara Menyimpan Project</span></h2>
-    
-
-  <table style="width:100%">
-    <thead>
-      <tr>
-        <td>Uraian</td>
-        <td>Video</td>
-      </tr>
-    </thead>
-    <tbody>
-    <tr>
-      <td> <p>Teknik search dan save pada buzzsumo
+<input class="form-control" id="myInput" type="text" placeholder="Search..">
+      <br>
+      <table class="table table-bordered">
+        <thead>
+          <tr>
+            <th>Video Tutorial</th>
+            <th>Uraian</th>
+          </tr>
+        </thead>
+        <tbody id="myTable">
+                    
+          <tr>
+            <td>
+              <div class="embed-responsive embed-responsive-16by9">
+                <iframe class="embed-responsive-item" src="https://www.youtube.com/embed/ZCFOfcWy6sA"></iframe>
+              </div>
+            </td>
+              <td>Teknik search dan save pada buzzsumo
 
 1. Penamaan project
 nama negara_RF (setiap dimensi menyimpan setidaknya 100 berita, namun yang dicoding pada maxqda minimal 6 berita)
@@ -78,26 +69,40 @@ g. proses selanjutnya, anda mulai memeriksa berita-berita yang paling signifikan
 video tutorial bisa diakses pada link berikut:
 https://us06web.zoom.us/rec/share/HqYxNhUU3Q0hlZBWsXJ2zjof3Pa258kWTFmdrKX7CSIFVXmRqmD3pml6EIXnmDs-.qkWfSoJtLPbxpqa4?startTime=1631182295000
 di atas informasi mutakhir terkait search and save project pada buzzsumo. tolong diperhatikan dan terima kasih
-</p></td>
-      <td><iframe width="727" height="409" src="https://www.youtube.com/embed/ZCFOfcWy6sA" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-      </td>
-      </tr>
-    </tbody>
-  </table>
 
-    <!-- Image diunggah ke devianart -->
- 
-    <!-- <div class="fixed-footer">
-        <nav>
-            <a href="https://paggalih.github.io"><button>Beranda</button></a>
-            <a href="https://paggalih.github.io/video"><button>Video</button></a>
-            <a href="https://paggalih.github.io/artikel"><button>Artikel</button></a>
-            <a href="https://paggalih.github.io/website"><button>Website</button></a>
-            <a href="https://paggalih.github.io/tutorial"><button>Tutorial</button></a>
-
-        </nav>       
-    </div> -->
-</div>
+              </td>
+          </tr>
+                                
+          <tr>
+            <td>Mary</td>
+            <td>Moe</td>
+            <td>mary@mail.com</td>
+          </tr>
+          <tr>
+            <td>July</td>
+            <td>Dooley</td>
+            <td>july@greatstuff.com</td>
+          </tr>
+          <tr>
+            <td>Anja</td>
+            <td>Ravendale</td>
+            <td>a_r@test.com</td>
+          </tr>
+        </tbody>
+      </table>
+      <p>Note that we start the search in tbody, to prevent filtering the table headers.</p>
+    </div>
+    <script>
+      $(document).ready(function() {
+        $("#myInput").on("keyup", function() {
+          var value = $(this).val().toLowerCase();
+          $("#myTable tr").filter(function() {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+          });
+        });
+      });
+    </script>
+    </div>
 
 <a href="../index.html" ><i class="material-icons" id="scberanda">home</i><a>
 
