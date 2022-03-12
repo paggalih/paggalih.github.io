@@ -86,3 +86,7 @@ button[disabled] {
 .more1{
     display: none;
 }
+
+.card{
+    padding: 35px;
+}
