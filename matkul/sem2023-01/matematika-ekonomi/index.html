@@ -233,9 +233,9 @@ Ian Jacques, “Mathematics For Economics and Business: Ninth Edition”
 	  <p><em>Mungkin ada yang tahu mengapa tanda positif atau negatif itu sering diletakkan di kiri bilangannya?</em></p>
 	  <p>Sekarang kita akan melihat sifat dan karakteristik mereka berdua jika berada pada operator perkalian $(\times)$.</p>
 	  <ol>
-	  <li>$Positif\times Positif = Positif$<br>Contoh: $6\times 8=48$.</li>
-	  <li>$Positif\times Negatif = Negatif \times Positif = Negatif$<br>Contoh: $8\times(-6)=(-6)\times 8=(-48)$.</li>
-	  <li>$Negatif \times Negatif = Positif$<br>Contoh: $(-6)\times (-8)=48$</li>	  
+	  <li>$\text{Positif}\times \text{Positif} = \text{Positif}$<br>Contoh: $6\times 8=48$.</li>
+	  <li>$\text{Positif}\times\text{Negatif} = \text{Negatif} \times\text{Positif}  = \text{Negatif}$<br>Contoh: $8\times(-6)=(-6)\times 8=(-48)$.</li>
+	  <li>$\text{Negatif} \times \text{Negatif} = \text{Positif}$<br>Contoh: $(-6)\times (-8)=48$</li>	  
 	  </ol>
 	  <p><strong>Tanda kurung</strong> digunakan dalam matematika untuk mengutamakan atau mendahulukan operasi tertentu dibandingkan dengan operasi lainnya. Masih pada ingat bukan kalau perkalian dan pembagian itu lebih kuat daripada penjumlahan dan pengurangan? Artinya jika ada operasi perkalian dan operasi pengurangan maka harus kita lakukan terlebih dahulu operasi perkalian baru selanjutnya adalah operasi pengurangan.$$5-3\times 2=-1 \text{ (benar) dan }5-3\times 2=4 \text{ (salah) }$$</p>
 	  <p>Hal ini akan sedikit berbeda jika kita memainkan tanda kurung pada persamaan di atas. Misal pada persamaan yang kanan kita beri tanda kurung seperti di bawah ini. $$(5-3)\times 2=4 \text{ (benar) }$$ Maka pernyataan di atas akan menjadi bernilai benar. Dapat kita lihat bahwa tanda kurung di sini memerankan <em>'pemaksaan'</em> operasi pengurangan dilakukan terlebih dahulu.</p>
@@ -274,10 +274,32 @@ Ian Jacques, “Mathematics For Economics and Business: Ninth Edition”
 	</p>
 
 	  <h3>Grafik Persamaan Linier</h3>
-	  <p>Sebelum membahas grafik persamaan linier, kita patut mengetahui dulu beberapa istilah aljabar yang ada pada persamaan garis lurus. Sekarang kita perhatikan persamaan garis di bawah ini. $$y=mx+c$$ Pada persamaan garis di atas, $(x,y)$ menandakan titik yang dilewati garis. Selanjutnya $m$ biasa disebut gradien garis dan $c$ adalah titik potong terhadap sumbu-$y$. Ada juga bentuk persamaan garis $$ax+by+c=0$$ Sebenarnya bentuk ini sama saja dengan bentuk yang di atas hanya saja bentuk ini sering muncul pada sistem persamaan linier alih-alih sebagai bentuk persamaan garis. Hal ini karena tidak langsung terlihat komponen gradien dan titik potong pada persamaan garis tersebut. Tapi tentu kita dapat dengan mudah mencari gradien dan titik potongnya dengan melakukan manipulasi seperti di bawah ini. $$ax+by+c=0\Longleftrightarrow by=-ax-c\Longleftrightarrow y=-\frac{a}{b}x-\frac{c}{b}$$ Oleh karenanya $m=-\frac{a}{b}$ dan titik potong terhadap sumbu-$y$ adalah $-\frac{c}{b}$.
+	  <p>Sebelum membahas grafik persamaan linier, kita patut mengetahui dulu beberapa istilah aljabar yang ada pada persamaan garis lurus. Sekarang kita perhatikan persamaan garis di bawah ini. $$y=mx+c$$ Pada persamaan garis di atas, $(x,y)$ menandakan titik yang dilewati garis. Selanjutnya $m$ biasa disebut gradien garis dan $c$ adalah titik potong terhadap sumbu-$y$. Ada juga bentuk persamaan garis $$ax+by+c=0$$ Sebenarnya bentuk ini sama saja dengan bentuk yang di atas hanya saja bentuk ini sering muncul pada sistem persamaan linier alih-alih sebagai bentuk persamaan garis. Hal ini karena tidak langsung terlihat komponen gradien dan titik potong pada persamaan garis tersebut. Tapi tentu kita dapat dengan mudah mencari gradien dan titik potongnya dengan melakukan manipulasi seperti di bawah ini. $$ax+by+c=0\Longleftrightarrow by=-ax-c\Longleftrightarrow y=-\frac{a}{b}x-\frac{c}{b}$$ Oleh karenanya gradien $m=-\frac{a}{b}$ dan titik potong terhadap sumbu-$y$ adalah $-\frac{c}{b}$.
 	  </p>
 
 	  <h3>Solusi Sistem Persamaan Linier</h3>
+	  <p>Sistem persamaan linier adalah beberapa persamaan linier yang semuanya bernilai benar. Artinya titik $(x,y)$ yang memenuhi satu persamaan linier harus memenuhi juga persamaan linier yang lain. Daripada semakin bingung, petunjuk tambahannya adalah metode eliminasi dan substitusi. Tentu istilah ini sudah sangat sering kita temui. Masalah yang bisa diselesaikan dengan dua metode ini biasa disebut dengan sistem persamaan. Contoh sistem persamaan linier adalah: $$\begin{align*}
+	  2x + 3y &= 8 \\
+      4x - y  &= 6
+      \end{align*}$$ Dua persamaan linier tersebut digabung menjadi satu sistem persamaan linier.
+	  </p>
+	  <p>Sekarang akan dibahas solusi dari sistem persamaan linier. Coba kita membayangkan dua buah garis pada koordinat kartesius. Akan ada tiga kemungkinan perpotongan antara dua garis tersebut. <ol>
+	  <li>Pertama: kedua garis saling berhimpit satu sama lain<br>Hal ini bisa terjadi ketika gradien dan titik potong dua garis sama, atau koefisien $a,b,c$ pada $ax+by+c=0$ merupakan kelipatan dari persamaan lain. Contoh: $$\begin{align*}
+	  x-2y&=23\\
+	  2x-4y&=46
+	  \end{align*}$$Koefisien persamaan kedua merupakan dua kali koefisien persamaan pertama. </li>
+	  <li>Kedua: kedua garis berpotongan di satu titik<br>Hal ini bisa terjadi ketika gradien dua buah garis berbeda. Dapat juga diidentifikasi dengan nilai $-\frac{a}{b}$ yang berbeda. Contoh: $$\begin{align*}
+	  x-2y&=23\\
+	  2x-5y&=46
+	  \end{align*}$$Perhatikan bahwa persamaan pertama mempunyai gradien $m=-\frac{1}{-2}=\frac{1}{2}$, sedangkan gradien garis kedua adalah $m=-\frac{2}{-5}=\frac{2}{5}$.
+	  </li>	  
+	  <li>Ketika: kedua garis tidak berpotongan sama sekali<br>Hal ini bisa terjadi ketika gradien dua buah garis sama namun memiliki titik potong yang berbeda. Sebenarnya sistem persamaannya akan serupa dengan kasus yang pertama dan hanya akan berbeda di konstanta akhirnya. Contoh: $$\begin{align*}
+	  x-2y&=23\\
+	  2x-4y&=40
+	  \end{align*}$$ Perhatikan seluruh koefisien persamaan kedua adalah dua kali koefisien persamaan pertama namun konstanta persamaan kedua $(40)$ tidak merupakan dua kali konstanta persamaan pertama $(23)$.
+	  </li>
+	  </ol>
+	  </p>
 	  
       </section>
 	  </section>
