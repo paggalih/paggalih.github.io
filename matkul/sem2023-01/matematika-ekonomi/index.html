@@ -587,11 +587,18 @@ xy+5y+1&=2x\\
 	  <h2>Soal 3</h2>
 	  <p>Tentukan nilai keuntungan konsumen di titik $P=75$ jika fungsi permintaannya adalah $P=100-Q^2$.</p>
 	  <p>Jawab:</p>
+	  <p>Pertama cari dulu $Q_0$ saat $P_0=75$.</p>
 	  <p>\begin{align*}
-	  \int^3_2 3x^2-4x+8dx&=\left(3\left(\frac{1}{3}x^3\right)-4\left(\frac{1}{2}x^2\right)+8x\right)^3_2\\
-	  &=\left(x^3-2x^2+8x\right)^3_2\\
-	  &=(27-18+24)-(8-8+16)\\
-	  &=33-16=17
+	  75&=100-Q_0^2\\
+	  Q_0^2&=25\\
+	  Q_0&=5
+	  \end{align*}</p>
+	  <p>Kedua masukkan ke dalam rumus.</p>
+	  <p>\begin{align*}
+	  \int^{Q_0}_0 P(Q)dQ-P_0Q_0&=\int^5_0 100-Q^2dQ-75(5)\\
+	  &=\left(100Q-\frac{Q^3}{3}\right)^5_0-375\\
+	  &=\left(500-\frac{125}{3}\right)-375\\
+	  &=83,8
 	  \end{align*}</p>
 	  	  	  	  	  
       </section>
