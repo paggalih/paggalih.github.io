@@ -1,0 +1,326 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<title>Matematika Ekonomi 2</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<style>
+body,h1,h2,h3,h4,h5 {font-family: "Poppins", sans-serif}
+body {font-size:16px;}
+.w3-half img{margin-bottom:-6px;margin-top:16px;opacity:0.8;cursor:pointer}
+.w3-half img:hover{opacity:1}
+</style>
+</head>
+<body>
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3 class="w3-padding-64"><b>Matematika<br>Ekonomi 2</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <!-- <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>  -->
+    <a href="#pertemuan-1" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 1</a> 
+    <a href="#pertemuan-2" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 2</a> 
+    <a href="#pertemuan-3" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 3</a> 
+    <a href="#pertemuan-4" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 4</a> 
+    <a href="#pertemuan-5" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 5</a> 
+    <a href="#pertemuan-6" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 6</a> 
+    <a href="#pertemuan-7" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 7</a> 
+    <a href="#uts" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">UTS</a> 
+    <a href="#pertemuan-9" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 9</a> 
+    <a href="#pertemuan-10" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 10</a> 
+    <a href="#pertemuan-11" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 11</a> 
+    <a href="#pertemuan-12" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 12</a> 
+    <a href="#pertemuan-13" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 13</a>	
+    <a href="#pertemuan-14" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 14</a> 
+    <a href="#pertemuan-15" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 15</a> 
+    <a href="#uas" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">UAS</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Matematika Ekonomi 2</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Pertemuan 1 -->
+  <div class="w3-container" style="margin-top:80px" id="pertemuan-1">
+    <!-- <h1 class="w3-jumbo"><b>Interior Design</b></h1> -->
+    <h1 class="w3-xxxlarge w3-text-red"><b>Pertemuan 1</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">	  
+	  <h2>Silabus</h2>
+	  <table>
+<caption></caption>
+<tr>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+<tr>
+  <td>Fakultas</td><td>&nbsp;:&emsp;</td><td>Fakultas Ekonomi dan Bisnis Islam</td>
+</tr>
+<tr>
+  <td>Program Studi</td><td>&nbsp;:&emsp;</td><td>Ekonomi Syariah</td>
+</tr>
+<tr>
+  <td>Mata Kuliah</td><td>&nbsp;:&emsp;</td><td>Praktik Statistik</td>
+</tr>
+<tr>
+  <td>Jumlah SKS</td><td>&nbsp;:&emsp;</td><td>2 SKS</td>
+</tr>
+<tr>
+  <td>Mata Kuliah Prasyarat</td><td>&nbsp;:&emsp;</td><td>-</td>
+</tr>
+<tr>
+  <td>Dosen Pengampu</td><td>&nbsp;:&emsp;</td><td>Galih Pradananta, M.Si.</td>
+</tr>
+<!-- And so on -->
+</table>
+        
+	  <h3>Deskripsi Mata Kuliah</h3>
+<p>Mata kuliah statistik inferensial ini membekali mahasiswa untuk dapat mengerti sifat populasi melalui pengujian data sampel. Sehingga diharapkan setelah menguji data sampel, kita dapat memberikan kesimpulan dan keputusan yang tepat bagi populasi.      </p>
+
+	  <h3>Standar Kompetensi</h3>
+<p>Mahasiswa dapat memahami prinsip pengujian statistika dan mampu menerapkannya untuk pengujian hipotesis penelitian.</p>
+
+	  <h3>Sumber Bahan</h3>
+<p>Keller, Gerald. 2018. Statistics for Management and Economics: 11e, Boston:
+Cengage Learning.
+</p>
+
+	  <h3>Rencana Pembelajaran</h3>
+	  <table>
+<caption></caption>
+<tr>
+  <td><strong>Minggu Ke-</strong></td>
+  <td><strong>Topik Kajian</strong></td>
+  <td><strong>Kegiatan Pembelajaran</strong></td>
+  <td><strong>Sumber Bahan</strong></td>
+</tr>
+<tr>
+  <td>1</td><td>Silabus dan Kontrak Kuliah
+  <ul>
+  <li>Statistik Deskriptif versus Statistik Inferensial</li>
+  </ul>
+  </td><td>Diskusi dan Rangkuman</td><td>-</td>
+</tr>
+<tr>
+  <td>2</td><td>Distribusi Sampling
+  <ul>
+  <li>Distribusi Sampling Rata-rata </li>
+  <li>Teorema Limit Pusat</li>
+  <li>Distribusi Sampling untuk Inferensi</li>
+  <li>Distribusi Sampling Proporsi</li>
+  <li>Distribusi Sampling dari Selisih Rata-rata</li>
+  </ul>
+  </td><td>Diskusi</td><td>Bab 9</td>
+</tr>
+<tr>
+  <td>3</td><td>Penaksiran/Estimasi
+  <ul>
+  <li>Penaksiran Titik</li>
+  <li>Penaksiran Selang</li>
+  <li>Penaksiran Rata-rata Populasi</li>
+  <li>Penaksiran Galat</li>
+  </ul>
+  </td><td>Diskusi</td><td>Bab 10</td>
+</tr>
+<tr>
+  <td>4</td><td>Uji Hipotesis
+  <ul>
+  <li>Konsep Dasar Uji Hipotesis</li>
+  <li>Menguji Rata-rata Populasi</li>
+  <li>Daerah Penolakan</li>
+  <li>P-Value</li>
+  <li>Uji Satu dan Dua Arah</li>
+  <li>Galat Tipe II</li>
+  </ul>
+  </td><td>Diskusi dan Tugas</td><td>Bab 11</td>
+</tr>
+<tr>
+  <td>5</td><td>Inferensi Satu Populasi
+  <ul>
+  <li>Inferensi Rata-rata Populasi</li>
+  <li>Inferensi Variansi Populasi</li>
+  <li>Inferensi Proporsi Populasi</li>
+  </ul>
+  </td><td>Diskusi</td><td>Bab 12</td>
+</tr>
+<tr>
+  <td>6</td><td>Inferensi Dua Populasi
+  <ul>
+  <li>Inferensi Selisih Rata-rata Populasi: Sampel Saling Bebas</li>
+  <li>Inferensi Selisih Rata-rata Populasi: Sampel Saling Berpasangan</li>
+  </ul>
+  </td><td>Diskusi</td><td>Bab 13</td>
+</tr>
+<tr>
+  <td>7</td><td>Inferensi Dua Populasi
+  <ul>
+  <li>Inferensi Perbandingan Dua Variansi</li>
+  <li>Inferensi Selisih Proporsi Dua Populasi</li>
+  </ul>
+  </td><td>Diskusi dan Kuis</td><td>Bab 13</td>
+</tr>
+<tr>
+  <td>8</td><td colspan="3" bgcolor="lightblue"><center>UTS</center></td>
+</tr>
+<tr>
+  <td>9</td><td>ANOVA</td><td>Diskusi</td><td>Bab 14</td>
+</tr>
+<tr>
+  <td>10</td><td>ANOVA</td><td>Diskusi</td><td>Bab 14</td>
+</tr>
+<tr>
+  <td>11</td><td>Uji Khi Kuadrat</td><td>Diskusi</td><td>Bab 15</td>
+</tr>
+<tr>
+  <td>12</td><td>Regresi Linier Sederhana</td><td>Diskusi</td><td>Bab 16</td>
+</tr>
+<tr>
+  <td>13</td><td>Regresi Linier Berganda</td><td>Diskusi</td><td>Bab 17</td>
+</tr>
+<tr>
+  <td>14</td><td>Statistik Nonparametrik</td><td>Diskusi</td><td>Bab 19</td>
+</tr>
+<tr>
+  <td>15</td><td>Statistik Nonparametrik</td><td>Diskusi</td><td>Bab 19</td>
+</tr>
+<tr>
+  <td>16</td><td colspan="3" bgcolor="lightblue"><center>UAS</center></td>
+</tr>
+<!-- And so on -->
+</table>
+</section>
+
+	<section data-type="sect3" id="_Komponen_Penilaian">
+	  <h3>Komponen Penilaian</h3>
+	  <table>
+<caption></caption>
+<tr>
+  <th></th>
+  <th></th>
+  <th></th>
+</tr>
+<tr>
+  <td>Tugas dan Keaktifan</td><td>&nbsp;:&emsp;</td><td>30%</td>
+</tr>
+<tr>
+  <td>UTS</td><td>&nbsp;:&emsp;</td><td>35%</td>
+</tr>
+<tr>
+  <td>UAS</td><td>&nbsp;:&emsp;</td><td>35%</td>
+</tr>
+<!-- And so on -->
+</table>
+</section>
+  </div>
+  
+  <!-- Photo grid (modal) -->
+  <!-- <div class="w3-row-padding"> -->
+    <!-- <div class="w3-half"> -->
+      <!-- <img src="/w3images/kitchenconcrete.jpg" style="width:100%" onclick="onClick(this)" alt="Concrete meets bricks"> -->
+      <!-- <img src="/w3images/livingroom.jpg" style="width:100%" onclick="onClick(this)" alt="Light, white and tight scandinavian design"> -->
+      <!-- <img src="/w3images/diningroom.jpg" style="width:100%" onclick="onClick(this)" alt="White walls with designer chairs"> -->
+    <!-- </div> -->
+
+    <!-- <div class="w3-half"> -->
+      <!-- <img src="/w3images/atrium.jpg" style="width:100%" onclick="onClick(this)" alt="Windows for the atrium"> -->
+      <!-- <img src="/w3images/bedroom.jpg" style="width:100%" onclick="onClick(this)" alt="Bedroom and office in one space"> -->
+      <!-- <img src="/w3images/livingroom2.jpg" style="width:100%" onclick="onClick(this)" alt="Scandinavian design"> -->
+    <!-- </div> -->
+  <!-- </div> -->
+
+  <!-- Modal for full size images on click-->
+  <!-- <div id="modal01" class="w3-modal w3-black" style="padding-top:0" onclick="this.style.display='none'"> -->
+    <!-- <span class="w3-button w3-black w3-xxlarge w3-display-topright">×</span> -->
+    <!-- <div class="w3-modal-content w3-animate-zoom w3-center w3-transparent w3-padding-64"> -->
+      <!-- <img id="img01" class="w3-image"> -->
+      <!-- <p id="caption"></p> -->
+    <!-- </div> -->
+  <!-- </div> -->
+
+  <!-- Pertemuan 2 -->
+  <div class="w3-container" id="pertemuan-2" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Pertemuan 2</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<ul>
+	<li>Distribusi Sampling Rata-rata</li>
+	</ul>
+  </div>
+  
+  <!-- Pertemuan 3 -->
+  <div class="w3-container" id="pertemuan-3" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Pertemuan 3</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+
+  <!-- Pertemuan 4 -->
+  <div class="w3-container" id="pertemuan-4" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Pertemuan 4</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+
+  
+  <!-- Contact -->
+  <div class="w3-container" id="contact" style="margin-top:75px">
+    <h1 class="w3-xxxlarge w3-text-red"><b>Contact.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Do you want us to style your home? Fill out the form and fill me in with the details :) We love meeting new people!</p>
+    <form action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input w3-border" type="text" name="Message" required>
+      </div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
+    </form>  
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+</script>
+
+</body>
+</html>
