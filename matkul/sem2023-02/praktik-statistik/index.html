@@ -57,6 +57,8 @@ body {font-size:16px;}
   <!-- Pertemuan 1 -->
   <div class="w3-container" style="margin-top:80px" id="pertemuan-1">
     <!-- <h1 class="w3-jumbo"><b>Interior Design</b></h1> -->
+	<p>Terakhir diedit pada</p><p id="tanggal"></p>
+
     <h1 class="w3-xxxlarge w3-text-red"><b>Pertemuan 1</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
 	  
@@ -393,6 +395,7 @@ function onClick(element) {
   var captionText = document.getElementById("caption");
   captionText.innerHTML = element.alt;
 }
+const date = new Date(document.lastModified); document.getElementById("tanggal").innerHTML = date;
 </script>
 
 </body>
