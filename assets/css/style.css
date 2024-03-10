@@ -129,18 +129,19 @@ h6 {
 
 @media (max-width: 991px) {
   #header {
-    width: 300px;
+    /* width: 300px; */
+    width: 500px;
     background: #fff;
     border-right: 1px solid #e6e9ec;
     left: -300px;
   }
 }
 
-/* @media (min-width: 991px) { */
-  /* #main { */
-    /* margin-left: 100px; */
-  /* } */
-/* } */
+@media (min-width: 991px) {
+  #main {
+    margin-left: 100px;
+  }
+}
 
 /*--------------------------------------------------------------
 # Navigation Menu
