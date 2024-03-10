@@ -233,7 +233,7 @@ h6 {
   display: block;
 }
 
-.dropdown-toggle {
+.dropdown-toggle:hover {
 	display: block;
 }
 
