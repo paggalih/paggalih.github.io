@@ -233,6 +233,10 @@ h6 {
   display: block;
 }
 
+.dropdown-toggle {
+	display: block;
+}
+
 /**
 * Mobile Navigation 
 */
