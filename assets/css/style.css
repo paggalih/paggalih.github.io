@@ -232,8 +232,7 @@ h6 {
   display: block;
 }
 
-.dropdown-menu,
-.dropdown-menu .show {
+.dropdown-menu:active {
 	display: contents !important;
 }
 
