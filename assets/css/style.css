@@ -438,7 +438,7 @@ section {
 --------------------------------------------------------------*/
 .facts .count-box {
   padding: 30px 30px 25px 30px;
-  margin-top: 30px;
+  /* margin-top: 30px; */
   width: 100%;
   position: relative;
   text-align: center;
