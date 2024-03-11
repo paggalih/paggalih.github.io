@@ -1217,3 +1217,11 @@ section {
 .dropdown-toggle {
 	background: #0563BB;
 }
+
+@media screen and (max-width: 768px) {
+.dropdown-toggle {
+	background: #0563BB;
+	width: 100%;
+	text-wrap: wrap;
+}
+}
