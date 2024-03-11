@@ -232,10 +232,6 @@ h6 {
   display: block;
 }
 
-.dropdown-menu:active {
-	display: contents !important;
-}
-
 /**
 * Mobile Navigation 
 */
