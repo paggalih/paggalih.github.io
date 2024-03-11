@@ -1207,3 +1207,13 @@ section {
 #footer .credits {
   font-size: 13px;
 }
+
+/* Galih */
+.accordion-button>span,
+.accordion-button>i {
+	color: #0563BB;
+  font-family: "Raleway", sans-serif;
+}
+.dropdown-toggle {
+	background: #0563BB;
+}
