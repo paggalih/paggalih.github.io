@@ -1211,9 +1211,11 @@ section {
 /* Galih */
 .accordion-button>span,
 .accordion-button>i {
-	color: #0563BB;
+	/* color: #0563BB; */
   font-family: "Raleway", sans-serif;
 }
+
+.accordion-button,
 .dropdown-toggle {
 	background: #0563BB;
 }
