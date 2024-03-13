@@ -1218,6 +1218,8 @@ section {
 .accordion-button,
 .dropdown-toggle {
 	background: #0563BB;
+	padding-bottom: 20px;
+	padding-top: 20px;
 }
 
 @media screen and (max-width: 768px) {
