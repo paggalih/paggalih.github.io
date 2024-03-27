@@ -323,6 +323,16 @@ MathJax = {
     <div id="flush-lanjutTwo" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
 	  Banyak himpunan bagian $A$ dari $\lbrace 24, 25, 26, \cdots , 35\rbrace$ sehingga hasil penjumlahan unsur terbesar dan terkecil dari $A$ sama dengan $59$ adalah ...
+		<br>
+		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
+			Jawaban
+		  </button>
+		<div class="collapse" id="collapse12">
+Pertama kita lihat kasus dimana $24$ merupakan unsur terkecil dan $35$ adalah unsur yang terbesar. Maka $25,26,\cdots,34$ mempunyai dua kemungkinan apakah dia masuk ke dalam $A$ atau tidak masuk. Sehingga banyaknya kemungkinan untuk kasus ini adalah $2^{10}$.<br>Selanjutnya kasus kedua $25$ sebagai unsur terkecil dan $34$ sebagai unsur terbesar. Maka $26,27,\cdots,33$ juga punya dua kemungkinan seperti kasus sebelumnya. Maka banyaknya kemungkinan untuk kasus ini adalah $2^8$.<br>Ini akan berlanjut hingga $29$ sebagai unsur terkecil dan $30$ sebagai unsur terbesar. Dimana kasus ini hanya memiliki satu kemungkinan atau $2^0$. Jadi banyak himpunan bagian $A$ yang mungkin adalah $$\begin{align*}
+2^{10}+2^8+\cdots+2^0&=\dfrac{2^{12}-1}{2^2-1}\\
+&=1365
+\end{align*}$$
+		</div>
 	  </div>
     </div>
   </div>
