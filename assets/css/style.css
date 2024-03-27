@@ -1235,3 +1235,9 @@ section {
   border-width: 0px 20px 0px;
   border-color: aliceblue;
 }
+
+.dropdown-toggle:active,
+.dropdown-toggle:hover
+{
+	background: aliceblue;
+}
