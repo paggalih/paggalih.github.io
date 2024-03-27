@@ -207,7 +207,14 @@ MathJax = {
     </h2>
     <div id="flush-collapseFive" class="accordion-collapse collapse" data-bs-parent="#accordionFlushDasar">
       <div class="accordion-body">
-		Bilangan OSK adalah bilangan $4$ angka yang tidak dimulai dengan angka $0$ dan hasil penjumlahan semua digitnya adalah $8$. Sebagai contoh, $2024$ merupakan bilangan OSK. Banyaknya bilangan OSK adalah ...
+		Bilangan $OSK$ adalah bilangan $4$ angka yang tidak dimulai dengan angka $0$ dan hasil penjumlahan semua digitnya adalah $8$. Sebagai contoh, $2024$ merupakan bilangan $$OSK$. Banyaknya bilangan $OSK$ adalah ...
+		<br>
+		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
+			Jawaban
+		  </button>
+		<div class="collapse" id="collapse5">
+		Misalkan $x_1$ adalah digit pertama dari bilangan $OSK$ tersebut. Begitu juga $x_2,x_3,$ dan $x_4$ adalah berturut-turut digit kedua, ketiga, dan keempat. Maka banyaknya solusi sama dengan banyak kemungkinan dari persamaan $$x_1+x_2+x_3+x_4=8$$ dengan syarat $x_1\ge 1$ dan $x_2,x_3,x_4\ge 0$. <strong>(Hati-hati, fakta ini hanya berlaku ketika jumlah digitnya kurang dari 10.)</strong> Selanjutnya kita <em>transform</em> lagi masalah ini menjadi masalah bintang dan batang. Seperti halnya kita mau bagikan $8$ bintang ke dalam $4$ ruang yang dibatasi $3$ batang. Karena ada syarat $x_1\ge 1$, maka kita harus bagikan $1$ bintang terlebih dahulu kepada $x_1$. Sehingga bintang yang bebas untuk dibagikan sekarang adalah $7$ bintang. Artinya kita dapat hitung menggunakan rumus permutasi dengan beberapa objek yang sama (7* 3| atau *******|||). Jadi $\dfrac{10!}{7!3!}=\dfrac{10\times 9\times 8}{3\times 2}=120$.
+		</div>
 	  </div>
     </div>
   </div>
