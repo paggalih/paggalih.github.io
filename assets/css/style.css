@@ -1229,3 +1229,9 @@ section {
 	text-wrap: wrap;
 }
 }
+
+.accordion-body {
+  border-style: solid;
+  border-width: 0px 20px 0px;
+  border-color: aliceblue;
+}
