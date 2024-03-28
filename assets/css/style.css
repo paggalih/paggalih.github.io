@@ -1254,3 +1254,8 @@ section {
   padding: 5px 0px 5px 0px;
   color: aliceblue;
 }
+
+mjx-container {
+  overflow-x: auto;
+  overflow-y: hidden;
+}
