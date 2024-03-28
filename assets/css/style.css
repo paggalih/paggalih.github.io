@@ -1243,3 +1243,14 @@ section {
   border-style: solid;
   border-color: #0563BB;
 }
+
+.accordion-body>btn {
+	margin: 10px 0px;
+}
+
+#post-title {
+  background: #45505b;
+  text-align: center;
+  padding: 5px 0px 5px 0px;
+  color: aliceblue;
+}
