@@ -1244,7 +1244,7 @@ section {
   border-color: #0563BB;
 }
 
-.accordion-body>btn {
+.accordion-body>button {
 	margin: 10px 0px;
 }
 
