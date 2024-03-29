@@ -338,10 +338,15 @@ MathJax = {
 		<div class="collapse" id="collapse10">
 		Langsung saja eksekusi $$\begin{align*}
 		x^2+y^2&=\dfrac{545}{272}xy\\
-		272x^2-545xy+272y^2&=0\\
-		\dfrac{1}{272}(272x-y)(272x-544y)&=0
+		2x^2+2xy+y^2&=\left(\dfrac{545}{272}+2\right)xy\\
+		(x+y)^2&=\dfrac{1089}{272}xy
 		\end{align*}$$
-		Maka $x=\dfrac{y}{272}$ atau $x=2y$. Karena $x&gt;y$ maka $x=2y$. Jadi $\dfrac{x+y}{x-y}=\dfrac{2y+y}{2y-2}=3$.
+		Juga eksekusi $$\begin{align*}
+		x^2+y^2&=\dfrac{545}{272}xy\\
+		2x^2-2xy+y^2&=\left(\dfrac{545}{272}-2\right)xy\\
+		(x-y)^2&=\dfrac{1}{272}xy
+		\end{align*}$$
+		Maka $$\dfrac{x+y}{x-y}=\sqrt{\dfrac{(x+y)^2}{(x-y)^2}}=\sqrt{1089}=33.$$
 		</div>
 	  </div>
     </div>
@@ -421,12 +426,13 @@ MathJax = {
 			Jawaban
 		  </button>
 		<div class="collapse" id="collapse13">
-		Perhatikan bahwa $f(2n)=f(n)$ untuk setiap $n$ bilangan asli. Andaikan $f(n+l)=f(n+k)$ dengan $1\le l\le k\le n$. Misalkan $n+l=2^a\cdot l_1$ dan $n+k=2^b\cdot k_1$ dengan masing-masing $l_1$ dan $k_1$ ganjil. Karena $f(n+l)=f(n+k)$, maka $l_1=f(n+l)=f(n+k)=k_1$. Artinya $$n+k=2^a\cdot k_1\ge 2\cdot 2^a\cdot l_1=2(n+l)&gt;2n.$$ Tidak mungkin. Akibatnya pastilah $$f(n+1),f(n+2),\cdots,f(2n)$$ tidak ada yang bernilai sama. Maka $$\begin{align*}
-		f(n+1)+f(n+2)+\cdots +f(2n)&=1+3+\cdots+(2n-1)\\
+		Perhatikan bahwa $f(2n)=f(n)$ untuk setiap $n$ bilangan asli. Andaikan $f(n+l)=f(n+k)$ dengan $1\le l\le k\le n$. Misalkan $n+l=2^a\cdot l_1$ dan $n+k=2^b\cdot k_1$ dengan masing-masing $l_1$ dan $k_1$ ganjil. Karena $f(n+l)=f(n+k)$, maka $l_1=f(n+l)=f(n+k)=k_1$. Artinya $$n+k=2^b\cdot k_1\ge 2\cdot 2^a\cdot l_1=2(n+l)&gt;2n.$$ Tidak mungkin. Akibatnya pastilah $$f(n+1),f(n+2),\cdots,f(2n)$$ tidak ada yang bernilai sama. Maka $$\begin{align*}
+		&f(n+1)+f(n+2)+\cdots +f(2n)\\
+		&=1+3+\cdots+(2n-1)\\
 		&=\dfrac{(2n-1+1)}{2}(n)\\
 		&=n^2
 		\end{align*}$$
-		Maka $8145=n^2+f(n)$. Bilangan paling dekat dengan $8145$ adalah $8100=90^2$. Jika $n=90$, maka $$n^2+f(n)=8100+45=8145.$$ Jika $n&lt;90$, maka $n^2\le 7921$ dan $f(n)\le 89$. Akibatnya $$n^2+f(n)\le 7921+89=8010.$$ Jika $n&gt;90$, maka $n^2\ge 8281.$ Tidak mungkin. Jadi $n$ yang memenuhi hanyalah $90$.
+		Maka $8145=n^2+f(n)$. Bilangan kuadrat paling dekat dengan $8145$ adalah $8100=90^2$. Jika $n=90$, maka $$n^2+f(n)=8100+45=8145.$$ Jika $n&lt;90$, maka $n^2\le 7921$ dan $f(n)\le 89$. Akibatnya $$n^2+f(n)\le 7921+89=8010.$$ Jika $n&gt;90$, maka $n^2\ge 8281.$ Tidak mungkin. Jadi $n$ yang memenuhi hanyalah $90$.
 		</div>
 	  </div>
     </div>
