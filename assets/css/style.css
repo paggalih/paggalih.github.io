@@ -1232,8 +1232,10 @@ section {
 
 .accordion-body {
   border-style: solid;
-  border-width: 0px 20px 0px;
+  border-width: 0px 0px 0px 15px;
   border-color: aliceblue;
+  border-bottom-left-radius: 50px;
+  border-bottom-right-radius: 50px;
 }
 
 .dropdown-toggle:active,
