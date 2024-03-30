@@ -1220,6 +1220,7 @@ section {
 	background: #0563BB;
 	padding-bottom: 20px;
 	padding-top: 20px;
+	width: 100%;
 }
 
 @media screen and (max-width: 768px) {
