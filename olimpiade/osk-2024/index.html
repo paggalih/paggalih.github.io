@@ -540,6 +540,17 @@ MathJax = {
     <div id="flush-lanjutEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
 		Untuk setiap bilangan real $x$, notasi $\lfloor x\rfloor$ menyatakan bilangan bulat terbesar yang kurang dari atau sama dengan $x$. Sebagai contoh $\lfloor 1, 1\rfloor = 1$, $\lfloor 3\rfloor = 3$, dan sebagainya. Jika ada tepat sebanyak $1000$ bilangan berbeda pada barisan $\left\lfloor\dfrac{1^2}{2024}\right\rfloor,$ $\left\lfloor\dfrac{2^2}{2024}\right\rfloor,$ $\left\lfloor\dfrac{3^2}{2024}\right\rfloor,$ $\cdots ,$ $\left\lfloor\dfrac{n^2}{2024}\right\rfloor.$ Maka $n$ adalah ...
+		<br>
+		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
+			Jawaban
+		  </button>
+		<div class="collapse" id="collapse18">
+Perhatikan bahwa $\left\lfloor\dfrac{1^2}{2024}\right\rfloor=$$\left\lfloor\dfrac{2^2}{2024}\right\rfloor$. Artinya ada beberapa yang akan bernilai sama. Sekarang kita akan cari batas sehingga akan berlaku $\left\lfloor\dfrac{n^2}{2024}\right\rfloor&lt;$$\left\lfloor\dfrac{(n+1)^2}{2024}\right\rfloor.$ Maka selisih antar bilangan kuadrat ini harus lebih dari $2024$. Atau $$\begin{align*}
+(n+1)^2-n^2&gt;2n+1&gt;2024\\
+n&gt;\dfrac{2023}{2}\\
+n\ge 1012
+\end{align*}.$$ Artinya jika $n\ge 1012,$ maka nilai sukunya akan terus berbeda. Sekarang kita lihat $\left\lfloor\dfrac{1012^2}{2024}\right\rfloor=506.$ Maka kurang $493$ suku berbeda lagi. Maka $n$ terkecil sehingga ada $1000$ suku yang berbeda adalah $1012+493=1505.$
+		</div>
 	  </div>
     </div>
   </div>
