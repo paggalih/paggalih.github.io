@@ -75,12 +75,12 @@ Pemisahan desimal menggunakan titik (.) bukan koma (,)" id="floatingTextarea"sty
             var	b = a.value;
 				b = b.trim();
 				b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
+			while (b.includes(",,")) {
+				b = b.replace(/,,/g,",");
+			}
 			console.log(b[b.length-1]);
 			if (b[b.length - 1]==",") {
 				b = b.slice(0, -1);
-			}
-			while (b.includes(",,")) {
-				b = b.replace(/,,/g,",");
 			}
 			var c = Array.from(b.split(','), Number);
             var	d = Array.from(b.split('\n'), Number);
