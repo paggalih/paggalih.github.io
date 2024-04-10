@@ -58,24 +58,24 @@ MathJax = {
     Rata-rata
   </button>
 
-  <div class="row collapse" id="collapseRatarata" style="background:aliceblue;">
+  <div class="row collapse pt-5" id="collapseRatarata" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12">
 	
 	
   
 	<div class="form-floating p-5">
 	  <textarea class="form-control" placeholder="Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris).
-Pemisahan desimal menggunakan titik (.) bukan koma (,)" id="floatingTextarea"style="height:150px;"></textarea>
+Pemisahan desimal menggunakan titik (.) bukan koma (,)" id="inputRatarata"style="height:150px;"></textarea>
 	  <!-- <label for="floatingTextarea">Comments</label> -->
-    <button class="btn btn-primary" type="submit" id="rata-rata" onclick="rataRata()">Submit</button>
-	<p id="myClass">Hasil akan tampil disini</p>
+    <button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
+	<p id="hasilRatarata">Hasil akan tampil disini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
 	</div>    
  
      
      <script type="text/javascript">
      	function rataRata(){
-			document.getElementById("myClass").style.display = "none"; 
-        	var a  = document.getElementById('floatingTextarea');
+			document.getElementById("hasilRatarata").style.display = "none"; 
+        	var a  = document.getElementById('inputRatarata');
 				<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
             var	b = a.value;
 				b = b.trim();
@@ -97,15 +97,21 @@ Pemisahan desimal menggunakan titik (.) bukan koma (,)" id="floatingTextarea"sty
             var	e = jStat.mean(c);
 			var f = c;
 			}
-			document.getElementById("myClass").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Rata-rata "+e;
+			document.getElementById("hasilRatarata").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Rata-rata "+e;
 			<!-- var d = document.getElementById("rata-rata").appendChild(Object.assign(document.createElement("div"), { "style": "background-color:red;padding:20px;color:white", "innerText": "Rata-rata "+e+"\n Panjang(,) "+c.length+"\n Panjang(enter) "+d.length+"\n"+b })) -->
-			document.getElementById("myClass").style.display = "block"; 
+			document.getElementById("hasilRatarata").style.display = "block"; 
 		}
      </script>
 
 	</div>
 	<div class="col-lg-6 col-sm-12">
-	Materi rata-rata
+	<p>Perhitungan rata-rata secara manual.</p>
+	<ol>
+	<li> Menghitungan banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
+	<li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li>
+	<li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li>
+	<li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li>
+	</ol>
 	</div>
   </div>
 
