@@ -107,7 +107,7 @@ MathJax = {
 	<div class="col-lg-6 col-sm-12 px-5">
 	<p class="fw-bold">Perhitungan rata-rata secara manual.</p>
 	<ol>
-	<li> Menghitungan banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
+	<li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
 	<li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li>
 	<li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li>
 	<li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li>
@@ -115,6 +115,66 @@ MathJax = {
 	</div>
   </div>
 
+	</li>
+	<li>
+    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedian" aria-expanded="false" aria-controls="collapseMedian">
+    Rata-rata
+  </button>
+
+  <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+	
+	
+  
+	<div class="form-floating">
+	  <textarea class="form-control" placeholder="-" id="inputMedian"style="height:150px;"></textarea>
+	  <label for="inputMedian">Masukkan data di sini</label>
+    <button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
+	<p class="text-break" id="hasilMedian">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
+	</div>    
+ 
+     
+     <script type="text/javascript">
+     	function median(){
+			document.getElementById("hasilMedian").style.display = "none"; 
+        	var a  = document.getElementById('inputMedian');
+				<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
+            var	b = a.value;
+				b = b.trim();
+				b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
+			while (b.includes(",,")) {
+				b = b.replace(/,,/g,",");
+			}
+			<!-- console.log(b[b.length-1]); -->
+			if (b[b.length - 1]==",") {
+				b = b.slice(0, -1);
+			}
+			var c = Array.from(b.split(','), Number);
+            var	d = Array.from(b.split('\n'), Number);
+			if (d.length>c.length) {
+            var	e = jStat.median(d);
+			var f = d;
+			}
+			else {
+            var	e = jStat.median(c);
+			var f = c;
+			}
+			document.getElementById("hasilMedian").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
+			document.getElementById("hasilMedian").style.display = "block";
+		}
+     </script>
+
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+	<p class="fw-bold">Perhitungan median secara manual.</p>
+	<ol>
+	<li> Menghitung banyaknya data. Contoh datanya adalah $1,4,3$ ada sebanyak $3$ data.</li>
+	<li> Mengurutkan data. Contoh $1,3,4$</li>
+	<li> Mencari tempat median dengan rumus $\dfrac{n+1}{2}$. Contoh $\dfrac{3+1}{2}=$$2.$</li>
+	<li> Median adalah data ke-$2$ dalam contoh ini adalah $3.$</li>
+	</ol>
+	</div>
+  </div>
 	</li>
   </ol>
 
