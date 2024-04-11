@@ -118,7 +118,7 @@ MathJax = {
 	</li>
 	<li>
     <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedian" aria-expanded="false" aria-controls="collapseMedian">
-    Rata-rata
+	Median
   </button>
 
   <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
@@ -153,11 +153,11 @@ MathJax = {
             var	d = Array.from(b.split('\n'), Number);
 			if (d.length>c.length) {
             var	e = jStat.median(d);
-			var f = d;
+			var f = Arrays.sort(d);
 			}
 			else {
             var	e = jStat.median(c);
-			var f = c;
+			var f = Arrays.sort(c);
 			}
 			document.getElementById("hasilMedian").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
 			document.getElementById("hasilMedian").style.display = "block";
