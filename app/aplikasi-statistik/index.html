@@ -153,11 +153,11 @@ MathJax = {
             var	d = Array.from(b.split('\n'), Number);
 			if (d.length>c.length) {
             var	e = jStat.median(d);
-			var f = Arrays.sort(d);
+			var f = d.sort();
 			}
 			else {
             var	e = jStat.median(c);
-			var f = Arrays.sort(c);
+			var f = c.sort();
 			}
 			document.getElementById("hasilMedian").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
 			document.getElementById("hasilMedian").style.display = "block";
