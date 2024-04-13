@@ -192,6 +192,71 @@ MathJax = {
 	</div>
   </div>
 	</li>
+	<li>
+    <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModus" aria-expanded="false" aria-controls="collapseModus">
+	Modus
+  </button>
+
+  <div class="row collapse py-4" id="collapseModus" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+	
+	
+  
+	<div class="form-floating">
+	  <textarea class="form-control" placeholder="-" id="inputModus"style="height:150px;"></textarea>
+	  <label for="inputModus">Masukkan data di sini</label>
+    <button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
+	<p class="text-break" id="hasilModus">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
+	</div>    
+ 
+     
+     <script type="text/javascript">
+     	function modus(){
+			document.getElementById("hasilModus").style.display = "none"; 
+        	var a  = document.getElementById('inputModus');
+				<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
+            var	b = a.value;
+				b = b.trim();
+				b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
+			while (b.includes(",,")) {
+				b = b.replace(/,,/g,",");
+			}
+			<!-- console.log(b[b.length-1]); -->
+			if (b[b.length - 1]==",") {
+				b = b.slice(0, -1);
+			}
+			var c = Array.from(b.split(','), Number);
+            var	d = Array.from(b.split('\n'), Number);
+			if (d.length>c.length) {
+            var	e = jStat.mode(d);
+			var f = d.sort(function(a, b){return a - b});;
+			}
+			else {
+            var	e = jStat.mode(c);
+			var f = c.sort(function(a, b){return a - b});;
+			}
+			document.getElementById("hasilModus").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Modus "+e;
+			document.getElementById("hasilModus").style.display = "block";
+		}
+     </script>
+
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+	<p class="fw-bold">Perhitungan modus secara manual.</p>
+	<ol>
+	<li> Mengurutkan data. Contoh $1,3,4,3$ diurutkan menjadi $1,3,3,4$.</li>
+	<li> Menghitung kemunculan setiap nilai pada data dengan memasukkannya dalam bentuk tabel.</li>
+	<li> <table class="table table-striped-columns">
+		<th><td>Nilai</td><td>Frekuensi</td></th>
+		<tr><td>$1$</td><td>$1$</td></tr>
+		<tr><td>$3$</td><td>$2$</td></tr>
+		<tr><td>$4$</td><td>$1$</td></tr>
+		</table></li>
+	<li> Modus adalah nilai dengan frekuensi tertinggi yaitu $3.$</li>
+	</ol>
+	</div>
+  </div>
+	</li>
   </ol>
 
   
