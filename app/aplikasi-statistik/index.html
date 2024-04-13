@@ -44,6 +44,11 @@ MathJax = {
 };
 </script>
 <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+<style>
+li > .collapse {
+  margin-right: 2rem;
+}
+</style>
 
 </head>
 <body>
@@ -251,10 +256,10 @@ MathJax = {
 	<li> Mengurutkan data. Contoh $1,3,4,3$ diurutkan menjadi $1,3,3,4$.</li>
 	<li> Menghitung kemunculan setiap nilai pada data dengan memasukkannya dalam bentuk tabel.</li>
 	<li> <table class="table table-striped-columns">
-		<th><td>Nilai</td><td>Frekuensi</td></th>
-		<tr><td>$1$</td><td>$1$</td></tr>
+		<thead><tr><td>Nilai</td><td>Frekuensi</td></tr></thead>
+		<tbody><tr><td>$1$</td><td>$1$</td></tr>
 		<tr><td>$3$</td><td>$2$</td></tr>
-		<tr><td>$4$</td><td>$1$</td></tr>
+		<tr><td>$4$</td><td>$1$</td></tr></tbody>
 		</table></li>
 	<li> Modus adalah nilai dengan frekuensi tertinggi yaitu $3.$</li>
 	</ol>
