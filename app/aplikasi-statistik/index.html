@@ -170,12 +170,14 @@ MathJax = {
 			if (d.length>c.length) {
             var	e = jStat.median(d);
 			var f = d.sort(function(a, b){return a - b});;
+			var g = d;
 			}
 			else {
             var	e = jStat.median(c);
 			var f = c.sort(function(a, b){return a - b});;
+			var g = c;
 			}
-			document.getElementById("hasilMedian").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
+			document.getElementById("hasilMedian").innerText = "Cek \n Data asli "+g+"\n Data terurut "+f+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
 			document.getElementById("hasilMedian").style.display = "block";
 		}
      </script>
@@ -230,12 +232,14 @@ MathJax = {
 			if (d.length>c.length) {
             var	e = jStat.mode(d);
 			var f = d.sort(function(a, b){return a - b});;
+			var g = d;
 			}
 			else {
             var	e = jStat.mode(c);
 			var f = c.sort(function(a, b){return a - b});;
+			var g = c;
 			}
-			document.getElementById("hasilModus").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Modus "+e;
+			document.getElementById("hasilModus").innerText = "Cek \n Data asli "+g+"\n Data terurut "+f+"\n Banyak data "+f.length+"\n ========= \n Modus "+e;
 			document.getElementById("hasilModus").style.display = "block";
 		}
      </script>
