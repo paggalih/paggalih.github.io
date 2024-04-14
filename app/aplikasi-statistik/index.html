@@ -165,7 +165,6 @@ li > .collapse {
 			<!-- while (b.includes(",,")) { -->
 				<!-- b = b.replace(/,,/g,","); -->
 			<!-- } -->
-			console.log(b[b.length-1]);
 			<!-- if (b[b.length - 1]==",") { -->
 				<!-- b = b.slice(0, -1); -->
 			<!-- } -->
@@ -228,7 +227,6 @@ li > .collapse {
 			<!-- while (b.includes(",,")) { -->
 				<!-- b = b.replace(/,,/g,","); -->
 			<!-- } -->
-			console.log(b[b.length-1]);
 			<!-- if (b[b.length - 1]==",") { -->
 				<!-- b = b.slice(0, -1); -->
 			<!-- } -->
@@ -286,7 +284,7 @@ li > .collapse {
  
      
      <script type="text/javascript">
-     	function modus(){
+     	function jangkauan(){
 			document.getElementById("hasilJangkauan").style.display = "none"; 
         	var a  = document.getElementById('inputJangkauan');
 
@@ -303,7 +301,7 @@ li > .collapse {
 			<!-- var f = c.sort(function(a, b){return a - b});; -->
 			var g = c;
 			}
-			document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli "+g+"\n Banyak data "+f.length+"\n ========= \n Jangkauan "+e;
+			document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli "+g+"\n Banyak data "+g.length+"\n ========= \n Jangkauan "+e;
 			document.getElementById("hasilJangkauan").style.display = "block";
 		}
      </script>
