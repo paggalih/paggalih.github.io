@@ -96,17 +96,17 @@ li > .collapse {
      	function rataRata(){
 			document.getElementById("hasilRatarata").style.display = "none"; 
         	var a  = document.getElementById('inputRatarata');
-				<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-            var	b = a.value;
-				b = b.trim();
-				b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
-			while (b.includes(",,")) {
-				b = b.replace(/,,/g,",");
-			}
-			console.log(b[b.length-1]);
-			if (b[b.length - 1]==",") {
-				b = b.slice(0, -1);
-			}
+            <!-- var	b = a.value; -->
+				<!-- b = b.trim(); -->
+				<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
+			<!-- while (b.includes(",,")) { -->
+				<!-- b = b.replace(/,,/g,","); -->
+			<!-- } -->
+			<!-- console.log(b[b.length-1]); -->
+			<!-- if (b[b.length - 1]==",") { -->
+				<!-- b = b.slice(0, -1); -->
+			<!-- } -->
+			var b = rapikan(a);
 			var c = Array.from(b.split(','), Number);
             var	d = Array.from(b.split('\n'), Number);
 			if (d.length>c.length) {
@@ -159,17 +159,17 @@ li > .collapse {
      	function median(){
 			document.getElementById("hasilMedian").style.display = "none"; 
         	var a  = document.getElementById('inputMedian');
-				<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-            var	b = a.value;
-				b = b.trim();
-				b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
-			while (b.includes(",,")) {
-				b = b.replace(/,,/g,",");
-			}
-			<!-- console.log(b[b.length-1]); -->
-			if (b[b.length - 1]==",") {
-				b = b.slice(0, -1);
-			}
+            <!-- var	b = a.value; -->
+				<!-- b = b.trim(); -->
+				<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
+			<!-- while (b.includes(",,")) { -->
+				<!-- b = b.replace(/,,/g,","); -->
+			<!-- } -->
+			console.log(b[b.length-1]);
+			<!-- if (b[b.length - 1]==",") { -->
+				<!-- b = b.slice(0, -1); -->
+			<!-- } -->
+			var b = rapikan(a);
 			var c = Array.from(b.split(','), Number);
             var	d = Array.from(b.split('\n'), Number);
 			if (d.length>c.length) {
@@ -222,16 +222,17 @@ li > .collapse {
 			document.getElementById("hasilModus").style.display = "none"; 
         	var a  = document.getElementById('inputModus');
 				<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-            var	b = a.value;
-				b = b.trim();
-				b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
-			while (b.includes(",,")) {
-				b = b.replace(/,,/g,",");
-			}
-			<!-- console.log(b[b.length-1]); -->
-			if (b[b.length - 1]==",") {
-				b = b.slice(0, -1);
-			}
+            <!-- var	b = a.value; -->
+				<!-- b = b.trim(); -->
+				<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
+			<!-- while (b.includes(",,")) { -->
+				<!-- b = b.replace(/,,/g,","); -->
+			<!-- } -->
+			console.log(b[b.length-1]);
+			<!-- if (b[b.length - 1]==",") { -->
+				<!-- b = b.slice(0, -1); -->
+			<!-- } -->
+			var b = rapikan(a);
 			var c = Array.from(b.split(','), Number);
             var	d = Array.from(b.split('\n'), Number);
 			if (d.length>c.length) {
@@ -319,6 +320,22 @@ li > .collapse {
 	<!-- jstat.js statistika -->
 	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.6/jstat.js"></script> -->
 	<script src="jstat.js"></script>
+	
+<script>
+function rapikan(a) {
+	var	b = a.value;
+		b = b.trim();
+		b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
+	while (b.includes(",,")) {
+		b = b.replace(/,,/g,",");
+	}
+	<!-- console.log(b[b.length-1]); -->
+	if (b[b.length - 1]==",") {
+		b = b.slice(0, -1);
+	}
+  return b;
+}
+</script>
 
 </body>
 
