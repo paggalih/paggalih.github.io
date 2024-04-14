@@ -293,15 +293,15 @@ li > .collapse {
             var	d = Array.from(b.split('\n'), Number);
 			if (d.length>c.length) {
             var	e = jStat.range(d);
-			<!-- var f = d.sort(function(a, b){return a - b});; -->
+			var f = d.sort(function(a, b){return a - b});;
 			var g = d;
 			}
 			else {
             var	e = jStat.range(c);
-			<!-- var f = c.sort(function(a, b){return a - b});; -->
+			var f = c.sort(function(a, b){return a - b});;
 			var g = c;
 			}
-			document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli "+g+"\n Banyak data "+g.length+"\n ========= \n Jangkauan "+e;
+			document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli "+g+"\n Data terurut "+f+"\n Banyak data "+g.length+"\n ========= \n Jangkauan "+e;
 			document.getElementById("hasilJangkauan").style.display = "block";
 		}
      </script>
