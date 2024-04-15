@@ -431,12 +431,90 @@ body {
   <div class="w3-container" id="uts" style="margin-top:75px">
     <h1 class="w3-xlarge w3-text-red"><b>UTS</b></h1>
     <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p class="h1">Soal Latihan UTS</p>
+	<ol>
+		<li>
+			Tempatkan variabel-variabel di bawah ini ke dalam tabel. <br> Penghasilan, Jenis Kelamin, Volume penjualan CD, Preferensi minuman, Suhu, Skor TOEFL, Ranking siswa di kelas, Rating TV, Banyaknya layar bioskop
+			<table class="table-striped-columns">
+				<thead>
+					<tr><td></td><td>Variabel Diskrit</td><td>Variabel Kontinu</td></tr>
+				</thead>
+				<tbody>
+					<tr><td>Kualitatif</td><td></td><td></td></tr>
+					<tr><td>Kuantitatif</td><td></td><td></td></tr>
+				</tbody>
+			</table>
+		</li>
+		<li>
+			Tempatkan variabel-variabel di bawah ini ke dalam tabel. <br> Penghasilan, Jenis Kelamin, Volume penjualan CD, Preferensi minuman, Suhu, Skor TOEFL, Ranking siswa di kelas, Rating TV, Banyaknya layar bioskop
+			<table class="table-striped">
+				<thead>
+					<tr><td></td><td>Variabel Diskrit</td><td>Variabel Kontinu</td></tr>
+				</thead>
+				<tbody>
+					<tr><td>Nominal</td><td></td><td></td></tr>
+					<tr><td>Ordinal</td><td></td><td></td></tr>
+					<tr><td>Interval</td><td></td><td></td></tr>
+					<tr><td>Rasio</td><td></td><td></td></tr>
+				</tbody>
+			</table>
+		</li>
+		<li>
+			Histogram di bawah ini menunjukkan nilai ujian pertama dari sebuah kelas statistik. <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script> 
+			<div>
+			  <canvas id="myChart"></canvas>
+			</div>
+
+			<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
+
+			<script>
+				const ctx = document.getElementById('myChart');
+				var dataValues = [3, 14, 21, 12, 6, 3];
+				var dataLabels = [50, 60, 70, 80, 90, 100];
+
+			  new Chart(ctx, {
+				type: 'bar',
+				data: {
+				  labels: dataLabels,
+				  datasets: [{
+					label: '# Nilai',
+					data: dataValues,
+					borderWidth: 1
+				  }]
+				},
+				options: {
+				  scales: {
+					  xAxes: [{
+						display: false,
+						barPercentage: 1.3,
+						ticks: {
+							max: 3,
+						}
+					 }, {
+						display: true,
+						ticks: {
+							autoSkip: false,
+							max: 4,
+						}
+					  }],
+					  yAxes: [{
+						ticks: {
+						  beginAtZero:true
+						}
+					  }]
+				  }
+				}
+			  });
+			</script>
+
+		</li>
+	</ol>
   </div>
   
-  <div class="w3-container" id="pertemuan-9" style="margin-top:75px">
-    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 9</b></h1>
-    <hr style="width:50px;border:5px solid red" class="w3-round">
-  </div>
+<div class="w3-container" id="pertemuan-9" style="margin-top:75px">
+	<h1 class="w3-xlarge w3-text-red"><b>Pertemuan 9</b></h1>
+	<hr style="width:50px;border:5px solid red" class="w3-round">
+</div>
   
   <div class="w3-container" id="pertemuan-10" style="margin-top:75px">
     <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 10</b></h1>
