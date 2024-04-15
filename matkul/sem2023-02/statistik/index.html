@@ -586,6 +586,7 @@ body {
 			<script>
 				function randomValues(count, min, max) {
 				  const delta = max - min;
+				console.log(Array.from({length: count}).map(() => Math.random() * delta + min));
 				  return Array.from({length: count}).map(() => Math.random() * delta + min);
 				}
 
