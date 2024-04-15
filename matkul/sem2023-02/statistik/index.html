@@ -468,43 +468,82 @@ body {
 			<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
 
 			<script>
-				const ctx = document.getElementById('myChart');
-				var dataValues = [3, 14, 21, 12, 6];
-				var dataLabels = [50, 60, 70, 80, 90, 100];
+			const x_vals = [55, 65, 75, 85, 95];
+			const y_vals = [3, 14, 21, 12, 6];
+			const data = x_vals.map((k, i) => ({x: k, y: y_vals[i]}));
 
-			  new Chart(ctx, {
+			<!-- const backgroundColor = Array(x_vals.length).fill('rgba(255, 99, 132, 0.2)'); -->
+			<!-- const borderColor = Array(x_vals.length).fill('rgba(255, 99, 132, 1)'); -->
+
+			<!-- const backgroundColor[parseInt(x_vals.length / 2)] = 'rgba(54, 162, 235, 0.2)'; -->
+			<!-- const borderColor[parseInt(x_vals.length / 2)] = 'rgba(54, 162, 235, 1)'; -->
+
+			const ctx = document.getElementById('myChart').getContext('2d');
+			const myChart = new Chart(ctx, {
 				type: 'bar',
 				data: {
-				  labels: dataLabels,
-				  datasets: [{
-					label: '# Nilai',
-					data: dataValues,
-					borderWidth: 1
-				  }]
+					datasets: [{
+						label: 'Num of Nilai',
+						data: data,
+						<!-- backgroundColor: backgroundColor, -->
+						<!-- borderColor: borderColor, -->
+						borderWidth: 1,
+						barPercentage: 1,
+						categoryPercentage: 1,
+						borderRadius: 5,
+					}]
 				},
 				options: {
-				  scales: {
-					  xAxes: [{
-						display: false,
-						barPercentage: 1.3,
-						ticks: {
-							max: 4,
+					scales: {
+						x: {
+							type: 'linear',
+							offset: false,
+							grid: {
+							  offset: false
+							},
+							ticks: {
+							  stepSize: 1
+							},
+							title: {
+							  display: true,
+							  text: 'Hours',
+							  font: {
+								  size: 14
+							  }
+							}
+						}, 
+						y: {
+							// beginAtZero: true
+							title: {
+							  display: true,
+							  text: 'Visitors',
+							  font: {
+								  size: 14
+							  }
+							}
 						}
-					 }, {
-						display: true,
-						ticks: {
-							autoSkip: false,
-							max: 5,
+					},
+					plugins: {
+					  legend: {
+						  display: false,
+						},
+					  tooltip: {
+						callbacks: {
+						  title: (items) => {
+							if (!items.length) {
+							  return '';
+							}
+							const item = items[0];
+							const x = item.parsed.x;
+							const min = x - 5;
+							const max = x + 5;
+							return `Nilai: ${min} - ${max}`;
+						  }
 						}
-					  }],
-					  yAxes: [{
-						ticks: {
-						  beginAtZero:true
-						}
-					  }]
-				  }
+					  }
+					}
 				}
-			  });
+			});
 			</script>
 			Tentukan panjang interval kelas dan jumlah mahasiswa.
 		</li>
