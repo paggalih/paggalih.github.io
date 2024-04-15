@@ -465,7 +465,7 @@ body {
 		<li>
 			Histogram di bawah ini menunjukkan nilai ujian pertama dari sebuah kelas statistik. <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script> 
 			<div>
-			  <canvas id="myChart"></canvas>
+			  <canvas id="myChart03"></canvas>
 			</div>
 
 			<!-- <script src="https://cdn.jsdelivr.net/npm/chart.js"></script> -->
@@ -481,7 +481,7 @@ body {
 			<!-- const backgroundColor[parseInt(x_vals.length / 2)] = 'rgba(54, 162, 235, 0.2)'; -->
 			<!-- const borderColor[parseInt(x_vals.length / 2)] = 'rgba(54, 162, 235, 1)'; -->
 
-			const ctx = document.getElementById('myChart').getContext('2d');
+			const ctx = document.getElementById('myChart03').getContext('2d');
 			const myChart = new Chart(ctx, {
 				type: 'bar',
 				data: {
@@ -577,6 +577,53 @@ body {
 		</li>
 		<li>
 			Direktur HRD sedang ingin melakukan penelitian tentang waktu perjalanan karyawannya dari rumah menuju kantor. Pemerintah kota sedang melakukan pembahasan untuk memberikan insentif kepada karyawan yang mau menggunakan transportasi umum. Di bawah ini adalah data yang dia peroleh. <br> Transportasi Umum <br> 23 25 25 30 31 31 32 33 35 36 37 42 <br> Kendaraan Pribadi <br> 32 32 33 34 37 37 38 38 38 39 40 44 <br> Buatkan boxplot untuk setiap data.
+		</li>
+		<li>
+			Boxplot di bawah ini menunjukkan banyaknya koran yang diterbitkan setiap hari di suatu daerah. 
+			<div>
+			  <canvas id="myChart08"></canvas>
+			</div>
+			<script>
+				function randomValues(count, min, max) {
+				  const delta = max - min;
+				  return Array.from({length: count}).map(() => Math.random() * delta + min);
+				}
+
+				const boxplotData = {
+				  // define label tree
+				  labels: ['Banyak Koran'],
+				  datasets: [{
+					label: 'Dataset 1',
+					backgroundColor: 'rgba(255,0,0,0.5)',
+					borderColor: 'red',
+					borderWidth: 1,
+					outlierColor: '#999999',
+					padding: 10,
+					itemRadius: 0,
+					data: [
+					  randomValues(100, 0, 100)
+					]
+				  }]
+				};
+				window.onload = () => {
+				  const ctx = document.getElementById("myChart08").getContext("2d");
+				  window.myBar = new Chart(ctx, {
+					type: 'boxplot',
+					data: boxplotData,
+					options: {
+					  responsive: true,
+					  legend: {
+						position: 'top',
+					  },
+					  title: {
+						display: true,
+						text: 'Banyaknya Koran'
+					  }
+					}
+				  });
+
+				};
+			</script>
 		</li>
 	</ol>
   </div>
