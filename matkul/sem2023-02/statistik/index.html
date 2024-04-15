@@ -593,7 +593,7 @@ body {
 			<script>
 				function randomValues(count, min, max) {
 				  const delta = max - min;
-				console.log(Array.from({length: count}).map(() => Math.random() * delta + min));
+				<!-- console.log(Array.from({length: count}).map(() => Math.random() * delta + min)); -->
 				  return Array.from({length: count}).map(() => Math.random() * delta + min);
 				}
 
@@ -601,7 +601,7 @@ body {
 				  // define label tree
 				  labels: ['Banyak Koran'],
 				  datasets: [{
-					label: 'Banyak Koran yang Diterbitkan \n',
+					label: 'Banyak Koran',
 					backgroundColor: 'rgba(255,0,0,0.5)',
 					borderColor: 'red',
 					borderWidth: 1,
@@ -624,6 +624,7 @@ body {
 					options: {
 					  responsive: true,
 					  legend: {
+						display: false,
 						position: 'top',
 					  },
 					  title: {
