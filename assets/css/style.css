@@ -1223,14 +1223,6 @@ section {
 	width: 100%;
 }
 
-@media screen and (max-width: 768px) {
-.dropdown-toggle {
-	background: #0563BB;
-	width: 100%;
-	text-wrap: wrap;
-}
-}
-
 .accordion-body {
   border-style: solid;
   border-width: 0px 0px 0px 15px;
@@ -1264,4 +1256,17 @@ mjx-container {
 
 .img-fluid {
   padding: 10px;
+}
+
+/* @media screen and (max-width: 768px) { */
+@media (max-width: 991px) {
+.dropdown-toggle {
+	background: #0563BB;
+	width: 100%;
+	text-wrap: wrap;
+}
+#post-title {
+    margin-right: 50px;
+    border-bottom-right-radius: 50px;
+}
 }
