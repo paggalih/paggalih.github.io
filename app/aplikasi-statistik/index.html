@@ -78,6 +78,69 @@ li > .collapse {
 			1 Variabel
 		  <ol>
 			<li>
+			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiagramBatang" aria-expanded="false" aria-controls="collapseDiagramBatang">
+			Rata-rata
+		  </button>
+
+		  <div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
+			<div class="col-lg-6 col-sm-12 px-4">
+			
+			
+		  
+			<div class="form-floating">
+			  <textarea class="form-control" placeholder="-" id="inputDiagramBatang"style="height:150px;" autocomplete="off"></textarea>
+			  <label for="inputDiagramBatang">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
+			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
+			</div>    
+		 
+			 
+			 <script type="text/javascript">
+				function diagramBatang(){
+					document.getElementById("hasilDiagramBatang").style.display = "none"; 
+					var a  = document.getElementById('inputDiagramBatang');
+					<!-- var	b = a.value; -->
+						<!-- b = b.trim(); -->
+						<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
+					<!-- while (b.includes(",,")) { -->
+						<!-- b = b.replace(/,,/g,","); -->
+					<!-- } -->
+					<!-- console.log(b[b.length-1]); -->
+					<!-- if (b[b.length - 1]==",") { -->
+						<!-- b = b.slice(0, -1); -->
+					<!-- } -->
+					var b = rapikan(a);
+					var c = Array.from(b.split(','));
+					var	d = Array.from(b.split('\n'));
+					if (d.length>c.length) {
+					var	e = jStat.mean(d);
+					var f = d;
+					}
+					else {
+					var	e = jStat.mean(c);
+					var f = c;
+					}
+					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n";
+					<!-- var d = document.getElementById("rata-rata").appendChild(Object.assign(document.createElement("div"), { "style": "background-color:red;padding:20px;color:white", "innerText": "Rata-rata "+e+"\n Panjang(,) "+c.length+"\n Panjang(enter) "+d.length+"\n"+b })) -->
+					document.getElementById("hasilDiagramBatang").style.display = "block";
+					<!-- document.getElementById("hasilRatarata").style.break-word = "break-all"; 			 -->
+				}
+			 </script>
+
+			</div>
+			<div class="col-lg-6 col-sm-12 px-5">
+			<p class="fw-bold">Perhitungan rata-rata secara manual.</p>
+			<ol>
+			<li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
+			<li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li>
+			<li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li>
+			<li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li>
+			</ol>
+			</div>
+		  </div>
+
+			</li>
+			<li>
 			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRatarata" aria-expanded="false" aria-controls="collapseRatarata">
 			Rata-rata
 		  </button>
@@ -110,8 +173,8 @@ li > .collapse {
 						<!-- b = b.slice(0, -1); -->
 					<!-- } -->
 					var b = rapikan(a);
-					var c = Array.from(b.split(','));
-					var	d = Array.from(b.split('\n'));
+					var c = Array.from(b.split(','),Number);
+					var	d = Array.from(b.split('\n'),Number);
 					if (d.length>c.length) {
 					var	e = jStat.mean(d);
 					var f = d;
@@ -176,13 +239,13 @@ li > .collapse {
 					var	d = Array.from(b.split('\n'), Number);
 					if (d.length>c.length) {
 					var	e = jStat.median(d);
-					var f = d.sort(function(a, b){return a - b});;
 					var g = d;
+					var f = d.sort(function(a, b){return a - b});;
 					}
 					else {
 					var	e = jStat.median(c);
-					var f = c.sort(function(a, b){return a - b});;
 					var g = c;
+					var f = c.sort(function(a, b){return a - b});;
 					}
 					document.getElementById("hasilMedian").innerText = "Cek \n Data asli "+g+"\n Data terurut "+f+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
 					document.getElementById("hasilMedian").style.display = "block";
@@ -238,13 +301,13 @@ li > .collapse {
 					var	d = Array.from(b.split('\n'), Number);
 					if (d.length>c.length) {
 					var	e = jStat.mode(d);
-					var f = d.sort(function(a, b){return a - b});;
 					var g = d;
+					var f = d.sort(function(a, b){return a - b});;
 					}
 					else {
 					var	e = jStat.mode(c);
-					var f = c.sort(function(a, b){return a - b});;
 					var g = c;
+					var f = c.sort(function(a, b){return a - b});;
 					}
 					document.getElementById("hasilModus").innerText = "Cek \n Data asli "+g+"\n Data terurut "+f+"\n Banyak data "+f.length+"\n ========= \n Modus "+e;
 					document.getElementById("hasilModus").style.display = "block";
@@ -296,13 +359,13 @@ li > .collapse {
 					var	d = Array.from(b.split('\n'), Number);
 					if (d.length>c.length) {
 					var	e = jStat.range(d);
-					var f = d.sort(function(a, b){return a - b});;
 					var g = d;
+					var f = d.sort(function(a, b){return a - b});;
 					}
 					else {
 					var	e = jStat.range(c);
-					var f = c.sort(function(a, b){return a - b});;
 					var g = c;
+					var f = c.sort(function(a, b){return a - b});;
 					}
 					document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli "+g+"\n Data terurut "+f+"\n Banyak data "+g.length+"\n ========= \n Jangkauan "+e;
 					document.getElementById("hasilJangkauan").style.display = "block";
@@ -324,7 +387,7 @@ li > .collapse {
 
 		</li>
 		<li>
-			2 Variabel
+			Dua Variabel
 		</li>
 		<li>
 			Lebih dari 2 Variabel
