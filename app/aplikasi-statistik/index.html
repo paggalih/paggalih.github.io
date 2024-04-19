@@ -125,7 +125,7 @@ li > .collapse {
 			const x_vals = Array.from(f);
 			const y_vals = g;
 			const data = x_vals.map((k, i) => ({x: k, y: y_vals[i]}));
-
+			console.log(data);
 			const ctx = document.getElementById('gambarDiagramBatang').getContext('2d');
 			const myChart = new Chart(ctx, {
 				type: 'bar',
