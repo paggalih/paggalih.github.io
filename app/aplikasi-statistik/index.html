@@ -113,13 +113,14 @@ li > .collapse {
 					var f = new Set(e);
 					<!-- membuat data chart.js -->
 					var g = [];
-					for (let i = 0; i < f.length; i++) {
-						console.log(f[i]);
-						var pisah = e.filter((x) => x===f[i]);
+					var iterator = Array.from(f);
+					for (let i = 0; i < iterator.length; i++) {
+						console.log(iterator[i]);
+						var pisah = e.filter((x) => x===iterator[i]);
 						console.log(pisah);
 						g[i] = pisah.length;
 					}
-					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data "+f.length+"\n ========= \n";
+					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data "+iterator.length+"\n ========= \n";
 					document.getElementById("hasilDiagramBatang").style.display = "block";
 			const x_vals = Array.from(f);
 			const y_vals = g;
