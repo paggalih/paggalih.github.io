@@ -97,17 +97,9 @@ li > .collapse {
 				function diagramBatang(){
 					document.getElementById("hasilDiagramBatang").style.display = "none"; 
 					var a  = document.getElementById('inputDiagramBatang');
-					<!-- var	b = a.value; -->
-						<!-- b = b.trim(); -->
-						<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-					<!-- while (b.includes(",,")) { -->
-						<!-- b = b.replace(/,,/g,","); -->
-					<!-- } -->
-					console.log(b[b.length-1]);
-					<!-- if (b[b.length - 1]==",") { -->
-						<!-- b = b.slice(0, -1); -->
-					<!-- } -->
 					var b = rapikan(a);
+					console.log(b[b.length-1]);
+
 					var c = Array.from(b.split(','));
 					var	d = Array.from(b.split('\n'));
 					if (d.length>c.length) {
