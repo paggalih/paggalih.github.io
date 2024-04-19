@@ -90,6 +90,9 @@ li > .collapse {
 			  <label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
 			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
+			<div>
+			  <canvas id="gambarDiagramBatang"></canvas>
+			</div>
 			</div>    
 		 
 			 
@@ -98,20 +101,46 @@ li > .collapse {
 					document.getElementById("hasilDiagramBatang").style.display = "none"; 
 					var a  = document.getElementById('inputDiagramBatang');
 					var b = rapikan(a);
-					console.log("ini adalah "+b);
-
 					var c = Array.from(b.split(','));
 					var	d = Array.from(b.split('\n'));
 					if (d.length>c.length) {
-					var	e = jStat.mean(d);
-					var f = d;
+					var	e = d;
 					}
 					else {
-					var	e = jStat.mean(c);
-					var f = c;
+					var	e = c;
 					}
-					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n";
+					<!-- membuat labels chart.js -->
+					var f = new Set(e);
+					<!-- membuat data chart.js -->
+					var g = [];
+					for (let i = 0; i < f.length; i++) {
+						console.log(f[i]);
+						var pisah = e.filter((x) => x===f[i]);
+						console.log(pisah);
+						g[i] = pisah.length;
+					}
+					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data "+f.length+"\n ========= \n";
 					document.getElementById("hasilDiagramBatang").style.display = "block";
+					  const ctx = document.getElementById('gambarDiagramBatang');
+
+					  new Chart(ctx, {
+						type: 'bar',
+						data: {
+						  labels: f,
+						  datasets: [{
+							label: '# of Votes',
+							data: g,
+							borderWidth: 1
+						  }]
+						},
+						options: {
+						  scales: {
+							y: {
+							  beginAtZero: true
+							}
+						  }
+						}
+					  });
 				}
 			 </script>
 
