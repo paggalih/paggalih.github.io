@@ -121,26 +121,74 @@ li > .collapse {
 					}
 					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data "+f.length+"\n ========= \n";
 					document.getElementById("hasilDiagramBatang").style.display = "block";
-					  const ctx = document.getElementById('gambarDiagramBatang');
+			const x_vals = Array.from(f);
+			const y_vals = g;
+			const data = x_vals.map((k, i) => ({x: k, y: y_vals[i]}));
 
-					  new Chart(ctx, {
-						type: 'bar',
-						data: {
-						  labels: f,
-						  datasets: [{
-							label: '# of Votes',
-							data: g,
-							borderWidth: 1
-						  }]
-						},
-						options: {
-						  scales: {
-							y: {
-							  beginAtZero: true
+			const ctx = document.getElementById('gambarDiagramBatang').getContext('2d');
+			const myChart = new Chart(ctx, {
+				type: 'bar',
+				data: {
+					datasets: [{
+						label: 'Num of Nilai',
+						data: data,
+						borderWidth: 1,
+						barPercentage: 1,
+						categoryPercentage: 1,
+						borderRadius: 5,
+					}]
+				},
+				options: {
+					scales: {
+						x: {
+							type: 'linear',
+							offset: false,
+							grid: {
+							  offset: false
+							},
+							<!-- ticks: { -->
+							  <!-- stepSize: 10 -->
+							<!-- }, -->
+							title: {
+							  display: true,
+							  text: 'Nilai',
+							  font: {
+								  size: 14
+							  }
 							}
-						  }
+						}, 
+						y: {
+							// beginAtZero: true
+							title: {
+							  display: true,
+							  text: 'Frekuensi',
+							  font: {
+								  size: 14
+							  }
+							}
 						}
-					  });
+					},
+					plugins: {
+					  legend: {
+						  display: false,
+						},
+					  <!-- tooltip: { -->
+						<!-- callbacks: { -->
+						  <!-- title: (items) => { -->
+							<!-- if (!items.length) { -->
+							  <!-- return ''; -->
+							<!-- } -->
+							<!-- const item = items[0]; -->
+							<!-- const x = item.parsed.x; -->
+							<!-- const min = x - 5; -->
+							<!-- const max = x + 5; -->
+							<!-- return `Nilai: ${min} - ${max}`; -->
+						  <!-- } -->
+						<!-- } -->
+					  <!-- } -->
+					}
+				}
+			});
 				}
 			 </script>
 
