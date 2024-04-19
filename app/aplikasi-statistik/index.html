@@ -147,9 +147,9 @@ li > .collapse {
 							grid: {
 							  offset: false
 							},
-							<!-- ticks: { -->
-							  <!-- stepSize: 10 -->
-							<!-- }, -->
+							ticks: {
+							  stepSize: 10
+							},
 							title: {
 							  display: true,
 							  text: 'Nilai',
@@ -173,20 +173,20 @@ li > .collapse {
 					  legend: {
 						  display: false,
 						},
-					  <!-- tooltip: { -->
-						<!-- callbacks: { -->
-						  <!-- title: (items) => { -->
-							<!-- if (!items.length) { -->
-							  <!-- return ''; -->
-							<!-- } -->
-							<!-- const item = items[0]; -->
-							<!-- const x = item.parsed.x; -->
-							<!-- const min = x - 5; -->
-							<!-- const max = x + 5; -->
-							<!-- return `Nilai: ${min} - ${max}`; -->
-						  <!-- } -->
-						<!-- } -->
-					  <!-- } -->
+					  tooltip: {
+						callbacks: {
+						  title: (items) => {
+							if (!items.length) {
+							  return '';
+							}
+							const item = items[0];
+							const x = item.parsed.x;
+							const min = x - 5;
+							const max = x + 5;
+							return `Nilai: ${min} - ${max}`;
+						  }
+						}
+					  }
 					}
 				}
 			});
