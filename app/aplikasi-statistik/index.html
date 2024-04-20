@@ -90,7 +90,7 @@ li > .collapse {
 			  <label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
 			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			<div>
+			<div id="tempatDiagramBatang">
 			  <canvas id="gambarDiagramBatang"></canvas>
 			</div>
 			</div>    
@@ -99,6 +99,11 @@ li > .collapse {
 			 <script type="text/javascript">
 				function diagramBatang(){
 					document.getElementById("hasilDiagramBatang").style.display = "none"; 
+					document.getElementById("gambarDiagramBatang").remove(); 
+					var tempat = document.getElementById("tempatDiagramBatang");
+					var gambar = document.createElement("canvas");
+					gambar.id = "gambarDiagramBatang";
+					tempat.appendChild(gambar);
 					var a  = document.getElementById('inputDiagramBatang');
 					var b = rapikan(a);
 					var c = Array.from(b.split(','));
