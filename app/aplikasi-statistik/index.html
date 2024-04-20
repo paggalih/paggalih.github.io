@@ -54,6 +54,9 @@ body {
 li > .collapse {
   margin-right: 2rem;
 }
+.form-floating > div {
+	height: 500px;
+}
 </style>
 
 </head>
@@ -107,7 +110,7 @@ li > .collapse {
 					document.getElementById("hasilDiagramBatang").style.display = "none"; 
 					document.getElementById("gambarDiagramBatang").remove(); 
 					var tempat = document.getElementById("tempatDiagramBatang");
-					tempat.classList.add("overflow-auto", "vh-50");
+					tempat.classList.add("overflow-auto");
 					var gambar = document.createElement("canvas");
 					gambar.id = "gambarDiagramBatang";
 					tempat.appendChild(gambar);
