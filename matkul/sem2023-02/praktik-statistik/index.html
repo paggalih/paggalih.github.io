@@ -1,1287 +1,632 @@
-/**
-* Template Name: MyResume
-* Updated: Jun 13 2023 with Bootstrap v5.3.0
-* Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
+<!DOCTYPE html>
+<html lang="id-ID">
+<head>
+<title>Praktik Statistik</title>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
 
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
-body {
-  /* font-family: "Open Sans", sans-serif; */
-  color: #272829;
-}
+  <title>OSK 2024</title>
+  <meta content="Materi dan silabus mata kuliah Praktik Statistik Semester Genap tahun 2023-2024" name="description">
+  <meta content="Praktik Statistik" name="keywords">
+  <meta name="author" content="Galih Pradananta">
 
-a {
-  color: #0563bb;
-  text-decoration: none;
-}
+  <!-- Favicons -->
+  <link href="/assets/img/letter-g.gif" rel="icon">
+	
 
-a:hover {
-  color: #067ded;
-  text-decoration: none;
-}
+  <!-- Vendor CSS Files -->
+  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 
-/* h1, */
-/* h2, */
-/* h3, */
-/* h4, */
-/* h5, */
-/* h6 { */
-  /* font-family: "Raleway", sans-serif; */
-/* } */
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
 
-/*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
-.back-to-top {
-  position: fixed;
-  visibility: hidden;
-  opacity: 0;
-  right: 15px;
-  bottom: 15px;
-  z-index: 996;
-  background: #0563bb;
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  transition: all 0.4s;
-}
-
-.back-to-top i {
-  font-size: 28px;
-  color: #fff;
-  line-height: 0;
-}
-
-.back-to-top:hover {
-  background: #0678e3;
-  color: #fff;
-}
-
-.back-to-top.active {
-  visibility: visible;
-  opacity: 1;
-}
-
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  overflow: hidden;
-  background: #fff;
-}
-
-#preloader:before {
-  content: "";
-  position: fixed;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-  border: 6px solid #0563bb;
-  border-top-color: #fff;
-  border-bottom-color: #fff;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: animate-preloader 1s linear infinite;
-}
-
-@keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
+  <!-- =======================================================
+  * Template Name: MyResume
+  * Updated: Jun 13 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']]
   }
+};
+</script>
+<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js">
+</script>
 
-  100% {
-    transform: rotate(360deg);
-  }
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+
+<style>
+
+.w3-red, .w3-hover-red:hover {
+  color: #f6665c !important;
+  background-color: #f2f2f2 !important;
 }
 
-/*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-  [data-aos-delay] {
-    transition-delay: 0 !important;
-  }
+#contact {
+  display: none;
 }
 
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
-#header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 9997;
-  transition: all 0.5s;
-  padding: 15px;
-  overflow-y: auto;
+.w3-light-grey, .w3-hover-light-grey:hover, .w3-light-gray, .w3-hover-light-gray:hover {
+  color: #000 !important;
+  background-color: #f1f1f1 !important;
+  display: none;
 }
 
 @media (max-width: 991px) {
-  #header {
-    width: 300px;
-    background: #fff;
-    border-right: 1px solid #e6e9ec;
-    left: -300px;
-  }
-}
-
-@media (min-width: 991px) {
-  #main {
-    margin-left: 100px;
-  }
-}
-
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
-/**
-* Desktop Navigation 
-*/
-.nav-menu {
-  padding: 0;
-  display: block;
-}
-
-.nav-menu * {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav-menu>ul>li {
-  position: relative;
-  white-space: nowrap;
-}
-
-.nav-menu a,
-.nav-menu a:focus {
-  display: flex;
-  align-items: center;
-  color: #45505b;
-  padding: 10px 18px;
-  margin-bottom: 8px;
-  transition: 0.3s;
-  font-size: 15px;
-  border-radius: 50px;
-  background: #f2f3f5;
-  height: 56px;
-  width: 100%;
-  overflow: hidden;
-  transition: 0.3s;
-}
-
-.nav-menu a i,
-.nav-menu a:focus i {
-  font-size: 20px;
-}
-
-.nav-menu a span,
-.nav-menu a:focus span {
-  padding: 0 5px 0 7px;
-  color: #45505b;
-}
-
-@media (min-width: 992px) {
-
-  .nav-menu a,
-  .nav-menu a:focus {
-    width: 56px;
-  }
-
-  .nav-menu a span,
-  .nav-menu a:focus span {
-    display: none;
-    color: #fff;
-  }
-}
-
-.nav-menu a:hover,
-.nav-menu .active,
-.nav-menu .active:focus,
-.nav-menu li:hover>a {
-  color: #fff;
-  background: #0563bb;
-}
-
-.nav-menu a:hover span,
-.nav-menu .active span,
-.nav-menu .active:focus span,
-.nav-menu li:hover>a span {
-  color: #fff;
-}
-
-.nav-menu a:hover,
-.nav-menu li:hover>a {
-  width: 100%;
-  color: #fff;
-}
-
-.nav-menu a:hover span,
-.nav-menu li:hover>a span {
-  display: block;
-}
-
-/**
-* Mobile Navigation 
-*/
-.mobile-nav-toggle {
-  position: fixed;
-  right: 10px;
-  top: 10px;
-  z-index: 9998;
-  border: 0;
-  background: none;
-  font-size: 28px;
-  transition: all 0.4s;
-  outline: none !important;
-  line-height: 0;
-  cursor: pointer;
-  border-radius: 50px;
-  padding: 5px;
-}
-
-.mobile-nav-toggle i {
-  color: #45505b;
-}
-
-.mobile-nav-active {
-  overflow: hidden;
-}
-
-.mobile-nav-active #header {
-  left: 0;
-}
-
-.mobile-nav-active .mobile-nav-toggle {
-  color: #fff;
-  background-color: #0563bb;
-}
-
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
-#hero {
-  width: 100%;
-  height: 100vh;
-  background: url("../img/hero-bg.jpg") top right no-repeat;
-  background-size: cover;
-  position: relative;
-}
-
-@media (min-width: 992px) {
-  #hero {
-    padding-left: 160px;
-  }
-}
-
-#hero:before {
-  content: "";
-  background: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-#hero h1 {
-  margin: 0;
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 56px;
-  color: #45505b;
-}
-
-#hero p {
-  color: #45505b;
-  margin: 15px 0 0 0;
-  font-size: 26px;
-  font-family: "Poppins", sans-serif;
-}
-
-#hero p span {
-  color: #0563bb;
-  letter-spacing: 1px;
-}
-
-#hero .social-links {
-  margin-top: 30px;
-}
-
-#hero .social-links a {
-  font-size: 24px;
-  display: inline-block;
-  color: #45505b;
-  line-height: 1;
-  margin-right: 20px;
-  transition: 0.3s;
-}
-
-#hero .social-links a:hover {
-  color: #0563bb;
-}
-
-@media (max-width: 992px) {
-  #hero {
-    text-align: center;
-  }
-
-  #hero h1 {
-    font-size: 32px;
-    line-height: 36px;
-  }
-
-  #hero p {
-    margin-top: 10px;
-    font-size: 20px;
-    line-height: 24px;
-  }
-}
-
-/*--------------------------------------------------------------
-# Sections General
---------------------------------------------------------------*/
-section {
-  padding: 60px 0;
-  overflow: hidden;
-}
-
-.section-title {
-  text-align: center;
-  /* padding-bottom: 30px; */
-}
-
-.section-title h2 {
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  color: #45505b;
-}
-
-.section-title h2::before {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 120px;
-  height: 1px;
-  background: #ddd;
-  bottom: 1px;
-  left: calc(50% - 60px);
-}
-
-.section-title h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #0563bb;
-  bottom: 0;
-  left: calc(50% - 20px);
-}
-
-.section-title p {
-  margin-bottom: 0;
-}
-
-/*--------------------------------------------------------------
-# About
---------------------------------------------------------------*/
-.about .content h3 {
-  font-weight: 700;
-  font-size: 26px;
-  color: #728394;
-}
-
-.about .content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.about .content ul li {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.about .content ul strong {
-  margin-right: 10px;
-}
-
-.about .content ul i {
-  font-size: 16px;
-  margin-right: 5px;
-  color: #0563bb;
-  line-height: 0;
-}
-
-.about .content p:last-child {
-  margin-bottom: 0;
-}
-
-/*--------------------------------------------------------------
-# Facts
---------------------------------------------------------------*/
-.facts .count-box {
-  padding: 30px 30px 25px 30px;
-  /* margin-top: 30px; */
-  width: 100%;
-  position: relative;
-  text-align: center;
-  background: #fff;
-}
-
-.facts .count-box i {
-  position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 24px;
-  background: #0563bb;
-  color: #fff;
-  border-radius: 50px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-}
-
-.facts .count-box span {
-  font-size: 36px;
-  display: block;
-  font-weight: 600;
-  color: #011426;
-}
-
-.facts .count-box p {
-  padding: 0;
-  margin: 0;
-  font-family: "Raleway", sans-serif;
-  font-size: 14px;
-}
-
-/*--------------------------------------------------------------
-# Akills
---------------------------------------------------------------*/
-.skills .progress {
-  height: 60px;
-  display: block;
-  background: none;
-  border-radius: 0;
-}
-
-.skills .progress .skill {
-  padding: 10px 0;
-  margin: 0;
-  text-transform: uppercase;
-  display: block;
-  font-weight: 600;
-  font-family: "Poppins", sans-serif;
-  color: #45505b;
-}
-
-.skills .progress .skill .val {
-  float: right;
-  font-style: normal;
-}
-
-.skills .progress-bar-wrap {
-  background: #f2f3f5;
-}
-
-.skills .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: 0.9s;
-  background-color: #0563bb;
-}
-
-/*--------------------------------------------------------------
-# Resume
---------------------------------------------------------------*/
-.resume .resume-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #45505b;
-}
-
-.resume .resume-item {
-  padding: 0 0 20px 20px;
-  margin-top: -2px;
-  border-left: 2px solid #0563bb;
-  position: relative;
-}
-
-.resume .resume-item h4 {
-  line-height: 18px;
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
-  font-family: "Poppins", sans-serif;
-  color: #0563bb;
-  margin-bottom: 10px;
-}
-
-.resume .resume-item h5 {
-  font-size: 16px;
-  background: #f7f8f9;
-  padding: 5px 15px;
-  display: inline-block;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.resume .resume-item ul {
-  padding-left: 20px;
-}
-
-.resume .resume-item ul li {
-  padding-bottom: 10px;
-}
-
-.resume .resume-item:last-child {
-  padding-bottom: 0;
-}
-
-.resume .resume-item::before {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50px;
-  left: -9px;
-  top: 0;
-  background: #fff;
-  border: 2px solid #0563bb;
-}
-
-/*--------------------------------------------------------------
-# Portfolio
---------------------------------------------------------------*/
-.portfolio .portfolio-item {
-  margin-bottom: 30px;
-}
-
-.portfolio #portfolio-flters {
-  padding: 0;
-  margin: 0 auto 25px auto;
-  list-style: none;
-  text-align: center;
-  background: #fff;
-  border-radius: 50px;
-  padding: 2px 15px;
-}
-
-.portfolio #portfolio-flters li {
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 15px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  text-transform: uppercase;
-  color: #272829;
-  margin-bottom: 5px;
-  transition: all 0.3s ease-in-out;
-}
-
-.portfolio #portfolio-flters li:hover,
-.portfolio #portfolio-flters li.filter-active {
-  color: #0563bb;
-}
-
-.portfolio #portfolio-flters li:last-child {
-  margin-right: 0;
-}
-
-.portfolio .portfolio-wrap {
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  background: rgba(69, 80, 91, 0.8);
-}
-
-.portfolio .portfolio-wrap::before {
-  content: "";
-  background: rgba(255, 255, 255, 0.7);
-  position: absolute;
-  left: 30px;
-  right: 30px;
-  top: 30px;
-  bottom: 30px;
-  transition: all ease-in-out 0.3s;
-  z-index: 2;
-  opacity: 0;
-}
-
-.portfolio .portfolio-wrap .portfolio-info {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-align: center;
-  z-index: 3;
-  transition: all ease-in-out 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.portfolio .portfolio-wrap .portfolio-info::before {
-  display: block;
-  content: "";
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 35px;
-  left: 35px;
-  border-top: 3px solid #d7dce1;
-  border-left: 3px solid #d7dce1;
-  transition: all 0.5s ease 0s;
-  z-index: 9994;
-}
-
-.portfolio .portfolio-wrap .portfolio-info::after {
-  display: block;
-  content: "";
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  bottom: 35px;
-  right: 35px;
-  border-bottom: 3px solid #d7dce1;
-  border-right: 3px solid #d7dce1;
-  transition: all 0.5s ease 0s;
-  z-index: 9994;
-}
-
-.portfolio .portfolio-wrap .portfolio-info h4 {
-  font-size: 20px;
-  color: #45505b;
-  font-weight: 600;
-}
-
-.portfolio .portfolio-wrap .portfolio-info p {
-  color: #45505b;
-  font-size: 14px;
-  text-transform: uppercase;
-  padding: 0;
-  margin: 0;
-}
-
-.portfolio .portfolio-wrap .portfolio-links {
-  text-align: center;
-  z-index: 4;
-}
-
-.portfolio .portfolio-wrap .portfolio-links a {
-  color: #45505b;
-  margin: 0 2px;
-  font-size: 28px;
-  display: inline-block;
-  transition: 0.3s;
-}
-
-.portfolio .portfolio-wrap .portfolio-links a:hover {
-  color: #148af9;
-}
-
-.portfolio .portfolio-wrap:hover::before {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 1;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info {
-  opacity: 1;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info::before {
-  top: 15px;
-  left: 15px;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info::after {
-  bottom: 15px;
-  right: 15px;
-}
-
-/*--------------------------------------------------------------
-# Portfolio Details
---------------------------------------------------------------*/
-.portfolio-details {
-  padding-top: 40px;
-}
-
-.portfolio-details .portfolio-details-slider img {
-  width: 100%;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  opacity: 1;
-  border: 1px solid #0563bb;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #0563bb;
-}
-
-.portfolio-details .portfolio-info {
-  padding: 30px;
-  box-shadow: 0px 0 30px rgba(69, 80, 91, 0.08);
-}
-
-.portfolio-details .portfolio-info h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
-}
-
-.portfolio-details .portfolio-info ul {
-  list-style: none;
-  padding: 0;
-  font-size: 15px;
-}
-
-.portfolio-details .portfolio-info ul li+li {
-  margin-top: 10px;
-}
-
-.portfolio-details .portfolio-description {
-  padding-top: 30px;
-}
-
-.portfolio-details .portfolio-description h2 {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.portfolio-details .portfolio-description p {
-  padding: 0;
-}
-
-/*--------------------------------------------------------------
-# Services
---------------------------------------------------------------*/
-.services .icon-box {
-  text-align: center;
-  padding: 70px 20px 80px 20px;
-  transition: all ease-in-out 0.3s;
-  background: #fff;
-  box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.05);
-}
-
-.services .icon-box .icon {
-  margin: 0 auto;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ease-in-out 0.3s;
-  position: relative;
-}
-
-.services .icon-box .icon i {
-  font-size: 36px;
-  transition: 0.5s;
-  position: relative;
-}
-
-.services .icon-box .icon svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.services .icon-box .icon svg path {
-  transition: 0.5s;
-  fill: #f5f5f5;
-}
-
-.services .icon-box h4 {
-  font-weight: 600;
-  margin: 10px 0 15px 0;
-  font-size: 22px;
-}
-
-.services .icon-box h4 a {
-  color: #45505b;
-  transition: ease-in-out 0.3s;
-}
-
-.services .icon-box p {
-  line-height: 24px;
-  font-size: 14px;
-  margin-bottom: 0;
-}
-
-.services .icon-box:hover {
-  border-color: #fff;
-  box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
-}
-
-.services .iconbox-blue i {
-  color: #47aeff;
-}
-
-.services .iconbox-blue:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-blue:hover .icon path {
-  fill: #47aeff;
-}
-
-.services .iconbox-orange i {
-  color: #ffa76e;
-}
-
-.services .iconbox-orange:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-orange:hover .icon path {
-  fill: #ffa76e;
-}
-
-.services .iconbox-pink i {
-  color: #e80368;
-}
-
-.services .iconbox-pink:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-pink:hover .icon path {
-  fill: #e80368;
-}
-
-.services .iconbox-yellow i {
-  color: #ffbb2c;
-}
-
-.services .iconbox-yellow:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-yellow:hover .icon path {
-  fill: #ffbb2c;
-}
-
-.services .iconbox-red i {
-  color: #ff5828;
-}
-
-.services .iconbox-red:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-red:hover .icon path {
-  fill: #ff5828;
-}
-
-.services .iconbox-teal i {
-  color: #11dbcf;
-}
-
-.services .iconbox-teal:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-teal:hover .icon path {
-  fill: #11dbcf;
-}
-
-/*--------------------------------------------------------------
-# Testimonials
---------------------------------------------------------------*/
-.testimonials .section-header {
-  margin-bottom: 40px;
-}
-
-.testimonials .testimonials-carousel,
-.testimonials .testimonials-slider {
-  overflow: hidden;
-}
-
-.testimonials .testimonial-item {
-  text-align: center;
-}
-
-.testimonials .testimonial-item .testimonial-img {
-  width: 120px;
-  border-radius: 50%;
-  border: 4px solid #fff;
-  margin: 0 auto;
-}
-
-.testimonials .testimonial-item h3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0 5px 0;
-  color: #111;
-}
-
-.testimonials .testimonial-item h4 {
-  font-size: 14px;
-  color: #999;
-  margin: 0 0 15px 0;
-}
-
-.testimonials .testimonial-item .quote-icon-left,
-.testimonials .testimonial-item .quote-icon-right {
-  color: #90c8fc;
-  font-size: 26px;
-}
-
-.testimonials .testimonial-item .quote-icon-left {
-  display: inline-block;
-  left: -5px;
-  position: relative;
-}
-
-.testimonials .testimonial-item .quote-icon-right {
-  display: inline-block;
-  right: -5px;
-  position: relative;
-  top: 10px;
-}
-
-.testimonials .testimonial-item p {
-  font-style: italic;
-  margin: 0 auto 15px auto;
-}
-
-.testimonials .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  opacity: 1;
-  border: 1px solid #0563bb;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #0563bb;
-}
-
-@media (min-width: 992px) {
-  .testimonials .testimonial-item p {
-    width: 80%;
-  }
-}
-
-/*--------------------------------------------------------------
-# Contact
---------------------------------------------------------------*/
-.contact .info {
-  width: 100%;
-  background: #fff;
-}
-
-.contact .info i {
-  font-size: 20px;
-  color: #0563bb;
-  float: left;
-  width: 44px;
-  height: 44px;
-  background: #eef7ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  transition: all 0.3s ease-in-out;
-}
-
-.contact .info h4 {
-  padding: 0 0 0 60px;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #45505b;
-}
-
-.contact .info p {
-  padding: 0 0 0 60px;
-  margin-bottom: 0;
-  font-size: 14px;
-  color: #728394;
-}
-
-.contact .info .email,
-.contact .info .phone {
-  margin-top: 40px;
-}
-
-.contact .info .email:hover i,
-.contact .info .address:hover i,
-.contact .info .phone:hover i {
-  background: #0563bb;
-  color: #fff;
-}
-
-.contact .php-email-form {
-  width: 100%;
-  background: #fff;
-}
-
-.contact .php-email-form .form-group {
-  padding-bottom: 8px;
-}
-
-.contact .php-email-form .error-message {
-  display: none;
-  color: #fff;
-  background: #ed3c0d;
-  text-align: left;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.contact .php-email-form .error-message br+br {
-  margin-top: 25px;
-}
-
-.contact .php-email-form .sent-message {
-  display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.contact .php-email-form .loading {
-  display: none;
-  background: #fff;
-  text-align: center;
-  padding: 15px;
-}
-
-.contact .php-email-form .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
-  border-top-color: #eee;
-  animation: animate-loading 1s linear infinite;
-}
-
-.contact .php-email-form input,
-.contact .php-email-form textarea {
-  border-radius: 4px;
-  box-shadow: none;
-  font-size: 14px;
-}
-
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email] {
-  height: 44px;
-}
-
-.contact .php-email-form textarea {
-  padding: 10px 12px;
-}
-
-.contact .php-email-form button[type=submit] {
-  background: #0563bb;
-  border: 0;
-  padding: 10px 35px;
-  color: #fff;
-  transition: 0.4s;
-  border-radius: 50px;
-}
-
-.contact .php-email-form button[type=submit]:hover {
-  background: #0678e3;
-}
-
-@keyframes animate-loading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-#footer {
-  background: #f7f8f9;
-  color: #45505b;
-  font-size: 14px;
-  text-align: center;
-  padding: 30px 0;
-}
-
-#footer h3 {
-  font-size: 36px;
-  font-weight: 700;
-  position: relative;
-  font-family: "Poppins", sans-serif;
-  padding: 0;
-  margin: 0 0 15px 0;
-}
-
-#footer p {
-  font-size: 15;
-  font-style: italic;
-  padding: 0;
-  margin: 0 0 40px 0;
-}
-
-#footer .social-links {
-  margin: 0 0 40px 0;
-}
-
-#footer .social-links a {
-  font-size: 18px;
-  display: inline-block;
-  background: #0563bb;
-  color: #fff;
-  line-height: 1;
-  padding: 8px 0;
-  margin-right: 4px;
-  border-radius: 50%;
-  text-align: center;
-  width: 36px;
-  height: 36px;
-  transition: 0.3s;
-}
-
-#footer .social-links a:hover {
-  background: #0678e3;
-  color: #fff;
-  text-decoration: none;
-}
-
-#footer .copyright {
-  margin: 0 0 5px 0;
-}
-
-#footer .credits {
-  font-size: 13px;
-}
-
-/* Galih */
-.accordion-button>span,
-.accordion-button>i {
-	/* color: #0563BB; */
-  font-family: "Raleway", sans-serif;
-}
-
-.accordion-button,
-.dropdown-toggle {
-	background: #0563BB;
-	padding-bottom: 20px;
-	padding-top: 20px;
-	width: 100%;
-	color: aliceblue;
-}
-
-.accordion-body {
-  border-style: solid;
-  border-width: 0px 0px 0px 15px;
-  border-color: aliceblue;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-
-.dropdown-toggle:active,
-.dropdown-toggle:hover
-{
-	background: aliceblue;
-  border-style: solid;
-  border-color: #0563BB;
-}
-
-.accordion-body>button {
-	margin: 10px 0px;
-}
-
-#post-title {
-  background: #ccdffc;
-  text-align: center;
-  padding: 15px 0px 15px 0px;
-}
-
-mjx-container {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.img-fluid {
-  padding: 10px;
-}
-
-@media (min-width: 991px) {
-.nav-menu a:hover, .nav-menu .active, .nav-menu .active:focus, .nav-menu li:hover > a {
-  border-bottom: 5px solid #ccdffc;
-  border-top: 5px solid #ccdffc;
-}
-}
-@media (max-width: 991px) {
-.dropdown-toggle {
-	background: #0563BB;
-	width: 100%;
-	text-wrap: wrap;
-}
-#post-title {
-    margin-right: 50px;
-    border-bottom-right-radius: 50px;
-}
-#header {
-	border-top-right-radius: 50vh;
-}
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Noto+Sans:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-
-body {
-  font-family: "Poppins", sans-serif !important;
-}
+#tombol_home {
+  margin-top: 70px !important;
+}
+}
+</style>
+
+</head>
+<body> 
+
+<!-- Sidebar/menu -->
+<nav class="w3-sidebar w3-red w3-collapse w3-top w3-large w3-padding" style="z-index:3;width:300px;font-weight:bold;" id="mySidebar"><br>
+  <a href="javascript:void(0)" onclick="w3_close()" class="w3-button w3-hide-large w3-display-topleft" style="width:100%;font-size:22px">Close Menu</a>
+  <div class="w3-container">
+    <h3><b>Praktik<br>Statistik</b></h3>
+  </div>
+  <div class="w3-bar-block">
+    <!-- <a href="#" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Home</a>  -->
+    <a href="#pertemuan-1" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 1</a> 
+    <a href="#pertemuan-2" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 2</a> 
+    <a href="#pertemuan-3" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 3</a> 
+    <a href="#pertemuan-4" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 4</a> 
+    <a href="#pertemuan-5" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 5</a> 
+    <a href="#pertemuan-6" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 6</a> 
+    <a href="#pertemuan-7" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 7</a> 
+    <a href="#uts" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">UTS</a> 
+    <a href="#pertemuan-9" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 9</a> 
+    <a href="#pertemuan-10" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 10</a> 
+    <a href="#pertemuan-11" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 11</a> 
+    <a href="#pertemuan-12" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 12</a> 
+    <a href="#pertemuan-13" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 13</a>	
+    <a href="#pertemuan-14" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 14</a> 
+    <a href="#pertemuan-15" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">Pertemuan 15</a> 
+    <a href="#uas" onclick="w3_close()" class="w3-bar-item w3-button w3-hover-white">UAS</a>
+  </div>
+</nav>
+
+<!-- Top menu on small screens -->
+<header class="w3-container w3-top w3-hide-large w3-red w3-xlarge w3-padding">
+  <a href="javascript:void(0)" class="w3-button w3-red w3-margin-right" onclick="w3_open()">☰</a>
+  <span>Praktik Statistik</span>
+</header>
+
+<!-- Overlay effect when opening sidebar on small screens -->
+<div class="w3-overlay w3-hide-large" onclick="w3_close()" style="cursor:pointer" title="close side menu" id="myOverlay"></div>
+
+<!-- !PAGE CONTENT! -->
+<div class="w3-main" style="margin-left:340px;margin-right:40px">
+
+  <!-- Pertemuan 1 -->
+  <div class="w3-container" style="margin-top:10px" id="pertemuan-1">
+    <!-- <h1 class="w3-jumbo"><b>Interior Design</b></h1> -->
+<a role="button" href="\index.html" style="margin:30px 0px 10px 0px;" class="btn btn-success w3-padding" id="tombol_home">Home</a>
+	<p>Terakhir diedit pada</p><p id="tanggal"></p>
+
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 1</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	  
+	  <h2>Silabus</h2>
+	  
+	  <div class="overflow-auto">
+		<table class="table table-striped">
+		<caption></caption>
+		<tr>
+		  <td>Fakultas</td><td>&nbsp;:&emsp;</td><td>Fakultas Ekonomi dan Bisnis Islam</td>
+		</tr>
+		<tr>
+		  <td>Program Studi</td><td>&nbsp;:&emsp;</td><td>Ekonomi Syariah</td>
+		</tr>
+		<tr>
+		  <td>Mata Kuliah</td><td>&nbsp;:&emsp;</td><td>Praktik Statistik</td>
+		</tr>
+		<tr>
+		  <td>Jumlah SKS</td><td>&nbsp;:&emsp;</td><td>2 SKS</td>
+		</tr>
+		<tr>
+		  <td>Mata Kuliah Prasyarat</td><td>&nbsp;:&emsp;</td><td>-</td>
+		</tr>
+		<tr>
+		  <td>Dosen Pengampu</td><td>&nbsp;:&emsp;</td><td>Galih Pradananta, M.Si.</td>
+		</tr>
+		<!-- And so on -->
+		</table>
+	  </div>
+
+			  <h3>Deskripsi Mata Kuliah</h3>
+		<p>Mata kuliah statistik inferensial ini membekali mahasiswa untuk dapat mengerti sifat populasi melalui pengujian data sampel. Sehingga diharapkan setelah menguji data sampel, kita dapat memberikan kesimpulan dan keputusan yang tepat bagi populasi.      </p>
+
+			  <h3>Standar Kompetensi</h3>
+		<p>Mahasiswa dapat memahami prinsip pengujian statistika dan mampu menerapkannya untuk pengujian hipotesis penelitian.</p>
+
+			  <h3>Sumber Bahan</h3>
+		<p>Keller, Gerald. 2018. Statistics for Management and Economics: 11e, Boston:
+		Cengage Learning.
+		</p>
+
+		<h3>Rencana Pembelajaran</h3>
+		<div class="overflow-auto">
+		<table  class="table table-striped">
+		<caption></caption>
+		<tr>
+		  <td><strong>Minggu Ke-</strong></td>
+		  <td><strong>Topik Kajian</strong></td>
+		  <td><strong>Kegiatan Pembelajaran</strong></td>
+		  <td><strong>Sumber Bahan</strong></td>
+		</tr>
+		<tr>
+		  <td>1</td><td>Silabus dan Kontrak Kuliah
+		  <ul>
+		  <li>Statistik Deskriptif versus Statistik Inferensial</li>
+		  </ul>
+		  </td><td>Diskusi dan Rangkuman</td><td>-</td>
+		</tr>
+		<tr>
+		  <td>2</td><td>Distribusi Sampling
+		  <ul>
+		  <li>Distribusi Sampling Rata-rata </li>
+		  <li>Teorema Limit Pusat</li>
+		  <li>Distribusi Sampling untuk Inferensi</li>
+		  <li>Distribusi Sampling Proporsi</li>
+		  <li>Distribusi Sampling dari Selisih Rata-rata</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 9</td>
+		</tr>
+		<tr>
+		  <td>3</td><td>Penaksiran/Estimasi
+		  <ul>
+		  <li>Penaksiran Titik</li>
+		  <li>Penaksiran Selang</li>
+		  <li>Penaksiran Rata-rata Populasi</li>
+		  <li>Penaksiran Galat</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 10</td>
+		</tr>
+		<tr>
+		  <td>4</td><td>Uji Hipotesis
+		  <ul>
+		  <li>Konsep Dasar Uji Hipotesis</li>
+		  <li>Menguji Rata-rata Populasi</li>
+		  <li>Daerah Penolakan</li>
+		  <li>P-Value</li>
+		  <li>Uji Satu dan Dua Arah</li>
+		  <li>Galat Tipe II</li>
+		  </ul>
+		  </td><td>Diskusi dan Tugas</td><td>Bab 11</td>
+		</tr>
+		<tr>
+		  <td>5</td><td>Inferensi Satu Populasi
+		  <ul>
+		  <li>Inferensi Rata-rata Populasi</li>
+		  <li>Inferensi Variansi Populasi</li>
+		  <li>Inferensi Proporsi Populasi</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 12</td>
+		</tr>
+		<tr>
+		  <td>6</td><td>Inferensi Dua Populasi
+		  <ul>
+		  <li>Inferensi Selisih Rata-rata Populasi: Sampel Saling Bebas</li>
+		  <li>Inferensi Selisih Rata-rata Populasi: Sampel Saling Berpasangan</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 13</td>
+		</tr>
+		<tr>
+		  <td>7</td><td>Inferensi Dua Populasi
+		  <ul>
+		  <li>Inferensi Perbandingan Dua Variansi</li>
+		  <li>Inferensi Selisih Proporsi Dua Populasi</li>
+		  </ul>
+		  </td><td>Diskusi dan Kuis</td><td>Bab 13</td>
+		</tr>
+		<tr>
+		  <td>8</td><td colspan="3" bgcolor="lightblue"><center>UTS</center></td>
+		</tr>
+		<tr>
+		  <td>9</td><td>ANOVA
+		  <ul>
+		  <li>ANOVA Satu Faktor</li>
+		  <li>Fisher LSD</li>
+		  <li>Bonferroni Adjustment</li>
+		  <li>Tukey Multiple Comparison</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 14</td>
+		</tr>
+		<tr>
+		  <td>10</td><td>ANOVA
+		  <ul>
+		  <li>ANOVA Dua Faktor</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 14</td>
+		</tr>
+		<tr>
+		  <td>11</td><td>Uji Khi Kuadrat
+		  <ul>
+		  <li>Uji Kecocokan Khi Kuadrat</li>
+		  <li>Uji Khi Kuadrat Tabel Kontingensi</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 15</td>
+		</tr>
+		<tr>
+		  <td>12</td><td>Regresi Linier Sederhana
+		  <ul>
+		  <li>Model</li>
+		  <li>Menaksir Koefisien</li>
+		  <li>Mendiagnosa Regresi (Ketidaknormalan, Heteroskedastisitas, Ketidakbebasan, dan Pencilan)</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 16</td>
+		</tr>
+		<tr>
+		  <td>13</td><td>Regresi Linier Berganda
+		  <ul>
+		  <li>Model</li>
+		  <li>Menaksir Koefisien</li>
+		  <li>Mendiagnosa Regresi (Multikolinieritas dan Uji Durbin-Watson)</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 17</td>
+		</tr>
+		<tr>
+		  <td>14</td><td>Statistik Nonparametrik
+		  <ul>
+		  <li>Uji Total Rangking Wilcoxon</li>
+		  <li>Uji Tanda Wilcoxon</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 19</td>
+		</tr>
+		<tr>
+		  <td>15</td><td>Statistik Nonparametrik
+		  <ul>
+		  <li>Uji Kruskal-Wallis</li>
+		  <li>Uji Friedman</li>
+		  <li>Koefisien Korelasi Rangking Spearman</li>
+		  </ul>
+		  </td><td>Diskusi</td><td>Bab 19</td>
+		</tr>
+		<tr>
+		  <td>16</td><td colspan="3" bgcolor="lightblue"><center>UAS</center></td>
+		</tr>
+		<!-- And so on -->
+		</table>
+		</div>
+
+
+			  <h3>Komponen Penilaian</h3>
+			  <table>
+		<caption></caption>
+		<tr>
+		  <th></th>
+		  <th></th>
+		  <th></th>
+		</tr>
+		<tr>
+		  <td>Tugas dan Keaktifan</td><td>&nbsp;:&emsp;</td><td>30%</td>
+		</tr>
+		<tr>
+		  <td>UTS</td><td>&nbsp;:&emsp;</td><td>35%</td>
+		</tr>
+		<tr>
+		  <td>UAS</td><td>&nbsp;:&emsp;</td><td>35%</td>
+		</tr>
+		<!-- And so on -->
+		</table>
+
+
+  </div>
+
+  <!-- Pertemuan 2 -->
+  <div class="w3-container" id="pertemuan-2" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 2</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p>Frida</p>
+	<p>Contoh Soal</p>
+	<p>Mandor pabrik pembotolan mengamati bahwa jumlah soda dalam setiap botol berukuran 32 ons. Sebenarnya merupakan variabel acak yang terdistribusi normal dengan rata-rata 32,2 ons dan standar deviasi 0,3 ons.</p>
+	<ol>
+	<li><p>Jika seorang pembeli membeli satu botol, berapa peluang botol tersebut berisi lebih banyak dari 32 ons?</p><p>Diketahui: $P(X>32)$</p></li>
+	<li><p>Jika seseorang pelanggan membeli sekotak 4 botol berapa probabilitas meannya jumlah keempat botol akan lebih besar dari 32 ons?</p></li>
+	</ol>
+	<p>Nabila</p>
+	<p>Contoh Soal</p>
+	<p>Mencari probabilitas bahwa mean  sampel kurang dari 750 dolar.</p>
+	<p>Jadi yang dicari $P(\bar{X}>750)$ dengan $\mu=800,\sigma=100,n=25$</p>
+	<p>Contoh Soal</p>
+	<p>Dalam pemilu terakhir, seorang wakil negara bagian memperoleh 52 persen suara. Satu tahun setelah pemilu, perwakilan tersebut mengadakan survey yang  menanyakan sampel acak 033 orang apakah mereka akan memilihnya pada pemilu berikutnya. Jika kita berasumsi bawah populasi tidak berubah, berapa probabilitas lebih dari separuh sampel akan memilih?</p>
+	<p>Nova</p>
+	<p>Misalkan gaji awal MBA di Wilfried Laurier University (WLU) terdistribusi normal dengan rata-rata 62.000 dolar dan standar deviasi 14.500 dolar. Gaji di awal MBA di UWO terdistribusi normal dengan rata-rata 60.000 dan deviasi standar 18.300 dolar. Jika dipilih sampel acak 50 MBA WLU dan sampel acak 60 MBA UWO berapa probabilitas rata-rata gaji awal lulusan WLU melebih rata-rata gaji lulusan UWO?</p>
+	<p class="w3-large w3-text-blue">Soal Tugas</p>
+	<ol>
+	<li>
+	<p>Nilai ujian tengah semester statistik berdistribusi normal dengan rata-rata 78 dan deviasi standar 6.</p>
+	<ol type="A">
+	<li><p>Berapa proporsi kelas yang nilai ujian tengah semesternya kurang dari 75?</p></li>
+	<li><p>Berapa peluang suatu kelas yang terdiri dari 50 orang mempunyai rata-rata nilai tengah semester kurang dari 75?</p></li>
+	</ol>
+	</li>
+	<li>
+	<p>Suppose that we have two normal populations with the means and standard deviations listed here. If random samples of size 25 are drawn from each population, what is the probability that the mean of sample 1 is greater than the mean of sample 2?</p>
+	<p>Population 1: $\mu=40,\sigma=6$</p>
+	<p>Population 2: $\mu=38,\sigma=8$</p>
+	</li>
+	<li>
+	<p>sebuah. Dalam percobaan binomial dengan $n=300$ dan $p=0,5$, tentukan peluang bahwa $p$ lebih besar dari 60 persen?</p>
+	<ol type="A">
+	<li>Ulangi bagian (a) dengan $p=0.55$</li>
+	<li>Ulangi bagian (a) dengan $p=0.6$</li>
+	</ol>
+	</li>
+	</ol>
+	<a href="https://drive.google.com/drive/folders/1ni4_iSzzWhMywX22Miotn1fPICoIfIAM?usp=sharing" target="_blank"><p class="w3-large w3-text-blue">Folder Jawaban Tugas 1</p></a>
+  </div>
+  
+  <!-- Pertemuan 3 -->
+  <div class="w3-container" id="pertemuan-3" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 3</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	
+	<a href="https://drive.google.com/drive/folders/1saCkmz0TLPXyqRFI5kIkK5dwHcB4jVSj?usp=sharing" target="_blank"><p class="w3-large w3-text-blue">Folder Jawaban Tugas 2</p></a>
+  </div>
+
+  <!-- Pertemuan 4 -->
+  <div class="w3-container" id="pertemuan-4" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 4</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p>Nassa</p>
+	<p>Hipotesis dapat diterima atau ditolak.</p>
+	<p>Hipotesis awal versus hipotesis alternatif.</p>
+	<p>Contoh soal: Rata-rata umur lampu.</p>
+	<p>Faisal</p>
+	<p>Daerah Penolakan</p>
+	<p>P-value</p>
+	<p>Tolak H0 jika z hitung lebih besar dari z tabel atau p-value lebih kecil dari $\alpha$</p>
+	<p>Ariq</p>
+	<p>Hipotesis satu arah</p>
+	<p>Contoh soal satu arah: Nanas maju jaya</p>
+	<p>Contoh soal dua arah: PT Makmur Jaya</p>
+	<a href="https://drive.google.com/drive/folders/1oDqChG8F66tIsEXOn9TiyAj4LQ3QsPZQ?usp=sharing" target="_blank"><p class="w3-large w3-text-blue">Folder Jawaban Tugas 3</p></a>
+  </div>
+
+
+  <div class="w3-container" id="pertemuan-5" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 5</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<a href="https://drive.google.com/drive/folders/1skIVqjY5vEVFvQFm68QzGr2kMbo1uHMu?usp=sharing" target="_blank"><p class="w3-large w3-text-blue">Folder Jawaban Tugas 4</p></a>
+  </div>
+ 
+  <div class="w3-container" id="pertemuan-6" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 6</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p>Inferensi Dua Populasi</p>
+	<p>Faiza</p>
+	<p>Inferensi selisih rata-rata populasi</p>
+	<p>Dibedakan menjadi berbeda variansi dan variansinya sama</p>
+	<p>Menguji variansi populasi</p>
+	<p>Vionica</p>
+	<p>Inferensi selisih rata-rata data Berpasangan</p>
+	<p></p>
+	<a href="https://drive.google.com/drive/folders/1zT0AfxKIJbgMt7uXjzBAUSy2mGH-ZpKE?usp=sharing" target="_blank"><p class="w3-large w3-text-blue">Folder Jawaban Tugas 5</p></a>
+  </div>
+
+  <div class="w3-container" id="pertemuan-7" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 7</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<a href="https://drive.google.com/drive/folders/1vrT42nsaG80mIamQrB9ZuH1ma5EiZtMq?usp=sharing" target="_blank"><p class="w3-large w3-text-blue">Folder Jawaban Tugas 6</p></a>
+  </div>  
+
+  <div class="w3-container" id="uts" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 8</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p>ANOVA</p>
+	<p>Luqman</p>
+	<p>Anova satu faktor</p>
+	<p>SST=sum square of treatment</p>
+	<p>SSE=sum square of error</p>
+	<p>$MST=\dfrac{SST}{k-1}$</p>
+	<p>$MSE=\dfrac{SSE}{n-k}$</p>
+	<p>$F=\dfrac{MST}{MSE}$</p>
+	<p>Hany</p>
+	<p>Metode Fisher</p>
+	<p>Metode Bonferroni</p>
+	<p>Renanda</p>
+	<p>Metode Tukey</p>
+	<p></p>
+  </div>
+  
+  <div class="w3-container" id="pertemuan-9" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>UTS</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+	<p class="h1">Soal UTS</p>
+	<p class="h2">Ketentuan UTS</p>
+	<ol>
+		<li>Jawaban UTS diketik pada Ms. Word pada halaman A4 dengan margin kiri 2cm, kanan 1cm, atas 1cm, dan bawah 1cm.</li>
+		<li>Soal terdiri atas bagian A dan bagian B.</li>
+		<li>Soal bagian A terdiri dari 2 soal dan soal bagian B terdiri dari 5 soal.</li>
+		<li>Antar kelompok pada soal bagian B dibedakan atas data provinsi yang diolah. </li>
+		<li>Silahkan mencari data provinsi kelompok pada BPS masing-masing provinsi. Di sini sudah ada contoh tempat data yang diperlukan pada bagian B berada untuk provinsi Jawa Timur.</li>
+		<!-- <li>Segala perhitungan menggunakan tabel wajib dilakukan menggunakan aplikasi dan mencamtukan hasilnya (gambar) pada lembar jawaban.</li> -->
+		<li>Data BPS Provinsi yang diolah wajib dilampirkan pada lembar jawaban UTS.</li>
+		<li>Lembar jawaban UTS maksimal dikumpulkan pada hari Rabu, 24 April 2024 pukul 12.00 WIB di meja saya.</li>
+	</ol>
+	<p class="h2">Pertanyaan</p>
+	<p class="h3">Bagian A</p>
+	<ol>
+		<li>
+		Suatu mesin otomatis dalam suatu proses manufaktur beroperasi dengan baik jika panjang suatu subkomponen penting berdistribusi normal dengan rata-rata = 119 cm dan standar deviasi = 5,2 cm. Carilah peluang bahwa jika empat subkomponen dipilih secara acak, panjang rata-ratanya melebihi 121 cm.
+		</li>
+		<li>
+		Selama cek up tahunan, seorang dokter mengirimkan pasiennya secara rutin ke laboratorium untuk dilakukan beberapa uji. Salah satu tes yang diujikan adalah untuk mengecek tingkat kolesterol dalam darah. Sepuluh 10 orang pasien dokter ini tercatat level kolesterolnya seperti pada tertulis di bawah ini. <br> 188&nbsp; 193&nbsp; 186&nbsp; 184&nbsp; 190&nbsp; 195&nbsp; 187&nbsp; 190&nbsp; 192&nbsp; 196&nbsp; <br> Tentukan selang kepercayaan 94% dari variansi level kolesterol di atas.
+		</li>
+	</ol>
+	<p class="h3">Bagian B</p>
+	<ol>
+		<li>Apakah rata-rata pertumbuhan ekonomi per kabupaten/kota di Jawa Timur tahun 2019 lebih besar daripada tahun 2021?</li>
+		<li>Apakah rata-rata Indeks Pembangunan Manusia per kabupaten/kota di Jawa Timur tahun 2019 lebih besar daripada tahun 2021?</li>
+		<li>Apakah perbedaan yang ada pada nomor 1 dan 2 signifikan secara statistik? Gunakan alfa 5 persen.</li>
+		<li>Berikan alasan dan uraian logis berdasarkan pengetahuan saudara mengapa kedua perbedaan di atas bisa terjadi? </li>
+		<li>Berikan pendapat para ahli tentang hal ini yang mendukung uraian logis Anda dengan mencantumkan sumber argumentasi tersebut sebagai referensi.</li>
+	</ol>
+	<p class="h2">Pembagian Provinsi</p>
+	<ol>
+		<li>Kelompok 1	: DKI Jakarta</li>
+		<li>Kelompok 2	: Banten</li>
+		<li>Kelompok 3	: Jawa Barat</li>
+		<li>Kelompok 4	: Jawa Tengah</li>
+		<li>Kelompok 5	: DI Yogyakarta</li>
+		<li>Kelompok 6	: Jawa Timur</li>
+		<li>Kelompok 7	: Bali</li>
+		<li>Kelompok 8	: NTB</li>
+		<li>Kelompok 9	: NTT</li>
+		<li>Kelompok 10	: Sumatera Barat</li>
+		<li>Kelompok 11	: DI Aceh</li>
+		<li>Kelompok 12	: Sumatera Selatan</li>
+		<li>Kelompok 13	: Sumatera Utara</li>
+	</ol>
+	<p class="h2">Sumber Data</p>
+	<ol>
+		<li><a href="https://jatim.bps.go.id/subject/162/produk-domestik-regional-bruto--kabupaten-kota-.html#subjekViewTab3">Situs BPS Provinsi: PDRB</a> </li>
+		<li><a href="https://jatim.bps.go.id/subject/26/indeks-pembangunan-manusia.html#subjekViewTab4">Situs BPS Provinsi: IPM</a></li>
+	</ol>
+
+  </div>
+  
+  <div class="w3-container" id="pertemuan-10" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 10</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="pertemuan-11" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 11</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="pertemuan-12" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 12</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="pertemuan-13" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 13</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="pertemuan-14" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 14</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="pertemuan-15" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Pertemuan 15</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+  
+  <div class="w3-container" id="uas" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>UAS</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+  </div>
+    
+  <!-- Contact -->
+  <div class="w3-container" id="contact" style="margin-top:75px">
+    <h1 class="w3-xlarge w3-text-red"><b>Contact.</b></h1>
+    <hr style="width:50px;border:5px solid red" class="w3-round">
+    <p>Do you want us to style your home? Fill out the form and fill me in with the details :) We love meeting new people!</p>
+    <form action="/action_page.php" target="_blank">
+      <div class="w3-section">
+        <label>Name</label>
+        <input class="w3-input w3-border" type="text" name="Name" required>
+      </div>
+      <div class="w3-section">
+        <label>Email</label>
+        <input class="w3-input w3-border" type="text" name="Email" required>
+      </div>
+      <div class="w3-section">
+        <label>Message</label>
+        <input class="w3-input w3-border" type="text" name="Message" required>
+      </div>
+      <button type="submit" class="w3-button w3-block w3-padding-large w3-red w3-margin-bottom">Send Message</button>
+    </form>  
+  </div>
+
+<!-- End page content -->
+</div>
+
+<!-- W3.CSS Container -->
+<div class="w3-light-grey w3-container w3-padding-32" style="margin-top:75px;padding-right:58px"><p class="w3-right">Powered by <a href="https://www.w3schools.com/w3css/default.asp" title="W3.CSS" target="_blank" class="w3-hover-opacity">w3.css</a></p></div>
+
+<script>
+// Script to open and close sidebar
+function w3_open() {
+  document.getElementById("mySidebar").style.display = "block";
+  document.getElementById("myOverlay").style.display = "block";
+}
+ 
+function w3_close() {
+  document.getElementById("mySidebar").style.display = "none";
+  document.getElementById("myOverlay").style.display = "none";
+}
+
+// Modal Image Gallery
+function onClick(element) {
+  document.getElementById("img01").src = element.src;
+  document.getElementById("modal01").style.display = "block";
+  var captionText = document.getElementById("caption");
+  captionText.innerHTML = element.alt;
+}
+const date = new Date(document.lastModified); document.getElementById("tanggal").innerHTML = date;
+</script>
+
+ <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Galih Pradananta</h3>
+      <p>You just have to live for this one minute.</p>
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@galihagpradananta"  target="_blank" class="tiktok"><i class="bx bxl-tiktok"></i></a>
+        <a href="https://www.facebook.com/paggalih"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://www.instagram.com/paggalih/"  target="_blank" class="instagram-alt"><i class="bx bxl-instagram-alt"></i></a>
+        <a href="https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA"  target="_blank" class="youtube"><i class="bx bxl-youtube"></i></a>
+        <a href="https://id.linkedin.com/in/galih-pradananta-34666362"  target="_blank" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
+      <!-- </div> -->
+      <!-- <div class="copyright"> -->
+        <!-- &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved -->
+      <!-- </div> -->
+      <!-- <div class="credits"> -->
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: [license-url] -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
+        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+      </div>
+	  <a href="https://info.flagcounter.com/rFMs"><img src="https://s11.flagcounter.com/count2/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="/assets/vendor/aos/aos.js"></script>
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+</body>
+</html>
