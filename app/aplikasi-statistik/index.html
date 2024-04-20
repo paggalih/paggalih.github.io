@@ -96,7 +96,7 @@ li > .collapse {
 			  <label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
 			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			<div id="tempatDiagramBatang" class="overflow-auto vh-50">
+			<div id="tempatDiagramBatang" class="overflow-auto">
 			  <canvas id="gambarDiagramBatang"></canvas>
 			</div>
 			</div>    
@@ -146,9 +146,9 @@ new Chart("gambarDiagramBatang", {
     datasets: [{
 		backgroundColor: poolColors(yValues.length),
 		borderColor: poolColors(yValues.length),
-        barThickness: 6,
-		maxBarThickness: 8,
-        minBarLength: 5,
+        <!-- barThickness: 6, -->
+		<!-- maxBarThickness: 8, -->
+        <!-- minBarLength: 5, -->
 		data: yValues
     }]
   },
