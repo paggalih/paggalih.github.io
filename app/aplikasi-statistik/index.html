@@ -55,12 +55,7 @@ li > .collapse {
   margin-right: 2rem;
 }
 @media (max-width: 991px) {
-.form-floating > div {
-	height: 200px;
-}
-.form-floating > div > canvas {
-	width: 500px;
-}
+
 }
 
 </style>
@@ -162,8 +157,6 @@ new Chart("gambarDiagramBatang", {
     }]
   },
   options: {
-	maintainAspectRatio: false,
-	scales: {x: {grid: {offset: true}}},
 	plugins: {
 	    legend: {display: false},
 		title: {
