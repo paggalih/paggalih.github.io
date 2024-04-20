@@ -96,7 +96,7 @@ li > .collapse {
 			  <label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
 			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			<div id="tempatDiagramBatang">
+			<div id="tempatDiagramBatang" class="overflow-auto">
 			  <canvas id="gambarDiagramBatang"></canvas>
 			</div>
 			</div>    
@@ -107,6 +107,7 @@ li > .collapse {
 					document.getElementById("hasilDiagramBatang").style.display = "none"; 
 					document.getElementById("gambarDiagramBatang").remove(); 
 					var tempat = document.getElementById("tempatDiagramBatang");
+					tempat.classList.add("overflow-auto");
 					var gambar = document.createElement("canvas");
 					gambar.id = "gambarDiagramBatang";
 					tempat.appendChild(gambar);
@@ -147,7 +148,7 @@ new Chart("gambarDiagramBatang", {
 		borderColor: poolColors(yValues.length),
         barThickness: 6,
 		maxBarThickness: 8,
-        minBarLength: 2,
+        minBarLength: 5,
 		data: yValues
     }]
   },
