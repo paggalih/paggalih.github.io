@@ -10,7 +10,7 @@
 # General
 --------------------------------------------------------------*/
 body {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
   color: #272829;
 }
 
@@ -1258,7 +1258,12 @@ mjx-container {
   padding: 10px;
 }
 
-/* @media screen and (max-width: 768px) { */
+@media (min-width: 991px) {
+.nav-menu a:hover, .nav-menu .active, .nav-menu .active:focus, .nav-menu li:hover > a {
+  border-bottom: 5px solid #ccdffc;
+  border-top: 5px solid #ccdffc;
+}
+}
 @media (max-width: 991px) {
 .dropdown-toggle {
 	background: #0563BB;
@@ -1269,4 +1274,16 @@ mjx-container {
     margin-right: 50px;
     border-bottom-right-radius: 50px;
 }
+#header {
+	border-top-right-radius: 50vh;
+}
+}
+
+@font-face {
+  font-family: "Computer Modern Sans", sans-serif;
+  src: url(https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css);
+}
+
+* {
+  font-family: "Computer Modern Sans", sans-serif;
 }
