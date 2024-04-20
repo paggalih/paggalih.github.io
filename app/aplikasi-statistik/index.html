@@ -139,10 +139,17 @@ new Chart("gambarDiagramBatang", {
     datasets: [{
 		backgroundColor: poolColors(yValues.length),
 		borderColor: poolColors(yValues.length),
+        barThickness: 6,
+		maxBarThickness: 8,
+        minBarLength: 2,
 		data: yValues
     }]
   },
   options: {
+	scales: {
+		x: {grid: {offset: true}},
+		y: {ticks: {stepSize:5}}
+	},
 	plugins: {
 	    legend: {display: false},
 		title: {
