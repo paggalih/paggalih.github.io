@@ -465,7 +465,7 @@ section {
   font-size: 36px;
   display: block;
   font-weight: 600;
-  color: #011426;
+  /* color: #011426; */
 }
 
 .facts .count-box p {
@@ -1290,3 +1290,7 @@ body {
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	font-family: "Poppins", sans-serif !important;
 } 
+
+.facts .count-box span {
+  color: #0563bb;
+}
