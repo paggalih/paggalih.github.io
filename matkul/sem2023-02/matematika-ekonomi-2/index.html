@@ -557,7 +557,20 @@ I_t&=200
 	<button type="button" class="btn btn-primary" onclick="validate()">UTS</button>
 	<button type="button" class="btn btn-primary" onclick="closeValidate()">UTS</button>
 
-	<div id="berhasilValidate" style="display: none"><p>Aku Galih</p></div>
+	<div id="berhasilValidate" style="display: none">
+	<p class="h1">Soal UTS</p>
+	<ol>
+		<li>Tentukan $\displaystyle \int_{1}^{9}\dfrac{6}{\sqrt{x}}dx.$</li>
+		<li>Tentukan surplus konsumen pada sebuah barang dengan fungsi permintaan $P=25-2Q$ dan fungsi penawaran $P=13+2Q.$</li>
+		<li>Maksimumkan $2x+3y$ dengan kendala $$\begin{align*}
+		5x+4y&\le 30\\
+		x-2y&\ge -8\\
+		x&\ge 0\\
+		y&\ge 0
+		\end{align*}$$</li>
+	
+	</ol>
+	</div>
 	<script>
 	function validate() {
 	  let person = prompt("Masukkan ID", "Ja'far");
