@@ -1,1298 +1,737 @@
-/**
-* Template Name: MyResume
-* Updated: Jun 13 2023 with Bootstrap v5.3.0
-* Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
-* Author: BootstrapMade.com
-* License: https://bootstrapmade.com/license/
-*/
-
-/*--------------------------------------------------------------
-# General
---------------------------------------------------------------*/
-body {
-  /* font-family: "Open Sans", sans-serif; */
-  color: #272829;
-}
-
-a {
-  color: #0563bb;
-  text-decoration: none;
-}
-
-a:hover {
-  color: #067ded;
-  text-decoration: none;
-}
-
-/* h1, */
-/* h2, */
-/* h3, */
-/* h4, */
-/* h5, */
-/* h6 { */
-  /* font-family: "Raleway", sans-serif; */
-/* } */
-
-/*--------------------------------------------------------------
-# Back to top button
---------------------------------------------------------------*/
-.back-to-top {
-  position: fixed;
-  visibility: hidden;
-  opacity: 0;
-  right: 15px;
-  bottom: 15px;
-  z-index: 996;
-  background: #0563bb;
-  width: 40px;
-  height: 40px;
-  border-radius: 50px;
-  transition: all 0.4s;
-}
-
-.back-to-top i {
-  font-size: 28px;
-  color: #fff;
-  line-height: 0;
-}
-
-.back-to-top:hover {
-  background: #0678e3;
-  color: #fff;
-}
-
-.back-to-top.active {
-  visibility: visible;
-  opacity: 1;
-}
-
-/*--------------------------------------------------------------
-# Preloader
---------------------------------------------------------------*/
-#preloader {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  z-index: 9999;
-  overflow: hidden;
-  background: #fff;
-}
-
-#preloader:before {
-  content: "";
-  position: fixed;
-  top: calc(50% - 30px);
-  left: calc(50% - 30px);
-  border: 6px solid #0563bb;
-  border-top-color: #fff;
-  border-bottom-color: #fff;
-  border-radius: 50%;
-  width: 60px;
-  height: 60px;
-  animation: animate-preloader 1s linear infinite;
-}
-
-@keyframes animate-preloader {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/*--------------------------------------------------------------
-# Disable aos animation delay on mobile devices
---------------------------------------------------------------*/
-@media screen and (max-width: 768px) {
-  [data-aos-delay] {
-    transition-delay: 0 !important;
-  }
-}
-
-/*--------------------------------------------------------------
-# Header
---------------------------------------------------------------*/
-#header {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  z-index: 9997;
-  transition: all 0.5s;
-  padding: 15px;
-  overflow-y: auto;
-}
-
-@media (max-width: 991px) {
-  #header {
-    width: 300px;
-    background: #fff;
-    border-right: 1px solid #e6e9ec;
-    left: -300px;
-  }
-}
-
-@media (min-width: 991px) {
-  #main {
-    margin-left: 100px;
-  }
-}
-
-/*--------------------------------------------------------------
-# Navigation Menu
---------------------------------------------------------------*/
-/**
-* Desktop Navigation 
-*/
-.nav-menu {
-  padding: 0;
-  display: block;
-}
-
-.nav-menu * {
-  margin: 0;
-  padding: 0;
-  list-style: none;
-}
-
-.nav-menu>ul>li {
-  position: relative;
-  white-space: nowrap;
-}
-
-.nav-menu a,
-.nav-menu a:focus {
-  display: flex;
-  align-items: center;
-  color: #45505b;
-  padding: 10px 18px;
-  margin-bottom: 8px;
-  transition: 0.3s;
-  font-size: 15px;
-  border-radius: 50px;
-  background: #f2f3f5;
-  height: 56px;
-  width: 100%;
-  overflow: hidden;
-  transition: 0.3s;
-}
-
-.nav-menu a i,
-.nav-menu a:focus i {
-  font-size: 20px;
-}
-
-.nav-menu a span,
-.nav-menu a:focus span {
-  padding: 0 5px 0 7px;
-  color: #45505b;
-}
-
-@media (min-width: 992px) {
-
-  .nav-menu a,
-  .nav-menu a:focus {
-    width: 56px;
-  }
-
-  .nav-menu a span,
-  .nav-menu a:focus span {
-    display: none;
-    color: #fff;
-  }
-}
-
-.nav-menu a:hover,
-.nav-menu .active,
-.nav-menu .active:focus,
-.nav-menu li:hover>a {
-  color: #fff;
-  background: #0563bb;
-}
-
-.nav-menu a:hover span,
-.nav-menu .active span,
-.nav-menu .active:focus span,
-.nav-menu li:hover>a span {
-  color: #fff;
-}
-
-.nav-menu a:hover,
-.nav-menu li:hover>a {
-  width: 100%;
-  color: #fff;
-}
-
-.nav-menu a:hover span,
-.nav-menu li:hover>a span {
-  display: block;
-}
-
-/**
-* Mobile Navigation 
-*/
-.mobile-nav-toggle {
-  position: fixed;
-  right: 10px;
-  top: 10px;
-  z-index: 9998;
-  border: 0;
-  background: none;
-  font-size: 28px;
-  transition: all 0.4s;
-  outline: none !important;
-  line-height: 0;
-  cursor: pointer;
-  border-radius: 50px;
-  padding: 5px;
-}
-
-.mobile-nav-toggle i {
-  color: #45505b;
-}
-
-.mobile-nav-active {
-  overflow: hidden;
-}
-
-.mobile-nav-active #header {
-  left: 0;
-}
-
-.mobile-nav-active .mobile-nav-toggle {
-  color: #fff;
-  background-color: #0563bb;
-}
-
-/*--------------------------------------------------------------
-# Hero Section
---------------------------------------------------------------*/
-#hero {
-  width: 100%;
-  height: 100vh;
-  background: url("../img/hero-bg.jpg") top right no-repeat;
-  background-size: cover;
-  position: relative;
-}
-
-@media (min-width: 992px) {
-  #hero {
-    padding-left: 160px;
-  }
-}
-
-#hero:before {
-  content: "";
-  background: rgba(255, 255, 255, 0.8);
-  position: absolute;
-  bottom: 0;
-  top: 0;
-  left: 0;
-  right: 0;
-}
-
-#hero h1 {
-  margin: 0;
-  font-size: 64px;
-  font-weight: 700;
-  line-height: 56px;
-  color: #45505b;
-}
-
-#hero p {
-  color: #45505b;
-  margin: 15px 0 0 0;
-  font-size: 26px;
-  /* font-family: "Poppins", sans-serif; */
-}
-
-#hero p span {
-  color: #0563bb;
-  letter-spacing: 1px;
-}
-
-#hero .social-links {
-  margin-top: 30px;
-}
-
-#hero .social-links a {
-  font-size: 24px;
-  display: inline-block;
-  color: #45505b;
-  line-height: 1;
-  margin-right: 20px;
-  transition: 0.3s;
-}
-
-#hero .social-links a:hover {
-  color: #0563bb;
-}
-
-@media (max-width: 992px) {
-  #hero {
-    text-align: center;
-  }
-
-  #hero h1 {
-    font-size: 32px;
-    line-height: 36px;
-  }
-
-  #hero p {
-    margin-top: 10px;
-    font-size: 20px;
-    line-height: 24px;
-  }
-}
-
-/*--------------------------------------------------------------
-# Sections General
---------------------------------------------------------------*/
-section {
-  padding: 60px 0;
-  overflow: hidden;
-}
-
-.section-title {
-  text-align: center;
-  /* padding-bottom: 30px; */
-}
-
-.section-title h2 {
-  font-size: 32px;
-  font-weight: bold;
-  text-transform: uppercase;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  position: relative;
-  color: #45505b;
-}
-
-.section-title h2::before {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 120px;
-  height: 1px;
-  background: #ddd;
-  bottom: 1px;
-  left: calc(50% - 60px);
-}
-
-.section-title h2::after {
-  content: "";
-  position: absolute;
-  display: block;
-  width: 40px;
-  height: 3px;
-  background: #0563bb;
-  bottom: 0;
-  left: calc(50% - 20px);
-}
-
-.section-title p {
-  margin-bottom: 0;
-}
-
-/*--------------------------------------------------------------
-# About
---------------------------------------------------------------*/
-.about .content h3 {
-  font-weight: 700;
-  font-size: 26px;
-  color: #728394;
-}
-
-.about .content ul {
-  list-style: none;
-  padding: 0;
-}
-
-.about .content ul li {
-  margin-bottom: 20px;
-  display: flex;
-  align-items: center;
-}
-
-.about .content ul strong {
-  margin-right: 10px;
-}
-
-.about .content ul i {
-  font-size: 16px;
-  margin-right: 5px;
-  color: #0563bb;
-  line-height: 0;
-}
-
-.about .content p:last-child {
-  margin-bottom: 0;
-}
-
-/*--------------------------------------------------------------
-# Facts
---------------------------------------------------------------*/
-.facts .count-box {
-  padding: 30px 30px 25px 30px;
-  /* margin-top: 30px; */
-  width: 100%;
-  position: relative;
-  text-align: center;
-  background: #fff;
-}
-
-.facts .count-box i {
-  position: absolute;
-  top: -25px;
-  left: 50%;
-  transform: translateX(-50%);
-  font-size: 24px;
-  background: #0563bb;
-  color: #fff;
-  border-radius: 50px;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-}
-
-.facts .count-box span {
-  font-size: 36px;
-  display: block;
-  font-weight: 600;
-  /* color: #011426; */
-}
-
-.facts .count-box p {
-  padding: 0;
-  margin: 0;
-  /* font-family: "Raleway", sans-serif; */
-  font-size: 14px;
-}
-
-/*--------------------------------------------------------------
-# Akills
---------------------------------------------------------------*/
-.skills .progress {
-  height: 60px;
-  display: block;
-  background: none;
-  border-radius: 0;
-}
-
-.skills .progress .skill {
-  padding: 10px 0;
-  margin: 0;
-  text-transform: uppercase;
-  display: block;
-  font-weight: 600;
-  /* font-family: "Poppins", sans-serif; */
-  color: #45505b;
-}
-
-.skills .progress .skill .val {
-  float: right;
-  font-style: normal;
-}
-
-.skills .progress-bar-wrap {
-  background: #f2f3f5;
-}
-
-.skills .progress-bar {
-  width: 1px;
-  height: 10px;
-  transition: 0.9s;
-  background-color: #0563bb;
-}
-
-/*--------------------------------------------------------------
-# Resume
---------------------------------------------------------------*/
-.resume .resume-title {
-  font-size: 26px;
-  font-weight: 700;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  color: #45505b;
-}
-
-.resume .resume-item {
-  padding: 0 0 20px 20px;
-  margin-top: -2px;
-  border-left: 2px solid #0563bb;
-  position: relative;
-}
-
-.resume .resume-item h4 {
-  line-height: 18px;
-  font-size: 18px;
-  font-weight: 600;
-  text-transform: uppercase;
-  /* font-family: "Poppins", sans-serif; */
-  color: #0563bb;
-  margin-bottom: 10px;
-}
-
-.resume .resume-item h5 {
-  font-size: 16px;
-  background: #f7f8f9;
-  padding: 5px 15px;
-  display: inline-block;
-  font-weight: 600;
-  margin-bottom: 10px;
-}
-
-.resume .resume-item ul {
-  padding-left: 20px;
-}
-
-.resume .resume-item ul li {
-  padding-bottom: 10px;
-}
-
-.resume .resume-item:last-child {
-  padding-bottom: 0;
-}
-
-.resume .resume-item::before {
-  content: "";
-  position: absolute;
-  width: 16px;
-  height: 16px;
-  border-radius: 50px;
-  left: -9px;
-  top: 0;
-  background: #fff;
-  border: 2px solid #0563bb;
-}
-
-/*--------------------------------------------------------------
-# Portfolio
---------------------------------------------------------------*/
-.portfolio .portfolio-item {
-  margin-bottom: 30px;
-}
-
-.portfolio #portfolio-flters {
-  padding: 0;
-  margin: 0 auto 25px auto;
-  list-style: none;
-  text-align: center;
-  background: #fff;
-  border-radius: 50px;
-  padding: 2px 15px;
-}
-
-.portfolio #portfolio-flters li {
-  cursor: pointer;
-  display: inline-block;
-  padding: 10px 15px;
-  font-size: 14px;
-  font-weight: 600;
-  line-height: 1;
-  text-transform: uppercase;
-  color: #272829;
-  margin-bottom: 5px;
-  transition: all 0.3s ease-in-out;
-}
-
-.portfolio #portfolio-flters li:hover,
-.portfolio #portfolio-flters li.filter-active {
-  color: #0563bb;
-}
-
-.portfolio #portfolio-flters li:last-child {
-  margin-right: 0;
-}
-
-.portfolio .portfolio-wrap {
-  transition: 0.3s;
-  position: relative;
-  overflow: hidden;
-  z-index: 1;
-  background: rgba(69, 80, 91, 0.8);
-}
-
-.portfolio .portfolio-wrap::before {
-  content: "";
-  background: rgba(255, 255, 255, 0.7);
-  position: absolute;
-  left: 30px;
-  right: 30px;
-  top: 30px;
-  bottom: 30px;
-  transition: all ease-in-out 0.3s;
-  z-index: 2;
-  opacity: 0;
-}
-
-.portfolio .portfolio-wrap .portfolio-info {
-  opacity: 0;
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  text-align: center;
-  z-index: 3;
-  transition: all ease-in-out 0.3s;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-}
-
-.portfolio .portfolio-wrap .portfolio-info::before {
-  display: block;
-  content: "";
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  top: 35px;
-  left: 35px;
-  border-top: 3px solid #d7dce1;
-  border-left: 3px solid #d7dce1;
-  transition: all 0.5s ease 0s;
-  z-index: 9994;
-}
-
-.portfolio .portfolio-wrap .portfolio-info::after {
-  display: block;
-  content: "";
-  width: 48px;
-  height: 48px;
-  position: absolute;
-  bottom: 35px;
-  right: 35px;
-  border-bottom: 3px solid #d7dce1;
-  border-right: 3px solid #d7dce1;
-  transition: all 0.5s ease 0s;
-  z-index: 9994;
-}
-
-.portfolio .portfolio-wrap .portfolio-info h4 {
-  font-size: 20px;
-  color: #45505b;
-  font-weight: 600;
-}
-
-.portfolio .portfolio-wrap .portfolio-info p {
-  color: #45505b;
-  font-size: 14px;
-  text-transform: uppercase;
-  padding: 0;
-  margin: 0;
-}
-
-.portfolio .portfolio-wrap .portfolio-links {
-  text-align: center;
-  z-index: 4;
-}
-
-.portfolio .portfolio-wrap .portfolio-links a {
-  color: #45505b;
-  margin: 0 2px;
-  font-size: 28px;
-  display: inline-block;
-  transition: 0.3s;
-}
-
-.portfolio .portfolio-wrap .portfolio-links a:hover {
-  color: #148af9;
-}
-
-.portfolio .portfolio-wrap:hover::before {
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  opacity: 1;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info {
-  opacity: 1;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info::before {
-  top: 15px;
-  left: 15px;
-}
-
-.portfolio .portfolio-wrap:hover .portfolio-info::after {
-  bottom: 15px;
-  right: 15px;
-}
-
-/*--------------------------------------------------------------
-# Portfolio Details
---------------------------------------------------------------*/
-.portfolio-details {
-  padding-top: 40px;
-}
-
-.portfolio-details .portfolio-details-slider img {
-  width: 100%;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  opacity: 1;
-  border: 1px solid #0563bb;
-}
-
-.portfolio-details .portfolio-details-slider .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #0563bb;
-}
-
-.portfolio-details .portfolio-info {
-  padding: 30px;
-  box-shadow: 0px 0 30px rgba(69, 80, 91, 0.08);
-}
-
-.portfolio-details .portfolio-info h3 {
-  font-size: 22px;
-  font-weight: 700;
-  margin-bottom: 20px;
-  padding-bottom: 20px;
-  border-bottom: 1px solid #eee;
-}
-
-.portfolio-details .portfolio-info ul {
-  list-style: none;
-  padding: 0;
-  font-size: 15px;
-}
-
-.portfolio-details .portfolio-info ul li+li {
-  margin-top: 10px;
-}
-
-.portfolio-details .portfolio-description {
-  padding-top: 30px;
-}
-
-.portfolio-details .portfolio-description h2 {
-  font-size: 26px;
-  font-weight: 700;
-  margin-bottom: 20px;
-}
-
-.portfolio-details .portfolio-description p {
-  padding: 0;
-}
-
-/*--------------------------------------------------------------
-# Services
---------------------------------------------------------------*/
-.services .icon-box {
-  text-align: center;
-  padding: 70px 20px 80px 20px;
-  transition: all ease-in-out 0.3s;
-  background: #fff;
-  box-shadow: 0px 5px 90px 0px rgba(110, 123, 131, 0.05);
-}
-
-.services .icon-box .icon {
-  margin: 0 auto;
-  width: 100px;
-  height: 100px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  transition: ease-in-out 0.3s;
-  position: relative;
-}
-
-.services .icon-box .icon i {
-  font-size: 36px;
-  transition: 0.5s;
-  position: relative;
-}
-
-.services .icon-box .icon svg {
-  position: absolute;
-  top: 0;
-  left: 0;
-}
-
-.services .icon-box .icon svg path {
-  transition: 0.5s;
-  fill: #f5f5f5;
-}
-
-.services .icon-box h4 {
-  font-weight: 600;
-  margin: 10px 0 15px 0;
-  font-size: 22px;
-}
-
-.services .icon-box h4 a {
-  color: #45505b;
-  transition: ease-in-out 0.3s;
-}
-
-.services .icon-box p {
-  line-height: 24px;
-  font-size: 14px;
-  margin-bottom: 0;
-}
-
-.services .icon-box:hover {
-  border-color: #fff;
-  box-shadow: 0px 0 35px 0 rgba(0, 0, 0, 0.08);
-}
-
-.services .iconbox-blue i {
-  color: #47aeff;
-}
-
-.services .iconbox-blue:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-blue:hover .icon path {
-  fill: #47aeff;
-}
-
-.services .iconbox-orange i {
-  color: #ffa76e;
-}
-
-.services .iconbox-orange:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-orange:hover .icon path {
-  fill: #ffa76e;
-}
-
-.services .iconbox-pink i {
-  color: #e80368;
-}
-
-.services .iconbox-pink:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-pink:hover .icon path {
-  fill: #e80368;
-}
-
-.services .iconbox-yellow i {
-  color: #ffbb2c;
-}
-
-.services .iconbox-yellow:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-yellow:hover .icon path {
-  fill: #ffbb2c;
-}
-
-.services .iconbox-red i {
-  color: #ff5828;
-}
-
-.services .iconbox-red:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-red:hover .icon path {
-  fill: #ff5828;
-}
-
-.services .iconbox-teal i {
-  color: #11dbcf;
-}
-
-.services .iconbox-teal:hover .icon i {
-  color: #fff;
-}
-
-.services .iconbox-teal:hover .icon path {
-  fill: #11dbcf;
-}
-
-/*--------------------------------------------------------------
-# Testimonials
---------------------------------------------------------------*/
-.testimonials .section-header {
-  margin-bottom: 40px;
-}
-
-.testimonials .testimonials-carousel,
-.testimonials .testimonials-slider {
-  overflow: hidden;
-}
-
-.testimonials .testimonial-item {
-  text-align: center;
-}
-
-.testimonials .testimonial-item .testimonial-img {
-  width: 120px;
-  border-radius: 50%;
-  border: 4px solid #fff;
-  margin: 0 auto;
-}
-
-.testimonials .testimonial-item h3 {
-  font-size: 20px;
-  font-weight: bold;
-  margin: 10px 0 5px 0;
-  color: #111;
-}
-
-.testimonials .testimonial-item h4 {
-  font-size: 14px;
-  color: #999;
-  margin: 0 0 15px 0;
-}
-
-.testimonials .testimonial-item .quote-icon-left,
-.testimonials .testimonial-item .quote-icon-right {
-  color: #90c8fc;
-  font-size: 26px;
-}
-
-.testimonials .testimonial-item .quote-icon-left {
-  display: inline-block;
-  left: -5px;
-  position: relative;
-}
-
-.testimonials .testimonial-item .quote-icon-right {
-  display: inline-block;
-  right: -5px;
-  position: relative;
-  top: 10px;
-}
-
-.testimonials .testimonial-item p {
-  font-style: italic;
-  margin: 0 auto 15px auto;
-}
-
-.testimonials .swiper-pagination {
-  margin-top: 20px;
-  position: relative;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet {
-  width: 12px;
-  height: 12px;
-  background-color: #fff;
-  opacity: 1;
-  border: 1px solid #0563bb;
-}
-
-.testimonials .swiper-pagination .swiper-pagination-bullet-active {
-  background-color: #0563bb;
-}
-
-@media (min-width: 992px) {
-  .testimonials .testimonial-item p {
-    width: 80%;
-  }
-}
-
-/*--------------------------------------------------------------
-# Contact
---------------------------------------------------------------*/
-.contact .info {
-  width: 100%;
-  background: #fff;
-}
-
-.contact .info i {
-  font-size: 20px;
-  color: #0563bb;
-  float: left;
-  width: 44px;
-  height: 44px;
-  background: #eef7ff;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  border-radius: 50px;
-  transition: all 0.3s ease-in-out;
-}
-
-.contact .info h4 {
-  padding: 0 0 0 60px;
-  font-size: 22px;
-  font-weight: 600;
-  margin-bottom: 5px;
-  color: #45505b;
-}
-
-.contact .info p {
-  padding: 0 0 0 60px;
-  margin-bottom: 0;
-  font-size: 14px;
-  color: #728394;
-}
-
-.contact .info .email,
-.contact .info .phone {
-  margin-top: 40px;
-}
-
-.contact .info .email:hover i,
-.contact .info .address:hover i,
-.contact .info .phone:hover i {
-  background: #0563bb;
-  color: #fff;
-}
-
-.contact .php-email-form {
-  width: 100%;
-  background: #fff;
-}
-
-.contact .php-email-form .form-group {
-  padding-bottom: 8px;
-}
-
-.contact .php-email-form .error-message {
-  display: none;
-  color: #fff;
-  background: #ed3c0d;
-  text-align: left;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.contact .php-email-form .error-message br+br {
-  margin-top: 25px;
-}
-
-.contact .php-email-form .sent-message {
-  display: none;
-  color: #fff;
-  background: #18d26e;
-  text-align: center;
-  padding: 15px;
-  font-weight: 600;
-}
-
-.contact .php-email-form .loading {
-  display: none;
-  background: #fff;
-  text-align: center;
-  padding: 15px;
-}
-
-.contact .php-email-form .loading:before {
-  content: "";
-  display: inline-block;
-  border-radius: 50%;
-  width: 24px;
-  height: 24px;
-  margin: 0 10px -6px 0;
-  border: 3px solid #18d26e;
-  border-top-color: #eee;
-  animation: animate-loading 1s linear infinite;
-}
-
-.contact .php-email-form input,
-.contact .php-email-form textarea {
-  border-radius: 4px;
-  box-shadow: none;
-  font-size: 14px;
-}
-
-.contact .php-email-form input[type=text],
-.contact .php-email-form input[type=email] {
-  height: 44px;
-}
-
-.contact .php-email-form textarea {
-  padding: 10px 12px;
-}
-
-.contact .php-email-form button[type=submit] {
-  background: #0563bb;
-  border: 0;
-  padding: 10px 35px;
-  color: #fff;
-  transition: 0.4s;
-  border-radius: 50px;
-}
-
-.contact .php-email-form button[type=submit]:hover {
-  background: #0678e3;
-}
-
-@keyframes animate-loading {
-  0% {
-    transform: rotate(0deg);
-  }
-
-  100% {
-    transform: rotate(360deg);
-  }
-}
-
-/*--------------------------------------------------------------
-# Footer
---------------------------------------------------------------*/
-#footer {
-  background: #f7f8f9;
-  color: #45505b;
-  font-size: 14px;
-  text-align: center;
-  padding: 30px 0;
-}
-
-#footer h3 {
-  font-size: 36px;
-  font-weight: 700;
-  position: relative;
-  /* font-family: "Poppins", sans-serif; */
-  padding: 0;
-  margin: 0 0 15px 0;
-}
-
-#footer p {
-  font-size: 15;
-  font-style: italic;
-  padding: 0;
-  margin: 0 0 40px 0;
-}
-
-#footer .social-links {
-  margin: 0 0 40px 0;
-}
-
-#footer .social-links a {
-  font-size: 18px;
-  display: inline-block;
-  background: #0563bb;
-  color: #fff;
-  line-height: 1;
-  padding: 8px 0;
-  margin-right: 4px;
-  border-radius: 50%;
-  text-align: center;
-  width: 36px;
-  height: 36px;
-  transition: 0.3s;
-}
-
-#footer .social-links a:hover {
-  background: #0678e3;
-  color: #fff;
-  text-decoration: none;
-}
-
-#footer .copyright {
-  margin: 0 0 5px 0;
-}
-
-#footer .credits {
-  font-size: 13px;
-}
-
-/* Galih */
-.accordion-button>span,
-.accordion-button>i {
-	/* color: #0563BB; */
-  /* font-family: "Raleway", sans-serif; */
-}
-
-.accordion-button,
-.dropdown-toggle {
-	background: #0563BB;
-	padding-bottom: 20px;
-	padding-top: 20px;
-	width: 100%;
-	color: aliceblue;
-}
-
-.accordion-body {
-  border-style: solid;
-  border-width: 0px 0px 0px 15px;
-  border-color: aliceblue;
-  border-bottom-left-radius: 50px;
-  border-bottom-right-radius: 50px;
-}
-
-.dropdown-toggle:active,
-.dropdown-toggle:hover
-{
-	background: aliceblue;
-  border-style: solid;
-  border-color: #0563BB;
-}
-
-.accordion-body>button {
-	margin: 10px 0px;
-}
-
-#post-title {
-  background: #ccdffc;
-  text-align: center;
-  padding: 15px 0px 15px 0px;
-}
-
-mjx-container {
-  overflow-x: auto;
-  overflow-y: hidden;
-}
-
-.img-fluid {
-  padding: 10px;
-}
-
-@media (min-width: 991px) {
-.nav-menu a:hover, .nav-menu .active, .nav-menu .active:focus, .nav-menu li:hover > a {
-  border-bottom: 5px solid #ccdffc;
-  border-top: 5px solid #ccdffc;
-}
-}
-@media (max-width: 991px) {
-.dropdown-toggle {
-	background: #0563BB;
-	width: 100%;
-	text-wrap: wrap;
-}
-#post-title {
-    margin-right: 50px;
-    border-bottom-right-radius: 50px;
-}
-#header {
-	border-top-right-radius: 50vh;
-}
-}
-
-@import url('https://fonts.googleapis.com/css2?family=Bentham&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
-
-p, span {
-  /* font-family: "Open Sans", sans-serif; */
-  /* font-family: "Bentham", serif ; */
-}
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .w3-button, a, li {
-	/* font-family: "Poppins", sans-serif ; */
-} 
-
-.facts .count-box span {
-  color: #0563bb;
-}
+<!DOCTYPE html>
+<html lang="en-US">
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+
+  <title>Galih Pradananta</title>
+  <meta content="Sebuah catatan dosen dan mantan pemain olimpiade" name="description">
+  <meta content="resume, mata kuliah, dosen, uin tulungagung, olimpiade" name="keywords">
+  <meta name="author" content="Galih Pradananta">
+
+  <!-- Favicons -->
+  <link href="assets/img/letter-g.gif" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <!-- Google Fonts -->
+  <!-- <link href="https://fonts.googleapis.com/css?family=Open+Sans:300,300i,400,400i,600,600i,700,700i|Raleway:300,300i,400,400i,500,500i,600,600i,700,700i|Poppins:300,300i,400,400i,500,500i,600,600i,700,700i" rel="stylesheet"> -->
+
+  <!-- Vendor CSS Files -->
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+
+  <!-- Template Main CSS File -->
+  <link href="assets/css/style.css" rel="stylesheet">
+
+  <!-- =======================================================
+  * Template Name: MyResume
+  * Updated: Jun 13 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+</head>
+
+<body>
+
+  <!-- ======= Mobile nav toggle button ======= -->
+  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex flex-column justify-content-center">
+
+    <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <li><a href="#hero" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
+        <li><a href="#portfolio" class="nav-link scrollto"><i class="bx bx-book-content"></i> <span>Menu</span></a></li>	
+        <!-- <li><a href="#about" class="nav-link scrollto"><i class="bx bx-user"></i> <span>About</span></a></li> -->
+		<li><a href="#award" class="nav-link scrollto"><i class="bx bx-award"></i> <span>Award</span></a></li>
+        <li><a href="#resume" class="nav-link scrollto"><i class="bx bx-file-blank"></i> <span>Resume</span></a></li>
+        <!-- <li><a href="#services" class="nav-link scrollto"><i class="bx bx-server"></i> <span>Services</span></a></li> -->
+        <!-- <li><a href="#contact" class="nav-link scrollto"><i class="bx bx-envelope"></i> <span>Contact</span></a></li> -->
+      </ul>
+    <!-- <!-- </nav><!-- .nav-menu --> 
+
+  </header><!-- End Header -->
+
+  <!-- ======= Hero Section ======= -->
+  <section id="hero" class="d-flex flex-column justify-content-center">
+    <div class="container" data-aos="zoom-in" data-aos-delay="100">
+      <h1>Galih Pradananta</h1>
+      <p>I'm a <span class="typed" data-typed-items="Lecturer., Researcher., Olymp Tutor., Traveler."></span></p>
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@galihagpradananta"  target="_blank" class="tiktok"><i class="bx bxl-tiktok"></i></a>
+        <a href="https://www.facebook.com/paggalih"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://www.instagram.com/paggalih/"  target="_blank" class="instagram-alt"><i class="bx bxl-instagram-alt"></i></a>
+        <a href="https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA"  target="_blank" class="youtube"><i class="bx bxl-youtube"></i></a>
+        <a href="https://id.linkedin.com/in/galih-pradananta-34666362"  target="_blank" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
+      </div>
+    </div>
+  </section><!-- End Hero -->
+
+  <main id="main">
+  
+    <!-- ======= Portfolio Section ======= -->
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Menu</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100">
+            <ul id="portfolio-flters">
+              <li data-filter="*" class="filter-active">All</li>
+              <li data-filter=".filter-course">Course</li>
+              <li data-filter=".filter-olympiad">Olympiad</li>
+              <li data-filter=".filter-life">Life</li>
+            </ul>
+          </div>
+        </div>
+
+        <div class="row portfolio-container" data-aos="fade-up" data-aos-delay="200">
+		
+<div class="dropdown col-lg-4 col-sm-12 portfolio-item filter-course">
+<a href="app/aplikasi-statistik" class="fw-bold btn  dropdown-toggle" role="button" aria-pressed="true">Aplikasi Statistik</a>
+</div>
+
+<div class="dropdown col-lg-4 col-sm-12 portfolio-item filter-olympiad">
+<a href="olimpiade/osk-2024" class="fw-bold btn  dropdown-toggle" role="button" aria-pressed="true">Olimpiade Sains Kabupaten</a>
+  <!-- <button class="fw-bold btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> -->
+    <!-- Olimpiade Sains Kabupaten -->
+  <!-- </button> -->
+  <!-- <ul class="dropdown-menu dropdown-menu-dark"> -->
+    <!-- <li><a class="dropdown-item" href="olimpiade/osk-2024">OSK 2024</a></li> -->
+  <!-- </ul> -->
+</div>
+
+<div class="dropdown col-lg-4 col-sm-12 portfolio-item filter-course">
+  <button class="fw-bold btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Semester Genap 2023/2024
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li><a class="dropdown-item" href="matkul/sem2023-02/praktik-statistik">Praktik Statistik</a></li>
+    <li><a class="dropdown-item" href="matkul/sem2023-02/statistik-inferensial">Statistik Inferensial</a></li>
+    <li><a class="dropdown-item" href="matkul/sem2023-02/matematika-ekonomi-2">Matematika Ekonomi 2</a></li>
+    <li><a class="dropdown-item" href="matkul/sem2023-02/statistik">Statistik</a></li>
+  </ul>
+</div>
+
+<div class="dropdown col-lg-4 col-sm-12 portfolio-item filter-course">
+  <button class="fw-bold btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+    Semester Ganjil 2023/2024
+  </button>
+  <ul class="dropdown-menu dropdown-menu-dark">
+    <li><a class="dropdown-item" href="matkul/sem2023-01/matematika-ekonomi">Matematika Ekonomi</a></li>
+    <li><a class="dropdown-item" href="matkul/sem2023-01/statistik">Statistik</a></li>
+  </ul>
+</div>
+
+<div class="dropdown col-lg-4 col-sm-12 portfolio-item filter-life">
+<a href="reflection" class="fw-bold btn  dropdown-toggle" role="button" aria-pressed="true">Reflection</a>
+  <!-- <button class="fw-bold btn  dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false"> -->
+    <!-- Reflection -->
+  <!-- </button> -->
+  <!-- <ul class="dropdown-menu dropdown-menu-dark"> -->
+    <!-- <li><a class="dropdown-item" href="reflection">Visit</a></li> -->
+  <!-- </ul> -->
+</div>
+		
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-course"> -->
+                  <!-- <a href="matkul/sem2023-02/statistik-inferensial" class="portfolio-details-lightbox" data-glightbox="type: external" title="Portfolio Details"><img src="matkul/genap statistik inferensial.png" class="img-fluid" alt=""></a> -->
+                  <!-- <a href="matkul/sem2023-02/statistik-inferensial" title="Portfolio Details"><img src="matkul/genap statistik inferensial.png" class="img-fluid" alt=""></a>			   -->
+          <!-- </div> -->
+		
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-course"> -->
+                  <!-- <a href="matkul/sem2023-02/statistik" title="Portfolio Details"><img src="matkul/genap statistika.png" class="img-fluid" alt=""></a> -->
+          <!-- </div> -->
+		
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-course"> -->
+                  <!-- <a href="matkul/sem2023-02/praktik-statistik" title="Portfolio Details"><img src="matkul/genap praktik statistik.png" class="img-fluid" alt=""></a> -->
+          <!-- </div> -->
+		
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-course"> -->
+                  <!-- <a href="matkul/sem2023-02/matematika-ekonomi-2" title="Portfolio Details"><img src="matkul/genap matematika ekonomi 2.png" class="img-fluid" alt=""></a> -->
+          <!-- </div> -->
+
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-course"> -->
+                  <!-- <a href="matkul/sem2023-01/matematika-ekonomi" title="Portfolio Details"><img src="matkul/ganjil matematika ekonomi.png" class="img-fluid" alt=""></a> -->
+          <!-- </div> -->
+
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-course"> -->
+                  <!-- <a href="matkul/sem2023-01/statistik" title="Portfolio Details"><img src="matkul/ganjil statistika.png" class="img-fluid" alt=""></a> -->
+          <!-- </div> -->
+
+          <!-- <div class="col-lg-2 col-md-3 col-sm-6 col-xs-6 portfolio-item filter-life"> -->
+                  <!-- <a href="reflection" title="Portfolio Details"><img src="https://yt3.ggpht.com/DOddVrRDGG5MgEDVWpp1brS-G18h2zdOMdxNgR0ILd_4ifVcQXWSrbllXdTyVtmmUpNSkZvGNOX5=s640-c-fcrop64=1,00002fc9ffffd036-nd-v1" class="img-fluid" alt=""></a> -->
+          <!-- </div> -->
+
+        </div>
+
+      </div>
+    </section><!-- End Portfolio Section -->
+
+    <!-- ======= About Section ======= -->
+    <!-- <section id="about" class="about"> -->
+      <!-- <div class="container" data-aos="fade-up"> -->
+
+        <!-- <div class="section-title"> -->
+          <!-- <h2>About</h2> -->
+        <!-- </div> -->
+
+        <!-- <div class="row"> -->
+          <!-- <div class="col-lg-4"> -->
+          <!-- <p>I am keen on mathematics since 2004. I was a student at elementary school that time. I may decide this my new hobby was coming from my competitive spirit. I got knee injury right before regional competition. Sport can not bring me to be a champion. So I move to this crazy things, mathematics. It makes me who I am today.</p> -->
+            <!-- <img src="assets/img/profile-img.jpg" class="img-fluid" alt=""> -->
+          <!-- </div> -->
+          <!-- <div class="col-lg-8 pt-4 pt-lg-0 content"> -->
+            <!-- <h3>Statistics Lecture &amp; Math Olymp Trainer.</h3> -->
+            <!-- <p class="fst-italic"> -->
+              <!-- Began my professional lecture at 2021 and experienced math olympiad trainer since 2013. -->
+            <!-- </p> -->
+            <!-- <div class="row"> -->
+              <!-- <div class="col-lg-6"> -->
+                <!-- <ul> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Birthday:</strong> <span>24 August 1993</span></li> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Website:</strong> <span>paggalih.github.io</span></li> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Phone:</strong> <span>+62 877 5632 1764</span></li> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>City:</strong> <span>Tulungagung, Indonesia</span></li> -->
+                <!-- </ul> -->
+              <!-- </div> -->
+              <!-- <div class="col-lg-6"> -->
+                <!-- <ul> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Age:</strong> <span>30</span></li> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Degree:</strong> <span>Master</span></li> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Email:</strong> <span>g.pradananta@yahoo.com</span></li> -->
+                  <!-- <li><i class="bi bi-chevron-right"></i> <strong>Freelance:</strong> <span>Available</span></li> -->
+                <!-- </ul> -->
+              <!-- </div> -->
+            <!-- </div> -->
+            <!-- <p> -->
+              <!-- Now I am a lecture in one of public university in Indonesia. It is an Islamic University named UIN Sayyid Ali Rahmatullah Tulungagung.  -->
+            <!-- </p> -->
+          <!-- </div> -->
+        <!-- </div> -->
+
+      <!-- </div> -->
+    <!-- </section><!-- End About Section --> 
+
+    <!-- ======= Facts Section ======= -->
+    <section id="award" class="facts">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Awards</h2>
+        </div>
+
+        <div class="row">
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+            </div>
+			
+<div class="accordion" id="international">
+  
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-international" aria-expanded="false" aria-controls="accordion-international">
+       <i class="fs-3 bi bi-globe"></i>
+	   <span class="fw-bold d-block w-100 text-center">
+		International
+        </span>
+		</button>
+    </h2>
+    <div id="accordion-international" class="accordion-collapse collapse" data-bs-parent="#international">
+      <div class="accordion-body">
+              <h5>Honorable Mention</h5>
+			  <h5>Jul 2016</h5>
+              <p><em>(International Mathematics Competition for Undergraduate, Blagoevgrad, Bulgaria)</em></p>
+			  <h5>Honorable Mention</h5>
+			  <h5>Apr 2016</h5>
+              <p><em>(Interdisciplinary Contest in Modeling, COMAP, the Consortium for Mathematics and Its Applications)</em></p>
+			  <h5>Third Prize</h5>
+			  <h5>Jul 2015</h5>
+              <p><em>(International Mathematics Competition for Undergraduate, Blagoevgrad, Bulgaria)</em></p>
+		</div>
+    </div>
+  </div>
+</div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <span data-purecounter-start="0" data-purecounter-end="11" data-purecounter-duration="1" class="purecounter"></span>
+            </div>
+
+<div class="accordion" id="national">
+  
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-national" aria-expanded="false" aria-controls="accordion-national">
+			<i class="fs-3 bi bi-flag"></i>
+        <span class="fw-bold d-block w-100 text-center">
+		National
+        </span>
+		</button>
+    </h2>
+    <div id="accordion-national" class="accordion-collapse collapse" data-bs-parent="#national">
+      <div class="accordion-body">
+			<h5>Silver Medal</h5>
+			  <h5>May 2016</h5>
+              <p><em>(Olimpiade Nasional Matematika dan IPA, Kemdikbud)</em></p>
+			  
+			<h5>Silver Medal</h5>
+			  <h5>May 2015</h5>
+              <p><em>(Olimpiade Nasional Matematika dan IPA, Kemdikbud)</em></p>
+			  
+			<h5>Silver Medal</h5>
+			  <h5>Nov 2014</h5>
+              <p><em>(Olimpiade Nasional Matematika dan IPA, Pertamina)</em></p>
+		  
+			<h5>Silver Medal</h5>
+			  <h5>Aug 2010</h5>
+              <p><em>(Olimpiade Sains Nasional SMA, Kemdikbud)</em></p>
+		  
+			<h5>Bronze Medal</h5>
+			  <h5>Aug 2010</h5>
+              <p><em>(Olimpiade Sains Nasional SMP, Kemdikbud)</em></p>
+		</div>
+    </div>
+  </div>
+</div>
+
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <span data-purecounter-start="0" data-purecounter-end="34" data-purecounter-duration="1" class="purecounter"></span>
+            </div>
+
+<div class="accordion" id="provincial">
+  
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-provincial" aria-expanded="false" aria-controls="accordion-provincial">
+			<i class="fs-3 bi bi-geo-alt"></i>
+        <span class="fw-bold d-block w-100 text-center">
+		Provincial
+        </span>
+		</button>
+    </h2>
+    <div id="accordion-provincial" class="accordion-collapse collapse" data-bs-parent="#provincial">
+      <div class="accordion-body">
+			<h5>Juara Harapan 1</h5>
+			  <h5>Aug 2011</h5>
+              <p><em>(Lomba Matematika Jateng Raya, Universitas Muhammadiyah Surakarta)</em></p>
+		</div>
+    </div>
+  </div>
+</div>
+
+
+          </div>
+
+          <div class="col-lg-3 col-md-6">
+            <div class="count-box">
+              <span data-purecounter-start="0" data-purecounter-end="3" data-purecounter-duration="1" class="purecounter"></span>
+            </div>
+			
+<div class="accordion" id="scholarship">
+  
+  <div class="accordion-item">
+    <h2 class="accordion-header">
+      <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#accordion-scholarship" aria-expanded="false" aria-controls="accordion-national">
+			<i class="fs-3 bi bi-mortarboard"></i>
+        <span class="fw-bold d-block w-100 text-center">
+		Scholarship
+        </span>
+		</button>
+    </h2>
+    <div id="accordion-scholarship" class="accordion-collapse collapse" data-bs-parent="#scholarship">
+      <div class="accordion-body">
+              <h5>Beasiswa Pendidikan Indonesia LPDP, Indonesia</h5>
+              <h5>2017 - 2019</h5>
+              <p><em>It gave me an opportunity to enter graduate school.</em></p>
+
+              <h5>Beasiswa Bidikmisi, Kemdikbud, Indonesia</h5>
+              <h5>2012 - 2016</h5>
+              <p><em>It gave me an opportunity to enter undergraduate school.</em></p>
+
+              <h5>Beasiswa Pasiad</h5>
+              <h5>2009 - 2012</h5>
+              <p><em>It gave me an opportunity to enter high school.</em></p>
+		</div>
+    </div>
+  </div>
+</div>
+
+          </div>
+		  
+		<div class="row">
+
+      </div>
+    </section><!-- End Facts Section -->
+
+    <!-- ======= Skills Section ======= -->
+    <!-- <section id="skills" class="skills section-bg"> -->
+      <!-- <div class="container" data-aos="fade-up"> -->
+
+        <!-- <div class="section-title"> -->
+          <!-- <h2>Skills</h2> -->
+        <!-- </div> -->
+
+        <!-- <div class="row skills-content"> -->
+
+          <!-- <div class="col-lg-6"> -->
+
+            <!-- <div class="progress"> -->
+              <!-- <span class="skill">HTML <i class="val">100%</i></span> -->
+              <!-- <div class="progress-bar-wrap"> -->
+                <!-- <div class="progress-bar" role="progressbar" aria-valuenow="100" aria-valuemin="0" aria-valuemax="100"></div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="progress"> -->
+              <!-- <span class="skill">CSS <i class="val">90%</i></span> -->
+              <!-- <div class="progress-bar-wrap"> -->
+                <!-- <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="progress"> -->
+              <!-- <span class="skill">JavaScript <i class="val">75%</i></span> -->
+              <!-- <div class="progress-bar-wrap"> -->
+                <!-- <div class="progress-bar" role="progressbar" aria-valuenow="75" aria-valuemin="0" aria-valuemax="100"></div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+          <!-- </div> -->
+
+          <!-- <div class="col-lg-6"> -->
+
+            <!-- <div class="progress"> -->
+              <!-- <span class="skill">PHP <i class="val">80%</i></span> -->
+              <!-- <div class="progress-bar-wrap"> -->
+                <!-- <div class="progress-bar" role="progressbar" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="progress"> -->
+              <!-- <span class="skill">WordPress/CMS <i class="val">90%</i></span> -->
+              <!-- <div class="progress-bar-wrap"> -->
+                <!-- <div class="progress-bar" role="progressbar" aria-valuenow="90" aria-valuemin="0" aria-valuemax="100"></div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="progress"> -->
+              <!-- <span class="skill">Photoshop <i class="val">55%</i></span> -->
+              <!-- <div class="progress-bar-wrap"> -->
+                <!-- <div class="progress-bar" role="progressbar" aria-valuenow="55" aria-valuemin="0" aria-valuemax="100"></div> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+          <!-- </div> -->
+
+        <!-- </div> -->
+
+      <!-- </div> -->
+    <!-- </section> -->
+
+    <!-- ======= Resume Section ======= -->
+    <section id="resume" class="resume">
+      <div class="container" data-aos="fade-up">
+
+        <div class="section-title">
+          <h2>Resume</h2>
+        </div>
+
+        <div class="row">
+          <div class="col-lg-6">
+            <h3 class="resume-title">Summary</h3>
+            <div class="resume-item pb-0">
+              <h4>Galih Pradananta</h4>
+              <p><em>Began my professional lecture at 2021 and experienced math olympiad trainer since 2013.</em></p>
+              <ul>
+                <li>Trenggalek, Indonesia</li>
+                <li>+62 877 5632 1764</li>
+                <li>g.pradananta@yahoo.com</li>
+              </ul>
+            </div>
+
+            <h3 class="resume-title">Education</h3>
+            <div class="resume-item">
+              <h4>Master of Science &amp; Mathematics</h4>
+              <h5>2017 - 2019</h5>
+              <p><em>Bandung Institute of Technology</em></p>
+              <p>cum laude | GPA: 3.88/4.0 | Major : Algebra. | May 17th, 2019
+<br> Thesis : "Bases and Dimension on Twisted Centralizers Code"
+<br> Advisor : Prof. Pudji Astuti and Dr. Ahmad Muchlis.</p>
+            </div>
+            <div class="resume-item">
+              <h4>Bachelor of Science &amp; Mathematics</h4>
+              <h5>2012 - 2016</h5>
+              <p><em>Bandung Institute of Technology</em></p>
+              <p>cum laude | GPA: 3.74/4.0 | Major : Algebra | Sep 29th, 2016
+<br> Thesis : "Construction of Cospectral k-Uniform Hypergraph"
+<br> Advisor : Prof. Hanni Garminia</p>
+            </div>
+          </div>
+          <div class="col-lg-6">
+            <h3 class="resume-title">Professional Experience</h3>
+            <div class="resume-item">
+              <h4>Statistics Lecture</h4>
+              <h5>2020 - Present</h5>
+              <p><em>UIN Sayyid Ali Rahmatullah Tulungagung, Indonesia </em></p>
+              <ul>
+                <li>Teach Statistics, Inferential Statistics, and Mathematics of Economics.</li>
+                <li>Lead editorial team of Reinforce: Journal of Sharia Management.</li>
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>Academics Assistant</h4>
+              <h5>2017 - 2020</h5>
+              <p><em>Bandung Institute of Technology, Indonesia</em></p>
+              <ul>
+                <li>Tutor in Calculus, Multivariable Calculus, Algebra Strucuture, Linear Algebra, and Vector Mathematics.</li>
+                <li>Manage system of Calculus test for all university students.</li>
+              </ul>
+            </div>
+			<h3 class="resume-title">Tutor Experience</h3>
+            <div class="resume-item">
+              <h4>2016 - 2020</h4>
+              <h5>Tutor</h5>
+              <ul>
+                <li>Calculus I and II, Bandung Institute of Technology, Indonesia</li>
+                <li>Mathematical Aids Center, Bandung Institute of Technology, Indonesia</li>
+              </ul>
+            </div>
+            <div class="resume-item">
+              <h4>2018 - 2020</h4>
+              <h5>Tutor</h5>
+              <ul>
+                <li>Linear Algebra, Bandung Institute of Technology, Indonesia</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section><!-- End Resume Section -->
+
+    <!-- ======= Services Section ======= -->
+    <!-- <section id="services" class="services"> -->
+      <!-- <div class="container" data-aos="fade-up"> -->
+
+        <!-- <div class="section-title"> -->
+          <!-- <h2>Projects</h2> -->
+          <!-- <p>This section is under maintenance.</p> -->
+        <!-- </div> -->
+      <!-- </div> -->
+    <!-- </section> -->
+
+    <!-- ======= Testimonials Section ======= -->
+    <!-- <section id="testimonials" class="testimonials section-bg"> -->
+      <!-- <div class="container" data-aos="fade-up"> -->
+
+        <!-- <div class="section-title"> -->
+          <!-- <h2>Testimonials</h2> -->
+        <!-- </div> -->
+
+        <!-- <div class="testimonials-slider swiper" data-aos="fade-up" data-aos-delay="100"> -->
+          <!-- <div class="swiper-wrapper"> -->
+
+            <!-- <div class="swiper-slide"> -->
+              <!-- <div class="testimonial-item"> -->
+                <!-- <img src="assets/img/testimonials/testimonials-1.jpg" class="testimonial-img" alt=""> -->
+                <!-- <h3>Saul Goodman</h3> -->
+                <!-- <h4>Ceo &amp; Founder</h4> -->
+                <!-- <p> -->
+                  <!-- <i class="bx bxs-quote-alt-left quote-icon-left"></i> -->
+                  <!-- Proin iaculis purus consequat sem cure digni ssim donec porttitora entum suscipit rhoncus. Accusantium quam, ultricies eget id, aliquam eget nibh et. Maecen aliquam, risus at semper. -->
+                  <!-- <i class="bx bxs-quote-alt-right quote-icon-right"></i> -->
+                <!-- </p> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="swiper-slide"> -->
+              <!-- <div class="testimonial-item"> -->
+                <!-- <img src="assets/img/testimonials/testimonials-2.jpg" class="testimonial-img" alt=""> -->
+                <!-- <h3>Sara Wilsson</h3> -->
+                <!-- <h4>Designer</h4> -->
+                <!-- <p> -->
+                  <!-- <i class="bx bxs-quote-alt-left quote-icon-left"></i> -->
+                  <!-- Export tempor illum tamen malis malis eram quae irure esse labore quem cillum quid cillum eram malis quorum velit fore eram velit sunt aliqua noster fugiat irure amet legam anim culpa. -->
+                  <!-- <i class="bx bxs-quote-alt-right quote-icon-right"></i> -->
+                <!-- </p> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="swiper-slide"> -->
+              <!-- <div class="testimonial-item"> -->
+                <!-- <img src="assets/img/testimonials/testimonials-3.jpg" class="testimonial-img" alt=""> -->
+                <!-- <h3>Jena Karlis</h3> -->
+                <!-- <h4>Store Owner</h4> -->
+                <!-- <p> -->
+                  <!-- <i class="bx bxs-quote-alt-left quote-icon-left"></i> -->
+                  <!-- Enim nisi quem export duis labore cillum quae magna enim sint quorum nulla quem veniam duis minim tempor labore quem eram duis noster aute amet eram fore quis sint minim. -->
+                  <!-- <i class="bx bxs-quote-alt-right quote-icon-right"></i> -->
+                <!-- </p> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="swiper-slide"> -->
+              <!-- <div class="testimonial-item"> -->
+                <!-- <img src="assets/img/testimonials/testimonials-4.jpg" class="testimonial-img" alt=""> -->
+                <!-- <h3>Matt Brandon</h3> -->
+                <!-- <h4>Freelancer</h4> -->
+                <!-- <p> -->
+                  <!-- <i class="bx bxs-quote-alt-left quote-icon-left"></i> -->
+                  <!-- Fugiat enim eram quae cillum dolore dolor amet nulla culpa multos export minim fugiat minim velit minim dolor enim duis veniam ipsum anim magna sunt elit fore quem dolore labore illum veniam. -->
+                  <!-- <i class="bx bxs-quote-alt-right quote-icon-right"></i> -->
+                <!-- </p> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+            <!-- <div class="swiper-slide"> -->
+              <!-- <div class="testimonial-item"> -->
+                <!-- <img src="assets/img/testimonials/testimonials-5.jpg" class="testimonial-img" alt=""> -->
+                <!-- <h3>John Larson</h3> -->
+                <!-- <h4>Entrepreneur</h4> -->
+                <!-- <p> -->
+                  <!-- <i class="bx bxs-quote-alt-left quote-icon-left"></i> -->
+                  <!-- Quis quorum aliqua sint quem legam fore sunt eram irure aliqua veniam tempor noster veniam enim culpa labore duis sunt culpa nulla illum cillum fugiat legam esse veniam culpa fore nisi cillum quid. -->
+                  <!-- <i class="bx bxs-quote-alt-right quote-icon-right"></i> -->
+                <!-- </p> -->
+              <!-- </div> -->
+            <!-- </div> -->
+
+          <!-- </div> -->
+          <!-- <div class="swiper-pagination"></div> -->
+        <!-- </div> -->
+
+      <!-- </div> -->
+    <!-- </section> -->
+
+    <!-- ======= Contact Section ======= -->
+    <!-- <section id="contact" class="contact"> -->
+      <!-- <div class="container" data-aos="fade-up"> -->
+
+        <!-- <div class="section-title"> -->
+          <!-- <h2>Contact</h2> -->
+        <!-- </div> -->
+
+        <!-- <div class="row mt-1"> -->
+
+          <!-- <div class="col-lg-4"> -->
+            <!-- <div class="info"> -->
+              <!-- <div class="address"> -->
+                <!-- <i class="bi bi-geo-alt"></i> -->
+                <!-- <h4>Location:</h4> -->
+                <!-- <p>RT 04 RW 02 Tumpuk, Tugu, Trenggalek</p> -->
+              <!-- </div> -->
+
+              <!-- <div class="email"> -->
+                <!-- <i class="bi bi-envelope"></i> -->
+                <!-- <h4>Email:</h4> -->
+                <!-- <p>g.pradananta@yahoo.com</p> -->
+              <!-- </div> -->
+
+              <!-- <div class="phone"> -->
+                <!-- <i class="bi bi-phone"></i> -->
+                <!-- <h4>Call:</h4> -->
+                <!-- <p>+62 877 5632 1764</p> -->
+              <!-- </div> -->
+
+            <!-- </div> -->
+
+          <!-- </div> -->
+
+          <!-- <div class="col-lg-8 mt-5 mt-lg-0"> -->
+
+            <!-- <form action="forms/contact.php" method="post" role="form" class="php-email-form"> -->
+              <!-- <div class="row"> -->
+                <!-- <div class="col-md-6 form-group"> -->
+                  <!-- <input type="text" name="name" class="form-control" id="name" placeholder="Your Name" required> -->
+                <!-- </div> -->
+                <!-- <div class="col-md-6 form-group mt-3 mt-md-0"> -->
+                  <!-- <input type="email" class="form-control" name="email" id="email" placeholder="Your Email" required> -->
+                <!-- </div> -->
+              <!-- </div> -->
+              <!-- <div class="form-group mt-3"> -->
+                <!-- <input type="text" class="form-control" name="subject" id="subject" placeholder="Subject" required> -->
+              <!-- </div> -->
+              <!-- <div class="form-group mt-3"> -->
+                <!-- <textarea class="form-control" name="message" rows="5" placeholder="Sorry this github page do not allow php. So you can not send messages." required></textarea> -->
+              <!-- </div> -->
+              <!-- <div class="my-3"> -->
+                <!-- <div class="loading">Loading</div> -->
+                <!-- <div class="error-message"></div> -->
+                <!-- <div class="sent-message">Your message has been sent. Thank you!</div> -->
+              <!-- </div> -->
+              <!-- <div class="text-center"><button type="submit">You can not send messages.</button></div> -->
+            <!-- </form> -->
+
+          <!-- </div> -->
+
+        <!-- </div> -->
+
+      <!-- </div> -->
+    <!-- </section> -->
+
+  </main><!-- End #main -->
+
+  <!-- ======= Footer ======= -->
+  <footer id="footer">
+    <div class="container">
+      <h3>Galih Pradananta</h3>
+      <p>You just have to live for this one minute.</p>
+      <div class="social-links">
+        <a href="https://www.tiktok.com/@galihagpradananta"  target="_blank" class="tiktok"><i class="bx bxl-tiktok"></i></a>
+        <a href="https://www.facebook.com/paggalih"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
+        <a href="https://www.instagram.com/paggalih/"  target="_blank" class="instagram-alt"><i class="bx bxl-instagram-alt"></i></a>
+        <a href="https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA"  target="_blank" class="youtube"><i class="bx bxl-youtube"></i></a>
+        <a href="https://id.linkedin.com/in/galih-pradananta-34666362"  target="_blank" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
+      <!-- </div> -->
+      <!-- <div class="copyright"> -->
+        <!-- &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved -->
+      <!-- </div> -->
+      <!-- <div class="credits"> -->
+        <!-- All the links in the footer should remain intact. -->
+        <!-- You can delete the links only if you purchased the pro version. -->
+        <!-- Licensing information: [license-url] -->
+        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
+        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+      </div>
+	  <a href="https://info.flagcounter.com/rFMs"><img src="https://s11.flagcounter.com/count2/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+
+    </div>
+  </footer><!-- End Footer -->
+
+  <div id="preloader"></div>
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+
+  <!-- Vendor JS Files -->
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+
+  <!-- Template Main JS File -->
+  <script src="assets/js/main.js"></script>
+
+</body>
+
+</html>
