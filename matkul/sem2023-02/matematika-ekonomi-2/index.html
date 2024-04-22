@@ -558,12 +558,12 @@ I_t&=200
 	<div id="berhasilValidate" style="display: none"><p>Aku Galih</p></div>
 	<script>
 	function validate() {
-	  let person = prompt("Please enter your ID", "Ja'far");
-	  if (person != "utsceriasekali") {
-		alert("Maaf, biarkan dosen yang buka ya");
+	  let person = prompt("Masukkan ID", "Ja'far");
+	  if (person === "utsceriasekali") {
+		getElementById("berhasilValidate").style.display="block";
 	  }
 	  else {
-		getElementById("berhasilValidate").style.display="block";
+		alert("Maaf, biarkan dosen yang buka ya");
 	  }
 	}
 	</script>
