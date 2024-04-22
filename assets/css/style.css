@@ -1285,12 +1285,12 @@ mjx-container {
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap');
 
 p, span {
-  font-family: "Open Sans", sans-serif;
+  /* font-family: "Open Sans", sans-serif; */
   /* font-family: "Bentham", serif ; */
 }
 
 h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .w3-button, a, li {
-	font-family: "Poppins", sans-serif ;
+	/* font-family: "Poppins", sans-serif ; */
 } 
 
 .facts .count-box span {
