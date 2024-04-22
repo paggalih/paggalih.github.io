@@ -554,6 +554,19 @@ C_t&=0,75Y_{t-1}+400\\
 I_t&=200
 	\end{align*}$$ Tentukan nilai dari $C_2,$ jika diketahui $Y_0=400.$</li>
 	</ol>
+	<button type="button" class="btn btn-primary" onclick="validate()">UTS</button>
+	<div id="berhasilValidate" style="display: none">Aku galih</div>
+	<script>
+	function validate() {
+	  let person = prompt("Please enter your ID", "Ja'far");
+	  if (person != "utsceriasekali") {
+		alert("Maaf, biarkan dosen yang buka ya");
+	  }
+	  else {
+		getElementById("berhasilValidate").style.display="block";
+	  }
+	}
+	</script>
   </div>
   
   <div class="w3-container" id="pertemuan-10" style="margin-top:75px">
