@@ -778,7 +778,7 @@
 									<canvas id="myChartUTS04"></canvas>
 								</div>
 								<script>
-									const boxplotDataUTS = {
+									var boxplotData = {
 										// define label tree
 										labels: ['Banyak Koran'],
 										datasets: [{
@@ -798,12 +798,12 @@
 											]
 										}]
 									};
-									window.onload = () => {
+									//window.onload = () => {
 										//const ctx = document.getElementById("myChart08").getContext("2d");
-										const ctxUTS = document.getElementById("myChartUTS04");
-										window.myBar = new Chart(ctxUTS, {
+										var ctx = document.getElementById("myChartUTS04");
+										var myChart = new Chart(ctx, {
 											type: 'boxplot',
-											data: boxplotDataUTS,
+											data: boxplotData,
 											options: {
 												responsive: true,
 												legend: {
@@ -816,7 +816,7 @@
 												}
 											}
 										});
-									};
+									//};
 									console.log("myChartUTS04 berhasil");
 								</script> Tentukan kuartil atas dan jenis kemencengan pada boxplot di atas. </div>
                             </div>
@@ -830,19 +830,19 @@
 									<canvas id="myChartUTS05"></canvas>
 								</div>
 								<script>
-									const x_valsUTS1 = [3, 9, 15, 21, 27];
-									const y_valsUTS1 = [14, 42, 58, 28, 8];
-									const dataUTS1 = x_valsUTS1.map((k, i) => ({
+									var x_vals = [3, 9, 15, 21, 27];
+									var y_vals = [14, 42, 58, 28, 8];
+									var data = x_vals.map((k, i) => ({
 										x: k,
-										y: y_valsUTS1[i]
+										y: y_vals[i]
 									})); 
-									const ctxUTS1 = document.getElementById('myChartUTS05');
-									const myChartUTS1 = new Chart(ctxUTS1, {
+									var ctx = document.getElementById('myChartUTS05');
+									var myChart = new Chart(ctx, {
 										type: 'bar',
 										data: {
 											datasets: [{
 												label: 'Num of Nilai',
-												data: dataUTS1, 
+												data: data, 
 												borderWidth: 1,
 												barPercentage: 1,
 												categoryPercentage: 1,
@@ -889,11 +889,11 @@
 															if (!items.length) {
 																return '';
 															}
-															const item = items[0];
-															const x = item.parsed.x;
-															const min = x - 3;
-															const max = x + 3;
-															return `Nilai: ${min} - ${max}`;
+															var item = items[0];
+															var x = item.parsed.x;
+															var min = x - 3;
+															var max = x + 3;
+															var `Nilai: ${min} - ${max}`;
 														}
 													}
 												}
@@ -910,7 +910,7 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseSix" aria-expanded="false" aria-controls="flush-collapseSix"> Soal #6 </button>
                             </h2>
                             <div id="flush-collapseSix" class="accordion-collapse col" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body"></div>
+                                <div class="accordion-body"> Dua kotak kaos diterima di sebuah perusahaan. Kotak pertama berisi $25$ kaos polo dan $15$ kaos super (tak berkerah). Kotak kedua berisi $30$ kaos polo dan $10$ kaos super. Salah satu kotak dipilih secara acak, dan sebuah kaos juga dipilih secara acak. Kaos yang terambil adalah kaos polo. Tentukan peluang kaos ini terambil dari kotak $1.$ </div>
                             </div>
                         </div>
                     </div>
