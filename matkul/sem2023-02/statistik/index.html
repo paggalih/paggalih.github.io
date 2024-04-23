@@ -543,8 +543,9 @@
                             </table>
                         </div>
                     </li>
-                    <li> Histogram di bawah ini menunjukkan nilai ujian pertama dari sebuah kelas statistik. <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script>
-                        <!-- <script src="/app/aplikasi-statistik/chart.js"></script> -->
+                    <li> Histogram di bawah ini menunjukkan nilai ujian pertama dari sebuah kelas statistik. 
+						<!-- <script src=" https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js "></script> -->
+                        <script src="/app/aplikasi-statistik/chart.js"></script>
                         <div>
                             <canvas id="myChart03"></canvas>
                         </div>
@@ -554,16 +555,9 @@
                             const data = x_vals.map((k, i) => ({
                                 x: k,
                                 y: y_vals[i]
-                            })); < !--
-                            const backgroundColor = Array(x_vals.length).fill('rgba(255, 99, 132, 0.2)');
-                            -- > < !--
-                            const borderColor = Array(x_vals.length).fill('rgba(255, 99, 132, 1)');
-                            -- > < !--
-                            const backgroundColor[parseInt(x_vals.length / 2)] = 'rgba(54, 162, 235, 0.2)';
-                            -- > < !--
-                            const borderColor[parseInt(x_vals.length / 2)] = 'rgba(54, 162, 235, 1)';
-                            -- >
-                            const ctx = document.getElementById('myChart03').getContext('2d');
+                            })); 
+                            <!-- const ctx = document.getElementById('myChart03').getContext('2d'); -->
+                            const ctx = document.getElementById('myChart03');
                             const myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
@@ -629,6 +623,7 @@
                                     }
                                 }
                             });
+							console.log("myChart03 berhasil");
                         </script> Tentukan panjang interval kelas dan jumlah mahasiswa.
                     </li>
                     <li> Buatlah diagram batang dari data keakuratan pengiriman JNE di bawah ini. <div class="overflow-auto">
@@ -675,15 +670,6 @@
                             <canvas id="myChart08"></canvas>
                         </div>
                         <script>
-                            function randomValues(count, min, max) {
-                                const delta = max - min; < !--console.log(Array.from({
-                                    length: count
-                                }).map(() => Math.random() * delta + min));
-                                -- >
-                                return Array.from({
-                                    length: count
-                                }).map(() => Math.random() * delta + min);
-                            }
                             const boxplotData = {
                                 // define label tree
                                 labels: ['Banyak Koran'],
@@ -722,6 +708,7 @@
                                     }
                                 });
                             };
+							console.log("myChart08 berhasil");
                         </script> Tentukan median dan jenis kemencengan pada boxplot di atas.
                     </li>
                     <li> Dua kotak kaos diterima di sebuah perusahaan. Kotak pertama berisi 25 kaos polo dan 15 kaos super (tak berkerah). Kotak kedua berisi 30 kaos polo dan 10 kaos super. Salah satu kotak dipilih secara acak, dan sebuah kaos juga dipilih secara acak. Kaos yang terambil adalah kaos polo. Tentukan peluang kaos ini terambil dari kotak 1. </li>
