@@ -829,8 +829,8 @@
 									<canvas id="myChartUTS05"></canvas>
 								</div>
 								<script>
-									const x_vals = [55, 65, 75, 85, 95];
-									const y_vals = [3, 14, 21, 12, 6];
+									const x_vals = [3, 9, 15, 21, 27];
+									const y_vals = [14, 42, 58, 28, 8];
 									const data = x_vals.map((k, i) => ({
 										x: k,
 										y: y_vals[i]
@@ -857,7 +857,7 @@
 														offset: false
 													},
 													ticks: {
-														stepSize: 10
+														stepSize: 6
 													},
 													title: {
 														display: true,
@@ -890,8 +890,8 @@
 															}
 															const item = items[0];
 															const x = item.parsed.x;
-															const min = x - 5;
-															const max = x + 5;
+															const min = x - 3;
+															const max = x + 3;
 															return `Nilai: ${min} - ${max}`;
 														}
 													}
