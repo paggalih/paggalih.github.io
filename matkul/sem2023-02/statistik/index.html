@@ -662,8 +662,9 @@
                             </table>
                         </div> Tentukan mean dan simpangan bakunya. </li>
                     <li> Direktur HRD sedang ingin melakukan penelitian tentang waktu perjalanan karyawannya dari rumah menuju kantor. Pemerintah kota sedang melakukan pembahasan untuk memberikan insentif kepada karyawan yang mau menggunakan transportasi umum. Di bawah ini adalah data yang dia peroleh. <br> Transportasi Umum <br> 23 25 25 30 31 31 32 33 35 36 37 42 <br> Kendaraan Pribadi <br> 32 32 33 34 37 37 38 38 38 39 40 44 <br> Buatkan boxplot untuk setiap data. </li>
-                    <li> Boxplot di bawah ini menunjukkan banyaknya koran yang diterbitkan setiap hari di suatu daerah. <script src="https://unpkg.com/@sgratzl/chartjs-chart-boxplot@3.6.0/build/index.umd.min.js"></script>
-                        <!-- <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script> -->
+                    <li> Boxplot di bawah ini menunjukkan banyaknya koran yang diterbitkan setiap hari di suatu daerah. 
+					<!-- <script src="https://unpkg.com/@sgratzl/chartjs-chart-boxplot@3.6.0/build/index.umd.min.js"></script> -->
+                        <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
                         <div>
                             <canvas id="myChart08"></canvas>
                         </div>
@@ -764,7 +765,7 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseThree" aria-expanded="false" aria-controls="flush-collapseThree"> Soal #3 </button>
                             </h2>
                             <div id="flush-collapseThree" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body"> BEI menemukan $40$ persen dari investor saham menggunakan diskon dari broker. Jika diambil $6$ sampel investor tentukan peluang $4$ diantaranya menggunakan diskon dari broker. </div>
+                                <div class="accordion-body"> BEI menemukan $40$ persen dari investor saham menggunakan diskon dari broker. Jika diambil $4$ sampel investor tentukan peluang $3$ diantaranya menggunakan diskon dari broker. </div>
                             </div>
                         </div>
                         <div class="accordion-item">
@@ -772,7 +773,52 @@
                                 <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#flush-collapseFour" aria-expanded="false" aria-controls="flush-collapseFour"> Soal #4 </button>
                             </h2>
                             <div id="flush-collapseFour" class="accordion-collapse collapse" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body"></div>
+                                <div class="accordion-body"> Boxplot di bawah ini menunjukkan banyaknya koran yang diterbitkan setiap hari di suatu daerah.
+								<div>
+									<canvas id="myChartUTS04"></canvas>
+								</div>
+								<script>
+									const boxplotData = {
+										// define label tree
+										labels: ['Banyak Koran'],
+										datasets: [{
+											label: 'Banyak Koran',
+											backgroundColor: 'rgba(255,0,0,0.5)',
+											borderColor: 'red',
+											borderWidth: 1,
+											outlierColor: '#999999',
+											padding: 10,
+											itemRadius: 0,
+											data: [
+												[3, 6, 9, 10, 10, 10, 10, 10, 10, 10,
+													10, 18, 20, 20, 20, 20, 20, 20, 20, 20,
+													20, 20, 30, 30, 30, 30, 30, 30, 40, 45,
+													45, 50, 50, 50, 50, 70, 75, 80, 90, 100
+												]
+											]
+										}]
+									};
+									//window.onload = () => {
+										//const ctx = document.getElementById("myChart08").getContext("2d");
+										const ctx = document.getElementById("myChartUTS04");
+										window.myBar = new Chart(ctx, {
+											type: 'boxplot',
+											data: boxplotData,
+											options: {
+												responsive: true,
+												legend: {
+													display: false,
+													position: 'top',
+												},
+												title: {
+													display: true,
+													text: 'Banyaknya Koran'
+												}
+											}
+										});
+									//};
+									console.log("myChart08 berhasil");
+								</script> Tentukan kuartil atas dan jenis kemencengan pada boxplot di atas. </div>
                             </div>
                         </div>
                         <div class="accordion-item">
