@@ -778,7 +778,7 @@
 									<canvas id="myChartUTS04"></canvas>
 								</div>
 								<script>
-									const boxplotData = {
+									const boxplotDataUTS = {
 										// define label tree
 										labels: ['Banyak Koran'],
 										datasets: [{
@@ -800,10 +800,10 @@
 									};
 									window.onload = () => {
 										//const ctx = document.getElementById("myChart08").getContext("2d");
-										const ctx = document.getElementById("myChartUTS04");
+										const ctxUTS = document.getElementById("myChartUTS04");
 										window.myBar = new Chart(ctxUTS, {
 											type: 'boxplot',
-											data: boxplotData,
+											data: boxplotDataUTS,
 											options: {
 												responsive: true,
 												legend: {
@@ -830,19 +830,19 @@
 									<canvas id="myChartUTS05"></canvas>
 								</div>
 								<script>
-									const x_vals = [3, 9, 15, 21, 27];
-									const y_vals = [14, 42, 58, 28, 8];
-									const data = x_vals.map((k, i) => ({
+									const x_valsUTS1 = [3, 9, 15, 21, 27];
+									const y_valsUTS1 = [14, 42, 58, 28, 8];
+									const dataUTS1 = x_valsUTS1.map((k, i) => ({
 										x: k,
-										y: y_vals[i]
+										y: y_valsUTS1[i]
 									})); 
-									const ctx = document.getElementById('myChartUTS05');
-									const myChart = new Chart(ctx, {
+									const ctxUTS1 = document.getElementById('myChartUTS05');
+									const myChart = new Chart(ctxUTS1, {
 										type: 'bar',
 										data: {
 											datasets: [{
 												label: 'Num of Nilai',
-												data: data, 
+												data: dataUTS1, 
 												borderWidth: 1,
 												barPercentage: 1,
 												categoryPercentage: 1,
