@@ -688,8 +688,9 @@
                                     ]
                                 }]
                             };
-                            window.onload = () => {
-                                const ctx = document.getElementById("myChart08").getContext("2d");
+                            //window.onload = () => {
+                                //const ctx = document.getElementById("myChart08").getContext("2d");
+                                const ctx = document.getElementById("myChart08");
                                 window.myBar = new Chart(ctx, {
                                     type: 'boxplot',
                                     data: boxplotData,
@@ -705,7 +706,7 @@
                                         }
                                     }
                                 });
-                            };
+                            //};
 							console.log("myChart08 berhasil");
                         </script> Tentukan median dan jenis kemencengan pada boxplot di atas.
                     </li>
