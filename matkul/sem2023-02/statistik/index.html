@@ -550,15 +550,15 @@
                             <canvas id="myChart03"></canvas>
                         </div>
                         <script>
-                            const x_vals = [55, 65, 75, 85, 95];
-                            const y_vals = [3, 14, 21, 12, 6];
-                            const data = x_vals.map((k, i) => ({
+                            var x_vals = [55, 65, 75, 85, 95];
+                            var y_vals = [3, 14, 21, 12, 6];
+                            var data = x_vals.map((k, i) => ({
                                 x: k,
                                 y: y_vals[i]
                             })); 
                             //const ctx = document.getElementById('myChart03').getContext('2d');
-                            const ctx = document.getElementById('myChart03');
-                            const myChart = new Chart(ctx, {
+                            var ctx = document.getElementById('myChart03');
+                            var myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
                                     datasets: [{
@@ -610,10 +610,10 @@
                                                     if (!items.length) {
                                                         return '';
                                                     }
-                                                    const item = items[0];
-                                                    const x = item.parsed.x;
-                                                    const min = x - 5;
-                                                    const max = x + 5;
+                                                    var item = items[0];
+                                                    var x = item.parsed.x;
+                                                    var min = x - 5;
+                                                    var max = x + 5;
                                                     return `Nilai: ${min} - ${max}`;
                                                 }
                                             }
@@ -669,7 +669,7 @@
                             <canvas id="myChart08"></canvas>
                         </div>
                         <script>
-                            const boxplotData = {
+                            var boxplotData = {
                                 // define label tree
                                 labels: ['Banyak Koran'],
                                 datasets: [{
@@ -691,8 +691,8 @@
                             };
                             //window.onload = () => {
                                 //const ctx = document.getElementById("myChart08").getContext("2d");
-                                const ctx1 = document.getElementById("myChart08");
-                                const boxplot1 = new Chart(ctx1, {
+                                var ctx = document.getElementById("myChart08");
+                                var boxplot = new Chart(ctx, {
                                     type: 'boxplot',
                                     data: boxplotData,
                                     options: {
