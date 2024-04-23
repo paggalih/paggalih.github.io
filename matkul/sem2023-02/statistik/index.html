@@ -556,17 +556,15 @@
                                 x: k,
                                 y: y_vals[i]
                             })); 
-                            <!-- const ctx = document.getElementById('myChart03').getContext('2d'); -->
+                            //const ctx = document.getElementById('myChart03').getContext('2d');
                             const ctx = document.getElementById('myChart03');
                             const myChart = new Chart(ctx, {
                                 type: 'bar',
                                 data: {
                                     datasets: [{
                                         label: 'Num of Nilai',
-                                        data: data,
-                                        < !--backgroundColor: backgroundColor,
-                                        -- > < !--borderColor: borderColor,
-                                        -- > borderWidth: 1,
+                                        data: data, 
+										borderWidth: 1,
                                         barPercentage: 1,
                                         categoryPercentage: 1,
                                         borderRadius: 5,
