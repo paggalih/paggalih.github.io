@@ -1176,7 +1176,7 @@ section {
   font-size: 15;
   font-style: italic;
   padding: 0;
-  margin: 0 0 40px 0;
+  /* margin: 0 0 40px 0; */
 }
 
 #footer .social-links {
@@ -1296,4 +1296,9 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .w3-button, a, li {
 
 .facts .count-box span {
   color: #0563bb;
+}
+
+#footer p,
+#footer .social-links {
+    margin: 0 0 10px 0;
 }
