@@ -162,7 +162,7 @@
                     <div class="section-title">
                         <h2>Nama Matkul</h2>
                     </div>
-					<p id="tanggal">Terakhir diubah pada &nbsp;</p>
+					<p id="tanggal">Terakhir diubah pada </p>
                 </div>
             </section>
             <section id="p1">
@@ -250,9 +250,7 @@
 		<script>
 			var date = new Date(document.lastModified);
 			date = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
-			//document.getElementById("tanggal").innerHTML = date;
-			var a = document.getElementById('tanggal');
-			a.appendChild(date);
+			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date;
 		</script>
     </body>
 </html>
