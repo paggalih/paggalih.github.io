@@ -162,6 +162,8 @@
                     <div class="section-title">
                         <h2>Nama Matkul</h2>
                     </div>
+					<p>Terakhir diedit pada</p>
+					<p id="tanggal"></p>
                 </div>
             </section>
             <section id="p1">
@@ -249,5 +251,12 @@
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+		<!-- moment.js untuk format waktu -->
+		<script src="https://momentjs.com/downloads/moment-with-locales.js"></script>
+		<script>
+			//const date = new Date(document.lastModified);
+			var date = new Date(document.lastModified).moment().format('LLLL'); // Rabu, 24 April 2024 pukul 23.34
+			document.getElementById("tanggal").innerHTML = date;
+		</script>
     </body>
 </html>
