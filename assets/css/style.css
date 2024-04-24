@@ -1302,3 +1302,14 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6, .w3-button, a, li {
 #footer .social-links {
     margin: 0 0 10px 0;
 }
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+#header::-webkit-scrollbar {
+    display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+#header {
+  -ms-overflow-style: none;  /* IE and Edge */
+  scrollbar-width: none;  /* Firefox */
+}
