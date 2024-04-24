@@ -252,7 +252,8 @@
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 		<script>
-			const date = new Date(document.lastModified);
+			var date = new Date(document.lastModified);
+			date = date.toLocaleDateString('id-ID',{weekday:'long'});
 			document.getElementById("tanggal").innerHTML = date;
 		</script>
     </body>
