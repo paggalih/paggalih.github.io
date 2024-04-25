@@ -265,8 +265,9 @@
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 		<script>
 			var date = new Date(document.lastModified);
-			date = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
-			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date+" Pukul "+date.toLocaleTimeString();
+			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
+			jam1 = date.toLocaleTimeString('id-ID');
+			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
 			
 		</script>
     </body>
