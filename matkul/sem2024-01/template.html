@@ -41,9 +41,14 @@
             @media (max-width: 991px) {}
 			#matkul_icon {
 				z-index: 2000;
-				position: absolute;
-				right: 100px;
-				bottom: 100px;
+				position: fixed;
+				right: 20px;
+				bottom: 60px;
+				background-color: #0563bb;
+				letter-spacing: 5px;
+				color: aliceblue;
+				padding: 2px 8px;
+				border-radius: 50px;
 			}
         </style>
     </head>
@@ -163,7 +168,7 @@
         </header>
         <!-- End Header -->
         <main id="main">
-		<div id="matkul_icon"><i class="bi bi-journals"></i>Nama Matkul</div>
+		<div id="matkul_icon" class="fw-bold"><i class="bi bi-journals"></i>Nama Matkul</div>
             <section id="matkul">
                 <div class="container aos-init aos-animate" data-aos="fade-up">
                     <div class="section-title">
