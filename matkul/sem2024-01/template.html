@@ -38,7 +38,20 @@
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
         <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
         <style>
-            @media (max-width: 991px) {}
+            @media (min-width: 991px) {
+			#matkul_icon {
+				z-index: 2000;
+				position: fixed;
+				right: 20px;
+				top: 20px;
+				background-color: #0563bb;
+				letter-spacing: 2px;
+				color: aliceblue;
+				padding: 2px 8px;
+				border-radius: 50px;
+			}
+			}
+            @media (max-width: 991px) {
 			#matkul_icon {
 				z-index: 2000;
 				position: fixed;
@@ -49,6 +62,7 @@
 				color: aliceblue;
 				padding: 2px 8px;
 				border-radius: 50px;
+			}
 			}
         </style>
     </head>
