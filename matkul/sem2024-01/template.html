@@ -39,6 +39,17 @@
         <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
         <style>
             @media (max-width: 991px) {}
+			#matkul {
+			}
+
+			#matkul.show {
+				transition: 0.5s ease-in-out;
+				position: fixed;
+				left: 15px;
+				bottom: 15px;
+				width: 100px;
+				height: 100px;
+			}
         </style>
     </head>
     <body>
@@ -251,6 +262,16 @@
 			var date = new Date(document.lastModified);
 			date = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
 			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date;
+			
+			document.addEventListener("scroll", function() {
+			  var matkul = document.getElementById("matkul");
+			  if (window.pageYOffset > 817) {
+				matkul.classList.add("show");
+			  }
+			  if (window.pageYOffset < 817) {
+				matkul.classList.remove("show");
+			  }
+			});
 		</script>
     </body>
 </html>
