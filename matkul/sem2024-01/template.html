@@ -44,7 +44,7 @@
 
 			#matkul.show {
 				transition: 0.5s ease-in-out;
-				position: fixed;
+				position: sticky;
 				left: 15px;
 				bottom: 15px;
 				width: 100px;
@@ -265,10 +265,10 @@
 			
 			document.addEventListener("scroll", function() {
 			  var matkul = document.getElementById("matkul");
-			  if (window.pageYOffset > 817) {
+			  if (window.pageYOffset > 100) {
 				matkul.classList.add("show");
 			  }
-			  if (window.pageYOffset < 817) {
+			  if (window.pageYOffset < 100) {
 				matkul.classList.remove("show");
 			  }
 			});
