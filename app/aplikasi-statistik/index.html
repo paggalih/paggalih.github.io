@@ -183,8 +183,9 @@
 											var g =  jStat.histogram(e, nKelas);
 											
                       var f = [];
+											var awal = Math.floor(jStat.min(e));
 											for (let i = 0; i < nKelas; i++) {
-												f[i] = jStat.min(e)+(lKelas)/2*(i+1);
+												f[i] = awal+(lKelas)/2*(i+1);
 											} 
 											
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas"+ nKelas+ "\n Panjang kelas"+ lKelas +"\n ========= \n";
