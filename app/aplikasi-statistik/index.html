@@ -160,7 +160,7 @@
                       <canvas id="gambarHistogram"></canvas>
                     </div>
                   </div>
-                  <script type="text/javascript">
+                  <script>
                     function _histogram() {
                       document.getElementById("hasilHistogram").style.display = "none";
                       document.getElementById("gambarHistogram").remove();
@@ -186,7 +186,7 @@
 											for (let i = 0; i < nKelas; i++) {
 												f[i] = jStat.min(e)+(lKelas)/2*(i+1);
 											} 
-
+											
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
                       document.getElementById("hasilHistogram").style.display = "block";
 											var x_vals = f;
@@ -195,6 +195,7 @@
 													x: k,
 													y: y_vals[i]
 											})); 
+											console.log("var ctx = document.getElementById('gambarHistogram');");
 											var ctx = document.getElementById('gambarHistogram');
 											var myChart = new Chart(ctx, {
 													type: 'bar',
@@ -252,7 +253,7 @@
 																							var x = item.parsed.x;
 																							var min = x - lKelas/2;
 																							var max = x + lKelas/2;
-																							return `Nilai: ${min} - ${max}`;
+																							return "Nilai: ${min} - ${max}";
 																					}
 																			}
 																	}
