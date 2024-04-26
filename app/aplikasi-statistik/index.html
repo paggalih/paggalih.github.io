@@ -178,13 +178,10 @@
                         var e = c;
                       }
 											e = e.sort(function(a, b){return a - b});
-											console.log("cek e "+e);
 											var nKelas = 1+(3.3)*Math.log10(e.length);
 											nKelas = Math.floor(nKelas);
 											var lKelas = Math.fround(jStat.range(e)/nKelas);
-											console.log("cek lKelas "+lKelas);
 											var g =  jStat.histogram(e, nKelas);
-											console.log("cek g "+g);
                       var f = [];
 											var awal = Math.floor(jStat.min(e));
 											console.log("cek awal "+awal);
@@ -192,6 +189,7 @@
 												f[i] = awal+(lKelas)/2+lKelas*i;
 											} 
 											var akhir = f[nKelas-1]+1;
+											console.log("cek akhir "+akhir);
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas "+ nKelas+ "\n Panjang kelas "+ lKelas +"\n ========= \n";
                       document.getElementById("hasilHistogram").style.display = "block";
 											var x_vals = f;
@@ -224,9 +222,9 @@
 																			grid: {
 																					offset: false
 																			},
-																			ticks: {
-																					stepSize: lKelas
-																			},
+																			//ticks: {
+																			//		stepSize: lKelas
+																			//},
 																			title: {
 																					display: true,
 																					text: 'Nilai',
