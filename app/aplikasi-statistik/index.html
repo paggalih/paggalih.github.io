@@ -191,7 +191,7 @@
 											for (let i = 0; i < nKelas; i++) {
 												f[i] = awal+(lKelas)/2+lKelas*i;
 											} 
-											
+											var akhir = f[nKelas-1]+1;
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas "+ nKelas+ "\n Panjang kelas "+ lKelas +"\n ========= \n";
                       document.getElementById("hasilHistogram").style.display = "block";
 											var x_vals = f;
@@ -217,7 +217,7 @@
 															scales: {
 																	x: {
 																			min: awal,
-																			max: f[-1]+1,
+																			max: akhir,
 																			//beginAtZero: true,
 																			type: 'linear',
 																			offset: false,
@@ -266,7 +266,7 @@
 															}
 													}
 											});
-											console.log("Histogram berhasil beginAtZero");
+											console.log("Histogram berhasil akhir");
 									}
                   </script>
                 </div>
