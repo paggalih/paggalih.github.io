@@ -177,22 +177,16 @@
                       } else {
                         var e = c;
                       }
-											//e = e.sort(function(a, b){return a - b});
-											console.log("cek e "+e);
-											console.log("cek elength "+e.length);
 											var nKelas = 1+(3.3)*Math.log10(e.length);
-											console.log("cek nKelas "+nKelas);
 											nKelas = Math.ceil(nKelas);
-											console.log("cek range "+jStat.range(e));
 											var lKelas = Math.ceil(jStat.range(e)/nKelas);
 											console.log("cek lKelas "+lKelas);
-
 											var g =  jStat.histogram(e, nKelas);
-											
+											console.log("cek g "+g);
                       var f = [];
 											var awal = Math.floor(jStat.min(e));
 											for (let i = 0; i < nKelas; i++) {
-												f[i] = awal+(lKelas)/2*(i+1);
+												f[i] = awal+(lKelas)/2+lKelas*i;
 											} 
 											
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas "+ nKelas+ "\n Panjang kelas "+ lKelas +"\n ========= \n";
