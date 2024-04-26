@@ -181,9 +181,9 @@
 											var nKelas = 1+(3.3)*Math.log10(e.length);
 											console.log("cek nKelas "+nKelas);
 											nKelas = Math.ceil(nKelas);
-											console.log("cek nKelas "+nKelas);
-											var lKelas = Math.round(jStat.range(e)/nKelas);
-											console.log("cek lKelaselas "+lKelas);
+											console.log("cek range "+jStat.range(e);
+											var lKelas = Math.ceil(jStat.range(e)/nKelas);
+											console.log("cek lKelas "+lKelas);
 
 											var g =  jStat.histogram(e, nKelas);
 											
@@ -206,7 +206,7 @@
 													type: 'bar',
 													data: {
 															datasets: [{
-																	label: 'Nilai',
+																	label: 'Banyaknya',
 																	data: data, 
 																	//borderWidth: 1,
 																	barPercentage: 1,
