@@ -187,7 +187,7 @@
 												f[i] = jStat.min(e)+(lKelas)/2*(i+1);
 											} 
 											
-                      document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
+                      document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas"+ nKelas+ "\n Panjang kelas"+ lKelas +"\n ========= \n";
                       document.getElementById("hasilHistogram").style.display = "block";
 											var x_vals = f;
 											var y_vals = g;
@@ -203,7 +203,7 @@
 															datasets: [{
 																	label: 'Nilai',
 																	data: data, 
-																	borderWidth: 1,
+																	//borderWidth: 1,
 																	barPercentage: 1,
 																	categoryPercentage: 1,
 																	borderRadius: 5
