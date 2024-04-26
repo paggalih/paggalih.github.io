@@ -154,14 +154,14 @@
                   <div class="form-floating">
                     <textarea class="form-control" placeholder="-" id="inputHistogram" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputHistogram">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="histogram" onclick="_histogram()">Hitung</button>
+                    <button class="btn btn-primary" type="submit" id="_histogram" onclick="histogram()">Hitung</button>
                     <p class="text-break" id="hasilHistogram">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                     <div id="tempatHistogram">
                       <canvas id="gambarHistogram"></canvas>
                     </div>
                   </div>
                   <script>
-                    function _histogram() {
+                    function histogram() {
                       document.getElementById("hasilHistogram").style.display = "none";
                       document.getElementById("gambarHistogram").remove();
                       var tempat = document.getElementById("tempatHistogram");
@@ -261,6 +261,7 @@
 													}
 											});
 											console.log("Histogram berhasil");
+									}
                   </script>
                 </div>
                 <div class="col-lg-6 col-sm-12 px-5">
