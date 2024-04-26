@@ -1,515 +1,550 @@
 <!DOCTYPE html>
 <html lang="id-ID">
-
-<head>
-  <meta charset="utf-8">
-  <meta content="width=device-width, initial-scale=1.0" name="viewport">
-
-  <title>Aplikasi Statistik</title>
-  <meta content="Aplikasi statiska bermesinkan jstat.js, chart.js, dan chart-boxplot.js" name="description">
-  <meta content="aplikasi statistika, statistika deskriptif, statistika inferensial" name="keywords">
-  <meta name="author" content="Galih Pradananta">
-
-  <!-- Favicons -->
-  <link href="/assets/img/letter-g.gif" rel="icon">
-
-
-  <!-- Vendor CSS Files -->
-  <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-
-  <!-- Template Main CSS File -->
-  <link href="/assets/css/style.css" rel="stylesheet">
-
-  <!-- =======================================================
+  <head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Aplikasi Statistik</title>
+    <meta content="Aplikasi statiska bermesinkan jstat.js, chart.js, dan chart-boxplot.js" name="description">
+    <meta content="aplikasi statistika, statistika deskriptif, statistika inferensial" name="keywords">
+    <meta name="author" content="Galih Pradananta">
+    <!-- Favicons -->
+    <link href="/assets/img/letter-g.gif" rel="icon">
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <!-- =======================================================
   * Template Name: MyResume
   * Updated: Jun 13 2023 with Bootstrap v5.3.0
   * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']]
-  }
-};
-</script>
-<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-<!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+    <script>
+      MathJax = {
+        tex: {
+          inlineMath: [
+            ['$', '$'],
+            ['\\(', '\\)']
+          ]
+        }
+      };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+    <style>
+      li>.collapse {
+        margin-right: 2rem;
+      }
 
-<style>
+      @media (max-width: 991px) {}
+    </style>
+  </head>
+  <body>
+    <!-- ======= Mobile nav toggle button ======= -->
+    <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+    <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+    <!-- ======= Header ======= -->
+    <header id="header" class="d-flex flex-column justify-content-center">
+      <nav id="navbar" class="navbar nav-menu">
+        <ul>
+          <li>
+            <a href="/index.html" class="nav-link scrollto active">
+              <i class="bx bx-home"></i>
+              <span>Home</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </header>
+    <!-- End Header -->
+    <main id="main">
+      <h1 id="post-title" class="fixed-top shadow-lg">Aplikasi Statistika</h1>
+      <div style="margin: 100px;"></div>
+      <ol>
+        <li> Satu Variabel <ol type="A">
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiagramBatang" aria-expanded="false" aria-controls="collapseDiagramBatang">Diagram Batang</button>
+              <div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputDiagramBatang" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputDiagramBatang">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
+                    <p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <div id="tempatDiagramBatang">
+                      <canvas id="gambarDiagramBatang"></canvas>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                    function diagramBatang() {
+                      document.getElementById("hasilDiagramBatang").style.display = "none";
+                      document.getElementById("gambarDiagramBatang").remove();
+                      var tempat = document.getElementById("tempatDiagramBatang");
+                      var gambar = document.createElement("canvas");
+                      gambar.id = "gambarDiagramBatang";
+                      tempat.appendChild(gambar);
+                      var a = document.getElementById('inputDiagramBatang');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','));
+                      var d = Array.from(b.split('\n'));
+                      if (d.length > c.length) {
+                        var e = d;
+                      } else {
+                        var e = c;
+                      }
+                      var f = new Set(e);
+                      var g = [];
+                      var iterator = Array.from(f);
+                      for (let i = 0; i < iterator.length; i++) {
+                        console.log(iterator[i]);
+                        var pisah = e.filter((x) => x === iterator[i]);
+                        console.log(pisah);
+                        g[i] = pisah.length;
+                      }
+                      document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
+                      document.getElementById("hasilDiagramBatang").style.display = "block";
+                      var xValues = Array.from(f);
+                      var yValues = g;
+                      new Chart("gambarDiagramBatang", {
+                        type: "bar",
+                        data: {
+                          labels: xValues,
+                          datasets: [{
+                            backgroundColor: poolColors(yValues.length),
+                            borderColor: poolColors(yValues.length),
+                            data: yValues
+                          }]
+                        },
+                        options: {
+                          plugins: {
+                            legend: {
+                              display: false
+                            },
+                            title: {
+                              display: true,
+                              text: 'Diagram Batang'
+                            }
+                          }
+                        }
+                      });
+                    }
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Cara menggambar diagram batang secara manual.</p>
+                  <!-- <ol> -->
+                  <!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
+                  <!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
+                  <!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
+                  <!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
+                  <!-- </ol> -->
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistogram" aria-expanded="false" aria-controls="collapseHistogram">Histogram</button>
+              <div class="row collapse py-4" id="collapseHistogram" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputHistogram" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputHistogram">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="histogram" onclick="histogram()">Hitung</button>
+                    <p class="text-break" id="hasilHistogram">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <div id="tempatHistogram">
+                      <canvas id="gambarHistogram"></canvas>
+                    </div>
+                  </div>
+                  <script type="text/javascript">
+                    function histogram() {
+                      document.getElementById("hasilHistogram").style.display = "none";
+                      document.getElementById("gambarHistogram").remove();
+                      var tempat = document.getElementById("tempatHistogram");
+                      var gambar = document.createElement("canvas");
+                      gambar.id = "gambarHistogram";
+                      tempat.appendChild(gambar);
+                      var a = document.getElementById('inputHistogram');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','));
+                      var d = Array.from(b.split('\n'));
+                      if (d.length > c.length) {
+                        var e = d;
+                      } else {
+                        var e = c;
+                      }
+											var nKelas = 1+3.3*Math.log(e.length);
+											nKelas = Math.ceil(nKelas);
+											var lKelas = Math.round(jStat.range(e)/nKelas);
+											var g =  jStat.histogram(e, nKelas);
+											
+                      var f = [];
+											for (let i = 0; i < nKelas; i++) {
+												f[i] = jStat.min(e)+(lKelas)/2*(i+1);
+											} 
 
-li > .collapse {
-  margin-right: 2rem;
-}
-@media (max-width: 991px) {
-
-}
-
-</style>
-
-</head>
-<body>
-
-  <!-- ======= Mobile nav toggle button ======= -->
-  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
-  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
-  <!-- ======= Header ======= -->
-  <header id="header" class="d-flex flex-column justify-content-center">
-
-    <nav id="navbar" class="navbar nav-menu">
-      <ul>
-        <li><a href="/index.html" class="nav-link scrollto active"><i class="bx bx-home"></i> <span>Home</span></a></li>
-        <!-- <li><a href="#dasar" class="nav-link scrollto"><i class="bi bi-1-circle-fill"></i> <span>Kemampuan Dasar</span></a></li>	 -->
-		<!-- <li><a href="#lanjut" class="nav-link scrollto"><i class="bi bi-2-circle-fill"></i> <span>Kemampuan Lanjut</span></a></li> -->
-      </ul>
-    </nav><!-- .nav-menu --> 
-
-  </header><!-- End Header -->
-
-  <main id="main">
-	<h1 id="post-title" class="fixed-top shadow-lg">Aplikasi Statistika</h1>
-	<div style="margin: 100px;"></div>
-	
-	<ol>
-		<li>
-			Satu Variabel
-		  <ol type="A">
-			<li>
-			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiagramBatang" aria-expanded="false" aria-controls="collapseDiagramBatang">Diagram Batang</button>
-
-		  <div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
-			<div class="col-lg-6 col-sm-12 px-4">
-			
-			
-		  
-			<div class="form-floating">
-			  <textarea class="form-control" placeholder="-" id="inputDiagramBatang"style="height:150px;" autocomplete="off"></textarea>
-			  <label for="inputDiagramBatang">Masukkan data di sini</label>
-			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
-			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			<div id="tempatDiagramBatang">
-			  <canvas id="gambarDiagramBatang"></canvas>
-			</div>
-			</div>    
-		 
-			 
-			 <script type="text/javascript">
-				function diagramBatang(){
-					document.getElementById("hasilDiagramBatang").style.display = "none"; 
-					document.getElementById("gambarDiagramBatang").remove(); 
-					var tempat = document.getElementById("tempatDiagramBatang");
-					<!-- tempat.classList.add("overflow-auto"); -->
-					var gambar = document.createElement("canvas");
-					gambar.id = "gambarDiagramBatang";
-					tempat.appendChild(gambar);
-					var a  = document.getElementById('inputDiagramBatang');
-					var b = rapikan(a);
-					var c = Array.from(b.split(','));
-					var	d = Array.from(b.split('\n'));
-					if (d.length>c.length) {
-					var	e = d;
-					}
-					else {
-					var	e = c;
-					}
-					<!-- membuat labels chart.js -->
-					var f = new Set(e);
-					<!-- membuat data chart.js -->
-					var g = [];
-					var iterator = Array.from(f);
-					for (let i = 0; i < iterator.length; i++) {
-						console.log(iterator[i]);
-						var pisah = e.filter((x) => x===iterator[i]);
-						console.log(pisah);
-						g[i] = pisah.length;
-					}
-					document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data "+e.length+"\n ========= \n";
-					document.getElementById("hasilDiagramBatang").style.display = "block";
-
-var xValues = Array.from(f);
-var yValues = g;
-<!-- var barColors = ["red", "green","blue","orange","brown"]; -->
-
-new Chart("gambarDiagramBatang", {
-  type: "bar",
-  data: {
-    labels: xValues,
-    datasets: [{
-		backgroundColor: poolColors(yValues.length),
-		borderColor: poolColors(yValues.length),
-        <!-- barThickness: 6, -->
-		<!-- maxBarThickness: 8, -->
-        <!-- minBarLength: 5, -->
-		data: yValues
-    }]
-  },
-  options: {
-	plugins: {
-	    legend: {display: false},
-		title: {
-			display: true,
-			text: 'Diagram Batang'
-		}
-	}
-  }
-});
-
-				}
-			 </script>
-
-			</div>
-			<div class="col-lg-6 col-sm-12 px-5">
-			<p class="fw-bold">Cara menggambar diagram batang secara manual.</p>
-			<!-- <ol> -->
-			<!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
-			<!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
-			<!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
-			<!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
-			<!-- </ol> -->
-			</div>
-		  </div>
-
-			</li>
-			<li>
-			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRatarata" aria-expanded="false" aria-controls="collapseRatarata">
-			Rata-rata
-		  </button>
-
-		  <div class="row collapse py-4" id="collapseRatarata" style="background:aliceblue;">
-			<div class="col-lg-6 col-sm-12 px-4">
-			
-			
-		  
-			<div class="form-floating">
-			  <textarea class="form-control" placeholder="-" id="inputRatarata"style="height:150px;" autocomplete="off"></textarea>
-			  <label for="inputRatarata">Masukkan data di sini</label>
-			<button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
-			<p class="text-break" id="hasilRatarata">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			</div>    
-		 
-			 
-			 <script type="text/javascript">
-				function rataRata(){
-					document.getElementById("hasilRatarata").style.display = "none"; 
-					var a  = document.getElementById('inputRatarata');
-					<!-- var	b = a.value; -->
-						<!-- b = b.trim(); -->
-						<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-					<!-- while (b.includes(",,")) { -->
-						<!-- b = b.replace(/,,/g,","); -->
-					<!-- } -->
-					<!-- console.log(b[b.length-1]); -->
-					<!-- if (b[b.length - 1]==",") { -->
-						<!-- b = b.slice(0, -1); -->
-					<!-- } -->
-					var b = rapikan(a);
-					var c = Array.from(b.split(','),Number);
-					var	d = Array.from(b.split('\n'),Number);
-					if (d.length>c.length) {
-					var	e = jStat.mean(d);
-					var f = d;
-					}
-					else {
-					var	e = jStat.mean(c);
-					var f = c;
-					}
-					document.getElementById("hasilRatarata").innerText = "Cek \n Data "+f+"\n Banyak data "+f.length+"\n ========= \n Rata-rata "+e;
-					<!-- var d = document.getElementById("rata-rata").appendChild(Object.assign(document.createElement("div"), { "style": "background-color:red;padding:20px;color:white", "innerText": "Rata-rata "+e+"\n Panjang(,) "+c.length+"\n Panjang(enter) "+d.length+"\n"+b })) -->
-					document.getElementById("hasilRatarata").style.display = "block";
-					<!-- document.getElementById("hasilRatarata").style.break-word = "break-all"; 			 -->
-				}
-			 </script>
-
-			</div>
-			<div class="col-lg-6 col-sm-12 px-5">
-			<p class="fw-bold">Perhitungan rata-rata secara manual.</p>
-			<ol>
-			<li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
-			<li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li>
-			<li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li>
-			<li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li>
-			</ol>
-			</div>
-		  </div>
-
-			</li>
-			<li>
-			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedian" aria-expanded="false" aria-controls="collapseMedian">
-			Median
-		  </button>
-
-		  <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
-			<div class="col-lg-6 col-sm-12 px-4">
-			
-			
-		  
-			<div class="form-floating">
-			  <textarea class="form-control" placeholder="-" id="inputMedian"style="height:150px;" autocomplete="off"></textarea>
-			  <label for="inputMedian">Masukkan data di sini</label>
-			<button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
-			<p class="text-break" id="hasilMedian">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			</div>    
-		 
-			 
-			 <script type="text/javascript">
-				function median(){
-					document.getElementById("hasilMedian").style.display = "none"; 
-					var a  = document.getElementById('inputMedian');
-					<!-- var	b = a.value; -->
-						<!-- b = b.trim(); -->
-						<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-					<!-- while (b.includes(",,")) { -->
-						<!-- b = b.replace(/,,/g,","); -->
-					<!-- } -->
-					<!-- if (b[b.length - 1]==",") { -->
-						<!-- b = b.slice(0, -1); -->
-					<!-- } -->
-					var b = rapikan(a);
-					var c = Array.from(b.split(','), Number);
-					var	d = Array.from(b.split('\n'), Number);
-					if (d.length>c.length) {
-					var	e = jStat.median(d);
-					var f = d;
-					}
-					else {
-					var	e = jStat.median(c);
-					var f = c;
-					}
-					document.getElementById("hasilMedian").innerText = "Cek \n Data asli "+f+"\n Data terurut "+f.sort(function(a, b){return a - b})+"\n Banyak data "+f.length+"\n ========= \n Median "+e;
-					document.getElementById("hasilMedian").style.display = "block";
-				}
-			 </script>
-
-			</div>
-			<div class="col-lg-6 col-sm-12 px-5">
-			<p class="fw-bold">Perhitungan median secara manual.</p>
-			<ol>
-			<li> Menghitung banyaknya data. Contoh datanya adalah $1,4,3$ ada sebanyak $3$ data.</li>
-			<li> Mengurutkan data. Contoh $1,3,4$</li>
-			<li> Mencari tempat median dengan rumus $\dfrac{n+1}{2}$. Contoh $\dfrac{3+1}{2}=$$2.$</li>
-			<li> Median adalah data ke-$2$ dalam contoh ini adalah $3.$</li>
-			</ol>
-			</div>
-		  </div>
-			</li>
-			<li>
-			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModus" aria-expanded="false" aria-controls="collapseModus">
-			Modus
-		  </button>
-
-		  <div class="row collapse py-4" id="collapseModus" style="background:aliceblue;">
-			<div class="col-lg-6 col-sm-12 px-4">
-			
-			
-		  
-			<div class="form-floating">
-			  <textarea class="form-control" placeholder="-" id="inputModus"style="height:150px;"  autocomplete="off"></textarea>
-			  <label for="inputModus">Masukkan data di sini</label>
-			<button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
-			<p class="text-break" id="hasilModus">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			</div>    
-		 
-			 
-			 <script type="text/javascript">
-				function modus(){
-					document.getElementById("hasilModus").style.display = "none"; 
-					var a  = document.getElementById('inputModus');
-						<!-- a = a.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-					<!-- var	b = a.value; -->
-						<!-- b = b.trim(); -->
-						<!-- b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, ""); -->
-					<!-- while (b.includes(",,")) { -->
-						<!-- b = b.replace(/,,/g,","); -->
-					<!-- } -->
-					<!-- if (b[b.length - 1]==",") { -->
-						<!-- b = b.slice(0, -1); -->
-					<!-- } -->
-					var b = rapikan(a);
-					var c = Array.from(b.split(','), Number);
-					var	d = Array.from(b.split('\n'), Number);
-					if (d.length>c.length) {
-					var	e = jStat.mode(d);
-					var f = d;
-					}
-					else {
-					var	e = jStat.mode(c);
-					var f = c;
-					}
-					document.getElementById("hasilModus").innerText = "Cek \n Data asli "+f+"\n Data terurut "+f.sort(function(a, b){return a - b})+"\n Banyak data "+f.length+"\n ========= \n Modus "+e;
-					document.getElementById("hasilModus").style.display = "block";
-				}
-			 </script>
-
-			</div>
-			<div class="col-lg-6 col-sm-12 px-5">
-			<p class="fw-bold">Perhitungan modus secara manual.</p>
-			<ol>
-			<li> Mengurutkan data. Contoh $1,3,4,3$ diurutkan menjadi $1,3,3,4$.</li>
-			<li> Menghitung kemunculan setiap nilai pada data dengan memasukkannya dalam bentuk tabel.</li>
-			<li> <table class="table table-striped-columns">
-				<thead><tr><td>Nilai</td><td>Frekuensi</td></tr></thead>
-				<tbody><tr><td>$1$</td><td>$1$</td></tr>
-				<tr><td>$3$</td><td>$2$</td></tr>
-				<tr><td>$4$</td><td>$1$</td></tr></tbody>
-				</table></li>
-			<li> Modus adalah nilai dengan frekuensi tertinggi yaitu $3.$</li>
-			</ol>
-			</div>
-		  </div>
-			</li>
-			<li>
-			<button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJangkauan" aria-expanded="false" aria-controls="collapseJangkauan">
-			Jangkauan
-		  </button>
-
-		  <div class="row collapse py-4" id="collapseJangkauan" style="background:aliceblue;">
-			<div class="col-lg-6 col-sm-12 px-4">
-			
-			
-		  
-			<div class="form-floating">
-			  <textarea class="form-control" placeholder="-" id="inputJangkauan"style="height:150px;"  autocomplete="off"></textarea>
-			  <label for="inputJangkauan">Masukkan data di sini</label>
-			<button class="btn btn-primary" type="submit" id="jangkauan" onclick="jangkauan()">Hitung</button>
-			<p class="text-break" id="hasilJangkauan">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini.<br> Klik <kbd>Hitung</kbd> jika data sudah benar.</p>
-			</div>    
-		 
-			 
-			 <script type="text/javascript">
-				function jangkauan(){
-					document.getElementById("hasilJangkauan").style.display = "none"; 
-					var a  = document.getElementById('inputJangkauan');
-
-					var b = rapikan(a);
-					var c = Array.from(b.split(','), Number);
-					var	d = Array.from(b.split('\n'), Number);
-					if (d.length>c.length) {
-					var	e = jStat.range(d);
-					var f = d;
-					}
-					else {
-					var	e = jStat.range(c);
-					var f = c;
-					}
-					document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli "+f+"\n Data terurut "+f.sort(function(a, b){return a - b})+"\n Banyak data "+f.length+"\n ========= \n Jangkauan "+e;
-					document.getElementById("hasilJangkauan").style.display = "block";
-				}
-			 </script>
-
-			</div>
-			<div class="col-lg-6 col-sm-12 px-5">
-			<p class="fw-bold">Perhitungan jangkauan secara manual.</p>
-			<ol>
-			<li> Mencari data terbesar dan terkecil. Contoh $1,3,4,3$ maka data terbesar adalah $4$ dan data terkecil adalah $1.$</li>
-			<li> Mengurangi data terbesar dengan data terkecil. Contoh ini adalah $4-1=3.$</li>
-			<li> Jangkauan data adalah $3.$</li>
-			</ol>
-			</div>
-		  </div>
-			</li>
-		  </ol>
-
-		</li>
-		<li>
-			Dua Variabel
-		</li>
-		<li>
-			Lebih dari 2 Variabel
-		</li>
-	</ol>
-	
-
-  
-  </main>
-  <!-- ======= Footer ======= -->
-  <footer id="footer">
-    <div class="container">
-      <h3>Galih Pradananta</h3>
-      <p>You just have to live for this one minute.</p>
-      <div class="social-links">
-        <a href="https://www.tiktok.com/@galihagpradananta"  target="_blank" class="tiktok"><i class="bx bxl-tiktok"></i></a>
-        <a href="https://www.facebook.com/paggalih"  target="_blank" class="facebook"><i class="bx bxl-facebook"></i></a>
-        <a href="https://www.instagram.com/paggalih/"  target="_blank" class="instagram-alt"><i class="bx bxl-instagram-alt"></i></a>
-        <a href="https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA"  target="_blank" class="youtube"><i class="bx bxl-youtube"></i></a>
-        <a href="https://id.linkedin.com/in/galih-pradananta-34666362"  target="_blank" class="linkedin"><i class="bx bxl-linkedin-square"></i></a>
-      <!-- </div> -->
-      <!-- <div class="copyright"> -->
-        <!-- &copy; Copyright <strong><span>MyResume</span></strong>. All Rights Reserved -->
-      <!-- </div> -->
-      <!-- <div class="credits"> -->
-        <!-- All the links in the footer should remain intact. -->
-        <!-- You can delete the links only if you purchased the pro version. -->
-        <!-- Licensing information: [license-url] -->
-        <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/ -->
-        <!-- Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a> -->
+                      document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
+                      document.getElementById("hasilHistogram").style.display = "block";
+											var x_vals = f;
+											var y_vals = g;
+											var data = x_vals.map((k, i) => ({
+													x: k,
+													y: y_vals[i]
+											})); 
+											var ctx = document.getElementById('gambarHistogram');
+											var myChart = new Chart(ctx, {
+													type: 'bar',
+													data: {
+															datasets: [{
+																	label: 'Nilai',
+																	data: data, 
+																	borderWidth: 1,
+																	barPercentage: 1,
+																	categoryPercentage: 1,
+																	borderRadius: 5,
+															}]
+													},
+													options: {
+															scales: {
+																	x: {
+																			type: 'linear',
+																			offset: false,
+																			grid: {
+																					offset: false
+																			},
+																			ticks: {
+																					stepSize: lKelas
+																			},
+																			title: {
+																					display: true,
+																					text: 'Nilai',
+																					font: {
+																							size: 14
+																					}
+																			}
+																	},
+																	y: {
+																			// beginAtZero: true
+																			title: {
+																					display: true,
+																					text: 'Frekuensi',
+																					font: {
+																							size: 14
+																					}
+																			}
+																	}
+															},
+															plugins: {
+																	legend: {
+																			display: false,
+																	},
+																	tooltip: {
+																			callbacks: {
+																					title: (items) => {
+																							if (!items.length) {
+																									return '';
+																							}
+																							var item = items[0];
+																							var x = item.parsed.x;
+																							var min = x - lKelas/2;
+																							var max = x + lKelas/2;
+																							return `Nilai: ${min} - ${max}`;
+																					}
+																			}
+																	}
+															}
+													}
+											});
+											console.log("Histogram berhasil");
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Cara menggambar histogram secara manual.</p>
+                  <!-- <ol> -->
+                  <!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
+                  <!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
+                  <!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
+                  <!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
+                  <!-- </ol> -->
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRatarata" aria-expanded="false" aria-controls="collapseRatarata"> Rata-rata </button>
+              <div class="row collapse py-4" id="collapseRatarata" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputRatarata" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputRatarata">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
+                    <p class="text-break" id="hasilRatarata">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                  </div>
+                  <script type="text/javascript">
+                    function rataRata() {
+                      document.getElementById("hasilRatarata").style.display = "none";
+                      var a = document.getElementById('inputRatarata');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','), Number);
+                      var d = Array.from(b.split('\n'), Number);
+                      if (d.length > c.length) {
+                        var e = jStat.mean(d);
+                        var f = d;
+                      } else {
+                        var e = jStat.mean(c);
+                        var f = c;
+                      }
+                      document.getElementById("hasilRatarata").innerText = "Cek \n Data " + f + "\n Banyak data " + f.length + "\n ========= \n Rata-rata " + e;
+                      document.getElementById("hasilRatarata").style.display = "block";
+                    }
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Perhitungan rata-rata secara manual.</p>
+                  <ol>
+                    <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
+                    <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li>
+                    <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li>
+                    <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li>
+                  </ol>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedian" aria-expanded="false" aria-controls="collapseMedian"> Median </button>
+              <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputMedian" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputMedian">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
+                    <p class="text-break" id="hasilMedian">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                  </div>
+                  <script type="text/javascript">
+                    function median() {
+                      document.getElementById("hasilMedian").style.display = "none";
+                      var a = document.getElementById('inputMedian');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','), Number);
+                      var d = Array.from(b.split('\n'), Number);
+                      if (d.length > c.length) {
+                        var e = jStat.median(d);
+                        var f = d;
+                      } else {
+                        var e = jStat.median(c);
+                        var f = c;
+                      }
+                      document.getElementById("hasilMedian").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+                        return a - b
+                      }) + "\n Banyak data " + f.length + "\n ========= \n Median " + e;
+                      document.getElementById("hasilMedian").style.display = "block";
+                    }
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Perhitungan median secara manual.</p>
+                  <ol>
+                    <li> Menghitung banyaknya data. Contoh datanya adalah $1,4,3$ ada sebanyak $3$ data.</li>
+                    <li> Mengurutkan data. Contoh $1,3,4$</li>
+                    <li> Mencari tempat median dengan rumus $\dfrac{n+1}{2}$. Contoh $\dfrac{3+1}{2}=$$2.$</li>
+                    <li> Median adalah data ke-$2$ dalam contoh ini adalah $3.$</li>
+                  </ol>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModus" aria-expanded="false" aria-controls="collapseModus"> Modus </button>
+              <div class="row collapse py-4" id="collapseModus" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputModus" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputModus">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
+                    <p class="text-break" id="hasilModus">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                  </div>
+                  <script type="text/javascript">
+                    function modus() {
+                      document.getElementById("hasilModus").style.display = "none";
+                      var a = document.getElementById('inputModus');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','), Number);
+                      var d = Array.from(b.split('\n'), Number);
+                      if (d.length > c.length) {
+                        var e = jStat.mode(d);
+                        var f = d;
+                      } else {
+                        var e = jStat.mode(c);
+                        var f = c;
+                      }
+                      document.getElementById("hasilModus").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+                        return a - b
+                      }) + "\n Banyak data " + f.length + "\n ========= \n Modus " + e;
+                      document.getElementById("hasilModus").style.display = "block";
+                    }
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Perhitungan modus secara manual.</p>
+                  <ol>
+                    <li> Mengurutkan data. Contoh $1,3,4,3$ diurutkan menjadi $1,3,3,4$.</li>
+                    <li> Menghitung kemunculan setiap nilai pada data dengan memasukkannya dalam bentuk tabel.</li>
+                    <li>
+                      <table class="table table-striped-columns">
+                        <thead>
+                          <tr>
+                            <td>Nilai</td>
+                            <td>Frekuensi</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td>$1$</td>
+                            <td>$1$</td>
+                          </tr>
+                          <tr>
+                            <td>$3$</td>
+                            <td>$2$</td>
+                          </tr>
+                          <tr>
+                            <td>$4$</td>
+                            <td>$1$</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </li>
+                    <li> Modus adalah nilai dengan frekuensi tertinggi yaitu $3.$</li>
+                  </ol>
+                </div>
+              </div>
+            </li>
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJangkauan" aria-expanded="false" aria-controls="collapseJangkauan"> Jangkauan </button>
+              <div class="row collapse py-4" id="collapseJangkauan" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputJangkauan" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputJangkauan">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="jangkauan" onclick="jangkauan()">Hitung</button>
+                    <p class="text-break" id="hasilJangkauan">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                  </div>
+                  <script type="text/javascript">
+                    function jangkauan() {
+                      document.getElementById("hasilJangkauan").style.display = "none";
+                      var a = document.getElementById('inputJangkauan');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','), Number);
+                      var d = Array.from(b.split('\n'), Number);
+                      if (d.length > c.length) {
+                        var e = jStat.range(d);
+                        var f = d;
+                      } else {
+                        var e = jStat.range(c);
+                        var f = c;
+                      }
+                      document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+                        return a - b
+                      }) + "\n Banyak data " + f.length + "\n ========= \n Jangkauan " + e;
+                      document.getElementById("hasilJangkauan").style.display = "block";
+                    }
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Perhitungan jangkauan secara manual.</p>
+                  <ol>
+                    <li> Mencari data terbesar dan terkecil. Contoh $1,3,4,3$ maka data terbesar adalah $4$ dan data terkecil adalah $1.$</li>
+                    <li> Mengurangi data terbesar dengan data terkecil. Contoh ini adalah $4-1=3.$</li>
+                    <li> Jangkauan data adalah $3.$</li>
+                  </ol>
+                </div>
+              </div>
+            </li>
+          </ol>
+        </li>
+        <li> Dua Variabel </li>
+        <li> Lebih dari 2 Variabel </li>
+      </ol>
+    </main>
+    <!-- ======= Footer ======= -->
+    <footer id="footer">
+      <div class="container">
+        <h3>Galih Pradananta</h3>
+        <p>You just have to live for this one minute.</p>
+        <div class="social-links">
+          <a href="https://www.tiktok.com/@galihagpradananta" target="_blank" class="tiktok">
+            <i class="bx bxl-tiktok"></i>
+          </a>
+          <a href="https://www.facebook.com/paggalih" target="_blank" class="facebook">
+            <i class="bx bxl-facebook"></i>
+          </a>
+          <a href="https://www.instagram.com/paggalih/" target="_blank" class="instagram-alt">
+            <i class="bx bxl-instagram-alt"></i>
+          </a>
+          <a href="https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA" target="_blank" class="youtube">
+            <i class="bx bxl-youtube"></i>
+          </a>
+          <a href="https://id.linkedin.com/in/galih-pradananta-34666362" target="_blank" class="linkedin">
+            <i class="bx bxl-linkedin-square"></i>
+          </a>
+        </div>
+        <a href="https://info.flagcounter.com/rFMs">
+          <img src="https://s11.flagcounter.com/count2/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0">
+        </a>
       </div>
-	  <a href="https://info.flagcounter.com/rFMs"><img src="https://s11.flagcounter.com/count2/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/" alt="Flag Counter" border="0"></a>
+    </footer>
+    <!-- End Footer -->
+    <div id="preloader"></div>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+      <i class="bi bi-arrow-up-short"></i>
+    </a>
+    <!-- Vendor JS Files -->
+    <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/assets/vendor/aos/aos.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+    <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="/assets/vendor/php-email-form/validate.js"></script>
+    <!-- Template Main JS File -->
+    <script src="/assets/js/main.js"></script>
+    <!-- jstat.js statistika -->
+    <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.6/jstat.js"></script> -->
+    <script src="jstat.js"></script>
+    <!-- chart.js diagram -->
+    <script src="/app/aplikasi-statistik/chart.js"></script>
+    <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+    <script>
+      function rapikan(a) {
+        var b = a.value;
+        b = b.trim();
+        b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
+        while (b.includes(",,")) {
+          b = b.replace(/,,/g, ",");
+        }
+        if (b[b.length - 1] == ",") {
+          b = b.slice(0, -1);
+        }
+        return b;
+      }
 
-    </div>
-  </footer><!-- End Footer -->
+      function dynamicColors() {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return "rgba(" + r + "," + g + "," + b + ", 0.5)";
+      }
 
-  <div id="preloader"></div>
-  <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
-
-  <!-- Vendor JS Files -->
-  <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-  <script src="/assets/vendor/aos/aos.js"></script>
-  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-  <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-  <script src="/assets/vendor/php-email-form/validate.js"></script>
-
-  <!-- Template Main JS File -->
-  <script src="/assets/js/main.js"></script>
-  
-	<!-- jstat.js statistika -->
-	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jstat/1.9.6/jstat.js"></script> -->
-	<script src="jstat.js"></script>
-	
-	<!-- chart.js diagram -->
-	<script src="/app/aplikasi-statistik/chart.js"></script>
-	<script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-	
-<script>
-function rapikan(a) {
-	var	b = a.value;
-		b = b.trim();
-		b = b.replace(/^(?=\n)$|^\s*|\s*$|\n\n+/gm, "");
-	while (b.includes(",,")) {
-		b = b.replace(/,,/g,",");
-	}
-	<!-- console.log(b[b.length-1]); -->
-	if (b[b.length - 1]==",") {
-		b = b.slice(0, -1);
-	}
-  return b;
-}
-
-function dynamicColors() {
-    var r = Math.floor(Math.random() * 255);
-    var g = Math.floor(Math.random() * 255);
-    var b = Math.floor(Math.random() * 255);
-    return "rgba(" + r + "," + g + "," + b + ", 0.5)";
-}
-
-function poolColors(a) {
-    var pool = [];
-    for(i = 0; i < a; i++) {
-        pool.push(dynamicColors());
-    }
-    return pool;
-}
-</script>
-
-</body>
-
+      function poolColors(a) {
+        var pool = [];
+        for (i = 0; i < a; i++) {
+          pool.push(dynamicColors());
+        }
+        return pool;
+      }
+    </script>
+  </body>
 </html>
