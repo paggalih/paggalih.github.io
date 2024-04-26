@@ -193,7 +193,9 @@
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas "+ nKelas+ "\n Panjang kelas "+ lKelas +"\n ========= \n";
                       document.getElementById("hasilHistogram").style.display = "block";
 											var x_vals = f;
+											console.log("cek x_vals "+x_vals);
 											var y_vals = g;
+											console.log("cek y_vals "+y_vals);
 											var data = x_vals.map((k, i) => ({
 													x: k,
 													y: y_vals[i]
