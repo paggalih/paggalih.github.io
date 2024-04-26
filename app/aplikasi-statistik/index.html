@@ -180,8 +180,8 @@
 											e = e.sort(function(a, b){return a - b});
 											console.log("cek e "+e);
 											var nKelas = 1+(3.3)*Math.log10(e.length);
-											nKelas = Math.ceil(nKelas);
-											var lKelas = Math.round(jStat.range(e)/nKelas);
+											nKelas = Math.floor(nKelas);
+											var lKelas = Math.fround(jStat.range(e)/nKelas);
 											console.log("cek lKelas "+lKelas);
 											var g =  jStat.histogram(e, nKelas);
 											console.log("cek g "+g);
