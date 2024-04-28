@@ -184,7 +184,7 @@
 											var lKelas = Math.round(jStat.range(e)/nKelas);
 											var g =  jStat.histogram(e, nKelas);
                       var f = [];
-											var awal = Math.floor(jStat.min(e))+0.5;
+											var awal = Math.floor(jStat.min(e))-0.5;
 											console.log("cek awal "+awal);
 											for (let i = 0; i < nKelas; i++) {
 												f[i] = awal+(lKelas)/2+lKelas*i;
