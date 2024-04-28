@@ -98,6 +98,9 @@
                       } else {
                         var e = c;
                       }
+                      e = e.sort(function(a, b) {
+                        return a - b
+                      });
                       var f = new Set(e);
                       var g = [];
                       var iterator = Array.from(f);
@@ -133,6 +136,7 @@
                           }
                         }
                       });
+										console.log("merubah e sort");
                     }
                   </script>
                 </div>
@@ -187,18 +191,14 @@
                       var g = jStat.histogram(e, nKelas);
                       var f = [];
                       var awal = Math.floor(jStat.min(e)) - 0.5;
-                      console.log("cek awal " + awal);
                       for (let i = 0; i < nKelas; i++) {
                         f[i] = awal + (lKelas) / 2 + lKelas * i;
                       }
                       var akhir = f[nKelas - 1] + 0.5;
-                      console.log("cek akhir " + akhir);
                       document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
                       document.getElementById("hasilHistogram").style.display = "block";
                       var x_vals = f;
-                      console.log("cek x_vals " + x_vals);
                       var y_vals = g;
-                      console.log("cek y_vals " + y_vals);
                       var data = x_vals.map((k, i) => ({
                         x: k,
                         y: y_vals[i]
@@ -266,7 +266,7 @@
                           }
                         }
                       });
-                      console.log("ticks ganti");
+                      console.log("catat perubahan disini");
                     }
                   </script>
                 </div>
