@@ -780,6 +780,61 @@
                 </div>
               </div>
             </li>
+            <li>
+              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSimpanganBaku" aria-expanded="false" aria-controls="collapseSimpanganBaku"> Simpangan Baku </button>
+              <div class="row collapse py-4" id="collapseSimpanganBaku" style="background:aliceblue;">
+                <div class="col-lg-6 col-sm-12 px-4">
+                  <div class="form-floating">
+                    <textarea class="form-control" placeholder="-" id="inputSimpanganBaku" style="height:150px;" autocomplete="off"></textarea>
+                    <label for="inputSimpanganBaku">Masukkan data di sini</label>
+                    <button class="btn btn-primary" type="submit" id="_simpangan_baku_sampel" onclick="simpanganBakuSampel()">Hitung Simpangan Baku Sampel</button>
+                    <button class="btn btn-primary" type="submit" id="_simpangan_baku_populasi" onclick="simpanganBakuPopulasi()">Hitung Simpangan Baku Populasi</button>
+                    <p class="text-break" id="hasilSimpanganBaku">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                  </div>
+                  <script>
+                    function simpanganBakuSampel() {
+                      document.getElementById("hasilSimpanganBaku").style.display = "none";
+                      var a = document.getElementById('inputSimpanganBaku');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','), Number);
+                      var d = Array.from(b.split('\n'), Number);
+                      if (d.length > c.length) {
+                        var e = d;
+                      } else {
+                        var e = c;
+                      }
+											var f = jStat.variance(e,true);
+											f = Math.sqrt(f);
+                      document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+                        return a - b
+                      }) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Sampel " + f;
+                      document.getElementById("hasilSimpanganBaku").style.display = "block";
+                    }
+                    function simpanganBakuPopulasi() {
+                      document.getElementById("hasilSimpanganBaku").style.display = "none";
+                      var a = document.getElementById('inputSimpanganBaku');
+                      var b = rapikan(a);
+                      var c = Array.from(b.split(','), Number);
+                      var d = Array.from(b.split('\n'), Number);
+                      if (d.length > c.length) {
+                        var e = d;
+                      } else {
+                        var e = c;
+                      }
+											var f = jStat.variance(e);
+											f = Math.sqrt(f);
+                      document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+                        return a - b
+                      }) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Populasi " + f;
+                      document.getElementById("hasilSimpanganBaku").style.display = "block";
+                    }
+                  </script>
+                </div>
+                <div class="col-lg-6 col-sm-12 px-5">
+                  <p class="fw-bold">Perhitungan simpangan baku secara manual.</p>
+                </div>
+              </div>
+            </li>
           </ol>
         </li>
         <li> Dua Variabel </li>
