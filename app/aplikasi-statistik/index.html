@@ -66,88 +66,10 @@
     <main id="main">
       <h1 id="post-title" class="fixed-top shadow-lg">Aplikasi Statistika</h1>
       <div style="margin: 100px;"></div>
-      <ol>
-        <li> Satu Variabel <ol type="A">
+      <ul class="nav nav-tabs">
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Satu Variabel</a><ul class="dropdown-menu">
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiagramBatang" aria-expanded="false" aria-controls="collapseDiagramBatang">Diagram Batang</button>
-              <div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputDiagramBatang" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputDiagramBatang">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
-                    <p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                    <div id="tempatDiagramBatang">
-                      <canvas id="gambarDiagramBatang"></canvas>
-                    </div>
-                  </div>
-                  <script type="text/javascript">
-                    function diagramBatang() {
-                      document.getElementById("hasilDiagramBatang").style.display = "none";
-                      document.getElementById("gambarDiagramBatang").remove();
-                      var tempat = document.getElementById("tempatDiagramBatang");
-                      var gambar = document.createElement("canvas");
-                      gambar.id = "gambarDiagramBatang";
-                      tempat.appendChild(gambar);
-                      var a = document.getElementById('inputDiagramBatang');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','));
-                      var d = Array.from(b.split('\n'));
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-                      e = e.sort(function(a, b) {
-                        return a - b
-                      });
-                      var f = new Set(e);
-                      var g = [];
-                      var iterator = Array.from(f);
-                      for (let i = 0; i < iterator.length; i++) {
-                        var pisah = e.filter((x) => x === iterator[i]);
-                        g[i] = pisah.length;
-                      }
-                      document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
-                      document.getElementById("hasilDiagramBatang").style.display = "block";
-                      var xValues = Array.from(f);
-                      var yValues = g;
-                      new Chart("gambarDiagramBatang", {
-                        type: "bar",
-                        data: {
-                          labels: xValues,
-                          datasets: [{
-                            backgroundColor: poolColors(yValues.length),
-                            borderColor: poolColors(yValues.length),
-                            data: yValues
-                          }]
-                        },
-                        options: {
-                          plugins: {
-                            legend: {
-                              display: false
-                            },
-                            title: {
-                              display: true,
-                              text: 'Diagram Batang'
-                            }
-                          }
-                        }
-                      });
-										console.log("berikan catatan disini");
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Cara menggambar diagram batang secara manual.</p>
-                  <!-- <ol> -->
-                  <!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
-                  <!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
-                  <!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
-                  <!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
-                  <!-- </ol> -->
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiagramBatang" aria-expanded="false" aria-controls="collapseDiagramBatang">Diagram Batang</button>
             </li>
             <li>
               <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistogram" aria-expanded="false" aria-controls="collapseHistogram">Histogram</button>
@@ -835,11 +757,90 @@
                 </div>
               </div>
             </li>
-          </ol>
+          </ul>
         </li>
         <li> Dua Variabel </li>
         <li> Lebih dari 2 Variabel </li>
-      </ol>
+      </ul>
+<div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputDiagramBatang" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputDiagramBatang">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
+			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+			<div id="tempatDiagramBatang">
+				<canvas id="gambarDiagramBatang"></canvas>
+			</div>
+		</div>
+		<script type="text/javascript">
+			function diagramBatang() {
+				document.getElementById("hasilDiagramBatang").style.display = "none";
+				document.getElementById("gambarDiagramBatang").remove();
+				var tempat = document.getElementById("tempatDiagramBatang");
+				var gambar = document.createElement("canvas");
+				gambar.id = "gambarDiagramBatang";
+				tempat.appendChild(gambar);
+				var a = document.getElementById('inputDiagramBatang');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','));
+				var d = Array.from(b.split('\n'));
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				e = e.sort(function(a, b) {
+					return a - b
+				});
+				var f = new Set(e);
+				var g = [];
+				var iterator = Array.from(f);
+				for (let i = 0; i < iterator.length; i++) {
+					var pisah = e.filter((x) => x === iterator[i]);
+					g[i] = pisah.length;
+				}
+				document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
+				document.getElementById("hasilDiagramBatang").style.display = "block";
+				var xValues = Array.from(f);
+				var yValues = g;
+				new Chart("gambarDiagramBatang", {
+					type: "bar",
+					data: {
+						labels: xValues,
+						datasets: [{
+							backgroundColor: poolColors(yValues.length),
+							borderColor: poolColors(yValues.length),
+							data: yValues
+						}]
+					},
+					options: {
+						plugins: {
+							legend: {
+								display: false
+							},
+							title: {
+								display: true,
+								text: 'Diagram Batang'
+							}
+						}
+					}
+				});
+			console.log("berikan catatan disini");
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="fw-bold">Cara menggambar diagram batang secara manual.</p>
+		<!-- <ol> -->
+		<!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
+		<!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
+		<!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
+		<!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
+		<!-- </ol> -->
+	</div>
+</div>
+
     </main>
     <!-- ======= Footer ======= -->
     <footer id="footer">
