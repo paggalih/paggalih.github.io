@@ -36,8 +36,6 @@
             };
         </script>
         <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-				<link rel="stylesheet" type="text/css" href="https://tikzjax.com/v1/fonts.css">
-				<script src="https://tikzjax.com/v1/tikzjax.js"></script>
         <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
         <style>
             @media (min-width: 991px) {
@@ -191,22 +189,6 @@
                         <h2>Nama Matkul</h2>
                     </div>
 									<p id="tanggal" class="text-center">Terakhir diubah pada </p>
-									<div class="overflow-auto">
-									<iframe src="https://www.geogebra.org/geometry/pwtjag3g?embed" width="100%" height="600" allowfullscreen style="border: 1px solid #e4e4e4;border-radius: 4px;" frameborder="0"></iframe>
-									</div>
-									<script type="text/tikz">
-									\def \n {5}
-									\def \radius {3cm}
-									\def \margin {8} % margin in angles, depends on the radius
-
-									\foreach \s in {1,...,\n}
-									{
-										\node[draw, circle] at ({360/\n * (\s - 1)}:\radius) {$\s$};
-										\draw[->, >=latex] ({360/\n * (\s - 1)+\margin}:\radius) 
-											arc ({360/\n * (\s - 1)+\margin}:{360/\n * (\s)-\margin}:\radius);
-									}
-												
-									</script>
                 </div>
             </section>
             <section id="p1">
