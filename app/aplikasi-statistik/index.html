@@ -72,134 +72,7 @@
               <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseDiagramBatang" aria-expanded="false" aria-controls="collapseDiagramBatang">Diagram Batang</button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistogram" aria-expanded="false" aria-controls="collapseHistogram">Histogram</button>
-              <div class="row collapse py-4" id="collapseHistogram" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputHistogram" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputHistogram">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="_histogram" onclick="histogram()">Hitung</button>
-                    <p class="text-break" id="hasilHistogram">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                    <div id="tempatHistogram">
-                      <canvas id="gambarHistogram"></canvas>
-                    </div>
-                  </div>
-                  <script>
-                    function histogram() {
-                      document.getElementById("hasilHistogram").style.display = "none";
-                      document.getElementById("gambarHistogram").remove();
-                      var tempat = document.getElementById("tempatHistogram");
-                      var gambar = document.createElement("canvas");
-                      gambar.id = "gambarHistogram";
-                      tempat.appendChild(gambar);
-                      var a = document.getElementById('inputHistogram');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-                      e = e.sort(function(a, b) {
-                        return a - b
-                      });
-                      console.log("cek e " + e);
-                      var nKelas = 1 + (3.3) * Math.log10(e.length);
-                      nKelas = Math.floor(nKelas);
-                      var lKelas = Math.round(jStat.range(e) / nKelas);
-                      var g = jStat.histogram(e, nKelas);
-                      var f = [];
-                      var awal = Math.floor(jStat.min(e)) - 0.5;
-                      for (let i = 0; i < nKelas; i++) {
-                        f[i] = awal + (lKelas) / 2 + lKelas * i;
-                      }
-                      var akhir = f[nKelas - 1] + 0.5;
-                      document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-                      document.getElementById("hasilHistogram").style.display = "block";
-                      var x_vals = f;
-                      var y_vals = g;
-                      var data = x_vals.map((k, i) => ({
-                        x: k,
-                        y: y_vals[i]
-                      }));
-                      var ctx = document.getElementById('gambarHistogram');
-                      var myChart = new Chart(ctx, {
-                        type: 'bar',
-                        data: {
-                          datasets: [{
-                            label: 'Banyaknya',
-                            data: data,
-                            barPercentage: 1,
-                            categoryPercentage: 1,
-                            borderRadius: 5
-                          }]
-                        },
-                        options: {
-                          scales: {
-                            x: {
-                              //beginAtZero: true,
-                              type: 'linear',
-                              offset: false,
-                              grid: {
-                                offset: false
-                              },
-                              ticks: {
-                                stepSize: lKelas
-                              },
-                              title: {
-                                display: true,
-                                text: 'Nilai',
-                                font: {
-                                  size: 14
-                                }
-                              }
-                            },
-                            y: {
-                              title: {
-                                display: true,
-                                text: 'Frekuensi',
-                                font: {
-                                  size: 14
-                                }
-                              }
-                            }
-                          },
-                          plugins: {
-                            legend: {
-                              display: false,
-                            },
-                            tooltip: {
-                              callbacks: {
-                                title: (items) => {
-                                  if (!items.length) {
-                                    return "";
-                                  }
-                                  var item = items[0];
-                                  var x = item.parsed.x;
-                                  var min = x - lKelas / 2;
-                                  var max = x + lKelas / 2;
-                                  return "Nilai: " + min + " - " + max;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      });
-                      console.log("catat perubahan disini");
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Cara menggambar histogram secara manual.</p>
-                  <!-- <ol> -->
-                  <!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
-                  <!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
-                  <!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
-                  <!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
-                  <!-- </ol> -->
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistogram" aria-expanded="false" aria-controls="collapseHistogram">Histogram</button>
             </li>
             <li>
               <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoligon" aria-expanded="false" aria-controls="collapsePoligon">Poligon</button>
@@ -209,7 +82,7 @@
                     <textarea class="form-control" placeholder="-" id="inputPoligon" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputPoligon">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="_poligon" onclick="poligon()">Hitung</button>
-                    <p class="text-break" id="hasilPoligon">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilPoligon">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                     <div id="tempatPoligon">
                       <canvas id="gambarPoligon"></canvas>
                     </div>
@@ -338,7 +211,7 @@
                     <textarea class="form-control" placeholder="-" id="inputPoligonKum" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputPoligonKum">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="_poligon_kum" onclick="poligonKum()">Hitung</button>
-                    <p class="text-break" id="hasilPoligonKum">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilPoligonKum">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                     <div id="tempatPoligonKum">
                       <canvas id="gambarPoligonKum"></canvas>
                     </div>
@@ -469,7 +342,7 @@
                     <textarea class="form-control" placeholder="-" id="inputRatarata" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputRatarata">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
-                    <p class="text-break" id="hasilRatarata">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilRatarata">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                   </div>
                   <script>
                     function rataRata() {
@@ -509,7 +382,7 @@
                     <textarea class="form-control" placeholder="-" id="inputMedian" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputMedian">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
-                    <p class="text-break" id="hasilMedian">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilMedian">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                   </div>
                   <script type="text/javascript">
                     function median() {
@@ -551,7 +424,7 @@
                     <textarea class="form-control" placeholder="-" id="inputModus" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputModus">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
-                    <p class="text-break" id="hasilModus">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilModus">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                   </div>
                   <script type="text/javascript">
                     function modus() {
@@ -616,7 +489,7 @@
                     <textarea class="form-control" placeholder="-" id="inputJangkauan" style="height:150px;" autocomplete="off"></textarea>
                     <label for="inputJangkauan">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="jangkauan" onclick="jangkauan()">Hitung</button>
-                    <p class="text-break" id="hasilJangkauan">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilJangkauan">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                   </div>
                   <script>
                     function jangkauan() {
@@ -658,7 +531,7 @@
                     <label for="inputJangkauan">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="_variansi_sampel" onclick="variansiSampel()">Hitung Variansi Sampel</button>
                     <button class="btn btn-primary" type="submit" id="_variansi_populasi" onclick="variansiPopulasi()">Hitung Variansi Populasi</button>
-                    <p class="text-break" id="hasilVariansi">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilVariansi">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                   </div>
                   <script>
                     function variansiSampel() {
@@ -711,7 +584,7 @@
                     <label for="inputSimpanganBaku">Masukkan data di sini</label>
                     <button class="btn btn-primary" type="submit" id="_simpangan_baku_sampel" onclick="simpanganBakuSampel()">Hitung Simpangan Baku Sampel</button>
                     <button class="btn btn-primary" type="submit" id="_simpangan_baku_populasi" onclick="simpanganBakuPopulasi()">Hitung Simpangan Baku Populasi</button>
-                    <p class="text-break" id="hasilSimpanganBaku">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+                    <p class="text-break" id="hasilSimpanganBaku">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
                   </div>
                   <script>
                     function simpanganBakuSampel() {
@@ -768,7 +641,7 @@
 			<textarea class="form-control" placeholder="-" id="inputDiagramBatang" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
-			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). Hasil akan ditampilkan di sini. <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 			<div id="tempatDiagramBatang">
 				<canvas id="gambarDiagramBatang"></canvas>
 			</div>
@@ -831,13 +704,128 @@
 		</script>
 	</div>
 	<div class="col-lg-6 col-sm-12 px-5">
-		<p class="fw-bold">Cara menggambar diagram batang secara manual.</p>
-		<!-- <ol> -->
-		<!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
-		<!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
-		<!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
-		<!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
-		<!-- </ol> -->
+		<p class="text-break" id="hasilDiagramBatang"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseHistogram" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputHistogram" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputHistogram">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="_histogram" onclick="histogram()">Hitung</button>
+			<p class="text-break" id="hasilHistogram">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+			<div id="tempatHistogram">
+				<canvas id="gambarHistogram"></canvas>
+			</div>
+		</div>
+		<script>
+			function histogram() {
+				document.getElementById("hasilHistogram").style.display = "none";
+				document.getElementById("gambarHistogram").remove();
+				var tempat = document.getElementById("tempatHistogram");
+				var gambar = document.createElement("canvas");
+				gambar.id = "gambarHistogram";
+				tempat.appendChild(gambar);
+				var a = document.getElementById('inputHistogram');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				e = e.sort(function(a, b) {
+					return a - b
+				});
+				console.log("cek e " + e);
+				var nKelas = 1 + (3.3) * Math.log10(e.length);
+				nKelas = Math.floor(nKelas);
+				var lKelas = Math.round(jStat.range(e) / nKelas);
+				var g = jStat.histogram(e, nKelas);
+				var f = [];
+				var awal = Math.floor(jStat.min(e)) - 0.5;
+				for (let i = 0; i < nKelas; i++) {
+					f[i] = awal + (lKelas) / 2 + lKelas * i;
+				}
+				var akhir = f[nKelas - 1] + 0.5;
+				document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
+				document.getElementById("hasilHistogram").style.display = "block";
+				var x_vals = f;
+				var y_vals = g;
+				var data = x_vals.map((k, i) => ({
+					x: k,
+					y: y_vals[i]
+				}));
+				var ctx = document.getElementById('gambarHistogram');
+				var myChart = new Chart(ctx, {
+					type: 'bar',
+					data: {
+						datasets: [{
+							label: 'Banyaknya',
+							data: data,
+							barPercentage: 1,
+							categoryPercentage: 1,
+							borderRadius: 5
+						}]
+					},
+					options: {
+						scales: {
+							x: {
+								//beginAtZero: true,
+								type: 'linear',
+								offset: false,
+								grid: {
+									offset: false
+								},
+								ticks: {
+									stepSize: lKelas
+								},
+								title: {
+									display: true,
+									text: 'Nilai',
+									font: {
+										size: 14
+									}
+								}
+							},
+							y: {
+								title: {
+									display: true,
+									text: 'Frekuensi',
+									font: {
+										size: 14
+									}
+								}
+							}
+						},
+						plugins: {
+							legend: {
+								display: false,
+							},
+							tooltip: {
+								callbacks: {
+									title: (items) => {
+										if (!items.length) {
+											return "";
+										}
+										var item = items[0];
+										var x = item.parsed.x;
+										var min = x - lKelas / 2;
+										var max = x + lKelas / 2;
+										return "Nilai: " + min + " - " + max;
+									}
+								}
+							}
+						}
+					}
+				});
+				console.log("catat perubahan disini");
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilHistogram"></p>
 	</div>
 </div>
 
