@@ -1268,8 +1268,14 @@ mjx-container {
   border-bottom: 5px solid #ccdffc;
   border-top: 5px solid #ccdffc;
 }
+#matkul {
+	
+}
 }
 @media (max-width: 991px) {
+#matkul {
+	
+}
 .dropdown-toggle {
 	background: #0563BB;
 	width: 100%;
@@ -1281,6 +1287,7 @@ mjx-container {
 }
 #header {
 	border-top-right-radius: 50vh;
+	padding: 100px 15px;
 }
 }
 
