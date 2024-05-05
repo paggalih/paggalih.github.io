@@ -36,14 +36,14 @@ function poolColors(a) {
 }
 
 function hideDiagramBatang() {
-	document.getElementById("_raise_diagram_batang").style.display = "block";
+	document.getElementById("_raise_diagram_batang").style.display = "flex";
 	document.getElementById("collapseDiagramBatang").style.display = "none";
 }
 
 function raiseDiagramBatang() {
 	document.getElementById("_raise_diagram_batang").style.display = "none";
 	document.getElementById("collapseDiagramBatang").classList.add('row','collapse','py-4');
-	document.getElementById("collapseDiagramBatang").style.display = "block";
+	document.getElementById("collapseDiagramBatang").style.display = "flex";
 }
 
 function diagramBatang() {
@@ -73,7 +73,7 @@ function diagramBatang() {
 		g[i] = pisah.length;
 	}
 	document.getElementById("hasilDiagramBatang").innerText = "Cek \n Banyak data " + e.length + "\n ========= \n";
-	document.getElementById("hasilDiagramBatang").style.display = "block";
+	document.getElementById("hasilDiagramBatang").style.display = "flex";
 	var xValues = Array.from(f);
 	var yValues = g;
 	new Chart("gambarDiagramBatang", {
@@ -102,13 +102,13 @@ function diagramBatang() {
 }
 
 function hideHistogram() {
-	document.getElementById("_raise_histogram").style.display = "block";
+	document.getElementById("_raise_histogram").style.display = "flex";
 	document.getElementById("collapseHistogram").style.display = "none";
 }
 
 function raiseHistogram() {
 	document.getElementById("_raise_histogram").style.display = "none";
-	document.getElementById("collapseHistogram").style.display = "block";
+	document.getElementById("collapseHistogram").style.display = "flex";
 }
 
 function histogram() {
@@ -141,7 +141,7 @@ function histogram() {
 	}
 	var akhir = f[nKelas - 1] + 0.5;
 	document.getElementById("hasilHistogram").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-	document.getElementById("hasilHistogram").style.display = "block";
+	document.getElementById("hasilHistogram").style.display = "flex";
 	var x_vals = f;
 	var y_vals = g;
 	var data = x_vals.map((k, i) => ({
@@ -215,13 +215,13 @@ function histogram() {
 }
 
 function hidePoligon() {
-	document.getElementById("_raise_poligon").style.display = "block";
+	document.getElementById("_raise_poligon").style.display = "flex";
 	document.getElementById("collapsePoligon").style.display = "none";
 }
 
 function raisePoligon() {
 	document.getElementById("_raise_poligon").style.display = "none";
-	document.getElementById("collapsePoligon").style.display = "block";
+	document.getElementById("collapsePoligon").style.display = "flex";
 }
 
 function poligon() {
@@ -254,7 +254,7 @@ function poligon() {
 	}
 	var akhir = f[nKelas - 1] + 0.5;
 	document.getElementById("hasilPoligon").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-	document.getElementById("hasilPoligon").style.display = "block";
+	document.getElementById("hasilPoligon").style.display = "flex";
 	var x_vals = f;
 	var y_vals = g;
 	var data = x_vals.map((k, i) => ({
@@ -328,13 +328,13 @@ function poligon() {
 }
 
 function hidePoligonKum() {
-	document.getElementById("_raise_poligon_kum").style.display = "block";
+	document.getElementById("_raise_poligon_kum").style.display = "flex";
 	document.getElementById("collapsePoligonKum").style.display = "none";
 }
 
 function raisePoligonKum() {
 	document.getElementById("_raise_poligon_kum").style.display = "none";
-	document.getElementById("collapsePoligonKum").style.display = "block";
+	document.getElementById("collapsePoligonKum").style.display = "flex";
 }
 
 function poligonKum() {
@@ -370,7 +370,7 @@ function poligonKum() {
 	}
 	var akhir = f[nKelas - 1] + 0.5;
 	document.getElementById("hasilPoligonKum").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-	document.getElementById("hasilPoligonKum").style.display = "block";
+	document.getElementById("hasilPoligonKum").style.display = "flex";
 	var x_vals = f;
 	var y_vals = g;
 	var data = x_vals.map((k, i) => ({
@@ -444,13 +444,13 @@ function poligonKum() {
 }
 
 function hideRataRata() {
-	document.getElementById("_raise_rata_rata").style.display = "block";
+	document.getElementById("_raise_rata_rata").style.display = "flex";
 	document.getElementById("collapseRatarata").style.display = "none";
 }
 
 function raiseRataRata() {
 	document.getElementById("_raise_rata_rata").style.display = "none";
-	document.getElementById("collapseRatarata").style.display = "block";
+	document.getElementById("collapseRatarata").style.display = "flex";
 }
 
 function rataRata() {
@@ -467,17 +467,17 @@ function rataRata() {
 		var f = c;
 	}
 	document.getElementById("hasilRatarata").innerText = "Cek \n Data " + f + "\n Banyak data " + f.length + "\n ========= \n Rata-rata " + e;
-	document.getElementById("hasilRatarata").style.display = "block";
+	document.getElementById("hasilRatarata").style.display = "flex";
 }
 
 function hideMedian() {
-	document.getElementById("_raise_median").style.display = "block";
+	document.getElementById("_raise_median").style.display = "flex";
 	document.getElementById("collapseMedian").style.display = "none";
 }
 
 function raiseMedian() {
 	document.getElementById("_raise_median").style.display = "none";
-	document.getElementById("collapseMedian").style.display = "block";
+	document.getElementById("collapseMedian").style.display = "flex";
 }
 
 function median() {
@@ -496,17 +496,17 @@ function median() {
 	document.getElementById("hasilMedian").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + f.length + "\n ========= \n Median " + e;
-	document.getElementById("hasilMedian").style.display = "block";
+	document.getElementById("hasilMedian").style.display = "flex";
 }
 
 function hideModus() {
-	document.getElementById("_raise_modus").style.display = "block";
+	document.getElementById("_raise_modus").style.display = "flex";
 	document.getElementById("collapseModus").style.display = "none";
 }
 
 function raiseModus() {
 	document.getElementById("_raise_modus").style.display = "none";
-	document.getElementById("collapseModus").style.display = "block";
+	document.getElementById("collapseModus").style.display = "flex";
 }
 
 function modus() {
@@ -525,17 +525,17 @@ function modus() {
 	document.getElementById("hasilModus").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + f.length + "\n ========= \n Modus " + e;
-	document.getElementById("hasilModus").style.display = "block";
+	document.getElementById("hasilModus").style.display = "flex";
 }
 
 function hideJangkauan() {
-	document.getElementById("_raise_jangkauan").style.display = "block";
+	document.getElementById("_raise_jangkauan").style.display = "flex";
 	document.getElementById("collapseJangkauan").style.display = "none";
 }
 
 function raiseJangkauan() {
 	document.getElementById("_raise_jangkauan").style.display = "none";
-	document.getElementById("collapseJangkauan").style.display = "block";
+	document.getElementById("collapseJangkauan").style.display = "flex";
 }
 
 function jangkauan() {
@@ -554,17 +554,17 @@ function jangkauan() {
 	document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + f.length + "\n ========= \n Jangkauan " + e;
-	document.getElementById("hasilJangkauan").style.display = "block";
+	document.getElementById("hasilJangkauan").style.display = "flex";
 }
 
 function hideVariansi() {
-	document.getElementById("_raise_variansi").style.display = "block";
+	document.getElementById("_raise_variansi").style.display = "flex";
 	document.getElementById("collapseVariansi").style.display = "none";
 }
 
 function raiseVariansi() {
 	document.getElementById("_raise_variansi").style.display = "none";
-	document.getElementById("collapseVariansi").style.display = "block";
+	document.getElementById("collapseVariansi").style.display = "flex";
 }
 
 function variansiSampel() {
@@ -582,7 +582,7 @@ function variansiSampel() {
 	document.getElementById("hasilVariansi").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Variansi Sampel " + f;
-	document.getElementById("hasilVariansi").style.display = "block";
+	document.getElementById("hasilVariansi").style.display = "flex";
 }
 
 function variansiPopulasi() {
@@ -600,17 +600,17 @@ function variansiPopulasi() {
 	document.getElementById("hasilVariansi").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Variansi Populasi " + f;
-	document.getElementById("hasilVariansi").style.display = "block";
+	document.getElementById("hasilVariansi").style.display = "flex";
 }
 
 function hideSimpanganBaku() {
-	document.getElementById("_raise_simpangan_baku").style.display = "block";
+	document.getElementById("_raise_simpangan_baku").style.display = "flex";
 	document.getElementById("collapseSimpanganBaku").style.display = "none";
 }
 
 function raiseSimpanganBaku() {
 	document.getElementById("_raise_simpangan_baku").style.display = "none";
-	document.getElementById("collapseSimpanganBaku").style.display = "block";
+	document.getElementById("collapseSimpanganBaku").style.display = "flex";
 }
 
 function simpanganBakuSampel() {
@@ -629,7 +629,7 @@ function simpanganBakuSampel() {
 	document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Sampel " + f;
-	document.getElementById("hasilSimpanganBaku").style.display = "block";
+	document.getElementById("hasilSimpanganBaku").style.display = "flex";
 }
 
 function simpanganBakuPopulasi() {
@@ -648,5 +648,5 @@ function simpanganBakuPopulasi() {
 	document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Populasi " + f;
-	document.getElementById("hasilSimpanganBaku").style.display = "block";
+	document.getElementById("hasilSimpanganBaku").style.display = "flex";
 }
