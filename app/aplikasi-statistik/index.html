@@ -653,16 +653,25 @@
 	</div>
 </div>
 
-<!-- ============================ sampai sini -->
+<button id="_raise_median" class="btn btn-link" style="display:none;" onclick="raiseMedian()">Median: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputMedian" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputMedian">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
+			<button class="btn btn-primary" onclick="hideMedian()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script type="text/javascript">
+			function hideMedian(){
+				document.getElementById("_raise_median").style.display = "block";
+				document.getElementById("collapseMedian").style.display = "none";
+			}
+			function raiseMedian(){
+				document.getElementById("_raise_median").style.display = "none";
+				document.getElementById("collapseMedian").style.display = "block";
+			}
 			function median() {
 				document.getElementById("hasilMedian").style.display = "none";
 				var a = document.getElementById('inputMedian');
@@ -687,15 +696,26 @@
 		<p class="text-break" id="hasilMedian"></p>
 	</div>
 </div>
+
+<button id="_raise_modus" class="btn btn-link" style="display:none;" onclick="raiseModus()">Modus: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseModus" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputModus" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputModus">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
+			<button class="btn btn-primary" onclick="hideModus()">Hitung</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
-		<script type="text/javascript">
+		<script>
+			function hideModus(){
+				document.getElementById("_raise_modus").style.display = "block";
+				document.getElementById("collapseModus").style.display = "none";
+			}
+			function raiseModus(){
+				document.getElementById("_raise_modus").style.display = "none";
+				document.getElementById("collapseModus").style.display = "block";
+			}
 			function modus() {
 				document.getElementById("hasilModus").style.display = "none";
 				var a = document.getElementById('inputModus');
@@ -720,15 +740,26 @@
 		<p class="text-break" id="hasilModus"></p>
 	</div>
 </div>
+
+<button id="_raise_jangkauan" class="btn btn-link" style="display:none;" onclick="raiseJangkauan()">Jangkauan: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseJangkauan" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputJangkauan" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputJangkauan">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="jangkauan" onclick="jangkauan()">Hitung</button>
+			<button class="btn btn-primary" onclick="hideJangkauan()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
+			function hideJangkauan(){
+				document.getElementById("_raise_jangkauan").style.display = "block";
+				document.getElementById("collapseJangkauan").style.display = "none";
+			}
+			function raiseJangkauan(){
+				document.getElementById("_raise_jangkauan").style.display = "none";
+				document.getElementById("collapseJangkauan").style.display = "block";
+			}
 			function jangkauan() {
 				document.getElementById("hasilJangkauan").style.display = "none";
 				var a = document.getElementById('inputJangkauan');
@@ -753,6 +784,8 @@
 		<p class="text-break" id="hasilJangkauan"></p>
 	</div>
 </div>
+
+<button id="_raise_variansi" class="btn btn-link" style="display:none;" onclick="raiseVariansi()">Variansi: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseVariansi" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
@@ -760,9 +793,18 @@
 			<label for="inputJangkauan">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_variansi_sampel" onclick="variansiSampel()">Hitung Variansi Sampel</button>
 			<button class="btn btn-primary" type="submit" id="_variansi_populasi" onclick="variansiPopulasi()">Hitung Variansi Populasi</button>
+			<button class="btn btn-primary" onclick="hideVariansi()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
+			function hideVariansi(){
+				document.getElementById("_raise_variansi").style.display = "block";
+				document.getElementById("collapseVariansi").style.display = "none";
+			}
+			function raiseVariansi(){
+				document.getElementById("_raise_variansi").style.display = "none";
+				document.getElementById("collapseVariansi").style.display = "block";
+			}
 			function variansiSampel() {
 				document.getElementById("hasilVariansi").style.display = "none";
 				var a = document.getElementById('inputVariansi');
@@ -803,6 +845,8 @@
 		<p class="text-break" id="hasilVariansi"></p>
 	</div>
 </div>
+
+<button id="_raise_simpangan_baku" class="btn btn-link" style="display:none;" onclick="raiseSimpanganBaku()">Simpangan Baku: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseSimpanganBaku" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
@@ -810,9 +854,18 @@
 			<label for="inputSimpanganBaku">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_simpangan_baku_sampel" onclick="simpanganBakuSampel()">Hitung Simpangan Baku Sampel</button>
 			<button class="btn btn-primary" type="submit" id="_simpangan_baku_populasi" onclick="simpanganBakuPopulasi()">Hitung Simpangan Baku Populasi</button>
+			<button class="btn btn-primary" onclick="hideSimpanganBaku()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
+			function hideSimpanganBaku(){
+				document.getElementById("_raise_simpangan_baku").style.display = "block";
+				document.getElementById("collapseSimpanganBaku").style.display = "none";
+			}
+			function raiseSimpanganBaku(){
+				document.getElementById("_raise_simpangan_baku").style.display = "none";
+				document.getElementById("collapseSimpanganBaku").style.display = "block";
+			}
 			function simpanganBakuSampel() {
 				document.getElementById("hasilSimpanganBaku").style.display = "none";
 				var a = document.getElementById('inputSimpanganBaku');
