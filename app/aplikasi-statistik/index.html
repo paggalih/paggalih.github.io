@@ -109,10 +109,7 @@
 			<textarea class="form-control" placeholder="-" id="inputDiagramBatang" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
-			<p class="text-break" id="hasilDiagramBatang">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-			<div id="tempatDiagramBatang">
-				<canvas id="gambarDiagramBatang"></canvas>
-			</div>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script type="text/javascript">
 			function diagramBatang() {
@@ -173,6 +170,9 @@
 	</div>
 	<div class="col-lg-6 col-sm-12 px-5">
 		<p class="text-break" id="hasilDiagramBatang"></p>
+		<div id="tempatDiagramBatang">
+			<canvas id="gambarDiagramBatang"></canvas>
+		</div>
 	</div>
 </div>
 <div class="row collapse py-4" id="collapseHistogram" style="background:aliceblue;">
@@ -181,10 +181,7 @@
 			<textarea class="form-control" placeholder="-" id="inputHistogram" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputHistogram">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_histogram" onclick="histogram()">Hitung</button>
-			<p class="text-break" id="hasilHistogram">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-			<div id="tempatHistogram">
-				<canvas id="gambarHistogram"></canvas>
-			</div>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
 			function histogram() {
@@ -294,6 +291,9 @@
 	</div>
 	<div class="col-lg-6 col-sm-12 px-5">
 		<p class="text-break" id="hasilHistogram"></p>
+		<div id="tempatHistogram">
+			<canvas id="gambarHistogram"></canvas>
+		</div>
 	</div>
 </div>
 <div class="row collapse py-4" id="collapsePoligon" style="background:aliceblue;">
@@ -303,9 +303,6 @@
 			<label for="inputPoligon">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_poligon" onclick="poligon()">Hitung</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-			<div id="tempatPoligon">
-				<canvas id="gambarPoligon"></canvas>
-			</div>
 		</div>
 		<script>
 			function poligon() {
@@ -414,6 +411,9 @@
 	</div>
 	<div class="col-lg-6 col-sm-12 px-5">
 		<p class="text-break" id="hasilPoligon"></p>
+		<div id="tempatPoligon">
+			<canvas id="gambarPoligon"></canvas>
+		</div>
 	</div>
 </div>
 <div class="row collapse py-4" id="collapsePoligonKum" style="background:aliceblue;">
@@ -422,10 +422,7 @@
 			<textarea class="form-control" placeholder="-" id="inputPoligonKum" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputPoligonKum">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_poligon_kum" onclick="poligonKum()">Hitung</button>
-			<p class="text-break" id="hasilPoligonKum">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-			<div id="tempatPoligonKum">
-				<canvas id="gambarPoligonKum"></canvas>
-			</div>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
 			function poligonKum() {
@@ -537,6 +534,9 @@
 	</div>
 	<div class="col-lg-6 col-sm-12 px-5">
 		<p class="text-break" id="hasilPoligonKum"></p>
+		<div id="tempatPoligonKum">
+			<canvas id="gambarPoligonKum"></canvas>
+		</div>
 	</div>
 </div>
 <div class="row collapse py-4" id="collapseRatarata" style="background:aliceblue;">
