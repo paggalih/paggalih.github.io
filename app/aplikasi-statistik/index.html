@@ -131,15 +131,26 @@
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dua Variabel</a></li>
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Lebih dari 2 Variabel</a></li>
       </ul>
+			
+<button id="_raise_diagram_batang" class="btn btn-link" style="display:none;" onclick="raiseDiagramBatang()">Diagram Batang: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputDiagramBatang" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputDiagramBatang">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="diagramBatang" onclick="diagramBatang()">Hitung</button>
+			<button class="btn btn-primary" onclick="hideDiagramBatang()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
-		<script type="text/javascript">
+		<script>
+			function hideDiagramBatang(){
+				document.getElementById("_raise_diagram_batang").style.display = "block";
+				document.getElementById("collapseDiagramBatang").style.display = "none";
+			}
+			function raiseDiagramBatang(){
+				document.getElementById("_raise_diagram_batang").style.display = "none";
+				document.getElementById("collapseDiagramBatang").style.display = "block";
+			}
 			function diagramBatang() {
 				document.getElementById("hasilDiagramBatang").style.display = "none";
 				document.getElementById("gambarDiagramBatang").remove();
@@ -203,6 +214,7 @@
 		</div>
 	</div>
 </div>
+
 <button id="_raise_histogram" class="btn btn-link" style="display:none;" onclick="raiseHistogram()">Histogram: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseHistogram" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
@@ -241,7 +253,6 @@
 				e = e.sort(function(a, b) {
 					return a - b
 				});
-				console.log("cek e " + e);
 				var nKelas = 1 + (3.3) * Math.log10(e.length);
 				nKelas = Math.floor(nKelas);
 				var lKelas = Math.round(jStat.range(e) / nKelas);
@@ -334,15 +345,26 @@
 		</div>
 	</div>
 </div>
+
+<button id="_raise_poligon" class="btn btn-link" style="display:none;" onclick="raisePoligon()">Poligon: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapsePoligon" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputPoligon" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputPoligon">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_poligon" onclick="poligon()">Hitung</button>
+			<button class="btn btn-primary" onclick="hidePoligon()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
+			function hidePoligon(){
+				document.getElementById("_raise_poligon").style.display = "block";
+				document.getElementById("collapsePoligon").style.display = "none";
+			}
+			function raisePoligon(){
+				document.getElementById("_raise_poligon").style.display = "none";
+				document.getElementById("collapsePoligon").style.display = "block";
+			}
 			function poligon() {
 				document.getElementById("hasilPoligon").style.display = "none";
 				document.getElementById("gambarPoligon").remove();
@@ -454,15 +476,26 @@
 		</div>
 	</div>
 </div>
+
+<button id="_raise_poligon_kum" class="btn btn-link" style="display:none;" onclick="raisePoligonKum()">Poligon Kumulatif: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapsePoligonKum" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputPoligonKum" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputPoligonKum">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="_poligon_kum" onclick="poligonKum()">Hitung</button>
+			<button class="btn btn-primary" onclick="hidePoligonKum()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
+			function hidePoligonKum(){
+				document.getElementById("_raise_poligon_kum").style.display = "block";
+				document.getElementById("collapsePoligonKum").style.display = "none";
+			}
+			function raisePoligonKum(){
+				document.getElementById("_raise_poligon_kum").style.display = "none";
+				document.getElementById("collapsePoligonKum").style.display = "block";
+			}
 			function poligonKum() {
 				document.getElementById("hasilPoligonKum").style.display = "none";
 				document.getElementById("gambarPoligonKum").remove();
@@ -577,15 +610,26 @@
 		</div>
 	</div>
 </div>
+
+<button id="_raise_rata_rata" class="btn btn-link" style="display:none;" onclick="raiseRataRata()">Rata-rata: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseRatarata" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
 			<textarea class="form-control" placeholder="-" id="inputRatarata" style="height:150px;" autocomplete="off"></textarea>
 			<label for="inputRatarata">Masukkan data di sini</label>
 			<button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
+			<button class="btn btn-primary" onclick="hideRataRata()">Sembunyikan</button>
 			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
 		</div>
 		<script>
+			function hideRataRata(){
+				document.getElementById("_raise_rata_rata").style.display = "block";
+				document.getElementById("collapseRatarata").style.display = "none";
+			}
+			function raiseRataRata(){
+				document.getElementById("_raise_rata_rata").style.display = "none";
+				document.getElementById("collapseRatarata").style.display = "block";
+			}
 			function rataRata() {
 				document.getElementById("hasilRatarata").style.display = "none";
 				var a = document.getElementById('inputRatarata');
@@ -608,6 +652,8 @@
 		<p class="text-break" id="hasilRatarata"></p>
 	</div>
 </div>
+
+<!-- ============================ sampai sini -->
 <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
