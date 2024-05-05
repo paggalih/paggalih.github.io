@@ -203,7 +203,7 @@
 		</div>
 	</div>
 </div>
-<button id="_raise_histogram" class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistogram" aria-expanded="false" aria-controls="collapseHistogram" style="display:none;">Histogram: <code>munculkan hasil</code></button>
+<button id="_raise_histogram" class="btn btn-link" style="display:none;" onclick="raiseHistogram()">Histogram: <code>munculkan kembali hasil</code></button>
 <div class="row collapse py-4" id="collapseHistogram" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
 		<div class="form-floating">
@@ -217,6 +217,9 @@
 			function hideHistogram(){
 				document.getElementById("_raise_histogram").style.display = "block";
 				document.getElementById("collapseHistogram").style.display = "none";
+			}
+			function raiseHistogram(){
+				document.getElementById("collapseHistogram").style.display = "block";
 			}
 			function histogram() {
 				document.getElementById("hasilHistogram").style.display = "none";
