@@ -75,565 +75,33 @@
               <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseHistogram" aria-expanded="false" aria-controls="collapseHistogram">Histogram</button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoligon" aria-expanded="false" aria-controls="collapsePoligon">Poligon</button>
-              <div class="row collapse py-4" id="collapsePoligon" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputPoligon" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputPoligon">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="_poligon" onclick="poligon()">Hitung</button>
-                    <p class="text-break" id="hasilPoligon">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                    <div id="tempatPoligon">
-                      <canvas id="gambarPoligon"></canvas>
-                    </div>
-                  </div>
-                  <script>
-                    function poligon() {
-                      document.getElementById("hasilPoligon").style.display = "none";
-                      document.getElementById("gambarPoligon").remove();
-                      var tempat = document.getElementById("tempatPoligon");
-                      var gambar = document.createElement("canvas");
-                      gambar.id = "gambarPoligon";
-                      tempat.appendChild(gambar);
-                      var a = document.getElementById('inputPoligon');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-                      e = e.sort(function(a, b) {
-                        return a - b
-                      });
-                      var nKelas = 1 + (3.3) * Math.log10(e.length);
-                      nKelas = Math.floor(nKelas);
-                      var lKelas = Math.round(jStat.range(e) / nKelas);
-                      var g = jStat.histogram(e, nKelas);
-                      var f = [];
-                      var awal = Math.floor(jStat.min(e)) - 0.5;
-                      for (let i = 0; i < nKelas; i++) {
-                        f[i] = awal + (lKelas) / 2 + lKelas * i;
-                      }
-                      var akhir = f[nKelas - 1] + 0.5;
-                      document.getElementById("hasilPoligon").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-                      document.getElementById("hasilPoligon").style.display = "block";
-                      var x_vals = f;
-                      var y_vals = g;
-                      var data = x_vals.map((k, i) => ({
-                        x: k,
-                        y: y_vals[i]
-                      }));
-                      var ctx = document.getElementById('gambarPoligon');
-                      var myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                          datasets: [{
-                            label: 'Banyaknya',
-                            data: data,
-                            barPercentage: 1,
-                            categoryPercentage: 1,
-                            borderRadius: 5
-                          }]
-                        },
-                        options: {
-                          scales: {
-                            x: {
-                              //beginAtZero: true,
-                              type: 'linear',
-                              offset: false,
-                              grid: {
-                                offset: false
-                              },
-                              ticks: {
-                                stepSize: lKelas
-                              },
-                              title: {
-                                display: true,
-                                text: 'Nilai',
-                                font: {
-                                  size: 14
-                                }
-                              }
-                            },
-                            y: {
-                              title: {
-                                display: true,
-                                text: 'Frekuensi',
-                                font: {
-                                  size: 14
-                                }
-                              }
-                            }
-                          },
-                          plugins: {
-                            legend: {
-                              display: false,
-                            },
-                            tooltip: {
-                              callbacks: {
-                                title: (items) => {
-                                  if (!items.length) {
-                                    return "";
-                                  }
-                                  var item = items[0];
-                                  var x = item.parsed.x;
-                                  var min = x - lKelas / 2;
-                                  var max = x + lKelas / 2;
-                                  return "Nilai: " + min + " - " + max;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      });
-                      console.log("Poligon: catat perubahan disini");
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Cara menggambar poligon secara manual.</p>
-                  <!-- <ol> -->
-                  <!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
-                  <!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
-                  <!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
-                  <!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
-                  <!-- </ol> -->
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoligon" aria-expanded="false" aria-controls="collapsePoligon">Poligon</button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoligonKum" aria-expanded="false" aria-controls="collapsePoligonKum">Poligon Kumulatif</button>
-              <div class="row collapse py-4" id="collapsePoligonKum" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputPoligonKum" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputPoligonKum">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="_poligon_kum" onclick="poligonKum()">Hitung</button>
-                    <p class="text-break" id="hasilPoligonKum">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                    <div id="tempatPoligonKum">
-                      <canvas id="gambarPoligonKum"></canvas>
-                    </div>
-                  </div>
-                  <script>
-                    function poligonKum() {
-                      document.getElementById("hasilPoligonKum").style.display = "none";
-                      document.getElementById("gambarPoligonKum").remove();
-                      var tempat = document.getElementById("tempatPoligonKum");
-                      var gambar = document.createElement("canvas");
-                      gambar.id = "gambarPoligonKum";
-                      tempat.appendChild(gambar);
-                      var a = document.getElementById('inputPoligonKum');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-                      e = e.sort(function(a, b) {
-                        return a - b
-                      });
-                      var nKelas = 1 + (3.3) * Math.log10(e.length);
-                      nKelas = Math.floor(nKelas);
-                      var lKelas = Math.round(jStat.range(e) / nKelas);
-                      var g = jStat.histogram(e, nKelas);
-											console.log("cek g "+g);
-											g = kum(g);
-											console.log("cek g "+g);
-                      var f = [];
-                      var awal = Math.floor(jStat.min(e)) - 0.5;
-                      for (let i = 0; i < nKelas; i++) {
-                        f[i] = awal + (lKelas) / 2 + lKelas * i;
-                      }
-                      var akhir = f[nKelas - 1] + 0.5;
-                      document.getElementById("hasilPoligonKum").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-                      document.getElementById("hasilPoligonKum").style.display = "block";
-                      var x_vals = f;
-                      var y_vals = g;
-                      var data = x_vals.map((k, i) => ({
-                        x: k,
-                        y: y_vals[i]
-                      }));
-                      var ctx = document.getElementById('gambarPoligonKum');
-                      var myChart = new Chart(ctx, {
-                        type: 'line',
-                        data: {
-                          datasets: [{
-                            label: 'Banyaknya',
-                            data: data,
-                            barPercentage: 1,
-                            categoryPercentage: 1,
-                            borderRadius: 5
-                          }]
-                        },
-                        options: {
-                          scales: {
-                            x: {
-                              //beginAtZero: true,
-                              type: 'linear',
-                              offset: false,
-                              grid: {
-                                offset: false
-                              },
-                              ticks: {
-                                stepSize: lKelas
-                              },
-                              title: {
-                                display: true,
-                                text: 'Nilai',
-                                font: {
-                                  size: 14
-                                }
-                              }
-                            },
-                            y: {
-                              title: {
-                                display: true,
-                                text: 'Frekuensi',
-                                font: {
-                                  size: 14
-                                }
-                              }
-                            }
-                          },
-                          plugins: {
-                            legend: {
-                              display: false,
-                            },
-                            tooltip: {
-                              callbacks: {
-                                title: (items) => {
-                                  if (!items.length) {
-                                    return "";
-                                  }
-                                  var item = items[0];
-                                  var x = item.parsed.x;
-                                  var min = x - lKelas / 2;
-                                  var max = x + lKelas / 2;
-                                  return "Nilai: " + min + " - " + max;
-                                }
-                              }
-                            }
-                          }
-                        }
-                      });
-                      console.log("Poligon Kumulatif: catat perubahan disini");
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Cara menggambar poligon secara manual.</p>
-                  <!-- <ol> -->
-                  <!-- <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li> -->
-                  <!-- <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li> -->
-                  <!-- <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li> -->
-                  <!-- <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li> -->
-                  <!-- </ol> -->
-                </div>
-              </div>
-            </li>            <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRatarata" aria-expanded="false" aria-controls="collapseRatarata"> Rata-rata </button>
-              <div class="row collapse py-4" id="collapseRatarata" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputRatarata" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputRatarata">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
-                    <p class="text-break" id="hasilRatarata">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                  </div>
-                  <script>
-                    function rataRata() {
-                      document.getElementById("hasilRatarata").style.display = "none";
-                      var a = document.getElementById('inputRatarata');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = jStat.mean(d);
-                        var f = d;
-                      } else {
-                        var e = jStat.mean(c);
-                        var f = c;
-                      }
-                      document.getElementById("hasilRatarata").innerText = "Cek \n Data " + f + "\n Banyak data " + f.length + "\n ========= \n Rata-rata " + e;
-                      document.getElementById("hasilRatarata").style.display = "block";
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Perhitungan rata-rata secara manual.</p>
-                  <ol>
-                    <li> Menghitung banyaknya data. Contoh datanya adalah $a_1,a_2,a_3$ ada sebanyak $3$ data.</li>
-                    <li> Menjumlahkan semua data. Contoh $a_1+a_2+a_3=A$</li>
-                    <li> Membagi jumlah semua data dengan banyaknya data. Contoh $\mu=\overline{x}=\dfrac{A}{3}.$</li>
-                    <li> Rata-rata adalah $\mu$ atau $\overline{x}.$</li>
-                  </ol>
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapsePoligonKum" aria-expanded="false" aria-controls="collapsePoligonKum">Poligon Kumulatif</button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedian" aria-expanded="false" aria-controls="collapseMedian"> Median </button>
-              <div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputMedian" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputMedian">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
-                    <p class="text-break" id="hasilMedian">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                  </div>
-                  <script type="text/javascript">
-                    function median() {
-                      document.getElementById("hasilMedian").style.display = "none";
-                      var a = document.getElementById('inputMedian');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = jStat.median(d);
-                        var f = d;
-                      } else {
-                        var e = jStat.median(c);
-                        var f = c;
-                      }
-                      document.getElementById("hasilMedian").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + f.length + "\n ========= \n Median " + e;
-                      document.getElementById("hasilMedian").style.display = "block";
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Perhitungan median secara manual.</p>
-                  <ol>
-                    <li> Menghitung banyaknya data. Contoh datanya adalah $1,4,3$ ada sebanyak $3$ data.</li>
-                    <li> Mengurutkan data. Contoh $1,3,4$</li>
-                    <li> Mencari tempat median dengan rumus $\dfrac{n+1}{2}$. Contoh $\dfrac{3+1}{2}=$$2.$</li>
-                    <li> Median adalah data ke-$2$ dalam contoh ini adalah $3.$</li>
-                  </ol>
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseRatarata" aria-expanded="false" aria-controls="collapseRatarata"> Rata-rata </button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModus" aria-expanded="false" aria-controls="collapseModus"> Modus </button>
-              <div class="row collapse py-4" id="collapseModus" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputModus" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputModus">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
-                    <p class="text-break" id="hasilModus">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                  </div>
-                  <script type="text/javascript">
-                    function modus() {
-                      document.getElementById("hasilModus").style.display = "none";
-                      var a = document.getElementById('inputModus');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = jStat.mode(d);
-                        var f = d;
-                      } else {
-                        var e = jStat.mode(c);
-                        var f = c;
-                      }
-                      document.getElementById("hasilModus").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + f.length + "\n ========= \n Modus " + e;
-                      document.getElementById("hasilModus").style.display = "block";
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Perhitungan modus secara manual.</p>
-                  <ol>
-                    <li> Mengurutkan data. Contoh $1,3,4,3$ diurutkan menjadi $1,3,3,4$.</li>
-                    <li> Menghitung kemunculan setiap nilai pada data dengan memasukkannya dalam bentuk tabel.</li>
-                    <li>
-                      <table class="table table-striped-columns">
-                        <thead>
-                          <tr>
-                            <td>Nilai</td>
-                            <td>Frekuensi</td>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td>$1$</td>
-                            <td>$1$</td>
-                          </tr>
-                          <tr>
-                            <td>$3$</td>
-                            <td>$2$</td>
-                          </tr>
-                          <tr>
-                            <td>$4$</td>
-                            <td>$1$</td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </li>
-                    <li> Modus adalah nilai dengan frekuensi tertinggi yaitu $3.$</li>
-                  </ol>
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseMedian" aria-expanded="false" aria-controls="collapseMedian"> Median </button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJangkauan" aria-expanded="false" aria-controls="collapseJangkauan"> Jangkauan </button>
-              <div class="row collapse py-4" id="collapseJangkauan" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputJangkauan" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputJangkauan">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="jangkauan" onclick="jangkauan()">Hitung</button>
-                    <p class="text-break" id="hasilJangkauan">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                  </div>
-                  <script>
-                    function jangkauan() {
-                      document.getElementById("hasilJangkauan").style.display = "none";
-                      var a = document.getElementById('inputJangkauan');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = jStat.range(d);
-                        var f = d;
-                      } else {
-                        var e = jStat.range(c);
-                        var f = c;
-                      }
-                      document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + f.length + "\n ========= \n Jangkauan " + e;
-                      document.getElementById("hasilJangkauan").style.display = "block";
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Perhitungan jangkauan secara manual.</p>
-                  <ol>
-                    <li> Mencari data terbesar dan terkecil. Contoh $1,3,4,3$ maka data terbesar adalah $4$ dan data terkecil adalah $1.$</li>
-                    <li> Mengurangi data terbesar dengan data terkecil. Contoh ini adalah $4-1=3.$</li>
-                    <li> Jangkauan data adalah $3.$</li>
-                  </ol>
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModus" aria-expanded="false" aria-controls="collapseModus"> Modus </button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVariansi" aria-expanded="false" aria-controls="collapseVariansi"> Variansi </button>
-              <div class="row collapse py-4" id="collapseVariansi" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputVariansi" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputJangkauan">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="_variansi_sampel" onclick="variansiSampel()">Hitung Variansi Sampel</button>
-                    <button class="btn btn-primary" type="submit" id="_variansi_populasi" onclick="variansiPopulasi()">Hitung Variansi Populasi</button>
-                    <p class="text-break" id="hasilVariansi">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                  </div>
-                  <script>
-                    function variansiSampel() {
-                      document.getElementById("hasilVariansi").style.display = "none";
-                      var a = document.getElementById('inputVariansi');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-											var f = jStat.variance(e,true);
-                      document.getElementById("hasilVariansi").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + e.length + "\n ========= \n Variansi Sampel " + f;
-                      document.getElementById("hasilVariansi").style.display = "block";
-                    }
-                    function variansiPopulasi() {
-                      document.getElementById("hasilVariansi").style.display = "none";
-                      var a = document.getElementById('inputVariansi');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-											var f = jStat.variance(e);
-                      document.getElementById("hasilVariansi").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + e.length + "\n ========= \n Variansi Populasi " + f;
-                      document.getElementById("hasilVariansi").style.display = "block";
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Perhitungan variansi secara manual.</p>
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseJangkauan" aria-expanded="false" aria-controls="collapseJangkauan"> Jangkauan </button>
             </li>
             <li>
-              <button class="btn btn-link" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSimpanganBaku" aria-expanded="false" aria-controls="collapseSimpanganBaku"> Simpangan Baku </button>
-              <div class="row collapse py-4" id="collapseSimpanganBaku" style="background:aliceblue;">
-                <div class="col-lg-6 col-sm-12 px-4">
-                  <div class="form-floating">
-                    <textarea class="form-control" placeholder="-" id="inputSimpanganBaku" style="height:150px;" autocomplete="off"></textarea>
-                    <label for="inputSimpanganBaku">Masukkan data di sini</label>
-                    <button class="btn btn-primary" type="submit" id="_simpangan_baku_sampel" onclick="simpanganBakuSampel()">Hitung Simpangan Baku Sampel</button>
-                    <button class="btn btn-primary" type="submit" id="_simpangan_baku_populasi" onclick="simpanganBakuPopulasi()">Hitung Simpangan Baku Populasi</button>
-                    <p class="text-break" id="hasilSimpanganBaku">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
-                  </div>
-                  <script>
-                    function simpanganBakuSampel() {
-                      document.getElementById("hasilSimpanganBaku").style.display = "none";
-                      var a = document.getElementById('inputSimpanganBaku');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-											var f = jStat.variance(e,true);
-											f = Math.sqrt(f);
-                      document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Sampel " + f;
-                      document.getElementById("hasilSimpanganBaku").style.display = "block";
-                    }
-                    function simpanganBakuPopulasi() {
-                      document.getElementById("hasilSimpanganBaku").style.display = "none";
-                      var a = document.getElementById('inputSimpanganBaku');
-                      var b = rapikan(a);
-                      var c = Array.from(b.split(','), Number);
-                      var d = Array.from(b.split('\n'), Number);
-                      if (d.length > c.length) {
-                        var e = d;
-                      } else {
-                        var e = c;
-                      }
-											var f = jStat.variance(e);
-											f = Math.sqrt(f);
-                      document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
-                        return a - b
-                      }) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Populasi " + f;
-                      document.getElementById("hasilSimpanganBaku").style.display = "block";
-                    }
-                  </script>
-                </div>
-                <div class="col-lg-6 col-sm-12 px-5">
-                  <p class="fw-bold">Perhitungan simpangan baku secara manual.</p>
-                </div>
-              </div>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseVariansi" aria-expanded="false" aria-controls="collapseVariansi"> Variansi </button>
+            </li>
+            <li>
+              <button class="btn btn-link dropdown-item" type="button" data-bs-toggle="collapse" data-bs-target="#collapseSimpanganBaku" aria-expanded="false" aria-controls="collapseSimpanganBaku"> Simpangan Baku </button>
             </li>
           </ul>
         </li>
-        <li> Dua Variabel </li>
-        <li> Lebih dari 2 Variabel </li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Dua Variabel</a></li>
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Lebih dari 2 Variabel</a></li>
       </ul>
 <div class="row collapse py-4" id="collapseDiagramBatang" style="background:aliceblue;">
 	<div class="col-lg-6 col-sm-12 px-4">
@@ -826,6 +294,481 @@
 	</div>
 	<div class="col-lg-6 col-sm-12 px-5">
 		<p class="text-break" id="hasilHistogram"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapsePoligon" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputPoligon" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputPoligon">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="_poligon" onclick="poligon()">Hitung</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+			<div id="tempatPoligon">
+				<canvas id="gambarPoligon"></canvas>
+			</div>
+		</div>
+		<script>
+			function poligon() {
+				document.getElementById("hasilPoligon").style.display = "none";
+				document.getElementById("gambarPoligon").remove();
+				var tempat = document.getElementById("tempatPoligon");
+				var gambar = document.createElement("canvas");
+				gambar.id = "gambarPoligon";
+				tempat.appendChild(gambar);
+				var a = document.getElementById('inputPoligon');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				e = e.sort(function(a, b) {
+					return a - b
+				});
+				var nKelas = 1 + (3.3) * Math.log10(e.length);
+				nKelas = Math.floor(nKelas);
+				var lKelas = Math.round(jStat.range(e) / nKelas);
+				var g = jStat.histogram(e, nKelas);
+				var f = [];
+				var awal = Math.floor(jStat.min(e)) - 0.5;
+				for (let i = 0; i < nKelas; i++) {
+					f[i] = awal + (lKelas) / 2 + lKelas * i;
+				}
+				var akhir = f[nKelas - 1] + 0.5;
+				document.getElementById("hasilPoligon").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
+				document.getElementById("hasilPoligon").style.display = "block";
+				var x_vals = f;
+				var y_vals = g;
+				var data = x_vals.map((k, i) => ({
+					x: k,
+					y: y_vals[i]
+				}));
+				var ctx = document.getElementById('gambarPoligon');
+				var myChart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						datasets: [{
+							label: 'Banyaknya',
+							data: data,
+							barPercentage: 1,
+							categoryPercentage: 1,
+							borderRadius: 5
+						}]
+					},
+					options: {
+						scales: {
+							x: {
+								//beginAtZero: true,
+								type: 'linear',
+								offset: false,
+								grid: {
+									offset: false
+								},
+								ticks: {
+									stepSize: lKelas
+								},
+								title: {
+									display: true,
+									text: 'Nilai',
+									font: {
+										size: 14
+									}
+								}
+							},
+							y: {
+								title: {
+									display: true,
+									text: 'Frekuensi',
+									font: {
+										size: 14
+									}
+								}
+							}
+						},
+						plugins: {
+							legend: {
+								display: false,
+							},
+							tooltip: {
+								callbacks: {
+									title: (items) => {
+										if (!items.length) {
+											return "";
+										}
+										var item = items[0];
+										var x = item.parsed.x;
+										var min = x - lKelas / 2;
+										var max = x + lKelas / 2;
+										return "Nilai: " + min + " - " + max;
+									}
+								}
+							}
+						}
+					}
+				});
+				console.log("Poligon: catat perubahan disini");
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilPoligon"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapsePoligonKum" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputPoligonKum" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputPoligonKum">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="_poligon_kum" onclick="poligonKum()">Hitung</button>
+			<p class="text-break" id="hasilPoligonKum">Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+			<div id="tempatPoligonKum">
+				<canvas id="gambarPoligonKum"></canvas>
+			</div>
+		</div>
+		<script>
+			function poligonKum() {
+				document.getElementById("hasilPoligonKum").style.display = "none";
+				document.getElementById("gambarPoligonKum").remove();
+				var tempat = document.getElementById("tempatPoligonKum");
+				var gambar = document.createElement("canvas");
+				gambar.id = "gambarPoligonKum";
+				tempat.appendChild(gambar);
+				var a = document.getElementById('inputPoligonKum');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				e = e.sort(function(a, b) {
+					return a - b
+				});
+				var nKelas = 1 + (3.3) * Math.log10(e.length);
+				nKelas = Math.floor(nKelas);
+				var lKelas = Math.round(jStat.range(e) / nKelas);
+				var g = jStat.histogram(e, nKelas);
+				console.log("cek g "+g);
+				g = kum(g);
+				console.log("cek g "+g);
+				var f = [];
+				var awal = Math.floor(jStat.min(e)) - 0.5;
+				for (let i = 0; i < nKelas; i++) {
+					f[i] = awal + (lKelas) / 2 + lKelas * i;
+				}
+				var akhir = f[nKelas - 1] + 0.5;
+				document.getElementById("hasilPoligonKum").innerText = "Cek \n Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
+				document.getElementById("hasilPoligonKum").style.display = "block";
+				var x_vals = f;
+				var y_vals = g;
+				var data = x_vals.map((k, i) => ({
+					x: k,
+					y: y_vals[i]
+				}));
+				var ctx = document.getElementById('gambarPoligonKum');
+				var myChart = new Chart(ctx, {
+					type: 'line',
+					data: {
+						datasets: [{
+							label: 'Banyaknya',
+							data: data,
+							barPercentage: 1,
+							categoryPercentage: 1,
+							borderRadius: 5
+						}]
+					},
+					options: {
+						scales: {
+							x: {
+								//beginAtZero: true,
+								type: 'linear',
+								offset: false,
+								grid: {
+									offset: false
+								},
+								ticks: {
+									stepSize: lKelas
+								},
+								title: {
+									display: true,
+									text: 'Nilai',
+									font: {
+										size: 14
+									}
+								}
+							},
+							y: {
+								title: {
+									display: true,
+									text: 'Frekuensi',
+									font: {
+										size: 14
+									}
+								}
+							}
+						},
+						plugins: {
+							legend: {
+								display: false,
+							},
+							tooltip: {
+								callbacks: {
+									title: (items) => {
+										if (!items.length) {
+											return "";
+										}
+										var item = items[0];
+										var x = item.parsed.x;
+										var min = x - lKelas / 2;
+										var max = x + lKelas / 2;
+										return "Nilai: " + min + " - " + max;
+									}
+								}
+							}
+						}
+					}
+				});
+				console.log("Poligon Kumulatif: catat perubahan disini");
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilPoligonKum"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseRatarata" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputRatarata" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputRatarata">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="rataRata" onclick="rataRata()">Hitung</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+		</div>
+		<script>
+			function rataRata() {
+				document.getElementById("hasilRatarata").style.display = "none";
+				var a = document.getElementById('inputRatarata');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = jStat.mean(d);
+					var f = d;
+				} else {
+					var e = jStat.mean(c);
+					var f = c;
+				}
+				document.getElementById("hasilRatarata").innerText = "Cek \n Data " + f + "\n Banyak data " + f.length + "\n ========= \n Rata-rata " + e;
+				document.getElementById("hasilRatarata").style.display = "block";
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilRatarata"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseMedian" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputMedian" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputMedian">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="median" onclick="median()">Hitung</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+		</div>
+		<script type="text/javascript">
+			function median() {
+				document.getElementById("hasilMedian").style.display = "none";
+				var a = document.getElementById('inputMedian');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = jStat.median(d);
+					var f = d;
+				} else {
+					var e = jStat.median(c);
+					var f = c;
+				}
+				document.getElementById("hasilMedian").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + f.length + "\n ========= \n Median " + e;
+				document.getElementById("hasilMedian").style.display = "block";
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilMedian"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseModus" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputModus" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputModus">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="modus" onclick="modus()">Hitung</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+		</div>
+		<script type="text/javascript">
+			function modus() {
+				document.getElementById("hasilModus").style.display = "none";
+				var a = document.getElementById('inputModus');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = jStat.mode(d);
+					var f = d;
+				} else {
+					var e = jStat.mode(c);
+					var f = c;
+				}
+				document.getElementById("hasilModus").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + f.length + "\n ========= \n Modus " + e;
+				document.getElementById("hasilModus").style.display = "block";
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilModus"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseJangkauan" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputJangkauan" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputJangkauan">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="jangkauan" onclick="jangkauan()">Hitung</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+		</div>
+		<script>
+			function jangkauan() {
+				document.getElementById("hasilJangkauan").style.display = "none";
+				var a = document.getElementById('inputJangkauan');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = jStat.range(d);
+					var f = d;
+				} else {
+					var e = jStat.range(c);
+					var f = c;
+				}
+				document.getElementById("hasilJangkauan").innerText = "Cek \n Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + f.length + "\n ========= \n Jangkauan " + e;
+				document.getElementById("hasilJangkauan").style.display = "block";
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilJangkauan"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseVariansi" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputVariansi" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputJangkauan">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="_variansi_sampel" onclick="variansiSampel()">Hitung Variansi Sampel</button>
+			<button class="btn btn-primary" type="submit" id="_variansi_populasi" onclick="variansiPopulasi()">Hitung Variansi Populasi</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+		</div>
+		<script>
+			function variansiSampel() {
+				document.getElementById("hasilVariansi").style.display = "none";
+				var a = document.getElementById('inputVariansi');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				var f = jStat.variance(e,true);
+				document.getElementById("hasilVariansi").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + e.length + "\n ========= \n Variansi Sampel " + f;
+				document.getElementById("hasilVariansi").style.display = "block";
+			}
+			function variansiPopulasi() {
+				document.getElementById("hasilVariansi").style.display = "none";
+				var a = document.getElementById('inputVariansi');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				var f = jStat.variance(e);
+				document.getElementById("hasilVariansi").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + e.length + "\n ========= \n Variansi Populasi " + f;
+				document.getElementById("hasilVariansi").style.display = "block";
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilVariansi"></p>
+	</div>
+</div>
+<div class="row collapse py-4" id="collapseSimpanganBaku" style="background:aliceblue;">
+	<div class="col-lg-6 col-sm-12 px-4">
+		<div class="form-floating">
+			<textarea class="form-control" placeholder="-" id="inputSimpanganBaku" style="height:150px;" autocomplete="off"></textarea>
+			<label for="inputSimpanganBaku">Masukkan data di sini</label>
+			<button class="btn btn-primary" type="submit" id="_simpangan_baku_sampel" onclick="simpanganBakuSampel()">Hitung Simpangan Baku Sampel</button>
+			<button class="btn btn-primary" type="submit" id="_simpangan_baku_populasi" onclick="simpanganBakuPopulasi()">Hitung Simpangan Baku Populasi</button>
+			<p>Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,).  <br> Klik <kbd>Hitung</kbd> jika data sudah benar. </p>
+		</div>
+		<script>
+			function simpanganBakuSampel() {
+				document.getElementById("hasilSimpanganBaku").style.display = "none";
+				var a = document.getElementById('inputSimpanganBaku');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				var f = jStat.variance(e,true);
+				f = Math.sqrt(f);
+				document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Sampel " + f;
+				document.getElementById("hasilSimpanganBaku").style.display = "block";
+			}
+			function simpanganBakuPopulasi() {
+				document.getElementById("hasilSimpanganBaku").style.display = "none";
+				var a = document.getElementById('inputSimpanganBaku');
+				var b = rapikan(a);
+				var c = Array.from(b.split(','), Number);
+				var d = Array.from(b.split('\n'), Number);
+				if (d.length > c.length) {
+					var e = d;
+				} else {
+					var e = c;
+				}
+				var f = jStat.variance(e);
+				f = Math.sqrt(f);
+				document.getElementById("hasilSimpanganBaku").innerText = "Cek \n Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+					return a - b
+				}) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Populasi " + f;
+				document.getElementById("hasilSimpanganBaku").style.display = "block";
+			}
+		</script>
+	</div>
+	<div class="col-lg-6 col-sm-12 px-5">
+		<p class="text-break" id="hasilSimpanganBaku"></p>
 	</div>
 </div>
 
