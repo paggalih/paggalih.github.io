@@ -42,7 +42,6 @@ function hideDiagramBatang() {
 
 function raiseDiagramBatang() {
 	document.getElementById("_raise_diagram_batang").style.display = "none";
-	document.getElementById("collapseDiagramBatang").classList.add('row','collapse','py-4');
 	document.getElementById("collapseDiagramBatang").style.display = "flex";
 }
 
