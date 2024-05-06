@@ -35,120 +35,109 @@ function poolColors(a) {
 	return pool;
 }
 
-// Create button element
-var button = document.createElement("button");
-button.id = "_raise_diagram_batang";
-button.className = "btn btn-link";
-button.style.display = "none";
-button.onclick = raiseDiagramBatang;
+function formData(){
+	// Create the main div
+	const mainDiv = document.createElement('div');
 
-// Create text node for button text
-var buttonText = document.createTextNode("Diagram Batang");
+	// Create the button
+	const button = document.createElement('button');
+	button.className = 'btn btn-link';
+	button.style.display = 'none';
 
-// Create icon element
-var icon = document.createElement("i");
-icon.className = "bi bi-three-dots";
+	// Create the inner div for collapsing content
+	const collapseDiv = document.createElement('div');
+	collapseDiv.className = 'row collapse py-4';
 
-// Append text node and icon to button element
-button.appendChild(buttonText);
-button.appendChild(icon);
+	// Create the first column div
+	const col1Div = document.createElement('div');
+	col1Div.className = 'col-lg-6 col-sm-12 px-4';
 
-// Append button to the document body or any other parent element
-document.body.appendChild(button);
+	// Create the form and its elements
+	const form = document.createElement('div');
+	form.className = 'form-floating';
 
+	const textarea = document.createElement('textarea');
+	textarea.className = 'form-control';
+	textarea.placeholder = '-';
+	textarea.id = 'inputDiagramBatang';
+	textarea.style.height = '150px';
+	textarea.autocomplete = 'off';
 
-// Create div with class "row collapse py-4" and id "collapseDiagramBatang"
-var rowDiv = document.createElement("div");
-rowDiv.className = "row collapse py-4";
-rowDiv.id = "collapseDiagramBatang";
+	const label = document.createElement('label');
+	label.textContent = 'Masukkan data di sini';
 
-// Create left column div with class "col-lg-6 col-sm-12 px-4"
-var leftColDiv = document.createElement("div");
-leftColDiv.className = "col-lg-6 col-sm-12 px-4";
+	const submitButton = document.createElement('button');
+	submitButton.className = 'btn btn-primary';
+	submitButton.type = 'submit';
+	submitButton.textContent = 'Hitung';
 
-// Create form-floating div
-var formFloatingDiv = document.createElement("div");
-formFloatingDiv.className = "form-floating";
+	const hideButton = document.createElement('button');
+	hideButton.className = 'btn btn-primary';
+	hideButton.textContent = 'Sembunyikan';
 
-// Create textarea with class "form-control" and id "inputDiagramBatang"
-var textarea = document.createElement("textarea");
-textarea.className = "form-control";
-textarea.placeholder = "-";
-textarea.id = "inputDiagramBatang";
-textarea.style.height = "150px";
-textarea.autocomplete = "off";
+	const infoParagraph = document.createElement('p');
+	infoParagraph.innerHTML = 'Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.';
 
-// Create label for textarea
-var label = document.createElement("label");
-label.htmlFor = "inputDiagramBatang";
-label.textContent = "Masukkan data di sini";
+	// Append elements to form
+	form.appendChild(textarea);
+	form.appendChild(label);
+	form.appendChild(submitButton);
+	form.appendChild(hideButton);
+	form.appendChild(infoParagraph);
 
-// Create Hitung button
-var hitungButton = document.createElement("button");
-hitungButton.className = "btn btn-primary";
-hitungButton.type = "submit";
-hitungButton.id = "diagramBatang";
-hitungButton.textContent = "Hitung";
-hitungButton.onclick = diagramBatang;
+	// Append form to col1Div
+	col1Div.appendChild(form);
 
-// Create Sembunyikan button
-var sembunyikanButton = document.createElement("button");
-sembunyikanButton.className = "btn btn-primary";
-sembunyikanButton.textContent = "Sembunyikan";
-sembunyikanButton.onclick = hideDiagramBatang;
+	// Create the second column div
+	const col2Div = document.createElement('div');
+	col2Div.className = 'col-lg-6 col-sm-12 px-5';
 
-// Create paragraph with instructions
-var instructionsParagraph = document.createElement("p");
-instructionsParagraph.innerHTML = "Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.";
+	const resultParagraph = document.createElement('p');
+	resultParagraph.className = 'text-break';
 
-// Append elements to form-floating div
-formFloatingDiv.appendChild(textarea);
-formFloatingDiv.appendChild(label);
-formFloatingDiv.appendChild(hitungButton);
-formFloatingDiv.appendChild(sembunyikanButton);
-formFloatingDiv.appendChild(instructionsParagraph);
+	// Append mainDiv to body or any other parent element
+	document.getElementById("main").appendChild(mainDiv);
+}
 
-// Append form-floating div to left column div
-leftColDiv.appendChild(formFloatingDiv);
+function prosesDiagramBatang(){
+	formData();
+	
+	button.id = '_raise_diagram_batang';
+	button.onclick = raiseDiagramBatang;
+	button.innerHTML = 'Diagram Batang<i class="bi bi-three-dots"></i>';
+	
+	collapseDiv.id = 'collapseDiagramBatang';
+	
+	label.setAttribute('for', 'inputDiagramBatang');
+	
+	submitButton.id = 'diagramBatang';
+	submitButton.onclick = diagramBatang;
+	
+	hideButton.onclick = hideDiagramBatang;
+	
+	resultParagraph.id = 'hasilDiagramBatang';
+	resultParagraph.innerHTML = '<span class="h2">Diagram Batang</span>';
+	
+	const tempatDiagramDiv = document.createElement('div');
+	tempatDiagramDiv.id = 'tempatDiagramBatang';
 
-// Create right column div with class "col-lg-6 col-sm-12 px-5"
-var rightColDiv = document.createElement("div");
-rightColDiv.className = "col-lg-6 col-sm-12 px-5";
+	const canvas = document.createElement('canvas');
+	canvas.id = 'gambarDiagramBatang';
 
-// Create paragraph for diagram title
-var diagramTitleParagraph = document.createElement("p");
-diagramTitleParagraph.className = "text-break";
-diagramTitleParagraph.id = "hasilDiagramBatang";
+	// Append elements to col2Div
+	tempatDiagramDiv.appendChild(canvas);
+	col2Div.appendChild(resultParagraph);
+	col2Div.appendChild(tempatDiagramDiv);
 
-// Create span for diagram title
-var diagramTitleSpan = document.createElement("span");
-diagramTitleSpan.className = "h2";
-diagramTitleSpan.textContent = "Diagram Batang";
+	// Append col1Div and col2Div to collapseDiv
+	collapseDiv.appendChild(col1Div);
+	collapseDiv.appendChild(col2Div);
 
-// Append span to paragraph
-diagramTitleParagraph.appendChild(diagramTitleSpan);
-
-// Create div for diagram
-var diagramDiv = document.createElement("div");
-diagramDiv.id = "tempatDiagramBatang";
-
-// Create canvas for diagram
-var canvas = document.createElement("canvas");
-canvas.id = "gambarDiagramBatang";
-
-// Append canvas to diagram div
-diagramDiv.appendChild(canvas);
-
-// Append diagram title paragraph and diagram div to right column div
-rightColDiv.appendChild(diagramTitleParagraph);
-rightColDiv.appendChild(diagramDiv);
-
-// Append left and right column divs to row div
-rowDiv.appendChild(leftColDiv);
-rowDiv.appendChild(rightColDiv);
-
-// Append row div to the document body or any other parent element
-document.getElementById("main").appendChild(rowDiv);
+	// Append button and collapseDiv to mainDiv
+	mainDiv.appendChild(button);
+	mainDiv.appendChild(collapseDiv);
+	
+}
 
 function hideDiagramBatang() {
 	document.getElementById("_raise_diagram_batang").style.display = "flex";
