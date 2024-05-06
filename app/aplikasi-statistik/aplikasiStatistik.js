@@ -35,6 +35,121 @@ function poolColors(a) {
 	return pool;
 }
 
+// Create button element
+var button = document.createElement("button");
+button.id = "_raise_diagram_batang";
+button.className = "btn btn-link";
+button.style.display = "none";
+button.onclick = raiseDiagramBatang;
+
+// Create text node for button text
+var buttonText = document.createTextNode("Diagram Batang");
+
+// Create icon element
+var icon = document.createElement("i");
+icon.className = "bi bi-three-dots";
+
+// Append text node and icon to button element
+button.appendChild(buttonText);
+button.appendChild(icon);
+
+// Append button to the document body or any other parent element
+document.body.appendChild(button);
+
+
+// Create div with class "row collapse py-4" and id "collapseDiagramBatang"
+var rowDiv = document.createElement("div");
+rowDiv.className = "row collapse py-4";
+rowDiv.id = "collapseDiagramBatang";
+
+// Create left column div with class "col-lg-6 col-sm-12 px-4"
+var leftColDiv = document.createElement("div");
+leftColDiv.className = "col-lg-6 col-sm-12 px-4";
+
+// Create form-floating div
+var formFloatingDiv = document.createElement("div");
+formFloatingDiv.className = "form-floating";
+
+// Create textarea with class "form-control" and id "inputDiagramBatang"
+var textarea = document.createElement("textarea");
+textarea.className = "form-control";
+textarea.placeholder = "-";
+textarea.id = "inputDiagramBatang";
+textarea.style.height = "150px";
+textarea.autocomplete = "off";
+
+// Create label for textarea
+var label = document.createElement("label");
+label.htmlFor = "inputDiagramBatang";
+label.textContent = "Masukkan data di sini";
+
+// Create Hitung button
+var hitungButton = document.createElement("button");
+hitungButton.className = "btn btn-primary";
+hitungButton.type = "submit";
+hitungButton.id = "diagramBatang";
+hitungButton.textContent = "Hitung";
+hitungButton.onclick = diagramBatang;
+
+// Create Sembunyikan button
+var sembunyikanButton = document.createElement("button");
+sembunyikanButton.className = "btn btn-primary";
+sembunyikanButton.textContent = "Sembunyikan";
+sembunyikanButton.onclick = hideDiagramBatang;
+
+// Create paragraph with instructions
+var instructionsParagraph = document.createElement("p");
+instructionsParagraph.innerHTML = "Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.";
+
+// Append elements to form-floating div
+formFloatingDiv.appendChild(textarea);
+formFloatingDiv.appendChild(label);
+formFloatingDiv.appendChild(hitungButton);
+formFloatingDiv.appendChild(sembunyikanButton);
+formFloatingDiv.appendChild(instructionsParagraph);
+
+// Append form-floating div to left column div
+leftColDiv.appendChild(formFloatingDiv);
+
+// Create right column div with class "col-lg-6 col-sm-12 px-5"
+var rightColDiv = document.createElement("div");
+rightColDiv.className = "col-lg-6 col-sm-12 px-5";
+
+// Create paragraph for diagram title
+var diagramTitleParagraph = document.createElement("p");
+diagramTitleParagraph.className = "text-break";
+diagramTitleParagraph.id = "hasilDiagramBatang";
+
+// Create span for diagram title
+var diagramTitleSpan = document.createElement("span");
+diagramTitleSpan.className = "h2";
+diagramTitleSpan.textContent = "Diagram Batang";
+
+// Append span to paragraph
+diagramTitleParagraph.appendChild(diagramTitleSpan);
+
+// Create div for diagram
+var diagramDiv = document.createElement("div");
+diagramDiv.id = "tempatDiagramBatang";
+
+// Create canvas for diagram
+var canvas = document.createElement("canvas");
+canvas.id = "gambarDiagramBatang";
+
+// Append canvas to diagram div
+diagramDiv.appendChild(canvas);
+
+// Append diagram title paragraph and diagram div to right column div
+rightColDiv.appendChild(diagramTitleParagraph);
+rightColDiv.appendChild(diagramDiv);
+
+// Append left and right column divs to row div
+rowDiv.appendChild(leftColDiv);
+rowDiv.appendChild(rightColDiv);
+
+// Append row div to the document body or any other parent element
+document.body.appendChild(rowDiv);
+
 function hideDiagramBatang() {
 	document.getElementById("_raise_diagram_batang").style.display = "flex";
 	document.getElementById("collapseDiagramBatang").style.display = "none";
