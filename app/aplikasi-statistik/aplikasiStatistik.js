@@ -101,7 +101,7 @@ function diagramBatang() {
 	console.log("berikan catatan disini");
 }
 
-function formData(x1,x2,C1,C2,f1(),f2(),f3()){
+function formData(x1,x2,C1,C2){
 // Create the main div
 const mainDiv = document.createElement('div');
 
@@ -113,7 +113,7 @@ button.id = '_raise_'+x1+'_'+x2;
 button.className = 'btn btn-link';
 button.style.display = 'none';
 // variabel f1 = raiseDiagramBatang()
-button.onclick = f1;
+button.onclick = 'raise'+C1+C2;
 // var C1,C2 = Diagram, Batang
 button.innerHTML = C1+' '+C2+'<i class="bi bi-three-dots"></i>';
 
@@ -146,13 +146,13 @@ submitButton.className = 'btn btn-primary';
 submitButton.type = 'submit';
 // submitButton.id = 'diagramBatang';
 // variabel f2 = diagramBatang
-submitButton.onclick = f2;
+submitButton.onclick = x1+C2;
 submitButton.textContent = 'Hitung';
 
 const hideButton = document.createElement('button');
 hideButton.className = 'btn btn-primary';
 // variabel f3 = hideDiagramBatang
-hideButton.onclick = hideDiagramBatang;
+hideButton.onclick = 'hide'+C1+C2;
 hideButton.textContent = 'Sembunyikan';
 
 const infoParagraph = document.createElement('p');
@@ -175,7 +175,7 @@ col2Div.className = 'col-lg-6 col-sm-12 px-5';
 const resultParagraph = document.createElement('p');
 resultParagraph.className = 'text-break';
 resultParagraph.id = 'hasil'+C1+C2;
-resultParagraph.innerHTML = '<span class="h2">'+C1+''+C2+'</span>';
+resultParagraph.innerHTML = '<span class="h2">'+C1+' '+C2+'</span>';
 
 const tempatDiagramDiv = document.createElement('div');
 tempatDiagramDiv.id = 'tempat'+C1+C2;
