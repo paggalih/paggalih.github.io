@@ -101,7 +101,7 @@ function diagramBatang() {
 	console.log("berikan catatan disini");
 }
 
-function formData(x1,x2,C1,C2,f1,f2,f3){
+function formData(x1,x2,C1,C2,f1(),f2(),f3()){
 // Create the main div
 const mainDiv = document.createElement('div');
 
