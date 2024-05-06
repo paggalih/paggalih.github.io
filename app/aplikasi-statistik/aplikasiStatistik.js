@@ -113,7 +113,7 @@ button.id = '_raise_'+x1+'_'+x2;
 button.className = 'btn btn-link';
 button.style.display = 'none';
 // variabel f1 = raiseDiagramBatang()
-button.onclick = window['raise'+C1+C2];
+button.onclick = eval('raise'+C1+C2);
 // var C1,C2 = Diagram, Batang
 button.innerHTML = C1+' '+C2+'<i class="bi bi-three-dots"></i>';
 
@@ -146,13 +146,13 @@ submitButton.className = 'btn btn-primary';
 submitButton.type = 'submit';
 // submitButton.id = 'diagramBatang';
 // variabel f2 = diagramBatang
-submitButton.onclick = window[x1+C2];
+submitButton.onclick = eval(x1+C2);
 submitButton.textContent = 'Hitung';
 
 const hideButton = document.createElement('button');
 hideButton.className = 'btn btn-primary';
 // variabel f3 = hideDiagramBatang
-hideButton.onclick = window['hide'+C1+C2];
+hideButton.onclick = eval('hide'+C1+C2);
 hideButton.textContent = 'Sembunyikan';
 
 const infoParagraph = document.createElement('p');
