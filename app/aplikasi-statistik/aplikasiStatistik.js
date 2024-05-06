@@ -164,13 +164,13 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = eval(x.trim()+'(BanyakKlik)');
+	submitButton.onclick = window[x.trim()+'(BanyakKlik)'];
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
 	// variabel f3 = hideDiagramBatang
-	hideButton.onclick = eval('hide'+y);
+	hideButton.onclick = window['hide'+y];
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
