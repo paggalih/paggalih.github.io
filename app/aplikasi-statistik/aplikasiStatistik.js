@@ -35,6 +35,72 @@ function poolColors(a) {
 	return pool;
 }
 
+
+function hideDiagramBatang() {
+	document.getElementById("_raise_diagram_batang").style.display = "flex";
+	document.getElementById("collapseDiagramBatang").style.display = "none";
+}
+
+function raiseDiagramBatang() {
+	document.getElementById("_raise_diagram_batang").style.display = "none";
+	document.getElementById("collapseDiagramBatang").style.display = "flex";
+}
+
+function diagramBatang() {
+	document.getElementById("hasilDiagramBatang").style.display = "none";
+	document.getElementById("gambarDiagramBatang").remove();
+	var tempat = document.getElementById("tempatDiagramBatang");
+	var gambar = document.createElement("canvas");
+	gambar.id = "gambarDiagramBatang";
+	tempat.appendChild(gambar);
+	var a = document.getElementById('inputDiagramBatang');
+	var b = rapikan(a);
+	var c = Array.from(b.split(','));
+	var d = Array.from(b.split('\n'));
+	if (d.length > c.length) {
+		var e = d;
+	} else {
+		var e = c;
+	}
+	e = e.sort(function(a, b) {
+		return a - b
+	});
+	var f = new Set(e);
+	var g = [];
+	var iterator = Array.from(f);
+	for (let i = 0; i < iterator.length; i++) {
+		var pisah = e.filter((x) => x === iterator[i]);
+		g[i] = pisah.length;
+	}
+	document.getElementById("hasilDiagramBatang").innerText = "Banyak data " + e.length + "\n ========= \n";
+	document.getElementById("hasilDiagramBatang").style.display = "flex";
+	var xValues = Array.from(f);
+	var yValues = g;
+	new Chart("gambarDiagramBatang", {
+		type: "bar",
+		data: {
+			labels: xValues,
+			datasets: [{
+				backgroundColor: poolColors(yValues.length),
+				borderColor: poolColors(yValues.length),
+				data: yValues
+			}]
+		},
+		options: {
+			plugins: {
+				legend: {
+					display: false
+				},
+				title: {
+					display: true,
+					text: 'Diagram Batang'
+				}
+			}
+		}
+	});
+	console.log("berikan catatan disini");
+}
+
 function formData(x1,x2,C1,C2,f1,f2,f3){
 // Create the main div
 const mainDiv = document.createElement('div');
@@ -133,71 +199,6 @@ mainDiv.appendChild(collapseDiv);
 // Append mainDiv to body or any other parent element
 document.getElementById('main').appendChild(mainDiv);
 
-}
-
-function hideDiagramBatang() {
-	document.getElementById("_raise_diagram_batang").style.display = "flex";
-	document.getElementById("collapseDiagramBatang").style.display = "none";
-}
-
-function raiseDiagramBatang() {
-	document.getElementById("_raise_diagram_batang").style.display = "none";
-	document.getElementById("collapseDiagramBatang").style.display = "flex";
-}
-
-function diagramBatang() {
-	document.getElementById("hasilDiagramBatang").style.display = "none";
-	document.getElementById("gambarDiagramBatang").remove();
-	var tempat = document.getElementById("tempatDiagramBatang");
-	var gambar = document.createElement("canvas");
-	gambar.id = "gambarDiagramBatang";
-	tempat.appendChild(gambar);
-	var a = document.getElementById('inputDiagramBatang');
-	var b = rapikan(a);
-	var c = Array.from(b.split(','));
-	var d = Array.from(b.split('\n'));
-	if (d.length > c.length) {
-		var e = d;
-	} else {
-		var e = c;
-	}
-	e = e.sort(function(a, b) {
-		return a - b
-	});
-	var f = new Set(e);
-	var g = [];
-	var iterator = Array.from(f);
-	for (let i = 0; i < iterator.length; i++) {
-		var pisah = e.filter((x) => x === iterator[i]);
-		g[i] = pisah.length;
-	}
-	document.getElementById("hasilDiagramBatang").innerText = "Banyak data " + e.length + "\n ========= \n";
-	document.getElementById("hasilDiagramBatang").style.display = "flex";
-	var xValues = Array.from(f);
-	var yValues = g;
-	new Chart("gambarDiagramBatang", {
-		type: "bar",
-		data: {
-			labels: xValues,
-			datasets: [{
-				backgroundColor: poolColors(yValues.length),
-				borderColor: poolColors(yValues.length),
-				data: yValues
-			}]
-		},
-		options: {
-			plugins: {
-				legend: {
-					display: false
-				},
-				title: {
-					display: true,
-					text: 'Diagram Batang'
-				}
-			}
-		}
-	});
-	console.log("berikan catatan disini");
 }
 
 function hideHistogram() {
