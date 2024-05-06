@@ -119,7 +119,7 @@ button.innerHTML = C1+' '+C2+'<i class="bi bi-three-dots"></i>';
 
 // Create the inner div for collapsing content
 const collapseDiv = document.createElement('div');
-collapseDiv.className = 'row collapse py-4';
+collapseDiv.className = 'row py-4';
 collapseDiv.id = 'collapse'+C1+C2;
 
 // Create the first column div
