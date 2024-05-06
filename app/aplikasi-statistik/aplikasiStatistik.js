@@ -35,108 +35,104 @@ function poolColors(a) {
 	return pool;
 }
 
-function formData(){
-	// Create the main div
-	const mainDiv = document.createElement('div');
+function formData(x1,x2,C1,C2,f1,f2,f3){
+// Create the main div
+const mainDiv = document.createElement('div');
 
-	// Create the button
-	const button = document.createElement('button');
-	button.className = 'btn btn-link';
-	button.style.display = 'none';
+// Create the button
+const button = document.createElement('button');
+// variabel x1,x2 = diagram, batang
 
-	// Create the inner div for collapsing content
-	const collapseDiv = document.createElement('div');
-	collapseDiv.className = 'row collapse py-4';
+button.id = '_raise_'+x1+'_'+x2;
+button.className = 'btn btn-link';
+button.style.display = 'none';
+// variabel f1 = raiseDiagramBatang()
+button.onclick = f1;
+// var C1,C2 = Diagram, Batang
+button.innerHTML = C1+' '+C2+'<i class="bi bi-three-dots"></i>';
 
-	// Create the first column div
-	const col1Div = document.createElement('div');
-	col1Div.className = 'col-lg-6 col-sm-12 px-4';
+// Create the inner div for collapsing content
+const collapseDiv = document.createElement('div');
+collapseDiv.className = 'row collapse py-4';
+collapseDiv.id = 'collapse'+C1+C2;
 
-	// Create the form and its elements
-	const form = document.createElement('div');
-	form.className = 'form-floating';
+// Create the first column div
+const col1Div = document.createElement('div');
+col1Div.className = 'col-lg-6 col-sm-12 px-4';
 
-	const textarea = document.createElement('textarea');
-	textarea.className = 'form-control';
-	textarea.placeholder = '-';
-	textarea.id = 'inputDiagramBatang';
-	textarea.style.height = '150px';
-	textarea.autocomplete = 'off';
+// Create the form and its elements
+const form = document.createElement('div');
+form.className = 'form-floating';
 
-	const label = document.createElement('label');
-	label.textContent = 'Masukkan data di sini';
+const textarea = document.createElement('textarea');
+textarea.className = 'form-control';
+textarea.placeholder = '-';
+textarea.id = 'input'+C1+C2;
+textarea.style.height = '150px';
+textarea.autocomplete = 'off';
 
-	const submitButton = document.createElement('button');
-	submitButton.className = 'btn btn-primary';
-	submitButton.type = 'submit';
-	submitButton.textContent = 'Hitung';
+const label = document.createElement('label');
+label.setAttribute('for', 'input'+C1+C2);
+label.textContent = 'Masukkan data di sini';
 
-	const hideButton = document.createElement('button');
-	hideButton.className = 'btn btn-primary';
-	hideButton.textContent = 'Sembunyikan';
+const submitButton = document.createElement('button');
+submitButton.className = 'btn btn-primary';
+submitButton.type = 'submit';
+// submitButton.id = 'diagramBatang';
+// variabel f2 = diagramBatang
+submitButton.onclick = f2;
+submitButton.textContent = 'Hitung';
 
-	const infoParagraph = document.createElement('p');
-	infoParagraph.innerHTML = 'Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.';
+const hideButton = document.createElement('button');
+hideButton.className = 'btn btn-primary';
+// variabel f3 = hideDiagramBatang
+hideButton.onclick = hideDiagramBatang;
+hideButton.textContent = 'Sembunyikan';
 
-	// Append elements to form
-	form.appendChild(textarea);
-	form.appendChild(label);
-	form.appendChild(submitButton);
-	form.appendChild(hideButton);
-	form.appendChild(infoParagraph);
+const infoParagraph = document.createElement('p');
+infoParagraph.innerHTML = 'Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.';
 
-	// Append form to col1Div
-	col1Div.appendChild(form);
+// Append elements to form
+form.appendChild(textarea);
+form.appendChild(label);
+form.appendChild(submitButton);
+form.appendChild(hideButton);
+form.appendChild(infoParagraph);
 
-	// Create the second column div
-	const col2Div = document.createElement('div');
-	col2Div.className = 'col-lg-6 col-sm-12 px-5';
+// Append form to col1Div
+col1Div.appendChild(form);
 
-	const resultParagraph = document.createElement('p');
-	resultParagraph.className = 'text-break';
+// Create the second column div
+const col2Div = document.createElement('div');
+col2Div.className = 'col-lg-6 col-sm-12 px-5';
 
-	// Append mainDiv to body or any other parent element
-	document.getElementById("main").appendChild(mainDiv);
-}
+const resultParagraph = document.createElement('p');
+resultParagraph.className = 'text-break';
+resultParagraph.id = 'hasil'+C1+C2;
+resultParagraph.innerHTML = '<span class="h2">'+C1+''+C2+'</span>';
 
-function prosesDiagramBatang(){
-	formData();
-	
-	button.id = '_raise_diagram_batang';
-	button.onclick = raiseDiagramBatang;
-	button.innerHTML = 'Diagram Batang<i class="bi bi-three-dots"></i>';
-	
-	collapseDiv.id = 'collapseDiagramBatang';
-	
-	label.setAttribute('for', 'inputDiagramBatang');
-	
-	submitButton.id = 'diagramBatang';
-	submitButton.onclick = diagramBatang;
-	
-	hideButton.onclick = hideDiagramBatang;
-	
-	resultParagraph.id = 'hasilDiagramBatang';
-	resultParagraph.innerHTML = '<span class="h2">Diagram Batang</span>';
-	
-	const tempatDiagramDiv = document.createElement('div');
-	tempatDiagramDiv.id = 'tempatDiagramBatang';
+const tempatDiagramDiv = document.createElement('div');
+tempatDiagramDiv.id = 'tempat'+C1+C2;
 
-	const canvas = document.createElement('canvas');
-	canvas.id = 'gambarDiagramBatang';
+const canvas = document.createElement('canvas');
+canvas.id = 'gambar'+C1+C2;
 
-	// Append elements to col2Div
-	tempatDiagramDiv.appendChild(canvas);
-	col2Div.appendChild(resultParagraph);
-	col2Div.appendChild(tempatDiagramDiv);
+// Append elements to col2Div
+tempatDiagramDiv.appendChild(canvas);
+col2Div.appendChild(resultParagraph);
+col2Div.appendChild(tempatDiagramDiv);
 
-	// Append col1Div and col2Div to collapseDiv
-	collapseDiv.appendChild(col1Div);
-	collapseDiv.appendChild(col2Div);
+// Append col1Div and col2Div to collapseDiv
+collapseDiv.appendChild(col1Div);
+collapseDiv.appendChild(col2Div);
 
-	// Append button and collapseDiv to mainDiv
-	mainDiv.appendChild(button);
-	mainDiv.appendChild(collapseDiv);
-	
+// Append button and collapseDiv to mainDiv
+mainDiv.appendChild(button);
+mainDiv.appendChild(collapseDiv);
+
+// Append mainDiv to body or any other parent element
+document.getElementById('main').appendChild(mainDiv);
+
 }
 
 function hideDiagramBatang() {
