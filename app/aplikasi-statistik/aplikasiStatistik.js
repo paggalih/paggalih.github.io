@@ -39,7 +39,7 @@ function poolColors(a) {
 var BanyakKlik = 0;
 
 function DiagramBatang(n) {
-	n = n.toString();
+	n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
@@ -86,7 +86,7 @@ function DiagramBatang(n) {
 				},
 				title: {
 					display: true,
-					text: 'Klik ke-'+n+': Diagram Batang'
+					text: 'Klik ke'+n+': Diagram Batang'
 				}
 			}
 		}
@@ -95,15 +95,15 @@ function DiagramBatang(n) {
 }
 
 function hide(n,x) {
-	var y = n.toString()+x.trim();
+	var y = '_'+n.toString()+x.trim();
 	console.log("hide y "+y)
 	document.getElementById('raise'+y).style.display = "flex";
 	document.getElementById("collapse"+y).style.display = "none";
 }
 
 function raise(n,x) {
-	var y = n.toString()+x.trim();
-	console.log("hide y "+y)
+	var y = '_'+n.toString()+x.trim();
+	console.log("raise y "+y)
 	document.getElementById("raise"+y).style.display = "none";
 	document.getElementById("collapse"+y).style.display = "flex";
 }
@@ -111,7 +111,7 @@ function raise(n,x) {
 function formData(x){
 	BanyakKlik = BanyakKlik + 1;
 	
-	const y = BanyakKlik.toString()+x.trim();
+	const y = '_'+BanyakKlik.toString()+x.trim();
 
 	// Create the main div
 	const mainDiv = document.createElement('div');
