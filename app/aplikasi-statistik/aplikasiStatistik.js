@@ -148,7 +148,7 @@ rowDiv.appendChild(leftColDiv);
 rowDiv.appendChild(rightColDiv);
 
 // Append row div to the document body or any other parent element
-document.body.appendChild(rowDiv);
+document.getElementById("main").appendChild(rowDiv);
 
 function hideDiagramBatang() {
 	document.getElementById("_raise_diagram_batang").style.display = "flex";
