@@ -123,7 +123,8 @@ function formData(x){
 	button.className = 'btn btn-link';
 	button.style.display = 'none';
 	// variabel f1 = raiseDiagramBatang()
-	button.onclick = eval('raise(BanyakKlik,x)');
+	// button.onclick = eval('raise(BanyakKlik,x)');
+	button.onclick = window['raise(BanyakKlik,x)'];
 	// var C1,C2 = Diagram, Batang
 	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
 
