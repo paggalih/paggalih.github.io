@@ -35,25 +35,17 @@ function poolColors(a) {
 	return pool;
 }
 
+const BanyakKlik = 0;
 
-function hideDiagramBatang() {
-	document.getElementById("_raise_diagram_batang").style.display = "flex";
-	document.getElementById("collapseDiagramBatang").style.display = "none";
-}
-
-function raiseDiagramBatang() {
-	document.getElementById("_raise_diagram_batang").style.display = "none";
-	document.getElementById("collapseDiagramBatang").style.display = "flex";
-}
-
-function diagramBatang() {
-	document.getElementById("hasilDiagramBatang").style.display = "none";
-	document.getElementById("gambarDiagramBatang").remove();
-	var tempat = document.getElementById("tempatDiagramBatang");
+function DiagramBatang(n) {
+	n = n.toString();
+	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
+	document.getElementById("gambar"+n+"DiagramBatang").remove();
+	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
 	var gambar = document.createElement("canvas");
-	gambar.id = "gambarDiagramBatang";
+	gambar.id = "gambar"+n+"DiagramBatang";
 	tempat.appendChild(gambar);
-	var a = document.getElementById('inputDiagramBatang');
+	var a = document.getElementById('input'+n+'DiagramBatang');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','));
 	var d = Array.from(b.split('\n'));
@@ -72,11 +64,11 @@ function diagramBatang() {
 		var pisah = e.filter((x) => x === iterator[i]);
 		g[i] = pisah.length;
 	}
-	document.getElementById("hasilDiagramBatang").innerText = "Banyak data " + e.length + "\n ========= \n";
-	document.getElementById("hasilDiagramBatang").style.display = "flex";
+	document.getElementById("hasil"+n+"DiagramBatang").innerText = "Banyak data " + e.length + "\n ========= \n";
+	document.getElementById("hasil"+n+"DiagramBatang").style.display = "flex";
 	var xValues = Array.from(f);
 	var yValues = g;
-	new Chart("gambarDiagramBatang", {
+	new Chart("gambar"+n+"DiagramBatang", {
 		type: "bar",
 		data: {
 			labels: xValues,
@@ -93,7 +85,7 @@ function diagramBatang() {
 				},
 				title: {
 					display: true,
-					text: 'Diagram Batang'
+					text: 'Klik ke-'+n+': Diagram Batang'
 				}
 			}
 		}
@@ -101,104 +93,118 @@ function diagramBatang() {
 	console.log("berikan catatan disini");
 }
 
-function formData(x1,x2,C1,C2){
-// Create the main div
-const mainDiv = document.createElement('div');
+function hide(n,x) {
+	const y = n.toString()+x.trim();
+	document.getElementById('raise'+y).style.display = "flex";
+	document.getElementById("collapse"+y).style.display = "none";
+}
 
-// Create the button
-const button = document.createElement('button');
-// variabel x1,x2 = diagram, batang
+function raise(n,x) {
+	const y = n.toString()+x.trim();
+	document.getElementById("raise"+y).style.display = "none";
+	document.getElementById("collapse"+y).style.display = "flex";
+}
+	
+function formData(x){
+	BanyakKlik = BanyakKlik + 1;
+	
+	const y = BanyakKlik.toString()+x.trim();
 
-button.id = '_raise_'+x1+'_'+x2;
-button.className = 'btn btn-link';
-button.style.display = 'none';
-// variabel f1 = raiseDiagramBatang()
-button.onclick = eval('raise'+C1+C2);
-// var C1,C2 = Diagram, Batang
-button.innerHTML = C1+' '+C2+'<i class="bi bi-three-dots"></i>';
+	// Create the main div
+	const mainDiv = document.createElement('div');
 
-// Create the inner div for collapsing content
-const collapseDiv = document.createElement('div');
-collapseDiv.className = 'row py-4';
-collapseDiv.id = 'collapse'+C1+C2;
+	// Create the button
+	const button = document.createElement('button');
+	// variabel x1,x2 = diagram, batang
+	button.id = 'raise'+y;
+	button.className = 'btn btn-link';
+	button.style.display = 'none';
+	// variabel f1 = raiseDiagramBatang()
+	button.onclick = eval('raise(BanyakKlik,x)');
+	// var C1,C2 = Diagram, Batang
+	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
 
-// Create the first column div
-const col1Div = document.createElement('div');
-col1Div.className = 'col-lg-6 col-sm-12 px-4';
+	// Create the inner div for collapsing content
+	const collapseDiv = document.createElement('div');
+	collapseDiv.className = 'row py-4';
+	collapseDiv.id = 'collapse'+y;
 
-// Create the form and its elements
-const form = document.createElement('div');
-form.className = 'form-floating';
+	// Create the first column div
+	const col1Div = document.createElement('div');
+	col1Div.className = 'col-lg-6 col-sm-12 px-4';
 
-const textarea = document.createElement('textarea');
-textarea.className = 'form-control';
-textarea.placeholder = '-';
-textarea.id = 'input'+C1+C2;
-textarea.style.height = '150px';
-textarea.autocomplete = 'off';
+	// Create the form and its elements
+	const form = document.createElement('div');
+	form.className = 'form-floating';
 
-const label = document.createElement('label');
-label.setAttribute('for', 'input'+C1+C2);
-label.textContent = 'Masukkan data di sini';
+	const textarea = document.createElement('textarea');
+	textarea.className = 'form-control';
+	textarea.placeholder = '-';
+	textarea.id = 'input'+y;
+	textarea.style.height = '150px';
+	textarea.autocomplete = 'off';
 
-const submitButton = document.createElement('button');
-submitButton.className = 'btn btn-primary';
-submitButton.type = 'submit';
-// submitButton.id = 'diagramBatang';
-// variabel f2 = diagramBatang
-submitButton.onclick = eval(x1+C2);
-submitButton.textContent = 'Hitung';
+	const label = document.createElement('label');
+	label.setAttribute('for', 'input'+y);
+	label.textContent = 'Masukkan data di sini';
 
-const hideButton = document.createElement('button');
-hideButton.className = 'btn btn-primary';
-// variabel f3 = hideDiagramBatang
-hideButton.onclick = eval('hide'+C1+C2);
-hideButton.textContent = 'Sembunyikan';
+	const submitButton = document.createElement('button');
+	submitButton.className = 'btn btn-primary';
+	submitButton.type = 'submit';
+	// submitButton.id = 'diagramBatang';
+	// variabel f2 = diagramBatang
+	submitButton.onclick = eval(x.trim()+'(BanyakKlik)');
+	submitButton.textContent = 'Hitung';
 
-const infoParagraph = document.createElement('p');
-infoParagraph.innerHTML = 'Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.';
+	const hideButton = document.createElement('button');
+	hideButton.className = 'btn btn-primary';
+	// variabel f3 = hideDiagramBatang
+	hideButton.onclick = eval('hide'+y);
+	hideButton.textContent = 'Sembunyikan';
 
-// Append elements to form
-form.appendChild(textarea);
-form.appendChild(label);
-form.appendChild(submitButton);
-form.appendChild(hideButton);
-form.appendChild(infoParagraph);
+	const infoParagraph = document.createElement('p');
+	infoParagraph.innerHTML = 'Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.';
 
-// Append form to col1Div
-col1Div.appendChild(form);
+	// Append elements to form
+	form.appendChild(textarea);
+	form.appendChild(label);
+	form.appendChild(submitButton);
+	form.appendChild(hideButton);
+	form.appendChild(infoParagraph);
 
-// Create the second column div
-const col2Div = document.createElement('div');
-col2Div.className = 'col-lg-6 col-sm-12 px-5';
+	// Append form to col1Div
+	col1Div.appendChild(form);
 
-const resultParagraph = document.createElement('p');
-resultParagraph.className = 'text-break';
-resultParagraph.id = 'hasil'+C1+C2;
-resultParagraph.innerHTML = '<span class="h2">'+C1+' '+C2+'</span>';
+	// Create the second column div
+	const col2Div = document.createElement('div');
+	col2Div.className = 'col-lg-6 col-sm-12 px-5';
 
-const tempatDiagramDiv = document.createElement('div');
-tempatDiagramDiv.id = 'tempat'+C1+C2;
+	const resultParagraph = document.createElement('p');
+	resultParagraph.className = 'text-break';
+	resultParagraph.id = 'hasil'+y;
+	resultParagraph.innerHTML = '<span class="h2">'+x+'</span>';
 
-const canvas = document.createElement('canvas');
-canvas.id = 'gambar'+C1+C2;
+	const tempatDiagramDiv = document.createElement('div');
+	tempatDiagramDiv.id = 'tempat'+y;
 
-// Append elements to col2Div
-tempatDiagramDiv.appendChild(canvas);
-col2Div.appendChild(resultParagraph);
-col2Div.appendChild(tempatDiagramDiv);
+	const canvas = document.createElement('canvas');
+	canvas.id = 'gambar'+y;
 
-// Append col1Div and col2Div to collapseDiv
-collapseDiv.appendChild(col1Div);
-collapseDiv.appendChild(col2Div);
+	// Append elements to col2Div
+	tempatDiagramDiv.appendChild(canvas);
+	col2Div.appendChild(resultParagraph);
+	col2Div.appendChild(tempatDiagramDiv);
 
-// Append button and collapseDiv to mainDiv
-mainDiv.appendChild(button);
-mainDiv.appendChild(collapseDiv);
+	// Append col1Div and col2Div to collapseDiv
+	collapseDiv.appendChild(col1Div);
+	collapseDiv.appendChild(col2Div);
 
-// Append mainDiv to body or any other parent element
-document.getElementById('main').appendChild(mainDiv);
+	// Append button and collapseDiv to mainDiv
+	mainDiv.appendChild(button);
+	mainDiv.appendChild(collapseDiv);
 
+	// Append mainDiv to body or any other parent element
+	document.getElementById('main').appendChild(mainDiv);
 }
 
 function hideHistogram() {
