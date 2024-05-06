@@ -35,7 +35,7 @@ function poolColors(a) {
 	return pool;
 }
 
-const BanyakKlik = 0;
+var BanyakKlik = 0;
 
 function DiagramBatang(n) {
 	n = n.toString();
@@ -132,6 +132,13 @@ function formData(x){
 	// Create the first column div
 	const col1Div = document.createElement('div');
 	col1Div.className = 'col-lg-6 col-sm-12 px-4';
+	
+	const titleParagraph = document.createElement('p');
+	//resultParagraph.className = 'text-break';
+	titleParagraph.innerHTML = '<span class="h2">'+x+'</span>';
+	
+	col1Div.appendChild(titleParagraph);
+
 
 	// Create the form and its elements
 	const form = document.createElement('div');
@@ -182,7 +189,7 @@ function formData(x){
 	const resultParagraph = document.createElement('p');
 	resultParagraph.className = 'text-break';
 	resultParagraph.id = 'hasil'+y;
-	resultParagraph.innerHTML = '<span class="h2">'+x+'</span>';
+	//resultParagraph.innerHTML = '<span class="h2">'+x+'</span>';
 
 	const tempatDiagramDiv = document.createElement('div');
 	tempatDiagramDiv.id = 'tempat'+y;
