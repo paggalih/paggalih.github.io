@@ -35,6 +35,7 @@ function poolColors(a) {
 	return pool;
 }
 
+
 var BanyakKlik = 0;
 
 function DiagramBatang(n) {
@@ -94,13 +95,15 @@ function DiagramBatang(n) {
 }
 
 function hide(n,x) {
-	const y = n.toString()+x.trim();
+	var y = n.toString()+x.trim();
+	console.log("hide y "+y)
 	document.getElementById('raise'+y).style.display = "flex";
 	document.getElementById("collapse"+y).style.display = "none";
 }
 
 function raise(n,x) {
-	const y = n.toString()+x.trim();
+	var y = n.toString()+x.trim();
+	console.log("hide y "+y)
 	document.getElementById("raise"+y).style.display = "none";
 	document.getElementById("collapse"+y).style.display = "flex";
 }
