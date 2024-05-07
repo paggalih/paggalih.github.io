@@ -115,7 +115,7 @@ function raise(BanyakKlik,x) {
 		document.getElementById('raise'+y).style.display = "none";
 		document.getElementById("collapse"+y).style.display = "flex";
 	};
-	return func1();
+	return window[func1]();
 }
 function hide(BanyakKlik,x) {
 	let func2 = 'hide_'+BanyakKlik.toString()+x.trim();
@@ -125,6 +125,7 @@ function hide(BanyakKlik,x) {
 		document.getElementById('raise'+y).style.display = "flex";
 		document.getElementById("collapse"+y).style.display = "none";
 	};
+	return window[func2]();
 }
 	
 function formData(x){
