@@ -150,7 +150,7 @@ function formData(x){
 	button.style.display = 'none';
 	// variabel f1 = raiseDiagramBatang()
 	// button.onclick = eval('raise(BanyakKlik,x)');
-	button.onclick = function(){raise(BanyakKlik,x);};
+	button.onclick = raise(BanyakKlik,x);
 	// var C1,C2 = Diagram, Batang
 	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
 
@@ -196,7 +196,7 @@ function formData(x){
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
 	// variabel f3 = hideDiagramBatang
-	hideButton.onclick = function(){hide(BanyakKlik,x);};
+	hideButton.onclick = hide(BanyakKlik,x);
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
