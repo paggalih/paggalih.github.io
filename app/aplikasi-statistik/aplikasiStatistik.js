@@ -147,7 +147,7 @@ function formData(x){
 	button.style.display = 'none';
 	// variabel f1 = raiseDiagramBatang()
 	// button.onclick = eval('raise(BanyakKlik,x)');
-	button.onclick = raise(BanyakKlik,x);
+	button.onclick = function(){raise(BanyakKlik,x);};
 	// var C1,C2 = Diagram, Batang
 	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
 
@@ -187,13 +187,13 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = main(BanyakKlik,x);
+	submitButton.onclick = function(){main(BanyakKlik,x);};
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
 	// variabel f3 = hideDiagramBatang
-	hideButton.onclick = hide(BanyakKlik,x);
+	hideButton.onclick = function(){hide(BanyakKlik,x);};
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
