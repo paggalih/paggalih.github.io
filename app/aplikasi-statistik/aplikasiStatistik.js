@@ -101,8 +101,8 @@ function main(BanyakKlik,x) {
 		console.log('	for (let i = 0; i < kelompokf.length; i++) {');
 		if (kelompokf[i] === x ) {
 			let func1 = x.trim();
+			console.log('return window[kelompokf[i]](); '+x.trim());
 			return window[func1]();
-			console.log('				return window[kelompokf[i]]();');
 		} 
 		else {
 		}
