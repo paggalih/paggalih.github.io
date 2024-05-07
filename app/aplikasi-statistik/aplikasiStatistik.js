@@ -100,7 +100,8 @@ function main(BanyakKlik,x) {
 	for (let i = 0; i < kelompokf.length; i++) {
 		console.log('	for (let i = 0; i < kelompokf.length; i++) {');
 		if (kelompokf[i] === x ) {
-			return window[kelompokf[i]]();
+			let func1 = x.trim();
+			return window[func1]();
 			console.log('				return window[kelompokf[i]]();');
 		} 
 		else {
