@@ -98,8 +98,10 @@ const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','R
 
 function main(BanyakKlik,x) {
 	for (let i = 0; i < kelompokf.length; i++) {
+		console.log('	for (let i = 0; i < kelompokf.length; i++) {');
 		if (typeof window[kelompokf[i]] === x ) {
-				window[kelompokf[i]]();
+				return window[kelompokf[i]]();
+				console.log('				return window[kelompokf[i]]();');
 		} 
 		else {
 		}
