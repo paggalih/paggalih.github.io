@@ -109,23 +109,29 @@ function DiagramBatang(n) {
 // }
 
 function raise(BanyakKlik,x) {
-	let func1 = 'raise_'+BanyakKlik.toString()+x.trim();
-	window[func1] = function() {
-		var y = '_'+BanyakKlik.toString()+x.trim();
-		document.getElementById('raise'+y).style.display = "none";
-		document.getElementById("collapse"+y).style.display = "flex";
-	};
-	return window[func1]();
+	var y = '_'+BanyakKlik.toString()+x.trim();
+	if (document.getElementById('raise'+y) === null){}
+	else {
+		let func1 = 'raise_'+BanyakKlik.toString()+x.trim();
+		window[func1] = function() {
+			document.getElementById('raise'+y).style.display = "none";
+			document.getElementById("collapse"+y).style.display = "flex";
+		};
+		return window[func1]();
+	}
 }
 function hide(BanyakKlik,x) {
-	let func2 = 'hide_'+BanyakKlik.toString()+x.trim();
-	window[func2] = function() {
-		var y = '_'+BanyakKlik.toString()+x.trim();
-		console.log("hide y "+y)
-		document.getElementById('raise'+y).style.display = "flex";
-		document.getElementById("collapse"+y).style.display = "none";
-	};
-	return window[func2]();
+	var y = '_'+BanyakKlik.toString()+x.trim();
+	if (document.getElementById('raise'+y) === null){}
+	else {
+		let func2 = 'hide_'+BanyakKlik.toString()+x.trim();
+		window[func2] = function() {
+			document.getElementById('raise'+y).style.display = "flex";
+			document.getElementById("collapse"+y).style.display = "none";
+		};
+		return window[func2]();
+	}
+
 }
 	
 function formData(x){
