@@ -94,21 +94,41 @@ function DiagramBatang(n) {
 	console.log("berikan catatan disini");
 }
 
-function hide(n,x) {
-	var y = '_'+n.toString()+x.trim();
-	console.log("hide y "+y)
-	document.getElementById('raise'+y).style.display = "flex";
-	document.getElementById("collapse"+y).style.display = "none";
-}
+// function hide(n,x) {
+	// var y = '_'+n.toString()+x.trim();
+	// console.log("hide y "+y)
+	// document.getElementById('raise'+y).style.display = "flex";
+	// document.getElementById("collapse"+y).style.display = "none";
+// }
 
-function raise(n,x) {
-	var y = '_'+n.toString()+x.trim();
-	console.log("raise y "+y)
-	document.getElementById("raise"+y).style.display = "none";
-	document.getElementById("collapse"+y).style.display = "flex";
+// function raise(n,x) {
+	// var y = '_'+n.toString()+x.trim();
+	// console.log("raise y "+y)
+	// document.getElementById("raise"+y).style.display = "none";
+	// document.getElementById("collapse"+y).style.display = "flex";
+// }
+
+function raise(BanyakKlik,x) {
+	let func1 = 'raise_'+BanyakKlik.toString()+x.trim();
+	window[func1] = function() {
+		var y = '_'+BanyakKlik.toString()+x.trim();
+		document.getElementById('raise'+y).style.display = "none";
+		document.getElementById("collapse"+y).style.display = "flex";
+	};
+	return func1();
+}
+function hide(BanyakKlik,x) {
+	let func2 = 'hide_'+BanyakKlik.toString()+x.trim();
+	window[func2] = function() {
+		var y = '_'+BanyakKlik.toString()+x.trim();
+		console.log("hide y "+y)
+		document.getElementById('raise'+y).style.display = "flex";
+		document.getElementById("collapse"+y).style.display = "none";
+	};
 }
 	
 function formData(x){
+
 	BanyakKlik = BanyakKlik + 1;
 	
 	const y = '_'+BanyakKlik.toString()+x.trim();
@@ -124,7 +144,7 @@ function formData(x){
 	button.style.display = 'none';
 	// variabel f1 = raiseDiagramBatang()
 	// button.onclick = eval('raise(BanyakKlik,x)');
-	button.onclick = window['raise(BanyakKlik,x)'];
+	button.onclick = raise(BanyakKlik,x);
 	// var C1,C2 = Diagram, Batang
 	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
 
@@ -164,13 +184,13 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = window[x.trim()+'(BanyakKlik)'];
+	submitButton.onclick = eval('x.trim()(BanyakKlik)');
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
 	// variabel f3 = hideDiagramBatang
-	hideButton.onclick = window['hide'+y];
+	hideButton.onclick = hide(BanyakKlik,x);
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
