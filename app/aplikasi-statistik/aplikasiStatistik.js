@@ -108,32 +108,42 @@ function main(BanyakKlik,x) {
 		}
 	}
 }
-function raise(BanyakKlik,x) {
-	var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-	if (document.getElementById('raise'+y) === null){}
-	else {
-		let func1 = 'raise_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-		window[func1] = function() {
-			document.getElementById('raise'+y).style.display = "none";
-			document.getElementById("collapse"+y).style.display = "flex";
-		};
-		return window[func1]();
-	}
-}
-function hide(BanyakKlik,x) {
-	var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-	if (document.getElementById('raise'+y) === null){}
-	else {
-		let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-		window[func2] = function() {
-			document.getElementById('raise'+y).style.display = "flex";
-			document.getElementById("collapse"+y).style.display = "none";
-		};
-		return window[func2]();
-	}
-}
+// function raise(BanyakKlik,x) {
+	// var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+	// if (document.getElementById('raise'+y) === null){}
+	// else {
+		// let func1 = 'raise_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+		// window[func1] = function() {
+			// document.getElementById('raise'+y).style.display = "none";
+			// document.getElementById("collapse"+y).style.display = "flex";
+		// };
+		// return window[func1]();
+	// }
+// }
+// function hide(BanyakKlik,x) {
+	// var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+	// if (document.getElementById('raise'+y) === null){}
+	// else {
+		// let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+		// window[func2] = function() {
+			// document.getElementById('raise'+y).style.display = "flex";
+			// document.getElementById("collapse"+y).style.display = "none";
+		// };
+		// return window[func2]();
+	// }
+// }
 	
 function formData(x){
+	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+	window[func2] = function() {
+		document.getElementById('raise'+y).style.display = "flex";
+		document.getElementById("collapse"+y).style.display = "none";
+	};
+	let func1 = 'raise_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+	window[func1] = function() {
+		document.getElementById('raise'+y).style.display = "none";
+		document.getElementById("collapse"+y).style.display = "flex";
+	};
 
 	BanyakKlik = BanyakKlik + 1;
 	
@@ -149,8 +159,7 @@ function formData(x){
 	button.className = 'btn btn-link';
 	button.style.display = 'none';
 	// variabel f1 = raiseDiagramBatang()
-	// button.onclick = eval('raise(BanyakKlik,x)');
-	button.onclick = raise(BanyakKlik,x);
+	button.onclick = function(){window[func1]();};
 	// var C1,C2 = Diagram, Batang
 	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
 
@@ -196,7 +205,7 @@ function formData(x){
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
 	// variabel f3 = hideDiagramBatang
-	hideButton.onclick = hide(BanyakKlik,x);
+	hideButton.onclick = function(){window[func2]();};
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
