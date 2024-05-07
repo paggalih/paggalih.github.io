@@ -112,7 +112,7 @@ function raise(BanyakKlik,x) {
 	var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	if (document.getElementById('raise'+y) === null){}
 	else {
-		let func1 = 'raise_'+BanyakKlik.toString()+x.trim();
+		let func1 = 'raise_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 		window[func1] = function() {
 			document.getElementById('raise'+y).style.display = "none";
 			document.getElementById("collapse"+y).style.display = "flex";
@@ -121,7 +121,7 @@ function raise(BanyakKlik,x) {
 	}
 }
 function hide(BanyakKlik,x) {
-	var y = '_'+BanyakKlik.toString()+x.trim();
+	var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	if (document.getElementById('raise'+y) === null){}
 	else {
 		let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
