@@ -100,8 +100,8 @@ function main(BanyakKlik,x) {
 	for (let i = 0; i < kelompokf.length; i++) {
 		console.log('	for (let i = 0; i < kelompokf.length; i++) {');
 		if (kelompokf[i] === x ) {
-			let func1 = x.trim();
-			console.log('return window[kelompokf[i]](); '+x.trim());
+			let func1 = x.replace(/\s/g, "");
+			console.log('return window[kelompokf[i]](); '+func1);
 			return window[func1]();
 		} 
 		else {
@@ -109,7 +109,7 @@ function main(BanyakKlik,x) {
 	}
 }
 function raise(BanyakKlik,x) {
-	var y = '_'+BanyakKlik.toString()+x.trim();
+	var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	if (document.getElementById('raise'+y) === null){}
 	else {
 		let func1 = 'raise_'+BanyakKlik.toString()+x.trim();
@@ -124,7 +124,7 @@ function hide(BanyakKlik,x) {
 	var y = '_'+BanyakKlik.toString()+x.trim();
 	if (document.getElementById('raise'+y) === null){}
 	else {
-		let func2 = 'hide_'+BanyakKlik.toString()+x.trim();
+		let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 		window[func2] = function() {
 			document.getElementById('raise'+y).style.display = "flex";
 			document.getElementById("collapse"+y).style.display = "none";
@@ -137,7 +137,7 @@ function formData(x){
 
 	BanyakKlik = BanyakKlik + 1;
 	
-	const y = '_'+BanyakKlik.toString()+x.trim();
+	const y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 
 	// Create the main div
 	const mainDiv = document.createElement('div');
