@@ -191,7 +191,7 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = eval(x.trim()+'(BanyakKlik)');
+	submitButton.onclick = eval('DiagramBatang(BanyakKlik)');
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
