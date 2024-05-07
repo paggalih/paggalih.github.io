@@ -38,9 +38,9 @@ function poolColors(a) {
 
 var BanyakKlik = 0;
 
-function DiagramBatang(n) {
-	n = '_'+n.toString();
-	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
+function DiagramBatang() {
+	var n = '_'+BanyakKlik.toString();
+	document.getElementById("hasil"+ban+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
 	var gambar = document.createElement("canvas");
@@ -94,20 +94,17 @@ function DiagramBatang(n) {
 	console.log("berikan catatan disini");
 }
 
-// function hide(n,x) {
-	// var y = '_'+n.toString()+x.trim();
-	// console.log("hide y "+y)
-	// document.getElementById('raise'+y).style.display = "flex";
-	// document.getElementById("collapse"+y).style.display = "none";
-// }
+const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
-// function raise(n,x) {
-	// var y = '_'+n.toString()+x.trim();
-	// console.log("raise y "+y)
-	// document.getElementById("raise"+y).style.display = "none";
-	// document.getElementById("collapse"+y).style.display = "flex";
-// }
-
+function main(BanyakKlik,x) {
+	for (let i = 0; i < kelompokf.length; i++) {
+		if (typeof window[kelompokf[i]] === x ) {
+				window[kelompokf[i]]();
+		} 
+		else {
+		}
+	}
+}
 function raise(BanyakKlik,x) {
 	var y = '_'+BanyakKlik.toString()+x.trim();
 	if (document.getElementById('raise'+y) === null){}
@@ -131,7 +128,6 @@ function hide(BanyakKlik,x) {
 		};
 		return window[func2]();
 	}
-
 }
 	
 function formData(x){
@@ -191,7 +187,7 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = eval('DiagramBatang(BanyakKlik)');
+	submitButton.onclick = main(BanyakKlik,x);
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
