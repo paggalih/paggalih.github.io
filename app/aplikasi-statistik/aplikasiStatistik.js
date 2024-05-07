@@ -40,7 +40,7 @@ var BanyakKlik = 0;
 
 function DiagramBatang() {
 	var n = '_'+BanyakKlik.toString();
-	document.getElementById("hasil"+ban+"DiagramBatang").style.display = "none";
+	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
 	var gambar = document.createElement("canvas");
