@@ -38,62 +38,6 @@ function poolColors(a) {
 
 var BanyakKlik = 0;
 
-function DiagramBatang(n) {
-
-	var n = '_'+n.toString();
-	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
-	document.getElementById("gambar"+n+"DiagramBatang").remove();
-	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
-	var gambar = document.createElement("canvas");
-	gambar.id = "gambar"+n+"DiagramBatang";
-	tempat.appendChild(gambar);
-	var a = document.getElementById('input'+n+'DiagramBatang');
-	var b = rapikan(a);
-	var c = Array.from(b.split(','));
-	var d = Array.from(b.split('\n'));
-	if (d.length > c.length) {
-		var e = d;
-	} else {
-		var e = c;
-	}
-	e = e.sort(function(a, b) {
-		return a - b
-	});
-	var f = new Set(e);
-	var g = [];
-	var iterator = Array.from(f);
-	for (let i = 0; i < iterator.length; i++) {
-		var pisah = e.filter((x) => x === iterator[i]);
-		g[i] = pisah.length;
-	}
-	document.getElementById("hasil"+n+"DiagramBatang").innerText = "Banyak data " + e.length + "\n ========= \n";
-	document.getElementById("hasil"+n+"DiagramBatang").style.display = "flex";
-	var xValues = Array.from(f);
-	var yValues = g;
-	new Chart("gambar"+n+"DiagramBatang", {
-		type: "bar",
-		data: {
-			labels: xValues,
-			datasets: [{
-				backgroundColor: poolColors(yValues.length),
-				borderColor: poolColors(yValues.length),
-				data: yValues
-			}]
-		},
-		options: {
-			plugins: {
-				legend: {
-					display: false
-				},
-				title: {
-					display: true,
-					text: 'Klik ke'+n+': Diagram Batang'
-				}
-			}
-		}
-	});
-	console.log("berikan catatan disini");
-}
 
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
@@ -235,6 +179,62 @@ function formData(x){
 
 	// Append mainDiv to body or any other parent element
 	document.getElementById('main').appendChild(mainDiv);
+}
+function DiagramBatang(n) {
+
+	var n = '_'+n.toString();
+	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
+	document.getElementById("gambar"+n+"DiagramBatang").remove();
+	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
+	var gambar = document.createElement("canvas");
+	gambar.id = "gambar"+n+"DiagramBatang";
+	tempat.appendChild(gambar);
+	var a = document.getElementById('input'+n+'DiagramBatang');
+	var b = rapikan(a);
+	var c = Array.from(b.split(','));
+	var d = Array.from(b.split('\n'));
+	if (d.length > c.length) {
+		var e = d;
+	} else {
+		var e = c;
+	}
+	e = e.sort(function(a, b) {
+		return a - b
+	});
+	var f = new Set(e);
+	var g = [];
+	var iterator = Array.from(f);
+	for (let i = 0; i < iterator.length; i++) {
+		var pisah = e.filter((x) => x === iterator[i]);
+		g[i] = pisah.length;
+	}
+	document.getElementById("hasil"+n+"DiagramBatang").innerText = "Banyak data " + e.length + "\n ========= \n";
+	document.getElementById("hasil"+n+"DiagramBatang").style.display = "flex";
+	var xValues = Array.from(f);
+	var yValues = g;
+	new Chart("gambar"+n+"DiagramBatang", {
+		type: "bar",
+		data: {
+			labels: xValues,
+			datasets: [{
+				backgroundColor: poolColors(yValues.length),
+				borderColor: poolColors(yValues.length),
+				data: yValues
+			}]
+		},
+		options: {
+			plugins: {
+				legend: {
+					display: false
+				},
+				title: {
+					display: true,
+					text: 'Klik ke'+n+': Diagram Batang'
+				}
+			}
+		}
+	});
+	console.log("berikan catatan disini");
 }
 
 function hideHistogram() {
