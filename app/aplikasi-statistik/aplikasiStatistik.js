@@ -180,7 +180,10 @@ function formData(x){
 }
 function DiagramBatang() {
 	var buttonId = this.id;
+	console.log("buttonId "+buttonId)
 	var n = '_'+Number(buttonId);
+	console.log("n "+n)
+
 	// var n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
