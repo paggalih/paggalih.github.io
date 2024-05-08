@@ -96,18 +96,26 @@ function DiagramBatang(n) {
 
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
-function main(n,x) {
+// function main(n,x) {
+	// for (let i = 0; i < kelompokf.length; i++) {
+		// if (kelompokf[i] === x ) {
+			// let func1 = x.replace(/\s/g, "");
+			// return window[func1](n);
+		// } 
+		// else {
+		// }
+	// }
+// }
+	
+function formData(x){
 	for (let i = 0; i < kelompokf.length; i++) {
 		if (kelompokf[i] === x ) {
-			let func1 = x.replace(/\s/g, "");
-			return window[func1](n);
+			let func3 = x.replace(/\s/g, "");
+			return window[func3](n);
 		} 
 		else {
 		}
 	}
-}
-	
-function formData(x){
 	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	window[func2] = function() {
@@ -173,7 +181,7 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = eval('main(BanyakKlik,x)');
+	submitButton.onclick = function(){window[func3](n);};
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
