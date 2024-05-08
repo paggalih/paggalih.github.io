@@ -106,32 +106,9 @@ function main(n,x) {
 		}
 	}
 }
-// function raise(BanyakKlik,x) {
-	// var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-	// if (document.getElementById('raise'+y) === null){}
-	// else {
-		// let func1 = 'raise_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-		// window[func1] = function() {
-			// document.getElementById('raise'+y).style.display = "none";
-			// document.getElementById("collapse"+y).style.display = "flex";
-		// };
-		// return window[func1]();
-	// }
-// }
-// function hide(BanyakKlik,x) {
-	// var y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-	// if (document.getElementById('raise'+y) === null){}
-	// else {
-		// let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
-		// window[func2] = function() {
-			// document.getElementById('raise'+y).style.display = "flex";
-			// document.getElementById("collapse"+y).style.display = "none";
-		// };
-		// return window[func2]();
-	// }
-// }
 	
 function formData(x){
+	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	window[func2] = function() {
 		document.getElementById('raise'+y).style.display = "flex";
@@ -196,7 +173,7 @@ function formData(x){
 	submitButton.type = 'submit';
 	// submitButton.id = 'diagramBatang';
 	// variabel f2 = diagramBatang
-	submitButton.onclick = function(){main(BanyakKlik,x);};
+	submitButton.onclick = eval('main(BanyakKlik,x)');
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
