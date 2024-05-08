@@ -124,7 +124,7 @@ function formData(x){
 	const submitButton = document.createElement('button');
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
-	submitButton.id = 'BanyakKlik';
+	submitButton.id = BanyakKlik.toString;
 	submitButton.onclick = function(){main(x);};
 	submitButton.textContent = 'Hitung';
 
@@ -180,7 +180,7 @@ function formData(x){
 }
 function DiagramBatang() {
 	var buttonId = this.id;
-	var n = '_'+buttonId;
+	var n = '_'+Number(buttonId);
 	// var n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
