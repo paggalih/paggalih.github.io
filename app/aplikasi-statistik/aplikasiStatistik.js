@@ -38,8 +38,8 @@ function poolColors(a) {
 
 var BanyakKlik = 0;
 
-function DiagramBatang() {
-	var n = '_'+BanyakKlik.toString();
+function DiagramBatang(n) {
+	var n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
@@ -96,13 +96,11 @@ function DiagramBatang() {
 
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
-function main(BanyakKlik,x) {
+function main(n,x) {
 	for (let i = 0; i < kelompokf.length; i++) {
-		console.log('	for (let i = 0; i < kelompokf.length; i++) {');
 		if (kelompokf[i] === x ) {
 			let func1 = x.replace(/\s/g, "");
-			console.log('return window[kelompokf[i]](); '+func1);
-			return window[func1]();
+			return window[func1](n);
 		} 
 		else {
 		}
