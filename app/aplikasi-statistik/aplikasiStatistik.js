@@ -109,16 +109,16 @@ const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','R
 	
 function formData(x){
 
-	for (let i = 0; i < kelompokf.length; i++) {
-		if (kelompokf[i] === x ) {
-			let func3 = x.replace(/\s/g, "");
-		} 
-		else {
-		}
-	}
+	// for (let i = 0; i < kelompokf.length; i++) {
+		// if (kelompokf[i] === x ) {
+			// let func3 = x.replace(/\s/g, "");
+		// } 
+		// else {
+		// }
+	// }
 	function main(button){
 		var buttonId = button.id;
-		return window[func3](Number(buttonId));
+		return window[x.replace(/\s/g, "")](Number(buttonId));
 	}
 	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
