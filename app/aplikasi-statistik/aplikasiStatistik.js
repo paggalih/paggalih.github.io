@@ -108,13 +108,17 @@ const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','R
 // }
 	
 function formData(x){
+
 	for (let i = 0; i < kelompokf.length; i++) {
 		if (kelompokf[i] === x ) {
 			let func3 = x.replace(/\s/g, "");
-			return window[func3](n);
 		} 
 		else {
 		}
+	}
+	function main(button){
+		var buttonId = button.id;
+		return window[func3](Number(buttonId));
 	}
 	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
@@ -179,9 +183,8 @@ function formData(x){
 	const submitButton = document.createElement('button');
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
-	// submitButton.id = 'diagramBatang';
-	// variabel f2 = diagramBatang
-	submitButton.onclick = function(){window[func3](n);};
+	submitButton.id = 'BanyakKlik';
+	submitButton.onclick = main(this);
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
