@@ -184,7 +184,7 @@ function formData(x){
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
 	submitButton.id = 'BanyakKlik';
-	submitButton.onclick = main(this);
+	submitButton.onclick = function(){main(this);};
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
