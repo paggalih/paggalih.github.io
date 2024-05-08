@@ -39,6 +39,7 @@ function poolColors(a) {
 var BanyakKlik = 0;
 
 function DiagramBatang(n) {
+
 	var n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
@@ -96,16 +97,18 @@ function DiagramBatang(n) {
 
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
-// function main(n,x) {
-	// for (let i = 0; i < kelompokf.length; i++) {
-		// if (kelompokf[i] === x ) {
-			// let func1 = x.replace(/\s/g, "");
-			// return window[func1](n);
-		// } 
-		// else {
-		// }
-	// }
-// }
+function main(x) {
+	var buttonId = this.id;
+	let n = Number(buttonId);
+	for (let i = 0; i < kelompokf.length; i++) {
+		if (kelompokf[i] === x ) {
+			let func1 = x.replace(/\s/g, "");
+			return window[func1](n);
+		} 
+		else {
+		}
+	}
+}
 	
 function formData(x){
 
@@ -115,10 +118,6 @@ function formData(x){
 		// } 
 		// else {
 		// }
-	// }
-	// function main(button){
-		// var buttonId = button.id;
-		// return window[x.replace(/\s/g, "")](Number(buttonId));
 	// }
 	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
@@ -184,7 +183,7 @@ function formData(x){
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
 	submitButton.id = 'BanyakKlik';
-	submitButton.onclick = function(this){window[x.replace(/\s/g, "")](Number(this.id));};
+	submitButton.onclick = function(){main(x);};
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
