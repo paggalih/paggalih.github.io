@@ -42,12 +42,10 @@ var BanyakKlik = 0;
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
 function main(x) {
-	var buttonId = this.id;
-	let n = Number(buttonId);
 	for (let i = 0; i < kelompokf.length; i++) {
 		if (kelompokf[i] === x ) {
 			let func1 = x.replace(/\s/g, "");
-			return window[func1](n);
+			return window[func1]();
 		} 
 		else {
 		}
@@ -180,9 +178,10 @@ function formData(x){
 	// Append mainDiv to body or any other parent element
 	document.getElementById('main').appendChild(mainDiv);
 }
-function DiagramBatang(n) {
-
-	var n = '_'+n.toString();
+function DiagramBatang() {
+	var buttonId = this.id;
+	var n = '_'+buttonId;
+	// var n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
