@@ -116,10 +116,10 @@ function formData(x){
 		// else {
 		// }
 	// }
-	function main(button){
-		var buttonId = button.id;
-		return window[x.replace(/\s/g, "")](Number(buttonId));
-	}
+	// function main(button){
+		// var buttonId = button.id;
+		// return window[x.replace(/\s/g, "")](Number(buttonId));
+	// }
 	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	window[func2] = function() {
@@ -184,7 +184,7 @@ function formData(x){
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
 	submitButton.id = 'BanyakKlik';
-	submitButton.onclick = function(){main(this);};
+	submitButton.onclick = function(this){window[x.replace(/\s/g, "")](Number(this.id));};
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
