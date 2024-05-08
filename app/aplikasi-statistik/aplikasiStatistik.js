@@ -158,10 +158,9 @@ function formData(x){
 	button.id = 'raise'+y;
 	button.className = 'btn btn-link';
 	button.style.display = 'none';
-	// variabel f1 = raiseDiagramBatang()
 	button.onclick = function(){window[func1]();};
 	// var C1,C2 = Diagram, Batang
-	button.innerHTML = x+'<i class="bi bi-three-dots"></i>';
+	button.innerHTML = 'Klik ke-'+BanyakKlik+' '+x+'<i class="bi bi-three-dots"></i>';
 
 	// Create the inner div for collapsing content
 	const collapseDiv = document.createElement('div');
