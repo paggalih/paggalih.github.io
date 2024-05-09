@@ -41,11 +41,14 @@ var BanyakKlik = 0;
 
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
-function main(button,x) {
+function main(button) {
 	
 	var buttonId = button.id;
 	console.log("buttonId "+buttonId)
-	var n = Number(buttonId);
+
+	const indexOfComma = buttonId.indexOf('=');
+	var n = buttonId.slice(0, indexOfComma);
+	var x = buttonId.slice(indexOfComma+1);
 	console.log("n "+n)
 	
 	for (let i = 0; i < kelompokf.length; i++) {
@@ -88,11 +91,9 @@ function formData(x){
 
 	// Create the button
 	const button = document.createElement('button');
-	// variabel x1,x2 = diagram, batang
 	button.id = 'raise'+y;
 	button.className = 'btn btn-link';
 	button.style.display = 'none';
-	// var C1,C2 = Diagram, Batang
 	button.innerHTML = 'Klik ke-'+BanyakKlik+' '+x+'<i class="bi bi-three-dots"></i>';
 
 	// Create the inner div for collapsing content
@@ -129,7 +130,7 @@ function formData(x){
 	const submitButton = document.createElement('button');
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
-	submitButton.id = BanyakKlik.toString;
+	submitButton.id = BanyakKlik.toString+'='+x;
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
@@ -182,13 +183,13 @@ function formData(x){
 	document.getElementById('main').appendChild(mainDiv);
 	
 	button.onclick = function(){window[func1]();};
-	submitButton.onclick = function main(this,x);
+	submitButton.onclick = function main(this);
 	hideButton.onclick = function(){window[func2]();};
 
 }
 function DiagramBatang(n) {
 
-	var n = '_'+n.toString();
+	var n = '_'+n;
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
