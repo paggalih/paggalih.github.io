@@ -34,7 +34,11 @@ function poolColors(a) {
 	}
 	return pool;
 }
-
+function MasukAplikasi(){
+	document.getElementById('post-title').style.display = 'none';
+	document.getElementById('kata-pengantar').style.display = 'none';
+	document.getElementById('menu-aplikasi').style.display = 'flex';
+}
 
 var BanyakKlik = 0;
 
@@ -44,13 +48,10 @@ const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','R
 function main(button) {
 	
 	var buttonId = button.id;
-	console.log("buttonId "+buttonId)
 
 	const indexOfComma = buttonId.indexOf('=');
 	var n = buttonId.slice(0, indexOfComma);
 	var x = buttonId.slice(indexOfComma+1);
-	console.log("n "+n)
-	console.log("x "+x)
 	
 	for (let i = 0; i < kelompokf.length; i++) {
 		if (kelompokf[i] === x ) {
@@ -99,16 +100,15 @@ function formData(x){
 
 	// Create the inner div for collapsing content
 	const collapseDiv = document.createElement('div');
-	collapseDiv.className = 'row py-4';
+	collapseDiv.className = 'row py-4 border-bottom border-5';
 	collapseDiv.id = 'collapse'+y;
 
 	// Create the first column div
 	const col1Div = document.createElement('div');
-	col1Div.className = 'col-lg-6 col-sm-12 px-4';
+	col1Div.className = 'col-lg-6 col-sm-12 px-5';
 	
 	const titleParagraph = document.createElement('p');
-	//resultParagraph.className = 'text-break';
-	titleParagraph.innerHTML = '<span class="h2">'+x+'</span>';
+	titleParagraph.innerHTML = '<span class="h4">'+x+'</span>';
 	
 	col1Div.appendChild(titleParagraph);
 
@@ -136,7 +136,6 @@ function formData(x){
 
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
-	// variabel f3 = hideDiagramBatang
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
