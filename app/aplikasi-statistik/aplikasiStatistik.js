@@ -43,7 +43,7 @@ function MasukAplikasi(){
 var BanyakKlik = 0;
 
 
-const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
+// const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Ratarata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
 function main(button) {
 	
@@ -53,25 +53,19 @@ function main(button) {
 	var n = buttonId.slice(0, indexOfComma);
 	var x = buttonId.slice(indexOfComma+1);
 	
-	for (let i = 0; i < kelompokf.length; i++) {
-		if (kelompokf[i] === x ) {
-			let func1 = x.replace(/\s/g, "");
-			return window[func1](n);
-		} 
-		else {
-		}
-	}
-}
-	
-function formData(x){
-
 	// for (let i = 0; i < kelompokf.length; i++) {
 		// if (kelompokf[i] === x ) {
-			// let func3 = x.replace(/\s/g, "");
+			// let func1 = x.replace(/\s/g, "");
+			// return window[func1](n);
 		// } 
 		// else {
 		// }
 	// }
+	
+	return window[x.replace(/\s/g, "")](n);
+}
+	
+function formData(x){
 	
 	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
 	window[func2] = function() {
@@ -187,8 +181,133 @@ function formData(x){
 	hideButton.onclick = function(){window[func2]();};
 
 }
-function DiagramBatang(n) {
 
+function formData2(x){
+	
+	let func2 = 'hide_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+	window[func2] = function() {
+		document.getElementById('raise'+y).style.display = "flex";
+		document.getElementById("collapse"+y).style.display = "none";
+	};
+	let func1 = 'raise_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+	window[func1] = function() {
+		document.getElementById('raise'+y).style.display = "none";
+		document.getElementById("collapse"+y).style.display = "flex";
+	};
+
+	BanyakKlik = BanyakKlik + 1;
+	
+	const y = '_'+BanyakKlik.toString()+x.replace(/\s/g, "");
+
+	// Create the main div
+	const mainDiv = document.createElement('div');
+
+	// Create the button
+	const button = document.createElement('button');
+	button.id = 'raise'+y;
+	button.className = 'btn btn-link';
+	button.style.display = 'none';
+	button.innerHTML = 'Klik ke-'+BanyakKlik+' '+x+'<i class="bi bi-three-dots"></i>';
+
+	// Create the inner div for collapsing content
+	const collapseDiv = document.createElement('div');
+	collapseDiv.className = 'row py-4 border-bottom border-5';
+	collapseDiv.id = 'collapse'+y;
+
+	// Create the first column div
+	const col1Div = document.createElement('div');
+	col1Div.className = 'col-lg-6 col-sm-12 px-5';
+	
+	const titleParagraph = document.createElement('p');
+	titleParagraph.innerHTML = '<span class="h4">'+x+'</span>';
+	
+	col1Div.appendChild(titleParagraph);
+
+
+	// Create the form and its elements
+	const form = document.createElement('div');
+	form.className = 'form-floating';
+
+	const textarea = document.createElement('textarea');
+	textarea.className = 'form-control';
+	textarea.placeholder = '-';
+	textarea.id = 'input'+y;
+	textarea.style.height = '150px';
+	textarea.autocomplete = 'off';
+
+	const label = document.createElement('label');
+	label.setAttribute('for', 'input'+y);
+	label.textContent = 'Masukkan data di sini';
+
+	const submitButton = document.createElement('button');
+	submitButton.className = 'btn btn-primary';
+	submitButton.type = 'submit';
+	submitButton.id = BanyakKlik.toString()+'='+x+'Populasi';
+	submitButton.textContent = 'Hitung(Populasi)';
+	
+	const submitButton2 = document.createElement('button');
+	submitButton2.className = 'btn btn-primary';
+	submitButton2.type = 'submit';
+	submitButton2.id = BanyakKlik.toString()+'='+x+'Sampel';
+	submitButton2.textContent = 'Hitung(Sampel)';
+
+	const hideButton = document.createElement('button');
+	hideButton.className = 'btn btn-primary';
+	hideButton.textContent = 'Sembunyikan';
+
+	const infoParagraph = document.createElement('p');
+	infoParagraph.innerHTML = 'Data harus dipisahkan dengan salah satu dari koma (,) atau enter (pindah baris). Pemisahan desimal menggunakan titik (.) bukan koma (,). <br> Klik <kbd>Hitung</kbd> jika data sudah benar.';
+
+	// Append elements to form
+	form.appendChild(textarea);
+	form.appendChild(label);
+	form.appendChild(submitButton);
+	form.appendChild(submitButton2);
+	form.appendChild(hideButton);
+	form.appendChild(infoParagraph);
+
+	// Append form to col1Div
+	col1Div.appendChild(form);
+
+	// Create the second column div
+	const col2Div = document.createElement('div');
+	col2Div.className = 'col-lg-6 col-sm-12 px-5';
+
+	const resultParagraph = document.createElement('p');
+	resultParagraph.className = 'text-break';
+	resultParagraph.id = 'hasil'+y;
+	//resultParagraph.innerHTML = '<span class="h2">'+x+'</span>';
+
+	const tempatDiagramDiv = document.createElement('div');
+	tempatDiagramDiv.id = 'tempat'+y;
+
+	const canvas = document.createElement('canvas');
+	canvas.id = 'gambar'+y;
+
+	// Append elements to col2Div
+	tempatDiagramDiv.appendChild(canvas);
+	col2Div.appendChild(resultParagraph);
+	col2Div.appendChild(tempatDiagramDiv);
+
+	// Append col1Div and col2Div to collapseDiv
+	collapseDiv.appendChild(col1Div);
+	collapseDiv.appendChild(col2Div);
+
+	// Append button and collapseDiv to mainDiv
+	mainDiv.appendChild(button);
+	mainDiv.appendChild(collapseDiv);
+
+	// Append mainDiv to body or any other parent element
+	document.getElementById('main').appendChild(mainDiv);
+	
+	button.onclick = function(){window[func1]();};
+	submitButton.onclick = function(){main(this);};
+	submitButton2.onclick = function(){main(this);};
+	hideButton.onclick = function(){window[func2]();};
+
+}
+
+function DiagramBatang(n) {
 	var n = '_'+n;
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
@@ -241,27 +360,18 @@ function DiagramBatang(n) {
 			}
 		}
 	});
-	console.log("berikan catatan disini");
 }
 
-function hideHistogram() {
-	document.getElementById("_raise_histogram").style.display = "flex";
-	document.getElementById("collapseHistogram").style.display = "none";
-}
+function Histogram(n) {
+	var n = '_'+n;
 
-function raiseHistogram() {
-	document.getElementById("_raise_histogram").style.display = "none";
-	document.getElementById("collapseHistogram").style.display = "flex";
-}
-
-function histogram() {
-	document.getElementById("hasilHistogram").style.display = "none";
-	document.getElementById("gambarHistogram").remove();
-	var tempat = document.getElementById("tempatHistogram");
+	document.getElementById("hasil"+n+"Histogram").style.display = "none";
+	document.getElementById("gambar"+n+"Histogram").remove();
+	var tempat = document.getElementById("tempat"+n+"Histogram");
 	var gambar = document.createElement("canvas");
-	gambar.id = "gambarHistogram";
+	gambar.id = "gambar"+n+"Histogram";
 	tempat.appendChild(gambar);
-	var a = document.getElementById('inputHistogram');
+	var a = document.getElementById('input'+n+'Histogram');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -283,15 +393,15 @@ function histogram() {
 		f[i] = awal + (lKelas) / 2 + lKelas * i;
 	}
 	var akhir = f[nKelas - 1] + 0.5;
-	document.getElementById("hasilHistogram").innerText = "Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-	document.getElementById("hasilHistogram").style.display = "flex";
+	document.getElementById("hasil"+n+"Histogram").innerText = "Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
+	document.getElementById("hasil"+n+"Histogram").style.display = "flex";
 	var x_vals = f;
 	var y_vals = g;
 	var data = x_vals.map((k, i) => ({
 		x: k,
 		y: y_vals[i]
 	}));
-	var ctx = document.getElementById('gambarHistogram');
+	var ctx = document.getElementById('gambar'+n+'Histogram');
 	var myChart = new Chart(ctx, {
 		type: 'bar',
 		data: {
@@ -354,27 +464,18 @@ function histogram() {
 			}
 		}
 	});
-	console.log("catat perubahan disini");
 }
 
-function hidePoligon() {
-	document.getElementById("_raise_poligon").style.display = "flex";
-	document.getElementById("collapsePoligon").style.display = "none";
-}
+function Poligon(n) {
+	var n = '_'+n;
 
-function raisePoligon() {
-	document.getElementById("_raise_poligon").style.display = "none";
-	document.getElementById("collapsePoligon").style.display = "flex";
-}
-
-function poligon() {
-	document.getElementById("hasilPoligon").style.display = "none";
-	document.getElementById("gambarPoligon").remove();
-	var tempat = document.getElementById("tempatPoligon");
+	document.getElementById("hasil"+n+"Poligon").style.display = "none";
+	document.getElementById("gambar"+n+"Poligon").remove();
+	var tempat = document.getElementById("tempat"+n+"Poligon");
 	var gambar = document.createElement("canvas");
-	gambar.id = "gambarPoligon";
+	gambar.id = "gambar"+n+"Poligon";
 	tempat.appendChild(gambar);
-	var a = document.getElementById('inputPoligon');
+	var a = document.getElementById('input'+n+'Poligon');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -396,15 +497,15 @@ function poligon() {
 		f[i] = awal + (lKelas) / 2 + lKelas * i;
 	}
 	var akhir = f[nKelas - 1] + 0.5;
-	document.getElementById("hasilPoligon").innerText = "Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-	document.getElementById("hasilPoligon").style.display = "flex";
+	document.getElementById("hasil"+n+"Poligon").innerText = "Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
+	document.getElementById("hasil"+n+"Poligon").style.display = "flex";
 	var x_vals = f;
 	var y_vals = g;
 	var data = x_vals.map((k, i) => ({
 		x: k,
 		y: y_vals[i]
 	}));
-	var ctx = document.getElementById('gambarPoligon');
+	var ctx = document.getElementById('gambar'+n+'Poligon');
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
@@ -467,27 +568,18 @@ function poligon() {
 			}
 		}
 	});
-	console.log("Poligon: catat perubahan disini");
 }
 
-function hidePoligonKum() {
-	document.getElementById("_raise_poligon_kum").style.display = "flex";
-	document.getElementById("collapsePoligonKum").style.display = "none";
-}
+function PoligonKumulatif(n) {
+	var n = '_'+n;
 
-function raisePoligonKum() {
-	document.getElementById("_raise_poligon_kum").style.display = "none";
-	document.getElementById("collapsePoligonKum").style.display = "flex";
-}
-
-function poligonKum() {
-	document.getElementById("hasilPoligonKum").style.display = "none";
-	document.getElementById("gambarPoligonKum").remove();
-	var tempat = document.getElementById("tempatPoligonKum");
+	document.getElementById("hasil"+n+"PoligonKumulatif").style.display = "none";
+	document.getElementById("gambar"+n+"PoligonKumulatif").remove();
+	var tempat = document.getElementById("tempat"+n+"PoligonKumulatif");
 	var gambar = document.createElement("canvas");
-	gambar.id = "gambarPoligonKum";
+	gambar.id = "gambar"+n+"PoligonKumulatif";
 	tempat.appendChild(gambar);
-	var a = document.getElementById('inputPoligonKum');
+	var a = document.getElementById('input'+n+'PoligonKumulatif');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -512,15 +604,15 @@ function poligonKum() {
 		f[i] = awal + (lKelas) / 2 + lKelas * i;
 	}
 	var akhir = f[nKelas - 1] + 0.5;
-	document.getElementById("hasilPoligonKum").innerText = "Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
-	document.getElementById("hasilPoligonKum").style.display = "flex";
+	document.getElementById("hasil"+n+"PoligonKumulatif").innerText = "Banyak data " + e.length + "\n Banyak kelas " + nKelas + "\n Panjang kelas " + lKelas + "\n ========= \n";
+	document.getElementById("hasil"+n+"PoligonKumulatif").style.display = "flex";
 	var x_vals = f;
 	var y_vals = g;
 	var data = x_vals.map((k, i) => ({
 		x: k,
 		y: y_vals[i]
 	}));
-	var ctx = document.getElementById('gambarPoligonKum');
+	var ctx = document.getElementById('gambar'+n+'PoligonKumulatif');
 	var myChart = new Chart(ctx, {
 		type: 'line',
 		data: {
@@ -583,22 +675,13 @@ function poligonKum() {
 			}
 		}
 	});
-	console.log("Poligon Kumulatif: catat perubahan disini");
 }
 
-function hideRataRata() {
-	document.getElementById("_raise_rata_rata").style.display = "flex";
-	document.getElementById("collapseRatarata").style.display = "none";
-}
+function Ratarata(n) {
+	var n = '_'+n;
 
-function raiseRataRata() {
-	document.getElementById("_raise_rata_rata").style.display = "none";
-	document.getElementById("collapseRatarata").style.display = "flex";
-}
-
-function rataRata() {
-	document.getElementById("hasilRatarata").style.display = "none";
-	var a = document.getElementById('inputRatarata');
+	document.getElementById("hasil"+n+"Ratarata").style.display = "none";
+	var a = document.getElementById('input'+n+'Ratarata');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -609,23 +692,15 @@ function rataRata() {
 		var e = jStat.mean(c);
 		var f = c;
 	}
-	document.getElementById("hasilRatarata").innerText = "Data " + f + "\n Banyak data " + f.length + "\n ========= \n Rata-rata " + e;
-	document.getElementById("hasilRatarata").style.display = "flex";
+	document.getElementById("hasil"+n+"Ratarata").innerText = "Data " + f + "\n Banyak data " + f.length + "\n ========= \n Rata-rata " + e;
+	document.getElementById("hasil"+n+"Ratarata").style.display = "flex";
 }
 
-function hideMedian() {
-	document.getElementById("_raise_median").style.display = "flex";
-	document.getElementById("collapseMedian").style.display = "none";
-}
+function Median(n) {
+	var n = '_'+n;
 
-function raiseMedian() {
-	document.getElementById("_raise_median").style.display = "none";
-	document.getElementById("collapseMedian").style.display = "flex";
-}
-
-function median() {
-	document.getElementById("hasilMedian").style.display = "none";
-	var a = document.getElementById('inputMedian');
+	document.getElementById("hasil"+n+"Median").style.display = "none";
+	var a = document.getElementById('input'+n+'Median');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -636,25 +711,17 @@ function median() {
 		var e = jStat.median(c);
 		var f = c;
 	}
-	document.getElementById("hasilMedian").innerText = "Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+	document.getElementById("hasil"+n+"Median").innerText = "Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + f.length + "\n ========= \n Median " + e;
-	document.getElementById("hasilMedian").style.display = "flex";
+	document.getElementById("hasil"+n+"Median").style.display = "flex";
 }
 
-function hideModus() {
-	document.getElementById("_raise_modus").style.display = "flex";
-	document.getElementById("collapseModus").style.display = "none";
-}
-
-function raiseModus() {
-	document.getElementById("_raise_modus").style.display = "none";
-	document.getElementById("collapseModus").style.display = "flex";
-}
-
-function modus() {
-	document.getElementById("hasilModus").style.display = "none";
-	var a = document.getElementById('inputModus');
+function Modus(n) {
+	var n = '_'+n;
+	
+	document.getElementById("hasil"+n+"Modus").style.display = "none";
+	var a = document.getElementById('input'+n+'Modus');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -665,25 +732,17 @@ function modus() {
 		var e = jStat.mode(c);
 		var f = c;
 	}
-	document.getElementById("hasilModus").innerText = "Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+	document.getElementById("hasil"+n+"Modus").innerText = "Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + f.length + "\n ========= \n Modus " + e;
-	document.getElementById("hasilModus").style.display = "flex";
+	document.getElementById("hasil"+n+"Modus").style.display = "flex";
 }
 
-function hideJangkauan() {
-	document.getElementById("_raise_jangkauan").style.display = "flex";
-	document.getElementById("collapseJangkauan").style.display = "none";
-}
+function Jangkauan(n) {
+	var n = '_'+n;
 
-function raiseJangkauan() {
-	document.getElementById("_raise_jangkauan").style.display = "none";
-	document.getElementById("collapseJangkauan").style.display = "flex";
-}
-
-function jangkauan() {
-	document.getElementById("hasilJangkauan").style.display = "none";
-	var a = document.getElementById('inputJangkauan');
+	document.getElementById("hasil"+n+"Jangkauan").style.display = "none";
+	var a = document.getElementById('input'+n+'Jangkauan');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -694,25 +753,17 @@ function jangkauan() {
 		var e = jStat.range(c);
 		var f = c;
 	}
-	document.getElementById("hasilJangkauan").innerText = "Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
+	document.getElementById("hasil"+n+"Jangkauan").innerText = "Data asli " + f + "\n Data terurut " + f.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + f.length + "\n ========= \n Jangkauan " + e;
-	document.getElementById("hasilJangkauan").style.display = "flex";
+	document.getElementById("hasil"+n+"Jangkauan").style.display = "flex";
 }
 
-function hideVariansi() {
-	document.getElementById("_raise_variansi").style.display = "flex";
-	document.getElementById("collapseVariansi").style.display = "none";
-}
+function VariansiSampel(n) {
+	var n = '_'+n;
 
-function raiseVariansi() {
-	document.getElementById("_raise_variansi").style.display = "none";
-	document.getElementById("collapseVariansi").style.display = "flex";
-}
-
-function variansiSampel() {
-	document.getElementById("hasilVariansi").style.display = "none";
-	var a = document.getElementById('inputVariansi');
+	document.getElementById("hasil"+n+"Variansi").style.display = "none";
+	var a = document.getElementById('input'+n+'Variansi');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -722,15 +773,17 @@ function variansiSampel() {
 		var e = c;
 	}
 	var f = jStat.variance(e, true);
-	document.getElementById("hasilVariansi").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+	document.getElementById("hasil"+n+"Variansi").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Variansi Sampel " + f;
-	document.getElementById("hasilVariansi").style.display = "flex";
+	document.getElementById("hasil"+n+"Variansi").style.display = "flex";
 }
 
-function variansiPopulasi() {
-	document.getElementById("hasilVariansi").style.display = "none";
-	var a = document.getElementById('inputVariansi');
+function VariansiPopulasi(n) {
+	var n = '_'+n;
+
+	document.getElementById("hasil"+n+"Variansi").style.display = "none";
+	var a = document.getElementById('input'+n+'Variansi');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -740,25 +793,17 @@ function variansiPopulasi() {
 		var e = c;
 	}
 	var f = jStat.variance(e);
-	document.getElementById("hasilVariansi").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+	document.getElementById("hasil"+n+"Variansi").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Variansi Populasi " + f;
-	document.getElementById("hasilVariansi").style.display = "flex";
+	document.getElementById("hasil"+n+"Variansi").style.display = "flex";
 }
 
-function hideSimpanganBaku() {
-	document.getElementById("_raise_simpangan_baku").style.display = "flex";
-	document.getElementById("collapseSimpanganBaku").style.display = "none";
-}
+function SimpanganBakuSampel(n) {
+	var n = '_'+n;
 
-function raiseSimpanganBaku() {
-	document.getElementById("_raise_simpangan_baku").style.display = "none";
-	document.getElementById("collapseSimpanganBaku").style.display = "flex";
-}
-
-function simpanganBakuSampel() {
-	document.getElementById("hasilSimpanganBaku").style.display = "none";
-	var a = document.getElementById('inputSimpanganBaku');
+	document.getElementById("hasil"+n+"SimpanganBaku").style.display = "none";
+	var a = document.getElementById('input'+n+'SimpanganBaku');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -769,15 +814,17 @@ function simpanganBakuSampel() {
 	}
 	var f = jStat.variance(e, true);
 	f = Math.sqrt(f);
-	document.getElementById("hasilSimpanganBaku").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+	document.getElementById("hasil"+n+"SimpanganBaku").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Sampel " + f;
-	document.getElementById("hasilSimpanganBaku").style.display = "flex";
+	document.getElementById("hasil"+n+"SimpanganBaku").style.display = "flex";
 }
 
-function simpanganBakuPopulasi() {
-	document.getElementById("hasilSimpanganBaku").style.display = "none";
-	var a = document.getElementById('inputSimpanganBaku');
+function SimpanganBakuPopulasi(n) {
+	var n = '_'+n;
+
+	document.getElementById("hasil"+n+"SimpanganBaku").style.display = "none";
+	var a = document.getElementById('input'+n+'SimpanganBaku');
 	var b = rapikan(a);
 	var c = Array.from(b.split(','), Number);
 	var d = Array.from(b.split('\n'), Number);
@@ -788,8 +835,8 @@ function simpanganBakuPopulasi() {
 	}
 	var f = jStat.variance(e);
 	f = Math.sqrt(f);
-	document.getElementById("hasilSimpanganBaku").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
+	document.getElementById("hasil"+n+"SimpanganBaku").innerText = "Data asli " + e + "\n Data terurut " + e.sort(function(a, b) {
 		return a - b
 	}) + "\n Banyak data " + e.length + "\n ========= \n Simpangan Baku Populasi " + f;
-	document.getElementById("hasilSimpanganBaku").style.display = "flex";
+	document.getElementById("hasil"+n+"SimpanganBaku").style.display = "flex";
 }
