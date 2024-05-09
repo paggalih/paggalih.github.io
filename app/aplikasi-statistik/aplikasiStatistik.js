@@ -183,7 +183,7 @@ function formData(x){
 	document.getElementById('main').appendChild(mainDiv);
 	
 	button.onclick = function(){window[func1]();};
-	submitButton.onclick = function main(this);
+	submitButton.onclick = function(){main(this);};
 	hideButton.onclick = function(){window[func2]();};
 
 }
