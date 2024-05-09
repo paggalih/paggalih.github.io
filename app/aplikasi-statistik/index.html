@@ -54,6 +54,9 @@
         border-radius: 30px 0px 0px 30px;
 				font-size: 29px;
 			}
+			#main {
+				margin-left: 0px !important;
+			}
 			}
       
 			@media (max-width: 991px) {
@@ -91,10 +94,11 @@
     <!-- End Header -->
     <main id="main">
       <h1 id="post-title" class="fixed-top shadow-lg">Aplikasi Statistika</h1>
-      <div style="margin: 100px;"></div>
-			<a id="home_icon" class="fw-bold fst-italic" href="/index.html"><i class="bx bx-home"></i></a>
-      <ul class="nav nav-fill fw-bold justify-content-center">
-        <!-- <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/index.html" role="button" aria-expanded="false"><i class="bx bx-home"></i></a></li>				 -->
+			<p id='kata-pengantar' class='text-center'>Aplikasi ini dibuat untuk memudahkan pembelajaran mata kuliah Statistik, Praktik Statistik, dan Statistik inferensial<br><button class="btn btn-primary" type="button" onclick="MasukAplikasi()">Masuk ke Aplikasi<i class="bi bi-arrow-right-circle-fill"></i></button></p>
+      <div style="margin: 80px;"></div>
+			<!-- <a id="home_icon" class="fw-bold fst-italic" href="/index.html"><i class="bx bx-home"></i></a> -->
+      <ul id='menu-aplikasi' class="nav nav-fill fw-bold justify-content-center fixed-top" style="display:none;">
+        <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" href="/index.html" role="button" aria-expanded="false"><i class="bx bx-home"></i></a></li>				
         <li class="nav-item dropdown"><a class="nav-link dropdown-toggle" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">Satu Variabel</a>
 				<ul class="dropdown-menu">
             <li>
