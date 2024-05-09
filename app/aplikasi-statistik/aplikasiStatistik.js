@@ -41,11 +41,17 @@ var BanyakKlik = 0;
 
 const kelompokf = ['Diagram Batang','Histogram','Poligon','Poligon Kumulatif','Rata-rata','Median','Modus','Jangkauan','Variansi','Simpangan Baku'];
 
-function main(x) {
+function main(button,x) {
+	
+	var buttonId = button.id;
+	console.log("buttonId "+buttonId)
+	var n = Number(buttonId);
+	console.log("n "+n)
+	
 	for (let i = 0; i < kelompokf.length; i++) {
 		if (kelompokf[i] === x ) {
 			let func1 = x.replace(/\s/g, "");
-			return window[func1]();
+			return window[func1](n);
 		} 
 		else {
 		}
@@ -86,7 +92,6 @@ function formData(x){
 	button.id = 'raise'+y;
 	button.className = 'btn btn-link';
 	button.style.display = 'none';
-	button.onclick = function(){window[func1]();};
 	// var C1,C2 = Diagram, Batang
 	button.innerHTML = 'Klik ke-'+BanyakKlik+' '+x+'<i class="bi bi-three-dots"></i>';
 
@@ -125,13 +130,11 @@ function formData(x){
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
 	submitButton.id = BanyakKlik.toString;
-	submitButton.onclick = function(){main(x);};
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
 	hideButton.className = 'btn btn-primary';
 	// variabel f3 = hideDiagramBatang
-	hideButton.onclick = function(){window[func2]();};
 	hideButton.textContent = 'Sembunyikan';
 
 	const infoParagraph = document.createElement('p');
@@ -177,14 +180,15 @@ function formData(x){
 
 	// Append mainDiv to body or any other parent element
 	document.getElementById('main').appendChild(mainDiv);
-}
-function DiagramBatang() {
-	var buttonId = this.id;
-	console.log("buttonId "+buttonId)
-	var n = '_'+Number(buttonId);
-	console.log("n "+n)
+	
+	button.onclick = function(){window[func1]();};
+	submitButton.onclick = function(){main(this,x);};
+	hideButton.onclick = function(){window[func2]();};
 
-	// var n = '_'+n.toString();
+}
+function DiagramBatang(n) {
+
+	var n = '_'+n.toString();
 	document.getElementById("hasil"+n+"DiagramBatang").style.display = "none";
 	document.getElementById("gambar"+n+"DiagramBatang").remove();
 	var tempat = document.getElementById("tempat"+n+"DiagramBatang");
