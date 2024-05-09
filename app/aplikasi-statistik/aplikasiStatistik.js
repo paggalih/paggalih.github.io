@@ -50,6 +50,7 @@ function main(button) {
 	var n = buttonId.slice(0, indexOfComma);
 	var x = buttonId.slice(indexOfComma+1);
 	console.log("n "+n)
+	console.log("x "+x)
 	
 	for (let i = 0; i < kelompokf.length; i++) {
 		if (kelompokf[i] === x ) {
@@ -130,7 +131,7 @@ function formData(x){
 	const submitButton = document.createElement('button');
 	submitButton.className = 'btn btn-primary';
 	submitButton.type = 'submit';
-	submitButton.id = BanyakKlik.toString+'='+x;
+	submitButton.id = BanyakKlik.toString()+'='+x;
 	submitButton.textContent = 'Hitung';
 
 	const hideButton = document.createElement('button');
