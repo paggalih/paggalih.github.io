@@ -309,7 +309,7 @@ a:hover {
 
 #hero p {
   color: #45505b;
-  margin: 15px 0 0 0;
+  /* margin: 15px 0 0 0; */
   font-size: 26px;
   /* font-family: "Poppins", sans-serif; */
 }
@@ -1264,6 +1264,9 @@ mjx-container {
 }
 
 @media (min-width: 991px) {
+#hero p {
+  margin: 15px 100px 0 0;
+}
 .nav-menu a:hover, .nav-menu .active, .nav-menu .active:focus, .nav-menu li:hover > a {
   border-bottom: 5px solid #ccdffc;
   border-top: 5px solid #ccdffc;
@@ -1273,6 +1276,9 @@ mjx-container {
 }
 }
 @media (max-width: 991px) {
+#hero p {
+  margin: 15px 30px 0 30px;
+}
 #matkul {
 	
 }
