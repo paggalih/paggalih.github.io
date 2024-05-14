@@ -339,14 +339,6 @@ container.appendChild(flagCounterLink);
 // Append the container to the body or any specific element
 document.getElementById('footer').appendChild(container);
 
-// Create a link element
-// const link = document.createElement('link');
-// link.rel = 'stylesheet';
-// link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
-
-// Append the link element to the head
-// document.head.appendChild(link);
-
 // Function to load multiple stylesheets
 function loadStylesheets(urls) {
   urls.forEach(url => {
@@ -365,3 +357,14 @@ const stylesheets = [
 
 // Load the stylesheets
 loadStylesheets(stylesheets);
+
+// Select the element you want to hide
+var hero = document.getElementById('hero');
+
+// Set the delay in milliseconds (e.g., 5000 ms = 5 seconds)
+var delay = 1000*15;
+
+// Use setTimeout to hide the element after the specified delay
+setTimeout(function() {
+    hero.style.display = 'none';
+}, delay);
