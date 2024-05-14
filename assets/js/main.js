@@ -366,6 +366,6 @@ var delay = 15000;
 
 // Use setTimeout to hide the element after the specified delay
 setTimeout(function() {
-	hero.style.cssText = 'display:none !important';
+	hero.scrollIntoView({ behavior: 'smooth' });
 }, delay);
 
