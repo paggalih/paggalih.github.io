@@ -340,9 +340,29 @@ container.appendChild(flagCounterLink);
 document.getElementById('footer').appendChild(container);
 
 // Create a link element
-const link = document.createElement('link');
-link.rel = 'stylesheet';
-link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
+// const link = document.createElement('link');
+// link.rel = 'stylesheet';
+// link.href = 'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200';
 
 // Append the link element to the head
-document.head.appendChild(link);
+// document.head.appendChild(link);
+
+// Function to load multiple stylesheets
+function loadStylesheets(urls) {
+  urls.forEach(url => {
+    const link = document.createElement('link');
+    link.rel = 'stylesheet';
+    link.href = url;
+    document.head.appendChild(link);
+  });
+}
+
+// List of stylesheets to load
+const stylesheets = [
+  'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'',
+  'path/to/your/second/stylesheet.css',
+  'path/to/your/third/stylesheet.css'
+];
+
+// Load the stylesheets
+loadStylesheets(stylesheets);
