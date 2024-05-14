@@ -268,3 +268,73 @@
   new PureCounter();
 
 })()
+
+// Create the container div
+const container = document.createElement('div');
+container.className = 'container';
+
+// Create and append the h3 element
+const h3 = document.createElement('h3');
+h3.textContent = 'Galih Pradananta';
+container.appendChild(h3);
+
+// Create and append the paragraph element
+const paragraph = document.createElement('p');
+paragraph.textContent = 'You just have to live for this one minute.';
+container.appendChild(paragraph);
+
+// Create the social links div
+const socialLinks = document.createElement('div');
+socialLinks.className = 'social-links';
+
+// Function to create a link with an icon
+function createLink(href, className, iconClass) {
+  const link = document.createElement('a');
+  link.href = href;
+  link.target = '_blank';
+  link.className = className;
+  
+  const icon = document.createElement('i');
+  icon.className = iconClass;
+  link.appendChild(icon);
+
+  return link;
+}
+
+// Append social links
+socialLinks.appendChild(createLink('https://www.tiktok.com/@galihagpradananta', 'tiktok', 'bx bxl-tiktok'));
+socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook'));
+socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt'));
+socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube'));
+socialLinks.appendChild(createLink('https://id.linkedin.com/in/galih-pradananta-34666362', 'linkedin', 'bx bxl-linkedin-square'));
+
+// Append Google Scholar link separately due to different structure
+const scholarLink = document.createElement('a');
+scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
+scholarLink.target = '_blank';
+
+const scholarIcon = document.createElement('span');
+scholarIcon.className = 'material-symbols-outlined';
+scholarIcon.style.fontSize = '18px';
+scholarIcon.textContent = 'school';
+
+scholarLink.appendChild(scholarIcon);
+socialLinks.appendChild(scholarLink);
+
+// Append the social links div to the container
+container.appendChild(socialLinks);
+
+// Create and append the flag counter link
+const flagCounterLink = document.createElement('a');
+flagCounterLink.href = 'https://info.flagcounter.com/rFMs';
+
+const flagCounterImg = document.createElement('img');
+flagCounterImg.src = 'https://s11.flagcounter.com/count2/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/';
+flagCounterImg.alt = 'Flag Counter';
+flagCounterImg.border = '0';
+
+flagCounterLink.appendChild(flagCounterImg);
+container.appendChild(flagCounterLink);
+
+// Append the container to the body or any specific element
+document.getElementById('footer').appendChild(container);
