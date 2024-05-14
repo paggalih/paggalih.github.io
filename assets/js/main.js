@@ -359,9 +359,8 @@ function loadStylesheets(urls) {
 
 // List of stylesheets to load
 const stylesheets = [
-  'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'',
-  'path/to/your/second/stylesheet.css',
-  'path/to/your/third/stylesheet.css'
+  'https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200'
+  // 'path/to/your/second/stylesheet.css',
 ];
 
 // Load the stylesheets
