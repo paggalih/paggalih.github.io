@@ -362,9 +362,10 @@ loadStylesheets(stylesheets);
 var hero = document.getElementById('hero');
 
 // Set the delay in milliseconds (e.g., 5000 ms = 5 seconds)
-var delay = 5000;
+var delay = 15000;
 
 // Use setTimeout to hide the element after the specified delay
 setTimeout(function() {
-    hero.style.display = 'none';
+	hero.style.cssText = 'display:none !important';
 }, delay);
+
