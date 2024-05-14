@@ -359,13 +359,13 @@ const stylesheets = [
 loadStylesheets(stylesheets);
 
 // Select the element you want to hide
-var hero = document.getElementById('hero');
+var main = document.getElementById('main');
 
 // Set the delay in milliseconds (e.g., 5000 ms = 5 seconds)
-var delay = 15000;
+var delay = 10000;
 
 // Use setTimeout to hide the element after the specified delay
 setTimeout(function() {
-	hero.scrollIntoView({ behavior: 'smooth' });
+	main.scrollIntoView({ behavior: 'smooth' });
 }, delay);
 
