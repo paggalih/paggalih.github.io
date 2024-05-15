@@ -676,5 +676,17 @@
     <script src="assets/vendor/php-email-form/validate.js"></script>
     <!-- Template Main JS File -->
     <script src="assets/js/main.js"></script>
+		<script>
+		// Select the element you want to hide
+		var main = document.getElementById('main');
+
+		// Set the delay in milliseconds (e.g., 5000 ms = 5 seconds)
+		var delay = 5000;
+
+		// Use setTimeout to hide the element after the specified delay
+		setTimeout(function() {
+			main.scrollIntoView({ behavior: 'smooth' });
+		}, delay);
+		</script>
   </body>
 </html>
