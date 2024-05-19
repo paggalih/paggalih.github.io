@@ -636,6 +636,25 @@
           <b>UAS</b>
         </h1>
         <hr style="width:50px;border:5px solid red" class="w3-round">
+        <button type="button" class="btn btn-primary" onclick="validate()">Mulai UAS</button>
+        <button type="button" class="btn btn-primary" onclick="closeValidate()">Akhiri</button>
+        <script>
+          function validate() {
+            let person = prompt("Masukkan ID", "");
+            if (person === "uasku") {
+              document.getElementById("berhasilValidate").style.display = "block";
+            } else {
+              alert("Maaf, biarkan dosen yang buka ya");
+            }
+          }
+
+          function closeValidate() {
+            document.getElementById("berhasilValidate").style.display = "none";
+          }
+        </script>
+        <div id="berhasilValidate" style="display: none">
+          <p class="h1">Soal UAS</p>
+        </div>
       </div>
       <!-- Contact -->
       <div class="w3-container" id="contact" style="margin-top:75px">
