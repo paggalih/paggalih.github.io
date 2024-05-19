@@ -636,24 +636,33 @@
           <b>UAS</b>
         </h1>
         <hr style="width:50px;border:5px solid red" class="w3-round">
-        <button type="button" class="btn btn-primary" onclick="validate()">Mulai UAS</button>
-        <button type="button" class="btn btn-primary" onclick="closeValidate()">Akhiri</button>
+        <button type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
+        <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
         <script>
-          function validate() {
+          function validateUAS() {
             let person = prompt("Masukkan ID", "");
             if (person === "uasku") {
-              document.getElementById("berhasilValidate").style.display = "block";
+              document.getElementById("berhasilValidateUAS").style.display = "block";
             } else {
               alert("Maaf, biarkan dosen yang buka ya");
             }
           }
-
-          function closeValidate() {
-            document.getElementById("berhasilValidate").style.display = "none";
+          function closeValidateUAS() {
+            document.getElementById("berhasilValidateUAS").style.display = "none";
           }
         </script>
-        <div id="berhasilValidate" style="display: none">
+        <div id="berhasilValidateUAS" style="display: none">
           <p class="h1">Soal UAS</p>
+					<p class='h2'>Ketentuan UAS</p>
+					<ol>
+						<li>Jawaban UAS diketik pada Ms. Word pada halaman A4 dengan margin kiri 2cm, kanan 1cm, atas 1cm, dan bawah 1cm.</li>
+						<li>Soal terdiri dari 2 soal.</li>
+						<li>Antar kelompok dibedakan atas data provinsi yang diolah. </li>
+						<li>Silahkan mencari data provinsi kelompok pada BPS masing-masing provinsi. Di sini sudah ada contoh tempat data yang diperlukan untuk provinsi Jawa Timur.</li>
+						<li>Data BPS Provinsi yang diolah wajib dilampirkan pada lembar jawaban UAS.</li>
+						<li>Makalah UAS maksimal diunggah pada hari Sabtu, 1 Juni 2024 pukul 12.00 WIB di website saya https://bermain.asia dengan mencari halaman berkata kunci jawaban UAS.</li>	
+					</ol>
+					<p class='h2'>Pertanyaan</p>
         </div>
       </div>
       <!-- Contact -->
