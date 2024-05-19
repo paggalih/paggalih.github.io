@@ -834,6 +834,7 @@ Laki-laki	9	7	11	7	6	10
                 </h1>
                 <hr style="width:50px;border:5px solid red" class="w3-round">
 								<h1>Uji Khi Kuadrat</h1>
+								<p>ES 4D tanggal 6 Mei 2024</p>
 								<p>Kumala Dewi</p>
 								<p>Generasi eksperimen binomial</p>
 								<p>Nadia Rifna</p>
@@ -844,6 +845,21 @@ Laki-laki	9	7	11	7	6	10
 								<p>Perhitungan contoh soal</p>
 								<p>Yulis</p>
 								<p>Format data menggunakan excel</p>
+								<p></p>
+								<p>ES 4E tanggal 15 Mei 2024</p>
+								<p>Shinta</p>
+								<p>Frekuensi harapan versus frekuensi empiris</p>
+								<p>(1) menguji ada tidaknya hubungan (2) homogenitas kelompok (3) bentuk distribusi</p>
+								<p>$\chi^2=\sum\frac{(o_i-e_i)^2}{e_i}$</p>
+								<p>$Ho$ ada kesesuaian dan $Ha$ tidak ada kesesuaian</p>
+								<p>Bagaimana jika perbandingannya tidak 1:1:1:1?? <code>tidak dapat mencari e_i jika perbandingan berubah</code></p>
+								<p>Reni</p>
+								<p>Khi-kuadrat untuk tabel kontingensi</p>
+								<p>Menjulur = <code>Kemencengan</code></p>
+								<p>Naila</p>
+								<p>Uji Normalitas menggunakan Khi-kuadrat</p>
+								<p>Membuat tabel frekuensi seperti ketika akan membuat histogram</p>
+								<p>$Z=\frac{\text{batas kelas}-\overline{x}}{s}$</p>
 								<p></p>
 								</div>
             <div class="w3-container" id="pertemuan-12" style="margin-top:75px">
@@ -886,6 +902,370 @@ Laki-laki	9	7	11	7	6	10
                     <b>UAS</b>
                 </h1>
                 <hr style="width:50px;border:5px solid red" class="w3-round">
+<button type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
+<script>
+function validateUAS() {
+	let person = prompt("Masukkan ID", "");
+	if (person === "uaskugampang") {
+		document.getElementById("berhasilValidateUAS").style.display = "block";
+	} else {
+		alert("Maaf, biarkan dosen yang buka ya");
+	}
+}
+function closeValidateUAS() {
+	document.getElementById("berhasilValidateUAS").style.display = "none";
+}
+</script>
+<div id="berhasilValidateUAS" style="display: none">
+<p class="h1">Soal UAS</p>
+<p class='h2'>Ketentuan UAS</p>
+<ol>
+	<li>Jawaban UAS diketik pada Ms. Word pada halaman A4 dengan margin kiri 2cm, kanan 1cm, atas 1cm, dan bawah 1cm.</li>
+	<li>Soal terdiri dari 2 soal.</li>
+	<li>Antar kelompok dibedakan atas data provinsi yang diolah. </li>
+	<li>Silahkan mencari data provinsi kelompok pada BPS masing-masing provinsi. Di sini sudah ada contoh tempat data yang diperlukan untuk provinsi Jawa Timur.</li>
+	<li>Data BPS Provinsi yang diolah wajib dilampirkan pada lembar jawaban UAS.</li>
+	<li>Makalah UAS maksimal diunggah pada hari Sabtu, 1 Juni 2024 pukul 12.00 WIB di website saya https://bermain.asia dengan mencari halaman berkata kunci jawaban UAS.</li>	
+</ol>
+<p class='h2'>Pertanyaan</p>
+<p class='h3'>Soal 1: Regresi Linier Berganda</p>
+<ol type='a'>
+	<li> Lakukan analisis regresi linier berganda pada variabel independen (indeks pembangunan manusia dan produksi beras) terhadap variabel dependen (pertumbuhan ekonomi) per kabupaten/kota di Jawa Timur tahun 2023.</li>
+	<li>	Jelaskan pengaruh indeks pembangunan manusia dan produksi beras terhadap pertumbuhan ekonomi secara simultan/bersama-sama. Berikan kutipan artikel ilmiah pendukung.</li>
+	<li>	Jelaskan pengaruh indeks pembangunan manusia terhadap pertumbuhan ekonomi secara parsial. Berikan kutipan artikel ilmiah pendukung.</li>
+	<li>	Jelaskan pengaruh produksi beras terhadap pertumbuhan ekonomi secara parsial. Berikan kutipan artikel ilmiah pendukung.</li>
+	<li>	Jelaskan arti R-kuadrat yang ditunjukkan dari hasil analisis regresi linier berganda.</li>
+</ol>
+<p class='h3'>Soal 2: Statistika Nonparametrik</p>
+<ol type='a'>
+	<li>	Apakah seringnya makan di luar terkait dengan seberapa baik berpendidikan kepala rumah tangga adalah (1 = Tidak ada ijazah SMA, 2 = Berijazah SMA, 3 = Pernah jadi mahasiswa tapi tidak lulus, 4 = Minimal bergelar sarjana)? Data yang diberikan seperti di bawah ini.
+	<div class='overflow-auto'>
+	<table class='table table-bordered'>
+<tr>
+<td>No Sampel</td>
+<td>Intensitas Makan di Luar (per bulan)</td>
+<td>Tingkat Pendidikan</td>
+</tr>
+<tr>
+<td>1</td>
+<td>33</td>
+<td>3</td>
+</tr>
+<tr>
+<td>2</td>
+<td>50</td>
+<td>3</td>
+</tr>
+<tr>
+<td>3</td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr>
+<td>4</td>
+<td>41</td>
+<td>2</td>
+</tr>
+<tr>
+<td>5</td>
+<td>7</td>
+<td>3</td>
+</tr>
+<tr>
+<td>6</td>
+<td>30</td>
+<td>3</td>
+</tr>
+<tr>
+<td>7</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>8</td>
+<td>25</td>
+<td>4</td>
+</tr>
+<tr>
+<td>9</td>
+<td>19</td>
+<td>3</td>
+</tr>
+<tr>
+<td>10</td>
+<td>5</td>
+<td>1</td>
+</tr>
+<tr>
+<td>11</td>
+<td>17</td>
+<td>3</td>
+</tr>
+<tr>
+<td>12</td>
+<td>7</td>
+<td>4</td>
+</tr>
+<tr>
+<td>13</td>
+<td>4</td>
+<td>2</td>
+</tr>
+<tr>
+<td>14</td>
+<td>12</td>
+<td>2</td>
+</tr>
+<tr>
+<td>15</td>
+<td>41</td>
+<td>2</td>
+</tr>
+<tr>
+<td>16</td>
+<td>19</td>
+<td>2</td>
+</tr>
+<tr>
+<td>17</td>
+<td>8</td>
+<td>3</td>
+</tr>
+<tr>
+<td>18</td>
+<td>4</td>
+<td>3</td>
+</tr>
+<tr>
+<td>19</td>
+<td>48</td>
+<td>3</td>
+</tr>
+<tr>
+<td>20</td>
+<td>12</td>
+<td>4</td>
+</tr>
+<tr>
+<td>21</td>
+<td>20</td>
+<td>1</td>
+</tr>
+<tr>
+<td>22</td>
+<td>48</td>
+<td>4</td>
+</tr>
+<tr>
+<td>23</td>
+<td>27</td>
+<td>2</td>
+</tr>
+<tr>
+<td>24</td>
+<td>0</td>
+<td>4</td>
+</tr>
+<tr>
+<td>25</td>
+<td>43</td>
+<td>3</td>
+</tr>
+<tr>
+<td>26</td>
+<td>36</td>
+<td>2</td>
+</tr>
+<tr>
+<td>27</td>
+<td>13</td>
+<td>2</td>
+</tr>
+<tr>
+<td>28</td>
+<td>36</td>
+<td>3</td>
+</tr>
+<tr>
+<td>29</td>
+<td>12</td>
+<td>1</td>
+</tr>
+<tr>
+<td>30</td>
+<td>46</td>
+<td>4</td>
+</tr>
+<tr>
+<td>31</td>
+<td>9</td>
+<td>1</td>
+</tr>
+<tr>
+<td>32</td>
+<td>10</td>
+<td>4</td>
+</tr>
+<tr>
+<td>33</td>
+<td>24</td>
+<td>2</td>
+</tr>
+<tr>
+<td>34</td>
+<td>39</td>
+<td>3</td>
+</tr>
+<tr>
+<td>35</td>
+<td>25</td>
+<td>2</td>
+</tr>
+<tr>
+<td>36</td>
+<td>16</td>
+<td>3</td>
+</tr>
+<tr>
+<td>37</td>
+<td>10</td>
+<td>4</td>
+</tr>
+<tr>
+<td>38</td>
+<td>15</td>
+<td>1</td>
+</tr>
+<tr>
+<td>39</td>
+<td>39</td>
+<td>1</td>
+</tr>
+<tr>
+<td>40</td>
+<td>15</td>
+<td>1</td>
+</tr>
+<tr>
+<td>41</td>
+<td>1</td>
+<td>2</td>
+</tr>
+<tr>
+<td>42</td>
+<td>7</td>
+<td>1</td>
+</tr>
+<tr>
+<td>43</td>
+<td>17</td>
+<td>1</td>
+</tr>
+<tr>
+<td>44</td>
+<td>45</td>
+<td>3</td>
+</tr>
+<tr>
+<td>45</td>
+<td>37</td>
+<td>4</td>
+</tr>
+<tr>
+<td>46</td>
+<td>9</td>
+<td>2</td>
+</tr>
+<tr>
+<td>47</td>
+<td>44</td>
+<td>3</td>
+</tr>
+<tr>
+<td>48</td>
+<td>38</td>
+<td>3</td>
+</tr>
+<tr>
+<td>49</td>
+<td>47</td>
+<td>2</td>
+</tr>
+</table></div></li>
+	<li>	Berikan argumentasi terhadap jawaban (a) dan artikel ilmiah pendukung bagian (a).</li>
+</ol>
+<p class='h2'>Pembagian Provinsi</p>
+<div class='overflow-auto'>
+<table class='table table-bordered'>
+<tr>
+<td>Kelompok</td>
+<td>1</td>
+<td>: Sumatera Utara</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>2</td>
+<td>: Sumatera Selatan</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>3</td>
+<td>: DI Aceh</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>4</td>
+<td>: Sumatera Barat</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>5</td>
+<td>: NTT</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>6</td>
+<td>: NTB</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>7</td>
+<td>: Bali</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>8</td>
+<td>: Jawa Timur</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>9</td>
+<td>: DI Yogyakarta</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>10</td>
+<td>: Jawa Tengah</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>11</td>
+<td>: Jawa Barat</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>12</td>
+<td>: Banten</td>
+</tr>
+<tr>
+<td>Kelompok</td>
+<td>13</td>
+<td>: DKI Jakarta</td>
+</tr>
+</table>
+</div>
+</div>
             </div>
             <!-- Contact -->
             <div class="w3-container" id="contact" style="margin-top:75px">
