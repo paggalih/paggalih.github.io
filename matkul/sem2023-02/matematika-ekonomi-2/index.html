@@ -767,11 +767,6 @@ function closeValidateUAS() {
 }
 </script>
 <div id="berhasilValidateUAS" style="display: none">
-<form>
-<label for="soalnim" class="form-label">Masukkan NIM</label>
-<input type="number" class="form-control" id="soalnim">
-<button onclick="soalnim()" class="btn btn-primary">Submit</button>
-</form>
 <script>
 function soalnim(){
 	var a = document.getElementById('soalnim');
@@ -786,6 +781,12 @@ function soalnim(){
 	}
 }
 </script>
+<form>
+<label for="soalnim" class="form-label">Masukkan NIM</label>
+<input type="number" class="form-control" id="soalnim">
+<button onclick="soalnim()" class="btn btn-primary">Submit</button>
+</form>
+
 <p class="h1">Soal UAS</p>
 <ol>
 	<li id='nomer1' style='display:none;'>	Tentukan solusi dari persamaan diferensial $\frac{dy}{dt}=$ $3t^2-$ $\frac{4}{\sqrt{t}}$ dengan kondisi awal $y(0)=4.$</li>
