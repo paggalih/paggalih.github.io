@@ -776,8 +776,13 @@ function soalNim(){
 	console.log('var c',c);
 	var d = c[b];
 	console.log('var d',d);
-	for (let i = 0; i < d.length; i++) {
+	for (let i = 0; i < 8; i++) {
+		if (d.includes(i)){
 		document.getElementById('nomer'+d[i]).style.display='block';
+		}
+		else {
+		document.getElementById('nomer'+d[i]).style.display='none';
+		}
 	}
 }
 </script>
