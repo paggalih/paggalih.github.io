@@ -776,12 +776,12 @@ function soalNim(){
 	console.log('var c',c);
 	var d = c[b];
 	console.log('var d',d);
-	for (let i = 0; i < 8; i++) {
+	for (i = 1; i < 9; i++) {
 		if (d.includes(i)){
-		document.getElementById('nomer'+d[i]).style.display='block';
+		document.getElementById('nomer'+i).style.display='block';
 		}
 		else {
-		document.getElementById('nomer'+d[i]).style.display='none';
+		document.getElementById('nomer'+i).style.display='none';
 		}
 	}
 }
