@@ -770,12 +770,12 @@ function closeValidateUAS() {
 <script>
 function soalNim(){
 	var a = document.getElementById('soalnim');
-	console.log('	var a ',a);
 	var b = (a*3)% 5;
-	console.log('	var b = (a*3)% 5;', b);
+	console.log('var b', b);
 	var c = [[1,3,5,7,8],[1,3,6,7,8],[1,4,5,7,8],[2,3,5,7,8],[2,4,6,7,8]];
-	console.log('	var c = [[1,3,5,7,8],[1,3,6,7,8],[1,4,5,7,8],[2,3,5,7,8],[2,4,6,7,8]];',c);
+	console.log('var c',c);
 	var d = c[b];
+	console.log('var d',d);
 	for (let i = 0; i < d.length; i++) {
 		document.getElementById('nomer'+d[i]).style.display='block';
 	}
@@ -783,7 +783,9 @@ function soalNim(){
 </script>
 <form>
 <label for="soalnim" class="form-label">Masukkan NIM</label>
-<input type="number" class="form-control" id="soalnim">
+<!-- <input type="number" class="form-control" id="soalnim"> -->
+<textarea id="soalnim"></textarea>
+<br>
 <button onclick="soalNim()" class="btn btn-primary">Submit</button>
 </form>
 
