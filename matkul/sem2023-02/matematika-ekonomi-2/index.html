@@ -861,10 +861,10 @@ var x = setInterval(function() {
 var x4A = setInterval(function() {	
 	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
 	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
+	var sekarang4A = new Date().getTime();
 
 	// Find the distance between now and the count down date
-	var distance = akhirUAS4A - sekarang;
+	var distance = akhirUAS4A - sekarang4A;
 		
 	// Time calculations for days, hours, minutes and seconds
 	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -873,7 +873,7 @@ var x4A = setInterval(function() {
 	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 		
 	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
+	document.getElementById("timerUAS4A").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
 	+ minutes + "menit " + seconds + "detik ";
 		
 	// If the count down is over, write some text 
