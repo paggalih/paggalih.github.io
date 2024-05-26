@@ -755,6 +755,7 @@
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
 function validateUAS() {
+	history.go(0);
 	let person = prompt("Masukkan Password", "");
 	if (person === "uaskubeda") {
 		document.getElementById("berhasilValidateUAS").style.display = "block";
