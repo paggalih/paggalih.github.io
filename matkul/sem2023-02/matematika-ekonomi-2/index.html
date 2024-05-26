@@ -762,18 +762,16 @@ function validateUAS() {
 		var b = (nim*3)% 5;
 		var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
 		var d = c[b];
-		for (i = 1; i < 9; i++) {
-		if (d.includes('soal'+i)){
-			var e = document.getElementById(d[i-1]);
-			document.getElementById('nomer'+i).appendChild(e);
-			e.style.display="block";
-			document.getElementById('nomer'+i).style.display="block";
-		}
-		else {
+		for (i = 1; 1 < 9; i++){
 			var e = document.getElementById("soal"+i);
 			document.getElementById("berhasilValidateUAS").appendChild(e);
 			e.style.display="none";
 		}
+		for (i = 1; i < 6; i++) {
+			var e = document.getElementById(d[i-1]);
+			document.getElementById('nomer'+i).appendChild(e);
+			e.style.display="block";
+			document.getElementById('nomer'+i).style.display="block";
 		}
 	}
 	else {
