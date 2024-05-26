@@ -751,12 +751,13 @@
           <b>UAS</b>
         </h1>
         <hr style="width:50px;border:5px solid red" class="w3-round">
-<button type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
+<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
 function validateUAS() {
 	let person = prompt("Masukkan Password", "");
 	if (person === "uaskubeda") {
+		document.getElementById("tombol_mulai").style.display="none";
 		document.getElementById("berhasilValidateUAS").style.display = "block";
 		let nim = Number(prompt('Masukkan NIM',''));
 		var b = (nim*3)% 5;
