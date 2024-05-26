@@ -761,9 +761,9 @@
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PS4B)</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
-var mulaiUAS = new Date("May 28, 2024 09:00:00").getTime();
+var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
 var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-var mulaiUAS4A = new Date("May 26, 2024 11:30:00").getTime();
+var mulaiUAS4A = new Date("May 28, 2024 11:30:00").getTime();
 var akhirUAS4A = new Date("May 28, 2024 13:30:00").getTime();
 var sekarang = new Date().getTime();
 function validateUAS4A() {
@@ -778,7 +778,7 @@ function validateUAS4A() {
 				document.getElementById("tombol_mulai_4a").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
-				var b = (nim*3)% 5;
+				var b = (nim*3*3)% 5;
 				var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
 				var d = c[b];
 				for (i = 1; i < 6; i++) {
@@ -805,8 +805,8 @@ function validateUAS() {
 	}
 	else {
 		if (sekarang-akhirUAS<0) {
-			let person = prompt("Masukkan Password", "");
-			if (person === "uaskubeda") {
+			// let person = prompt("Masukkan Password", "");
+			// if (person === "uaskubeda") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
@@ -819,10 +819,10 @@ function validateUAS() {
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
 				}
-			}
-			else {
-				alert("Maaf, password yang dimasukkan salah.");
-			}
+			// }
+			// else {
+			//	 alert("Maaf, password yang dimasukkan salah.");
+			// }
 		}
 		else{
 			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 28 Mei 2024 pukul 11.00");
