@@ -754,62 +754,11 @@
 <button type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
-function validateUAS() {
-	let person = prompt("Masukkan Password", "");
-	if (person === "uaskubeda") {
-		document.getElementById("berhasilValidateUAS").style.display = "block";
-		let nim = Number(prompt('Masukkan NIM',''));
-		var b = (nim*3)% 5;
-		var c = [[1,3,5,7,8],[1,3,6,7,8],[1,4,5,7,8],[2,3,5,7,8],[2,4,6,7,8]];
-		var d = c[b];
-		for (i = 1; i < 9; i++) {
-			if (d.includes(i)){
-			document.getElementById('nomer'+i).style.display='block';
-			}
-			else {
-			document.getElementById('nomer'+i).style.display='none';
-			}
-		}
-	} else {
-		alert("Maaf, biarkan dosen yang buka ya");
-	}
-}
-function closeValidateUAS() {
-	document.getElementById("berhasilValidateUAS").style.display = "none";
-}
-</script>
-<div id="berhasilValidateUAS" style="display: none">
-<!-- <script> -->
-<!-- function soalNim(){ -->
-	<!-- var a = document.getElementById('soalnim').value; -->
-	<!-- var b = (a*3)% 5; -->
-	<!-- var c = [[1,3,5,7,8],[1,3,6,7,8],[1,4,5,7,8],[2,3,5,7,8],[2,4,6,7,8]]; -->
-	<!-- var d = c[b]; -->
-	<!-- for (i = 1; i < 9; i++) { -->
-		<!-- if (d.includes(i)){ -->
-		<!-- document.getElementById('nomer'+i).style.display='block'; -->
-		<!-- } -->
-		<!-- else { -->
-		<!-- document.getElementById('nomer'+i).style.display='none'; -->
-		<!-- } -->
-	<!-- } -->
-<!-- } -->
-<!-- </script> -->
-<!-- <form> -->
-<!-- <br> -->
-<!-- <label for="soalnim" class="form-label">Masukkan NIM</label> -->
-<!-- <input type="number" class="form-control" id="soalnim"> -->
-<!-- <br> -->
-<!-- <button onclick="soalNim()" class="btn btn-primary">Submit</button> -->
-<!-- </form> -->
-
-<p class="h1">Soal UAS</p>
-<ol>
-	<li id='nomer1' style='display:none;'>(1)	Tentukan solusi dari persamaan diferensial $\frac{dy}{dt}=$ $3t^2-$ $\frac{4}{\sqrt{t}}$ dengan kondisi awal $y(0)=4.$    <hr style="border: 5px solid green;"></li>
-	<li id='nomer2' style='display:none;'>(2)	Pertimbangkan persamaan pasar $$\begin{array}{ll}Q_S&=4P-3\\Q_D&=-2P+13\\\frac{dP}{dt}&=0.4(Q_D-Q_S)\end{array}$$ Tentukan $Q_D (t)$ jika $P(0)=2.$    <hr style="border: 5px solid green;"></li>
-	<li id='nomer3' style='display:none;'>(3)	Maksimumkan $4x+9y$ menggunakan metode simpleks dengan kendala $$\begin{array}{ll}5x+3y&\le 30\\7x+2y&\le 28\\x&\ge 0\\y&\ge 0\end{array}$$    <hr style="border: 5px solid green;"></li>
-	<li id='nomer4' style='display:none;'>(4)	Maksimumkan $3x+5y$ menggunakan metode simpleks dengan kendala $$\begin{array}{ll}x+y&\le 20\\7x+y&\le 38\\x&\ge 0\\y&\ge 0\end{array}$$    <hr style="border: 5px solid green;"></li>
-	<li id='nomer5' style='display:none;'>(5)	Sebuah pabrik yang memproduksi aluminium disuplai dengan bauksit dari tiga tambang ($01,$ $02$ dan $03$) yang masing-masing menghasilkan $3,$ $7$ dan $5$ ribu ton mineral per minggu. Ada $4$ moda pengangkutan bauksit ke pabrik: dengan kapal $(T1)$ - dengan truk $(T2)$ - dengan a gerbong kereta api sederhana $(T3)$ - dengan gerbong kereta api khusus $(T4)$. Total kapasitas per hari adalah $4$ ribu ton untuk kapal laut, $3$ ribu untuk mobil, dan masing-masing $4$ ribu ton kedua jenis rel tersebut. Biaya transportasi per ton disajikan pada tabel berikut.
+var soal1.innerHTML = 'Tentukan solusi dari persamaan diferensial $\frac{dy}{dt}=$ $3t^2-$ $\frac{4}{\sqrt{t}}$ dengan kondisi awal $y(0)=4.$';
+var soal2.innerHTML = 'Pertimbangkan persamaan pasar $$\begin{array}{ll}Q_S&=4P-3\\Q_D&=-2P+13\\\frac{dP}{dt}&=0.4(Q_D-Q_S)\end{array}$$ Tentukan $Q_D (t)$ jika $P(0)=2.$';
+var soal3.innerHTML = 'Maksimumkan $4x+9y$ menggunakan metode simpleks dengan kendala $$\begin{array}{ll}5x+3y&\le 30\\7x+2y&\le 28\\x&\ge 0\\y&\ge 0\end{array}$$';
+var soal4.innerHTML = 'Maksimumkan $3x+5y$ menggunakan metode simpleks dengan kendala $$\begin{array}{ll}x+y&\le 20\\7x+y&\le 38\\x&\ge 0\\y&\ge 0\end{array}$$';
+var soal5.innerHTML = 'Sebuah pabrik yang memproduksi aluminium disuplai dengan bauksit dari tiga tambang ($01,$ $02$ dan $03$) yang masing-masing menghasilkan $3,$ $7$ dan $5$ ribu ton mineral per minggu. Ada $4$ moda pengangkutan bauksit ke pabrik: dengan kapal $(T1)$ - dengan truk $(T2)$ - dengan a gerbong kereta api sederhana $(T3)$ - dengan gerbong kereta api khusus $(T4)$. Total kapasitas per hari adalah $4$ ribu ton untuk kapal laut, $3$ ribu untuk mobil, dan masing-masing $4$ ribu ton kedua jenis rel tersebut. Biaya transportasi per ton disajikan pada tabel berikut.
 <div class='overflow-auto'>
 <table class='table table-bordered text-center'>
 <tbody>
@@ -895,9 +844,8 @@ function closeValidateUAS() {
 </tbody>
 </table>
 </div>
-Identifikasi jumlah yang harus diangkut dengan alat transportasi apa pun untuk mencapainya meminimalkan total biaya transportasi.    <hr style="border: 5px solid green;">
-	</li>
-	<li id='nomer6' style='display:none;'>(6)	Perusahaan yang menghasilkan produk inovatif memiliki dua cabang dan tiga cabang utama pelanggan. Kedua cabang tersebut masing-masing akan memproduksi $60$ unit dan $40$ unit produk pada periode berikutnya. Perusahaan berkomitmen menjual $50$ unit kepada pihak pertama pelanggan dan minimal $20$ unit ke pelanggan ketiga. Yang kedua dan pelanggan ketiga juga ingin membeli sebanyak mungkin unit dari yang tersisa. Keuntungan dari perusahaan (dinyatakan dalam ribuan euro) tergantung pada transportasinya cabang ke pelanggan disajikan pada tabel berikut.
+Identifikasi jumlah yang harus diangkut dengan alat transportasi apa pun untuk mencapainya meminimalkan total biaya transportasi.';
+var soal6.innerHTML = 'Perusahaan yang menghasilkan produk inovatif memiliki dua cabang dan tiga cabang utama pelanggan. Kedua cabang tersebut masing-masing akan memproduksi $60$ unit dan $40$ unit produk pada periode berikutnya. Perusahaan berkomitmen menjual $50$ unit kepada pihak pertama pelanggan dan minimal $20$ unit ke pelanggan ketiga. Yang kedua dan pelanggan ketiga juga ingin membeli sebanyak mungkin unit dari yang tersisa. Keuntungan dari perusahaan (dinyatakan dalam ribuan euro) tergantung pada transportasinya cabang ke pelanggan disajikan pada tabel berikut.
 <div class='overflow-auto'>
 <table class='table table-bordered text-center'>
 <tbody>
@@ -951,10 +899,9 @@ Identifikasi jumlah yang harus diangkut dengan alat transportasi apa pun untuk m
 </tbody>
 </table>
 </div>
-Bagaimana seharusnya kita mendistribusikan produk untuk memaksimalkan keuntungan total?    <hr style="border: 5px solid green;">
-	</li>
-	<li id='nomer7' style='display:none;'>(7)	Selesaikan masalah TSP di bawah ini.<div class='overflow-auto'><img src="soal-07.svg" class="img-fluid" alt="soal-07"></div>    <hr style="border: 5px solid green;"></li>
-	<li id='nomer8' style='display:none;'>(8)	Gunakan maximin regret untuk memilih salah satu dari projek di bawah ini.
+Bagaimana seharusnya kita mendistribusikan produk untuk memaksimalkan keuntungan total?';
+var soal7.innerHTML = 'Selesaikan masalah TSP di bawah ini.<div class="overflow-auto"><img src="soal-07.svg" class="img-fluid" alt="soal-07"></div>';
+var soal8.innerHTML = 'Gunakan maximin regret untuk memilih salah satu dari projek di bawah ini.
 <div class='overflow-auto'>
 <table class='table table-bordered text-center'>
 <tbody>
@@ -1038,7 +985,65 @@ Bagaimana seharusnya kita mendistribusikan produk untuk memaksimalkan keuntungan
 </tr>
 </tbody>
 </table>
-</div>    <hr style="border: 5px solid green;">	
+</div>';
+function validateUAS() {
+	let person = prompt("Masukkan Password", "");
+	if (person === "uaskubeda") {
+		document.getElementById("berhasilValidateUAS").style.display = "block";
+		let nim = Number(prompt('Masukkan NIM',''));
+		var b = (nim*3)% 5;
+		var c = [[soal3,soal5,soal1,soal7,soal8],[soal1,soal3,soal6,soal7,soal8],[soal5,soal4,soal1,soal7,soal8],[soal2,soal5,soal3,soal8,soal7],[soal2,soal6,soal4,soal8,soal7]];
+		var d = c[b];
+		for (i = 1; i < 6; i++) {
+			document.getElementById('nomer'+i).style.display='block';
+			document.getElementById('nomer'+i).appendChild(d[i-1]);
+		}
+	}
+	else {
+		alert("Maaf, biarkan dosen yang buka ya");
+	}
+}
+function closeValidateUAS() {
+	document.getElementById("berhasilValidateUAS").style.display = "none";
+}
+</script>
+<div id="berhasilValidateUAS" style="display: none">
+<!-- <script> -->
+<!-- function soalNim(){ -->
+	<!-- var a = document.getElementById('soalnim').value; -->
+	<!-- var b = (a*3)% 5; -->
+	<!-- var c = [[1,3,5,7,8],[1,3,6,7,8],[1,4,5,7,8],[2,3,5,7,8],[2,4,6,7,8]]; -->
+	<!-- var d = c[b]; -->
+	<!-- for (i = 1; i < 9; i++) { -->
+		<!-- if (d.includes(i)){ -->
+		<!-- document.getElementById('nomer'+i).style.display='block'; -->
+		<!-- } -->
+		<!-- else { -->
+		<!-- document.getElementById('nomer'+i).style.display='none'; -->
+		<!-- } -->
+	<!-- } -->
+<!-- } -->
+<!-- </script> -->
+<!-- <form> -->
+<!-- <br> -->
+<!-- <label for="soalnim" class="form-label">Masukkan NIM</label> -->
+<!-- <input type="number" class="form-control" id="soalnim"> -->
+<!-- <br> -->
+<!-- <button onclick="soalNim()" class="btn btn-primary">Submit</button> -->
+<!-- </form> -->
+
+<p class="h1">Soal UAS</p>
+<ol>
+	<li id='nomer1' style='display:none;'><hr style="border: 5px solid green;"></li>
+	<li id='nomer2' style='display:none;'><hr style="border: 5px solid green;"></li>
+	<li id='nomer3' style='display:none;'><hr style="border: 5px solid green;"></li>
+	<li id='nomer4' style='display:none;'><hr style="border: 5px solid green;"></li>
+	<li id='nomer5' style='display:none;'><hr style="border: 5px solid green;">
+	</li>
+	<li id='nomer6' style='display:none;'><hr style="border: 5px solid green;">
+	</li>
+	<li id='nomer7' style='display:none;'><hr style="border: 5px solid green;"></li>
+	<li id='nomer8' style='display:none;'><hr style="border: 5px solid green;">	
 	</li>
 </ol>
 </div>
