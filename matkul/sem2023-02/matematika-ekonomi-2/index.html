@@ -764,9 +764,9 @@ function validateUAS() {
 		var d = c[b];
 		for (i = 1; i < 6; i++) {
 			var e = document.getElementById(d[i-1]);
+			document.getElementById('nomer'+i).appendChild(e);
 			e.style.display="block";
 			document.getElementById('nomer'+i).style.display="block";
-			document.getElementById('nomer'+i).appendChild(e);
 		}
 	}
 	else {
