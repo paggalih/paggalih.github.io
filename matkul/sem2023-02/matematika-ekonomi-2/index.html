@@ -770,10 +770,9 @@ function validateUAS() {
 			document.getElementById('nomer'+i).style.display="block";
 		}
 		else {
-			var e = document.getElementById(d[i-1]);
+			var e = document.getElementById("soal"+i);
 			document.getElementById("berhasilValidateUAS").appendChild(e);
 			e.style.display="none";
-			document.getElementById('nomer'+i).style.display="none";
 		}
 		}
 	}
