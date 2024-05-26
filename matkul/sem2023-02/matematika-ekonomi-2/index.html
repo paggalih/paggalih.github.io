@@ -755,25 +755,60 @@
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
 function validateUAS() {
-	let person = prompt("Masukkan Password", "");
-	if (person === "uaskubeda") {
-		document.getElementById("tombol_mulai").style.display="none";
-		document.getElementById("berhasilValidateUAS").style.display = "block";
-		let nim = Number(prompt('Masukkan NIM',''));
-		var b = (nim*3)% 5;
-		var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
-		var d = c[b];
+	var mulaiUAS = new Date("May 28, 2024 09:00:00").getTime();
+	var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	var sekarang = new Date.now();
 
-		for (i = 1; i < 6; i++) {
-			var e = document.getElementById(d[i-1]);
-			document.getElementById('nomer'+i).appendChild(e);
-			e.style.display="block";
-			document.getElementById('nomer'+i).style.display="block";
-		}
+	if (sekarang-mulaiUAS<0){
+		alert("Belum waktunya. UAS hanya boleh dimulai "+mulaiUAS);
 	}
 	else {
-		alert("Maaf, biarkan dosen yang buka ya");
+		if (sekarang-akhirUAS<0) {
+			let person = prompt("Masukkan Password", "");
+			if (person === "uaskubeda") {
+				document.getElementById("tombol_mulai").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+				let nim = Number(prompt('Masukkan NIM',''));
+				var b = (nim*3)% 5;
+				var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
+				var d = c[b];
+				// Update the count down every 1 second
+				var x = setInterval(function() {						
+					// Find the distance between now and the count down date
+					var distance = akhirUAS - sekarang;
+						
+					// Time calculations for days, hours, minutes and seconds
+					var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+					var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+					var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+						
+					// Output the result in an element with id="demo"
+					document.getElementById("timerUAS").innerHTML = hours + "jam "
+					+ minutes + "menit " + seconds + "detik ";
+						
+					// If the count down is over, write some text 
+					if (distance < 0) {
+						clearInterval(x);
+						document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+					}
+				}, 1000);
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			}
+			else {
+				alert("Maaf, biarkan dosen yang buka ya");
+			}
+		}
+		else{
+			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai "+akhirUAS);
+		}
 	}
+
 }
 function closeValidateUAS() {
 	document.getElementById("berhasilValidateUAS").style.display = "none";
@@ -789,6 +824,7 @@ function closeValidateUAS() {
 <div id="soal7" style='display:none;'><hr style="border: 5px solid green;">Selesaikan masalah TSP di bawah ini.<div class="overflow-auto"><img src="soal-07.svg" class="img-fluid" alt="soal-07"></div></div>
 <div id="soal8" style='display:none;'><hr style="border: 5px solid green;">Gunakan maximin regret untuk memilih salah satu dari projek di bawah ini.<div class="overflow-auto"><table class="table table-bordered text-center"><tbody><tr><td width="138"><p>&nbsp;</p></td><td colspan="3" width="415"><p>Profit</p></td></tr><tr><td width="138"><p>Projek</p></td><td width="138"><p>Kota 1</p></td><td width="138"><p>Kota 2</p></td><td width="138"><p>Kota 3</p></td></tr><tr><td width="138"><p>Membeli Ruko</p></td><td width="138"><p>120</p></td><td width="138"><p>71</p></td><td width="138"><p>50</p></td></tr><tr><td width="138"><p>Membangun Villa</p></td><td width="138"><p>89</p></td><td width="138"><p>114</p></td><td width="138"><p>34</p></td></tr><tr><td width="138"><p>Membangun Hotel</p></td><td width="138"><p>100</p></td><td width="138"><p>48</p></td><td width="138"><p>120</p></td></tr><tr><td width="138"><p>Mendirikan Travel</p></td><td width="138"><p>150</p></td><td width="138"><p>157</p></td><td width="138"><p>100</p></td></tr></tbody></table></div></div>
 
+<h1 id="timerUAS"></h1>
 <p class="h1">Soal UAS</p>
 <ol id="soalUAS">
 	<li id='nomer1'></li>
