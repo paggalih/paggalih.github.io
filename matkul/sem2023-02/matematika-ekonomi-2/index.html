@@ -754,11 +754,10 @@
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
+var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+var sekarang = new Date().getTime();
 function validateUAS() {
-	var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
-
 	if (sekarang-mulaiUAS<0){
 		alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 09.00");
 	}
