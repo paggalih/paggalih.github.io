@@ -760,7 +760,7 @@ function validateUAS() {
 	var sekarang = new Date().getTime();
 
 	if (sekarang-mulaiUAS<0){
-		alert("Belum waktunya. UAS hanya boleh dimulai "+mulaiUAS);
+		alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 09.00");
 	}
 	else {
 		if (sekarang-akhirUAS<0) {
@@ -784,7 +784,7 @@ function validateUAS() {
 					var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 						
 					// Output the result in an element with id="demo"
-					document.getElementById("timerUAS").innerHTML = hours + "jam "
+					document.getElementById("timerUAS").innerHTML = days + "hari " + hours + "jam "
 					+ minutes + "menit " + seconds + "detik ";
 						
 					// If the count down is over, write some text 
