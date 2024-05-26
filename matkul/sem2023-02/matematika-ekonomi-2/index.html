@@ -754,31 +754,9 @@
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
-// Update the count down every 1 second
-var x = setInterval(function() {	
-	var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
-
-	// Find the distance between now and the count down date
-	var distance = akhirUAS - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "Waktu tersisa <br>" + days + "hari " + hours + "jam "
-	+ minutes + "menit " + seconds + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distance < 0) {
-		clearInterval(x);
-		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-	}
-}, 1000);
+var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+var sekarang = new Date().getTime();
 function validateUAS() {
 	if (sekarang-mulaiUAS<0){
 		alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 09.00");
@@ -813,7 +791,31 @@ function validateUAS() {
 function closeValidateUAS() {
 	document.getElementById("berhasilValidateUAS").style.display = "none";
 }
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	var sekarang = new Date().getTime();
 
+	// Find the distance between now and the count down date
+	var distance = akhirUAS - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUAS").innerHTML = "Waktu tersisa <br>" + days + "hari " + hours + "jam "
+	+ minutes + "menit " + seconds + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+	}
+}, 1000);
 </script>
 <div id="berhasilValidateUAS" style="display: none">
 <div id="soal1" style='display:none;'><hr style="border: 5px solid green;">Tentukan solusi dari persamaan diferensial $\frac{dy}{dt}=$ $3t^2-$ $\frac{4}{\sqrt{t}}$ dengan kondisi awal $y(0)=4.$</div>
