@@ -763,7 +763,7 @@ function validateUAS() {
 		var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
 		var d = c[b];
 		for (i = 1; 1 < 9; i++){
-			var e = document.getElementById("soal"+i);
+			var e = document.getElementById("soal"+i.toString());
 			document.getElementById("berhasilValidateUAS").appendChild(e);
 			e.style.display="none";
 		}
