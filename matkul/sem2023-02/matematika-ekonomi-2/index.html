@@ -815,8 +815,8 @@ function validateUAS() {
 	}
 	else {
 		if (sekarang-akhirUAS<0) {
-			// let person = prompt("Masukkan Password", "");
-			// if (person === "uaskubeda") {
+			 let person = prompt("Masukkan Password", "");
+			 if (person === "") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
@@ -829,10 +829,10 @@ function validateUAS() {
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
 				}
-			// }
-			// else {
-			//	 alert("Maaf, password yang dimasukkan salah.");
-			// }
+			 }
+			 else {
+				 alert("Maaf, password yang dimasukkan salah.");
+			}
 		}
 		else{
 			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 28 Mei 2024 pukul 11.00");
