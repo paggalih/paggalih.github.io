@@ -1008,7 +1008,7 @@
                 </h1>
                 <hr style="width:50px;border:5px solid red" class="w3-round">
 								<p class="h1">Latihan UAS</p>
-								<ol>
+								<ol id="latihanUAS">
 									<li>
 									Banyaknya cola dalam botol $12$ ons terdistribusi seragam diantara $11.96$ ons dan $12.05$ ons. Tentukan peluang memilih sebuah botol dan cola di  kurang dari $12$ ons.
 									</li>
@@ -1050,6 +1050,7 @@ var sekarang = new Date().getTime();
 function validateUAS4A() {
 	document.getElementById('timerUAS4A').style.display="block";
 	document.getElementById('timerUAS').style.display="none";
+	document.getElementById('latihanUAS').style.display="none";
 
 	if (sekarang-mulaiUAS4A<0){
 		alert("Belum waktunya. UAS hanya boleh dimulai ****");
@@ -1084,6 +1085,7 @@ function validateUAS4A() {
 function validateUAS() {
 	document.getElementById('timerUAS').style.display="block";
 	document.getElementById('timerUAS4A').style.display="none";
+	document.getElementById('latihanUAS').style.display="none";
 
 	if (sekarang-mulaiUAS<0){
 		alert("Belum waktunya. UAS hanya boleh dimulai ****");
