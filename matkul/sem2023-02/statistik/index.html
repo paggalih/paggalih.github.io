@@ -1033,7 +1033,7 @@
 								</ol>
 <p class="h1">Ketentuan UAS</p>
 <ol>
-	<li>UAS hanya boleh dikerjakan selama 1 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>UAS hanya boleh dikerjakan selama 1 jam <del>(sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>)</del>.</li>
 	<li>UAS untuk kelas PWS4B boleh dikerjakan dari **** dan kelas PWS4A dari ****.</li>
 	<li>Jawaban UAS dikirimkan pada **** dengan mencari berkata kunci <strong>Jawaban UAS.</strong></li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
@@ -1062,7 +1062,7 @@ function validateUAS4A() {
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
 				var b = (nim*3*3)% 5;
-				var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
+				var c = [['soal3','soal5','soal1','soal7','soal6'],['soal1','soal3','soal6','soal7','soal6'],['soal5','soal4','soal7','soal1','soal6'],['soal2','soal5','soal3','soal6','soal7'],['soal2','soal6','soal4','soal6','soal7']];
 				var d = c[b];
 				for (i = 1; i < 6; i++) {
 					var e = document.getElementById(d[i-1]);
@@ -1096,7 +1096,7 @@ function validateUAS() {
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
 				var b = (nim*3)% 5;
-				var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
+				var c = [['soal3','soal5','soal1','soal7','soal6'],['soal1','soal3','soal6','soal7','soal6'],['soal5','soal4','soal7','soal1','soal6'],['soal2','soal5','soal3','soal6','soal7'],['soal2','soal6','soal4','soal6','soal7']];
 				var d = c[b];
 				for (i = 1; i < 6; i++) {
 					var e = document.getElementById(d[i-1]);
