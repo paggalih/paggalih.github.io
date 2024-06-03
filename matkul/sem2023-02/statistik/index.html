@@ -20,7 +20,7 @@
         <link href="/assets/css/style.css" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
 
-        <!-- =======================================================
+  <!-- =======================================================
   * Template Name: MyResume
   * Updated: Jun 13 2023 with Bootstrap v5.3.0
   * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
@@ -1046,19 +1046,20 @@
 								</ol>
 <p class="h1">Ketentuan UAS</p>
 <ol>
-	<li>UAS hanya boleh dikerjakan selama 1 jam <del>(sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>)</del>.</li>
-	<li>UAS untuk kelas PWS4B boleh dikerjakan dari **** dan kelas PWS4A dari ****.</li>
-	<li>Jawaban UAS dikirimkan pada **** dengan mencari berkata kunci <strong>Jawaban UAS.</strong></li>
-	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+	<li>UAS hanya boleh dikerjakan selama 1 jam dan diberikan waktu 15 menit untuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>UAS untuk kelas PWS4A dan PWS4B boleh dikerjakan dari 08:00-09:00 pada Rabu, 5 Juni 2024.</li>
+	<li>Jawaban UAS dikirimkan pada website https://bermain.asia dengan mencari berkata kunci <strong>Jawaban UAS</strong> lalu pilih dari hasil yang tersedia.</li>
+	<li>Formulir jawaban sudah dapat dilihat dari sekarang. Soal dapat dibuka dengan password: <strong>uas</strong> pada saatnya nanti.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM. <strong>Jangan sampai salah memasukkan NIM.</strong> Jangan salah masuk kelas.</li>
 </ol>
 <button id="tombol_mulai_4a" type="button" class="btn btn-primary" onclick="validateUAS4A()">Mulai UAS (PWS4A)</button>
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PWS4B)</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
-var mulaiUAS = new Date("May 28, 2024 09:00:00").getTime();
-var akhirUAS = new Date("Jun 28, 2024 11:00:00").getTime();
-var mulaiUAS4A = new Date("May 28, 2024 11:30:00").getTime();
-var akhirUAS4A = new Date("Jun 28, 2024 13:30:00").getTime();
+var mulaiUAS = new Date("Jun 05, 2024 08:00:00").getTime();
+var akhirUAS = new Date("Jun 05, 2024 09:00:00").getTime();
+var mulaiUAS4A = new Date("Jun 05, 2024 08:00:00").getTime();
+var akhirUAS4A = new Date("Jun 05, 2024 09:00:00").getTime();
 var sekarang = new Date().getTime();
 function validateUAS4A() {
 	document.getElementById('timerUAS4A').style.display="block";
@@ -1070,11 +1071,15 @@ function validateUAS4A() {
 	}
 	else {
 		if (sekarang-akhirUAS4A<0) {
-			 let person = prompt("Masukkan Password", "password");
-			 if (person === "Có rất nhiều biến thể của Lorem Ipsum mà bạn có thể tìm thấy, nhưng đa số được biến đổi bằng cách thêm các yếu tố hài hước, các từ ngẫu nhiên có khi không có vẻ gì là có ý nghĩa. Nếu bạn định sử dụng một đoạn Lorem Ipsum, bạn nên kiểm tra kĩ để chắn chắn là không có gì nhạy cảm được giấu ở giữa đoạn văn bản. Tất cả các công cụ sản xuất văn bản mẫu Lorem Ipsum đều được làm theo cách lặp đi lặp lại các đoạn chữ cho tới đủ thì thôi, khiến cho lipsum.com trở thành công cụ sản xuất Lorem Ipsum đáng giá nhất trên mạng. Trang web này sử dụng hơn 200 từ la-tinh, kết hợp thuần thục nhiều cấu trúc câu để tạo ra văn bản Lorem Ipsum trông có vẻ thật sự hợp lí. Nhờ thế, văn bản Lorem Ipsum được tạo ra mà không cần một sự lặp lại nào, cũng không cần chèn thêm các từ ngữ hóm hỉnh hay thiếu trật tự.") {
+			 let person = prompt("Masukkan Password", "");
+			 if (person === "uas") {
 				document.getElementById("tombol_mulai_4a").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
-				let nim = Number(prompt('Masukkan NIM',''));
+				var nim = Number(prompt('Masukkan NIM',''));
+				while (nim=="") {
+					alert("Anda lupa memasukkan NIM.");
+					nim = Number(prompt('Masukkan NIM',''));
+				}
 				var b = (nim*3*3)% 5;
 				var c = [['soal3','soal5','soal1','soal7','soal6'],['soal1','soal3','soal6','soal7','soal6'],['soal5','soal4','soal7','soal1','soal6'],['soal2','soal5','soal3','soal6','soal7'],['soal2','soal6','soal4','soal6','soal7']];
 				var d = c[b];
@@ -1105,11 +1110,15 @@ function validateUAS() {
 	}
 	else {
 		if (sekarang-akhirUAS<0) {
-			 let person = prompt("Masukkan Password", "password");
-			 if (person === "Có rất nhiều biến thể của Lorem Ipsum mà bạn có thể tìm thấy, nhưng đa số được biến đổi bằng cách thêm các yếu tố hài hước, các từ ngẫu nhiên có khi không có vẻ gì là có ý nghĩa. Nếu bạn định sử dụng một đoạn Lorem Ipsum, bạn nên kiểm tra kĩ để chắn chắn là không có gì nhạy cảm được giấu ở giữa đoạn văn bản. Tất cả các công cụ sản xuất văn bản mẫu Lorem Ipsum đều được làm theo cách lặp đi lặp lại các đoạn chữ cho tới đủ thì thôi, khiến cho lipsum.com trở thành công cụ sản xuất Lorem Ipsum đáng giá nhất trên mạng. Trang web này sử dụng hơn 200 từ la-tinh, kết hợp thuần thục nhiều cấu trúc câu để tạo ra văn bản Lorem Ipsum trông có vẻ thật sự hợp lí. Nhờ thế, văn bản Lorem Ipsum được tạo ra mà không cần một sự lặp lại nào, cũng không cần chèn thêm các từ ngữ hóm hỉnh hay thiếu trật tự.") {
+			 let person = prompt("Masukkan Password", "");
+			 if (person === "uas") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
+				while (nim=="") {
+					alert("Anda lupa memasukkan NIM.");
+					nim = Number(prompt('Masukkan NIM',''));
+				}
 				var b = (nim*3)% 5;
 				var c = [['soal3','soal5','soal1','soal7','soal6'],['soal1','soal3','soal6','soal7','soal6'],['soal5','soal4','soal7','soal1','soal6'],['soal2','soal5','soal3','soal6','soal7'],['soal2','soal6','soal4','soal6','soal7']];
 				var d = c[b];
