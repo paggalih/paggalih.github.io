@@ -1075,9 +1075,47 @@ function validateUAS4A() {
 			 if (person === "uas") {
 				document.getElementById("tombol_mulai_4a").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
+const nim4A = [ 
+ 1860407233084,
+ 1860407233094,
+ 1860407233089,
+ 1860407233078,
+ 1860407233085,
+ 1860407233088,
+ 1860407233076,
+ 1860407233090,
+ 1860407233077,
+ 1860407233105,
+ 1860407233106,
+ 1860407233091,
+ 1860407233081,
+ 1860407233099,
+ 1860407233073,
+ 1860407233083,
+ 1860407233107,
+ 1860407233109,
+ 1860407233102,
+ 1860407233096,
+ 1860407233095,
+ 1860407233103,
+ 1860407233104,
+ 1860407233080,
+ 1860407233098,
+ 1860407233079,
+ 1860407233082,
+ 1860407233086,
+ 1860407233100,
+ 1860407233108,
+ 1860407233093,
+ 1860407233092,
+ 1860407233087,
+ 1860407233101,
+ 1860407233075,
+ 1860407233097
+]				
 				var nim = Number(prompt('Masukkan NIM',''));
-				while (nim=="") {
-					alert("Anda lupa memasukkan NIM.");
+				while (nim4A.includes(nim)===false) {
+					alert("Anda lupa NIM.");
 					nim = Number(prompt('Masukkan NIM',''));
 				}
 				var b = (nim*3*3)% 5;
@@ -1114,9 +1152,45 @@ function validateUAS() {
 			 if (person === "uas") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
+ const nim4B = [
+ 1860407232056,
+ 1860407232049,
+ 1860407232065,
+ 1860407232039,
+ 1860407232055,
+ 1860407232041,
+ 1860407232044,
+ 1860407232060,
+ 1860407232043,
+ 1860407232053,
+ 1860407232057,
+ 1860407232040,
+ 1860407232054,
+ 1860407232047,
+ 1860407232038,
+ 1860407232050,
+ 1860407232066,
+ 1860407232045,
+ 1860407232046,
+ 1860407232068,
+ 1860407232037,
+ 1860407232034,
+ 1860407232042,
+ 1860407232067,
+ 1860407232058,
+ 1860407232051,
+ 1860407232070,
+ 1860407231071,
+ 1860407232061,
+ 1860407232064,
+ 1860407232052,
+ 1860407232059,
+ 1860407232048,
+ 1860407232069
+]				
 				let nim = Number(prompt('Masukkan NIM',''));
-				while (nim=="") {
-					alert("Anda lupa memasukkan NIM.");
+				while (nim4B.includes(nim)===false) {
+					alert("Anda lupa NIM.");
 					nim = Number(prompt('Masukkan NIM',''));
 				}
 				var b = (nim*3)% 5;
