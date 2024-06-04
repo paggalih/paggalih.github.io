@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="id-ID">
+<html lang="id-ID" data-bs-theme=”auto”>
   <head>
     <title>Praktik Statistik</title>
     <meta charset="utf-8">
@@ -35,6 +35,17 @@
           ]
         }
       };
+;(function () {
+  const htmlElement = document.querySelector("html")
+  if(htmlElement.getAttribute("data-bs-theme") === 'auto') {
+    function updateTheme() {
+      document.querySelector("html").setAttribute("data-bs-theme",
+      window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+    }
+     window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
+    updateTheme()
+  }
+})()
     </script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
