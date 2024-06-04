@@ -359,8 +359,8 @@ const stylesheets = [
 // Load the stylesheets
 loadStylesheets(stylesheets);
 
-const html = document.querySelector('html')
-html.setAttribute("data-bs-theme", "auto");
+// const html = document.querySelector('html')
+// html.setAttribute("data-bs-theme", "auto");
 
 /**
  * Author and copyright: Stefan Haack (https://shaack.com)
@@ -368,15 +368,15 @@ html.setAttribute("data-bs-theme", "auto");
  * License: MIT, see file 'LICENSE'
  */
 
-;(function () {
-    const htmlElement = document.querySelector("html")
-    if(htmlElement.getAttribute("data-bs-theme") === 'auto') {
-        function updateTheme() {
-            document.querySelector("html").setAttribute("data-bs-theme",
-                window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
-        }
+// ;(function () {
+    // const htmlElement = document.querySelector("html")
+    // if(htmlElement.getAttribute("data-bs-theme") === 'auto') {
+        // function updateTheme() {
+            // document.querySelector("html").setAttribute("data-bs-theme",
+                // window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light")
+        // }
 
-        window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
-        updateTheme()
-    }
-})()
+        // window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', updateTheme)
+        // updateTheme()
+    // }
+// })()
