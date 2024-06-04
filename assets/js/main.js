@@ -359,3 +359,6 @@ const stylesheets = [
 // Load the stylesheets
 loadStylesheets(stylesheets);
 
+const html = document.querySelector('html')
+// html.setAttribute("dir", "rtl");
+html.data-bs-theme = "auto";
