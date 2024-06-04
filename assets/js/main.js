@@ -360,8 +360,7 @@ const stylesheets = [
 loadStylesheets(stylesheets);
 
 const html = document.querySelector('html')
-// html.setAttribute("dir", "rtl");
-html.data-bs-theme = "auto";
+html.setAttribute("data-bs-theme", "auto");
 
 /**
  * Author and copyright: Stefan Haack (https://shaack.com)
