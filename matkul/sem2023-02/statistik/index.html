@@ -1052,14 +1052,14 @@
 	<li>Formulir jawaban sudah dapat dilihat dari sekarang. Soal dapat dibuka dengan password: <strong>uas</strong> pada saatnya nanti.</li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM. <strong>Jangan sampai salah memasukkan NIM.</strong> Jangan salah masuk kelas.</li>
 </ol>
-<button id="tombol_mulai_4a" type="button" class="btn btn-primary" onclick="validateUAS4A()">Mulai UAS (PWS4A)</button>
-<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PWS4B)</button>
+<button id="tombol_mulai_4a" type="button" class="btn btn-primary" onclick="validateUAS4A()">Mulai UAS (PWS2A)</button>
+<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PWS2B)</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
 var mulaiUAS = new Date("Jun 05, 2024 08:00:00").getTime();
-var akhirUAS = new Date("Jun 05, 2024 09:00:00").getTime();
+var akhirUAS = new Date("Jul 05, 2024 09:00:00").getTime();
 var mulaiUAS4A = new Date("Jun 05, 2024 08:00:00").getTime();
-var akhirUAS4A = new Date("Jun 05, 2024 09:00:00").getTime();
+var akhirUAS4A = new Date("Jul 05, 2024 09:00:00").getTime();
 var sekarang = new Date().getTime();
 function validateUAS4A() {
 	document.getElementById('timerUAS4A').style.display="block";
@@ -1072,7 +1072,7 @@ function validateUAS4A() {
 	else {
 		if (sekarang-akhirUAS4A<0) {
 			 let person = prompt("Masukkan Password", "");
-			 if (person === "uas") {
+			 if (person === "") {
 				document.getElementById("tombol_mulai_4a").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 const nim4A = [ 
@@ -1149,7 +1149,7 @@ function validateUAS() {
 	else {
 		if (sekarang-akhirUAS<0) {
 			 let person = prompt("Masukkan Password", "");
-			 if (person === "uas") {
+			 if (person === "") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
  const nim4B = [
