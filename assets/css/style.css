@@ -1227,7 +1227,7 @@ section {
     padding-bottom: 20px;
     padding-top: 20px;
     width: 100%;
-    color: black; /* Mengubah warna teks menjadi hitam */
+    color: #45505b; /* Mengubah warna teks menjadi hitam */
 }
 
 /* .accordion-button, */
@@ -1294,9 +1294,14 @@ mjx-container {
 	
 }
 .dropdown-toggle {
-	background: #0563BB;
-	width: 100%;
 	text-wrap: wrap;
+    background: none; /* Menghapus background */
+    border: 1px solid black; /* Menambahkan border hitam tipis */
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */
+    padding-bottom: 20px;
+    padding-top: 20px;
+    width: 100%;
+    color: #45505b; /* Mengubah warna teks menjadi hitam */
 }
 #post-title {
     margin-right: 50px;
