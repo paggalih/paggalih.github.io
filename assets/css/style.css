@@ -1222,7 +1222,7 @@ section {
 /* .accordion-button, */
 /* .dropdown-toggle { */
     /* background: none; /* Menghapus background */ 
-    /* border: 1px solid black; /* Menambahkan border hitam tipis */
+    /* border: 1px solid #45505b; /* Menambahkan border hitam tipis */
     /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */
     /* padding-bottom: 20px; */
     /* padding-top: 20px; */
@@ -1233,12 +1233,12 @@ section {
 .accordion-button,
 .dropdown-toggle {
     background: none;
-    border: 1px solid black;
+    border: 1px solid #45505b;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: 20px;
     padding-top: 20px;
     width: 100%;
-    color: black;
+    color: #45505b;
     border-radius: 8px; /* Sudut membulat */
     transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
 }
@@ -1308,12 +1308,12 @@ mjx-container {
 .dropdown-toggle {
 	text-wrap: wrap;
     background: none;
-    border: 1px solid black;
+    border: 1px solid #45505b;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
     padding-bottom: 20px;
     padding-top: 20px;
     width: 100%;
-    color: black;
+    color: #45505b;
     border-radius: 8px; /* Sudut membulat */
     transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
 }
