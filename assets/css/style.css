@@ -1310,7 +1310,8 @@ mjx-container {
     background: none;
     border: 1px solid black;
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
-    padding: 15px 20px; /* Padding atas-bawah 15px, kiri-kanan 20px */
+    padding-bottom: 20px;
+    padding-top: 20px;
     width: 100%;
     color: black;
     border-radius: 8px; /* Sudut membulat */
