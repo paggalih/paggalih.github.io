@@ -1219,24 +1219,43 @@ section {
   /* font-family: "Raleway", sans-serif; */
 }
 
-.accordion-button,
-.dropdown-toggle {
-    background: none; /* Menghapus background */
-    border: 1px solid black; /* Menambahkan border hitam tipis */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */
-    padding-bottom: 20px;
-    padding-top: 20px;
-    width: 100%;
-    color: #45505b; /* Mengubah warna teks menjadi hitam */
-}
-
 /* .accordion-button, */
 /* .dropdown-toggle { */
-	/* background: #0563BB; */
-	/* padding-bottom: 20px; */
-	/* padding-top: 20px; */
-	/* width: 100%; */
-	/* color: aliceblue; */
+    /* background: none; /* Menghapus background */ */
+    /* border: 1px solid black; /* Menambahkan border hitam tipis */ */
+    /* box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */ */
+    /* padding-bottom: 20px; */
+    /* padding-top: 20px; */
+    /* width: 100%; */
+    /* color: #45505b; /* Mengubah warna teks menjadi hitam */ */
+/* } */
+
+.accordion-button,
+.dropdown-toggle {
+    background: none;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 15px 20px; /* Padding atas-bawah 15px, kiri-kanan 20px */
+    width: 100%;
+    color: black;
+    border-radius: 8px; /* Sudut membulat */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
+}
+
+.accordion-button:active,
+.dropdown-toggle:active,
+.accordion-button:hover,
+.dropdown-toggle:hover {
+    background-color: #f0f0f0; /* Warna latar saat hover */
+    color: #333; /* Warna teks saat hover */
+}
+
+/* .dropdown-toggle:active, */
+/* .dropdown-toggle:hover */
+/* { */
+	/* background: aliceblue; */
+  /* border-style: solid; */
+  /* border-color: #0563BB; */
 /* } */
 
 .accordion-body {
@@ -1245,14 +1264,6 @@ section {
   border-color: aliceblue;
   border-bottom-left-radius: 50px;
   border-bottom-right-radius: 50px;
-}
-
-.dropdown-toggle:active,
-.dropdown-toggle:hover
-{
-	background: aliceblue;
-  border-style: solid;
-  border-color: #0563BB;
 }
 
 .accordion-body>button {
@@ -1295,13 +1306,14 @@ mjx-container {
 }
 .dropdown-toggle {
 	text-wrap: wrap;
-    background: none; /* Menghapus background */
-    border: 1px solid black; /* Menambahkan border hitam tipis */
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2); /* Menambahkan shadow */
-    padding-bottom: 20px;
-    padding-top: 20px;
+    background: none;
+    border: 1px solid black;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    padding: 15px 20px; /* Padding atas-bawah 15px, kiri-kanan 20px */
     width: 100%;
-    color: #45505b; /* Mengubah warna teks menjadi hitam */
+    color: black;
+    border-radius: 8px; /* Sudut membulat */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
 }
 #post-title {
     margin-right: 50px;
