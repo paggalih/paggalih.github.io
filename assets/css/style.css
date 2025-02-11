@@ -28,6 +28,20 @@ a:hover {
   text-decoration: none;
 }
 
+#linkbiasa {
+    color: #0563BB; /* Warna teks sesuai dengan palet warna situs */
+    text-decoration: none; /* Menghilangkan garis bawah default */
+    font-family: 'Arial', sans-serif; /* Sesuaikan dengan font situs Anda */
+    padding: 5px 10px; /* Memberikan ruang di sekitar teks */
+    border-radius: 5px; /* Membuat sudut yang membulat */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus untuk efek hover */
+}
+
+#linkbiasa:hover {
+    background-color: #f0f0f0; /* Warna latar saat hover */
+    color: #333; /* Warna teks saat hover */
+}
+
 /* h1, */
 /* h2, */
 /* h3, */
