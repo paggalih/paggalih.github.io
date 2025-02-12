@@ -41,32 +41,36 @@ a:hover {
     color: #333; /* Warna teks saat hover */
 }
 
-ol {
-    list-style: none;
-    counter-reset: list-counter;
-}
-
 #pilihanjawab {
-    counter-increment: list-counter;
-    position: relative;
-    padding-left: 30px; /* Memberikan ruang untuk nomor */
+    list-style: none;
+    counter-reset: list-counter; /* Reset counter */
 }
 
-#pilihanjawab::before {
-    content: "(" counter(list-counter, lower-alpha) ")"; /* Menampilkan nomor a, b, c, d */
+#pilihanjawab li {
+    counter-increment: list-counter; /* Tambah counter setiap <li> baru */
+    position: relative;
+    padding-left: 40px; /* Menyesuaikan ruang untuk numbering */
+    display: flex;
+    align-items: center; /* Agar numbering sejajar dengan teks */
+}
+
+#pilihanjawab li::before {
+    content: counter(list-counter, lower-alpha); /* Menampilkan a, b, c, d */
     position: absolute;
     left: 0;
-    width: 25px;
-    height: 25px;
-    background-color: #0563BB; /* Warna biru */
-    color: white;
+    width: 28px;
+    height: 28px;
+    background-color: #0563BB; /* Warna latar */
+    color: white; /* Warna teks */
     font-weight: bold;
     display: flex;
     align-items: center;
     justify-content: center;
-    border-radius: 50%; /* Membuat nomor berbentuk lingkaran */
+    border-radius: 6px; /* Membuat sudut membulat */
     font-size: 14px;
+    font-family: Arial, sans-serif;
 }
+
 
 
 /* h1, */
