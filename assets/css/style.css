@@ -41,6 +41,34 @@ a:hover {
     color: #333; /* Warna teks saat hover */
 }
 
+ol {
+    list-style: none;
+    counter-reset: list-counter;
+}
+
+#pilihanjawab {
+    counter-increment: list-counter;
+    position: relative;
+    padding-left: 30px; /* Memberikan ruang untuk nomor */
+}
+
+#pilihanjawab::before {
+    content: "(" counter(list-counter, lower-alpha) ")"; /* Menampilkan nomor a, b, c, d */
+    position: absolute;
+    left: 0;
+    width: 25px;
+    height: 25px;
+    background-color: #0563BB; /* Warna biru */
+    color: white;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%; /* Membuat nomor berbentuk lingkaran */
+    font-size: 14px;
+}
+
+
 /* h1, */
 /* h2, */
 /* h3, */
