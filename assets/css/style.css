@@ -50,7 +50,7 @@ a:hover {
     counter-increment: list-counter; /* Tambah counter setiap <li> baru */
     position: relative;
     padding-left: 40px; /* Menyesuaikan ruang untuk numbering */
-    padding-top: 10px; /* Menyesuaikan ruang untuk numbering */
+    padding-top: 20px; /* Menyesuaikan ruang untuk numbering */
     display: flex;
     align-items: center; /* Agar numbering sejajar dengan teks */
 }
