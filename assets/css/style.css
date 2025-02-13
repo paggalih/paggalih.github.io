@@ -70,7 +70,18 @@ a:hover {
     border-radius: 6px; /* Membuat sudut membulat */
 }
 
-
+    pre {
+        background-color: #f5f5f5; /* Warna latar belakang lembut */
+        border-left: 5px solid #4CAF50; /* Garis tepi kiri berwarna hijau */
+        padding: 15px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 14px;
+        line-height: 1.5;
+        white-space: pre-wrap; /* Agar teks tetap terbaca dengan baik */
+        word-wrap: break-word;
+        overflow-x: auto;
+        border-radius: 5px; /* Membuat sudut melengkung */
+    }
 
 /* h1, */
 /* h2, */
