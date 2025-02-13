@@ -8,68 +8,71 @@
 <body>
     <h1>Modul Pelatihan Analisis Data Regresi Linier Berganda dengan EViews</h1>
     
-    <h2>Daftar Isi</h2>
-    <ul>
-        <li><a href="#pendahuluan">Pendahuluan</a></li>
-        <li><a href="#bagian1">Bagian 1: Import Data ke EViews</a></li>
-        <li><a href="#bagian2">Bagian 2: Regresi Linier Berganda pada Data Time Series</a></li>
-        <li><a href="#bagian3">Bagian 3: Regresi Linier Berganda pada Data Cross-Section</a></li>
-        <li><a href="#bagian4">Bagian 4: Regresi Linier Berganda pada Data Panel</a></li>
-        <li><a href="#bagian5">Bagian 5: Studi Kasus SDGs dengan Regresi Linier Berganda</a></li>
-        <li><a href="#bagian6">Bagian 6: Kesimpulan dan Tanya Jawab</a></li>
-        <li><a href="#lampiran">Lampiran: Sumber Data dari World Bank</a></li>
-    </ul>
+    <h2>Pendahuluan</h2>
+    <p>Regresi linier berganda merupakan metode statistik yang digunakan untuk menganalisis hubungan antara satu variabel dependen dengan dua atau lebih variabel independen. EViews adalah perangkat lunak yang sering digunakan untuk analisis ekonometrika, termasuk regresi linier berganda dengan berbagai jenis data: time series, cross-section, dan panel.</p>
     
-    <h2 id="pendahuluan">Pendahuluan</h2>
-    <p>Regresi linier berganda merupakan metode statistik yang digunakan untuk menganalisis hubungan antara satu variabel dependen dengan dua atau lebih variabel independen...</p>
+    <h2>Bagian 1: Import Data ke EViews</h2>
+    <h3>1.1. Mengimpor Data dari Excel</h3>
+    <ol>
+        <li>Buka EViews, lalu pilih <strong>File → Open → Foreign Data as Workfile</strong>.</li>
+        <li>Pilih file <strong>Excel (CSV/XLSX)</strong> yang sudah diunduh dari World Bank.</li>
+        <li>Pilih sheet yang berisi data.</li>
+        <li>Atur struktur data:</li>
+        <ul>
+            <li><strong>Time Series:</strong> Pilih tahun sebagai indeks waktu.</li>
+            <li><strong>Cross-Section:</strong> Pilih satu kolom sebagai identifier (misalnya nama negara).</li>
+            <li><strong>Panel Data:</strong> Pilih dua kolom, satu untuk identifier (misalnya negara), satu lagi untuk tahun.</li>
+        </ul>
+        <li>Klik <strong>OK</strong> dan simpan workfile.</li>
+    </ol>
     
-    <h2 id="bagian1">Bagian 1: Import Data ke EViews</h2>
-    <p>Langkah-langkah untuk mengimpor data ke dalam EViews:</p>
-    <ul>
-        <li>Buka EViews dan pilih <strong>File → Open → Foreign Data as Workfile</strong>.</li>
-        <li>Pilih file Excel (CSV/XLSX) yang sudah diunduh dari World Bank.</li>
-        <li>Pilih sheet yang berisi data dan klik <strong>OK</strong>.</li>
-        <li>Pastikan data sudah terbuka di jendela Workfile.</li>
-    </ul>
-    
-    <h2 id="bagian2">Bagian 2: Regresi Linier Berganda pada Data Time Series</h2>
-    <p>Langkah-langkah untuk melakukan regresi linier berganda pada data time series:</p>
-    <ul>
-        <li>Buka Workfile yang berisi data time series.</li>
+    <h2>Bagian 2: Regresi Linier Berganda pada Data Time Series</h2>
+    <h3>2.1. Menjalankan Regresi</h3>
+    <ol>
+        <li>Pastikan data time series sudah diimpor dengan benar.</li>
         <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
-        <li>Masukkan model regresi, misalnya:</li>
+        <li>Masukkan persamaan regresi, misalnya:</li>
         <pre>GDP c EduExp HealthExp Unemployment</pre>
         <li>Pilih metode <strong>Ordinary Least Squares (OLS)</strong> dan klik <strong>OK</strong>.</li>
-        <li>Hasil regresi akan muncul dalam output window.</li>
-    </ul>
+    </ol>
     
-    <h2 id="bagian3">Bagian 3: Regresi Linier Berganda pada Data Cross-Section</h2>
-    <ul>
-        <li>Buka Workfile yang berisi data cross-section.</li>
-        <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
+    <h2>Bagian 3: Regresi Linier Berganda pada Data Cross-Section</h2>
+    <h3>3.1. Menjalankan Regresi</h3>
+    <ol>
+        <li>Pilih <strong>Quick → Estimate Equation</strong>.</li>
         <li>Masukkan model regresi, misalnya:</li>
         <pre>HDI c DemocracyIndex GDPperCapita LiteracyRate</pre>
         <li>Pilih metode <strong>OLS</strong> dan klik <strong>OK</strong>.</li>
-        <li>Periksa output regresi dan interpretasi hasilnya.</li>
-    </ul>
+    </ol>
     
-    <h2 id="bagian4">Bagian 4: Regresi Linier Berganda pada Data Panel</h2>
-    <ul>
-        <li>Buka Workfile yang berisi data panel.</li>
-        <li>Pastikan struktur data sudah dalam bentuk panel.</li>
+    <h2>Bagian 4: Regresi Linier Berganda pada Data Panel</h2>
+    <h3>4.1. Menjalankan Regresi Panel</h3>
+    <ol>
+        <li>Pastikan data sudah diatur sebagai Panel Data: Klik <strong>Structure/Resize</strong>, pilih <strong>Panel Data</strong>.</li>
         <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
         <li>Masukkan model regresi, misalnya:</li>
         <pre>GDP c EnvRegulation CO2Emission ForeignInvestment</pre>
-        <li>Pilih metode **Pooled OLS, Fixed Effects (FE), atau Random Effects (RE)**.</li>
-        <li>Jika ingin memilih model terbaik, lakukan:</li>
-        <ul>
-            <li>Uji Chow: <strong>View → Fixed Effects Tests</strong>.</li>
-            <li>Uji Hausman: <strong>View → Random Effects Tests</strong>.</li>
-        </ul>
-        <li>Interpretasikan hasil regresi berdasarkan output.</li>
+        <li>Pilih metode <strong>Pooled OLS, Fixed Effects (FE), atau Random Effects (RE)</strong>.</li>
+    </ol>
+    
+    <h2>Bagian 5: Studi Kasus SDGs dengan Regresi Linier Berganda</h2>
+    <h3>5.1. Time Series: Dampak Investasi Pendidikan terhadap Pertumbuhan Ekonomi</h3>
+    <pre>PDB_t = β0 + β1 EduExp_t + β2 HealthExp_t + β3 Unemployment_t + ε_t</pre>
+    
+    <h3>5.2. Cross-Section: Hubungan antara Indeks Demokrasi dan Kesejahteraan</h3>
+    <pre>HDI_i = β0 + β1 DemocracyIndex_i + β2 GDPperCapita_i + β3 LiteracyRate_i + ε_i</pre>
+    
+    <h3>5.3. Panel Data: Dampak Kebijakan Lingkungan terhadap PDB</h3>
+    <pre>GDP_it = β0 + β1 EnvRegulation_it + β2 CO2Emission_it + β3 ForeignInvestment_it + ε_it</pre>
+    
+    <h2>Kesimpulan dan Tanya Jawab</h2>
+    <ul>
+        <li>Bagaimana membaca hasil regresi dalam kebijakan publik dan SDGs.</li>
+        <li>Bagaimana menggunakan regresi untuk pengambilan keputusan.</li>
+        <li>Evaluasi kualitas model regresi.</li>
     </ul>
     
-    <h2 id="lampiran">Lampiran: Sumber Data dari World Bank</h2>
+    <h2>Lampiran: Sumber Data dari World Bank</h2>
     <ul>
         <li><a href="https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS">Pengeluaran Pendidikan (% PDB)</a></li>
         <li><a href="https://data.worldbank.org/indicator/SH.XPD.GHED.GD.ZS">Pengeluaran Kesehatan (% PDB)</a></li>
@@ -81,4 +84,3 @@
     </ul>
 </body>
 </html>
-
