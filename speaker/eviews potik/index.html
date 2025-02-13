@@ -24,35 +24,60 @@
     <p>Regresi linier berganda merupakan metode statistik yang digunakan untuk menganalisis hubungan antara satu variabel dependen dengan dua atau lebih variabel independen...</p>
     
     <h2 id="bagian1">Bagian 1: Import Data ke EViews</h2>
-    <h3>1.1. Mengimpor Data dari Excel</h3>
+    <p>Langkah-langkah untuk mengimpor data ke dalam EViews:</p>
     <ul>
-        <li>Buka EViews, lalu pilih <strong>File → Open → Foreign Data as Workfile</strong>.</li>
+        <li>Buka EViews dan pilih <strong>File → Open → Foreign Data as Workfile</strong>.</li>
         <li>Pilih file Excel (CSV/XLSX) yang sudah diunduh dari World Bank.</li>
+        <li>Pilih sheet yang berisi data dan klik <strong>OK</strong>.</li>
+        <li>Pastikan data sudah terbuka di jendela Workfile.</li>
     </ul>
     
     <h2 id="bagian2">Bagian 2: Regresi Linier Berganda pada Data Time Series</h2>
-    <h3>2.1. Menjalankan Regresi</h3>
-    <pre>GDP c EduExp HealthExp Unemployment</pre>
+    <p>Langkah-langkah untuk melakukan regresi linier berganda pada data time series:</p>
+    <ul>
+        <li>Buka Workfile yang berisi data time series.</li>
+        <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
+        <li>Masukkan model regresi, misalnya:</li>
+        <pre>GDP c EduExp HealthExp Unemployment</pre>
+        <li>Pilih metode <strong>Ordinary Least Squares (OLS)</strong> dan klik <strong>OK</strong>.</li>
+        <li>Hasil regresi akan muncul dalam output window.</li>
+    </ul>
     
     <h2 id="bagian3">Bagian 3: Regresi Linier Berganda pada Data Cross-Section</h2>
-    <pre>HDI c DemocracyIndex GDPperCapita LiteracyRate</pre>
+    <ul>
+        <li>Buka Workfile yang berisi data cross-section.</li>
+        <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
+        <li>Masukkan model regresi, misalnya:</li>
+        <pre>HDI c DemocracyIndex GDPperCapita LiteracyRate</pre>
+        <li>Pilih metode <strong>OLS</strong> dan klik <strong>OK</strong>.</li>
+        <li>Periksa output regresi dan interpretasi hasilnya.</li>
+    </ul>
     
     <h2 id="bagian4">Bagian 4: Regresi Linier Berganda pada Data Panel</h2>
-    <pre>GDP c EnvRegulation CO2Emission ForeignInvestment</pre>
-    
-    <h2 id="bagian5">Bagian 5: Studi Kasus SDGs dengan Regresi Linier Berganda</h2>
-    <h3>5.1. Time Series</h3>
-    <pre>PDB_t = β0 + β1 EduExp_t + β2 HealthExp_t + β3 Unemployment_t + ε_t</pre>
-    
-    <h2 id="bagian6">Bagian 6: Kesimpulan dan Tanya Jawab</h2>
     <ul>
-        <li>Bagaimana membaca hasil regresi dalam kebijakan publik dan SDGs.</li>
+        <li>Buka Workfile yang berisi data panel.</li>
+        <li>Pastikan struktur data sudah dalam bentuk panel.</li>
+        <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
+        <li>Masukkan model regresi, misalnya:</li>
+        <pre>GDP c EnvRegulation CO2Emission ForeignInvestment</pre>
+        <li>Pilih metode **Pooled OLS, Fixed Effects (FE), atau Random Effects (RE)**.</li>
+        <li>Jika ingin memilih model terbaik, lakukan:</li>
+        <ul>
+            <li>Uji Chow: <strong>View → Fixed Effects Tests</strong>.</li>
+            <li>Uji Hausman: <strong>View → Random Effects Tests</strong>.</li>
+        </ul>
+        <li>Interpretasikan hasil regresi berdasarkan output.</li>
     </ul>
     
     <h2 id="lampiran">Lampiran: Sumber Data dari World Bank</h2>
     <ul>
         <li><a href="https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS">Pengeluaran Pendidikan (% PDB)</a></li>
         <li><a href="https://data.worldbank.org/indicator/SH.XPD.GHED.GD.ZS">Pengeluaran Kesehatan (% PDB)</a></li>
+        <li><a href="https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS">Tingkat Pengangguran</a></li>
+        <li><a href="https://data.worldbank.org/indicator/NY.GDP.PCAP.CD">PDB per Kapita (US$ saat ini)</a></li>
+        <li><a href="https://data.worldbank.org/indicator/SE.ADT.LITR.ZS">Tingkat Melek Huruf Dewasa (% usia 15 tahun ke atas)</a></li>
+        <li><a href="https://data.worldbank.org/indicator/EN.ATM.CO2E.PC">Emisi CO2 (metrik ton per kapita)</a></li>
+        <li><a href="https://data.worldbank.org/indicator/BX.KLT.DINV.CD.WD">Investasi Asing Langsung, arus masuk bersih (US$ saat ini)</a></li>
     </ul>
 </body>
 </html>
