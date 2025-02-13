@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modul Pelatihan Regresi Linier Berganda dengan EViews</title>
+</head>
+<body>
+    <h1>Modul Pelatihan Analisis Data Regresi Linier Berganda dengan EViews</h1>
+    
+    <h2>Daftar Isi</h2>
+    <ul>
+        <li><a href="#pendahuluan">Pendahuluan</a></li>
+        <li><a href="#bagian1">Bagian 1: Import Data ke EViews</a></li>
+        <li><a href="#bagian2">Bagian 2: Regresi Linier Berganda pada Data Time Series</a></li>
+        <li><a href="#bagian3">Bagian 3: Regresi Linier Berganda pada Data Cross-Section</a></li>
+        <li><a href="#bagian4">Bagian 4: Regresi Linier Berganda pada Data Panel</a></li>
+        <li><a href="#bagian5">Bagian 5: Studi Kasus SDGs dengan Regresi Linier Berganda</a></li>
+        <li><a href="#bagian6">Bagian 6: Kesimpulan dan Tanya Jawab</a></li>
+        <li><a href="#lampiran">Lampiran: Sumber Data dari World Bank</a></li>
+    </ul>
+    
+    <h2 id="pendahuluan">Pendahuluan</h2>
+    <p>Regresi linier berganda merupakan metode statistik yang digunakan untuk menganalisis hubungan antara satu variabel dependen dengan dua atau lebih variabel independen...</p>
+    
+    <h2 id="bagian1">Bagian 1: Import Data ke EViews</h2>
+    <h3>1.1. Mengimpor Data dari Excel</h3>
+    <ul>
+        <li>Buka EViews, lalu pilih <strong>File → Open → Foreign Data as Workfile</strong>.</li>
+        <li>Pilih file Excel (CSV/XLSX) yang sudah diunduh dari World Bank.</li>
+    </ul>
+    
+    <h2 id="bagian2">Bagian 2: Regresi Linier Berganda pada Data Time Series</h2>
+    <h3>2.1. Menjalankan Regresi</h3>
+    <pre>GDP c EduExp HealthExp Unemployment</pre>
+    
+    <h2 id="bagian3">Bagian 3: Regresi Linier Berganda pada Data Cross-Section</h2>
+    <pre>HDI c DemocracyIndex GDPperCapita LiteracyRate</pre>
+    
+    <h2 id="bagian4">Bagian 4: Regresi Linier Berganda pada Data Panel</h2>
+    <pre>GDP c EnvRegulation CO2Emission ForeignInvestment</pre>
+    
+    <h2 id="bagian5">Bagian 5: Studi Kasus SDGs dengan Regresi Linier Berganda</h2>
+    <h3>5.1. Time Series</h3>
+    <pre>PDB_t = β0 + β1 EduExp_t + β2 HealthExp_t + β3 Unemployment_t + ε_t</pre>
+    
+    <h2 id="bagian6">Bagian 6: Kesimpulan dan Tanya Jawab</h2>
+    <ul>
+        <li>Bagaimana membaca hasil regresi dalam kebijakan publik dan SDGs.</li>
+    </ul>
+    
+    <h2 id="lampiran">Lampiran: Sumber Data dari World Bank</h2>
+    <ul>
+        <li><a href="https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS">Pengeluaran Pendidikan (% PDB)</a></li>
+        <li><a href="https://data.worldbank.org/indicator/SH.XPD.GHED.GD.ZS">Pengeluaran Kesehatan (% PDB)</a></li>
+    </ul>
+</body>
+</html>
+
