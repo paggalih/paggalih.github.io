@@ -248,7 +248,7 @@
     <ol>
         <li>Pilih <strong>View → Residual Diagnostics → Heteroskedasticity Test</strong>.</li>
         <li>Pilih metode White atau Breusch-Pagan.</li>
-        <li>Jika p-value < 0.05, ada heteroskedastisitas.</li>
+        <li>Jika p-value &lt; 0.05, ada heteroskedastisitas.</li>
     </ol>
     
     <h3>2.3. Uji Multikolinearitas</h3>
@@ -260,10 +260,48 @@
     
     <h3>2.4. Uji Autokorelasi</h3>
     <p>Uji ini digunakan untuk mengecek apakah terdapat korelasi dalam residual regresi.</p>
-    <ol>
-        <li>Lihat nilai Durbin-Watson di output regresi.</li>
-        <li>Jika nilai mendekati 2, tidak ada autokorelasi.</li>
-    </ol>
+    <p>Berikut adalah tabel nilai kritis Durbin-Watson untuk berbagai ukuran sampel dan jumlah variabel independen:</p>
+    
+    <table class="table">
+        <tr>
+            <th>N (Observasi)</th>
+            <th>K (Variabel Independen)</th>
+            <th>dL</th>
+            <th>dU</th>
+        </tr>
+        <tr>
+            <td>15</td>
+            <td>2</td>
+            <td>1.10</td>
+            <td>1.54</td>
+        </tr>
+        <tr>
+            <td>30</td>
+            <td>2</td>
+            <td>1.39</td>
+            <td>1.74</td>
+        </tr>
+        <tr>
+            <td>50</td>
+            <td>2</td>
+            <td>1.55</td>
+            <td>1.82</td>
+        </tr>
+        <tr>
+            <td>100</td>
+            <td>2</td>
+            <td>1.70</td>
+            <td>1.89</td>
+        </tr>
+    </table>
+    
+    <p>Interpretasi:</p>
+    <ul>
+        <li>Jika d &lt; dL → Autokorelasi positif.</li>
+        <li>Jika d &gt; dU → Tidak ada autokorelasi.</li>
+        <li>Jika dL ≤ d ≤ dU → Tidak dapat disimpulkan.</li>
+        <li>Jika 4 - d mendekati 2 → Tidak ada autokorelasi negatif.</li>
+    </ul>
             </section>
             <section id="p8">
     <h2>Lampiran: Sumber Data dari World Bank</h2>
