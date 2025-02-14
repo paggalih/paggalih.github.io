@@ -203,14 +203,69 @@
     <pre>GDP_it = β0 + β1 EnvRegulation_it + β2 CO2Emission_it + β3 ForeignInvestment_it + ε_it</pre>
             </section>
             <section id="p6">
-    <h2>Kesimpulan dan Tanya Jawab</h2>
+    <h2>Bagian 6: Uji Pemilihan Model</h2>
+    <h3>1.1. Uji Chow</h3>
+    <p>Uji Chow digunakan untuk menentukan apakah model Fixed Effect lebih baik dibandingkan Pooled OLS.</p>
+    <ol>
+        <li>Buka hasil regresi Pooled OLS.</li>
+        <li>Pilih <strong>View → Fixed/Random Effects Testing → Redundant Fixed Effects</strong>.</li>
+        <li>Jika p-value &lt; 0.05, gunakan Fixed Effect; jika tidak, gunakan Pooled OLS.</li>
+    </ol>
+    
+    <h3>1.2. Uji Hausman</h3>
+    <p>Uji Hausman digunakan untuk menentukan apakah model Fixed Effect lebih baik dibandingkan Random Effect.</p>
+    <ol>
+        <li>Buka hasil regresi Random Effect.</li>
+        <li>Pilih <strong>View → Fixed/Random Effects Testing → Hausman Test</strong>.</li>
+        <li>Jika p-value &lt; 0.05, gunakan Fixed Effect; jika tidak, gunakan Random Effect.</li>
+    </ol>
+    
+    <h3>1.3. Uji Lagrange Multiplier (LM)</h3>
+    <p>Uji LM digunakan untuk menentukan apakah model Random Effect lebih baik dibandingkan Pooled OLS.</p>
+    <ol>
+        <li>Pilih <strong>View → Fixed/Random Effects Testing → Breusch-Pagan LM Test</strong>.</li>
+        <li>Jika p-value &lt; 0.05, gunakan Random Effect; jika tidak, gunakan Pooled OLS.</li>
+    </ol>
     <ul>
-        <li>Bagaimana membaca hasil regresi dalam kebijakan publik dan SDGs.</li>
-        <li>Bagaimana menggunakan regresi untuk pengambilan keputusan.</li>
-        <li>Evaluasi kualitas model regresi.</li>
+        <li>Jika uji Chow signifikan → gunakan **Fixed Effect**.</li>
+        <li>Jika uji Hausman signifikan → gunakan **Fixed Effect**.</li>
+        <li>Jika uji LM signifikan → gunakan **Random Effect**.</li>
+        <li>Jika semua tidak signifikan → gunakan **Pooled OLS**.</li>
     </ul>
             </section>
             <section id="p7">
+    <h2>Bagian 7: Uji Asumsi Klasik</h2>
+    <h3>2.1. Uji Normalitas</h3>
+    <p>Uji normalitas dilakukan untuk mengecek apakah residual regresi berdistribusi normal.</p>
+    <ol>
+        <li>Pilih <strong>View → Residual Diagnostics → Histogram-Normality Test</strong>.</li>
+        <li>Periksa nilai Jarque-Bera.</li>
+        <li>Jika p-value > 0.05, residual berdistribusi normal.</li>
+    </ol>
+    
+    <h3>2.2. Uji Heteroskedastisitas</h3>
+    <p>Uji ini digunakan untuk melihat apakah varians residual konstan atau tidak.</p>
+    <ol>
+        <li>Pilih <strong>View → Residual Diagnostics → Heteroskedasticity Test</strong>.</li>
+        <li>Pilih metode White atau Breusch-Pagan.</li>
+        <li>Jika p-value < 0.05, ada heteroskedastisitas.</li>
+    </ol>
+    
+    <h3>2.3. Uji Multikolinearitas</h3>
+    <p>Uji ini digunakan untuk mengecek apakah ada hubungan tinggi antara variabel independen.</p>
+    <ol>
+        <li>Pilih <strong>View → Coefficient Diagnostics → Variance Inflation Factors</strong>.</li>
+        <li>Jika VIF > 10, ada multikolinearitas tinggi.</li>
+    </ol>
+    
+    <h3>2.4. Uji Autokorelasi</h3>
+    <p>Uji ini digunakan untuk mengecek apakah terdapat korelasi dalam residual regresi.</p>
+    <ol>
+        <li>Lihat nilai Durbin-Watson di output regresi.</li>
+        <li>Jika nilai mendekati 2, tidak ada autokorelasi.</li>
+    </ol>
+            </section>
+            <section id="p8">
     <h2>Lampiran: Sumber Data dari World Bank</h2>
     <ul>
         <li><a href="https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS">Pengeluaran Pendidikan (% PDB)</a></li>
@@ -220,6 +275,8 @@
         <li><a href="https://data.worldbank.org/indicator/SE.ADT.LITR.ZS">Tingkat Melek Huruf Dewasa (% usia 15 tahun ke atas)</a></li>
         <li><a href="https://data.worldbank.org/indicator/EN.ATM.CO2E.PC">Emisi CO2 (metrik ton per kapita)</a></li>
         <li><a href="https://data.worldbank.org/indicator/BX.KLT.DINV.CD.WD">Investasi Asing Langsung, arus masuk bersih (US$ saat ini)</a></li>
+        <li><a href="https://data.worldbank.org/indicator/IQ.CPA.BREG.XQ">CPIA Business Regulatory Environment Rating</a></li>
+
     </ul>
             </section>	
         </main>
