@@ -1338,6 +1338,16 @@ mjx-container {
 	padding: 1px;
 }
 
+mjx-table {
+    display: inline-block;
+    border: 1px solid #0563BB; /* Warna batas sesuai tema */
+    background-color: #f9f9f9; /* Warna latar belakang lembut */
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px; /* Sudut membulat untuk estetika */
+}
+
+
 .img-fluid {
   padding: 10px;
 }
