@@ -380,3 +380,57 @@ loadStylesheets(stylesheets);
         // updateTheme()
     // }
 // })()
+// =================================================================
+
+document.addEventListener("DOMContentLoaded", function () {
+    const itemsPerPage = 6; // Hanya tampilkan 6 tombol pertama
+    let currentIndex = itemsPerPage;
+
+    const portfolioContainer = document.querySelector("#portfolio .portfolio-container");
+    const portfolioItems = Array.from(portfolioContainer.querySelectorAll(".portfolio-item"));
+    
+    // Buat tombol "Next" secara dinamis
+    const loadMoreBtn = document.createElement("button");
+    loadMoreBtn.id = "loadMore";
+    loadMoreBtn.className = "btn btn-primary mt-3";
+    loadMoreBtn.textContent = "Next";
+    loadMoreBtn.style.display = "none"; // Awalnya disembunyikan
+
+    // Tambahkan tombol "Next" ke dalam DOM
+    portfolioContainer.parentElement.appendChild(loadMoreBtn);
+
+    function updateVisibility() {
+        let activeFilter = document.querySelector("#portfolio-flters .filter-active")?.getAttribute("data-filter") || "*";
+        let filteredItems = activeFilter === "*" 
+            ? portfolioItems 
+            : portfolioItems.filter(item => item.classList.contains(activeFilter.replace(".", "")));
+
+        // Reset tampilan
+        portfolioItems.forEach(item => item.style.display = "none");
+
+        // Tampilkan item sesuai batas pagination
+        filteredItems.slice(0, currentIndex).forEach(item => item.style.display = "block");
+
+        // Tampilkan atau sembunyikan tombol "Next"
+        loadMoreBtn.style.display = (currentIndex >= filteredItems.length) ? "none" : "block";
+    }
+
+    // Event untuk tombol "Next"
+    loadMoreBtn.addEventListener("click", function () {
+        currentIndex += itemsPerPage; // Tambah jumlah yang terlihat
+        updateVisibility();
+    });
+
+    // Event untuk filter
+    document.querySelectorAll("#portfolio-flters li").forEach(filterBtn => {
+        filterBtn.addEventListener("click", function () {
+            document.querySelectorAll("#portfolio-flters li").forEach(btn => btn.classList.remove("filter-active"));
+            this.classList.add("filter-active");
+
+            currentIndex = itemsPerPage; // Reset pagination saat filter berubah
+            updateVisibility();
+        });
+    });
+
+    updateVisibility(); // Jalankan saat pertama kali dimuat
+});
