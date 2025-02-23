@@ -61,8 +61,7 @@ a:hover {
     left: 0;
     width: 28px;
     height: 28px;
-    background-color: #0563BB; /* Warna latar */
-    color: white; /* Warna teks */
+    background-color: #f9f9; /* Warna latar */
     font-weight: bold;
     display: flex;
     align-items: center;
