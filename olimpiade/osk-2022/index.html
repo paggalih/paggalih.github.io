@@ -417,13 +417,13 @@ media (min-width: 991px) {
     </h2>
     <div id="flush-lanjutSix" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
-		Misalkan $n=2^a3^b$ dengan $a$ dan $b$ bilangan asli. Jika hasil kali semua faktor positif dari $n$ adalah $12^{90},$ maka nilai $ab=\cdots$
+		Misalkan $m$ dan $n$ bilangan-bilangan asli. Jika $FPB(m,n)=3$ dan $FPB(2m,5n)=30,$ maka $FPB(15m,6n)$ adalah ...
 		<br>
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse16" aria-expanded="false" aria-controls="collapse16">
 			Jawaban
 		  </button>
 		<div class="collapse" id="collapse16">
-		Banyaknya faktor positif dari $n$ adalah $(a+1)$$(b+1).$ Bayangkan bahwa setiap faktor $g$ punya pasangan $h$ sehingga $gh=n.$ Karena ketika $n=k^2,$ $k$ tidak punya pasangan yang berbeda, maka perlu kita buat 2 kasus.<br>Kasus 1:<br>$n=k^2$ untuk suatu $k\in\mathbb{Z}^+$ Misalkan $$12^{90}=n^{\frac{(a+1)(b+1)-1}{2}}\cdot \sqrt{n}.$$ Karena $n$ bilangan kuadrat maka misalkan $a=2l$ dan $b=2m.$ Sehingga $$\begin{array}{rll}12^{90}&=\left(2^{2l}3^{2m}\right)^{\frac{(2l+1)(2m+1)-1}{2}}\cdot 2^l3^m\\2^{180}\cdot 3^{90}&=2^{l(2l+1)(2m+1)}\cdot 3^{m(2l+1)(2m+1)}\end{array}$$ Maka $l=2m.$ Sehingga $$\begin{array}{rll}180&=2m(4m+1)(2m+1)\\2\cdot 9\cdot 5&=2(4\cdot 2+1)(2\cdot 2+1)\end{array}$$ Maka $m=2$ dan $l=4.$ Akhirnya $ab=32.$<br>Kasus 2:<br>Bilangan $n$ bukan bilangan kuadrat. Perhatikan bahwa $$\begin{array}{rll}12^{90}&=n^{\frac{(a+1)(b+1)}{2}}\\2^{180}3^{90}&=(2^a3^b)^{\frac{(a+1)(b+1)}{2}}\\&=2^{\frac{a(a+1)(b+1)}{2}}3^{\frac{b(a+1)(b+1)}{2}}\end{array}$$ Akibatnya $a=2b.$ Sehingga $$4(9)(5)=180=b(2b+1)(b+1).$$ Jadi $b=4$ dan $a=8$ sehingga $ab=$ $32.$
+
 		</div>
 	  </div>
     </div>
@@ -436,7 +436,7 @@ media (min-width: 991px) {
     </h2>
     <div id="flush-lanjutSeven" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
-		Diberikan $x,y$ bilangan riil positif. Tentukan nilai minimum dari $$\dfrac{(x+y)^2}{\sqrt{x^2-16}+\sqrt{y^2-25}}$$
+		Diketahui $a,b,$ $c,d$ bilangan real positif yang memenuhi $a&gt;c,$ $d&gt;b,$ dan $$\begin{array}{rl}3a^2+3b^2=3c^2+3d^2=4ac+4bd.\end{array}$$ Nilai dari $\dfrac{12(ab+cd)}{(ad+bc)}=\cdots $
 		<br>
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse17" aria-expanded="false" aria-controls="collapse17">
 			Jawaban
@@ -444,11 +444,7 @@ media (min-width: 991px) {
 		<div class="collapse" id="collapse17">
 		Perhatikan bahwa kita dapat susun $x,y$ seperti pada gambar di bawah ini.
 		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-17.png" class="img-fluid" alt="gambar-no-17">
-	  </div>
-	  </div>
-		Karena $x,y,z$ membentuk segitiga, maka $z\le x+y.$ Maka $$\begin{array}{rl}\dfrac{(x+y)^2}{\sqrt{x^2-16}+\sqrt{y^2-25}}&\ge \dfrac{z^2}{\sqrt{z^2-9^2}}\\&\ge \sqrt{z^2-9^2}+\dfrac{9^2}{\sqrt{z^2-9^2}}\\&=18\end{array}$$ Kesamaan terjadi saat $\sqrt{z^2-9^2}=\dfrac{9^2}{\sqrt{z^2-9^2}}$ atau $z=9\sqrt{2}.$ Artinya $y=5\sqrt{2}$ dan $x=4\sqrt{2}.$
+
 		</div>
 	  </div>
     </div>
@@ -461,49 +457,13 @@ media (min-width: 991px) {
     </h2>
     <div id="flush-lanjutEight" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
-		Diberikan 100 titik seperti pada gambar di bawah ini.
-		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-18.png" class="img-fluid" alt="gambar-no-18">
-	  </div>
-	  </div>
-		Banyaknya persegi yang semua titik sudutnya adalah empat titik diantara titik-titik pada gambar adalah...
+		Misalkan $A$ adalah himpunan semua bilangan $8$-digit yang digit-digitnya adalah $1,2$ atau $3$ dan memuat paling sedikit $1$ digit $2.$ Banyaknya bilangan $N$ di $A$ sehingga setiap digit $2$ di $N$ diapit oleh digit $1$ dan $3$ adalah ...
 		<br>
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse18" aria-expanded="false" aria-controls="collapse18">
 			Jawaban
 		  </button>
 		<div class="collapse" id="collapse18">
-		Perhatikan di dalam persegi berukuran 1x1 hanya ada 1 jenis persegi di dalamnya.
-		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-18-01.png" class="img-fluid" alt="gambar-no-18-01">
-	  </div>
-	  </div>
-		Perhatikan di dalam persegi berukuran 2x2 hanya ada 2 jenis persegi di dalamnya.
-		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-18-02.png" class="img-fluid" alt="gambar-no-18-02">
-	  </div>
-	  </div>
-		Perhatikan di dalam persegi berukuran 3x3 hanya ada 3 jenis persegi di dalamnya.
-		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-18-03.png" class="img-fluid" alt="gambar-no-18-03">
-	  </div>
-	  </div>
-		Perhatikan di dalam persegi berukuran 4x4 hanya ada 4 jenis persegi di dalamnya.
-		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-18-04.png" class="img-fluid" alt="gambar-no-18-04">
-	  </div>
-	  </div>
-		Perhatikan di dalam persegi berukuran 5x5 hanya ada 5 jenis persegi di dalamnya.
-		<div class="row text-center">
-	  <div class="col-lg-6 col-sm-12">
-	  <img src="gambar-no-18-05.png" class="img-fluid" alt="gambar-no-18-05">
-	  </div>
-	  </div>
-		Maka pola ini akan terus berlanjut hingga ukuran 9x9 ada 9 jenis persegi di dalamnya. Mudah dihitung bahwa banyaknya persegi $$\left\lbrace\begin{array}{rl}\text{ukuran 1x1 ada sebanyak } 9^2\\\text{ukuran 2x2 ada sebanyak }8^2\\\cdots\\\text{ukuran 9x9 ada sebanyak }1^2\end{array}\right.$$ Jadi banyaknya persegi adalah $$1\cdot 9^2+2\cdot 8^2+\cdots+9\cdot 1^2=825$$
+
 		</div>
 	  </div>
     </div>
@@ -516,19 +476,18 @@ media (min-width: 991px) {
     </h2>
     <div id="flush-lanjutNine" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
-		Diberikan segitiga $ABC.$ Misalkan $D,E,F$ masing-masing adalah titik pada sisi $BC,$ $CA,$ $AB$ sehingga $AD,$ $BE,$ $CF$ berpotongan di satu titik. Diketahui bahwa $\angle EDF=$ $54^{\circ}.$ Jika $\angle ADB=$ $90^{\circ}$ dan $AF=FB,$ maka besar sudut $\angle ABC=\cdots$
+		Diberikan suatu belah ketupat $ABCD$ dan sebuah titik $E$ di dalamnya, sehingga $AE=BE.$ Jika $\angle BAE=12^\circ$ dan $\angle DAE=72^\circ,$ maka $\angle CDE=\cdots$
 		<br>
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse19" aria-expanded="false" aria-controls="collapse19">
 			Jawaban
 		  </button>
 		<div class="collapse" id="collapse19">
-		Karena $\triangle ADB$ segitiga siku-siku dan $FD$ garis berat, maka $FD=BF=$ $AF$ seperti ditunjukkan pada gambar di bawah ini.
 		<div class="row text-center">
 	  <div class="col-lg-6 col-sm-12">
 	  <img src="gambar-no-19.png" class="img-fluid" alt="gambar-no-19">
 	  </div>
 	  </div>
-		Oleh karenanya $\angle FBD=\angle BDF=$ $90^\circ-\alpha.$ <br> Karena $BE,AD,$ dan $CF$ berpotongan di satu titik, maka kita dapat gunakan Dalil Ceva $$\begin{array}{rll}\dfrac{CD}{BD}\cdot\dfrac{BF}{FA}\cdot\dfrac{AE}{EC}&=1&(\text{karena }BF=FA)\\\dfrac{CD}{BD}&=\dfrac{CE}{AE}\\\dfrac{CD}{CB}&=\dfrac{CE}{CA}\end{array}$$ Maka $\triangle ABC\sim\triangle CDE$ dan $DE\parallel AB$ sehingga $\angle CDE=\angle CBA=90^\circ -\alpha.$ Sehingga kita peroleh $$\begin{array}{rl}2(90^\circ-\alpha)+54^\circ&=180^\circ\\\alpha&=27^\circ\end{array}$$
+
 		</div>
 	  </div>
     </div>
@@ -541,13 +500,13 @@ media (min-width: 991px) {
     </h2>
     <div id="flush-lanjutTen" class="accordion-collapse collapse" data-bs-parent="#accordionFlushLanjut">
       <div class="accordion-body">
-		Misalkan $p$ dan $n$ dua bilangan asli dengan $p$ bilangan prima sedemikian hingga $p$ membagi $n^2+4$ dan $n$ membagi $p^2+4.$ Jika $p&lt;200,$ maka nilai terbesar yang mungkin dari $n$ adalah...
+		Diketahui $x,y,z$ adalah bilangan bulat yang memenuhi $$\begin{array}{rl}x^2y+y^2z+z^2x-20=xy^2+yz^2+zx^2-22=3xyz\end{array}$$ Nilai terbesar dari $x+y+z$ adalah ...
 		<br>
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse20" aria-expanded="false" aria-controls="collapse20">
 			Jawaban
 		  </button>
 		<div class="collapse" id="collapse20">
-		Karena $p\vert n^2+4$ dan $n\vert p^2+4,$ maka $$\begin{array}{rl}pn&\vert p^2n^2+4(p^2+n^2+4)\\&\vert 4(p^2+n^2+4)\end{array}$$ Di sini kita bagi tinjau terlebih dahulu $p=2,3.$ Untuk $p=2,$ maka $n$ maksimum adalah $8$ karena $n|2^2+4.$ Untuk $p=3,$ maka $n$ maksimum adalah $13$ karena $n|3^2+4$
+
 		</div>
 	  </div>
     </div>
