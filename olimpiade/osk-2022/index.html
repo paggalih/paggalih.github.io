@@ -92,7 +92,7 @@ media (min-width: 991px) {
     </h2>
     <div id="flush-collapseOne" class="accordion-collapse collapse" data-bs-parent="#accordionFlushDasar">
       <div class="accordion-body">
-		Misalkan $f(x)=a^2x+$ $20.$ Jika $f(20)+f^{-1}(22)=$ $f^{-1}(20)+f(22),$ maka $f(1)=\cdots$
+		Misalkan $f(x)=a^2x+$ $200.$ Jika $f(20)+f^{-1}(22)=$ $f^{-1}(20)+f(22),$ maka $f(1)=\cdots$
 		<br>
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse1" aria-expanded="false" aria-controls="collapse1">
 			Jawaban
@@ -525,55 +525,10 @@ media (min-width: 991px) {
     </section><!-- End Kemampuan Lanjut Section -->
 
 	</div>
-	</div>
-  
-
+	
 <h2>Daftar Folder</h2>
 <ul id="folder-list">Loading...</ul>
-
-<script>
-document.addEventListener("DOMContentLoaded", function () {
-    const repoOwner = "paggalih"; // Username GitHub Anda
-    const repoName = "paggalih.github.io"; // Nama repository Anda
-    const branch = "main"; // Nama branch
-
-    // **1️⃣ DETEKSI FOLDER OTOMATIS**
-    let currentPath = window.location.pathname;  // Ambil path dari URL
-    let pathParts = currentPath.split('/').filter(part => part !== ""); // Pisahkan berdasarkan "/"
-    
-    if (pathParts.length < 2) {
-        document.getElementById("folder-list").innerHTML = "Tidak dapat mendeteksi direktori.";
-        return;
-    }
-
-    let folderPath = pathParts.slice(0, -1).join('/'); // Ambil satu tingkat di atas
-
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
-
-    // **2️⃣ AMBIL DAFTAR FOLDER DARI GITHUB**
-    fetch(apiUrl)
-        .then(response => response.json())
-        .then(data => {
-            let folderList = document.getElementById("folder-list");
-            folderList.innerHTML = "";
-
-            data.forEach(item => {
-                if (item.type === "dir") { // Hanya menampilkan folder
-                    let li = document.createElement("li");
-                    let a = document.createElement("a");
-                    a.href = `../${item.name}/`; // Link ke folder
-                    a.textContent = item.name;
-                    li.appendChild(a);
-                    folderList.appendChild(li);
-                }
-            });
-        })
-        .catch(error => {
-            console.error("Error fetching folder list:", error);
-            document.getElementById("folder-list").innerHTML = "Gagal memuat daftar folder.";
-        });
-});
-</script>
+	</div>
 
   </main><!-- End #main -->
 
