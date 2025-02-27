@@ -525,33 +525,38 @@ media (min-width: 991px) {
   
 
 
-<ul id="file-list">Loading...</ul>
+<ul id="folder-list">Loading...</ul>
+
 <script>
 document.addEventListener("DOMContentLoaded", function () {
-    const repoOwner = "paggalih"; // Ganti dengan username GitHub Anda
-    const repoName = "olimpiade"; // Ganti dengan nama repository Anda
-    const branch = "main"; // Ganti jika menggunakan branch lain seperti "gh-pages"
+    const repoOwner = "paggalih"; // Username GitHub Anda
+    const repoName = "paggalih.github.io"; // Nama repository Anda
+    const branch = "main"; // Nama branch
+    const folderPath = "olimpiade"; // Direktori yang ingin ditampilkan
 
-    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
-            let fileList = document.getElementById("file-list");
-            fileList.innerHTML = "";
+            let folderList = document.getElementById("folder-list");
+            folderList.innerHTML = "";
 
             data.forEach(item => {
                 if (item.type === "dir") { // Hanya menampilkan folder
                     let li = document.createElement("li");
                     let a = document.createElement("a");
-                    a.href = item.name + "/";
+                    a.href = `../${item.name}/`; // Link ke folder
                     a.textContent = item.name;
                     li.appendChild(a);
-                    fileList.appendChild(li);
+                    folderList.appendChild(li);
                 }
             });
         })
-        .catch(error => console.error("Error fetching file list:", error));
+        .catch(error => {
+            console.error("Error fetching folder list:", error);
+            document.getElementById("folder-list").innerHTML = "Gagal memuat daftar folder.";
+        });
 });
 </script>
 
