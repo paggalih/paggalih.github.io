@@ -523,6 +523,35 @@ media (min-width: 991px) {
   
 
 
+<ul id="file-list">Loading...</ul>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const repoOwner = "USERNAME"; // Ganti dengan username GitHub Anda
+    const repoName = "REPOSITORY_NAME"; // Ganti dengan nama repository Anda
+    const branch = "main"; // Ganti jika menggunakan branch lain seperti "gh-pages"
+
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/`;
+
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            let fileList = document.getElementById("file-list");
+            fileList.innerHTML = "";
+
+            data.forEach(item => {
+                if (item.type === "dir") { // Hanya menampilkan folder
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.href = item.name + "/";
+                    a.textContent = item.name;
+                    li.appendChild(a);
+                    fileList.appendChild(li);
+                }
+            });
+        })
+        .catch(error => console.error("Error fetching file list:", error));
+});
+</script>
 
   </main><!-- End #main -->
 
