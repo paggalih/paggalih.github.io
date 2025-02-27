@@ -524,7 +524,7 @@ media (min-width: 991px) {
 	</div>
   
 
-
+<h2>Daftar Folder</h2>
 <ul id="folder-list">Loading...</ul>
 
 <script>
@@ -532,10 +532,21 @@ document.addEventListener("DOMContentLoaded", function () {
     const repoOwner = "paggalih"; // Username GitHub Anda
     const repoName = "paggalih.github.io"; // Nama repository Anda
     const branch = "main"; // Nama branch
-    const folderPath = "olimpiade"; // Direktori yang ingin ditampilkan
+
+    // **1️⃣ DETEKSI FOLDER OTOMATIS**
+    let currentPath = window.location.pathname;  // Ambil path dari URL
+    let pathParts = currentPath.split('/').filter(part => part !== ""); // Pisahkan berdasarkan "/"
+    
+    if (pathParts.length < 2) {
+        document.getElementById("folder-list").innerHTML = "Tidak dapat mendeteksi direktori.";
+        return;
+    }
+
+    let folderPath = pathParts.slice(0, -1).join('/'); // Ambil satu tingkat di atas
 
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
+    // **2️⃣ AMBIL DAFTAR FOLDER DARI GITHUB**
     fetch(apiUrl)
         .then(response => response.json())
         .then(data => {
