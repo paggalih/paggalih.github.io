@@ -407,7 +407,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (item.type === "dir") { // Hanya menampilkan folder
                     let button = document.createElement("a");
                     button.href = `../${item.name}/`; // Link ke folder
-                    button.className = "btn btn-outline-primary w-100";
+                    button.className = "btn btn-outline-primary w-auto";
                     button.textContent = item.name;
                     folderList.appendChild(button);
                 }
