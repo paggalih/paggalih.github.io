@@ -1,1 +1,43 @@
-test
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Index Olimpiade</title>
+    <script>
+        async function fetchGitHubFolders() {
+            const repo = "paggalih.github.io";
+            const branch = "main";
+            const path = "olimpiade";
+            const apiUrl = `https://api.github.com/repos/paggalih/${repo}/contents/${path}?ref=${branch}`;
+
+            try {
+                let response = await fetch(apiUrl);
+                let data = await response.json();
+                let listContainer = document.getElementById("folder-list");
+
+                data.forEach(item => {
+                    if (item.type === "dir") {
+                        let listItem = document.createElement("li");
+                        let link = document.createElement("a");
+                        link.href = `./${item.name}/`;
+                        link.textContent = item.name;
+                        listItem.appendChild(link);
+                        listContainer.appendChild(listItem);
+                    }
+                });
+            } catch (error) {
+                console.error("Gagal mengambil data dari GitHub API:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchGitHubFolders);
+    </script>
+</head>
+<body>
+    <h1>Daftar Folder di Olimpiade</h1>
+    <ul id="folder-list">
+        <li>Memuat daftar folder...</li>
+    </ul>
+</body>
+</html>
