@@ -380,3 +380,45 @@ loadStylesheets(stylesheets);
         // updateTheme()
     // }
 // })()
+
+document.addEventListener("DOMContentLoaded", function () {
+    const repoOwner = "paggalih"; // Username GitHub Anda
+    const repoName = "paggalih.github.io"; // Nama repository Anda
+    const branch = "main"; // Nama branch
+
+    // **1️⃣ DETEKSI FOLDER OTOMATIS**
+    let currentPath = window.location.pathname;  // Ambil path dari URL
+    let pathParts = currentPath.split('/').filter(part => part !== ""); // Pisahkan berdasarkan "/"
+    
+    if (pathParts.length < 2) {
+        document.getElementById("folder-list").innerHTML = "Tidak dapat mendeteksi direktori.";
+        return;
+    }
+
+    let folderPath = pathParts.slice(0, -1).join('/'); // Ambil satu tingkat di atas
+
+    const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
+
+    // **2️⃣ AMBIL DAFTAR FOLDER DARI GITHUB**
+    fetch(apiUrl)
+        .then(response => response.json())
+        .then(data => {
+            let folderList = document.getElementById("folder-list");
+            folderList.innerHTML = "";
+
+            data.forEach(item => {
+                if (item.type === "dir") { // Hanya menampilkan folder
+                    let li = document.createElement("li");
+                    let a = document.createElement("a");
+                    a.href = `../${item.name}/`; // Link ke folder
+                    a.textContent = item.name;
+                    li.appendChild(a);
+                    folderList.appendChild(li);
+                }
+            });
+        })
+        .catch(error => {
+            console.error("Error fetching folder list:", error);
+            document.getElementById("folder-list").innerHTML = "Gagal memuat daftar folder.";
+        });
+});
