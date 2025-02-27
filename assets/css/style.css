@@ -1329,6 +1329,8 @@ section {
   background: #ccdffc;
   text-align: center;
   padding: 15px 0px 15px 0px;
+    background: linear-gradient(90deg, #0563BB 0%, #034a91 100%); /* Gradient senada */
+    color: aliceblue;
 }
 
 mjx-container {
@@ -1383,7 +1385,7 @@ mjx-table {
     transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
 }
 #post-title {
-    margin-right: 50px;
+    /* margin-right: 50px; */
     border-bottom-right-radius: 50px;
 }
 #header {
