@@ -1386,7 +1386,7 @@ mjx-table {
 }
 #post-title {
     /* margin-right: 50px; */
-    border-bottom-right-radius: 50px;
+    /* border-bottom-right-radius: 50px; */
 }
 #header {
 	border-top-right-radius: 50vh;
