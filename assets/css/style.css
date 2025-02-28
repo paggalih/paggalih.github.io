@@ -1436,3 +1436,40 @@ section {
   'opsz' 24
 }
 
+/* CSS untuk tombol dengan id="baca_juga" */
+#baca_juga {
+    margin: 5px;
+    display: inline-block;
+    padding: 10px 20px; /* Tambahkan padding agar tombol lebih besar */
+    border-radius: 5px; /* Sudut melengkung */
+    text-decoration: none; /* Hilangkan underline dari link */
+    transition: background-color 0.3s ease, color 0.3s ease; /* Efek transisi halus */
+    border: 2px solid transparent; /* Border transparan */
+}
+
+/* Warna untuk tombol ganjil */
+#baca_juga:nth-child(odd) {
+    background-color: #1e3a8a; /* Warna biru gelap */
+    border-color: #3b82f6; /* Warna border biru terang */
+    color: #ffffff; /* Warna teks putih */
+}
+
+/* Warna untuk tombol genap */
+#baca_juga:nth-child(even) {
+    background-color: #6b21a8; /* Warna ungu gelap */
+    border-color: #a855f7; /* Warna border ungu terang */
+    color: #ffffff; /* Warna teks putih */
+}
+
+/* Efek hover untuk tombol */
+#baca_juga:hover {
+    background-color: #3b82f6; /* Warna biru terang saat hover */
+    color: #ffffff; /* Warna teks tetap putih */
+    border-color: #1e3a8a; /* Warna border biru gelap saat hover */
+}
+
+#baca_juga:nth-child(even):hover {
+    background-color: #a855f7; /* Warna ungu terang saat hover */
+    color: #ffffff; /* Warna teks tetap putih */
+    border-color: #6b21a8; /* Warna border ungu gelap saat hover */
+}
