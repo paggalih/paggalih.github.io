@@ -120,7 +120,69 @@ media (min-width: 991px) {
 		  </button>
 		<div class="collapse" id="collapse2">
 		<button class="btn btn-success">$113$</button>
+    <p>
+        1. <strong>Kasus 1: \(x \geq 0\) dan \(y \geq 0\)</strong><br>
+        - Persamaan menjadi:
+        \[
+        x + y + (x + y) = 22 \Rightarrow 2x + 2y = 22 \Rightarrow x + y = 11
+        \]
+        - Jumlah solusi non-negatif untuk \(x + y = 11\) adalah \(12\) (dari \((0,11)\) sampai \((11,0)\)).
+    </p>
+    <p>
+        2. <strong>Kasus 2: \(x \geq 0\) dan \(y \leq 0\)</strong><br>
+        - Persamaan menjadi:
+        \[
+        x - y + |x + y| = 22
+        \]
+        - Subkasus 2a: \(x + y \geq 0\)
+        \[
+        x - y + x + y = 22 \Rightarrow 2x = 22 \Rightarrow x = 11
+        \]
+        - \(y\) dapat bernilai dari \(-11\) sampai \(0\), total \(12\) solusi.
+        - Subkasus 2b: \(x + y \leq 0\)
+        \[
+        x - y - (x + y) = 22 \Rightarrow -2y = 22 \Rightarrow y = -11
+        \]
+        - \(x\) dapat bernilai dari \(0\) sampai \(11\), total \(12\) solusi.
+    </p>
+    <p>
+        3. <strong>Kasus 3: \(x \leq 0\) dan \(y \geq 0\)</strong><br>
+        - Mirip dengan Kasus 2, kita dapatkan \(12\) solusi untuk \(y = 11\) dan \(12\) solusi untuk \(x = -11\).
+    </p>
+    <p>
+        4. <strong>Kasus 4: \(x \leq 0\) dan \(y \leq 0\)</strong><br>
+        - Persamaan menjadi:
+        \[
+        -x - y + |x + y| = 22
+        \]
+        - Subkasus 4a: \(x + y \geq 0\)
+        \[
+        -x - y + x + y = 22 \Rightarrow 0 = 22
+        \]
+        - Tidak ada solusi.
+        - Subkasus 4b: \(x + y \leq 0\)
+        \[
+        -x - y - (x + y) = 22 \Rightarrow -2x - 2y = 22 \Rightarrow x + y = -11
+        \]
+        - Jumlah solusi non-positif untuk \(x + y = -11\) adalah \(12\) (dari \((-11,0)\) sampai \((0,-11)\)).
+    </p>
+    <p>
+        5. <strong>Total Solusi:</strong><br>
+        - Kasus 1: \(12\) solusi.<br>
+        - Kasus 2: \(24\) solusi.<br>
+        - Kasus 3: \(24\) solusi.<br>
+        - Kasus 4: \(12\) solusi.<br>
+        - Total: \(12 + 24 + 24 + 12 = 72\) solusi.
+    </p>
 
+    <p>
+        Jadi, banyaknya pasangan bilangan bulat \((x, y)\) yang memenuhi persamaan tersebut adalah:
+    </p>
+    <p>
+        \[
+        \boxed{72}
+        \]
+    </p>
 		</div>
 		
 		</div>
