@@ -536,7 +536,105 @@ media (min-width: 991px) {
 		  </button>
 		<div class="collapse" id="collapse10">
 		<button class="btn btn-success">$7$</button>
+    <p>Untuk menyelesaikan masalah ini, kita perlu mencari bilangan asli \( x \) sehingga \( x^2 + 42x \) adalah pangkat tiga dari suatu bilangan prima. Mari kita eksplorasi dua kemungkinan:</p>
 
+    <h4>Kasus 1: \( x \) adalah pangkat tiga</h4>
+    <p>Misalkan \( x = p^3 \), di mana \( p \) adalah bilangan prima. Maka:</p>
+    <p>\[
+    x + 42 = p^3 + 42
+    \]</p>
+    <p>Agar \( x(x + 42) = p^3 (p^3 + 42) \) menjadi pangkat tiga dari suatu bilangan prima, \( p^3 + 42 \) juga harus merupakan pangkat tiga dari bilangan prima yang sama.</p>
+    <p>Kita akan mencoba nilai-nilai kecil untuk \( p \):</p>
+    <ul>
+        <li><strong>\( p = 2 \):</strong>
+            \[
+            x = 2^3 = 8
+            \]
+            \[
+            x + 42 = 8 + 42 = 50
+            \]
+            Periksa apakah 50 adalah pangkat tiga:
+            \[
+            \sqrt[3]{50} \approx 3.684
+            \]
+            50 bukanlah pangkat tiga dari suatu bilangan bulat.
+        </li>
+        <li><strong>\( p = 3 \):</strong>
+            \[
+            x = 3^3 = 27
+            \]
+            \[
+            x + 42 = 27 + 42 = 69
+            \]
+            Periksa apakah 69 adalah pangkat tiga:
+            \[
+            \sqrt[3]{69} \approx 4.101
+            \]
+            69 bukanlah pangkat tiga dari suatu bilangan bulat.
+        </li>
+        <li><strong>\( p = 5 \):</strong>
+            \[
+            x = 5^3 = 125
+            \]
+            \[
+            x + 42 = 125 + 42 = 167
+            \]
+            Periksa apakah 167 adalah pangkat tiga:
+            \[
+            \sqrt[3]{167} \approx 5.507
+            \]
+            167 bukanlah pangkat tiga dari suatu bilangan bulat.
+        </li>
+        <li><strong>\( p = 7 \):</strong>
+            \[
+            x = 7^3 = 343
+            \]
+            \[
+            x + 42 = 343 + 42 = 385
+            \]
+            Periksa apakah 385 adalah pangkat tiga:
+            \[
+            \sqrt[3]{385} \approx 7.284
+            \]
+            385 bukanlah pangkat tiga dari suatu bilangan bulat.
+        </li>
+    </ul>
+    <p>Setelah mencoba nilai-nilai kecil untuk \( p \), tidak ada solusi yang memenuhi syarat. Analisis umum juga menunjukkan bahwa tidak ada solusi bulat untuk persamaan \( q^3 - p^3 = 42 \) dengan \( p \) dan \( q \) sebagai bilangan prima.</p>
+
+    <h4>Kasus 2: \( x = n \) dan \( x + 42 = n^2 \)</h4>
+    <p>Misalkan \( x = n \) dan \( x + 42 = n^2 \). Maka:</p>
+    <p>\[
+    n + 42 = n^2
+    \]</p>
+    <p>Selesaikan persamaan kuadrat:</p>
+    <p>\[
+    n^2 - n - 42 = 0
+    \]</p>
+    <p>Menggunakan rumus kuadrat:</p>
+    <p>\[
+    n = \frac{1 \pm \sqrt{1 + 168}}{2} = \frac{1 \pm \sqrt{169}}{2} = \frac{1 \pm 13}{2}
+    \]</p>
+    <p>\[
+    n = \frac{14}{2} = 7 \quad \text{atau} \quad n = \frac{-12}{2} = -6
+    \]</p>
+    <p>Karena \( n \) adalah bilangan asli, maka \( n = 7 \).</p>
+    <p>Verifikasi:</p>
+    <p>\[
+    x = n = 7
+    \]</p>
+    <p>\[
+    x + 42 = 7 + 42 = 49 = 7^2
+    \]</p>
+    <p>\[
+    x^2 + 42x = 7^2 + 42 \times 7 = 49 + 294 = 343 = 7^3
+    \]</p>
+    <p>\( 343 \) adalah pangkat tiga dari bilangan prima \( 7 \).</p>
+
+    <h3>Kesimpulan</h3>
+    <p>Setelah mengeksplorasi kedua kasus, kita menemukan bahwa solusi yang memenuhi adalah:</p>
+    <p>\[
+    x = 7
+    \]</p>
 		</div>
 	  </div>
     </div>
