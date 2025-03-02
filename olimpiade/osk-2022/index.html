@@ -908,7 +908,47 @@ media (min-width: 991px) {
 		  </button>
 		<div class="collapse" id="collapse14">
 		<button class="btn btn-success">$357$</button>
+    <p>
+        1. <strong>Mengubah Variabel:</strong><br>
+        - Substitusi \(w_i = 20 + x_i\), di mana \(0 \leq x_i \leq 2\).<br>
+        - Persamaan menjadi:
+        \[
+        x_1 + x_2 + \cdots + x_7 = 8
+        \]
+    </p>
+    <p>
+        2. <strong>Menghitung Banyaknya Solusi:</strong><br>
+        - Tanpa batasan, jumlah solusi adalah \(\binom{14}{6}\).<br>
+        - Mengurangkan solusi di mana satu atau lebih \(x_i \geq 3\).
+    </p>
+    <p>
+        3. <strong>Menggunakan Prinsip Inklusi-Eksklusi:</strong><br>
+        - Jumlah solusi tanpa batasan: \(\binom{14}{6}\).<br>
+        - Jumlah solusi dengan setidaknya satu \(x_i \geq 3\): \(\binom{7}{1} \times \binom{11}{6}\).<br>
+        - Jumlah solusi dengan setidaknya dua \(x_i \geq 3\): \(\binom{7}{2} \times \binom{8}{6}\).<br>
+    </p>
+    <p>
+        4. <strong>Menghitung Kombinasi:</strong><br>
+        - \(\binom{14}{6} = 3003\).<br>
+        - \(\binom{7}{1} \times \binom{11}{6} = 7 \times 462 = 3234\).<br>
+        - \(\binom{7}{2} \times \binom{8}{6} = 21 \times 28 = 588\).<br>
+    </p>
+    <p>
+        5. <strong>Menerapkan Prinsip Inklusi-Eksklusi:</strong><br>
+        - Total solusi yang valid:
+        \[
+        \binom{14}{6} - \binom{7}{1} \times \binom{11}{6} + \binom{7}{2} \times \binom{8}{6} = 3003 - 3234 + 588 = 357
+        \]
+    </p>
 
+    <p>
+        Jadi, banyaknya tupel \((w_1, w_2, w_3, \cdots, w_7)\) yang memenuhi persamaan tersebut adalah:
+    </p>
+    <p>
+        \[
+        \boxed{357}
+        \]
+    </p>
 		</div>
 	  </div>
     </div>
