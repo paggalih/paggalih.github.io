@@ -687,7 +687,34 @@ media (min-width: 991px) {
 		  </button>
 		<div class="collapse" id="collapse11">
 		<button class="btn btn-success">$60$</button>
-
+    <ol>
+        <li><strong>Menentukan Kursi untuk Azka dan Budi:</strong>
+            <ul>
+                <li>Baris pertama memiliki 3 kursi.</li>
+                <li>Azka dan Budi harus duduk di baris pertama, sehingga kita perlu memilih 2 kursi dari 3 kursi untuk mereka.</li>
+                <li>Banyaknya cara memilih 2 kursi dari 3 adalah \( \binom{3}{2} = 3 \).</li>
+                <li>Azka dan Budi dapat bertukar tempat, sehingga ada \( 2! = 2 \) cara untuk menempatkan mereka di kursi yang dipilih.</li>
+                <li>Total cara menempatkan Azka dan Budi di baris pertama adalah \( 3 \times 2 = 6 \).</li>
+            </ul>
+        </li>
+        <li><strong>Menempatkan Siswa Lainnya:</strong>
+            <ul>
+                <li>Setelah Azka dan Budi ditempatkan, tersisa 10 siswa untuk ditempatkan di 10 kursi yang tersisa.</li>
+                <li>Banyaknya cara menempatkan 10 siswa di 10 kursi adalah \( 10! \).</li>
+            </ul>
+        </li>
+        <li><strong>Total Banyaknya Cara \( A \):</strong>
+            <ul>
+                <li>Total cara menempatkan Azka dan Budi di baris pertama dan siswa lainnya adalah \( 6 \times 10! \).</li>
+            </ul>
+        </li>
+        <li><strong>Menghitung \( \frac{A}{9!} \):</strong>
+            <ul>
+                <li>\( A = 6 \times 10! \)</li>
+                <li>\( \frac{A}{9!} = \frac{6 \times 10!}{9!} = 6 \times 10 = 60 \)</li>
+            </ul>
+        </li>
+    </ol>
 		</div>
 	  </div>
     </div>
