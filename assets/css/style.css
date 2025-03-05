@@ -1473,3 +1473,19 @@ section {
     color: #ffffff; /* Warna teks tetap putih */
     border-color: #6b21a8; /* Warna border ungu gelap saat hover */
 }
+
+.responsive-image {
+    width: 110%;
+    max-width: 400px; /* Batas maksimum gambar di PC */
+    height: auto; /* Biarkan proporsional */
+    display: block;
+    margin: 0 auto; /* Pusatkan gambar */
+    border-radius: 40%; /* Opsional: Untuk sudut lebih lembut */
+}
+
+/* Untuk layar HP (max-width 768px) */
+@media (max-width: 768px) {
+    .responsive-image {
+        max-width: 50%; /* Kurangi ukuran di HP */
+    }
+}
