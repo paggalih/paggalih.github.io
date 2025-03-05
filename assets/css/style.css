@@ -1474,7 +1474,7 @@ section {
     border-color: #6b21a8; /* Warna border ungu gelap saat hover */
 }
 
-.responsive-image {
+.pasfoto {
     width: 110%;
     max-width: 400px; /* Batas maksimum gambar di PC */
     height: auto; /* Biarkan proporsional */
@@ -1485,7 +1485,7 @@ section {
 
 /* Untuk layar HP (max-width 768px) */
 @media (max-width: 768px) {
-    .responsive-image {
+    .pasfoto {
         max-width: 50%; /* Kurangi ukuran di HP */
     }
 }
