@@ -1,11 +1,72 @@
 <!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Quotes & Penjelasan</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
-    <style>
+<html lang="id-ID">
+    <head>
+        <meta charset="utf-8">
+        <meta content="width=device-width, initial-scale=1.0" name="viewport">
+        <title>Quotes</title>
+        <meta content="Buah pikiran dan perenungan seorang hamba dan warga negara" name="description">
+        <meta content="quotes" name="keywords">
+        <meta name="author" content="Galih Pradananta">
+        <!-- Favicons -->
+        <link href="/assets/img/letter-g.gif" rel="icon">
+        <!-- Vendor CSS Files -->
+        <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/assets/css/style.css" rel="stylesheet">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
+
+        <!-- =======================================================
+  * Template Name: MyResume
+  * Updated: Jun 13 2023 with Bootstrap v5.3.0
+  * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+  * Author: BootstrapMade.com
+  * License: https://bootstrapmade.com/license/
+  ======================================================== -->
+        <script>
+            MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };
+        </script>
+        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+        <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+        <style>
+            @media (min-width: 991px) {
+			#matkul_icon {
+				z-index: 2000;
+				position: fixed;
+				right: 20px;
+				top: 20px;
+				background-color: #0563bb;
+				letter-spacing: 2px;
+				color: aliceblue;
+				padding: 2px 8px;
+				border-radius: 50px;
+			}
+			}
+            @media (max-width: 991px) {
+			#matkul_icon {
+				z-index: 2000;
+				position: fixed;
+				right: 60px;
+				bottom: 20px;
+				background-color: #0563bb;
+				letter-spacing: 2px;
+				color: aliceblue;
+				padding: 2px 8px;
+				border-radius: 50px;
+			}
+			}
+			
         /* Styling untuk header */
         .header-quotes {
             background: linear-gradient(90deg, #0563BB, #034a91);
@@ -38,9 +99,38 @@
                 display: none;
             }
         }
-    </style>
-</head>
-<body>
+        </style>
+    </head>
+    <body>
+        <!-- ======= Mobile nav toggle button ======= -->
+        <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+        <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+        <!-- ======= Header ======= -->
+        <header id="header" class="d-flex flex-column">
+            <nav id="navbar" class="navbar nav-menu">
+                <ul>
+                    <li>
+                        <a href="/index.html" class="nav-link scrollto active">
+                            <i class="bx bx-home"></i>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+            <!-- .nav-menu -->
+        </header>
+        <!-- End Header -->
+        <main id="main">
+		<div id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i>Matematika Ekonomi 2<i class="bi bi-arrow-right-circle-fill"></i></div>
+            <section id="matkul">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2 class="fixed-top shadow-lg" id="post-title">Matematika Ekonomi 2</h2>
+                    </div>
+									<p id="tanggal" class="text-center">Terakhir diubah pada </p>
+                </div>
+            </section>
+
 
     <!-- Header Quotes -->
     <div class="container mt-4">
@@ -65,33 +155,85 @@
         </div>
     </div>
 
-    <!-- Floating Quotes (Hanya muncul di layar besar) -->
-    <div class="quotes-container d-none d-lg-block">
-        <h4>Daftar Quotes</h4>
-        <ul class="list-group">
-            <li class="list-group-item">"Kesuksesan dimulai dari kebiasaan kecil yang baik."</li>
-            <li class="list-group-item">"Jangan takut gagal, karena kegagalan adalah langkah menuju kesuksesan."</li>
-            <li class="list-group-item">"Orang yang berhenti belajar akan menjadi tua, baik dalam usia maupun dalam pikiran."</li>
-            <li class="list-group-item">"Ketika kamu berhenti mencoba, di situlah kamu mulai gagal."</li>
-        </ul>
+    <!-- Daftar Quotes: Floating di PC, Offcanvas di Mobile -->
+    <div class="d-lg-block d-none">
+        <div class="quotes-container">
+            <h4>Daftar Quotes</h4>
+            <ul class="list-group" id="quotes-list"></ul>
+        </div>
     </div>
 
-    <!-- Offcanvas Quotes (Muncul di layar kecil) -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasQuotes">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Daftar Quotes</h5>
             <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
         </div>
         <div class="offcanvas-body">
-            <ul class="list-group">
-                <li class="list-group-item">"Kesuksesan dimulai dari kebiasaan kecil yang baik."</li>
-                <li class="list-group-item">"Jangan takut gagal, karena kegagalan adalah langkah menuju kesuksesan."</li>
-                <li class="list-group-item">"Orang yang berhenti belajar akan menjadi tua, baik dalam usia maupun dalam pikiran."</li>
-                <li class="list-group-item">"Ketika kamu berhenti mencoba, di situlah kamu mulai gagal."</li>
-            </ul>
+            <ul class="list-group" id="quotes-list-offcanvas"></ul>
         </div>
     </div>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-</body>
+    <script>
+        // List Quotes (Didefinisikan hanya sekali)
+        const quotes = [
+            "Kesuksesan dimulai dari kebiasaan kecil yang baik.",
+            "Jangan takut gagal, karena kegagalan adalah langkah menuju kesuksesan.",
+            "Orang yang berhenti belajar akan menjadi tua, baik dalam usia maupun dalam pikiran.",
+            "Ketika kamu berhenti mencoba, di situlah kamu mulai gagal."
+        ];
+
+        // Masukkan Quotes ke Floating dan Offcanvas
+        function renderQuotes() {
+            let quotesContainer = document.getElementById("quotes-list");
+            let quotesOffcanvas = document.getElementById("quotes-list-offcanvas");
+
+            quotes.forEach(quote => {
+                let li = document.createElement("li");
+                li.className = "list-group-item";
+                li.textContent = quote;
+
+                let liClone = li.cloneNode(true); // Clone agar tidak double di satu tempat
+
+                quotesContainer.appendChild(li);
+                quotesOffcanvas.appendChild(liClone);
+            });
+        }
+
+        // Jalankan saat halaman dimuat
+        document.addEventListener("DOMContentLoaded", renderQuotes);
+    </script>
+
+    <h2 id="post-title" class="shadow-lg">ada juga ... </h2>
+    <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>							
+        </main>
+        <!-- ======= Footer ======= -->
+        <footer id="footer"></footer>
+        <!-- End Footer -->
+        <div id="preloader"></div>
+        <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+           <i class="bi bi-arrow-up-short"></i>
+        </a>
+        <!-- Vendor JS Files -->
+        <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="/assets/vendor/aos/aos.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+        <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+        <script src="/assets/vendor/php-email-form/validate.js"></script>
+        <!-- Template Main JS File -->
+        <script src="/assets/js/main.js"></script>
+        <!-- chart.js diagram -->
+        <script src="/app/aplikasi-statistik/chart.js"></script>
+        <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+		<script>
+			var date = new Date(document.lastModified);
+			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
+			jam1 = date.toLocaleTimeString('id-ID');
+			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
+			
+		</script>
+    </body>
 </html>
