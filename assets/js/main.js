@@ -382,73 +382,24 @@ loadStylesheets(stylesheets);
 // })()
 
 // ============================================
-// document.addEventListener("DOMContentLoaded", function () {
-    // const repoOwner = "paggalih"; // Username GitHub Anda
-    // const repoName = "paggalih.github.io"; // Nama repository Anda
-    // const branch = "main"; // Branch utama
-    // let currentPath = window.location.pathname;
-    // let pathParts = currentPath.split('/').filter(part => part !== "");
-
-    // if (pathParts.length < 2) {
-        // document.getElementById("folder-list").innerHTML = "Tidak dapat mendeteksi direktori.";
-        // return;
-    // }
-
-    // let folderPath = pathParts.slice(0, -1).join('/'); // Ambil satu tingkat di atas
-
-    // const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
-
-    // fetch(apiUrl)
-        // .then(response => response.json())
-        // .then(data => {
-            // let folderList = document.getElementById("folder-list");
-            // folderList.innerHTML = "";
-
-            // data.forEach(item => {
-                // if (item.type === "dir") { // Hanya menampilkan folder
-                    // let button = document.createElement("a");
-                    // button.href = `../${item.name}/`; // Link ke folder
-                    // button.id = "baca_juga"; // Ganti class dengan id
-                    // button.className = "btn w-auto";
-                    // button.textContent = item.name;
-                    // folderList.appendChild(button);
-                // }
-            // });
-        // })
-        // .catch(error => {
-            // console.error("Error fetching folder list:", error);
-            // document.getElementById("folder-list").innerHTML = "Gagal memuat daftar folder.";
-        // });
-// });
-
 document.addEventListener("DOMContentLoaded", function () {
     const repoOwner = "paggalih"; // Username GitHub Anda
     const repoName = "paggalih.github.io"; // Nama repository Anda
     const branch = "main"; // Branch utama
-
-    // Ambil path saat ini dan dekode URL agar spasi terbaca
-    let currentPath = decodeURIComponent(window.location.pathname);
+    let currentPath = window.location.pathname;
     let pathParts = currentPath.split('/').filter(part => part !== "");
 
-    // Pastikan path cukup panjang untuk mengambil direktori
-    if (pathParts.length < 3) {
+    if (pathParts.length < 2) {
         document.getElementById("folder-list").innerHTML = "Tidak dapat mendeteksi direktori.";
         return;
     }
 
-    // Ambil satu tingkat di atas (yaitu folder utama "speaker")
-    let folderPath = pathParts.slice(0, -1).join('/');
+    let folderPath = pathParts.slice(0, -1).join('/'); // Ambil satu tingkat di atas
 
-    // Format ulang API URL untuk menghindari error
     const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${folderPath}`;
 
     fetch(apiUrl)
-        .then(response => {
-            if (!response.ok) {
-                throw new Error("Gagal mengambil data dari GitHub API");
-            }
-            return response.json();
-        })
+        .then(response => response.json())
         .then(data => {
             let folderList = document.getElementById("folder-list");
             folderList.innerHTML = "";
@@ -457,7 +408,8 @@ document.addEventListener("DOMContentLoaded", function () {
                 if (item.type === "dir") { // Hanya menampilkan folder
                     let button = document.createElement("a");
                     button.href = `../${item.name}/`; // Link ke folder
-                    button.className = "btn btn-outline-primary w-auto";
+                    button.id = "baca_juga"; // Ganti class dengan id
+                    button.className = "btn w-auto";
                     button.textContent = item.name;
                     folderList.appendChild(button);
                 }
