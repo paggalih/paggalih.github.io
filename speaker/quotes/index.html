@@ -19,6 +19,7 @@
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet">
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
+<link href="https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap" rel="stylesheet">
 
         <!-- =======================================================
   * Template Name: MyResume
@@ -67,17 +68,21 @@
 			}
 			}
 			
-        /* Styling untuk header */
-        .header-quotes {
-            background: linear-gradient(90deg, #0563BB, #034a91);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            font-size: 20px;
-            font-weight: bold;
-            border-radius: 10px;
-            margin-bottom: 20px;
-        }
+        /* Styling untuk header */				
+.header-quotes {
+    background: linear-gradient(90deg, #0563BB, #034a91);
+    color: white;
+    padding: 20px;
+    text-align: center;
+    font-size: 28px;
+    font-weight: bold;
+    font-family: 'Great Vibes', cursive; /* Gunakan font vintage */
+    border-radius: 10px;
+    margin-bottom: 20px;
+    text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3); /* Tambahkan efek shadow agar lebih klasik */
+    font-style: italic; /* Tambahkan efek miring untuk memperkuat kesan tulisan tangan klasik */
+}
+
 
         /* Floating daftar quotes di layar besar */
         .quotes-container {
@@ -122,11 +127,11 @@
         </header>
         <!-- End Header -->
         <main id="main">
-		<div id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i>Matematika Ekonomi 2<i class="bi bi-arrow-right-circle-fill"></i></div>
+		<div id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i>Quotes<i class="bi bi-arrow-right-circle-fill"></i></div>
             <section id="matkul">
                 <div class="container aos-init aos-animate" data-aos="fade-up">
                     <div class="section-title">
-                        <h2 class="fixed-top shadow-lg" id="post-title">Matematika Ekonomi 2</h2>
+                        <h2 class="fixed-top shadow-lg" id="post-title">Quotes</h2>
                     </div>
 									<p id="tanggal" class="text-center">Terakhir diubah pada </p>
                 </div>
@@ -137,16 +142,22 @@
         <div class="row">
             <!-- Kolom Isi Utama -->
             <div class="col-lg-9">
-						        <div class="header-quotes">
+				<div class="header-quotes">
             "Belajarlah seakan-akan kamu hidup selamanya, hiduplah seakan-akan kamu akan mati besok."
         </div>
     <!-- Tombol Offcanvas di Mobile -->
     <div class="container d-block d-lg-none text-center">
         <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasQuotes">Lihat Quotes</button>
     </div>
-                <h2>Penjelasan</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac arcu sit amet nunc malesuada hendrerit at in felis.</p>
-                <p>Sed commodo nisl nec ante tristique, at fermentum ipsum malesuada. Integer consectetur magna sed sem suscipit tincidunt.</p>
+				<div class="header-quotes">
+            "Kesuksesan dimulai dari kebiasaan kecil yang baik."
+        </div>
+    <!-- Tombol Offcanvas di Mobile -->
+    <div class="container d-block d-lg-none text-center">
+        <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasQuotes">Lihat Quotes</button>
+    </div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac arcu sit amet nunc malesuada hendrerit at in felis.</p>
             </div>
             <!-- Kolom Quotes (Floating di PC) -->
             <div class="col-lg-3 d-none d-lg-block">
@@ -172,6 +183,7 @@
     <script>
         // List Quotes (Didefinisikan hanya sekali)
         const quotes = [
+						"Belajarlah seakan-akan kamu hidup selamanya, hiduplah seakan-akan kamu akan mati besok.",
             "Kesuksesan dimulai dari kebiasaan kecil yang baik.",
             "Jangan takut gagal, karena kegagalan adalah langkah menuju kesuksesan.",
             "Orang yang berhenti belajar akan menjadi tua, baik dalam usia maupun dalam pikiran.",
