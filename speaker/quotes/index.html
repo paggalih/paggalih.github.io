@@ -81,10 +81,6 @@
 
         /* Floating daftar quotes di layar besar */
         .quotes-container {
-            position: fixed;
-            right: 10px;
-            top: 100px;
-            width: 250px;
             background: #f8f9fa;
             padding: 15px;
             border-radius: 10px;
@@ -93,10 +89,15 @@
             overflow-y: auto;
         }
 
-        /* Sembunyikan floating di mobile */
-        @media (max-width: 768px) {
+        /* Pada layar lebar, pastikan daftar quotes tidak menutupi isi utama */
+        @media (min-width: 992px) {
+            .content-container {
+                display: flex;
+                justify-content: space-between;
+            }
             .quotes-container {
-                display: none;
+                max-width: 280px; /* Batasi ukuran quotes agar tidak menutupi konten */
+                flex-shrink: 0;
             }
         }
         </style>
@@ -144,25 +145,26 @@
         <button class="btn btn-primary" data-bs-toggle="offcanvas" data-bs-target="#offcanvasQuotes">Lihat Quotes</button>
     </div>
 
-    <!-- Konten Utama -->
+    <!-- Konten Utama dan Daftar Quotes Floating di PC -->
     <div class="container mt-3">
         <div class="row">
+            <!-- Kolom Isi Utama -->
             <div class="col-lg-9">
                 <h2>Penjelasan</h2>
                 <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Duis ac arcu sit amet nunc malesuada hendrerit at in felis.</p>
                 <p>Sed commodo nisl nec ante tristique, at fermentum ipsum malesuada. Integer consectetur magna sed sem suscipit tincidunt.</p>
             </div>
+            <!-- Kolom Quotes (Floating di PC) -->
+            <div class="col-lg-3 d-none d-lg-block">
+                <div class="quotes-container">
+                    <h4>Daftar Quotes</h4>
+                    <ul class="list-group" id="quotes-list"></ul>
+                </div>
+            </div>
         </div>
     </div>
 
-    <!-- Daftar Quotes: Floating di PC, Offcanvas di Mobile -->
-    <div class="d-lg-block d-none">
-        <div class="quotes-container">
-            <h4>Daftar Quotes</h4>
-            <ul class="list-group" id="quotes-list"></ul>
-        </div>
-    </div>
-
+    <!-- Offcanvas Quotes (Muncul di layar kecil) -->
     <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasQuotes">
         <div class="offcanvas-header">
             <h5 class="offcanvas-title">Daftar Quotes</h5>
