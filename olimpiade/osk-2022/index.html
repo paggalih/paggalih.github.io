@@ -1272,22 +1272,22 @@
         - <strong>Subkasus I: Jarak antara dua digit 2 adalah 1.</strong><br>
         - Pilih posisi untuk dua digit 2 yang berdekatan. Ada 4 kemungkinan posisi.<br>
         - Digit di sebelah kiri dan kanan dari dua digit 2 harus 1 dan 3 (atau sebaliknya), sehingga ada 2 kemungkinan.<br>
-        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^4 = 16 \) kemungkinan.<br>
+        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^3 = 16 \) kemungkinan.<br>
         - Total bilangan untuk subkasus ini:
         \[
-        4 \times 2 \times 16 = 128.
+        4 \times 2 \times 8 = 64.
         \]
         - <strong>Subkasus II: Jarak antara dua digit 2 lebih dari 1.</strong><br>
         - Pilih posisi untuk dua digit 2 yang tidak berdekatan. Ada 6 kemungkinan posisi.<br>
         - Digit di sebelah kiri dan kanan dari setiap digit 2 harus 1 dan 3 (atau sebaliknya), sehingga ada 2 kemungkinan untuk setiap digit 2.<br>
-        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^4 = 16 \) kemungkinan.<br>
+        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^2 = 16 \) kemungkinan.<br>
         - Total bilangan untuk subkasus ini:
         \[
-        6 \times 2 \times 2 \times 16 = 384.
+        6 \times 2 \times 2 \times 4 = 96.
         \]
         - Total bilangan untuk kasus II:
         \[
-        128 + 384 = 512.
+        64 + 96 = 160.
         \]
     </p>
     <p>
@@ -1295,44 +1295,44 @@
         - <strong>Subkasus I: Jarak antara setiap digit 2 adalah 1.</strong><br>
         - Pilih posisi untuk tiga digit 2 yang berdekatan. Ada 2 kemungkinan posisi.<br>
         - Digit di sebelah kiri dan kanan dari tiga digit 2 harus 1 dan 3 (atau sebaliknya), sehingga ada 2 kemungkinan.<br>
-        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^3 = 8 \) kemungkinan.<br>
+        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^1 = 1 \) kemungkinan.<br>
         - Total bilangan untuk subkasus ini:
         \[
-        2 \times 2 \times 8 = 32.
+        2 \times 2 \times 2 = 8.
         \]
         - <strong>Subkasus II: Jarak antara dua digit 2 adalah 2 dan 1.</strong><br>
         - Pilih posisi untuk tiga digit 2 dengan jarak 2 dan 1. Ada 1 kemungkinan posisi.<br>
         - Digit di sebelah kiri dan kanan dari setiap digit 2 harus 1 dan 3 (atau sebaliknya), sehingga ada 2 kemungkinan untuk setiap digit 2.<br>
-        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^3 = 8 \) kemungkinan.<br>
+        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^0 = 1 \) kemungkinan.<br>
         - Total bilangan untuk subkasus ini:
         \[
-        1 \times 2 \times 2 \times 8 = 32.
+        1 \times 2 \times 2 \times 1 = 4.
         \]
         - <strong>Subkasus III: Jarak antara dua digit 2 adalah 1 dan 2.</strong><br>
         - Pilih posisi untuk tiga digit 2 dengan jarak 1 dan 2. Ada 1 kemungkinan posisi.<br>
         - Digit di sebelah kiri dan kanan dari setiap digit 2 harus 1 dan 3 (atau sebaliknya), sehingga ada 2 kemungkinan untuk setiap digit 2.<br>
-        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^3 = 8 \) kemungkinan.<br>
+        - Digit lainnya bisa 1 atau 3, sehingga ada \( 2^0 = 1 \) kemungkinan.<br>
         - Total bilangan untuk subkasus ini:
         \[
-        1 \times 2 \times 2 \times 8 = 32.
+        1 \times 2 \times 2 \times 1 = 4.
         \]
         - Total bilangan untuk kasus III:
         \[
-        32 + 32 + 32 = 96.
+        8 + 4 + 4 = 16.
         \]
     </p>
     <p>
         4. <strong>Total Bilangan yang Memenuhi Kondisi:</strong><br>
         - Jumlahkan total bilangan dari semua kasus:
         \[
-        384 + 512 + 96 = 992.
+        384 + 160 + 16 = 560.
         \]
     </p>
 
     <p>
         <strong>Jawaban:</strong><br>
         \[
-        \boxed{992}
+        \boxed{560}
         \]
     </p>
 			</div>
