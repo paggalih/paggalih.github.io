@@ -1073,30 +1073,30 @@
         \]
         - Karena \( \text{FPB}(a, b) = 1 \), maka \( \text{FPB}(2a, 5b) = 10 \) menunjukkan bahwa \( a \) dan \( b \) harus memiliki faktor 2 dan 5:
         \[
-        a = 2k \quad \text{dan} \quad b = 5l,
+        a = 5k \quad \text{dan} \quad b = 2l,
         \]
-        di mana \( \text{FPB}(k, l) = 1 \).
+        di mana \( \text{FPB}(5k, 2l) = 1 \).
     </p>
     <p>
         4. <strong>Menghitung \( \text{FPB}(15m, 6n) \):</strong><br>
-        - Substitusi \( m = 3a = 3 \cdot 2k = 6k \) dan \( n = 3b = 3 \cdot 5l = 15l \):
+        - Substitusi \( m = 3a = 3 \cdot 5k = 15k \) dan \( n = 3b = 3 \cdot 2l = 6l \):
         \[
-        15m = 15 \cdot 6k = 90k \quad \text{dan} \quad 6n = 6 \cdot 15l = 90l.
+        15m = 15 \cdot 15k = 225k \quad \text{dan} \quad 6n = 6 \cdot 6l = 36l.
         \]
         - Maka:
         \[
-        \text{FPB}(15m, 6n) = \text{FPB}(90k, 90l).
+        \text{FPB}(15m, 6n) = \text{FPB}(225k, 36l).
         \]
-        - Karena \( \text{FPB}(k, l) = 1 \), maka:
+        - Karena \( \text{FPB}(5k, 2l) = 1 \), maka:
         \[
-        \text{FPB}(90k, 90l) = 90 \cdot \text{FPB}(k, l) = 90 \cdot 1 = 90.
+        \text{FPB}(225k, 36l) = 9 \cdot \text{FPB}(25k, 4l) = 9 \cdot 1 = 9.
         \]
     </p>
 
     <p>
         <strong>Jawaban:</strong><br>
         \[
-        \boxed{90}
+        \boxed{9}
         \]
     </p>
 			</div>
@@ -1118,7 +1118,125 @@
 				</button>
 			<div class="collapse" id="collapse17">
 			<button class="btn btn-success">$9$</button>
+    <p>
+        1. <strong>Substitusi Variabel:</strong><br>
+        - Misalkan \( a = pc \) dan \( d = qb \), di mana \( p, q > 1 \).<br>
+        - Substitusi ke persamaan awal:
+        \[
+        3a^2 + 3b^2 = 3(pc)^2 + 3b^2 = 3p^2c^2 + 3b^2 = k,
+        \]
+        \[
+        3c^2 + 3d^2 = 3c^2 + 3(qb)^2 = 3c^2 + 3q^2b^2 = k,
+        \]
+        \[
+        4ac + 4bd = 4(pc)c + 4(qb)b = 4pc^2 + 4qb^2 = k.
+        \]
+        - Sehingga kita memiliki sistem persamaan:
+        \[
+        3p^2c^2 + 3b^2 = k \quad \text{(1)},
+        \]
+        \[
+        3q^2b^2 + 3c^2 = k \quad \text{(2)},
+        \]
+        \[
+        4pc^2 + 4qb^2 = k \quad \text{(3)}.
+        \]
+    </p>
+    <p>
+        2. <strong>Eliminasi Persamaan:</strong><br>
+        - Eliminasi persamaan (1) \(\times q^2\) dan persamaan (2):
+        \[
+        (3p^2q^2c^2 + 3b^2q^2) - (3q^2b^2 + 3c^2) = k(q^2 - 1),
+        \]
+        \[
+        3c^2(p^2q^2 - 1) = k(q^2 - 1),
+        \]
+        \[
+        c^2 = \frac{k(q^2 - 1)}{3(p^2q^2 - 1)}.
+        \]
+        - Eliminasi persamaan (2) \(\times p^2\) dan persamaan (1):
+        \[
+        (3p^2q^2b^2 + 3p^2c^2) - (3p^2c^2 + 3b^2) = k(p^2 - 1),
+        \]
+        \[
+        3b^2(p^2q^2 - 1) = k(p^2 - 1),
+        \]
+        \[
+        b^2 = \frac{k(p^2 - 1)}{3(p^2q^2 - 1)}.
+        \]
+    </p>
+    <p>
+        3. <strong>Substitusi ke Persamaan (3):</strong><br>
+        - Substitusi \( c^2 \) dan \( b^2 \) ke persamaan (3):
+        \[
+        4pc^2 + 4qb^2 = k,
+        \]
+        \[
+        4p \cdot \frac{k(q^2 - 1)}{3(p^2q^2 - 1)} + 4q \cdot \frac{k(p^2 - 1)}{3(p^2q^2 - 1)} = k,
+        \]
+        \[
+        \frac{4pk(q^2 - 1) + 4qk(p^2 - 1)}{3(p^2q^2 - 1)} = k,
+        \]
+        \[
+        \frac{4p(q^2 - 1) + 4q(p^2 - 1)}{3(p^2q^2 - 1)} = 1,
+        \]
+        \[
+        4p(q^2 - 1) + 4q(p^2 - 1) = 3(p^2q^2 - 1).
+        \]
+        - Sederhanakan persamaan:
+        \[
+        4pq^2 - 4p + 4p^2q - 4q = 3p^2q^2 - 3,
+        \]
+        \[
+        3p^2q^2 - 4p^2q - 4pq^2 + 4p + 4q - 3 = 0.
+        \]
+        - Faktorkan persamaan:
+        \[
+        (pq - 1)(3pq - 4p - 4q + 3) = 0.
+        \]
+        - Karena \( pq > 1 \), maka:
+        \[
+        3pq - 4p - 4q + 3 = 0.
+        \]
+        - Selesaikan untuk \( \frac{p + q}{pq + 1} \):
+        \[
+        3pq - 4p - 4q + 3 = 0,
+        \]
+        \[
+        3pq + 3 = 4p + 4q,
+        \]
+        \[
+        3(pq + 1) = 4(p + q),
+        \]
+        \[
+        \frac{p + q}{pq + 1} = \frac{3}{4}.
+        \]
+    </p>
+    <p>
+        4. <strong>Menghitung Nilai \( \frac{12(ab + cd)}{ad + bc} \):</strong><br>
+        - Substitusi \( a = pc \) dan \( d = qb \):
+        \[
+        ab + cd = (pc)b + c(qb) = pcb + cqb = (p + q)cb,
+        \]
+        \[
+        ad + bc = (pc)(qb) + bc = pqbc + bc = (pq + 1)bc.
+        \]
+        - Maka:
+        \[
+        \frac{12(ab + cd)}{ad + bc} = \frac{12(p + q)cb}{(pq + 1)bc} = 12 \cdot \frac{p + q}{pq + 1}.
+        \]
+        - Dari langkah sebelumnya, kita tahu \( \frac{p + q}{pq + 1} = \frac{3}{4} \), sehingga:
+        \[
+        \frac{12(ab + cd)}{ad + bc} = 12 \cdot \frac{3}{4} = 9.
+        \]
+    </p>
 
+    <p>
+        <strong>Jawaban:</strong><br>
+        \[
+        \boxed{9}
+        \]
+    </p>
 
 			</div>
 			</div>
