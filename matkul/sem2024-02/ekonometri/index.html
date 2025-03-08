@@ -42,7 +42,7 @@
         <style>
             @media (min-width: 991px) {
 			#matkul_icon {
-				z-index: 2000;
+				z-index: 1;
 				position: fixed;
 				right: 20px;
 				top: 20px;
@@ -282,7 +282,12 @@
                 <div id="password-section">
                     <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
                     <div class="d-flex justify-content-center">
-                        <input type="password" id="quizPassword" class="form-control w-50 text-center" placeholder="Masukkan Password">
+                        <div class="input-group w-50">
+                            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                <i id="eyeIcon" class="bi bi-eye"></i>
+                            </button>
+                        </div>
                     </div>
                     <div class="text-center mt-3">
                         <button class="btn btn-success" onclick="checkPassword()">Submit</button>
@@ -386,6 +391,7 @@
 			jam1 = date.toLocaleTimeString('id-ID');
 			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
 		</script>
+
 <script>
 function checkPassword() {
     const correctPassword = "ekonometri2024"; // Ubah dengan password yang Anda inginkan
@@ -398,7 +404,20 @@ function checkPassword() {
         alert("Password salah! Coba lagi.");
     }
 }
-</script>
 
+// Fungsi untuk menampilkan/menyembunyikan password
+function togglePassword() {
+    let passwordInput = document.getElementById("quizPassword");
+    let eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.replace("bi-eye", "bi-eye-slash"); // Ganti ikon ke mata tertutup
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.replace("bi-eye-slash", "bi-eye"); // Ganti ikon ke mata terbuka
+    }
+}
+</script>
     </body>
 </html>
