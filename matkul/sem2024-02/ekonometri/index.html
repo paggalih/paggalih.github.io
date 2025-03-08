@@ -311,6 +311,7 @@
     </div>
 </div>
 
+
                 </div>
             </section>
             <section id="p3">
@@ -397,7 +398,26 @@
 			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
 		</script>
 
+
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    // Event listener: tekan Enter untuk submit password
+    document.getElementById("quizPassword").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+    });
+
+    // Event listener: Reset modal saat ditutup
+    let quizModal = document.getElementById("quizModal");
+    quizModal.addEventListener("hidden.bs.modal", function () {
+        document.getElementById("quizPassword").value = ""; // Reset input password
+        document.getElementById("password-section").style.display = "block"; // Tampilkan kembali input password
+        document.getElementById("quiz-content").style.display = "none"; // Sembunyikan soal kembali
+    });
+});
+
+// Fungsi untuk cek password
 function checkPassword() {
     const correctPassword = "ekonometri2024"; // Ubah dengan password yang Anda inginkan
     let inputPassword = document.getElementById("quizPassword").value;
