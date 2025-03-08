@@ -262,6 +262,45 @@
     <h2>Kesimpulan</h2>
     <p>Bab 1 membahas konsep dasar ekonometrika dan pentingnya dalam analisis ekonomi. Bab 2 menjelaskan model regresi linier dan metode OLS yang menjadi dasar banyak analisis ekonometrika.</p>
 
+<!-- Tombol untuk membuka modal -->
+<div class="text-center mt-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quizModal">
+        Buka Kuis
+    </button>
+</div>
+
+<!-- Modal Full Width -->
+<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizModalLabel">Kuis Ekonometri</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form Input Password -->
+                <div id="password-section">
+                    <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
+                    <div class="d-flex justify-content-center">
+                        <input type="password" id="quizPassword" class="form-control w-50 text-center" placeholder="Masukkan Password">
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
+                    </div>
+                </div>
+
+                <!-- Soal Kuis (Disembunyikan sampai password benar) -->
+                <div id="quiz-content" class="mt-4" style="display: none;">
+                    <h4>Soal Kuis</h4>
+                    <p><strong>1. Sebuah model ekonometri memiliki variabel independen X dan variabel dependen Y. Jika koefisien regresi menunjukkan nilai 0.8, bagaimana interpretasi hubungan antara X dan Y?</strong></p>
+                    <p><strong>2. Jika residual dalam suatu model regresi tidak berdistribusi normal, metode apa yang bisa digunakan untuk mengatasi masalah ini?</strong></p>
+                    <p><strong>3. Apa perbedaan utama antara regresi linear biasa (OLS) dan regresi logistik?</strong></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                 </div>
             </section>
             <section id="p3">
@@ -346,7 +385,20 @@
 			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
 			jam1 = date.toLocaleTimeString('id-ID');
 			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
-			
 		</script>
+<script>
+function checkPassword() {
+    const correctPassword = "ekonometri2024"; // Ubah dengan password yang Anda inginkan
+    let inputPassword = document.getElementById("quizPassword").value;
+
+    if (inputPassword === correctPassword) {
+        document.getElementById("password-section").style.display = "none"; // Sembunyikan input password
+        document.getElementById("quiz-content").style.display = "block"; // Tampilkan soal kuis
+    } else {
+        alert("Password salah! Coba lagi.");
+    }
+}
+</script>
+
     </body>
 </html>
