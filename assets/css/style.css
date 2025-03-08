@@ -69,6 +69,34 @@ a:hover {
     border-radius: 6px; /* Membuat sudut membulat */
 }
 
+#quiz-content ol {
+    list-style: none;
+    counter-reset: list-counter; /* Reset counter */
+}
+
+#quiz-content ol li {
+    counter-increment: list-counter; /* Tambah counter setiap <li> baru */
+    position: relative;
+    padding-left: 40px; /* Menyesuaikan ruang untuk numbering */
+    padding-top: 20px; /* Menyesuaikan ruang untuk numbering */
+    display: flex;
+    align-items: center; /* Agar numbering sejajar dengan teks */
+}
+
+#quiz-content ol li::before {
+    content: counter(list-counter, number); /* Menampilkan a, b, c, d */
+    position: absolute;
+    left: 0;
+    width: 28px;
+    height: 28px;
+    background-color: #f9f9; /* Warna latar */
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 6px; /* Membuat sudut membulat */
+}
+
     pre {
         background-color: #f5f5f5; /* Warna latar belakang lembut */
         border-left: 5px solid #4CAF50; /* Garis tepi kiri berwarna hijau */
