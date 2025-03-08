@@ -297,7 +297,7 @@ a:hover {
   position: fixed;
   right: 10px;
   top: 10px;
-  z-index: 9998;
+  z-index: 2;
   border: 0;
   background: none;
   font-size: 28px;
