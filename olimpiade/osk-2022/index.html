@@ -596,105 +596,31 @@
 				</button>
 			<div class="collapse" id="collapse10">
 			<button class="btn btn-success">$7$</button>
-			<p>Untuk menyelesaikan masalah ini, kita perlu mencari bilangan asli \( x \) sehingga \( x^2 + 42x \) adalah pangkat tiga dari suatu bilangan prima. Mari kita eksplorasi dua kemungkinan:</p>
+<p>Karena \( x^2 + 42x \) adalah pangkat tiga dari bilangan prima, maka \( x \) harus merupakan bilangan prima.</p>
 
-			<h4>Kasus 1: \( x \) adalah pangkat tiga</h4>
-			<p>Misalkan \( x = p^3 \), di mana \( p \) adalah bilangan prima. Maka:</p>
-			<p>\[
-			x + 42 = p^3 + 42
-			\]</p>
-			<p>Agar \( x(x + 42) = p^3 (p^3 + 42) \) menjadi pangkat tiga dari suatu bilangan prima, \( p^3 + 42 \) juga harus merupakan pangkat tiga dari bilangan prima yang sama.</p>
-			<p>Kita akan mencoba nilai-nilai kecil untuk \( p \):</p>
-			<ul>
-					<li><strong>\( p = 2 \):</strong>
-							\[
-							x = 2^3 = 8
-							\]
-							\[
-							x + 42 = 8 + 42 = 50
-							\]
-							Periksa apakah 50 adalah pangkat tiga:
-							\[
-							\sqrt[3]{50} \approx 3.684
-							\]
-							50 bukanlah pangkat tiga dari suatu bilangan bulat.
-					</li>
-					<li><strong>\( p = 3 \):</strong>
-							\[
-							x = 3^3 = 27
-							\]
-							\[
-							x + 42 = 27 + 42 = 69
-							\]
-							Periksa apakah 69 adalah pangkat tiga:
-							\[
-							\sqrt[3]{69} \approx 4.101
-							\]
-							69 bukanlah pangkat tiga dari suatu bilangan bulat.
-					</li>
-					<li><strong>\( p = 5 \):</strong>
-							\[
-							x = 5^3 = 125
-							\]
-							\[
-							x + 42 = 125 + 42 = 167
-							\]
-							Periksa apakah 167 adalah pangkat tiga:
-							\[
-							\sqrt[3]{167} \approx 5.507
-							\]
-							167 bukanlah pangkat tiga dari suatu bilangan bulat.
-					</li>
-					<li><strong>\( p = 7 \):</strong>
-							\[
-							x = 7^3 = 343
-							\]
-							\[
-							x + 42 = 343 + 42 = 385
-							\]
-							Periksa apakah 385 adalah pangkat tiga:
-							\[
-							\sqrt[3]{385} \approx 7.284
-							\]
-							385 bukanlah pangkat tiga dari suatu bilangan bulat.
-					</li>
-			</ul>
-			<p>Setelah mencoba nilai-nilai kecil untuk \( p \), tidak ada solusi yang memenuhi syarat. Analisis umum juga menunjukkan bahwa tidak ada solusi bulat untuk persamaan \( q^3 - p^3 = 42 \) dengan \( p \) dan \( q \) sebagai bilangan prima.</p>
+<p>Akibatnya, kita memiliki persamaan:</p>
 
-			<h4>Kasus 2: \( x = n \) dan \( x + 42 = n^2 \)</h4>
-			<p>Misalkan \( x = n \) dan \( x + 42 = n^2 \). Maka:</p>
-			<p>\[
-			n + 42 = n^2
-			\]</p>
-			<p>Selesaikan persamaan kuadrat:</p>
-			<p>\[
-			n^2 - n - 42 = 0
-			\]</p>
-			<p>Menggunakan rumus kuadrat:</p>
-			<p>\[
-			n = \frac{1 \pm \sqrt{1 + 168}}{2} = \frac{1 \pm \sqrt{169}}{2} = \frac{1 \pm 13}{2}
-			\]</p>
-			<p>\[
-			n = \frac{14}{2} = 7 \quad \text{atau} \quad n = \frac{-12}{2} = -6
-			\]</p>
-			<p>Karena \( n \) adalah bilangan asli, maka \( n = 7 \).</p>
-			<p>Verifikasi:</p>
-			<p>\[
-			x = n = 7
-			\]</p>
-			<p>\[
-			x + 42 = 7 + 42 = 49 = 7^2
-			\]</p>
-			<p>\[
-			x^2 + 42x = 7^2 + 42 \times 7 = 49 + 294 = 343 = 7^3
-			\]</p>
-			<p>\( 343 \) adalah pangkat tiga dari bilangan prima \( 7 \).</p>
-			<p>Jadi etelah mengeksplorasi kedua kasus, kita menemukan bahwa solusi yang memenuhi adalah:</p>
-			<p>
-					\[
-					\boxed{7}
-					\]
-					</p>
+\[
+x^2 + 42x = x^3
+\]
+
+<p>Menyusun ulang persamaan:</p>
+
+\[
+0 = x^3 - x^2 - 42x
+\]
+
+\[
+0 = x(x - 7)(x + 6)
+\]
+
+<p>Karena \( x \) adalah bilangan prima, maka satu-satunya solusi adalah:</p>
+
+\[
+x = 7
+\]
+
+<p>Jadi, nilai \( x \) adalah \[ \boxed{7} .\]</p>
 			</div>
 			</div>
 			</div>
@@ -866,12 +792,7 @@
 					</li>
 			</ol>
 			Jadi panjang sisi miring $ABC$ adalah $$\boxed{18}$$
-			<p>Berikut adalah gambar segitiga siku-siku \( ABC \) menggunakan TikZ dalam MathJax:</p>
-			<div class="row text-center">
-			<div class="col-lg-6 col-sm-12">
-			<img src="//i.upmath.me/svg/%5C%5B%0A%5Cbegin%7Btikzpicture%7D%0A%20%20%20%20%25%20Gambar%20segitiga%20siku-siku%0A%20%20%20%20%5Cdraw%20(0%2C0)%20--%20(4%2C0)%20--%20(4%2C3)%20--%20cycle%3B%0A%20%20%20%20%5Cnode%20at%20(0%2C0)%20%5Bbelow%5D%20%7B%24A%24%7D%3B%0A%20%20%20%20%5Cnode%20at%20(4%2C0)%20%5Bbelow%5D%20%7B%24B%24%7D%3B%0A%20%20%20%20%5Cnode%20at%20(4%2C3)%20%5Babove%5D%20%7B%24C%24%7D%3B%0A%20%20%20%20%5Cdraw%20(4%2C0)%20--%20(4%2C3)%20node%5Bmidway%2C%20right%5D%20%7B%24a%24%7D%3B%0A%20%20%20%20%5Cdraw%20(0%2C0)%20--%20(4%2C0)%20node%5Bmidway%2C%20below%5D%20%7B%24b%24%7D%3B%0A%20%20%20%20%5Cdraw%20(0%2C0)%20--%20(4%2C3)%20node%5Bmidway%2C%20above%5D%20%7B%24c%24%7D%3B%0A%0A%20%20%20%20%25%20Lingkaran%20luar%20(circumcircle)%0A%20%20%20%20%5Ccoordinate%20(circumcenter)%20at%20(2%2C%201.5)%3B%20%25%20Pusat%20lingkaran%20luar%0A%20%20%20%20%5Cdraw%5Bred%2C%20thick%5D%20(circumcenter)%20circle%20(2.5cm)%3B%20%25%20Gambar%20lingkaran%20luar%0A%0A%20%20%20%20%25%20Lingkaran%20dalam%20(incircle)%0A%20%20%20%20%5Ccoordinate%20(incenter)%20at%20(1.5%2C%201)%3B%20%25%20Pusat%20lingkaran%20dalam%0A%20%20%20%20%5Cdraw%5Bblue%2C%20thick%5D%20(incenter)%20circle%20(0.75cm)%3B%20%25%20Gambar%20lingkaran%20dalam%0A%5Cend%7Btikzpicture%7D%0A%5C%5D" class="img-fluid" alt="gambar-no-12">
-			</div>
-			</div>
+
 			</div>
 			</div>
 			</div>
