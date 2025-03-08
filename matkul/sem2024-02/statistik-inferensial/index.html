@@ -209,6 +209,75 @@
                     <div class="section-title">
                         <h2>Pertemuan 2</h2>
                     </div>
+<h1>Distribusi Sampling</h1>
+
+<h2>Pendahuluan</h2>
+<p><b>Distribusi Sampling</b> adalah distribusi probabilitas dari statistik sampel yang dihitung dari banyak sampel yang diambil dari suatu populasi.</p>
+<p>Konsep ini sangat penting dalam <b>inferensi statistik</b>, karena memungkinkan kita untuk memperkirakan karakteristik populasi berdasarkan sampel.</p>
+
+<h2>Distribusi Sampling dari Mean</h2>
+<p>Distribusi sampling dari <b>mean</b> adalah distribusi probabilitas dari rata-rata sampel yang diambil dari suatu populasi.</p>
+<p><b>Teorema Limit Pusat</b> menyatakan bahwa jika ukuran sampel cukup besar, distribusi sampling dari mean akan mendekati distribusi normal, <b>terlepas dari bentuk distribusi populasi asli</b>.</p>
+<p><b>Rumus Mean dan Standar Deviasi</b> dari distribusi sampling:</p>
+
+\[
+\mu_{\bar{x}} = \mu
+\]
+
+\[
+\sigma_{\bar{x}} = \frac{\sigma}{\sqrt{n}}
+\]
+
+<p>di mana:</p>
+<ul>
+    <li>\(\mu\) adalah mean populasi</li>
+    <li>\(\sigma\) adalah standar deviasi populasi</li>
+    <li>\(n\) adalah ukuran sampel</li>
+</ul>
+
+<h2>Distribusi Sampling dari Proporsi</h2>
+<p>Distribusi sampling juga berlaku untuk <b>proporsi</b>, terutama dalam kasus <b>data biner</b> (misalnya, sukses/gagal).</p>
+<p>Jika \( p \) adalah proporsi populasi dan \( \hat{p} \) adalah proporsi sampel, maka:</p>
+
+\[
+\mu_{\hat{p}} = p
+\]
+
+\[
+\sigma_{\hat{p}} = \sqrt{\frac{p(1 - p)}{n}}
+\]
+
+<p>Distribusi sampling dari proporsi akan mendekati distribusi normal jika memenuhi <b>aturan normalitas</b>:</p>
+
+\[
+np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
+\]
+
+<h2>Distribusi Sampling dari Selisih Dua Mean</h2>
+<p>Ketika membandingkan dua sampel independen, distribusi sampling dari <b>selisih dua mean</b> mengikuti aturan:</p>
+
+<p><b>Mean dari distribusi:</b></p>
+
+\[
+\mu_{\bar{x}_1 - \bar{x}_2} = \mu_1 - \mu_2
+\]
+
+<p><b>Standar deviasi dari distribusi:</b></p>
+
+\[
+\sigma_{\bar{x}_1 - \bar{x}_2} = \sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}
+\]
+
+<p>Jika ukuran sampel cukup besar, distribusi ini dapat didekati dengan distribusi normal.</p>
+
+<h2>Inferensi Statistik dengan Distribusi Sampling</h2>
+<p>Distribusi sampling memungkinkan kita untuk:</p>
+<ol>
+    <li><b>Menentukan estimasi parameter populasi</b> (seperti mean atau proporsi).</li>
+    <li><b>Menghitung probabilitas dari suatu sampel</b> berdasarkan distribusi normal.</li>
+    <li><b>Melakukan uji hipotesis dan interval kepercayaan</b> untuk menentukan signifikansi hasil sampel.</li>
+</ol>
+<p>Inferensi statistik bergantung pada asumsi bahwa distribusi sampling cukup <b>normal</b> untuk digunakan dalam perhitungan statistik.</p>
 
                 </div>
             </section>
