@@ -426,6 +426,10 @@ document.addEventListener("DOMContentLoaded", function () {
 			jam1 = date.toLocaleTimeString('id-ID');
 			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
 			
+window.MathJax = {
+  tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+  svg: { fontCache: 'global' }
+};
 
 document.addEventListener("DOMContentLoaded", function() {
     // Event listener: tekan Enter untuk submit password
@@ -465,7 +469,8 @@ async function checkPassword() {
 
         // 🟢 Perintah untuk merender ulang MathJax setelah soal dimasukkan
         if (window.MathJax) {
-            MathJax.typesetPromise().then(() => {
+            MathJax.typesetPromise()
+						.then(() => {
                 console.log("MathJax berhasil dirender ulang.");
             }).catch((err) => console.log("Error MathJax:", err));
         }
