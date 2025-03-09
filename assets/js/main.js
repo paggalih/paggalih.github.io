@@ -420,3 +420,51 @@ document.addEventListener("DOMContentLoaded", function () {
             document.getElementById("folder-list").innerHTML = "Gagal memuat daftar folder.";
         });
 });
+
+			var date = new Date(document.lastModified);
+			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
+			jam1 = date.toLocaleTimeString('id-ID');
+			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
+document.addEventListener("DOMContentLoaded", function() {
+    // Event listener: tekan Enter untuk submit password
+    document.getElementById("quizPassword").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+    });
+
+    // Event listener: Reset modal saat ditutup
+    let quizModal = document.getElementById("quizModal");
+    quizModal.addEventListener("hidden.bs.modal", function () {
+        document.getElementById("quizPassword").value = ""; // Reset input password
+        document.getElementById("password-section").style.display = "block"; // Tampilkan kembali input password
+        document.getElementById("quiz-content").style.display = "none"; // Sembunyikan soal kembali
+    });
+});
+
+// Fungsi untuk cek password
+function checkPassword() {
+    const correctPassword = "galih"; // Ubah dengan password yang Anda inginkan
+    let inputPassword = document.getElementById("quizPassword").value;
+
+    if (inputPassword === correctPassword) {
+        document.getElementById("password-section").style.display = "none"; // Sembunyikan input password
+        document.getElementById("quiz-content").style.display = "block"; // Tampilkan soal kuis
+    } else {
+        alert("Password salah! Coba lagi.");
+    }
+}
+
+// Fungsi untuk menampilkan/menyembunyikan password
+function togglePassword() {
+    let passwordInput = document.getElementById("quizPassword");
+    let eyeIcon = document.getElementById("eyeIcon");
+
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.replace("bi-eye", "bi-eye-slash"); // Ganti ikon ke mata tertutup
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.replace("bi-eye-slash", "bi-eye"); // Ganti ikon ke mata terbuka
+    }
+}
