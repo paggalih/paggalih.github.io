@@ -409,7 +409,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     let button = document.createElement("a");
                     button.href = `../${item.name}/`; // Link ke folder
                     button.id = "baca_juga"; // Ganti class dengan id
-                    button.className = "btn w-auto";
+                    button.className = "btn btn-outline-primary w-auto";
                     button.textContent = item.name;
                     folderList.appendChild(button);
                 }
