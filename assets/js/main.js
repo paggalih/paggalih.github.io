@@ -467,12 +467,11 @@ async function checkPassword() {
             questionsList.appendChild(li);
         });
 
-        // 🟢 Perintah untuk merender ulang MathJax setelah soal dimasukkan
+        // 🔥 Panggil ulang MathJax untuk render ulang setelah soal muncul
         if (window.MathJax) {
             MathJax.typesetPromise()
-						.then(() => {
-                console.log("MathJax berhasil dirender ulang.");
-            }).catch((err) => console.log("Error MathJax:", err));
+                .then(() => console.log("MathJax berhasil dirender ulang"))
+                .catch(err => console.log("Error MathJax:", err));
         }
     } else {
         alert("Password salah! Coba lagi.");
