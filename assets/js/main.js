@@ -425,6 +425,8 @@ document.addEventListener("DOMContentLoaded", function () {
 			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
 			jam1 = date.toLocaleTimeString('id-ID');
 			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
+			
+
 document.addEventListener("DOMContentLoaded", function() {
     // Event listener: tekan Enter untuk submit password
     document.getElementById("quizPassword").addEventListener("keydown", function(event) {
@@ -444,12 +446,23 @@ document.addEventListener("DOMContentLoaded", function() {
 
 // Fungsi untuk cek password
 function checkPassword() {
-    const correctPassword = "galih"; // Ubah dengan password yang Anda inginkan
     let inputPassword = document.getElementById("quizPassword").value;
 
-    if (inputPassword === correctPassword) {
+    if (inputPassword === currentQuiz.password) {
         document.getElementById("password-section").style.display = "none"; // Sembunyikan input password
         document.getElementById("quiz-content").style.display = "block"; // Tampilkan soal kuis
+
+        // Isi soal
+        document.getElementById("quiz-title").textContent = currentQuiz.title;
+        let questionsList = document.getElementById("quiz-questions");
+        questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
+
+        currentQuiz.questions.forEach(question => {
+            let li = document.createElement("li");
+            li.textContent = question;
+            questionsList.appendChild(li);
+        });
+
     } else {
         alert("Password salah! Coba lagi.");
     }
