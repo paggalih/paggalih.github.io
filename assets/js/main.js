@@ -445,7 +445,7 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 // Fungsi untuk cek password
-function checkPassword() {
+async function checkPassword() {
     let inputPassword = document.getElementById("quizPassword").value;
 
     if (inputPassword === currentQuiz.password) {
@@ -459,14 +459,21 @@ function checkPassword() {
 
         currentQuiz.questions.forEach(question => {
             let li = document.createElement("li");
-            li.textContent = question;
+            li.innerHTML = question; // Gunakan innerHTML agar MathJax bisa membaca sintaks LaTeX
             questionsList.appendChild(li);
         });
 
+        // 🟢 Perintah untuk merender ulang MathJax setelah soal dimasukkan
+        if (window.MathJax) {
+            MathJax.typesetPromise().then(() => {
+                console.log("MathJax berhasil dirender ulang.");
+            }).catch((err) => console.log("Error MathJax:", err));
+        }
     } else {
         alert("Password salah! Coba lagi.");
     }
 }
+
 
 // Fungsi untuk menampilkan/menyembunyikan password
 function togglePassword() {
