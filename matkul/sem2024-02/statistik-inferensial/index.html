@@ -278,10 +278,16 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
 </ol>
 <p>Inferensi statistik bergantung pada asumsi bahwa distribusi sampling cukup <b>normal</b> untuk digunakan dalam perhitungan statistik.</p>
 
-<!-- Tombol untuk membuka modal -->
+<!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
 <div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quizModal">
-        Buka Kuis
+    <button type="button" class="btn btn-primary" onclick="openQuiz(1)" data-bs-toggle="modal" data-bs-target="#quizModal">
+        Kuis Pertemuan 1
+    </button>
+    <button type="button" class="btn btn-primary" onclick="openQuiz(2)" data-bs-toggle="modal" data-bs-target="#quizModal">
+        Kuis Pertemuan 2
+    </button>
+    <button type="button" class="btn btn-primary" onclick="openQuiz(3)" data-bs-toggle="modal" data-bs-target="#quizModal">
+        Kuis Pertemuan 3
     </button>
 </div>
 
@@ -312,15 +318,8 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
 
                 <!-- Soal Kuis (Disembunyikan sampai password benar) -->
                 <div id="quiz-content" class="mt-4" style="display: none;">
-                    <h4>Soal Kuis</h4>
-										<ol>
-										<li>Sebuah 
-										</li>
-										<li>Jika residual 
-										</li>
-										<li>Apa perbedaan
-										</li>
-										</ol>
+                    <h4 id="quiz-title"></h4>
+                    <ol id="quiz-questions"></ol>
                 </div>
             </div>
         </div>
@@ -334,55 +333,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 3</h2>
                     </div>
-
-<!-- Tombol untuk membuka modal -->
-<div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quizModal">
-        Buka Kuis
-    </button>
-</div>
-
-<!-- Modal Full Width -->
-<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quizModalLabel">Kuis</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Form Input Password -->
-                <div id="password-section">
-                    <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
-                    <div class="d-flex justify-content-center">
-                        <div class="input-group w-50">
-                            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-                                <i id="eyeIcon" class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
-                    </div>
-                </div>
-
-                <!-- Soal Kuis (Disembunyikan sampai password benar) -->
-                <div id="quiz-content" class="mt-4" style="display: none;">
-                    <h4>Soal Kuis</h4>
-										<ol>
-										<li>Sebuah saasdasdsadsadasd
-										</li>
-										<li>Jika residual saasdasdsadsadasd
-										</li>
-										<li>Apa perbedaan saasdasdsadsadasd
-										</li>
-										</ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
                 </div>
             </section>
@@ -463,6 +413,49 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+				
+<script>
 
+// Data kuis untuk setiap pertemuan
+const quizzes = {
+    1: {
+        title: "Kuis Pertemuan 1",
+        password: "pertemuan1",
+        questions: [
+            "Apa itu regresi linear?",
+            "Sebutkan asumsi klasik dalam model regresi.",
+            "Bagaimana cara menguji multikolinearitas dalam regresi?"
+        ]
+    },
+    2: {
+        title: "Kuis Pertemuan 2",
+        password: "pertemuan2",
+        questions: [
+            "Apa perbedaan antara regresi linear dan regresi logistik?",
+            "Bagaimana cara mengatasi heteroskedastisitas dalam regresi?",
+            "Jelaskan konsep variabel dummy dalam ekonometri."
+        ]
+    },
+    3: {
+        title: "Kuis Pertemuan 3",
+        password: "pertemuan3",
+        questions: [
+            "Jelaskan konsep autokorelasi dalam regresi.",
+            "Bagaimana cara melakukan uji Durbin-Watson?",
+            "Apa itu metode estimasi Maximum Likelihood?"
+        ]
+    }
+};
+
+let currentQuiz = null; // Variabel untuk menyimpan kuis yang sedang dibuka
+
+// Fungsi untuk membuka kuis berdasarkan pertemuan
+function openQuiz(pertemuan) {
+    currentQuiz = quizzes[pertemuan];
+
+    document.getElementById("quizModalLabel").textContent = currentQuiz.title;
+}
+
+</script>
     </body>
 </html>
