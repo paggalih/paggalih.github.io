@@ -210,6 +210,7 @@
                         <h2>Pertemuan 2</h2>
                     </div>
 <h2>Distribusi Sampling</h2>
+
 <p><b>Distribusi Sampling</b> adalah distribusi probabilitas dari statistik sampel yang dihitung dari banyak sampel yang diambil dari suatu populasi.</p>
 <p>Konsep ini sangat penting dalam <b>inferensi statistik</b>, karena memungkinkan kita untuk memperkirakan karakteristik populasi berdasarkan sampel.</p>
 
@@ -277,6 +278,55 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
 </ol>
 <p>Inferensi statistik bergantung pada asumsi bahwa distribusi sampling cukup <b>normal</b> untuk digunakan dalam perhitungan statistik.</p>
 
+<!-- Tombol untuk membuka modal -->
+<div class="text-center mt-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quizModal">
+        Buka Kuis
+    </button>
+</div>
+
+<!-- Modal Full Width -->
+<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizModalLabel">Kuis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form Input Password -->
+                <div id="password-section">
+                    <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
+                    <div class="d-flex justify-content-center">
+                        <div class="input-group w-50">
+                            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                <i id="eyeIcon" class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
+                    </div>
+                </div>
+
+                <!-- Soal Kuis (Disembunyikan sampai password benar) -->
+                <div id="quiz-content" class="mt-4" style="display: none;">
+                    <h4>Soal Kuis</h4>
+										<ol>
+										<li>Sebuah 
+										</li>
+										<li>Jika residual 
+										</li>
+										<li>Apa perbedaan
+										</li>
+										</ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
                 </div>
             </section>
             <section id="p3">
@@ -284,6 +334,55 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 3</h2>
                     </div>
+
+<!-- Tombol untuk membuka modal -->
+<div class="text-center mt-4">
+    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quizModal">
+        Buka Kuis
+    </button>
+</div>
+
+<!-- Modal Full Width -->
+<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-fullscreen">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="quizModalLabel">Kuis</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                <!-- Form Input Password -->
+                <div id="password-section">
+                    <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
+                    <div class="d-flex justify-content-center">
+                        <div class="input-group w-50">
+                            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
+                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                                <i id="eyeIcon" class="bi bi-eye"></i>
+                            </button>
+                        </div>
+                    </div>
+                    <div class="text-center mt-3">
+                        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
+                    </div>
+                </div>
+
+                <!-- Soal Kuis (Disembunyikan sampai password benar) -->
+                <div id="quiz-content" class="mt-4" style="display: none;">
+                    <h4>Soal Kuis</h4>
+										<ol>
+										<li>Sebuah 
+										</li>
+										<li>Jika residual 
+										</li>
+										<li>Apa perbedaan
+										</li>
+										</ol>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 
                 </div>
             </section>
@@ -364,12 +463,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-		<script>
-			var date = new Date(document.lastModified);
-			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
-			jam1 = date.toLocaleTimeString('id-ID');
-			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
-			
-		</script>
+
     </body>
 </html>
