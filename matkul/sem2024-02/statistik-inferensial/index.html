@@ -67,24 +67,6 @@
 			}
 			}
 			
-#quiz-container {
-    position: fixed;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    width: 80%;
-    max-width: 800px;
-    background: white;
-    padding: 20px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    border-radius: 10px;
-    display: none; /* Tersembunyi sampai password benar */
-    z-index: 1000;
-}
-
-#quiz-content {
-    text-align: left;
-}
         </style>
     </head>
     <body>
@@ -297,14 +279,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
 </ol>
 <p>Inferensi statistik bergantung pada asumsi bahwa distribusi sampling cukup <b>normal</b> untuk digunakan dalam perhitungan statistik.</p>
 
-<!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
-<div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" onclick="openQuiz(2)">
-        Kuis Pertemuan 2
-    </button>
-</div>
-
-
                 </div>
             </section>
             <section id="p3">
@@ -312,13 +286,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 3</h2>
                     </div>
-
-<!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
-<div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" onclick="openQuiz(3)">
-        Kuis Pertemuan 3
-    </button>
-</div>
                 </div>
             </section>
             <section id="p4">
@@ -326,12 +293,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 4</h2>
                     </div>
-<!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
-<div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" onclick="openQuiz(4)">
-        Kuis Pertemuan 4
-    </button>
-</div>
                 </div>
             </section>
             <section id="p5">
@@ -339,7 +300,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 5</h2>
                     </div>
-			
                 </div>
             </section>
             <section id="p6">
@@ -347,7 +307,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 6</h2>
                     </div>
-
                 </div>
             </section>
             <section id="p7">
@@ -355,8 +314,6 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 7</h2>
                     </div>
-										<p class="h3">Integral</p>
-
                 </div>
             </section>
             <section id="daftar_hadir">
@@ -404,117 +361,5 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 
-
-<!-- Input Password -->
-<div id="password-section" class="text-center mt-4">
-    <h4>Masukkan Password untuk Melihat Soal</h4>
-    <div class="d-flex justify-content-center">
-        <div class="input-group w-50">
-            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
-            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-                <i id="eyeIcon" class="bi bi-eye"></i>
-            </button>
-        </div>
-    </div>
-    <div class="text-center mt-3">
-        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
-    </div>
-</div>
-
-<!-- Kuis (Tersembunyi sampai password benar) -->
-<div id="quiz-container">
-    <div id="quiz-content">
-        <h4 id="quiz-title"></h4>
-        <ol id="quiz-questions"></ol>
-    </div>
-</div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    document.getElementById("quizPassword").addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            checkPassword();
-        }
-    });
-});
-
-// Data kuis untuk setiap pertemuan
-const quizzes = {
-    2: {
-        title: "Kuis Pertemuan 2",
-        password: "pertemuan2",
-        questions: [
-            "Jika distribusi normal memiliki rata-rata $\\mu = 50$ dan standar deviasi $\\sigma = 10$, berapakah standar error jika $n = 36$?",
-            "Hitung peluang $P(X > 60)$ jika $X \\sim N(50, 10^2)$?",
-            "Apa hubungan antara $R^2$ dan $\\text{Adjusted } R^2$ dalam regresi?"
-        ]
-    },
-    3: {
-        title: "Kuis Pertemuan 3",
-        password: "pertemuan3",
-        questions: [
-            "Apa perbedaan antara regresi linear dan regresi logistik?",
-            "Bagaimana cara mengatasi heteroskedastisitas dalam regresi?",
-            "Jelaskan konsep variabel dummy dalam ekonometri."
-        ]
-    },
-    4: {
-        title: "Kuis Pertemuan 4",
-        password: "pertemuan4",
-        questions: [
-            "Jelaskan konsep autokorelasi dalam regresi.",
-            "Bagaimana cara melakukan uji Durbin-Watson?",
-            "Apa itu metode estimasi Maximum Likelihood?"
-        ]
-    }
-};
-
-let currentQuiz = null;
-
-function openQuiz(pertemuan) {
-    currentQuiz = quizzes[pertemuan];
-    document.getElementById("quiz-title").textContent = currentQuiz.title;
-}
-
-async function checkPassword() {
-    let inputPassword = document.getElementById("quizPassword").value;
-
-    if (inputPassword === currentQuiz.password) {
-        document.getElementById("password-section").style.display = "none";
-        document.getElementById("quiz-container").style.display = "block";
-
-        let questionsList = document.getElementById("quiz-questions");
-        questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
-
-        currentQuiz.questions.forEach(question => {
-            let li = document.createElement("li");
-            li.innerHTML = question;
-            questionsList.appendChild(li);
-        });
-
-        // 🔥 Render MathJax setelah kuis muncul
-        setTimeout(() => {
-            MathJax.typesetPromise()
-                .then(() => console.log("MathJax berhasil dirender ulang"))
-                .catch(err => console.log("Error MathJax:", err));
-        }, 100);
-    } else {
-        alert("Password salah! Coba lagi.");
-    }
-}
-
-// Fungsi untuk menampilkan/menyembunyikan password
-function togglePassword() {
-    let passwordInput = document.getElementById("quizPassword");
-    let eyeIcon = document.getElementById("eyeIcon");
-
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.replace("bi-eye", "bi-eye-slash");
-    } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.replace("bi-eye-slash", "bi-eye");
-    }
-}
-</script>
     </body>
 </html>
