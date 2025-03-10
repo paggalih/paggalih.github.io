@@ -448,36 +448,6 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 });
 
-// Fungsi untuk cek password
-async function checkPassword() {
-    let inputPassword = document.getElementById("quizPassword").value;
-
-    if (inputPassword === currentQuiz.password) {
-        document.getElementById("password-section").style.display = "none"; // Sembunyikan input password
-        document.getElementById("quiz-content").style.display = "block"; // Tampilkan soal kuis
-
-        // Isi soal
-        document.getElementById("quiz-title").textContent = currentQuiz.title;
-        let questionsList = document.getElementById("quiz-questions");
-        questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
-
-        currentQuiz.questions.forEach(question => {
-            let li = document.createElement("li");
-            li.innerHTML = question; // Gunakan innerHTML agar MathJax bisa membaca sintaks LaTeX
-            questionsList.appendChild(li);
-        });
-
-        // 🔥 Panggil ulang MathJax untuk render ulang setelah soal muncul
-        if (window.MathJax) {
-            MathJax.typesetPromise()
-                .then(() => console.log("MathJax berhasil dirender ulang"))
-                .catch(err => console.log("Error MathJax:", err));
-        }
-    } else {
-        alert("Password salah! Coba lagi.");
-    }
-}
-
 
 // Fungsi untuk menampilkan/menyembunyikan password
 function togglePassword() {
