@@ -67,15 +67,34 @@
 			}
 			}
 			
+#quiz-container {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 80%;
+    max-width: 800px;
+    background: white;
+    padding: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    border-radius: 10px;
+    display: none; /* Tersembunyi sampai password benar */
+    z-index: 1000;
+}
+
+#quiz-content {
+    text-align: left;
+}
+
+/* Pastikan MathJax tetap rapi */
 mjx-container[jax="CHTML"][display="true"] {
-    text-align: left !important; /* Pastikan rumus sejajar ke kiri */
-    width: 100%; /* Cegah overflow */
-    overflow-x: auto; /* Tambahkan scroll horizontal jika terlalu panjang */
-    white-space: normal; /* Pastikan rumus tidak melebar ke luar container */
+    text-align: left !important; /* Supaya rumus sejajar kiri */
+    width: 100%;
+    overflow-x: auto;
 }
 
 mjx-container {
-    font-size: 1.1em; /* Perbesar ukuran default MathJax agar lebih terbaca */
+    font-size: 1.1em; /* Ukuran font lebih besar agar jelas */
 }
 
         </style>
@@ -397,34 +416,28 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 
-<!-- Offcanvas untuk kuis -->
-<div class="offcanvas offcanvas-end" tabindex="-1" id="quizCanvas">
-    <div class="offcanvas-header">
-        <h5 class="offcanvas-title" id="quizCanvasLabel">Kuis</h5>
-        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
-    </div>
-    <div class="offcanvas-body">
-        <!-- Form Input Password -->
-        <div id="password-section">
-            <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
-            <div class="d-flex justify-content-center">
-                <div class="input-group w-50">
-                    <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
-                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-                        <i id="eyeIcon" class="bi bi-eye"></i>
-                    </button>
-                </div>
-            </div>
-            <div class="text-center mt-3">
-                <button class="btn btn-success" onclick="checkPassword()">Submit</button>
-            </div>
-        </div>
 
-        <!-- Soal Kuis (Disembunyikan sampai password benar) -->
-        <div id="quiz-content" class="mt-4" style="display: none;">
-            <h4 id="quiz-title"></h4>
-            <ol id="quiz-questions"></ol>
+<!-- Input Password -->
+<div id="password-section" class="text-center mt-4">
+    <h4>Masukkan Password untuk Melihat Soal</h4>
+    <div class="d-flex justify-content-center">
+        <div class="input-group w-50">
+            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
+            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                <i id="eyeIcon" class="bi bi-eye"></i>
+            </button>
         </div>
+    </div>
+    <div class="text-center mt-3">
+        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
+    </div>
+</div>
+
+<!-- Kuis (Tersembunyi sampai password benar) -->
+<div id="quiz-container">
+    <div id="quiz-content">
+        <h4 id="quiz-title"></h4>
+        <ol id="quiz-questions"></ol>
     </div>
 </div>
 <script>
@@ -434,19 +447,12 @@ document.addEventListener("DOMContentLoaded", function() {
             checkPassword();
         }
     });
-
-    let quizCanvas = document.getElementById("quizCanvas");
-    quizCanvas.addEventListener("hidden.bs.offcanvas", function () {
-        document.getElementById("quizPassword").value = ""; // Reset input password
-        document.getElementById("password-section").style.display = "block"; // Tampilkan kembali input password
-        document.getElementById("quiz-content").style.display = "none"; // Sembunyikan soal kembali
-    });
 });
 
 // Data kuis untuk setiap pertemuan
 const quizzes = {
     2: {
-        title: "Pertemuan 2",
+        title: "Kuis Pertemuan 2",
         password: "pertemuan2",
         questions: [
             "Jika distribusi normal memiliki rata-rata $\\mu = 50$ dan standar deviasi $\\sigma = 10$, berapakah standar error jika $n = 36$?",
@@ -455,7 +461,7 @@ const quizzes = {
         ]
     },
     3: {
-        title: "Pertemuan 3",
+        title: "Kuis Pertemuan 3",
         password: "pertemuan3",
         questions: [
             "Apa perbedaan antara regresi linear dan regresi logistik?",
@@ -464,7 +470,7 @@ const quizzes = {
         ]
     },
     4: {
-        title: "Pertemuan 4",
+        title: "Kuis Pertemuan 4",
         password: "pertemuan4",
         questions: [
             "Jelaskan konsep autokorelasi dalam regresi.",
@@ -478,9 +484,7 @@ let currentQuiz = null;
 
 function openQuiz(pertemuan) {
     currentQuiz = quizzes[pertemuan];
-    document.getElementById("quizCanvasLabel").textContent = currentQuiz.title;
-    let quizCanvas = new bootstrap.Offcanvas(document.getElementById("quizCanvas"));
-    quizCanvas.show();
+    document.getElementById("quiz-title").textContent = currentQuiz.title;
 }
 
 async function checkPassword() {
@@ -488,30 +492,29 @@ async function checkPassword() {
 
     if (inputPassword === currentQuiz.password) {
         document.getElementById("password-section").style.display = "none";
-        document.getElementById("quiz-content").style.display = "block";
+        document.getElementById("quiz-container").style.display = "block";
 
-        document.getElementById("quiz-title").textContent = currentQuiz.title;
         let questionsList = document.getElementById("quiz-questions");
         questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
 
         currentQuiz.questions.forEach(question => {
             let li = document.createElement("li");
-            li.innerHTML = question; // Gunakan innerHTML agar MathJax bisa membaca sintaks LaTeX
+            li.innerHTML = question;
             questionsList.appendChild(li);
         });
 
-        // 🔥 Pastikan MathJax merender ulang setelah soal dimasukkan ke dalam DOM
+        // 🔥 Render MathJax setelah kuis muncul
         setTimeout(() => {
             MathJax.typesetPromise()
                 .then(() => console.log("MathJax berhasil dirender ulang"))
                 .catch(err => console.log("Error MathJax:", err));
-        }, 100); // Delay 100ms untuk memastikan DOM sudah terupdate
+        }, 100);
     } else {
         alert("Password salah! Coba lagi.");
     }
 }
 
-
+// Fungsi untuk menampilkan/menyembunyikan password
 function togglePassword() {
     let passwordInput = document.getElementById("quizPassword");
     let eyeIcon = document.getElementById("eyeIcon");
@@ -524,7 +527,6 @@ function togglePassword() {
         eyeIcon.classList.replace("bi-eye-slash", "bi-eye");
     }
 }
-
 </script>
     </body>
 </html>
