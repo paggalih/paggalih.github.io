@@ -66,6 +66,18 @@
 				border-radius: 50px;
 			}
 			}
+			
+mjx-container[jax="CHTML"][display="true"] {
+    text-align: left !important; /* Pastikan rumus sejajar ke kiri */
+    width: 100%; /* Cegah overflow */
+    overflow-x: auto; /* Tambahkan scroll horizontal jika terlalu panjang */
+    white-space: normal; /* Pastikan rumus tidak melebar ke luar container */
+}
+
+mjx-container {
+    font-size: 1.1em; /* Perbesar ukuran default MathJax agar lebih terbaca */
+}
+
         </style>
     </head>
     <body>
@@ -480,20 +492,25 @@ async function checkPassword() {
 
         document.getElementById("quiz-title").textContent = currentQuiz.title;
         let questionsList = document.getElementById("quiz-questions");
-        questionsList.innerHTML = "";
+        questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
 
         currentQuiz.questions.forEach(question => {
             let li = document.createElement("li");
-            li.innerHTML = question;
+            li.innerHTML = question; // Gunakan innerHTML agar MathJax bisa membaca sintaks LaTeX
             questionsList.appendChild(li);
         });
 
-        // 🔥 MathJax tidak perlu di-reload karena soal sudah ada di DOM dari awal
-        MathJax.typesetPromise();
+        // 🔥 Pastikan MathJax merender ulang setelah soal dimasukkan ke dalam DOM
+        setTimeout(() => {
+            MathJax.typesetPromise()
+                .then(() => console.log("MathJax berhasil dirender ulang"))
+                .catch(err => console.log("Error MathJax:", err));
+        }, 100); // Delay 100ms untuk memastikan DOM sudah terupdate
     } else {
         alert("Password salah! Coba lagi.");
     }
 }
+
 
 function togglePassword() {
     let passwordInput = document.getElementById("quizPassword");
