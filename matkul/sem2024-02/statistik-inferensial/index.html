@@ -18,6 +18,99 @@
         <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
         <!-- Template Main CSS File -->
         <link href="/assets/css/style.css" rel="stylesheet">
+        <!-- Vendor JS Files -->
+        <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="/assets/vendor/aos/aos.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+        <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+        <script src="/assets/vendor/php-email-form/validate.js"></script>
+        <!-- Template Main JS File -->
+        <script src="/assets/js/main.js"></script>
+        <!-- chart.js diagram -->
+        <script src="/app/aplikasi-statistik/chart.js"></script>
+        <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+				<script>
+				window.MathJax = {
+				tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+				svg: { fontCache: 'global' }
+				};
+				</script>
+				<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+
+<script>
+
+// Data kuis untuk setiap pertemuan
+const quizzes = {
+    1: {
+        title: "Kuis Pertemuan 1",
+        password: "pertemuan1",
+        questions: [
+            "Apa itu regresi linear?",
+            "Sebutkan asumsi klasik dalam model regresi.",
+            "Bagaimana cara menguji multikolinearitas dalam regresi?"
+        ]
+    },
+    2: {
+        title: "Kuis Pertemuan 2",
+        password: "pertemuan2",
+        questions: [
+            "Sebuah populasi memiliki distribusi tidak normal dengan rata-rata \( \mu = 50 \) dan standar deviasi \( \sigma = 10 \). Jika kita mengambil sampel acak berukuran \( n = 36 \), manakah pernyataan yang benar mengenai distribusi sampling dari rata-rata sampel?",
+            "Sebuah survei dilakukan terhadap populasi besar dan menunjukkan bahwa 40% dari masyarakat menyukai produk tertentu. Jika kita mengambil sampel acak berukuran 100, berapakah standar deviasi dari distribusi sampling proporsi \( \hat{p} \)?",
+            "Dua kelompok mahasiswa diuji menggunakan metode pembelajaran berbeda. Hasilnya menunjukkan bahwa kelompok pertama memiliki rata-rata nilai 80 dengan standar deviasi 8 (\( n_1 = 25 \)), sementara kelompok kedua memiliki rata-rata nilai 75 dengan standar deviasi 10 (\( n_2 = 36 \)). Berapakah standar deviasi dari distribusi sampling selisih dua mean?"
+        ]
+    },
+    3: {
+        title: "Kuis Pertemuan 3",
+        password: "pertemuan3",
+        questions: [
+            "Jelaskan konsep autokorelasi dalam regresi.",
+            "Bagaimana cara melakukan uji Durbin-Watson?",
+            "Apa itu metode estimasi Maximum Likelihood?"
+        ]
+    }
+};
+// Fungsi untuk cek password
+async function checkPassword() {
+    let inputPassword = document.getElementById("quizPassword").value;
+
+    if (inputPassword === currentQuiz.password) {
+        document.getElementById("password-section").style.display = "none"; // Sembunyikan input password
+        document.getElementById("quiz-content").style.display = "block"; // Tampilkan soal kuis
+
+        // Isi soal
+        document.getElementById("quiz-title").textContent = currentQuiz.title;
+        let questionsList = document.getElementById("quiz-questions");
+        questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
+
+        currentQuiz.questions.forEach(question => {
+            let li = document.createElement("li");
+            li.innerHTML = question; // Gunakan innerHTML agar MathJax bisa membaca sintaks LaTeX
+            questionsList.appendChild(li);
+        });
+
+        // 🔥 Panggil ulang MathJax untuk render ulang setelah soal muncul
+        MathJax.typesetPromise()
+            .then(() => console.log("MathJax berhasil dirender ulang"))
+            .catch(err => console.log("Error MathJax:", err));
+    } else {
+        alert("Password salah! Coba lagi.");
+    }
+}
+
+let currentQuiz = null; // Variabel untuk menyimpan kuis yang sedang dibuka
+
+// Fungsi untuk membuka kuis berdasarkan pertemuan
+function openQuiz(pertemuan) {
+    currentQuiz = quizzes[pertemuan];
+
+    document.getElementById("quizModalLabel").textContent = currentQuiz.title;
+}
+
+</script>
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
 
         <!-- =======================================================
@@ -28,7 +121,6 @@
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
 
-        <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
         <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
         <style>
             @media (min-width: 991px) {
@@ -394,64 +486,5 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
         <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
            <i class="bi bi-arrow-up-short"></i>
         </a>
-        <!-- Vendor JS Files -->
-        <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-        <script src="/assets/vendor/aos/aos.js"></script>
-        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-        <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-        <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-        <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-        <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-        <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-        <script src="/assets/vendor/php-email-form/validate.js"></script>
-        <!-- Template Main JS File -->
-        <script src="/assets/js/main.js"></script>
-        <!-- chart.js diagram -->
-        <script src="/app/aplikasi-statistik/chart.js"></script>
-        <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-				
-<script>
-
-// Data kuis untuk setiap pertemuan
-const quizzes = {
-    1: {
-        title: "Kuis Pertemuan 1",
-        password: "pertemuan1",
-        questions: [
-            "Apa itu regresi linear?",
-            "Sebutkan asumsi klasik dalam model regresi.",
-            "Bagaimana cara menguji multikolinearitas dalam regresi?"
-        ]
-    },
-    2: {
-        title: "Kuis Pertemuan 2",
-        password: "pertemuan2",
-        questions: [
-            "Sebuah populasi memiliki distribusi tidak normal dengan rata-rata \( \mu = 50 \) dan standar deviasi \( \sigma = 10 \). Jika kita mengambil sampel acak berukuran \( n = 36 \), manakah pernyataan yang benar mengenai distribusi sampling dari rata-rata sampel?",
-            "Sebuah survei dilakukan terhadap populasi besar dan menunjukkan bahwa 40% dari masyarakat menyukai produk tertentu. Jika kita mengambil sampel acak berukuran 100, berapakah standar deviasi dari distribusi sampling proporsi \( \hat{p} \)?",
-            "Dua kelompok mahasiswa diuji menggunakan metode pembelajaran berbeda. Hasilnya menunjukkan bahwa kelompok pertama memiliki rata-rata nilai 80 dengan standar deviasi 8 (\( n_1 = 25 \)), sementara kelompok kedua memiliki rata-rata nilai 75 dengan standar deviasi 10 (\( n_2 = 36 \)). Berapakah standar deviasi dari distribusi sampling selisih dua mean?"
-        ]
-    },
-    3: {
-        title: "Kuis Pertemuan 3",
-        password: "pertemuan3",
-        questions: [
-            "Jelaskan konsep autokorelasi dalam regresi.",
-            "Bagaimana cara melakukan uji Durbin-Watson?",
-            "Apa itu metode estimasi Maximum Likelihood?"
-        ]
-    }
-};
-
-let currentQuiz = null; // Variabel untuk menyimpan kuis yang sedang dibuka
-
-// Fungsi untuk membuka kuis berdasarkan pertemuan
-function openQuiz(pertemuan) {
-    currentQuiz = quizzes[pertemuan];
-
-    document.getElementById("quizModalLabel").textContent = currentQuiz.title;
-}
-
-</script>
     </body>
 </html>
