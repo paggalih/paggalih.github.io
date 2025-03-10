@@ -430,35 +430,3 @@ window.MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
   svg: { fontCache: 'global' }
 };
-
-document.addEventListener("DOMContentLoaded", function() {
-    // Event listener: tekan Enter untuk submit password
-    document.getElementById("quizPassword").addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-            checkPassword();
-        }
-    });
-
-    // Event listener: Reset modal saat ditutup
-    let quizModal = document.getElementById("quizModal");
-    quizModal.addEventListener("hidden.bs.modal", function () {
-        document.getElementById("quizPassword").value = ""; // Reset input password
-        document.getElementById("password-section").style.display = "block"; // Tampilkan kembali input password
-        document.getElementById("quiz-content").style.display = "none"; // Sembunyikan soal kembali
-    });
-});
-
-
-// Fungsi untuk menampilkan/menyembunyikan password
-function togglePassword() {
-    let passwordInput = document.getElementById("quizPassword");
-    let eyeIcon = document.getElementById("eyeIcon");
-
-    if (passwordInput.type === "password") {
-        passwordInput.type = "text";
-        eyeIcon.classList.replace("bi-eye", "bi-eye-slash"); // Ganti ikon ke mata tertutup
-    } else {
-        passwordInput.type = "password";
-        eyeIcon.classList.replace("bi-eye-slash", "bi-eye"); // Ganti ikon ke mata terbuka
-    }
-}
