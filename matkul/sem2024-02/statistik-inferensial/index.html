@@ -280,45 +280,11 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
 
 <!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
 <div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" onclick="openQuiz(2)" data-bs-toggle="modal" data-bs-target="#quizModal">
+    <button type="button" class="btn btn-primary" onclick="openQuiz(2)">
         Kuis Pertemuan 2
     </button>
 </div>
 
-<!-- Modal Full Width -->
-<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quizModalLabel">Kuis</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Form Input Password -->
-                <div id="password-section">
-                    <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
-                    <div class="d-flex justify-content-center">
-                        <div class="input-group w-50">
-                            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-                                <i id="eyeIcon" class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
-                    </div>
-                </div>
-
-                <!-- Soal Kuis (Disembunyikan sampai password benar) -->
-                <div id="quiz-content" class="mt-4" style="display: none;">
-                    <h4 id="quiz-title"></h4>
-                    <ol id="quiz-questions"></ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
 
                 </div>
             </section>
@@ -330,7 +296,7 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
 
 <!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
 <div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" onclick="openQuiz(3)" data-bs-toggle="modal" data-bs-target="#quizModal">
+    <button type="button" class="btn btn-primary" onclick="openQuiz(3)">
         Kuis Pertemuan 3
     </button>
 </div>
@@ -343,7 +309,7 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     </div>
 <!-- Tombol untuk membuka kuis berdasarkan pertemuan -->
 <div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" onclick="openQuiz(4)" data-bs-toggle="modal" data-bs-target="#quizModal">
+    <button type="button" class="btn btn-primary" onclick="openQuiz(4)">
         Kuis Pertemuan 4
     </button>
 </div>
@@ -418,7 +384,52 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+
+<!-- Offcanvas untuk kuis -->
+<div class="offcanvas offcanvas-end" tabindex="-1" id="quizCanvas">
+    <div class="offcanvas-header">
+        <h5 class="offcanvas-title" id="quizCanvasLabel">Kuis</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas"></button>
+    </div>
+    <div class="offcanvas-body">
+        <!-- Form Input Password -->
+        <div id="password-section">
+            <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
+            <div class="d-flex justify-content-center">
+                <div class="input-group w-50">
+                    <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
+                    <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
+                        <i id="eyeIcon" class="bi bi-eye"></i>
+                    </button>
+                </div>
+            </div>
+            <div class="text-center mt-3">
+                <button class="btn btn-success" onclick="checkPassword()">Submit</button>
+            </div>
+        </div>
+
+        <!-- Soal Kuis (Disembunyikan sampai password benar) -->
+        <div id="quiz-content" class="mt-4" style="display: none;">
+            <h4 id="quiz-title"></h4>
+            <ol id="quiz-questions"></ol>
+        </div>
+    </div>
+</div>
 <script>
+document.addEventListener("DOMContentLoaded", function() {
+    document.getElementById("quizPassword").addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+            checkPassword();
+        }
+    });
+
+    let quizCanvas = document.getElementById("quizCanvas");
+    quizCanvas.addEventListener("hidden.bs.offcanvas", function () {
+        document.getElementById("quizPassword").value = ""; // Reset input password
+        document.getElementById("password-section").style.display = "block"; // Tampilkan kembali input password
+        document.getElementById("quiz-content").style.display = "none"; // Sembunyikan soal kembali
+    });
+});
 
 // Data kuis untuk setiap pertemuan
 const quizzes = {
@@ -426,18 +437,18 @@ const quizzes = {
         title: "Kuis Pertemuan 1",
         password: "pertemuan1",
         questions: [
-            "Apa itu regresi linear?",
-            "Sebutkan asumsi klasik dalam model regresi.",
-            "Bagaimana cara menguji multikolinearitas dalam regresi?"
+            "Jika distribusi normal memiliki rata-rata $\\mu = 50$ dan standar deviasi $\\sigma = 10$, berapakah standar error jika $n = 36$?",
+            "Hitung peluang $P(X > 60)$ jika $X \\sim N(50, 10^2)$?",
+            "Apa hubungan antara $R^2$ dan $\\text{Adjusted } R^2$ dalam regresi?"
         ]
     },
     2: {
         title: "Kuis Pertemuan 2",
         password: "pertemuan2",
         questions: [
-            "Sebuah populasi memiliki distribusi tidak normal dengan rata-rata \( \mu = 50 \) dan standar deviasi \( \sigma = 10 \). Jika kita mengambil sampel acak berukuran \( n = 36 \), manakah pernyataan yang benar mengenai distribusi sampling dari rata-rata sampel?",
-            "Sebuah survei dilakukan terhadap populasi besar dan menunjukkan bahwa 40% dari masyarakat menyukai produk tertentu. Jika kita mengambil sampel acak berukuran 100, berapakah standar deviasi dari distribusi sampling proporsi \( \hat{p} \)?",
-            "Dua kelompok mahasiswa diuji menggunakan metode pembelajaran berbeda. Hasilnya menunjukkan bahwa kelompok pertama memiliki rata-rata nilai 80 dengan standar deviasi 8 (\( n_1 = 25 \)), sementara kelompok kedua memiliki rata-rata nilai 75 dengan standar deviasi 10 (\( n_2 = 36 \)). Berapakah standar deviasi dari distribusi sampling selisih dua mean?"
+            "Apa perbedaan antara regresi linear dan regresi logistik?",
+            "Bagaimana cara mengatasi heteroskedastisitas dalam regresi?",
+            "Jelaskan konsep variabel dummy dalam ekonometri."
         ]
     },
     3: {
@@ -450,41 +461,51 @@ const quizzes = {
         ]
     }
 };
-// Fungsi untuk cek password
+
+let currentQuiz = null;
+
+function openQuiz(pertemuan) {
+    currentQuiz = quizzes[pertemuan];
+    document.getElementById("quizCanvasLabel").textContent = currentQuiz.title;
+    let quizCanvas = new bootstrap.Offcanvas(document.getElementById("quizCanvas"));
+    quizCanvas.show();
+}
+
 async function checkPassword() {
     let inputPassword = document.getElementById("quizPassword").value;
 
     if (inputPassword === currentQuiz.password) {
-        document.getElementById("password-section").style.display = "none"; // Sembunyikan input password
-        document.getElementById("quiz-content").style.display = "block"; // Tampilkan soal kuis
+        document.getElementById("password-section").style.display = "none";
+        document.getElementById("quiz-content").style.display = "block";
 
-        // Isi soal
         document.getElementById("quiz-title").textContent = currentQuiz.title;
         let questionsList = document.getElementById("quiz-questions");
-        questionsList.innerHTML = ""; // Reset pertanyaan sebelumnya
+        questionsList.innerHTML = "";
 
         currentQuiz.questions.forEach(question => {
             let li = document.createElement("li");
-            li.innerHTML = question; // Gunakan innerHTML agar MathJax bisa membaca sintaks LaTeX
+            li.innerHTML = question;
             questionsList.appendChild(li);
         });
 
-        // 🔥 Panggil ulang MathJax untuk render ulang setelah soal muncul
-        MathJax.typesetPromise()
-            .then(() => console.log("MathJax berhasil dirender ulang"))
-            .catch(err => console.log("Error MathJax:", err));
+        // 🔥 MathJax tidak perlu di-reload karena soal sudah ada di DOM dari awal
+        MathJax.typesetPromise();
     } else {
         alert("Password salah! Coba lagi.");
     }
 }
 
-let currentQuiz = null; // Variabel untuk menyimpan kuis yang sedang dibuka
+function togglePassword() {
+    let passwordInput = document.getElementById("quizPassword");
+    let eyeIcon = document.getElementById("eyeIcon");
 
-// Fungsi untuk membuka kuis berdasarkan pertemuan
-function openQuiz(pertemuan) {
-    currentQuiz = quizzes[pertemuan];
-
-    document.getElementById("quizModalLabel").textContent = currentQuiz.title;
+    if (passwordInput.type === "password") {
+        passwordInput.type = "text";
+        eyeIcon.classList.replace("bi-eye", "bi-eye-slash");
+    } else {
+        passwordInput.type = "password";
+        eyeIcon.classList.replace("bi-eye-slash", "bi-eye");
+    }
 }
 
 </script>
