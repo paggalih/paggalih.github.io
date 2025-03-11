@@ -202,6 +202,101 @@
     <div class="pdf-container overflow-auto">
         <iframe src="RPS-Ekonometri.pdf" class="pdf-frame" width="1200" height="800" allowfullscreen></iframe>
     </div>
+<div class="container mt-4">
+    <h1 class="text-center">Rencana Pembelajaran Ekonometrika</h1>
+    
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>Minggu</th>
+                <th>Materi Pembelajaran</th>
+                <th>Pustaka</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>1</td>
+                <td>Pengantar Ekonometrika dan Model Regresi Linear</td>
+                <td>Bab 1: The Linear Regression Model: An Overview</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>Bentuk Fungsional Model Regresi</td>
+                <td>Bab 2: Functional Forms of Regression Models</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>Variabel Dummy dalam Regresi</td>
+                <td>Bab 3: Qualitative Explanatory Variables Regression Models</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>Multikolinearitas dalam Model Regresi</td>
+                <td>Bab 4: Regression Diagnostic I: Multicollinearity</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>Heteroskedastisitas dalam Regresi</td>
+                <td>Bab 5: Regression Diagnostic II: Heteroscedasticity</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>Autokorelasi dalam Regresi</td>
+                <td>Bab 6: Regression Diagnostic III: Autocorrelation</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>Kesalahan Spesifikasi Model Regresi</td>
+                <td>Bab 7: Regression Diagnostic IV: Model Specification Errors</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td><b>Ujian Tengah Semester (UTS)</b></td>
+                <td>-</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>Model Logit dan Probit untuk Data Kategorikal</td>
+                <td>Bab 8: The Logit and Probit Models</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>Model Multinomial dan Ordinal dalam Regresi</td>
+                <td>Bab 9-10: Multinomial & Ordinal Regression Models</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td>Model Data Terbatas dan Poisson Regression</td>
+                <td>Bab 11-12: Limited Dependent Variable & Poisson Models</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td>Analisis Deret Waktu</td>
+                <td>Bab 13: Stationary and Nonstationary Time Series</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td>Kointegrasi dan Model Koreksi Kesalahan (ECM)</td>
+                <td>Bab 14: Cointegration and Error Correction Models</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td>Model Volatilitas (ARCH dan GARCH)</td>
+                <td>Bab 15: Asset Price Volatility: The ARCH and GARCH Models</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td>Model Data Panel dan Survival Analysis</td>
+                <td>Bab 17-18: Panel Data Regression & Survival Analysis</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td><b>Ujian Akhir Semester (UAS)</b></td>
+                <td>-</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
                 </div>
             </section>
             <section id="p2">
@@ -261,56 +356,6 @@
 
     <h2>Kesimpulan</h2>
     <p>Bab 1 membahas konsep dasar ekonometrika dan pentingnya dalam analisis ekonomi. Bab 2 menjelaskan model regresi linier dan metode OLS yang menjadi dasar banyak analisis ekonometrika.</p>
-
-<!-- Tombol untuk membuka modal -->
-<div class="text-center mt-4">
-    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#quizModal">
-        Buka Kuis
-    </button>
-</div>
-
-<!-- Modal Full Width -->
-<div class="modal fade" id="quizModal" tabindex="-1" aria-labelledby="quizModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-fullscreen">
-        <div class="modal-content">
-            <div class="modal-header">
-                <h5 class="modal-title" id="quizModalLabel">Kuis Ekonometri</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body">
-                <!-- Form Input Password -->
-                <div id="password-section">
-                    <h4 class="text-center">Masukkan Password untuk Melihat Soal</h4>
-                    <div class="d-flex justify-content-center">
-                        <div class="input-group w-50">
-                            <input type="password" id="quizPassword" class="form-control text-center" placeholder="Masukkan Password">
-                            <button class="btn btn-outline-secondary" type="button" onclick="togglePassword()">
-                                <i id="eyeIcon" class="bi bi-eye"></i>
-                            </button>
-                        </div>
-                    </div>
-                    <div class="text-center mt-3">
-                        <button class="btn btn-success" onclick="checkPassword()">Submit</button>
-                    </div>
-                </div>
-
-                <!-- Soal Kuis (Disembunyikan sampai password benar) -->
-                <div id="quiz-content" class="mt-4" style="display: none;">
-                    <h4>Soal Kuis</h4>
-										<ol>
-										<li>Sebuah model ekonometri memiliki variabel independen X dan variabel dependen Y. Jika koefisien regresi menunjukkan nilai 0.8, bagaimana interpretasi hubungan antara X dan Y?
-										</li>
-										<li>Jika residual dalam suatu model regresi tidak berdistribusi normal, metode apa yang bisa digunakan untuk mengatasi masalah ini?
-										</li>
-										<li>Apa perbedaan utama antara regresi linear biasa (OLS) dan regresi logistik?
-										</li>
-										</ol>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
 
                 </div>
             </section>
