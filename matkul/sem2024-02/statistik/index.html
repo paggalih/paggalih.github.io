@@ -42,7 +42,7 @@
         <style>
             @media (min-width: 991px) {
 			#matkul_icon {
-				z-index: 2000;
+				z-index: 2;
 				position: fixed;
 				right: 20px;
 				top: 20px;
@@ -55,7 +55,7 @@
 			}
             @media (max-width: 991px) {
 			#matkul_icon {
-				z-index: 2000;
+				z-index: 2;
 				position: fixed;
 				right: 60px;
 				bottom: 20px;
@@ -202,6 +202,44 @@
     <div class="pdf-container overflow-auto">
         <iframe src="RPS-Statistik.pdf" class="pdf-frame" width="1200" height="800" allowfullscreen></iframe>
     </div>
+    <h1>Ringkasan Statistik</h1>
+    
+    <h2>1. Apa Itu Statistik?</h2>
+    <p>Statistik adalah ilmu yang mempelajari cara mengumpulkan, mengorganisir, menyajikan, menganalisis, dan menginterpretasikan data untuk pengambilan keputusan yang lebih efektif.</p>
+    
+    <h2>2. Jenis Statistik</h2>
+    <h3>Statistik Deskriptif</h3>
+    <p>Metode untuk mengorganisir dan merangkum data, seperti tabel, grafik, dan ukuran ringkasan.</p>
+    <h3>Statistik Inferensial</h3>
+    <p>Teknik yang memungkinkan pengambilan kesimpulan tentang suatu populasi berdasarkan sampel.</p>
+    
+    <h2>3. Jenis Variabel</h2>
+    <ul>
+        <li><strong>Variabel Kualitatif (Kategori):</strong> Tidak berbentuk angka, misalnya jenis kelamin, warna mata.</li>
+        <li><strong>Variabel Kuantitatif:</strong> Berbentuk angka, terbagi menjadi:</li>
+        <ul>
+            <li><strong>Diskrit:</strong> Nilai yang dapat dihitung, misalnya jumlah anak.</li>
+            <li><strong>Kontinu:</strong> Nilai yang dapat diukur, misalnya berat badan, tinggi badan.</li>
+        </ul>
+    </ul>
+    
+    <h2>4. Tingkatan Pengukuran</h2>
+    <ul>
+        <li><strong>Nominal:</strong> Kategori tanpa urutan (misalnya, warna, jenis kelamin).</li>
+        <li><strong>Ordinal:</strong> Kategori yang berurutan tetapi selisihnya tidak bermakna (misalnya, peringkat).</li>
+        <li><strong>Interval:</strong> Selisih antar nilai bermakna, tetapi tidak memiliki nol mutlak (misalnya, suhu dalam Celcius).</li>
+        <li><strong>Rasio:</strong> Memiliki nol mutlak dan perbandingan bermakna (misalnya, berat badan, tinggi badan).</li>
+    </ul>
+    
+    <h2>5. Notasi Dasar Statistik</h2>
+    <p>Rata-rata (mean) dari suatu dataset diberikan oleh:</p>
+    <p>\[ \bar{x} = \frac{\sum_{i=1}^{n} x_i}{n} \]</p>
+    <p>Simpangan baku mengukur variasi dalam data:</p>
+    <p>\[ s = \sqrt{\frac{\sum_{i=1}^{n} (x_i - \bar{x})^2}{n-1}} \]</p>
+    
+    <h2>6. Etika dalam Statistik</h2>
+    <p>Integritas dalam statistik melibatkan keakuratan data, menghindari bias, serta menjaga transparansi dalam pelaporan.</p>
+
                 </div>
             </section>
             <section id="p2">
@@ -297,12 +335,6 @@
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-		<script>
-			var date = new Date(document.lastModified);
-			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
-			jam1 = date.toLocaleTimeString('id-ID');
-			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
-			
-		</script>
+
     </body>
 </html>
