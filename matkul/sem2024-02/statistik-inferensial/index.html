@@ -385,6 +385,79 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
                     <div class="section-title">
                         <h2>Pertemuan 3</h2>
                     </div>
+<h1 class="text-center">Bab 10: Pengenalan Estimasi</h1>
+
+<h2>10-1: Konsep Estimasi</h2>
+<p>
+Estimasi digunakan untuk menentukan nilai parameter populasi berdasarkan statistik sampel.
+</p>
+<p><b>Dua jenis estimasi:</b></p>
+<ul>
+    <li><b>Estimasi titik (Point Estimator):</b> Menggunakan satu nilai untuk memperkirakan parameter populasi.</li>
+    <li><b>Estimasi interval (Interval Estimator):</b> Memberikan rentang nilai dengan tingkat kepercayaan tertentu.</li>
+</ul>
+
+<p><b>Karakteristik estimator yang baik:</b></p>
+<ul>
+    <li><b>Unbiased:</b> Rata-rata estimator mendekati nilai parameter populasi.</li>
+    <li><b>Consistent:</b> Estimator semakin akurat saat ukuran sampel meningkat.</li>
+    <li><b>Efficient:</b> Estimator dengan variansi lebih kecil lebih diinginkan.</li>
+</ul>
+
+<h2>10-2: Estimasi Mean Populasi Ketika Standar Deviasi Populasi Diketahui</h2>
+<p>
+Jika populasi memiliki distribusi normal dan standar deviasi (\(\sigma\)) diketahui, maka interval kepercayaan untuk rata-rata populasi (\(\mu\)) adalah:
+</p>
+
+\[
+\bar{x} \pm Z_{\alpha/2} \frac{\sigma}{\sqrt{n}}
+\]
+
+<ul>
+    <li>\(\bar{x}\) = rata-rata sampel</li>
+    <li>\(Z_{\alpha/2}\) = nilai kritis dari distribusi normal standar</li>
+    <li>\(\sigma\) = standar deviasi populasi</li>
+    <li>\(n\) = ukuran sampel</li>
+</ul>
+
+<p><b>Interpretasi Interval Kepercayaan:</b></p>
+<ul>
+    <li>Bukan probabilitas bahwa parameter populasi ada dalam rentang tersebut.</li>
+    <li>Dalam banyak sampel, persentase tertentu dari interval akan mencakup parameter populasi.</li>
+</ul>
+
+<h2>10-3: Menentukan Ukuran Sampel</h2>
+<p>Untuk mendapatkan interval kepercayaan dengan batas kesalahan tertentu (\(B\)), ukuran sampel (\(n\)) harus memenuhi:</p>
+
+\[
+n = \left( \frac{Z_{\alpha/2} \cdot \sigma}{B} \right)^2
+\]
+
+<ul>
+    <li>Menambah ukuran sampel mempersempit interval kepercayaan.</li>
+    <li>Jika \(\sigma\) tidak diketahui, biasanya digunakan estimasi dari sampel sebelumnya.</li>
+</ul>
+
+<h2>Contoh Aplikasi</h2>
+
+<h3>1. Estimasi Diameter Pohon</h3>
+<p>
+Sebuah perusahaan kayu ingin memperkirakan rata-rata diameter pohon dengan interval kepercayaan 90%.
+Diperlukan <b>98 sampel pohon</b> untuk mendapatkan estimasi dengan batas kesalahan ±1 inci.
+</p>
+
+<h3>2. Estimasi Permintaan Stok Barang</h3>
+<p>
+Seorang manajer ingin memperkirakan permintaan barang selama periode tertentu.
+Dengan metode estimasi interval kepercayaan, ia dapat menentukan jumlah stok yang optimal.
+</p>
+
+<h2>Kesimpulan</h2>
+<ul>
+    <li>Estimasi adalah alat penting dalam inferensi statistik.</li>
+    <li>Interval kepercayaan lebih akurat dibanding estimasi titik karena mempertimbangkan variabilitas sampel.</li>
+    <li>Ukuran sampel yang tepat meningkatkan akurasi estimasi tanpa membuang sumber daya.</li>
+</ul>
                 </div>
             </section>
             <section id="p4">
