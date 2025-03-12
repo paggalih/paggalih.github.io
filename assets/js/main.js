@@ -493,23 +493,11 @@ document.addEventListener("DOMContentLoaded", function() {
         document.getElementById("quotesOverlay").style.display = "none";
     });
 
-    // Event: Klik di luar tombol close untuk mengarahkan ke halaman quotes
-    // document.getElementById("quotesOverlay").addEventListener("click", function() {
-        // window.location.href = "https://paggalih.github.io/speaker/quotes/";
-    // });
-
-    // Mencegah event klik pada cloud mengarahkan ke halaman quotes
-    // document.getElementById("quotesCloud").addEventListener("click", function(event) {
-        // event.stopPropagation();
-    // });
-
-    // Event: Klik di luar tombol close untuk mengarahkan ke halaman quotes
-    document.getElementById("quotesOverlay").addEventListener("click", function(event) {
+    document.getElementById("quotesCloud").addEventListener("click", function() {
         window.location.href = "https://paggalih.github.io/speaker/quotes/";
     });
 
-    // Mencegah event klik pada cloud mengarahkan ke halaman quotes
-    document.getElementById("quotesCloud").addEventListener("click", function() {
+    document.getElementById("quotesOverlay").addEventListener("click", function(event) {
         event.stopPropagation();
     });
 		
