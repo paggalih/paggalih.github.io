@@ -312,7 +312,7 @@ socialLinks.appendChild(createLink('https://bermain.asia', '', 'bi bi-at'));
 // Append Google Scholar link separately due to different structure
 const scholarLink = document.createElement('a');
 scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
-scholarLink.target = '_blank';
+// scholarLink.target = '_blank';
 
 const scholarIcon = document.createElement('span');
 scholarIcon.className = 'material-symbols-outlined';
@@ -497,7 +497,7 @@ document.addEventListener("DOMContentLoaded", function() {
         window.location.href = "https://paggalih.github.io/speaker/quotes/";
     });
 
-    document.getElementById("quotesOverlay").addEventListener("click", function(event) {
+    document.getElementById("quotesOverlay").addEventListener("click", function() {
         document.getElementById("quotesOverlay").style.display = "none";
     });
 		
