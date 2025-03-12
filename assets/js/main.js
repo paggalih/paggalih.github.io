@@ -498,7 +498,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("quotesOverlay").addEventListener("click", function(event) {
-        event.stopPropagation();
+        document.getElementById("quotesOverlay").style.display = "none";
     });
 		
 });
