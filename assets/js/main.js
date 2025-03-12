@@ -421,6 +421,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
 });
 
+// ========================================
 			var date = new Date(document.lastModified);
 			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
 			jam1 = date.toLocaleTimeString('id-ID');
@@ -430,12 +431,17 @@ window.MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
   svg: { fontCache: 'global' }
 };
+
+// ==================================================
 document.addEventListener("DOMContentLoaded", function() {
     // Cek apakah cloud quotes sudah ada, jika belum buat elemen secara otomatis
     if (!document.getElementById("quotesCloud")) {
         let cloudHTML = `
-            <div id="quotesCloud" class="cloud-container">
-                <p id="cloudText">Memuat quotes...</p>
+            <div id="quotesOverlay">
+                <div id="quotesCloud" class="cloud-container">
+                    <p id="cloudText">Memuat quotes...</p>
+                    <button id="closeQuotes" class="btn btn-danger btn-sm">Close</button>
+                </div>
             </div>
         `;
 
@@ -480,4 +486,20 @@ document.addEventListener("DOMContentLoaded", function() {
                 document.getElementById("cloudText").textContent = "Gagal memuat quotes.";
             }
         });
+
+    // Event: Klik tombol close untuk menutup quotes
+    document.getElementById("closeQuotes").addEventListener("click", function(event) {
+        event.stopPropagation(); // Mencegah klik di luar menutup overlay
+        document.getElementById("quotesOverlay").style.display = "none";
+    });
+
+    // Event: Klik di luar tombol close untuk mengarahkan ke halaman quotes
+    document.getElementById("quotesOverlay").addEventListener("click", function() {
+        window.location.href = "https://paggalih.github.io/speaker/quotes/";
+    });
+
+    // Mencegah event klik pada cloud mengarahkan ke halaman quotes
+    document.getElementById("quotesCloud").addEventListener("click", function(event) {
+        event.stopPropagation();
+    });
 });
