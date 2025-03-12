@@ -430,31 +430,20 @@ window.MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
   svg: { fontCache: 'global' }
 };
-
 document.addEventListener("DOMContentLoaded", function() {
-    // Cek apakah modal sudah ada, jika belum buat modal Bootstrap
-    if (!document.getElementById("quotesModal")) {
-        let modalHTML = `
-            <div class="modal fade" id="quotesModal" tabindex="-1" aria-labelledby="quotesModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="quotesModalLabel">Quote Hari Ini</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body text-center">
-                            <p id="quoteText">Memuat quotes...</p>
-                        </div>
-                    </div>
-                </div>
+    // Cek apakah cloud quotes sudah ada, jika belum buat elemen secara otomatis
+    if (!document.getElementById("quotesCloud")) {
+        let cloudHTML = `
+            <div id="quotesCloud" class="cloud-container">
+                <p id="cloudText">Memuat quotes...</p>
             </div>
         `;
 
-        // Tambahkan modal ke dalam body
-        document.body.insertAdjacentHTML("beforeend", modalHTML);
+        // Tambahkan cloud ke dalam body
+        document.body.insertAdjacentHTML("beforeend", cloudHTML);
     }
 
-    // Coba mengambil quotes dari halaman `https://paggalih.github.io/speaker/quotes/`
+    // Ambil quotes dari `https://paggalih.github.io/speaker/quotes/`
     fetch("https://paggalih.github.io/speaker/quotes/")
         .then(response => response.text())
         .then(data => {
@@ -467,21 +456,17 @@ document.addEventListener("DOMContentLoaded", function() {
             // Jika ada elemen dengan class "header-quotes", pilih secara acak
             if (quotes.length > 0) {
                 let randomQuote = quotes[Math.floor(Math.random() * quotes.length)].innerText;
-                document.getElementById("quoteText").textContent = randomQuote;
+                document.getElementById("cloudText").textContent = randomQuote;
             } else {
-                // Jika tidak ada, coba cek apakah ada konstanta `quotes` di script halaman
+                // Jika tidak ada, coba cek apakah ada konstanta `quotes` di halaman
                 let pageQuotes = window.quotes || [];
                 if (pageQuotes.length > 0) {
                     let randomQuote = pageQuotes[Math.floor(Math.random() * pageQuotes.length)];
-                    document.getElementById("quoteText").textContent = randomQuote;
+                    document.getElementById("cloudText").textContent = randomQuote;
                 } else {
-                    document.getElementById("quoteText").textContent = "Quotes tidak ditemukan.";
+                    document.getElementById("cloudText").textContent = "Quotes tidak ditemukan.";
                 }
             }
-
-            // Tampilkan modal setelah quotes berhasil dimuat
-            let myModal = new bootstrap.Modal(document.getElementById("quotesModal"));
-            myModal.show();
         })
         .catch(error => {
             console.error("Gagal memuat quotes:", error);
@@ -490,14 +475,9 @@ document.addEventListener("DOMContentLoaded", function() {
             let pageQuotes = window.quotes || [];
             if (pageQuotes.length > 0) {
                 let randomQuote = pageQuotes[Math.floor(Math.random() * pageQuotes.length)];
-                document.getElementById("quoteText").textContent = randomQuote;
+                document.getElementById("cloudText").textContent = randomQuote;
             } else {
-                document.getElementById("quoteText").textContent = "Gagal memuat quotes.";
+                document.getElementById("cloudText").textContent = "Gagal memuat quotes.";
             }
-
-            // Tampilkan modal meskipun fetch gagal
-            let myModal = new bootstrap.Modal(document.getElementById("quotesModal"));
-            myModal.show();
         });
 });
-
