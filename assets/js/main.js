@@ -430,3 +430,53 @@ window.MathJax = {
   tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
   svg: { fontCache: 'global' }
 };
+
+document.addEventListener("DOMContentLoaded", function() {
+    // Cek apakah modal sudah ada, jika belum buat modal Bootstrap
+    if (!document.getElementById("quotesModal")) {
+        let modalHTML = `
+            <div class="modal fade" id="quotesModal" tabindex="-1" aria-labelledby="quotesModalLabel" aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="quotesModalLabel">Quote Hari Ini</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body text-center">
+                            <p id="quoteText">Memuat quotes...</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        `;
+
+        // Tambahkan modal ke dalam body
+        document.body.insertAdjacentHTML("beforeend", modalHTML);
+    }
+
+    // Fetch quotes dari halaman `https://paggalih.github.io/speaker/quotes/`
+    fetch("https://paggalih.github.io/speaker/quotes/")
+        .then(response => response.text())
+        .then(data => {
+            let parser = new DOMParser();
+            let doc = parser.parseFromString(data, "text/html");
+            let quotes = doc.querySelectorAll("p"); // Ambil quotes dari elemen <p>
+
+            if (quotes.length > 0) {
+                let randomQuote = quotes[Math.floor(Math.random() * quotes.length)].innerText;
+                document.getElementById("quoteText").textContent = randomQuote;
+            } else {
+                document.getElementById("quoteText").textContent = "Quotes tidak ditemukan.";
+            }
+
+            // Tampilkan modal setelah halaman dimuat
+            let myModal = new bootstrap.Modal(document.getElementById("quotesModal"));
+            myModal.show();
+        })
+        .catch(error => {
+            console.error("Gagal memuat quotes:", error);
+            document.getElementById("quoteText").textContent = "Gagal memuat quotes.";
+            let myModal = new bootstrap.Modal(document.getElementById("quotesModal"));
+            myModal.show();
+        });
+});
