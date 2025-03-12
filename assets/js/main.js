@@ -454,29 +454,50 @@ document.addEventListener("DOMContentLoaded", function() {
         document.body.insertAdjacentHTML("beforeend", modalHTML);
     }
 
-    // Fetch quotes dari halaman `https://paggalih.github.io/speaker/quotes/`
+    // Coba mengambil quotes dari halaman `https://paggalih.github.io/speaker/quotes/`
     fetch("https://paggalih.github.io/speaker/quotes/")
         .then(response => response.text())
         .then(data => {
             let parser = new DOMParser();
             let doc = parser.parseFromString(data, "text/html");
-            let quotes = doc.querySelectorAll("p"); // Ambil quotes dari elemen <p>
 
+            // Hanya ambil elemen dengan class "header-quotes"
+            let quotes = doc.querySelectorAll(".header-quotes");
+
+            // Jika ada elemen dengan class "header-quotes", pilih secara acak
             if (quotes.length > 0) {
                 let randomQuote = quotes[Math.floor(Math.random() * quotes.length)].innerText;
                 document.getElementById("quoteText").textContent = randomQuote;
             } else {
-                document.getElementById("quoteText").textContent = "Quotes tidak ditemukan.";
+                // Jika tidak ada, coba cek apakah ada konstanta `quotes` di script halaman
+                let pageQuotes = window.quotes || [];
+                if (pageQuotes.length > 0) {
+                    let randomQuote = pageQuotes[Math.floor(Math.random() * pageQuotes.length)];
+                    document.getElementById("quoteText").textContent = randomQuote;
+                } else {
+                    document.getElementById("quoteText").textContent = "Quotes tidak ditemukan.";
+                }
             }
 
-            // Tampilkan modal setelah halaman dimuat
+            // Tampilkan modal setelah quotes berhasil dimuat
             let myModal = new bootstrap.Modal(document.getElementById("quotesModal"));
             myModal.show();
         })
         .catch(error => {
             console.error("Gagal memuat quotes:", error);
-            document.getElementById("quoteText").textContent = "Gagal memuat quotes.";
+
+            // Coba gunakan quotes dari variabel `quotes` di halaman jika tersedia
+            let pageQuotes = window.quotes || [];
+            if (pageQuotes.length > 0) {
+                let randomQuote = pageQuotes[Math.floor(Math.random() * pageQuotes.length)];
+                document.getElementById("quoteText").textContent = randomQuote;
+            } else {
+                document.getElementById("quoteText").textContent = "Gagal memuat quotes.";
+            }
+
+            // Tampilkan modal meskipun fetch gagal
             let myModal = new bootstrap.Modal(document.getElementById("quotesModal"));
             myModal.show();
         });
 });
+
