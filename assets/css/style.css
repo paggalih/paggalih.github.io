@@ -207,7 +207,7 @@ a:hover {
   top: 0;
   left: 0;
   bottom: 0;
-  z-index: 3;
+  z-index: 4;
   transition: all 0.5s;
   padding: 15px;
   overflow-y: auto;
@@ -325,7 +325,7 @@ a:hover {
   position: fixed;
   right: 10px;
   top: 10px;
-  z-index: 3;
+  z-index: 4;
   border: 0;
   background: none;
   font-size: 28px;
