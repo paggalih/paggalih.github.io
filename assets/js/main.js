@@ -432,6 +432,15 @@ window.MathJax = {
   svg: { fontCache: 'global' }
 };
 
+MathJax = {
+		tex: {
+				inlineMath: [
+						['$', '$'],
+						['\\(', '\\)']
+				]
+		}
+};
+
 // ==================================================
 document.addEventListener("DOMContentLoaded", function() {
     // Cek apakah cloud quotes sudah ada, jika belum buat elemen secara otomatis
