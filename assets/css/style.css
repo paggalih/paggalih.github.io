@@ -1492,7 +1492,7 @@ section {
     display: flex;
     align-items: center;
     justify-content: center;
-    z-index: 1000;
+    z-index: 10000;
 }
 
 /* Cloud container */
@@ -1528,13 +1528,4 @@ section {
     border-radius: 20px;
     padding: 5px 10px;
     font-size: 0.9rem;
-}
-
-.accordion-item {
-  position: relative;
-  z-index: 1;
-}
-
-.accordion-item:first-child {
-  z-index: 2;
 }
