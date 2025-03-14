@@ -16,8 +16,8 @@
         }
         .board {
             display: grid;
-            grid-template-columns: repeat(3, 100px);
-            grid-template-rows: repeat(3, 100px);
+            grid-template-columns: repeat(4, 100px);
+            grid-template-rows: repeat(4, 100px);
             gap: 5px;
         }
         .cell {
@@ -47,13 +47,13 @@
     </style>
 </head>
 <body>
-    <h1 class="mb-3">Tic-Tac-Toe</h1>
+    <h1 class="mb-3">Tic-Tac-Toe 4x4</h1>
     <div class="board" id="board"></div>
     <h3 class="mt-3" id="status">Giliran: X</h3>
     <button class="btn btn-primary mt-3" onclick="resetGame()">Reset Game</button>
     
     <script>
-        let board = ['', '', '', '', '', '', '', '', ''];
+        let board = Array(16).fill('');
         let currentPlayer = 'X';
         let gameOver = false;
 
@@ -82,9 +82,10 @@
 
         function checkWinner() {
             const winningCombos = [
-                [0, 1, 2], [3, 4, 5], [6, 7, 8],
-                [0, 3, 6], [1, 4, 7], [2, 5, 8],
-                [0, 4, 8], [2, 4, 6]
+                [0, 1, 2], [1, 2, 3], [4, 5, 6], [5, 6, 7], [8, 9, 10], [9, 10, 11], [12, 13, 14], [13, 14, 15], // Horizontal
+                [0, 4, 8], [1, 5, 9], [2, 6, 10], [3, 7, 11], [4, 8, 12], [5, 9, 13], [6, 10, 14], [7, 11, 15], // Vertical
+                [0, 5, 10], [1, 6, 11], [4, 9, 14], [5, 10, 15], // Diagonal
+                [2, 5, 8], [3, 6, 9], [6, 9, 12], [7, 10, 13] // Reverse Diagonal
             ];
             
             for (let combo of winningCombos) {
@@ -106,7 +107,7 @@
         }
 
         function resetGame() {
-            board = ['', '', '', '', '', '', '', '', ''];
+            board = Array(16).fill('');
             currentPlayer = 'X';
             gameOver = false;
             document.getElementById("status").textContent = "Giliran: X";
