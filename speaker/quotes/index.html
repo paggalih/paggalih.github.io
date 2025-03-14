@@ -213,14 +213,13 @@
     </div>
 
     <script>
-        // List Quotes (Didefinisikan hanya sekali)
-        const quotes = [
-						"Belajarlah seakan-akan kamu hidup selamanya, hiduplah seakan-akan kamu akan mati besok.",
-            "Kesuksesan dimulai dari kebiasaan kecil yang baik.",
-            "Jangan takut gagal, karena kegagalan adalah langkah menuju kesuksesan.",
-            "Orang yang berhenti belajar akan menjadi tua, baik dalam usia maupun dalam pikiran.",
-            "Ketika kamu berhenti mencoba, di situlah kamu mulai gagal."
-        ];
+            // Ambil semua elemen dengan class "header-quotes"
+            let quoteElements = doc.querySelectorAll(".header-quotes");
+            let quotes = [];
+
+            quoteElements.forEach(el => {
+                quotes.push(el.innerText.trim());
+            });
 
         // Masukkan Quotes ke Floating dan Offcanvas
         function renderQuotes() {
@@ -268,12 +267,5 @@
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-		<script>
-			var date = new Date(document.lastModified);
-			date1 = date.toLocaleDateString('id-ID',{weekday:'long',year: 'numeric', month: 'long', day: 'numeric' });
-			jam1 = date.toLocaleTimeString('id-ID');
-			document.getElementById("tanggal").innerHTML = "Halaman ini terakhir diubah pada "+date1+" Pukul "+jam1;
-			
-		</script>
     </body>
 </html>
