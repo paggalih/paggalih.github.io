@@ -36,6 +36,14 @@
             background-color: #28a745;
             color: white;
         }
+        @keyframes celebration {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.2); }
+            100% { transform: scale(1); }
+        }
+        .celebrate {
+            animation: celebration 0.5s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
@@ -65,9 +73,11 @@
             if (board[index] || gameOver) return;
             board[index] = currentPlayer;
             checkWinner();
-            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
-            document.getElementById("status").textContent = `Giliran: ${currentPlayer}`;
-            renderBoard();
+            if (!gameOver) {
+                currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+                document.getElementById("status").textContent = `Giliran: ${currentPlayer}`;
+                renderBoard();
+            }
         }
 
         function checkWinner() {
@@ -80,10 +90,10 @@
             for (let combo of winningCombos) {
                 const [a, b, c] = combo;
                 if (board[a] && board[a] === board[b] && board[a] === board[c]) {
-                    document.getElementById("status").textContent = `Pemenang: ${board[a]}`;
-                    document.querySelectorAll(".cell")[a].classList.add("winner");
-                    document.querySelectorAll(".cell")[b].classList.add("winner");
-                    document.querySelectorAll(".cell")[c].classList.add("winner");
+                    document.getElementById("status").textContent = `🎉 Pemenang: ${board[a]} 🎉`;
+                    document.querySelectorAll(".cell")[a].classList.add("winner", "celebrate");
+                    document.querySelectorAll(".cell")[b].classList.add("winner", "celebrate");
+                    document.querySelectorAll(".cell")[c].classList.add("winner", "celebrate");
                     gameOver = true;
                     return;
                 }
