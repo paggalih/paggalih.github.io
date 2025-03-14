@@ -483,18 +483,18 @@ document.addEventListener("DOMContentLoaded", function() {
                 }
             }
         })
-        .catch(error => {
-            console.error("Gagal memuat quotes:", error);
+        // .catch(error => {
+            // console.error("Gagal memuat quotes:", error);
 
             // Coba gunakan quotes dari variabel `quotes` di halaman jika tersedia
-            let pageQuotes = window.quotes || [];
-            if (pageQuotes.length > 0) {
-                let randomQuote = pageQuotes[Math.floor(Math.random() * pageQuotes.length)];
-                document.getElementById("cloudText").textContent = randomQuote;
-            } else {
-                document.getElementById("cloudText").textContent = "Gagal memuat quotes.";
-            }
-        });
+            // let pageQuotes = window.quotes || [];
+            // if (pageQuotes.length > 0) {
+                // let randomQuote = pageQuotes[Math.floor(Math.random() * pageQuotes.length)];
+                // document.getElementById("cloudText").textContent = randomQuote;
+            // } else {
+                // document.getElementById("cloudText").textContent = "Gagal memuat quotes.";
+            // }
+        // });
 
     // Event: Klik tombol close untuk menutup quotes
     document.getElementById("closeQuotes").addEventListener("click", function(event) {
