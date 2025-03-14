@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            flex-direction: column;
+        }
+        .board {
+            display: grid;
+            grid-template-columns: repeat(3, 100px);
+            grid-template-rows: repeat(3, 100px);
+            gap: 5px;
+        }
+        .cell {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background-color: white;
+            border: 2px solid black;
+            cursor: pointer;
+        }
+        .cell.winner {
+            background-color: #28a745;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mb-3">Tic-Tac-Toe</h1>
+    <div class="board" id="board"></div>
+    <h3 class="mt-3" id="status">Giliran: X</h3>
+    <button class="btn btn-primary mt-3" onclick="resetGame()">Reset Game</button>
+    
+    <script>
+        let board = ['', '', '', '', '', '', '', '', ''];
+        let currentPlayer = 'X';
+        let gameOver = false;
+
+        function renderBoard() {
+            const boardElement = document.getElementById("board");
+            boardElement.innerHTML = "";
+            board.forEach((cell, index) => {
+                const cellElement = document.createElement("div");
+                cellElement.classList.add("cell");
+                cellElement.textContent = cell;
+                cellElement.addEventListener("click", () => makeMove(index));
+                boardElement.appendChild(cellElement);
+            });
+        }
+
+        function makeMove(index) {
+            if (board[index] || gameOver) return;
+            board[index] = currentPlayer;
+            checkWinner();
+            currentPlayer = currentPlayer === 'X' ? 'O' : 'X';
+            document.getElementById("status").textContent = `Giliran: ${currentPlayer}`;
+            renderBoard();
+        }
+
+        function checkWinner() {
+            const winningCombos = [
+                [0, 1, 2], [3, 4, 5], [6, 7, 8],
+                [0, 3, 6], [1, 4, 7], [2, 5, 8],
+                [0, 4, 8], [2, 4, 6]
+            ];
+            
+            for (let combo of winningCombos) {
+                const [a, b, c] = combo;
+                if (board[a] && board[a] === board[b] && board[a] === board[c]) {
+                    document.getElementById("status").textContent = `Pemenang: ${board[a]}`;
+                    document.querySelectorAll(".cell")[a].classList.add("winner");
+                    document.querySelectorAll(".cell")[b].classList.add("winner");
+                    document.querySelectorAll(".cell")[c].classList.add("winner");
+                    gameOver = true;
+                    return;
+                }
+            }
+
+            if (!board.includes('')) {
+                document.getElementById("status").textContent = "Seri!";
+                gameOver = true;
+            }
+        }
+
+        function resetGame() {
+            board = ['', '', '', '', '', '', '', '', ''];
+            currentPlayer = 'X';
+            gameOver = false;
+            document.getElementById("status").textContent = "Giliran: X";
+            renderBoard();
+        }
+
+        renderBoard();
+    </script>
+</body>
+</html>
