@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dino Run</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            flex-direction: column;
+            overflow: hidden;
+        }
+        .game-container {
+            position: relative;
+            width: 600px;
+            height: 200px;
+            background-color: white;
+            border: 2px solid black;
+            overflow: hidden;
+        }
+        .dino {
+            position: absolute;
+            bottom: 0;
+            left: 50px;
+            width: 40px;
+            height: 40px;
+            background-color: green;
+        }
+        .obstacle {
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 30px;
+            height: 40px;
+            background-color: brown;
+        }
+        .jump {
+            animation: jump 0.5s ease-in-out;
+        }
+        @keyframes jump {
+            0% { bottom: 0; }
+            50% { bottom: 100px; }
+            100% { bottom: 0; }
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mb-3">Dino Run</h1>
+    <div class="game-container">
+        <div class="dino" id="dino"></div>
+        <div class="obstacle" id="obstacle"></div>
+    </div>
+    <div class="score mt-3" id="score">Score: 0</div>
+    <script>
+        const dino = document.getElementById("dino");
+        const obstacle = document.getElementById("obstacle");
+        let score = 0;
+        let isJumping = false;
+        
+        document.addEventListener("keydown", function(event) {
+            if (event.key === " " || event.key === "ArrowUp") {
+                jump();
+            }
+        });
+        
+        function jump() {
+            if (!isJumping) {
+                isJumping = true;
+                dino.classList.add("jump");
+                setTimeout(() => {
+                    dino.classList.remove("jump");
+                    isJumping = false;
+                }, 500);
+            }
+        }
+        
+        function moveObstacle() {
+            obstacle.style.right = "0px";
+            let move = setInterval(() => {
+                let obstaclePos = parseInt(obstacle.style.right) + 5;
+                obstacle.style.right = obstaclePos + "px";
+                
+                if (obstaclePos >= 600) {
+                    obstacle.style.right = "0px";
+                    score++;
+                    document.getElementById("score").textContent = "Score: " + score;
+                }
+                
+                if (checkCollision()) {
+                    clearInterval(move);
+                    alert("Game Over! Score: " + score);
+                    document.location.reload();
+                }
+            }, 20);
+        }
+        
+        function checkCollision() {
+            let dinoBottom = parseInt(window.getComputedStyle(dino).bottom);
+            let obstacleLeft = 600 - parseInt(obstacle.style.right);
+            
+            return obstacleLeft > 50 && obstacleLeft < 90 && dinoBottom < 40;
+        }
+        
+        moveObstacle();
+    </script>
+</body>
+</html>
