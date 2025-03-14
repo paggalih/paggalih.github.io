@@ -213,13 +213,17 @@
     </div>
 
     <script>
-            // Ambil semua elemen dengan class "header-quotes"
-            let quoteElements = doc.querySelectorAll(".header-quotes");
-            let quotes = [];
+document.addEventListener("DOMContentLoaded", function () {
 
-            quoteElements.forEach(el => {
-                quotes.push(el.innerText.trim());
-            });
+    // Ambil semua elemen dengan class "header-quotes" dari halaman saat ini
+    let quoteElements = document.querySelectorAll(".header-quotes");
+    let quotes = [];
+
+    quoteElements.forEach(el => {
+        quotes.push(el.innerText.trim());
+    });
+});
+
 
         // Masukkan Quotes ke Floating dan Offcanvas
         function renderQuotes() {
