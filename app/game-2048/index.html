@@ -14,6 +14,20 @@
             background-color: #f8f9fa;
             flex-direction: column;
         }
+        .container-wrapper {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        @media (min-width: 768px) {
+            .container-wrapper {
+                flex-direction: row;
+                align-items: flex-start;
+            }
+            .instructions {
+                margin-left: 20px;
+            }
+        }
         .game-container {
             display: grid;
             grid-template-columns: repeat(4, 100px);
@@ -34,12 +48,32 @@
             background-color: #cdc1b4;
             border-radius: 5px;
         }
+        .instructions {
+            max-width: 300px;
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+        }
     </style>
 </head>
 <body>
     <h1 class="mb-3">2048 Game</h1>
-    <div class="game-container" id="game"></div>
-    <div class="score mt-3" id="score">Score: 0</div>
+    <div class="container-wrapper">
+        <div>
+            <div class="game-container" id="game"></div>
+            <div class="score mt-3" id="score">Score: 0</div>
+        </div>
+        <div class="instructions">
+            <h3>Cara Bermain:</h3>
+            <ul>
+                <li>Gunakan tombol panah (← ↑ ↓ →) untuk menggeser angka.</li>
+                <li>Gabungkan angka yang sama untuk mencapai 2048!</li>
+                <li>Semakin tinggi skor, semakin sulit permainan!</li>
+            </ul>
+        </div>
+    </div>
     <script>
         const gameSize = 4;
         let grid = Array.from({ length: gameSize }, () => Array(gameSize).fill(0));
