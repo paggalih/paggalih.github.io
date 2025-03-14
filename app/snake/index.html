@@ -70,6 +70,12 @@
             if (direction === "LEFT") snakeX -= box;
             if (direction === "RIGHT") snakeX += box;
 
+            // Jika melewati batas, muncul di sisi lain
+            if (snakeX < 0) snakeX = canvas.width - box;
+            if (snakeX >= canvas.width) snakeX = 0;
+            if (snakeY < 0) snakeY = canvas.height - box;
+            if (snakeY >= canvas.height) snakeY = 0;
+
             if (snakeX === food.x && snakeY === food.y) {
                 score++;
                 document.getElementById("score").textContent = "Score: " + score;
@@ -83,11 +89,7 @@
 
             let newHead = { x: snakeX, y: snakeY };
 
-            if (
-                snakeX < 0 || snakeY < 0 ||
-                snakeX >= canvas.width || snakeY >= canvas.height ||
-                collision(newHead, snake)
-            ) {
+            if (collision(newHead, snake)) {
                 alert("Game Over! Score: " + score);
                 document.location.reload();
             }
@@ -104,7 +106,7 @@
             return false;
         }
 
-        setInterval(draw, 100);
+        setInterval(draw, 150); // Ular lebih lambat dari sebelumnya
     </script>
 </body>
 </html>
