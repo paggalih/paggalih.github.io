@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2048 Game</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            background-color: #f8f9fa;
+            flex-direction: column;
+        }
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(4, 100px);
+            grid-template-rows: repeat(4, 100px);
+            gap: 10px;
+            background-color: #bbada0;
+            padding: 10px;
+            border-radius: 10px;
+        }
+        .tile {
+            width: 100px;
+            height: 100px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2rem;
+            font-weight: bold;
+            background-color: #cdc1b4;
+            border-radius: 5px;
+        }
+    </style>
+</head>
+<body>
+    <h1 class="mb-3">2048 Game</h1>
+    <div class="game-container" id="game"></div>
+    <div class="score mt-3" id="score">Score: 0</div>
+    <script>
+        const gameSize = 4;
+        let grid = Array.from({ length: gameSize }, () => Array(gameSize).fill(0));
+        let score = 0;
+        
+        function getRandomEmptyCell() {
+            let emptyCells = [];
+            for (let r = 0; r < gameSize; r++) {
+                for (let c = 0; c < gameSize; c++) {
+                    if (grid[r][c] === 0) {
+                        emptyCells.push({ r, c });
+                    }
+                }
+            }
+            return emptyCells.length ? emptyCells[Math.floor(Math.random() * emptyCells.length)] : null;
+        }
+        
+        function addRandomTile() {
+            let cell = getRandomEmptyCell();
+            if (cell) {
+                grid[cell.r][cell.c] = Math.random() > 0.9 ? 4 : 2;
+            }
+        }
+        
+        function drawGrid() {
+            const gameElement = document.getElementById("game");
+            gameElement.innerHTML = "";
+            for (let r = 0; r < gameSize; r++) {
+                for (let c = 0; c < gameSize; c++) {
+                    let tile = document.createElement("div");
+                    tile.classList.add("tile");
+                    tile.textContent = grid[r][c] === 0 ? "" : grid[r][c];
+                    tile.style.backgroundColor = getTileColor(grid[r][c]);
+                    gameElement.appendChild(tile);
+                }
+            }
+            document.getElementById("score").textContent = "Score: " + score;
+        }
+        
+        function getTileColor(value) {
+            switch (value) {
+                case 2: return "#eee4da";
+                case 4: return "#ede0c8";
+                case 8: return "#f2b179";
+                case 16: return "#f59563";
+                case 32: return "#f67c5f";
+                case 64: return "#f65e3b";
+                case 128: return "#edcf72";
+                case 256: return "#edcc61";
+                case 512: return "#edc850";
+                case 1024: return "#edc53f";
+                case 2048: return "#edc22e";
+                default: return "#cdc1b4";
+            }
+        }
+        
+        function moveTiles(direction) {
+            let moved = false;
+            for (let i = 0; i < gameSize; i++) {
+                let line = grid[i].filter(v => v !== 0);
+                for (let j = 0; j < line.length - 1; j++) {
+                    if (line[j] === line[j + 1]) {
+                        line[j] *= 2;
+                        score += line[j];
+                        line.splice(j + 1, 1);
+                    }
+                }
+                while (line.length < gameSize) {
+                    line.push(0);
+                }
+                grid[i] = line;
+            }
+            if (moved) {
+                addRandomTile();
+            }
+            drawGrid();
+        }
+        
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") moveTiles("left");
+            else if (e.key === "ArrowRight") moveTiles("right");
+            else if (e.key === "ArrowUp") moveTiles("up");
+            else if (e.key === "ArrowDown") moveTiles("down");
+        });
+        
+        addRandomTile();
+        addRandomTile();
+        drawGrid();
+    </script>
+</body>
+</html>
