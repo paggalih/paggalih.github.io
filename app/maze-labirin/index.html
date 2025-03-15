@@ -1,150 +1,212 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maze Game - Mobile Friendly</title>
+    <title>Game Labirin Sederhana</title>
     <style>
         body {
-            text-align: center;
             font-family: Arial, sans-serif;
-            background-color: #f8f9fa;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
         }
-        canvas {
-            border: 2px solid black;
-            background-color: white;
-            touch-action: none;
+        .game-container {
+            position: relative;
+            width: 300px;
+            height: 300px;
+            background-color: #fff;
+            border: 2px solid #000;
         }
-        .info {
+        #maze {
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            grid-template-rows: repeat(10, 1fr);
+            width: 100%;
+            height: 100%;
+        }
+        .wall {
+            background-color: #000;
+        }
+        #player {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: blue;
+            top: 0;
+            left: 0;
+            transition: all 0.2s ease;
+        }
+        #goal {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background-color: green;
+            bottom: 0;
+            right: 0;
+        }
+        #message {
+            text-align: center;
             margin-top: 10px;
-            font-size: 1.2em;
+            font-size: 18px;
         }
         .controls {
-            margin-top: 10px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
+            display: grid;
+            grid-template-areas:
+                ". up ."
+                "left . right"
+                ". down .";
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
         }
-        .row {
-            display: flex;
-        }
-        .btn {
-            width: 60px;
-            height: 60px;
-            font-size: 24px;
-            margin: 5px;
+        .controls button {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            border: none;
             background-color: #007bff;
             color: white;
-            border: none;
             border-radius: 5px;
             cursor: pointer;
         }
-        .btn:active {
-            background-color: #0056b3;
+        .controls button:nth-child(1) {
+            grid-area: up;
+        }
+        .controls button:nth-child(2) {
+            grid-area: left;
+        }
+        .controls button:nth-child(3) {
+            grid-area: right;
+        }
+        .controls button:nth-child(4) {
+            grid-area: down;
         }
     </style>
 </head>
 <body>
-    <h1>Maze Game - Mobile Friendly</h1>
-    <canvas id="mazeCanvas"></canvas>
-    <p class="info">Gunakan tombol panah di keyboard atau tombol di bawah untuk bergerak.</p>
-
-    <!-- Tombol Navigasi untuk Mobile -->
-    <div class="controls">
-        <button class="btn" onclick="movePlayer(0, -1)">⬆</button>
-        <div class="row">
-            <button class="btn" onclick="movePlayer(-1, 0)">⬅</button>
-            <button class="btn" onclick="movePlayer(1, 0)">➡</button>
+    <div class="game-container">
+        <div id="maze"></div>
+        <div id="player"></div>
+        <div id="goal"></div>
+        <p id="message"></p>
+        <div class="controls">
+            <button onclick="movePlayer(0, -1)">↑</button>
+            <button onclick="movePlayer(-1, 0)">←</button>
+            <button onclick="movePlayer(1, 0)">→</button>
+            <button onclick="movePlayer(0, 1)">↓</button>
         </div>
-        <button class="btn" onclick="movePlayer(0, 1)">⬇</button>
     </div>
-
     <script>
-        const canvas = document.getElementById("mazeCanvas");
-        const ctx = canvas.getContext("2d");
+        // Ukuran grid labirin
+        const gridSize = 10;
+        const cellSize = 30; // Ukuran setiap sel dalam piksel
 
-        const cols = 20, rows = 20;
-        const tileSize = 20;
-        canvas.width = cols * tileSize;
-        canvas.height = rows * tileSize;
+        // Posisi awal pemain dan tujuan
+        let playerPosition = { x: 0, y: 0 };
+        let goalPosition = { x: gridSize - 1, y: gridSize - 1 };
 
-        let player = { x: 0, y: 0 };
-        let goal = { x: cols - 1, y: rows - 1 };
-        let maze = Array.from({ length: rows }, () => Array(cols).fill(1));
-
+        // Fungsi untuk membuat labirin acak
         function generateMaze() {
-            let stack = [{ x: 0, y: 0 }];
-            maze[0][0] = 0;
-
-            while (stack.length > 0) {
-                let { x, y } = stack.pop();
-                let directions = [[0, -2], [0, 2], [-2, 0], [2, 0]];
-                directions.sort(() => Math.random() - 0.5);
-
-                for (let [dx, dy] of directions) {
-                    let nx = x + dx, ny = y + dy;
-                    if (nx > 0 && ny > 0 && nx < cols - 1 && ny < rows - 1 && maze[ny][nx] === 1) {
-                        maze[y + dy / 2][x + dx / 2] = 0;
-                        maze[ny][nx] = 0;
-                        stack.push({ x: nx, y: ny });
-                    }
+            const maze = [];
+            for (let y = 0; y < gridSize; y++) {
+                const row = [];
+                for (let x = 0; x < gridSize; x++) {
+                    // 20% kemungkinan menjadi dinding (1), 80% jalan (0)
+                    row.push(Math.random() < 0.2 ? 1 : 0);
                 }
+                maze.push(row);
             }
-
-            maze[0][0] = 0;
-            maze[rows - 1][cols - 1] = 0;
-            drawMaze();
+            // Pastikan posisi awal dan tujuan tidak ada dinding
+            maze[0][0] = 0; // Posisi awal pemain
+            maze[gridSize - 1][gridSize - 1] = 0; // Posisi tujuan
+            return maze;
         }
 
+        let maze = generateMaze();
+
+        // Fungsi untuk menggambar labirin
         function drawMaze() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let y = 0; y < rows; y++) {
-                for (let x = 0; x < cols; x++) {
+            const mazeElement = document.getElementById('maze');
+            mazeElement.innerHTML = ''; // Bersihkan labirin sebelumnya
+
+            for (let y = 0; y < gridSize; y++) {
+                for (let x = 0; x < gridSize; x++) {
+                    const cell = document.createElement('div');
                     if (maze[y][x] === 1) {
-                        ctx.fillStyle = "black";
-                        ctx.fillRect(x * tileSize, y * tileSize, tileSize, tileSize);
+                        cell.classList.add('wall');
                     }
+                    mazeElement.appendChild(cell);
                 }
             }
-            ctx.fillStyle = "blue";
-            ctx.fillRect(player.x * tileSize, player.y * tileSize, tileSize, tileSize);
-
-            ctx.fillStyle = "green";
-            ctx.fillRect(goal.x * tileSize, goal.y * tileSize, tileSize, tileSize);
         }
 
+        // Fungsi untuk memindahkan pemain
         function movePlayer(dx, dy) {
-            let newX = player.x + dx;
-            let newY = player.y + dy;
-            if (newX >= 0 && newX < cols && newY >= 0 && newY < rows && maze[newY][newX] === 0) {
-                player.x = newX;
-                player.y = newY;
-                drawMaze();
-                checkWin();
+            const newX = playerPosition.x + dx;
+            const newY = playerPosition.y + dy;
+
+            // Cek apakah gerakan valid (tidak keluar dari labirin atau menabrak dinding)
+            if (
+                newX >= 0 && newX < gridSize &&
+                newY >= 0 && newY < gridSize &&
+                maze[newY][newX] !== 1
+            ) {
+                playerPosition.x = newX;
+                playerPosition.y = newY;
+                updatePlayerPosition();
+
+                // Cek apakah pemain mencapai tujuan
+                if (playerPosition.x === goalPosition.x && playerPosition.y === goalPosition.y) {
+                    document.getElementById('message').textContent = 'Selamat! Anda menang! 🎉';
+                    setTimeout(() => {
+                        resetGame();
+                    }, 1000); // Tunggu 1 detik sebelum reset
+                }
             }
         }
 
-        function checkWin() {
-            if (player.x === goal.x && player.y === goal.y) {
-                alert("Selamat! Anda menyelesaikan labirin! 🎉");
-                resetGame();
-            }
+        // Fungsi untuk memperbarui posisi pemain di layar
+        function updatePlayerPosition() {
+            const playerElement = document.getElementById('player');
+            playerElement.style.left = `${playerPosition.x * cellSize}px`;
+            playerElement.style.top = `${playerPosition.y * cellSize}px`;
         }
 
+        // Fungsi untuk mereset game dan membuat labirin baru
         function resetGame() {
-            player = { x: 0, y: 0 };
-            generateMaze();
+            maze = generateMaze(); // Generate labirin baru
+            playerPosition = { x: 0, y: 0 }; // Reset posisi pemain
+            goalPosition = { x: gridSize - 1, y: gridSize - 1 }; // Reset posisi tujuan
+            document.getElementById('message').textContent = ''; // Hapus pesan kemenangan
+            drawMaze(); // Gambar labirin baru
+            updatePlayerPosition(); // Perbarui posisi pemain
         }
 
-        // Keyboard Controls
-        document.addEventListener("keydown", (e) => {
-            if (e.key === "ArrowLeft") movePlayer(-1, 0);
-            if (e.key === "ArrowRight") movePlayer(1, 0);
-            if (e.key === "ArrowUp") movePlayer(0, -1);
-            if (e.key === "ArrowDown") movePlayer(0, 1);
+        // Event listener untuk tombol keyboard
+        document.addEventListener('keydown', (event) => {
+            switch (event.key) {
+                case 'ArrowUp':
+                    movePlayer(0, -1);
+                    break;
+                case 'ArrowDown':
+                    movePlayer(0, 1);
+                    break;
+                case 'ArrowLeft':
+                    movePlayer(-1, 0);
+                    break;
+                case 'ArrowRight':
+                    movePlayer(1, 0);
+                    break;
+            }
         });
 
-        generateMaze();
+        // Inisialisasi game
+        drawMaze();
+        updatePlayerPosition();
     </script>
 </body>
 </html>
