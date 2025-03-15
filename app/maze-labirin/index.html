@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maze Game</title>
+    <title>Maze Game - Hard Mode</title>
     <style>
         body {
             text-align: center;
@@ -44,7 +44,7 @@
     </style>
 </head>
 <body>
-    <h1>Maze Game</h1>
+    <h1>Maze Game - Hard Mode</h1>
     <canvas id="mazeCanvas"></canvas>
     <p class="info">Gunakan tombol panah atau tombol di bawah untuk bergerak.</p>
 
@@ -62,31 +62,40 @@
         const canvas = document.getElementById("mazeCanvas");
         const ctx = canvas.getContext("2d");
 
-        const cols = 10, rows = 10; // Ukuran maze (10x10)
-        const tileSize = 40;
+        const cols = 21, rows = 21; // Ukuran maze (lebih besar & sulit)
+        const tileSize = 20;
         canvas.width = cols * tileSize;
         canvas.height = rows * tileSize;
 
         let player = { x: 0, y: 0 };
-        let goal = { x: cols - 1, y: rows - 1 };
+        let goal = { x: cols - 2, y: rows - 2 }; // Exit dibuat lebih jauh
 
-        // Membuat maze dengan algoritma sederhana
         let maze = Array.from({ length: rows }, () => Array(cols).fill(1));
 
         function generateMaze() {
-            console.log("Membuat maze...");
-            for (let y = 0; y < rows; y++) {
-                for (let x = 0; x < cols; x++) {
-                    maze[y][x] = Math.random() > 0.3 ? 0 : 1; // Buat jalur dengan probabilitas 70%
+            console.log("Generating hard maze...");
+            function carve(x, y) {
+                let directions = [[0, -2], [0, 2], [-2, 0], [2, 0]];
+                directions.sort(() => Math.random() - 0.5);
+                for (let [dx, dy] of directions) {
+                    let nx = x + dx, ny = y + dy;
+                    if (ny > 0 && ny < rows - 1 && nx > 0 && nx < cols - 1 && maze[ny][nx] === 1) {
+                        maze[y + dy / 2][x + dx / 2] = 0;
+                        maze[ny][nx] = 0;
+                        carve(nx, ny);
+                    }
                 }
             }
+
+            maze[1][1] = 0;
+            carve(1, 1);
+
             maze[0][0] = 0;
-            maze[rows - 1][cols - 1] = 0;
+            maze[goal.y][goal.x] = 0;
             drawMaze();
         }
 
         function drawMaze() {
-            console.log("Menggambar maze...");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let y = 0; y < rows; y++) {
                 for (let x = 0; x < cols; x++) {
@@ -116,7 +125,7 @@
 
         function checkWin() {
             if (player.x === goal.x && player.y === goal.y) {
-                alert("Selamat! Anda menyelesaikan labirin! 🔥");
+                alert("Selamat! Anda menyelesaikan labirin yang sulit! 🔥");
                 resetGame();
             }
         }
@@ -134,7 +143,6 @@
             if (e.key === "ArrowDown") movePlayer(0, 1);
         });
 
-        // Pastikan maze langsung tergambar setelah dibuat
         generateMaze();
     </script>
 </body>
