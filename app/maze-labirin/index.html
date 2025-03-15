@@ -62,15 +62,15 @@
         const canvas = document.getElementById("mazeCanvas");
         const ctx = canvas.getContext("2d");
 
-        const cols = 15, rows = 15; // Ukuran maze
-        const tileSize = 30;
+        const cols = 20, rows = 20; // Ukuran grid lebih besar
+        const tileSize = 20; // Ukuran tile lebih kecil agar cukup di layar HP
         canvas.width = cols * tileSize;
         canvas.height = rows * tileSize;
 
         let player = { x: 0, y: 0 };
         let goal = { x: cols - 1, y: rows - 1 };
 
-        // Algoritma DFS untuk memastikan ada jalan
+        // Algoritma untuk membuat maze lebih baik
         let maze = Array.from({ length: rows }, () => Array(cols).fill(1));
 
         function generateMaze() {
@@ -130,7 +130,7 @@
 
         function checkWin() {
             if (player.x === goal.x && player.y === goal.y) {
-                alert("Selamat! Anda menyelesaikan labirin! 🔥");
+                alert("Selamat! Anda menyelesaikan labirin! 🎉");
                 resetGame();
             }
         }
