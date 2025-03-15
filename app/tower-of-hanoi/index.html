@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tower of Hanoi</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .towers {
+            display: flex;
+            justify-content: space-around;
+            width: 80%;
+            margin-top: 20px;
+        }
+        .tower {
+            width: 30%;
+            height: 200px;
+            border-bottom: 5px solid #333;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            position: relative;
+        }
+        .disk {
+            height: 20px;
+            background-color: #007bff;
+            border: 1px solid #0056b3;
+            border-radius: 5px;
+            margin: 2px 0;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        .controls button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .controls button:hover {
+            background-color: #0056b3;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <h1>Tower of Hanoi</h1>
+    <div class="towers" id="towers">
+        <div class="tower" id="tower-1" data-tower="1"></div>
+        <div class="tower" id="tower-2" data-tower="2"></div>
+        <div class="tower" id="tower-3" data-tower="3"></div>
+    </div>
+    <div class="status" id="status">Pindahkan semua cakram ke tiang 3!</div>
+    <div class="controls">
+        <button onclick="resetGame()">Reset Game</button>
+    </div>
+
+    <script>
+        const towers = document.getElementById("towers");
+        const statusDisplay = document.getElementById("status");
+
+        let disks = []; // Menyimpan cakram
+        let selectedTower = null; // Tiang yang sedang dipilih
+
+        // Inisialisasi game
+        function initializeGame() {
+            // Buat 3 cakram dengan ukuran berbeda (cakram terbesar di indeks 0)
+            disks = [
+                { width: 120, color: "#007bff" }, // Cakram terbesar
+                { width: 90, color: "#28a745" },  // Cakram sedang
+                { width: 60, color: "#dc3545" }   // Cakram terkecil
+            ];
+
+            // Reset tiang
+            document.querySelectorAll(".tower").forEach(tower => {
+                tower.innerHTML = '';
+            });
+
+            // Tempatkan cakram di tiang pertama (cakram terbesar di bawah)
+            const tower1 = document.getElementById("tower-1");
+            for (let i = disks.length - 1; i >= 0; i--) {
+                const disk = disks[i];
+                const diskElement = document.createElement("div");
+                diskElement.classList.add("disk");
+                diskElement.style.width = `${disk.width}px`;
+                diskElement.style.backgroundColor = disk.color;
+                diskElement.dataset.size = i + 1; // Ukuran cakram (1 = terkecil, 3 = terbesar)
+                tower1.appendChild(diskElement);
+            }
+
+            // Tambahkan event listener untuk tiang
+            document.querySelectorAll(".tower").forEach(tower => {
+                tower.addEventListener("click", handleTowerClick);
+            });
+
+            statusDisplay.textContent = "Pindahkan semua cakram ke tiang 3!";
+        }
+
+        // Handle klik tiang
+        function handleTowerClick(event) {
+            const tower = event.currentTarget;
+            const towerId = tower.dataset.tower;
+
+            if (selectedTower === null) {
+                // Pilih tiang pertama
+                if (tower.children.length > 0) {
+                    selectedTower = towerId;
+                    tower.style.borderBottom = "5px solid #ffc107"; // Highlight tiang yang dipilih
+                }
+            } else {
+                // Pilih tiang kedua
+                if (selectedTower !== towerId) {
+                    moveDisk(selectedTower, towerId);
+                }
+                // Reset pilihan
+                document.querySelector(`#tower-${selectedTower}`).style.borderBottom = "5px solid #333";
+                selectedTower = null;
+            }
+        }
+
+        // Pindahkan cakram dari tiang asal ke tiang tujuan
+        function moveDisk(fromTowerId, toTowerId) {
+            const fromTower = document.getElementById(`tower-${fromTowerId}`);
+            const toTower = document.getElementById(`tower-${toTowerId}`);
+
+            const diskToMove = fromTower.firstElementChild; // Ambil cakram paling atas
+
+            if (diskToMove) {
+                const topDiskInToTower = toTower.firstElementChild;
+
+                // Cek aturan: cakram yang dipindahkan harus lebih kecil dari cakram paling atas di tiang tujuan
+                if (!topDiskInToTower || parseInt(diskToMove.dataset.size) > parseInt(topDiskInToTower.dataset.size)) {
+                    toTower.insertBefore(diskToMove, toTower.firstChild); // Letakkan di atas tiang tujuan
+                    checkWin();
+                } else {
+                    statusDisplay.textContent = "Cakram yang lebih besar tidak boleh di atas yang lebih kecil!";
+                }
+            }
+        }
+
+        // Cek apakah pemain menang
+        function checkWin() {
+            const tower3 = document.getElementById("tower-3");
+            if (tower3.children.length === disks.length) {
+                statusDisplay.textContent = "Selamat! Anda menyelesaikan Tower of Hanoi! 🎉";
+            }
+        }
+
+        // Reset game
+        function resetGame() {
+            initializeGame();
+        }
+
+        // Inisialisasi awal
+        initializeGame();
+    </script>
+</body>
+</html>
