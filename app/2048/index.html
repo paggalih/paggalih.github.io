@@ -47,12 +47,40 @@
         .tile-512 { background-color: #edc850; }
         .tile-1024 { background-color: #edc53f; }
         .tile-2048 { background-color: #edc22e; }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .controls button:active {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Game 2048</h1>
     <div class="grid-container" id="grid-container">
         <!-- Grid cells will be generated here -->
+    </div>
+    <div class="controls">
+        <button onclick="moveTiles('up')">⬆</button>
+        <div>
+            <button onclick="moveTiles('left')">⬅</button>
+            <button onclick="moveTiles('right')">➡</button>
+        </div>
+        <button onclick="moveTiles('down')">⬇</button>
     </div>
     <script>
         const gridContainer = document.getElementById("grid-container");
