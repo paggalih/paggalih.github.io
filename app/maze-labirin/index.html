@@ -18,12 +18,45 @@
             margin-top: 10px;
             font-size: 1.2em;
         }
+        .controls {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .row {
+            display: flex;
+        }
+        .btn {
+            width: 50px;
+            height: 50px;
+            font-size: 24px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .btn:active {
+            background-color: #0056b3;
+        }
     </style>
 </head>
 <body>
     <h1>Maze Game</h1>
     <canvas id="mazeCanvas"></canvas>
-    <p class="info">Gunakan tombol panah untuk bergerak.</p>
+    <p class="info">Gunakan tombol panah atau tombol di bawah untuk bergerak.</p>
+
+    <!-- Tombol Navigasi -->
+    <div class="controls">
+        <button class="btn" onclick="movePlayer(0, -1)">⬆</button>
+        <div class="row">
+            <button class="btn" onclick="movePlayer(-1, 0)">⬅</button>
+            <button class="btn" onclick="movePlayer(1, 0)">➡</button>
+        </div>
+        <button class="btn" onclick="movePlayer(0, 1)">⬇</button>
+    </div>
 
     <script>
         const canvas = document.getElementById("mazeCanvas");
@@ -101,6 +134,7 @@
             drawMaze();
         }
 
+        // Keyboard Controls
         document.addEventListener("keydown", (e) => {
             if (e.key === "ArrowLeft") movePlayer(-1, 0);
             if (e.key === "ArrowRight") movePlayer(1, 0);
