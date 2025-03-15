@@ -40,6 +40,7 @@
             border: 1px solid #0056b3;
             border-radius: 5px;
             margin: 2px 0;
+            transition: transform 0.3s ease, opacity 0.3s ease; /* Animasi */
         }
         .controls {
             margin-top: 20px;
@@ -73,24 +74,38 @@
     </div>
     <div class="status" id="status">Pindahkan semua cakram ke tiang 3!</div>
     <div class="controls">
+        <label for="disk-count">Jumlah Cakram:</label>
+        <select id="disk-count">
+            <option value="3">3</option>
+            <option value="4">4</option>
+            <option value="5">5</option>
+        </select>
         <button onclick="resetGame()">Reset Game</button>
     </div>
+    <div class="steps" id="steps">Langkah: 0</div>
 
     <script>
         const towers = document.getElementById("towers");
         const statusDisplay = document.getElementById("status");
+        const stepsDisplay = document.getElementById("steps");
+        const diskCountSelect = document.getElementById("disk-count");
 
         let disks = []; // Menyimpan cakram
         let selectedTower = null; // Tiang yang sedang dipilih
+        let stepCounter = 0; // Menghitung jumlah langkah
 
         // Inisialisasi game
         function initializeGame() {
-            // Buat 3 cakram dengan ukuran berbeda (cakram terbesar di indeks 0)
-            disks = [
-                { width: 120, color: "#007bff" }, // Cakram terbesar
-                { width: 90, color: "#28a745" },  // Cakram sedang
-                { width: 60, color: "#dc3545" }   // Cakram terkecil
-            ];
+            const diskCount = parseInt(diskCountSelect.value); // Ambil jumlah cakram dari dropdown
+            disks = [];
+
+            // Buat cakram dengan ukuran berbeda
+            for (let i = diskCount; i >= 1; i--) {
+                disks.push({
+                    width: 60 + i * 30, // Lebar cakram bertambah sesuai ukuran
+                    color: `hsl(${i * 60}, 70%, 50%)` // Warna cakram berbeda
+                });
+            }
 
             // Reset tiang
             document.querySelectorAll(".tower").forEach(tower => {
@@ -105,9 +120,13 @@
                 diskElement.classList.add("disk");
                 diskElement.style.width = `${disk.width}px`;
                 diskElement.style.backgroundColor = disk.color;
-                diskElement.dataset.size = i + 1; // Ukuran cakram (1 = terkecil, 3 = terbesar)
+                diskElement.dataset.size = i + 1; // Ukuran cakram (1 = terkecil, n = terbesar)
                 tower1.appendChild(diskElement);
             }
+
+            // Reset langkah
+            stepCounter = 0;
+            stepsDisplay.textContent = "Langkah: 0";
 
             // Tambahkan event listener untuk tiang
             document.querySelectorAll(".tower").forEach(tower => {
@@ -151,8 +170,25 @@
 
                 // Cek aturan: cakram yang dipindahkan harus lebih kecil dari cakram paling atas di tiang tujuan
                 if (!topDiskInToTower || parseInt(diskToMove.dataset.size) > parseInt(topDiskInToTower.dataset.size)) {
-                    toTower.insertBefore(diskToMove, toTower.firstChild); // Letakkan di atas tiang tujuan
-                    checkWin();
+                    // Animasi: sembunyikan cakram sementara
+                    diskToMove.style.opacity = "0";
+                    diskToMove.style.transform = "translateY(-50px)";
+
+                    setTimeout(() => {
+                        // Pindahkan cakram ke tiang tujuan
+                        toTower.insertBefore(diskToMove, toTower.firstChild);
+
+                        // Animasi: tampilkan kembali cakram
+                        diskToMove.style.opacity = "1";
+                        diskToMove.style.transform = "translateY(0)";
+
+                        // Tambahkan langkah
+                        stepCounter++;
+                        stepsDisplay.textContent = `Langkah: ${stepCounter}`;
+
+                        // Cek kemenangan
+                        checkWin();
+                    }, 300); // Sesuaikan durasi animasi
                 } else {
                     statusDisplay.textContent = "Cakram yang lebih besar tidak boleh di atas yang lebih kecil!";
                 }
