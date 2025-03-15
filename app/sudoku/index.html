@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Sudoku</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .sudoku-board {
+            display: grid;
+            grid-template-columns: repeat(9, 40px);
+            grid-template-rows: repeat(9, 40px);
+            gap: 2px;
+            margin-top: 20px;
+        }
+        .sudoku-cell {
+            width: 40px;
+            height: 40px;
+            background-color: #fff;
+            border: 1px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.2em;
+            text-align: center;
+            cursor: pointer;
+        }
+        .sudoku-cell.fixed {
+            background-color: #ddd;
+            cursor: default;
+        }
+        .sudoku-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 1.2em;
+            background-color: transparent;
+        }
+        .sudoku-cell input:focus {
+            outline: none;
+            background-color: #e0f7fa;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .reset-button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .reset-button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Sudoku</h1>
+    <div class="sudoku-board" id="sudoku-board">
+        <!-- Sel-sel Sudoku akan diisi di sini -->
+    </div>
+    <div class="status" id="status">Isi angka yang valid (1-9)!</div>
+    <button class="reset-button" onclick="resetGame()">Reset Game</button>
+
+    <script>
+        const sudokuBoard = document.getElementById("sudoku-board");
+        const statusDisplay = document.getElementById("status");
+
+        // Contoh papan Sudoku (0 = sel kosong)
+        let initialBoard = [
+            [5, 3, 0, 0, 7, 0, 0, 0, 0],
+            [6, 0, 0, 1, 9, 5, 0, 0, 0],
+            [0, 9, 8, 0, 0, 0, 0, 6, 0],
+            [8, 0, 0, 0, 6, 0, 0, 0, 3],
+            [4, 0, 0, 8, 0, 3, 0, 0, 1],
+            [7, 0, 0, 0, 2, 0, 0, 0, 6],
+            [0, 6, 0, 0, 0, 0, 2, 8, 0],
+            [0, 0, 0, 4, 1, 9, 0, 0, 5],
+            [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        ];
+
+        let board = JSON.parse(JSON.stringify(initialBoard)); // Salin papan awal
+
+        function initializeBoard() {
+            sudokuBoard.innerHTML = '';
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("sudoku-cell");
+                    if (initialBoard[i][j] !== 0) {
+                        cell.classList.add("fixed");
+                        cell.textContent = initialBoard[i][j];
+                    } else {
+                        const input = document.createElement("input");
+                        input.type = "text";
+                        input.maxLength = 1;
+                        input.addEventListener("input", (e) => handleInput(e, i, j));
+                        cell.appendChild(input);
+                    }
+                    sudokuBoard.appendChild(cell);
+                }
+            }
+        }
+
+        function handleInput(event, row, col) {
+            const value = event.target.value;
+            if (/^[1-9]$/.test(value)) {
+                board[row][col] = parseInt(value);
+                if (checkWin()) {
+                    statusDisplay.textContent = "Selamat! Anda menyelesaikan Sudoku! 🎉";
+                }
+            } else {
+                event.target.value = '';
+                board[row][col] = 0;
+            }
+        }
+
+        function checkWin() {
+            // Cek baris
+            for (let i = 0; i < 9; i++) {
+                const row = board[i];
+                if (new Set(row).size !== 9 || row.includes(0)) {
+                    return false;
+                }
+            }
+
+            // Cek kolom
+            for (let j = 0; j < 9; j++) {
+                const column = [];
+                for (let i = 0; i < 9; i++) {
+                    column.push(board[i][j]);
+                }
+                if (new Set(column).size !== 9 || column.includes(0)) {
+                    return false;
+                }
+            }
+
+            // Cek kotak 3x3
+            for (let i = 0; i < 9; i += 3) {
+                for (let j = 0; j < 9; j += 3) {
+                    const square = [];
+                    for (let x = 0; x < 3; x++) {
+                        for (let y = 0; y < 3; y++) {
+                            square.push(board[i + x][j + y]);
+                        }
+                    }
+                    if (new Set(square).size !== 9 || square.includes(0)) {
+                        return false;
+                    }
+                }
+            }
+
+            return true;
+        }
+
+        function resetGame() {
+            board = JSON.parse(JSON.stringify(initialBoard)); // Reset papan ke awal
+            initializeBoard();
+            statusDisplay.textContent = "Isi angka yang valid (1-9)!";
+        }
+
+        initializeBoard();
+    </script>
+</body>
+</html>
