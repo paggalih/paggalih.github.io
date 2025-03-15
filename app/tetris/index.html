@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Tetris</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background-color: #f0f0f0;
+        }
+        h1 {
+            color: #333;
+        }
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(10, 30px);
+            grid-template-rows: repeat(20, 30px);
+            gap: 1px;
+            background-color: #333;
+            padding: 1px;
+        }
+        .grid-cell {
+            width: 30px;
+            height: 30px;
+            background-color: #222;
+            transition: background-color 0.3s ease;
+        }
+        .tetromino {
+            background-color: #f39c12;
+        }
+        .controls {
+            margin-top: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .controls button {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .controls button:active {
+            background-color: #0056b3;
+        }
+        .score {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        @keyframes blink {
+            0%, 100% { background-color: #f39c12; }
+            50% { background-color: #ff0000; }
+        }
+        .blink {
+            animation: blink 0.2s linear 3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Game Tetris</h1>
+    <div class="grid-container" id="grid-container">
+        <!-- Grid cells will be generated here -->
+    </div>
+    <div class="score" id="score">Skor: 0</div>
+    <div class="controls">
+        <button onclick="moveTetromino('up')">⬆</button>
+        <div>
+            <button onclick="moveTetromino('left')">⬅</button>
+            <button onclick="moveTetromino('right')">➡</button>
+        </div>
+        <button onclick="moveTetromino('down')">⬇</button>
+    </div>
+    <script>
+        const gridContainer = document.getElementById("grid-container");
+        const scoreDisplay = document.getElementById("score");
+        const grid = Array.from({ length: 20 }, () => Array(10).fill(0));
+
+        const tetrominoes = [
+            [[1, 1, 1, 1]], // I
+            [[1, 1], [1, 1]], // O
+            [[0, 1, 0], [1, 1, 1]], // T
+            [[1, 0, 0], [1, 1, 1]], // L
+            [[0, 0, 1], [1, 1, 1]], // J
+            [[0, 1, 1], [1, 1, 0]], // S
+            [[1, 1, 0], [0, 1, 1]]  // Z
+        ];
+
+        let currentTetromino;
+        let currentPosition;
+        let interval;
+        let score = 0;
+
+        function initializeGrid() {
+            for (let i = 0; i < 20; i++) {
+                for (let j = 0; j < 10; j++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("grid-cell");
+                    gridContainer.appendChild(cell);
+                }
+            }
+            spawnTetromino();
+            updateGrid();
+            startGame();
+        }
+
+        function spawnTetromino() {
+            const randomIndex = Math.floor(Math.random() * tetrominoes.length);
+            currentTetromino = tetrominoes[randomIndex];
+            currentPosition = { x: 4, y: 0 };
+            if (checkCollision()) {
+                clearInterval(interval);
+                alert("Game Over!");
+                resetGame();
+            }
+        }
+
+        function updateGrid() {
+            const cells = document.querySelectorAll(".grid-cell");
+            cells.forEach((cell, index) => {
+                const i = Math.floor(index / 10);
+                const j = index % 10;
+                cell.className = "grid-cell";
+                if (grid[i][j] === 1) {
+                    cell.classList.add("tetromino");
+                }
+            });
+
+            for (let i = 0; i < currentTetromino.length; i++) {
+                for (let j = 0; j < currentTetromino[i].length; j++) {
+                    if (currentTetromino[i][j] === 1) {
+                        const x = currentPosition.x + j;
+                        const y = currentPosition.y + i;
+                        const cellIndex = y * 10 + x;
+                        if (cellIndex >= 0 && cellIndex < cells.length) {
+                            cells[cellIndex].classList.add("tetromino");
+                        }
+                    }
+                }
+            }
+        }
+
+        function moveTetromino(direction) {
+            if (direction === "left") {
+                currentPosition.x--;
+                if (checkCollision()) currentPosition.x++;
+            } else if (direction === "right") {
+                currentPosition.x++;
+                if (checkCollision()) currentPosition.x--;
+            } else if (direction === "down") {
+                currentPosition.y++;
+                if (checkCollision()) {
+                    currentPosition.y--;
+                    lockTetromino();
+                    spawnTetromino();
+                }
+            } else if (direction === "up") {
+                rotateTetromino();
+            }
+            updateGrid();
+        }
+
+        function rotateTetromino() {
+            const newTetromino = currentTetromino[0].map((val, index) =>
+                currentTetromino.map(row => row[index]).reverse()
+            );
+            const oldTetromino = currentTetromino;
+            currentTetromino = newTetromino;
+            if (checkCollision()) {
+                currentTetromino = oldTetromino;
+            }
+        }
+
+        function checkCollision() {
+            for (let i = 0; i < currentTetromino.length; i++) {
+                for (let j = 0; j < currentTetromino[i].length; j++) {
+                    if (currentTetromino[i][j] === 1) {
+                        const x = currentPosition.x + j;
+                        const y = currentPosition.y + i;
+                        if (x < 0 || x >= 10 || y >= 20 || (y >= 0 && grid[y][x] === 1)) {
+                            return true;
+                        }
+                    }
+                }
+            }
+            return false;
+        }
+
+        function lockTetromino() {
+            for (let i = 0; i < currentTetromino.length; i++) {
+                for (let j = 0; j < currentTetromino[i].length; j++) {
+                    if (currentTetromino[i][j] === 1) {
+                        const x = currentPosition.x + j;
+                        const y = currentPosition.y + i;
+                        if (y >= 0) {
+                            grid[y][x] = 1;
+                        }
+                    }
+                }
+            }
+            clearLines();
+        }
+
+        function clearLines() {
+            let linesCleared = 0;
+            for (let i = 0; i < 20; i++) {
+                if (grid[i].every(cell => cell === 1)) {
+                    animateLineClear(i);
+                    linesCleared++;
+                }
+            }
+            if (linesCleared > 0) {
+                setTimeout(() => {
+                    for (let i = 0; i < 20; i++) {
+                        if (grid[i].every(cell => cell === 1)) {
+                            grid.splice(i, 1);
+                            grid.unshift(Array(10).fill(0));
+                        }
+                    }
+                    score += linesCleared;
+                    scoreDisplay.textContent = `Skor: ${score}`;
+                    updateGrid();
+                }, 300); // Sesuaikan dengan durasi animasi
+            }
+        }
+
+        function animateLineClear(row) {
+            const cells = document.querySelectorAll(".grid-cell");
+            for (let j = 0; j < 10; j++) {
+                const cellIndex = row * 10 + j;
+                cells[cellIndex].classList.add("blink");
+            }
+        }
+
+        function startGame() {
+            interval = setInterval(() => {
+                moveTetromino("down");
+            }, 1000);
+        }
+
+        function resetGame() {
+            for (let i = 0; i < 20; i++) {
+                for (let j = 0; j < 10; j++) {
+                    grid[i][j] = 0;
+                }
+            }
+            score = 0;
+            scoreDisplay.textContent = `Skor: ${score}`;
+            spawnTetromino();
+            updateGrid();
+            startGame();
+        }
+
+        document.addEventListener("keydown", (e) => {
+            if (e.key === "ArrowLeft") moveTetromino("left");
+            if (e.key === "ArrowRight") moveTetromino("right");
+            if (e.key === "ArrowDown") moveTetromino("down");
+            if (e.key === "ArrowUp") moveTetromino("up");
+        });
+
+        initializeGrid();
+    </script>
+</body>
+</html>
