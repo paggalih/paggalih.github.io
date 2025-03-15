@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magic Square Game</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f0f0f0;
+            margin: 0;
+        }
+        h1 {
+            color: #333;
+        }
+        .magic-square {
+            display: grid;
+            grid-template-columns: repeat(3, 80px);
+            grid-template-rows: repeat(3, 80px);
+            gap: 5px;
+            margin-top: 20px;
+        }
+        .magic-cell {
+            width: 80px;
+            height: 80px;
+            background-color: #fff;
+            border: 2px solid #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5em;
+            text-align: center;
+            cursor: pointer;
+        }
+        .magic-cell input {
+            width: 100%;
+            height: 100%;
+            border: none;
+            text-align: center;
+            font-size: 1.5em;
+            background-color: transparent;
+        }
+        .magic-cell input:focus {
+            outline: none;
+            background-color: #e0f7fa;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 1.5em;
+            color: #333;
+        }
+        .controls {
+            margin-top: 20px;
+        }
+        .controls button {
+            padding: 10px 20px;
+            font-size: 1em;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        .controls button:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+    <h1>Magic Square Game</h1>
+    <div class="magic-square" id="magic-square">
+        <!-- Sel-sel Magic Square akan diisi di sini -->
+    </div>
+    <div class="status" id="status">Isi angka 1-9 tanpa pengulangan!</div>
+    <div class="controls">
+        <button onclick="resetGame()">Reset Game</button>
+        <button onclick="showSolution()">Tampilkan Solusi</button>
+    </div>
+
+    <script>
+        const magicSquare = document.getElementById("magic-square");
+        const statusDisplay = document.getElementById("status");
+
+        let initialBoard = [
+            [0, 0, 0],
+            [0, 0, 0],
+            [0, 0, 0]
+        ];
+
+        let board = JSON.parse(JSON.stringify(initialBoard)); // Papan yang sedang dimainkan
+        let solution = []; // Solusi Magic Square yang sudah diacak
+        let hintsGiven = []; // Menyimpan posisi petunjuk yang sudah diberikan
+
+        // Fungsi untuk menghasilkan solusi Magic Square
+        function generateMagicSquare() {
+            const baseSolution = [
+                [8, 1, 6],
+                [3, 5, 7],
+                [4, 9, 2]
+            ];
+
+            // Acak solusi dengan rotasi dan refleksi
+            const rotations = Math.floor(Math.random() * 4); // Rotasi 0-3 kali
+            const reflect = Math.random() < 0.5; // Refleksi (true/false)
+
+            let newSolution = JSON.parse(JSON.stringify(baseSolution));
+
+            // Rotasi
+            for (let r = 0; r < rotations; r++) {
+                newSolution = rotateMatrix(newSolution);
+            }
+
+            // Refleksi
+            if (reflect) {
+                newSolution = reflectMatrix(newSolution);
+            }
+
+            return newSolution;
+        }
+
+        // Fungsi untuk memutar matriks 90 derajat
+        function rotateMatrix(matrix) {
+            const N = matrix.length;
+            const rotated = JSON.parse(JSON.stringify(matrix));
+            for (let i = 0; i < N; i++) {
+                for (let j = 0; j < N; j++) {
+                    rotated[j][N - 1 - i] = matrix[i][j];
+                }
+            }
+            return rotated;
+        }
+
+        // Fungsi untuk merefleksikan matriks
+        function reflectMatrix(matrix) {
+            const N = matrix.length;
+            const reflected = JSON.parse(JSON.stringify(matrix));
+            for (let i = 0; i < N; i++) {
+                reflected[i].reverse();
+            }
+            return reflected;
+        }
+
+        // Fungsi untuk memberikan petunjuk
+        function giveHints() {
+            const emptyCells = [];
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[i][j] === 0) {
+                        emptyCells.push({ row: i, col: j });
+                    }
+                }
+            }
+
+            // Pilih 2 sel kosong secara acak
+            for (let i = 0; i < 2; i++) {
+                if (emptyCells.length === 0) break;
+
+                const randomIndex = Math.floor(Math.random() * emptyCells.length);
+                const cell = emptyCells[randomIndex];
+                const { row, col } = cell;
+
+                // Isi sel dengan angka dari solusi
+                board[row][col] = solution[row][col];
+                hintsGiven.push({ row, col });
+
+                // Hapus sel dari daftar sel kosong
+                emptyCells.splice(randomIndex, 1);
+            }
+
+            initializeBoard();
+        }
+
+        function initializeBoard() {
+            magicSquare.innerHTML = '';
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    const cell = document.createElement("div");
+                    cell.classList.add("magic-cell");
+                    const input = document.createElement("input");
+                    input.type = "text";
+                    input.maxLength = 1;
+                    input.value = board[i][j] === 0 ? '' : board[i][j]; // Tampilkan angka jika ada
+                    input.disabled = hintsGiven.some(hint => hint.row === i && hint.col === j); // Nonaktifkan input untuk petunjuk
+                    input.addEventListener("input", (e) => handleInput(e, i, j));
+                    cell.appendChild(input);
+                    magicSquare.appendChild(cell);
+                }
+            }
+        }
+
+        function handleInput(event, row, col) {
+            const value = event.target.value;
+            if (/^[1-9]$/.test(value)) {
+                board[row][col] = parseInt(value);
+                if (checkWin()) {
+                    statusDisplay.textContent = "Selamat! Anda menyelesaikan Magic Square! 🎉";
+                } else {
+                    statusDisplay.textContent = "Isi angka 1-9 tanpa pengulangan!";
+                }
+            } else {
+                event.target.value = '';
+                board[row][col] = 0;
+            }
+        }
+
+        function checkWin() {
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    if (board[i][j] !== solution[i][j]) {
+                        return false;
+                    }
+                }
+            }
+            return true;
+        }
+
+        function resetGame() {
+            solution = generateMagicSquare(); // Buat solusi baru
+            board = JSON.parse(JSON.stringify(initialBoard)); // Reset papan
+            hintsGiven = []; // Reset petunjuk
+            giveHints(); // Berikan petunjuk
+            initializeBoard();
+            statusDisplay.textContent = "Isi angka 1-9 tanpa pengulangan!";
+        }
+
+        // Fungsi untuk menampilkan solusi
+        function showSolution() {
+            for (let i = 0; i < 3; i++) {
+                for (let j = 0; j < 3; j++) {
+                    board[i][j] = solution[i][j]; // Isi papan dengan solusi
+                }
+            }
+            initializeBoard();
+            statusDisplay.textContent = "Ini adalah solusi Magic Square!";
+        }
+
+        // Inisialisasi awal
+        resetGame();
+    </script>
+</body>
+</html>
