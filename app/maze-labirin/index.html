@@ -74,26 +74,19 @@
         let maze = Array.from({ length: rows }, () => Array(cols).fill(1));
 
         function generateMaze() {
-            for (let y = 1; y < rows; y += 2) {
-                for (let x = 1; x < cols; x += 2) {
-                    maze[y][x] = 0;
-                    let directions = [[0, -1], [0, 1], [-1, 0], [1, 0]];
-                    directions.sort(() => Math.random() - 0.5);
-                    for (let [dx, dy] of directions) {
-                        let nx = x + dx, ny = y + dy;
-                        if (ny > 0 && ny < rows && nx > 0 && nx < cols && maze[ny][nx] === 1) {
-                            maze[y + dy / 2][x + dx / 2] = 0;
-                            maze[ny][nx] = 0;
-                            break;
-                        }
-                    }
+            console.log("Membuat maze...");
+            for (let y = 0; y < rows; y++) {
+                for (let x = 0; x < cols; x++) {
+                    maze[y][x] = Math.random() > 0.3 ? 0 : 1; // Buat jalur dengan probabilitas 70%
                 }
             }
             maze[0][0] = 0;
             maze[rows - 1][cols - 1] = 0;
+            drawMaze();
         }
 
         function drawMaze() {
+            console.log("Menggambar maze...");
             ctx.clearRect(0, 0, canvas.width, canvas.height);
             for (let y = 0; y < rows; y++) {
                 for (let x = 0; x < cols; x++) {
@@ -131,7 +124,6 @@
         function resetGame() {
             player = { x: 0, y: 0 };
             generateMaze();
-            drawMaze();
         }
 
         // Keyboard Controls
@@ -142,8 +134,8 @@
             if (e.key === "ArrowDown") movePlayer(0, 1);
         });
 
+        // Pastikan maze langsung tergambar setelah dibuat
         generateMaze();
-        drawMaze();
     </script>
 </body>
 </html>
