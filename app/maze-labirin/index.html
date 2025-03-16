@@ -24,7 +24,6 @@
             justify-content: center;
             align-items: center;
             margin: 0;
-            height: 100vh;
         }
         .game-container {
             position: relative;
@@ -73,8 +72,8 @@
             bottom: 20px;
             left: 50%;
             transform: translateX(-50%);
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             background-color: rgba(255, 255, 255, 0.3); /* Transparan */
             border-radius: 50%;
             justify-content: center;
@@ -85,12 +84,12 @@
         }
 
         .mobile-controls .control-button {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             border: none;
             background-color: rgba(0, 0, 0, 0.7); /* Warna tombol */
             color: white;
-            font-size: 20px;
+            font-size: 30px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -131,17 +130,17 @@
         }
     </style>
 </head>
-<body class="mt-4">
+<body class="m-4 row">
     <div class="game-container">
         <div id="maze"></div>
         <div id="player"></div>
         <div id="goal"></div>
         <p id="message"></p>
         <div class="mobile-controls">
-            <button class="control-button up" onclick="movePlayer(0, -1)">⬆</button>
-            <button class="control-button left" onclick="movePlayer(-1, 0)">⬅</button>
-            <button class="control-button right" onclick="movePlayer(1, 0)">➡</button>
-            <button class="control-button down" onclick="movePlayer(0, 1)">⬇</button>
+            <button class="control-button up" onclick="movePlayer(0, -1)"><i class="bi bi-arrow-up-circle"></i></button>
+            <button class="control-button left" onclick="movePlayer(-1, 0)"><i class="bi bi-arrow-left-circle"></i></button>
+            <button class="control-button right" onclick="movePlayer(1, 0)"><i class="bi bi-arrow-right-circle"></i></button>
+            <button class="control-button down" onclick="movePlayer(0, 1)"><i class="bi bi-arrow-down-circle"></i></button>
         </div>
     </div>
     <h2 class="text-center">ada juga ... </h2>
