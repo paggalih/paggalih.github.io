@@ -3,110 +3,247 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Snake Game</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <title>Game Snake</title>
+        <meta name="author" content="Galih Pradananta">
+        <!-- Favicons -->
+        <link href="/assets/img/letter-g.gif" rel="icon">
+        <!-- Vendor CSS Files -->
+        <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+        <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+        <!-- Template Main CSS File -->
+        <link href="/assets/css/style.css" rel="stylesheet">
     <style>
         body {
+            font-family: Arial, sans-serif;
             display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            background-color: #f8f9fa;
             flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #000;
+            margin: 0;
+            color: #fff;
         }
-        canvas {
-            border: 2px solid black;
-            background-color: white;
+        h1 {
+            margin-bottom: 20px;
         }
-        .score {
-            font-size: 1.5rem;
-            font-weight: bold;
-            margin-top: 10px;
+        .game-container {
+            display: grid;
+            grid-template-columns: repeat(20, 20px);
+            grid-template-rows: repeat(20, 20px);
+            gap: 1px;
+            background-color: #333;
+        }
+        .cell {
+            width: 20px;
+            height: 20px;
+            background-color: #222;
+        }
+        .snake {
+            background-color: #0f0;
+        }
+        .food {
+            background-color: #f00;
+        }
+        .status {
+            margin-top: 20px;
+            font-size: 1.5em;
+        }
+        .controls {
+            display: grid;
+            grid-template-areas:
+                "left . up . down . right";
+            gap: 10px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .controls button {
+            width: 50px;
+            height: 50px;
+            font-size: 20px;
+            border: none;
+            background-color: #007bff;
+            color: white;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .controls button:nth-child(1) {
+            grid-area: up;
+            width: 80px;
+            height: 80px;
+            font-size: 40px;
+        }
+        .controls button:nth-child(2) {
+            grid-area: left;
+        }
+        .controls button:nth-child(3) {
+            grid-area: right;
+        }
+        .controls button:nth-child(4) {
+            grid-area: down;
+            width: 80px;
+            height: 80px;
+            font-size: 40px;
         }
     </style>
 </head>
 <body>
-    <h1 class="mb-3">Snake Game</h1>
-    <canvas id="gameCanvas" width="400" height="400"></canvas>
-    <div class="score" id="score">Score: 0</div>
+    <h1>Game Snake</h1>
+    <div class="game-container" id="game-container">
+        <!-- Sel-sel game akan diisi di sini -->
+    <div class="status" id="status">Skor: 0</div>
+    <div class="controls">
+        <button onclick="changeDirection(0, -1)">↑</button>
+        <button onclick="changeDirection(-1, 0)">←</button>
+        <button onclick="changeDirection(1, 0)">→</button>
+        <button onclick="changeDirection(0, 1)">↓</button>
+    </div>
+    <h2 class="text-center">ada juga ... </h2>
+    <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
+        <footer id="footer"></footer>
+        <!-- Vendor JS Files -->
+        <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+        <script src="/assets/vendor/aos/aos.js"></script>
+        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+        <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+        <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+        <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+        <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+        <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+        <script src="/assets/vendor/php-email-form/validate.js"></script>
+        <!-- Template Main JS File -->
+        <script src="/assets/js/main.js"></script>
+				</div>
     <script>
-        const canvas = document.getElementById("gameCanvas");
-        const ctx = canvas.getContext("2d");
+        const gameContainer = document.getElementById("game-container");
+        const statusDisplay = document.getElementById("status");
 
-        const box = 20;
-        let snake = [{ x: 10 * box, y: 10 * box }];
-        let direction = "RIGHT";
-        let food = {
-            x: Math.floor(Math.random() * 20) * box,
-            y: Math.floor(Math.random() * 20) * box
-        };
+        const gridSize = 20; // Ukuran grid (20x20)
+        let snake = [{ x: 10, y: 10 }]; // Posisi awal ular
+        let food = { x: 5, y: 5 }; // Posisi awal makanan
+        let direction = { x: 0, y: 0 }; // Arah gerakan ular
         let score = 0;
 
-        document.addEventListener("keydown", changeDirection);
-
-        function changeDirection(event) {
-            if (event.key === "ArrowUp" && direction !== "DOWN") direction = "UP";
-            else if (event.key === "ArrowDown" && direction !== "UP") direction = "DOWN";
-            else if (event.key === "ArrowLeft" && direction !== "RIGHT") direction = "LEFT";
-            else if (event.key === "ArrowRight" && direction !== "LEFT") direction = "RIGHT";
+        // Fungsi untuk membuat grid game
+        function createGrid() {
+            gameContainer.innerHTML = '';
+            for (let i = 0; i < gridSize * gridSize; i++) {
+                const cell = document.createElement("div");
+                cell.classList.add("cell");
+                gameContainer.appendChild(cell);
+            }
         }
 
-        function draw() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            
-            ctx.fillStyle = "red";
-            ctx.fillRect(food.x, food.y, box, box);
+        // Fungsi untuk menggambar ular dan makanan
+        function drawGame() {
+            const cells = document.querySelectorAll(".cell");
+            cells.forEach(cell => {
+                cell.classList.remove("snake", "food");
+            });
 
-            for (let i = 0; i < snake.length; i++) {
-                ctx.fillStyle = i === 0 ? "green" : "lime";
-                ctx.fillRect(snake[i].x, snake[i].y, box, box);
+            // Gambar ular
+            snake.forEach(segment => {
+                const index = segment.y * gridSize + segment.x;
+                cells[index].classList.add("snake");
+            });
+
+            // Gambar makanan
+            const foodIndex = food.y * gridSize + food.x;
+            cells[foodIndex].classList.add("food");
+        }
+
+        // Fungsi untuk memindahkan ular
+        function moveSnake() {
+            const head = { x: snake[0].x + direction.x, y: snake[0].y + direction.y };
+
+            // Tembus tembok: jika ular keluar dari grid, muncul di sisi lain
+            if (head.x < 0) head.x = gridSize - 1;
+            if (head.x >= gridSize) head.x = 0;
+            if (head.y < 0) head.y = gridSize - 1;
+            if (head.y >= gridSize) head.y = 0;
+
+            // Cek tabrakan dengan tubuh ular
+            if (snake.some(segment => segment.x === head.x && segment.y === head.y)) {
+                resetGame();
+                return;
             }
 
-            let snakeX = snake[0].x;
-            let snakeY = snake[0].y;
+            // Tambahkan kepala baru
+            snake.unshift(head);
 
-            if (direction === "UP") snakeY -= box;
-            if (direction === "DOWN") snakeY += box;
-            if (direction === "LEFT") snakeX -= box;
-            if (direction === "RIGHT") snakeX += box;
-
-            // Jika melewati batas, muncul di sisi lain
-            if (snakeX < 0) snakeX = canvas.width - box;
-            if (snakeX >= canvas.width) snakeX = 0;
-            if (snakeY < 0) snakeY = canvas.height - box;
-            if (snakeY >= canvas.height) snakeY = 0;
-
-            if (snakeX === food.x && snakeY === food.y) {
+            // Cek apakah ular memakan makanan
+            if (head.x === food.x && head.y === food.y) {
                 score++;
-                document.getElementById("score").textContent = "Score: " + score;
-                food = {
-                    x: Math.floor(Math.random() * 20) * box,
-                    y: Math.floor(Math.random() * 20) * box
-                };
+                statusDisplay.textContent = `Skor: ${score}`;
+                placeFood();
             } else {
+                // Hapus ekor ular jika tidak memakan makanan
                 snake.pop();
             }
-
-            let newHead = { x: snakeX, y: snakeY };
-
-            if (collision(newHead, snake)) {
-                alert("Game Over! Score: " + score);
-                document.location.reload();
-            }
-
-            snake.unshift(newHead);
         }
 
-        function collision(head, snake) {
-            for (let i = 1; i < snake.length; i++) {
-                if (head.x === snake[i].x && head.y === snake[i].y) {
-                    return true;
-                }
+        // Fungsi untuk menempatkan makanan secara acak
+        function placeFood() {
+            food = {
+                x: Math.floor(Math.random() * gridSize),
+                y: Math.floor(Math.random() * gridSize)
+            };
+
+            // Pastikan makanan tidak muncul di tubuh ular
+            while (snake.some(segment => segment.x === food.x && segment.y === food.y)) {
+                food = {
+                    x: Math.floor(Math.random() * gridSize),
+                    y: Math.floor(Math.random() * gridSize)
+                };
             }
-            return false;
         }
 
-        setInterval(draw, 150); // Ular lebih lambat dari sebelumnya
+        // Fungsi untuk reset game
+        function resetGame() {
+            snake = [{ x: 10, y: 10 }];
+            direction = { x: 0, y: 0 };
+            score = 0;
+            statusDisplay.textContent = `Skor: ${score}`;
+            placeFood();
+        }
+
+        // Fungsi untuk mengubah arah ular
+        function changeDirection(dx, dy) {
+            if (direction.x === 0 && dx !== 0) direction = { x: dx, y: 0 };
+            if (direction.y === 0 && dy !== 0) direction = { x: 0, y: dy };
+        }
+
+        // Fungsi untuk mengupdate game
+        function updateGame() {
+            moveSnake();
+            drawGame();
+        }
+
+        // Event listener untuk mengontrol ular
+        document.addEventListener("keydown", (e) => {
+            switch (e.key) {
+                case "ArrowUp":
+                    if (direction.y === 0) direction = { x: 0, y: -1 };
+                    break;
+                case "ArrowDown":
+                    if (direction.y === 0) direction = { x: 0, y: 1 };
+                    break;
+                case "ArrowLeft":
+                    if (direction.x === 0) direction = { x: -1, y: 0 };
+                    break;
+                case "ArrowRight":
+                    if (direction.x === 0) direction = { x: 1, y: 0 };
+                    break;
+            }
+        });
+
+        // Inisialisasi game
+        createGrid();
+        placeFood();
+        setInterval(updateGame, 100); // Update game setiap 100ms
     </script>
 </body>
 </html>
