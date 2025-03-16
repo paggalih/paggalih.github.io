@@ -29,16 +29,16 @@
         }
         .grid-container {
             display: grid;
-            grid-template-columns: repeat(4, 100px);
-            grid-template-rows: repeat(4, 100px);
+            grid-template-columns: repeat(4, 80px);
+            grid-template-rows: repeat(4, 80px);
             gap: 10px;
             background-color: #bbada0;
             padding: 10px;
             border-radius: 10px;
         }
         .grid-cell {
-            width: 100px;
-            height: 100px;
+            width: 80px;
+            height: 80px;
             background-color: #cdc1b4;
             border-radius: 5px;
             display: flex;
@@ -79,12 +79,12 @@
         }
 
         .mobile-controls .control-button {
-            width: 40px;
-            height: 40px;
+            width: 60px;
+            height: 60px;
             border: none;
             background-color: rgba(0, 0, 0, 0.7); /* Warna tombol */
             color: white;
-            font-size: 20px;
+            font-size: 30px;
             border-radius: 50%;
             cursor: pointer;
             display: flex;
@@ -125,7 +125,7 @@
         }
     </style>
 </head>
-<body class="mt-4">
+<body class="m-4">
     <h1>Game 2048</h1>
     <div class="grid-container" id="grid-container">
         <!-- Grid cells will be generated here -->
@@ -136,7 +136,7 @@
         <button class="control-button right" onclick="moveTiles('right')">➡</button>
         <button class="control-button down" onclick="moveTiles('down')">⬇</button>
     </div>
-    <h2>ada juga ... </h2>
+    <h2 class="text-center">ada juga ... </h2>
     <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
     <footer id="footer"></footer>
     <!-- Vendor JS Files -->
