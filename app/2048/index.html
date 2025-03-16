@@ -64,6 +64,18 @@
             border-radius: 5px;
             cursor: pointer;
         }
+				
+				.controlupdown {
+            width: 80px;
+            height: 80px;
+            font-size: 30px;
+            margin: 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            cursor: pointer;
+				}
         .controls button:active {
             background-color: #0056b3;
         }
@@ -75,12 +87,10 @@
         <!-- Grid cells will be generated here -->
     </div>
     <div class="controls">
-        <button onclick="moveTiles('up')">⬆</button>
-        <div>
             <button onclick="moveTiles('left')">⬅</button>
+        <button class="controlupdown" onclick="moveTiles('up')">⬆</button>
+        <button class="controlupdown" onclick="moveTiles('down')">⬇</button>
             <button onclick="moveTiles('right')">➡</button>
-        </div>
-        <button onclick="moveTiles('down')">⬇</button>
     </div>
     <script>
         const gridContainer = document.getElementById("grid-container");
