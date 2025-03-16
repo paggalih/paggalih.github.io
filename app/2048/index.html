@@ -65,7 +65,7 @@
             cursor: pointer;
         }
 				
-				.controlupdown {
+				#controlupdown {
             width: 80px;
             height: 80px;
             font-size: 30px;
@@ -89,8 +89,8 @@
     <div class="controls">
 		<div>
             <button onclick="moveTiles('left')">⬅</button>
-        <button class="controlupdown" onclick="moveTiles('up')">⬆</button>
-        <button class="controlupdown" onclick="moveTiles('down')">⬇</button>
+        <button id="controlupdown" onclick="moveTiles('up')">⬆</button>
+        <button id="controlupdown" onclick="moveTiles('down')">⬇</button>
             <button onclick="moveTiles('right')">➡</button>
 		</div>
     </div>
