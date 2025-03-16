@@ -58,8 +58,10 @@
             font-size: 1.5em;
             color: #333;
         }
-        .reset-button {
+        .controls {
             margin-top: 20px;
+        }
+        .controls button {
             padding: 10px 20px;
             font-size: 1em;
             background-color: #007bff;
@@ -67,8 +69,9 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
+            margin: 5px;
         }
-        .reset-button:hover {
+        .controls button:hover {
             background-color: #0056b3;
         }
     </style>
@@ -79,7 +82,10 @@
         <!-- Sel-sel Sudoku akan diisi di sini -->
     </div>
     <div class="status" id="status">Isi angka yang valid (1-9)!</div>
-    <button class="reset-button" onclick="resetGame()">Reset Game</button>
+    <div class="controls">
+        <button onclick="resetGame()">Reset Game</button>
+        <button onclick="showSolution()">Tampilkan Solusi</button>
+    </div>
 
     <script>
         const sudokuBoard = document.getElementById("sudoku-board");
@@ -96,6 +102,19 @@
             [0, 6, 0, 0, 0, 0, 2, 8, 0],
             [0, 0, 0, 4, 1, 9, 0, 0, 5],
             [0, 0, 0, 0, 8, 0, 0, 7, 9]
+        ];
+
+        // Solusi Sudoku
+        const solution = [
+            [5, 3, 4, 6, 7, 8, 9, 1, 2],
+            [6, 7, 2, 1, 9, 5, 3, 4, 8],
+            [1, 9, 8, 3, 4, 2, 5, 6, 7],
+            [8, 5, 9, 7, 6, 1, 4, 2, 3],
+            [4, 2, 6, 8, 5, 3, 7, 9, 1],
+            [7, 1, 3, 9, 2, 4, 8, 5, 6],
+            [9, 6, 1, 5, 3, 7, 2, 8, 4],
+            [2, 8, 7, 4, 1, 9, 6, 3, 5],
+            [3, 4, 5, 2, 8, 6, 1, 7, 9]
         ];
 
         let board = JSON.parse(JSON.stringify(initialBoard)); // Salin papan awal
@@ -176,6 +195,20 @@
             board = JSON.parse(JSON.stringify(initialBoard)); // Reset papan ke awal
             initializeBoard();
             statusDisplay.textContent = "Isi angka yang valid (1-9)!";
+        }
+
+        // Fungsi untuk menampilkan solusi
+        function showSolution() {
+            for (let i = 0; i < 9; i++) {
+                for (let j = 0; j < 9; j++) {
+                    const cell = sudokuBoard.children[i * 9 + j];
+                    if (initialBoard[i][j] === 0) {
+                        cell.textContent = solution[i][j];
+                        cell.style.backgroundColor = "#aaffaa"; // Warna latar untuk solusi
+                    }
+                }
+            }
+            statusDisplay.textContent = "Ini adalah solusi Sudoku!";
         }
 
         initializeBoard();
