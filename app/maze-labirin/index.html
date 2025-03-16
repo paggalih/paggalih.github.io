@@ -1,275 +1,278 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Maze Labirin</title>
-    <meta name="author" content="Galih Pradananta">
-    <!-- Favicons -->
-    <link href="/assets/img/letter-g.gif" rel="icon">
-    <!-- Vendor CSS Files -->
-    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-    <!-- Template Main CSS File -->
-    <link href="/assets/css/style.css" rel="stylesheet">
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            margin: 0;
-        }
-        .game-container {
-            position: relative;
-            width: 300px;
-            height: 300px;
-            background-color: #fff;
-            border: 2px solid #000;
-        }
-        #maze {
-            display: grid;
-            grid-template-columns: repeat(10, 30px);
-            grid-template-rows: repeat(10, 30px);
-            width: 100%;
-            height: 100%;
-        }
-        .wall {
-            background-color: #000;
-            width: 30px;
-            height: 30px;
-        }
-        #player {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: blue;
-            top: 0;
-            left: 0;
-            transition: all 0.2s ease;
-        }
-        #goal {
-            position: absolute;
-            width: 30px;
-            height: 30px;
-            background-color: green;
-            bottom: 0;
-            right: 0;
-        }
-        #message {
-            text-align: center;
-            margin-top: 10px;
-            font-size: 18px;
-        }
+	<!DOCTYPE html>
+	<html lang="en">
+	<head>
+			<meta charset="UTF-8">
+			<meta name="viewport" content="width=device-width, initial-scale=1.0">
+			<title>Maze Labirin</title>
+			<meta name="author" content="Galih Pradananta">
+			<!-- Favicons -->
+			<link href="/assets/img/letter-g.gif" rel="icon">
+			<!-- Vendor CSS Files -->
+			<link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+			<link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+			<link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+			<link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+			<link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+			<link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+			<!-- Template Main CSS File -->
+			<link href="/assets/css/style.css" rel="stylesheet">
+			<style>
+					body {
+							font-family: Arial, sans-serif;
+							background-color: #f4f4f4;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							margin: 0;
+					}
+					.game-container {
+							position: relative;
+							width: 300px;
+							height: 300px;
+							background-color: #fff;
+							border: 2px solid #000;
+					}
+					#maze {
+							display: grid;
+							grid-template-columns: repeat(10, 30px);
+							grid-template-rows: repeat(10, 30px);
+							width: 100%;
+							height: 100%;
+					}
+					.wall {
+							background-color: #000;
+							width: 30px;
+							height: 30px;
+					}
+					#player {
+							position: absolute;
+							width: 30px;
+							height: 30px;
+							background-color: blue;
+							top: 0;
+							left: 0;
+							transition: all 0.2s ease;
+					}
+					#goal {
+							position: absolute;
+							width: 30px;
+							height: 30px;
+							background-color: green;
+							bottom: 0;
+							right: 0;
+					}
+					#message {
+							text-align: center;
+							margin-top: 10px;
+							font-size: 18px;
+					}
 
-        /* Kontroler untuk mobile */
-        .mobile-controls {
-            display: none; /* Sembunyikan secara default */
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 200px;
-            height: 200px;
-            background-color: rgba(255, 255, 255, 0.3); /* Transparan */
-            border-radius: 50%;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
+					/* Kontroler untuk mobile */
+					.mobile-controls {
+							display: none; /* Sembunyikan secara default */
+							position: fixed;
+							bottom: 20px;
+							left: 50%;
+							transform: translateX(-50%);
+							width: 200px;
+							height: 200px;
+							background-color: rgba(255, 255, 255, 0.3); /* Transparan */
+							border-radius: 50%;
+							justify-content: center;
+							align-items: center;
+							gap: 10px;
+							padding: 10px;
+							box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+							z-index: 1000;
+					}
 
-        .mobile-controls .control-button {
-            width: 60px;
-            height: 60px;
-            border: none;
-            background-color: rgba(0, 0, 0, 0.7); /* Warna tombol */
-            color: white;
-            font-size: 30px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: absolute;
-        }
+					.mobile-controls .control-button {
+							width: 60px;
+							height: 60px;
+							border: none;
+							background-color: rgba(0, 0, 0, 0.7); /* Warna tombol */
+							color: white;
+							font-size: 30px;
+							border-radius: 50%;
+							cursor: pointer;
+							display: flex;
+							justify-content: center;
+							align-items: center;
+							position: absolute;
+					}
 
-        .mobile-controls .up {
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+					.mobile-controls .up {
+							top: 0;
+							left: 50%;
+							transform: translateX(-50%);
+					}
 
-        .mobile-controls .left {
-            top: 50%;
-            left: 0;
-            transform: translateY(-50%);
-        }
+					.mobile-controls .left {
+							top: 50%;
+							left: 0;
+							transform: translateY(-50%);
+					}
 
-        .mobile-controls .right {
-            top: 50%;
-            right: 0;
-            transform: translateY(-50%);
-        }
+					.mobile-controls .right {
+							top: 50%;
+							right: 0;
+							transform: translateY(-50%);
+					}
 
-        .mobile-controls .down {
-            bottom: 0;
-            left: 50%;
-            transform: translateX(-50%);
-        }
+					.mobile-controls .down {
+							bottom: 0;
+							left: 50%;
+							transform: translateX(-50%);
+					}
 
-        /* Tampilkan kontroler hanya di layar kecil (mobile) */
-        @media (max-width: 768px) {
-            .mobile-controls {
-                display: flex;
-            }
-        }
-    </style>
-</head>
-<body class="m-4 row">
-    <div class="game-container">
-        <div id="maze"></div>
-        <div id="player"></div>
-        <div id="goal"></div>
-        <p id="message p-4 m-4"></p>
-        <div class="mobile-controls">
-            <button class="control-button up" onclick="movePlayer(0, -1)"><i class="bi bi-arrow-up-circle"></i></button>
-            <button class="control-button left" onclick="movePlayer(-1, 0)"><i class="bi bi-arrow-left-circle"></i></button>
-            <button class="control-button right" onclick="movePlayer(1, 0)"><i class="bi bi-arrow-right-circle"></i></button>
-            <button class="control-button down" onclick="movePlayer(0, 1)"><i class="bi bi-arrow-down-circle"></i></button>
-        </div>
-    </div>
-    <h2 class="text-center">ada juga ... </h2>
-    <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
-    <footer id="footer"></footer>
-    <!-- Vendor JS Files -->
-    <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-    <script src="/assets/vendor/aos/aos.js"></script>
-    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-    <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-    <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-    <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-    <script src="/assets/vendor/php-email-form/validate.js"></script>
-    <!-- Template Main JS File -->
-    <script src="/assets/js/main.js"></script>
-    <script>
-        // Ukuran grid labirin
-        const gridSize = 10;
-        const cellSize = 30; // Ukuran setiap sel dalam piksel
+					/* Tampilkan kontroler hanya di layar kecil (mobile) */
+					@media (max-width: 768px) {
+							.mobile-controls {
+									display: flex;
+							}
+					}
+					.row {
+						--bs-gutter-x: 0;
+					}
+			</style>
+	</head>
+	<body class="m-4 row">
+			<div class="game-container">
+					<div id="maze"></div>
+					<div id="player"></div>
+					<div id="goal"></div>
+					<p id="message p-4 m-4"></p>
+					<div class="mobile-controls">
+							<button class="control-button up" onclick="movePlayer(0, -1)"><i class="bi bi-arrow-up-circle"></i></button>
+							<button class="control-button left" onclick="movePlayer(-1, 0)"><i class="bi bi-arrow-left-circle"></i></button>
+							<button class="control-button right" onclick="movePlayer(1, 0)"><i class="bi bi-arrow-right-circle"></i></button>
+							<button class="control-button down" onclick="movePlayer(0, 1)"><i class="bi bi-arrow-down-circle"></i></button>
+					</div>
+			</div>
+			<h2 class="text-center">ada juga ... </h2>
+			<div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
+			<footer id="footer"></footer>
+			<!-- Vendor JS Files -->
+			<script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+			<script src="/assets/vendor/aos/aos.js"></script>
+			<script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+			<script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+			<script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+			<script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+			<script src="/assets/vendor/typed.js/typed.umd.js"></script>
+			<script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+			<script src="/assets/vendor/php-email-form/validate.js"></script>
+			<!-- Template Main JS File -->
+			<script src="/assets/js/main.js"></script>
+			<script>
+					// Ukuran grid labirin
+					const gridSize = 10;
+					const cellSize = 30; // Ukuran setiap sel dalam piksel
 
-        // Posisi awal pemain dan tujuan
-        let playerPosition = { x: 0, y: 0 };
-        let goalPosition = { x: gridSize - 1, y: gridSize - 1 };
+					// Posisi awal pemain dan tujuan
+					let playerPosition = { x: 0, y: 0 };
+					let goalPosition = { x: gridSize - 1, y: gridSize - 1 };
 
-        // Fungsi untuk membuat labirin acak
-        function generateMaze() {
-            const maze = [];
-            for (let y = 0; y < gridSize; y++) {
-                const row = [];
-                for (let x = 0; x < gridSize; x++) {
-                    // 20% kemungkinan menjadi dinding (1), 80% jalan (0)
-                    row.push(Math.random() < 0.2 ? 1 : 0);
-                }
-                maze.push(row);
-            }
-            // Pastikan posisi awal dan tujuan tidak ada dinding
-            maze[0][0] = 0; // Posisi awal pemain
-            maze[gridSize - 1][gridSize - 1] = 0; // Posisi tujuan
-            return maze;
-        }
+					// Fungsi untuk membuat labirin acak
+					function generateMaze() {
+							const maze = [];
+							for (let y = 0; y < gridSize; y++) {
+									const row = [];
+									for (let x = 0; x < gridSize; x++) {
+											// 20% kemungkinan menjadi dinding (1), 80% jalan (0)
+											row.push(Math.random() < 0.2 ? 1 : 0);
+									}
+									maze.push(row);
+							}
+							// Pastikan posisi awal dan tujuan tidak ada dinding
+							maze[0][0] = 0; // Posisi awal pemain
+							maze[gridSize - 1][gridSize - 1] = 0; // Posisi tujuan
+							return maze;
+					}
 
-        let maze = generateMaze();
+					let maze = generateMaze();
 
-        // Fungsi untuk menggambar labirin
-        function drawMaze() {
-            const mazeElement = document.getElementById('maze');
-            mazeElement.innerHTML = ''; // Bersihkan labirin sebelumnya
+					// Fungsi untuk menggambar labirin
+					function drawMaze() {
+							const mazeElement = document.getElementById('maze');
+							mazeElement.innerHTML = ''; // Bersihkan labirin sebelumnya
 
-            for (let y = 0; y < gridSize; y++) {
-                for (let x = 0; x < gridSize; x++) {
-                    const cell = document.createElement('div');
-                    cell.style.width = `${cellSize}px`;
-                    cell.style.height = `${cellSize}px`;
-                    if (maze[y][x] === 1) {
-                        cell.classList.add('wall');
-                    }
-                    mazeElement.appendChild(cell);
-                }
-            }
-        }
+							for (let y = 0; y < gridSize; y++) {
+									for (let x = 0; x < gridSize; x++) {
+											const cell = document.createElement('div');
+											cell.style.width = `${cellSize}px`;
+											cell.style.height = `${cellSize}px`;
+											if (maze[y][x] === 1) {
+													cell.classList.add('wall');
+											}
+											mazeElement.appendChild(cell);
+									}
+							}
+					}
 
-        // Fungsi untuk memindahkan pemain
-        function movePlayer(dx, dy) {
-            const newX = playerPosition.x + dx;
-            const newY = playerPosition.y + dy;
+					// Fungsi untuk memindahkan pemain
+					function movePlayer(dx, dy) {
+							const newX = playerPosition.x + dx;
+							const newY = playerPosition.y + dy;
 
-            // Cek apakah gerakan valid (tidak keluar dari labirin atau menabrak dinding)
-            if (
-                newX >= 0 && newX < gridSize &&
-                newY >= 0 && newY < gridSize &&
-                maze[newY][newX] !== 1
-            ) {
-                playerPosition.x = newX;
-                playerPosition.y = newY;
-                updatePlayerPosition();
+							// Cek apakah gerakan valid (tidak keluar dari labirin atau menabrak dinding)
+							if (
+									newX >= 0 && newX < gridSize &&
+									newY >= 0 && newY < gridSize &&
+									maze[newY][newX] !== 1
+							) {
+									playerPosition.x = newX;
+									playerPosition.y = newY;
+									updatePlayerPosition();
 
-                // Cek apakah pemain mencapai tujuan
-                if (playerPosition.x === goalPosition.x && playerPosition.y === goalPosition.y) {
-                    document.getElementById('message').textContent = 'Selamat! Anda menang! 🎉';
-                    setTimeout(() => {
-                        resetGame();
-                    }, 1000); // Tunggu 1 detik sebelum reset
-                }
-            }
-        }
+									// Cek apakah pemain mencapai tujuan
+									if (playerPosition.x === goalPosition.x && playerPosition.y === goalPosition.y) {
+											document.getElementById('message').textContent = 'Selamat! Anda menang! 🎉';
+											setTimeout(() => {
+													resetGame();
+											}, 1000); // Tunggu 1 detik sebelum reset
+									}
+							}
+					}
 
-        // Fungsi untuk memperbarui posisi pemain di layar
-        function updatePlayerPosition() {
-            const playerElement = document.getElementById('player');
-            playerElement.style.left = `${playerPosition.x * cellSize}px`;
-            playerElement.style.top = `${playerPosition.y * cellSize}px`;
-        }
+					// Fungsi untuk memperbarui posisi pemain di layar
+					function updatePlayerPosition() {
+							const playerElement = document.getElementById('player');
+							playerElement.style.left = `${playerPosition.x * cellSize}px`;
+							playerElement.style.top = `${playerPosition.y * cellSize}px`;
+					}
 
-        // Fungsi untuk mereset game dan membuat labirin baru
-        function resetGame() {
-            maze = generateMaze(); // Generate labirin baru
-            playerPosition = { x: 0, y: 0 }; // Reset posisi pemain
-            goalPosition = { x: gridSize - 1, y: gridSize - 1 }; // Reset posisi tujuan
-            document.getElementById('message').textContent = ''; // Hapus pesan kemenangan
-            drawMaze(); // Gambar labirin baru
-            updatePlayerPosition(); // Perbarui posisi pemain
-        }
+					// Fungsi untuk mereset game dan membuat labirin baru
+					function resetGame() {
+							maze = generateMaze(); // Generate labirin baru
+							playerPosition = { x: 0, y: 0 }; // Reset posisi pemain
+							goalPosition = { x: gridSize - 1, y: gridSize - 1 }; // Reset posisi tujuan
+							document.getElementById('message').textContent = ''; // Hapus pesan kemenangan
+							drawMaze(); // Gambar labirin baru
+							updatePlayerPosition(); // Perbarui posisi pemain
+					}
 
-        // Event listener untuk tombol keyboard
-        document.addEventListener('keydown', (event) => {
-            switch (event.key) {
-                case 'ArrowUp':
-                    movePlayer(0, -1);
-                    break;
-                case 'ArrowDown':
-                    movePlayer(0, 1);
-                    break;
-                case 'ArrowLeft':
-                    movePlayer(-1, 0);
-                    break;
-                case 'ArrowRight':
-                    movePlayer(1, 0);
-                    break;
-            }
-        });
+					// Event listener untuk tombol keyboard
+					document.addEventListener('keydown', (event) => {
+							switch (event.key) {
+									case 'ArrowUp':
+											movePlayer(0, -1);
+											break;
+									case 'ArrowDown':
+											movePlayer(0, 1);
+											break;
+									case 'ArrowLeft':
+											movePlayer(-1, 0);
+											break;
+									case 'ArrowRight':
+											movePlayer(1, 0);
+											break;
+							}
+					});
 
-        // Inisialisasi game
-        drawMaze();
-        updatePlayerPosition();
-    </script>
-</body>
-</html>
+					// Inisialisasi game
+					drawMaze();
+					updatePlayerPosition();
+			</script>
+	</body>
+	</html>
