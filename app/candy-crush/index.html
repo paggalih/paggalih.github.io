@@ -79,6 +79,7 @@
         let score = 0;
         let boardCells = [];
         let selectedCell = null;
+        let isDragging = false;
 
         const candies = ['🍭', '🍬', '🍫', '🍩', '🍪'];
 
@@ -89,7 +90,8 @@
                 cell.classList.add('cell');
                 cell.dataset.index = i;
                 cell.textContent = candies[Math.floor(Math.random() * candies.length)];
-                cell.addEventListener('click', handleClick);
+                cell.addEventListener('mousedown', handleMouseDown);
+                cell.addEventListener('mouseup', handleMouseUp);
                 cell.addEventListener('touchstart', handleTouchStart);
                 cell.addEventListener('touchend', handleTouchEnd);
                 board.appendChild(cell);
@@ -97,49 +99,71 @@
             }
         }
 
-        // Handle cell click (for desktop)
-        function handleClick(e) {
-            const cell = e.target;
-            selectCell(cell);
+        // Handle mouse down (for desktop)
+        function handleMouseDown(e) {
+            isDragging = true;
+            selectedCell = e.target;
+            selectedCell.style.backgroundColor = '#ffcc00';
+        }
+
+        // Handle mouse up (for desktop)
+        function handleMouseUp(e) {
+            if (!isDragging) return;
+            isDragging = false;
+
+            const targetCell = e.target;
+            if (selectedCell && targetCell && selectedCell !== targetCell) {
+                const selectedIndex = parseInt(selectedCell.dataset.index);
+                const targetIndex = parseInt(targetCell.dataset.index);
+
+                if (isAdjacent(selectedIndex, targetIndex)) {
+                    swapCells(selectedCell, targetCell);
+                    if (!checkMatches()) {
+                        // If no matches, swap back
+                        setTimeout(() => {
+                            swapCells(selectedCell, targetCell);
+                        }, 500);
+                    }
+                }
+            }
+
+            if (selectedCell) {
+                selectedCell.style.backgroundColor = '#ddd';
+                selectedCell = null;
+            }
         }
 
         // Handle touch start (for mobile)
-        let touchStartCell = null;
         function handleTouchStart(e) {
-            touchStartCell = e.target;
+            isDragging = true;
+            selectedCell = e.target;
+            selectedCell.style.backgroundColor = '#ffcc00';
         }
 
         // Handle touch end (for mobile)
         function handleTouchEnd(e) {
-            const touchEndCell = e.target;
-            if (touchStartCell && touchEndCell && touchStartCell !== touchEndCell) {
-                if (isAdjacent(parseInt(touchStartCell.dataset.index), parseInt(touchEndCell.dataset.index))) {
-                    selectCell(touchStartCell);
-                    selectCell(touchEndCell);
-                }
-            }
-            touchStartCell = null;
-        }
+            if (!isDragging) return;
+            isDragging = false;
 
-        // Select a cell
-        function selectCell(cell) {
-            if (!selectedCell) {
-                selectedCell = cell;
-                cell.style.backgroundColor = '#ffcc00';
-            } else {
+            const touch = e.changedTouches[0];
+            const targetCell = document.elementFromPoint(touch.clientX, touch.clientY);
+
+            if (selectedCell && targetCell && selectedCell !== targetCell) {
                 const selectedIndex = parseInt(selectedCell.dataset.index);
-                const clickedIndex = parseInt(cell.dataset.index);
+                const targetIndex = parseInt(targetCell.dataset.index);
 
-                if (isAdjacent(selectedIndex, clickedIndex)) {
-                    swapCells(selectedCell, cell);
+                if (isAdjacent(selectedIndex, targetIndex)) {
+                    swapCells(selectedCell, targetCell);
                     if (!checkMatches()) {
                         // If no matches, swap back
                         setTimeout(() => {
-                            swapCells(selectedCell, cell);
+                            swapCells(selectedCell, targetCell);
                         }, 500);
                     }
                 }
+            }
 
+            if (selectedCell) {
                 selectedCell.style.backgroundColor = '#ddd';
                 selectedCell = null;
             }
