@@ -4,18 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Snake</title>
-        <meta name="author" content="Galih Pradananta">
-        <!-- Favicons -->
-        <link href="/assets/img/letter-g.gif" rel="icon">
-        <!-- Vendor CSS Files -->
-        <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
-        <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-        <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-        <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-        <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-        <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-        <!-- Template Main CSS File -->
-        <link href="/assets/css/style.css" rel="stylesheet">
+    <meta name="author" content="Galih Pradananta">
+    <!-- Favicons -->
+    <link href="/assets/img/letter-g.gif" rel="icon">
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -52,59 +52,88 @@
             margin-top: 20px;
             font-size: 1.5em;
         }
-        .controls {
-            display: grid;
-            grid-template-areas:
-                "left . up . down . right";
-            gap: 10px;
+
+        /* Kontroler untuk mobile */
+        .mobile-controls {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 150px;
+            background-color: rgba(255, 255, 255, 0.3); /* Transparan */
+            border-radius: 50%;
             justify-content: center;
-            margin-top: 20px;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
         }
-        .controls button {
+
+        .mobile-controls .control-button {
             width: 50px;
             height: 50px;
-            font-size: 20px;
             border: none;
-            background-color: #007bff;
+            background-color: rgba(0, 0, 0, 0.7); /* Warna tombol */
             color: white;
-            border-radius: 5px;
+            font-size: 24px;
+            border-radius: 50%;
             cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
         }
-        .controls button:nth-child(1) {
-            grid-area: up;
-            width: 80px;
-            height: 80px;
-            font-size: 40px;
+
+        .mobile-controls .up {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
         }
-        .controls button:nth-child(2) {
-            grid-area: left;
+
+        .mobile-controls .left {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
         }
-        .controls button:nth-child(3) {
-            grid-area: right;
+
+        .mobile-controls .right {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
         }
-        .controls button:nth-child(4) {
-            grid-area: down;
-            width: 80px;
-            height: 80px;
-            font-size: 40px;
+
+        .mobile-controls .down {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Tampilkan kontroler hanya di layar kecil (mobile) */
+        @media (max-width: 768px) {
+            .mobile-controls {
+                display: flex;
+            }
         }
     </style>
 </head>
 <body class="mt-4">
-		<div>
-    <h1 class="text-center">Game Snake</h1>
-    <div class="game-container" id="game-container">
-        <!-- Sel-sel game akan diisi di sini -->
-		</div>
-    <div class="status text-center" id="status">Skor: 0</div>
-    <div class="controls">
-        <button onclick="changeDirection(0, -1)">↑</button>
-        <button onclick="changeDirection(-1, 0)">←</button>
-        <button onclick="changeDirection(1, 0)">→</button>
-        <button onclick="changeDirection(0, 1)">↓</button>
-    </div>
-    <h2 class="text-center">ada juga ... </h2>
-    <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
+    <div>
+        <h1 class="text-center">Game Snake</h1>
+        <div class="game-container" id="game-container">
+            <!-- Sel-sel game akan diisi di sini -->
+        </div>
+        <div class="status text-center" id="status">Skor: 0</div>
+        <div class="mobile-controls">
+            <button class="control-button up" onclick="changeDirection(0, -1)">⬆</button>
+            <button class="control-button left" onclick="changeDirection(-1, 0)">⬅</button>
+            <button class="control-button right" onclick="changeDirection(1, 0)">➡</button>
+            <button class="control-button down" onclick="changeDirection(0, 1)">⬇</button>
+        </div>
+        <h2 class="text-center">ada juga ... </h2>
+        <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
         <footer id="footer"></footer>
         <!-- Vendor JS Files -->
         <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
@@ -118,7 +147,7 @@
         <script src="/assets/vendor/php-email-form/validate.js"></script>
         <!-- Template Main JS File -->
         <script src="/assets/js/main.js"></script>
-				</div>
+    </div>
     <script>
         const gameContainer = document.getElementById("game-container");
         const statusDisplay = document.getElementById("status");
