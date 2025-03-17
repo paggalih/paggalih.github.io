@@ -90,14 +90,39 @@
                 cell.dataset.index = i;
                 cell.textContent = candies[Math.floor(Math.random() * candies.length)];
                 cell.addEventListener('click', handleClick);
+                cell.addEventListener('touchstart', handleTouchStart);
+                cell.addEventListener('touchend', handleTouchEnd);
                 board.appendChild(cell);
                 boardCells.push(cell);
             }
         }
 
-        // Handle cell click
+        // Handle cell click (for desktop)
         function handleClick(e) {
             const cell = e.target;
+            selectCell(cell);
+        }
+
+        // Handle touch start (for mobile)
+        let touchStartCell = null;
+        function handleTouchStart(e) {
+            touchStartCell = e.target;
+        }
+
+        // Handle touch end (for mobile)
+        function handleTouchEnd(e) {
+            const touchEndCell = e.target;
+            if (touchStartCell && touchEndCell && touchStartCell !== touchEndCell) {
+                if (isAdjacent(parseInt(touchStartCell.dataset.index), parseInt(touchEndCell.dataset.index))) {
+                    selectCell(touchStartCell);
+                    selectCell(touchEndCell);
+                }
+            }
+            touchStartCell = null;
+        }
+
+        // Select a cell
+        function selectCell(cell) {
             if (!selectedCell) {
                 selectedCell = cell;
                 cell.style.backgroundColor = '#ffcc00';
