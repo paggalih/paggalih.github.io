@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Double Win 777</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+
+        .container {
+            text-align: center;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        .slots {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .slot {
+            width: 100px;
+            height: 100px;
+            background-color: #ffcc00;
+            border: 2px solid #333;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 2em;
+            margin: 0 10px;
+            border-radius: 10px;
+        }
+
+        button {
+            padding: 10px 20px;
+            font-size: 1em;
+            color: #fff;
+            background-color: #333;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #555;
+        }
+
+        #result {
+            margin-top: 20px;
+            font-size: 1.2em;
+            color: #333;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Double Win 777</h1>
+        <div class="slots">
+            <div class="slot" id="slot1">7</div>
+            <div class="slot" id="slot2">7</div>
+            <div class="slot" id="slot3">7</div>
+        </div>
+        <button id="spinButton">Spin</button>
+        <p id="result"></p>
+    </div>
+
+    <script>
+        const slots = document.querySelectorAll('.slot');
+        const spinButton = document.getElementById('spinButton');
+        const resultText = document.getElementById('result');
+
+        const symbols = ['7', '🍒', '🍋', '🍇', '🔔', '⭐'];
+
+        function spin() {
+            resultText.textContent = '';
+            slots.forEach(slot => {
+                const randomSymbol = symbols[Math.floor(Math.random() * symbols.length)];
+                slot.textContent = randomSymbol;
+            });
+
+            checkWin();
+        }
+
+        function checkWin() {
+            const slot1 = slots[0].textContent;
+            const slot2 = slots[1].textContent;
+            const slot3 = slots[2].textContent;
+
+            if (slot1 === slot2 && slot2 === slot3) {
+                resultText.textContent = 'Double Win! 🎉';
+            } else {
+                resultText.textContent = 'Try Again! 😢';
+            }
+        }
+
+        spinButton.addEventListener('click', spin);
+    </script>
+</body>
+</html>
