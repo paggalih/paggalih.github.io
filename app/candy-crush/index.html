@@ -1,16 +1,17 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Candy Crush</title>
+    <title>Candy Crush Game</title>
     <style>
         body {
             font-family: Arial, sans-serif;
-            background-color: #f4f4f4;
+            background-color: #f8f9fa;
             display: flex;
             justify-content: center;
             align-items: center;
+            flex-direction: column;
             height: 100vh;
             margin: 0;
         }
@@ -20,9 +21,9 @@
         }
 
         h1 {
-            font-size: 2.5em;
-            margin-bottom: 20px;
-            color: #333;
+            font-size: 2em;
+            margin-bottom: 15px;
+            color: #d63384;
         }
 
         #game-board {
@@ -33,42 +34,47 @@
             background-color: #fff;
             padding: 10px;
             border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
         }
 
         .cell {
             width: 50px;
             height: 50px;
-            background-color: #ddd;
-            border-radius: 10px;
+            border-radius: 5px;
             display: flex;
             justify-content: center;
             align-items: center;
             font-size: 1.5em;
             cursor: pointer;
             user-select: none;
+            transition: all 0.3s ease;
         }
 
         #score {
-            margin-top: 20px;
+            margin-top: 10px;
             font-size: 1.5em;
+            font-weight: bold;
             color: #333;
         }
 
-        #gacor-effect {
-            margin-top: 20px;
+        .gacor-effect {
+            margin-top: 10px;
             font-size: 2em;
             color: #ffcc00;
             display: none;
+        }
+
+        .highlight {
+            border: 3px solid #ffcc00;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <h1>Candy Crush</h1>
+        <h1>Candy Crush 🍭</h1>
         <div id="game-board"></div>
         <div id="score">Score: 0</div>
-        <div id="gacor-effect">GACOR! 🎉</div>
+        <div class="gacor-effect" id="gacor-effect">GACOR! 🎉</div>
     </div>
 
     <script>
@@ -79,176 +85,116 @@
         let score = 0;
         let boardCells = [];
         let selectedCell = null;
-        let isDragging = false;
 
         const candies = ['🍭', '🍬', '🍫', '🍩', '🍪'];
 
-        // Create the game board
         function createBoard() {
+            board.innerHTML = '';
+            boardCells = [];
             for (let i = 0; i < width * width; i++) {
                 const cell = document.createElement('div');
                 cell.classList.add('cell');
                 cell.dataset.index = i;
                 cell.textContent = candies[Math.floor(Math.random() * candies.length)];
-                cell.addEventListener('mousedown', handleMouseDown);
-                cell.addEventListener('mouseup', handleMouseUp);
-                cell.addEventListener('touchstart', handleTouchStart);
-                cell.addEventListener('touchend', handleTouchEnd);
+                cell.style.backgroundColor = getRandomColor();
+                cell.addEventListener('click', handleClick);
                 board.appendChild(cell);
                 boardCells.push(cell);
             }
         }
 
-        // Handle mouse down (for desktop)
-        function handleMouseDown(e) {
-            isDragging = true;
-            selectedCell = e.target;
-            selectedCell.style.backgroundColor = '#ffcc00';
+        function getRandomColor() {
+            const colors = ['#f8c471', '#85c1e9', '#d98880', '#bb8fce', '#f5b7b1'];
+            return colors[Math.floor(Math.random() * colors.length)];
         }
 
-        // Handle mouse up (for desktop)
-        function handleMouseUp(e) {
-            if (!isDragging) return;
-            isDragging = false;
-
-            const targetCell = e.target;
-            if (selectedCell && targetCell && selectedCell !== targetCell) {
-                const selectedIndex = parseInt(selectedCell.dataset.index);
-                const targetIndex = parseInt(targetCell.dataset.index);
-
-                if (isAdjacent(selectedIndex, targetIndex)) {
-                    swapCells(selectedCell, targetCell);
-                    if (!checkMatches()) {
-                        // If no matches, swap back
-                        setTimeout(() => {
-                            swapCells(selectedCell, targetCell);
-                        }, 500);
-                    }
-                }
-            }
-
+        function handleClick(e) {
+            const cell = e.target;
             if (selectedCell) {
-                selectedCell.style.backgroundColor = '#ddd';
-                selectedCell = null;
-            }
-        }
-
-        // Handle touch start (for mobile)
-        function handleTouchStart(e) {
-            isDragging = true;
-            selectedCell = e.target;
-            selectedCell.style.backgroundColor = '#ffcc00';
-        }
-
-        // Handle touch end (for mobile)
-        function handleTouchEnd(e) {
-            if (!isDragging) return;
-            isDragging = false;
-
-            const touch = e.changedTouches[0];
-            const targetCell = document.elementFromPoint(touch.clientX, touch.clientY);
-
-            if (selectedCell && targetCell && selectedCell !== targetCell) {
-                const selectedIndex = parseInt(selectedCell.dataset.index);
-                const targetIndex = parseInt(targetCell.dataset.index);
-
-                if (isAdjacent(selectedIndex, targetIndex)) {
-                    swapCells(selectedCell, targetCell);
-                    if (!checkMatches()) {
-                        // If no matches, swap back
-                        setTimeout(() => {
-                            swapCells(selectedCell, targetCell);
-                        }, 500);
-                    }
+                swapCells(selectedCell, cell);
+                if (!checkMatches()) {
+                    setTimeout(() => swapCells(selectedCell, cell), 500);
                 }
-            }
-
-            if (selectedCell) {
-                selectedCell.style.backgroundColor = '#ddd';
+                selectedCell.classList.remove('highlight');
                 selectedCell = null;
+            } else {
+                selectedCell = cell;
+                selectedCell.classList.add('highlight');
             }
         }
 
-        // Check if two cells are adjacent
+        function swapCells(cell1, cell2) {
+            const tempContent = cell1.textContent;
+            cell1.textContent = cell2.textContent;
+            cell2.textContent = tempContent;
+
+            const tempColor = cell1.style.backgroundColor;
+            cell1.style.backgroundColor = cell2.style.backgroundColor;
+            cell2.style.backgroundColor = tempColor;
+        }
+
         function isAdjacent(index1, index2) {
             const row1 = Math.floor(index1 / width);
             const col1 = index1 % width;
             const row2 = Math.floor(index2 / width);
             const col2 = index2 % width;
-
             return Math.abs(row1 - row2) + Math.abs(col1 - col2) === 1;
         }
 
-        // Swap two cells
-        function swapCells(cell1, cell2) {
-            const temp = cell1.textContent;
-            cell1.textContent = cell2.textContent;
-            cell2.textContent = temp;
-        }
-
-        // Check for matches
         function checkMatches() {
-            let matchesFound = false;
+            let matched = false;
+            let matchedCells = [];
 
-            // Check rows
             for (let i = 0; i < width * width; i += width) {
                 for (let j = 0; j < width - 2; j++) {
                     const index1 = i + j;
                     const index2 = index1 + 1;
                     const index3 = index2 + 1;
 
-                    if (
-                        boardCells[index1].textContent &&
-                        boardCells[index1].textContent === boardCells[index2].textContent &&
-                        boardCells[index2].textContent === boardCells[index3].textContent
-                    ) {
-                        matchesFound = true;
-                        clearMatches([index1, index2, index3]);
+                    if (boardCells[index1].textContent === boardCells[index2].textContent &&
+                        boardCells[index2].textContent === boardCells[index3].textContent) {
+                        matched = true;
+                        matchedCells.push(index1, index2, index3);
                     }
                 }
             }
 
-            // Check columns
             for (let i = 0; i < width; i++) {
                 for (let j = 0; j < width - 2; j++) {
                     const index1 = i + j * width;
                     const index2 = index1 + width;
                     const index3 = index2 + width;
 
-                    if (
-                        boardCells[index1].textContent &&
-                        boardCells[index1].textContent === boardCells[index2].textContent &&
-                        boardCells[index2].textContent === boardCells[index3].textContent
-                    ) {
-                        matchesFound = true;
-                        clearMatches([index1, index2, index3]);
+                    if (boardCells[index1].textContent === boardCells[index2].textContent &&
+                        boardCells[index2].textContent === boardCells[index3].textContent) {
+                        matched = true;
+                        matchedCells.push(index1, index2, index3);
                     }
                 }
             }
 
-            if (matchesFound) {
-                updateScore();
+            if (matched) {
+                updateScore(matchedCells.length);
                 showGacorEffect();
-                refillBoard();
+                clearMatches(matchedCells);
+                setTimeout(refillBoard, 300);
             }
 
-            return matchesFound;
+            return matched;
         }
 
-        // Clear matched cells
         function clearMatches(matches) {
             matches.forEach(index => {
                 boardCells[index].textContent = '';
+                boardCells[index].style.backgroundColor = '#ffffff';
             });
         }
 
-        // Update score
-        function updateScore() {
-            score += 10;
+        function updateScore(numRemoved) {
+            score += numRemoved * 1;  // Setiap permen yang dihapus menambah skor 10 poin
             scoreDisplay.textContent = `Score: ${score}`;
         }
 
-        // Show "GACOR!" effect
         function showGacorEffect() {
             gacorEffect.style.display = 'block';
             setTimeout(() => {
@@ -256,17 +202,24 @@
             }, 1000);
         }
 
-        // Refill the board
         function refillBoard() {
-            for (let i = 0; i < width * width; i++) {
+            for (let i = width * width - 1; i >= 0; i--) {
                 if (boardCells[i].textContent === '') {
-                    boardCells[i].textContent = candies[Math.floor(Math.random() * candies.length)];
+                    let j = i;
+                    while (j >= width && boardCells[j - width].textContent !== '') {
+                        boardCells[j].textContent = boardCells[j - width].textContent;
+                        boardCells[j].style.backgroundColor = boardCells[j - width].style.backgroundColor;
+                        boardCells[j - width].textContent = '';
+                        boardCells[j - width].style.backgroundColor = '#ffffff';
+                        j -= width;
+                    }
+                    boardCells[j].textContent = candies[Math.floor(Math.random() * candies.length)];
+                    boardCells[j].style.backgroundColor = getRandomColor();
                 }
             }
-            checkMatches(); // Check for new matches after refilling
+            setTimeout(checkMatches, 300);
         }
 
-        // Start the game
         createBoard();
     </script>
 </body>
