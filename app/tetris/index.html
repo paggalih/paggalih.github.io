@@ -4,6 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Game Tetris</title>
+    <meta name="author" content="Galih Pradananta">
+    <!-- Favicons -->
+    <link href="/assets/img/letter-g.gif" rel="icon">
+    <!-- Vendor CSS Files -->
+    <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <!-- Template Main CSS File -->
+    <link href="/assets/css/style.css" rel="stylesheet">
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -64,6 +76,73 @@
         .blink {
             animation: blink 0.2s linear 3;
         }
+        /* Kontroler untuk mobile */
+        .mobile-controls {
+            display: none; /* Sembunyikan secara default */
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 200px;
+            background-color: rgba(255, 255, 255, 0.3); /* Transparan */
+            border-radius: 50%;
+            justify-content: center;
+            align-items: center;
+            gap: 10px;
+            padding: 10px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 1000;
+        }
+
+        .mobile-controls .control-button {
+            width: 60px;
+            height: 60px;
+            border: none;
+            background-color: rgba(0, 0, 0, 0.7); /* Warna tombol */
+            color: white;
+            font-size: 30px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: absolute;
+        }
+
+        .mobile-controls .up {
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .mobile-controls .left {
+            top: 50%;
+            left: 0;
+            transform: translateY(-50%);
+        }
+
+        .mobile-controls .right {
+            top: 50%;
+            right: 0;
+            transform: translateY(-50%);
+        }
+
+        .mobile-controls .down {
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        /* Tampilkan kontroler hanya di layar kecil (mobile) */
+        @media (max-width: 768px) {
+            .mobile-controls {
+                display: flex;
+            }
+        }
+        .row {
+            --bs-gutter-x: 0;
+        }
     </style>
 </head>
 <body>
@@ -72,14 +151,13 @@
         <!-- Grid cells will be generated here -->
     </div>
     <div class="score" id="score">Skor: 0</div>
-    <div class="controls">
-        <button onclick="moveTetromino('up')">⬆</button>
-        <div>
-            <button onclick="moveTetromino('left')">⬅</button>
-            <button onclick="moveTetromino('right')">➡</button>
+        <div class="mobile-controls">
+            <button class="control-button up" onclick="moveTetromino('up')"><i class="bi bi-arrow-up-circle"></i></button>
+            <button class="control-button left" onclick="moveTetromino('left')"><i class="bi bi-arrow-left-circle"></i></button>
+            <button class="control-button right" onclick="moveTetromino('right')"><i class="bi bi-arrow-right-circle"></i></button>
+            <button class="control-button down" onclick="moveTetromino('down')"><i class="bi bi-arrow-down-circle"></i></button>
         </div>
-        <button onclick="moveTetromino('down')">⬇</button>
-    </div>
+
     <script>
         const gridContainer = document.getElementById("grid-container");
         const scoreDisplay = document.getElementById("score");
