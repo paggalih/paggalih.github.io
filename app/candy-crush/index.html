@@ -47,17 +47,6 @@
             font-size: 1.5em;
             cursor: pointer;
             user-select: none;
-            transition: transform 0.2s ease, background-color 0.2s ease;
-        }
-
-        .cell.matched {
-            animation: pop 0.5s ease;
-        }
-
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         #score {
@@ -71,13 +60,6 @@
             font-size: 2em;
             color: #ffcc00;
             display: none;
-            animation: gacor 1s ease;
-        }
-
-        @keyframes gacor {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.2); opacity: 1; }
-            100% { transform: scale(1); opacity: 0; }
         }
     </style>
 </head>
@@ -89,16 +71,10 @@
         <div id="gacor-effect">GACOR! 🎉</div>
     </div>
 
-    <!-- Audio untuk efek suara -->
-    <audio id="match-sound" src="https://www.soundjay.com/button/beep-07.mp3"></audio>
-    <audio id="gacor-sound" src="https://www.soundjay.com/misc/success-bell-01.mp3"></audio>
-
     <script>
         const board = document.getElementById('game-board');
         const scoreDisplay = document.getElementById('score');
         const gacorEffect = document.getElementById('gacor-effect');
-        const matchSound = document.getElementById('match-sound');
-        const gacorSound = document.getElementById('gacor-sound');
         const width = 8;
         let score = 0;
         let boardCells = [];
@@ -121,7 +97,6 @@
                 board.appendChild(cell);
                 boardCells.push(cell);
             }
-            checkMatches(); // Check for initial matches
         }
 
         // Handle mouse down (for desktop)
@@ -263,15 +238,8 @@
         // Clear matched cells
         function clearMatches(matches) {
             matches.forEach(index => {
-                boardCells[index].classList.add('matched');
-                matchSound.play(); // Play match sound
+                boardCells[index].textContent = '';
             });
-            setTimeout(() => {
-                matches.forEach(index => {
-                    boardCells[index].textContent = '';
-                    boardCells[index].classList.remove('matched');
-                });
-            }, 500);
         }
 
         // Update score
@@ -283,7 +251,6 @@
         // Show "GACOR!" effect
         function showGacorEffect() {
             gacorEffect.style.display = 'block';
-            gacorSound.play(); // Play gacor sound
             setTimeout(() => {
                 gacorEffect.style.display = 'none';
             }, 1000);
