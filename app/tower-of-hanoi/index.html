@@ -73,6 +73,12 @@
             font-size: 1.5em;
             color: #333;
         }
+        /* Tampilkan kontroler hanya di layar kecil (mobile) */
+        @media (max-width: 768px) {
+            .mobile-controls {
+                display: flex;
+            }
+        }
     </style>
 </head>
 <body class="mt-4">
@@ -108,14 +114,25 @@
         function initializeGame() {
             const diskCount = parseInt(diskCountSelect.value); // Ambil jumlah cakram dari dropdown
             disks = [];
-
-            // Buat cakram dengan ukuran berbeda
-            for (let i = diskCount; i >= 1; i--) {
-                disks.push({
-                    width: 60 + i * 30, // Lebar cakram bertambah sesuai ukuran
-                    color: `hsl(${i * 60}, 70%, 50%)` // Warna cakram berbeda
-                });
-            }
+						
+						// Cek apakah layar adalah layar mobile (lebar maksimum 768px)
+						if (window.matchMedia("(max-width: 768px)").matches) {
+							// Buat cakram dengan ukuran berbeda
+							for (let i = diskCount; i >= 1; i--) {
+									disks.push({
+											width: 30 + i * 15, // Lebar cakram bertambah sesuai ukuran
+											color: `hsl(${i * 60}, 70%, 50%)` // Warna cakram berbeda
+									});
+							}
+						} else {
+							// Buat cakram dengan ukuran berbeda
+							for (let i = diskCount; i >= 1; i--) {
+									disks.push({
+											width: 60 + i * 30, // Lebar cakram bertambah sesuai ukuran
+											color: `hsl(${i * 60}, 70%, 50%)` // Warna cakram berbeda
+									});
+							}
+						}
 
             // Reset tiang
             document.querySelectorAll(".tower").forEach(tower => {
