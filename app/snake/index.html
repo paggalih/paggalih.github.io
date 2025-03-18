@@ -33,6 +33,7 @@
             display: grid;
             grid-template-columns: repeat(20, 15px);
             grid-template-rows: repeat(20, 15px);
+						gap: 0.5px;
         }
         .cell {
             width: 15px;
@@ -43,7 +44,7 @@
             background-color: #0f0; /* Warna tubuh ular */
         }
         .snake-head {
-            background-color: #00f; /* Warna kepala ular */
+            background-color: #f00; /* Warna kepala ular */
         }
         .food {
             background-color: #f00;
@@ -283,7 +284,7 @@
         // Inisialisasi game
         createGrid();
         placeFood();
-        setInterval(updateGame, 300); // Update game setiap 100ms
+        setInterval(updateGame, 250); // Update game setiap 100ms
     </script>
 </body>
 </html>
