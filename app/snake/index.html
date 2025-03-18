@@ -40,7 +40,10 @@
             background-color: #222;
         }
         .snake {
-            background-color: #0f0;
+            background-color: #0f0; /* Warna tubuh ular */
+        }
+        .snake-head {
+            background-color: #00f; /* Warna kepala ular */
         }
         .food {
             background-color: #f00;
@@ -172,13 +175,19 @@
         function drawGame() {
             const cells = document.querySelectorAll(".cell");
             cells.forEach(cell => {
-                cell.classList.remove("snake", "food");
+                cell.classList.remove("snake", "food", "snake-head");
             });
 
             // Gambar ular
-            snake.forEach(segment => {
-                const index = segment.y * gridSize + segment.x;
-                cells[index].classList.add("snake");
+            snake.forEach((segment, index) => {
+                const indexPosition = segment.y * gridSize + segment.x;
+                if (index === 0) {
+                    // Kepala ular (segmen pertama)
+                    cells[indexPosition].classList.add("snake-head");
+                } else {
+                    // Tubuh ular (segmen lainnya)
+                    cells[indexPosition].classList.add("snake");
+                }
             });
 
             // Gambar makanan
