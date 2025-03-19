@@ -401,7 +401,67 @@ Tentukan banyaknya pasangan bilangan asli $1\le$ $a,$ $b\le$ $2007$ yang memenuh
 			Jawaban
 		  </button>
 		<div class="collapse" id="collapse14">$$\boxed{yyy}$$
-yyyyy
+<p>Perhatikan bahwa 2027 adalah bilangan prima. Kita akan bekerja dalam aritmetika modulo 2027.</p>
+
+<h3>Klaim 1:</h3>
+<p>Nilai yang dicakup oleh \( x^2 \mod 2027 \) ada sebanyak 2027 buah.</p>
+
+<h4>Bukti:</h4>
+<p>Apabila ada dua bilangan \( a \) dan \( b \) sehingga \( a^2 \equiv b^2 \pmod{2027} \), maka</p>
+
+\[
+(a - b)(a + b) \equiv 0 \pmod{2027}
+\]
+
+<p>Apabila \( a \not\equiv b \pmod{2027} \), maka \( a + b \equiv 0 \pmod{2027} \), yang berarti \( a \equiv -b \pmod{2027} \). Tinjau untuk \( a \leq 0 \).</p>
+
+<p>Jika \( a \equiv 0 \pmod{2027} \) dan \( a^2 \equiv 0 \pmod{2027} \), sehingga \( a \equiv 0 \pmod{2027} \). Karena \( 1^2 \equiv (-1)^2 \), maka \( x^2 \) akan memiliki \( \frac{2027 + 1}{2} = 1014 \) nilai berbeda. Maka, setiap nilai berbeda memiliki dua pasangan \( \pm a \) yang memenuhi sehingga ada 2027 nilai.</p>
+
+<h3>Klaim 2:</h3>
+<p>Nilai \( x^2 \mod 2027 \) hanya mencakup 1014 buah.</p>
+
+<h4>Bukti:</h4>
+<p>Apabila ada 4 bilangan \( x, y, z, w \) yang memenuhi:</p>
+
+\[
+x^2 \equiv y^2 \equiv z^2 \equiv w^2 \pmod{2027}
+\]
+
+<p>Maka kita mendapatkan kontradiksi karena nilai yang berulang, yang berarti ada 1014 bilangan berbeda.</p>
+
+<h3>Klaim 3:</h3>
+<p>1 bukan QR modulo 2027.</p>
+
+<h4>Bukti:</h4>
+<p>Karena \( 1 \equiv x^2 \pmod{2027} \), maka jika 1 adalah QR, maka ada solusi untuk:</p>
+
+\[
+x^2 \equiv 1 \pmod{2027}
+\]
+
+<p>Kita gunakan **Hukum Residu Kuadrat (QR)**. Dari teorema **Euler**, kita memiliki:</p>
+
+\[
+x^{1013} \equiv 1 \pmod{2027}
+\]
+
+<p>Karena \( x^2 \equiv 1 \), maka:</p>
+
+\[
+x^{2026} \equiv 1 \pmod{2027}
+\]
+
+<p>Dengan FLT (Teorema Fermat), kita bisa menyusun:</p>
+
+\[
+(x - 1)(x + 1) \equiv 0 \pmod{2027}
+\]
+
+<p>Sehingga nilai 1 tidak mungkin menjadi QR modulo 2027.</p>
+
+<h3>Kesimpulan</h3>
+<p>Dengan menggunakan fakta bahwa QR hanya memiliki separuh dari 2027 bilangan, kita dapat menyimpulkan bahwa ada sebanyak 1014 nilai berbeda untuk \( x^2 \mod 2027 \).</p>
+
 		</div>
 	  </div>
     </div>
