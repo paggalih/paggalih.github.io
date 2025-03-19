@@ -335,7 +335,7 @@ Diberikan sebuah papan berukuran $n\times n$ yang terbagi menjadi petak-petak be
 
 <p>Sehingga nilai \( n \geq 33 \). Setelah itu, \( \mathbf{n = 33} \) memenuhi dengan konfigurasi berikut. Berikut adalah beberapa contoh konfigurasi yang dapat dilakukan.</p>
 
-<h3>(a) Konfigurasi 1</h3>
+<h3>(a) Konfigurasi</h3>
 
 <p>Warnai \( 32 \times 32 \) petak di kanan atas seperti papan catur. Lalu, warnai hitam pada petak \( (33,3) \), \( (3,33) \), dan \( (33,33) \). Dapat dicek bahwa konfigurasi tersebut memenuhi karena</p>
 
@@ -343,27 +343,6 @@ Diberikan sebuah papan berukuran $n\times n$ yang terbagi menjadi petak-petak be
 2 \times (32 - 1) \times 32 + (16 + 3) \times 2 + 2 = 2024
 \]
 
-<h3>(b) Konfigurasi 2</h3>
-
-<p>Warnai papan \( 33 \times 33 \) tersebut seperti papan catur. Lalu, hilangkan sebanyak 22 petak warna hitam selain yang di ujung papan (ujung papan adalah yang terletak di baris ke-1,33 dan/atau kolom ke-1,33). Dapat dicek bahwa konfigurasi tersebut memenuhi karena</p>
-
-\[
-2 \times (33 - 1) \times 33 - 4 \times 22 = 2024
-\]
-
-<p><img src="image.png" alt="Papan Catur 33x33"></p>
-
-<h3>(c) Konfigurasi Alternatif</h3>
-
-<p>Selain dua konfigurasi di atas, ada alternatif lain yaitu dengan membagi papan menjadi tiga bagian:
-<ul>
-    <li>Bagian utama dengan pola catur berukuran \( 32 \times 32 \),</li>
-    <li>Sisa satu baris dan satu kolom yang disesuaikan pola catur,</li>
-    <li>Pemilihan petak tambahan untuk memastikan total petak yang diwarnai tetap 2024.</li>
-</ul>
-</p>
-
-<p>Setiap konfigurasi di atas bisa digunakan untuk memenuhi syarat yang diberikan dalam soal.</p>
 		</div>
 	  </div>
     </div>
@@ -400,67 +379,67 @@ Tentukan banyaknya pasangan bilangan asli $1\le$ $a,$ $b\le$ $2027$ yang memenuh
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse14" aria-expanded="false" aria-controls="collapse14">
 			Jawaban
 		  </button>
-		<div class="collapse" id="collapse14">$$\boxed{yyy}$$
+		<div class="collapse" id="collapse14">$$\boxed{2028}$$
 <p>Perhatikan bahwa 2027 adalah bilangan prima. Kita akan bekerja dalam aritmetika modulo 2027.</p>
 
 <h3>Klaim 1:</h3>
-<p>Nilai yang dicakup oleh \( x^2 \mod 2027 \) ada sebanyak 2027 buah.</p>
+<p>Nilai yang dicakup oleh \( k^3 \mod 2027 \) ada sebanyak 2027 buah.</p>
 
 <h4>Bukti:</h4>
-<p>Apabila ada dua bilangan \( a \) dan \( b \) sehingga \( a^2 \equiv b^2 \pmod{2027} \), maka</p>
+<p>Apabila ada \( k \) dan \( \ell \) sehingga \( k^3 \equiv \ell^3 \pmod{2027} \), maka</p>
 
 \[
-(a - b)(a + b) \equiv 0 \pmod{2027}
+(k^3)^{676} \equiv (\ell^3)^{676} \Rightarrow k^{2028} \equiv \ell^{2028} \Rightarrow k^{2027} k \equiv \ell^{2027} \ell \pmod{2027}.
 \]
 
-<p>Apabila \( a \not\equiv b \pmod{2027} \), maka \( a + b \equiv 0 \pmod{2027} \), yang berarti \( a \equiv -b \pmod{2027} \). Tinjau untuk \( a \leq 0 \).</p>
+<p>Apabila \( k \equiv 0 \pmod{2027} \), maka harus \( \ell \equiv 0 \pmod{2027} \) dan begitu juga sebaliknya. Tinjau untuk \( k, \ell \neq 0 \).</p>
 
-<p>Jika \( a \equiv 0 \pmod{2027} \) dan \( a^2 \equiv 0 \pmod{2027} \), sehingga \( a \equiv 0 \pmod{2027} \). Karena \( 1^2 \equiv (-1)^2 \), maka \( x^2 \) akan memiliki \( \frac{2027 + 1}{2} = 1014 \) nilai berbeda. Maka, setiap nilai berbeda memiliki dua pasangan \( \pm a \) yang memenuhi sehingga ada 2027 nilai.</p>
+<p>Lalu, \( k^{2027} \equiv k \pmod{2027} \) dan \( \ell^{2027} \equiv \ell \pmod{2027} \), sehingga \( k^2 \equiv \ell^2 \pmod{2027} \). Karena \( k^3 \equiv \ell^3 \) dan \( k^2 \equiv \ell^2 \), maka \( k \equiv \ell \pmod{2027} \). Maka, setiap nilai \( b \) berbeda menghasilkan nilai \( b^3 \) yang unik. Ada 2027 nilai \( b \mod 2027 \) yang mungkin sehingga nilai yang dicakup \( b^3 \mod 2027 \) juga 2027. □</p>
 
 <h3>Klaim 2:</h3>
-<p>Nilai \( x^2 \mod 2027 \) hanya mencakup 1014 buah.</p>
+<p>Nilai yang dicakup oleh \( k^2 \mod 2027 \) ada sebanyak 1014 buah.</p>
 
 <h4>Bukti:</h4>
-<p>Apabila ada 4 bilangan \( x, y, z, w \) yang memenuhi:</p>
+<p>Apabila ada \( k \) dan \( \ell \) berbeda sehingga \( k^2 \equiv \ell^2 \pmod{2027} \), maka</p>
 
 \[
-x^2 \equiv y^2 \equiv z^2 \equiv w^2 \pmod{2027}
+k^2 - \ell^2 \equiv 0 \Rightarrow (k + \ell)(k - \ell) \equiv 0 \Rightarrow k \equiv -\ell.
 \]
 
-<p>Maka kita mendapatkan kontradiksi karena nilai yang berulang, yang berarti ada 1014 bilangan berbeda.</p>
+<p>Maka, \( 1^2, 2^2, \dots, 1013^2 \) berturut-turut menghasilkan nilai modulo yang sama dengan \( 2026^2, 2025^2, \dots, 1014^2 \).</p>
+
+<p>Maka, \( 0^2, 1^2, 2^2, \dots, 1013^2 \) mencakup semua 1014 nilai modulo berbeda yang bisa dicakup oleh \( k^2 \). □</p>
 
 <h3>Klaim 3:</h3>
-<p>1 bukan QR modulo 2027.</p>
+<p>-1 bukan QR modulo 2027.</p>
 
 <h4>Bukti:</h4>
-<p>Karena \( 1 \equiv x^2 \pmod{2027} \), maka jika 1 adalah QR, maka ada solusi untuk:</p>
+<p>Karena \( 1^2 = 1 \), maka 1 adalah QR. Asumsikan ada \( k \) sehingga \( k^2 \equiv -1 \pmod{2027} \). Maka,</p>
 
 \[
-x^2 \equiv 1 \pmod{2027}
+(k^2)^{1013} \equiv (-1)^{2023} \pmod{2027} \Rightarrow k^{2026} \equiv -1 \pmod{2027}.
 \]
 
-<p>Kita gunakan **Hukum Residu Kuadrat (QR)**. Dari teorema **Euler**, kita memiliki:</p>
+<p>Dimana ini jelas salah dengan FLT, yang menyatakan bahwa \( k^{2026} \equiv 1 \pmod{2027} \) jika \( k \not\equiv 0 \pmod{2027} \). Maka, asumsi salah sehingga -1 bukan QR modulo 2027. Terbukti bahwa -1 bukan QR modulo 2027. □</p>
+
+<p>Lalu,</p>
 
 \[
-x^{1013} \equiv 1 \pmod{2027}
+2027 \mid (a^6 + b^5 + b^2) \Rightarrow a^6 \equiv -b^2 (b^3 + 1) \pmod{2027}.
 \]
 
-<p>Karena \( x^2 \equiv 1 \), maka:</p>
+<ul>
+<li>Jika \( -b^2 (b^3 + 1) \equiv 0 \pmod{2027} \), maka \( \left(\frac{a^3}{b}\right)^2 \equiv -(b^3 + 1) \pmod{2027} \). Karena -1 bukan QR, hanya ada setengah nilai QR yang mungkin. Maka, terdapat 1014 nilai \( b \) yang memenuhi dan masing-masing memiliki dua solusi \( a \). Sehingga total solusi adalah \( 2 \times 1013 = 2026 \) pasangan \( (a,b) \).</li>
+
+<li>Jika \( -b^2 (b^3 + 1) \not\equiv 0 \pmod{2027} \), maka hanya ada 2 pasangan solusi yaitu \( b = 2026 \) atau \( b = 2027 \), dengan \( a = 2027 \). Maka terdapat total 2 solusi.</li>
+</ul>
+
+<p>Jadi total solusi adalah:</p>
 
 \[
-x^{2026} \equiv 1 \pmod{2027}
-\]
+\boxed{2028}.
+\]</p>
 
-<p>Dengan FLT (Teorema Fermat), kita bisa menyusun:</p>
-
-\[
-(x - 1)(x + 1) \equiv 0 \pmod{2027}
-\]
-
-<p>Sehingga nilai 1 tidak mungkin menjadi QR modulo 2027.</p>
-
-<h3>Kesimpulan</h3>
-<p>Dengan menggunakan fakta bahwa QR hanya memiliki separuh dari 2027 bilangan, kita dapat menyimpulkan bahwa ada sebanyak 1014 nilai berbeda untuk \( x^2 \mod 2027 \).</p>
 
 		</div>
 	  </div>
