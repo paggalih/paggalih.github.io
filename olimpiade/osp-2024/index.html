@@ -326,8 +326,44 @@ Diberikan sebuah papan berukuran $n\times n$ yang terbagi menjadi petak-petak be
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse12" aria-expanded="false" aria-controls="collapse12">
 			Jawaban
 		  </button>
-		<div class="collapse" id="collapse12">$$\boxed{yyy}$$
-yyyy
+		<div class="collapse" id="collapse12">
+<p>Perhatikan bahwa pada papan \( n \times n \), terdapat \( (n-1)n \) buah domino \( 2 \times 1 \) dan \( (n-1)n \) buah domino \( 1 \times 2 \) yang dapat diletakkan. Maka,</p>
+
+\[
+2n(n-1) \geq 2024 \Rightarrow n(n-1) \geq 1012 \Rightarrow 32 \times 31
+\]
+
+<p>Sehingga nilai \( n \geq 33 \). Setelah itu, \( \mathbf{n = 33} \) memenuhi dengan konfigurasi berikut. Berikut adalah beberapa contoh konfigurasi yang dapat dilakukan.</p>
+
+<h3>(a) Konfigurasi 1</h3>
+
+<p>Warnai \( 32 \times 32 \) petak di kanan atas seperti papan catur. Lalu, warnai hitam pada petak \( (33,3) \), \( (3,33) \), dan \( (33,33) \). Dapat dicek bahwa konfigurasi tersebut memenuhi karena</p>
+
+\[
+2 \times (32 - 1) \times 32 + (16 + 3) \times 2 + 2 = 2024
+\]
+
+<h3>(b) Konfigurasi 2</h3>
+
+<p>Warnai papan \( 33 \times 33 \) tersebut seperti papan catur. Lalu, hilangkan sebanyak 22 petak warna hitam selain yang di ujung papan (ujung papan adalah yang terletak di baris ke-1,33 dan/atau kolom ke-1,33). Dapat dicek bahwa konfigurasi tersebut memenuhi karena</p>
+
+\[
+2 \times (33 - 1) \times 33 - 4 \times 22 = 2024
+\]
+
+<p><img src="image.png" alt="Papan Catur 33x33"></p>
+
+<h3>(c) Konfigurasi Alternatif</h3>
+
+<p>Selain dua konfigurasi di atas, ada alternatif lain yaitu dengan membagi papan menjadi tiga bagian:
+<ul>
+    <li>Bagian utama dengan pola catur berukuran \( 32 \times 32 \),</li>
+    <li>Sisa satu baris dan satu kolom yang disesuaikan pola catur,</li>
+    <li>Pemilihan petak tambahan untuk memastikan total petak yang diwarnai tetap 2024.</li>
+</ul>
+</p>
+
+<p>Setiap konfigurasi di atas bisa digunakan untuk memenuhi syarat yang diberikan dalam soal.</p>
 		</div>
 	  </div>
     </div>
