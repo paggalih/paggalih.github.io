@@ -364,7 +364,50 @@
                     <div class="section-title">
                         <h2>Pertemuan 3</h2>
                     </div>
+    <h1 class="text-center">Model Regresi dengan Variabel Dummy</h1>
+    
+    <h2>1. Pengantar</h2>
+    <p>Model regresi sering kali menggunakan variabel kuantitatif, namun ada kasus di mana variabel independen bersifat <strong>kualitatif</strong>. Untuk memasukkan variabel ini, kita menggunakan <strong>variabel dummy</strong>, yang biasanya bernilai <code>1</code> jika atribut ada dan <code>0</code> jika atribut tidak ada.</p>
 
+    <h2>2. Fungsi Upah dengan Variabel Dummy</h2>
+    <p>Model regresi dengan dummy:</p>
+    <p>\[ \text{Wage}_i = \beta_1 + \beta_2 D_{2i} + \beta_3 D_{3i} + \beta_4 D_{4i} + \beta_5 \text{Educ}_i + \beta_6 \text{Exper}_i + u_i \]</p>
+    <p>di mana:</p>
+    <ul>
+        <li>\( D_2 = 1 \) jika perempuan, 0 jika laki-laki.</li>
+        <li>\( D_3 = 1 \) jika non-white, 0 jika white.</li>
+        <li>\( D_4 = 1 \) jika anggota serikat pekerja, 0 jika bukan.</li>
+    </ul>
+
+    <h2>3. Dummy Variable Trap</h2>
+    <p>Jika suatu variabel memiliki <em>m</em> kategori, hanya boleh ada <em>(m - 1)</em> variabel dummy dalam model agar tidak terjadi <strong>multikolinearitas sempurna</strong>.</p>
+
+    <h2>4. Dummy Interaksi</h2>
+    <p>Untuk menangkap efek gabungan dari dua variabel dummy, kita gunakan dummy interaksi:</p>
+    <p>\[ \text{Wage}_i = \beta_1 + \beta_2 D_{gender} + \beta_3 D_{race} + \beta_4 (D_{gender} \times D_{race}) + u_i \]</p>
+    <p>Jika \( \beta_4 \) signifikan, berarti ada efek spesifik bagi kelompok tertentu.</p>
+
+    <h2>5. Dummy Variabel untuk Perubahan Struktural</h2>
+    <p>Untuk mendeteksi perubahan struktural dalam hubungan ekonomi sebelum dan sesudah suatu peristiwa, digunakan dummy variabel:</p>
+    <p>\[ GPI_t = \beta_1 + \beta_2 GPS_t + \beta_3 D_{krisis} + \beta_4 (D_{krisis} \times GPS_t) + u_t \]</p>
+    <p>Jika \( \beta_3 \) dan \( \beta_4 \) signifikan, berarti ada perubahan struktural.</p>
+
+    <h2>6. Dummy Variabel untuk Data Musiman</h2>
+    <p>Dummy variabel juga digunakan untuk menangkap pola musiman dalam data ekonomi:</p>
+    <p>\[ \text{Sales}_t = \alpha_1 + \alpha_2 D_{Q2} + \alpha_3 D_{Q3} + \alpha_4 D_{Q4} + u_t \]</p>
+    <p>di mana:</p>
+    <ul>
+        <li>Kuartal pertama (Q1) menjadi kategori referensi.</li>
+        <li>Koefisien dummy menunjukkan perbedaan rata-rata penjualan dibanding Q1.</li>
+    </ul>
+
+    <h2>Kesimpulan</h2>
+    <ul>
+        <li>Variabel dummy memungkinkan kita memasukkan variabel kualitatif dalam regresi.</li>
+        <li>Hindari <em>dummy variable trap</em> dengan tidak memasukkan semua kategori dummy sekaligus.</li>
+        <li>Dummy interaksi membantu memahami efek gabungan dari dua variabel kualitatif.</li>
+        <li>Dummy variabel dapat digunakan untuk mendeteksi perubahan struktural dan pola musiman.</li>
+    </ul>
                 </div>
             </section>
             <section id="p4">
