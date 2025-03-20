@@ -523,15 +523,15 @@
     <h2 class="text-center">Rangkuman Bab 7: Matriks</h2>
 
     <h4>7.1 Operasi Dasar Matriks</h4>
-    <p>Beberapa operasi dasar matriks yang dibahas:</p>
     <ul>
-        <li><strong>Transpos Matriks</strong>: Mengubah baris menjadi kolom dan sebaliknya, ditulis sebagai \( A^T \).</li>
-        <li><strong>Penjumlahan dan Pengurangan</strong>: Dilakukan elemen per elemen jika ordo sama.</li>
-        <li><strong>Perkalian Matriks</strong>: Hanya bisa dilakukan jika jumlah kolom matriks pertama sama dengan jumlah baris matriks kedua.</li>
+        <li><strong>Notasi dan Terminologi:</strong> Matriks dinotasikan sebagai \( A, B, C \) dengan elemen \( a_{ij} \), dan berordo \( m \times n \).</li>
+        <li><strong>Transpos Matriks:</strong> Mengubah baris menjadi kolom, ditulis sebagai \( A^T \).</li>
+        <li><strong>Penjumlahan dan Pengurangan:</strong> Dilakukan elemen per elemen untuk matriks dengan ordo yang sama.</li>
+        <li><strong>Perkalian Matriks:</strong> Dilakukan jika jumlah kolom matriks pertama sama dengan jumlah baris matriks kedua.</li>
     </ul>
 
     <h4>7.2 Invers Matriks</h4>
-    <p>Matriks \( A \) memiliki invers jika \( \det(A) \neq 0 \).</p>
+    <p>Suatu matriks \( A \) memiliki invers jika \( \det(A) \neq 0 \).</p>
     <p>Rumus invers matriks \( 2 \times 2 \):</p>
     <p>
         \[
@@ -539,13 +539,13 @@
         \begin{bmatrix}
         d & -b \\
         -c & a
-        \end{bmatrix}
+        \end{bmatrix},
+        \quad \text{dengan } \det(A) = ad - bc
         \]
     </p>
-    <p>dengan \( \det(A) = ad - bc \).</p>
 
     <h4>Penerapan: Harga Ekuilibrium</h4>
-    <p>Persamaan ekuilibrium:</p>
+    <p>Persamaan harga ekuilibrium dua barang:</p>
     <p>
         \[
         9P_1 + P_2 = 43
@@ -572,7 +572,21 @@
         \end{bmatrix}
         \]
     </p>
-    <p>Solusi diperoleh dengan metode invers matriks.</p>
+    <p>Solusi diperoleh dengan metode invers matriks:</p>
+    <p>
+        \[
+        \begin{bmatrix} P_1 \\ P_2 \end{bmatrix} = 
+        \begin{bmatrix} 9 & 1 \\ 2 & 7 \end{bmatrix}^{-1} 
+        \begin{bmatrix} 43 \\ 57 \end{bmatrix}
+        \]
+    </p>
+    
+    <h4>Kesimpulan</h4>
+    <ul>
+        <li>Matriks merupakan alat yang kuat dalam menyelesaikan sistem persamaan linear.</li>
+        <li>Operasi matriks seperti penjumlahan, perkalian, dan invers sangat berguna dalam berbagai aplikasi ekonomi.</li>
+        <li>Invers matriks memungkinkan penyelesaian sistem persamaan dalam bentuk yang lebih kompak dan efisien.</li>
+    </ul>
     <div class="container mt-5">
       
         <div class="accordion" id="accordionP4">
