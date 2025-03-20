@@ -66,6 +66,9 @@
 				border-radius: 50px;
 			}
 			}
+				.accordion-item {
+					background-color: #f7f8f6;
+				}
         </style>
     </head>
     <body>
@@ -357,6 +360,27 @@
     <h2>Kesimpulan</h2>
     <p>Bab 1 membahas konsep dasar ekonometrika dan pentingnya dalam analisis ekonomi. Bab 2 menjelaskan model regresi linier dan metode OLS yang menjadi dasar banyak analisis ekonometrika.</p>
 
+    <div class="container mt-5">
+      
+        <div class="accordion" id="accordionP2">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP2">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP2" aria-expanded="true" aria-controls="collapseP2">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP2" class="accordion-collapse collapse show" aria-labelledby="headingP2" data-bs-parent="#accordionP2">
+                    <div class="accordion-body">
+												<p>Soal 1: 
+												</p>
+ 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+		
                 </div>
             </section>
             <section id="p3">
@@ -415,7 +439,52 @@
                     <div class="section-title">
                         <h2>Pertemuan 4</h2>
                     </div>
-			
+    <h1 class="text-center">Multikolinearitas dalam Regresi</h1>
+    
+    <h2>1. Pengertian Multikolinearitas</h2>
+    <p>Multikolinearitas terjadi ketika terdapat hubungan linear yang kuat antara dua atau lebih variabel independen dalam model regresi.</p>
+    <p>Jenis Multikolinearitas:</p>
+    <ul>
+        <li><strong>Multikolinearitas Sempurna</strong>: Hubungan linear eksak antara variabel bebas.</li>
+        <li><strong>Multikolinearitas Tidak Sempurna</strong>: Hubungan linear yang hampir sempurna tetapi tidak eksak.</li>
+    </ul>
+
+    <h2>2. Konsekuensi Multikolinearitas</h2>
+    <ul>
+        <li>Estimasi OLS tetap BLUE tetapi memiliki varians besar.</li>
+        <li>Interval kepercayaan menjadi lebih lebar, sehingga pengujian hipotesis menjadi sulit.</li>
+        <li>Nilai statistik \( t \) menjadi tidak signifikan.</li>
+        <li>Koefisien regresi menjadi sangat sensitif terhadap perubahan kecil dalam data.</li>
+    </ul>
+
+    <h2>3. Deteksi Multikolinearitas</h2>
+    <p>Beberapa metode untuk mendeteksi multikolinearitas:</p>
+    <ul>
+        <li>\( R^2 \) tinggi tetapi banyak variabel tidak signifikan.</li>
+        <li>Korelasi tinggi antar variabel independen (\( > 0.8 \)).</li>
+        <li>Faktor Inflasi Varians (VIF):</li>
+    </ul>
+    <p>\[ VIF = \frac{1}{1 - R^2} \]</p>
+    <p>Jika \( VIF > 10 \), menunjukkan adanya multikolinearitas yang serius.</p>
+    <p>Nilai toleransi (TOL) adalah kebalikan dari VIF:</p>
+    <p>\[ TOL = \frac{1}{VIF} \]</p>
+    <p>Jika \( TOL < 0.1 \), maka kemungkinan ada masalah multikolinearitas.</p>
+
+    <h2>4. Cara Mengatasi Multikolinearitas</h2>
+    <ul>
+        <li>Menghapus variabel yang berkorelasi tinggi dengan variabel lain.</li>
+        <li>Menggabungkan beberapa variabel yang berkorelasi tinggi menjadi satu indeks.</li>
+        <li>Menambah jumlah observasi.</li>
+        <li>Menggunakan transformasi data.</li>
+        <li>Menggunakan metode regresi alternatif seperti <strong>Regresi Ridge</strong> dan <strong>Analisis Komponen Utama (PCA)</strong>.</li>
+    </ul>
+
+    <h2>Kesimpulan</h2>
+    <ul>
+        <li>Multikolinearitas menyebabkan kesulitan dalam interpretasi hasil regresi.</li>
+        <li>Deteksi dapat dilakukan dengan melihat nilai VIF, korelasi variabel bebas, dan signifikansi uji \( t \).</li>
+        <li>Solusi meliputi pemilihan variabel yang lebih tepat, penggabungan variabel, dan penggunaan metode regresi alternatif.</li>
+    </ul>
                 </div>
             </section>
             <section id="p5">
