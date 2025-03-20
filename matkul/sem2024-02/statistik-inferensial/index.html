@@ -20,10 +20,14 @@
         <link href="/assets/css/style.css" rel="stylesheet">
 
 				<script>
-				window.MathJax = {
-				tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
-				svg: { fontCache: 'global' }
-				};
+            MathJax = {
+                tex: {
+                    inlineMath: [
+                        ['$', '$'],
+                        ['\\(', '\\)']
+                    ]
+                }
+            };
 				</script>
 				<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
 
@@ -66,7 +70,9 @@
 				border-radius: 50px;
 			}
 			}
-			
+				.accordion-item {
+					background-color: #f7f8f6;
+				}
         </style>
     </head>
     <body>
@@ -377,6 +383,56 @@ np \geq 5 \quad \text{dan} \quad n(1-p) \geq 5
     <li><b>Melakukan uji hipotesis dan interval kepercayaan</b> untuk menentukan signifikansi hasil sampel.</li>
 </ol>
 <p>Inferensi statistik bergantung pada asumsi bahwa distribusi sampling cukup <b>normal</b> untuk digunakan dalam perhitungan statistik.</p>
+    <div class="container mt-5">
+      
+        <div class="accordion" id="accordionP2">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP2">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP2" aria-expanded="true" aria-controls="collapseP2">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP2" class="accordion-collapse collapse show" aria-labelledby="headingP2" data-bs-parent="#accordionP2">
+                    <div class="accordion-body">
+												<p>Soal 1: 
+												</p>
+											 <p>Waktu yang dihabiskan oleh orang dewasa di Amerika Utara untuk menonton televisi per hari 
+											diasumsikan mengikuti distribusi normal dengan rata-rata \( \mu = 6 \) jam dan standar deviasi \( \sigma = 1.5 \) jam.</p>
+
+											<ol>
+													<li>
+															Berapa probabilitas bahwa seorang dewasa Amerika Utara yang dipilih secara acak menonton televisi 
+															lebih dari 7 jam per hari?
+													</li>
+													<li>
+															Berapa probabilitas bahwa rata-rata waktu menonton televisi dalam sampel acak yang terdiri dari lima orang 
+															dewasa Amerika Utara lebih dari 7 jam per hari?
+													</li>
+													<li>
+															Berapa probabilitas bahwa dalam sampel acak yang terdiri dari lima orang dewasa Amerika Utara, 
+															semuanya menonton televisi lebih dari 7 jam per hari?
+													</li>
+													<p>Soal 2:
+													</p>
+													<p>
+															Jumlah pelanggan yang memasuki sebuah supermarket setiap jam diasumsikan mengikuti distribusi normal 
+															dengan rata-rata \( \mu = 600 \) pelanggan per jam dan standar deviasi \( \sigma = 200 \) pelanggan per jam.
+													</p>
+
+													<p>
+															Supermarket buka selama 16 jam per hari. Berapakah probabilitas bahwa total jumlah pelanggan yang masuk 
+															dalam satu hari lebih dari 10.000?
+													</p>
+
+													<p><i>Petunjuk</i>: Hitung rata-rata jumlah pelanggan per jam yang diperlukan agar total melebihi 10.000 dalam satu hari kerja 16 jam.</p>
+
+											</ol>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
 
                 </div>
             </section>
