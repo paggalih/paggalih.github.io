@@ -651,7 +651,132 @@
                     <div class="section-title">
                         <h2>Pertemuan 5</h2>
                     </div>
-			
+    <h2 class="text-center">Rangkuman Bab 7: Determinan, Invers, dan Aturan Cramer</h2>
+
+    <h4>1. Determinan Matriks</h4>
+    <p><strong>Determinant</strong> adalah nilai skalar yang diperoleh dari matriks persegi dan digunakan untuk menemukan invers serta menyelesaikan sistem persamaan linear.</p>
+    
+    <h5>Determinan Matriks \( 2 \times 2 \)</h5>
+    <p>Untuk matriks:</p>
+    \[
+    A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}
+    \]
+    <p>Determinan dihitung dengan rumus:</p>
+    \[
+    \det(A) = ad - bc
+    \]
+
+    <h5>Determinan Matriks \( 3 \times 3 \)</h5>
+    <p>Untuk matriks:</p>
+    \[
+    A = \begin{bmatrix} a_{11} & a_{12} & a_{13} \\
+    a_{21} & a_{22} & a_{23} \\
+    a_{31} & a_{32} & a_{33} \end{bmatrix}
+    \]
+    <p>Determinan dihitung menggunakan ekspansi kofaktor:</p>
+    \[
+    \det(A) = a_{11}A_{11} + a_{12}A_{12} + a_{13}A_{13}
+    \]
+    
+    <h4>2. Invers Matriks</h4>
+    <p>Matriks \( A \) memiliki invers \( A^{-1} \) jika memenuhi:</p>
+    \[
+    A A^{-1} = I
+    \]
+    <p>di mana \( I \) adalah matriks identitas.</p>
+    
+    <h5>Invers Matriks \( 2 \times 2 \)</h5>
+    <p>Jika \( A \) adalah:</p>
+    \[
+    A = \begin{bmatrix} a & b \\ c & d \end{bmatrix}
+    \]
+    <p>Maka inversnya:</p>
+    \[
+    A^{-1} = \frac{1}{\det(A)}
+    \begin{bmatrix} d & -b \\ -c & a \end{bmatrix}, \quad \text{dengan } \det(A) \neq 0
+    \]
+    
+    <h4>3. Aturan Cramer</h4>
+    <p>Aturan Cramer digunakan untuk menyelesaikan sistem persamaan linear:</p>
+    \[
+    Ax = b
+    \]
+    <p>Solusi untuk setiap variabel:</p>
+    \[
+    x_i = \frac{\det(A_i)}{\det(A)}
+    \]
+    <p>di mana \( A_i \) adalah matriks yang diperoleh dari \( A \) dengan mengganti kolom ke-\( i \) dengan \( b \).</p>
+
+    <h5>Contoh</h5>
+    <p>Diketahui sistem:</p>
+    \[
+    \begin{cases}
+    2x + 4y = 16 \\
+    3x - 5y = -9
+    \end{cases}
+    \]
+    <p>Dalam bentuk matriks:</p>
+    \[
+    A = \begin{bmatrix} 2 & 4 \\ 3 & -5 \end{bmatrix}, \quad b = \begin{bmatrix} 16 \\ -9 \end{bmatrix}
+    \]
+    <p>Hitung \( \det(A) \):</p>
+    \[
+    \det(A) = (2)(-5) - (4)(3) = -10 - 12 = -22
+    \]
+    <p>Gunakan aturan Cramer untuk menemukan \( x \) dan \( y \).</p>
+    
+    <h4>Kesimpulan</h4>
+    <ul>
+        <li>Determinan digunakan untuk mengetahui apakah matriks memiliki invers.</li>
+        <li>Invers matriks membantu dalam menyelesaikan sistem persamaan linear.</li>
+        <li>Aturan Cramer memberikan cara sistematis untuk menyelesaikan persamaan linear menggunakan determinan.</li>
+    </ul>
+    <div class="container mt-5">      
+        <div class="accordion" id="accordionP5">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP5">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP5" aria-expanded="true" aria-controls="collapseP5">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP5" class="accordion-collapse collapse" aria-labelledby="headingP5" data-bs-parent="#accordionP5">
+                    <div class="accordion-body">
+												<p>Soal 1: 
+												</p>
+												<p>Gunakan aturan Cramer untuk menyelesaikan \( x \) dari sistem persamaan berikut:</p>
+												<p>
+														\[
+														\begin{bmatrix} 3 & -2 & 4 \\ 1 & 4 & 0 \\ 5 & 7 & 0 \end{bmatrix}
+														\begin{bmatrix} x \\ y \\ z \end{bmatrix} =
+														\begin{bmatrix} 11 \\ 9 \\ 19 \end{bmatrix}
+														\]
+												</p>
+												<p>Temukan nilai \( x \) menggunakan aturan Cramer.</p>
+												<p>Soal 2:
+												</p>
+												<p>Temukan kofaktor \( A_{23} \) dari matriks berikut:</p>
+												<p>
+														\[
+														A = \begin{bmatrix} 5 & -2 & 7 \\ 6 & 1 & -9 \\ 4 & -3 & 8 \end{bmatrix}
+														\]
+												</p>
+												<p>Hitung nilai kofaktor \( A_{23} \).</p>
+												<p>Soal 3:
+												</p>
+												<p>Cari (jika memungkinkan) invers dari matriks berikut:</p>
+												<p>
+														\[
+														A = \begin{bmatrix} 2 & 1 & -1 \\ 1 & 3 & 2 \\ -1 & 2 & 1 \end{bmatrix}, \quad
+														B = \begin{bmatrix} 1 & 4 & 5 \\ 2 & 1 & 3 \\ -1 & 3 & 2 \end{bmatrix}
+														\]
+												</p>
+												<p>Tentukan apakah matriks-matriks ini singular atau non-singular.</p>
+										</div>
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
             </section>
             <section id="p6">
