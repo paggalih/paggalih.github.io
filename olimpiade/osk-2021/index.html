@@ -583,6 +583,54 @@ y_{\text{maks}} = \boxed{250}
 				</button>
 			<div class="collapse" id="collapse14">
 			<button class="btn btn-success">$17$</button>
+<p>Jika dua digit terakhir dari \( a^{777} \) adalah 77, maka dua digit terakhir dari \( a \) adalah ....</p>
+
+<h3>Pembahasan</h3>
+
+<p>Karena dua digit terakhir dari \( a^{777} \equiv 77 \pmod{100} \), kita ingin mencari \( a \mod 100 \) yang memenuhi persamaan tersebut.</p>
+
+<p>Diketahui bahwa \( a \) adalah bilangan ganjil dan bukan kelipatan 5, sehingga \( \gcd(a, 100) = 1 \). Kita dapat menggunakan <strong>Teorema Euler</strong> dan pendekatan binomial untuk mencari nilai \( a \).</p>
+
+<p>Misalkan \( a = 10k + 7 \), karena \( a \equiv 7 \pmod{10} \), dan kita asumsikan \( a^{17} \equiv 77 \pmod{100} \).</p>
+
+<p>Gunakan perluasan binomial:</p>
+
+\[
+(10k + 7)^{17} \equiv 77 \pmod{100}
+\]
+
+<p>Ekspansi dua suku awal binomial (karena modulus 100 hanya butuh 2 suku):</p>
+
+\[
+\binom{17}{0} 7^{17} + \binom{17}{1} 10k \cdot 7^{16} \equiv 77 \pmod{100}
+\]
+
+\[
+7^{17} + 170k \cdot 7^{16} \equiv 77 \pmod{100}
+\]
+
+\[
+7^{16}(10k + 1) \equiv 77 \pmod{100}
+\]
+
+<p>Hitung \( 7^{16} \mod 100 \):</p>
+
+<ul>
+  <li>\( 7^4 = 2401 \equiv 1 \pmod{100} \)</li>
+  <li>\( 7^{16} = (7^4)^4 \equiv 1^4 = 1 \pmod{100} \)</li>
+</ul>
+
+<p>Maka persamaan menjadi:</p>
+
+\[
+10k + 1 \equiv 77 \pmod{100} \Rightarrow 10k \equiv 76 \pmod{100} \Rightarrow k \equiv 10 \pmod{100}
+\]
+
+<p>Sehingga,</p>
+
+\[
+a = 10k + 7 = 10 \cdot 10 + 7 = \boxed{107}
+\]
 
 
 			</div>
