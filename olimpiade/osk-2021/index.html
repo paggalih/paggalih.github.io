@@ -538,7 +538,7 @@ Diketahui:
 x^2 + (y + 2)x + (n + 1)y = n^2 + 253
 \]
 \[
-x^2 + 2x + 1 + xy + 2x + ny + y = n^2 + 253
+x^2 + 2x + 1 + xy  + ny + y = n^2 + 253
 \Rightarrow (x + 1)^2 + y(x + n + 1) = n^2 + 253
 \]
 
@@ -555,7 +555,7 @@ x + 1 - n + y = \frac{253}{x + 1 + n}
 
 Agar nilai \( y \) maksimum, kita ingin:
 \[
-y \geq \frac{253}{x + 1 + n} + x + 1 + n - 2x - 2
+y =\frac{253}{x + 1 + n} + x + 1 + n - 2x - 2
 \]
 
 Maka:
@@ -583,9 +583,6 @@ y_{\text{maks}} = \boxed{250}
 				</button>
 			<div class="collapse" id="collapse14">
 			<button class="btn btn-success">$17$</button>
-<p>Jika dua digit terakhir dari \( a^{777} \) adalah 77, maka dua digit terakhir dari \( a \) adalah ....</p>
-
-<h3>Pembahasan</h3>
 
 <p>Karena dua digit terakhir dari \( a^{777} \equiv 77 \pmod{100} \), kita ingin mencari \( a \mod 100 \) yang memenuhi persamaan tersebut.</p>
 
@@ -652,7 +649,56 @@ a = 10k + 7 = 10 \cdot 10 + 7 = \boxed{107}
 				</button>
 			<div class="collapse" id="collapse15">
 			<button class="btn btn-success">$91$</button>
+<p>
+Misalkan \( a_n = n(n + 19) + b \), dengan \( b \) ganjil.
+</p>
 
+<p>
+Kita ingin:
+\[
+\gcd(a_n, a_{n+1}) = \gcd(a_{n+2}, a_{n+1})
+\]
+Gunakan identitas:
+\[
+\gcd(x, y) = \gcd(x, y - x)
+\]
+Maka:
+\[
+\gcd(a_n, a_{n+1}) = \gcd(a_n, a_{n+1} - a_n)
+\]
+\[
+= \gcd(n^2 + 19n + b, (n+1)^2 + 19(n+1) + b - (n^2 + 19n + b))
+\]
+\[
+= \gcd(n^2 + 19n + b, 2n + 20)
+\]
+
+Selanjutnya:
+\[
+\gcd(a_{n+2}, a_{n+1}) = \gcd((n+2)^2 + 19(n+2) + b, (n+1)^2 + 19(n+1) + b)
+\]
+\[
+= \gcd(n^2 + 4n + 4 + 19n + 38 + b, n^2 + 2n + 1 + 19n + 19 + b)
+\]
+\[
+= \gcd(n^2 + 23n + 42 + b, n^2 + 21n + 20 + b)
+\]
+\[
+= \gcd((n^2 + 23n + 42 + b) - (n^2 + 21n + 20 + b), n^2 + 21n + 20 + b)
+\]
+\[
+= \gcd(2n + 22, n^2 + 21n + 20 + b) = \gcd(n + 11, n^2 + 21n + 20 + b)
+\]
+
+Agar kedua FPB sama untuk semua \( n \), kita butuh:
+\[
+\gcd(n + 10, b - 90) = 1 \quad \text{untuk semua } n
+\]
+Artinya, \( b - 90 \) harus relatif prima terhadap \( n + 10 \) untuk semua \( n \). Supaya itu selalu benar, maka:
+\[
+\gcd(b - 90, n + 10) = 1 \Rightarrow b - 90 = 1
+\Rightarrow \boxed{b = 91}
+\]
 
 			</div>
 			</div>
