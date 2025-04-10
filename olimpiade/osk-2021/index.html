@@ -697,7 +697,46 @@ Artinya, \( b - 90 \) harus relatif prima terhadap \( n + 10 \) untuk semua \( n
 				</button>
 			<div class="collapse" id="collapse16">
 			<button class="btn btn-success">$2702$</button>
+			<p>
+Kita ingin menyusun barisan dengan 13 suku yang mengandung tepat 4 angka 0, dan antar dua 0 harus ada setidaknya 2 suku bukan 0. Maka,
+bayangkan menyisipkan 4 buah 0 di antara deretan angka bukan 0 (yaitu angka 1 dan 2).
+</p>
 
+<p>
+Misalkan kita representasikan barisan sebagai:
+\[
+a\ \underbrace{x_1\ x_2}_{\geq 2}\ b\ \underbrace{x_3\ x_4}_{\geq 2}\ c\ \underbrace{x_5\ x_6}_{\geq 2}\ d\ \underbrace{x_7\ x_8}_{\geq 2}\ e
+\]
+dimana huruf kecil adalah 0, dan variabel \( x_i \) adalah jumlah elemen bukan nol di antara nol-nol.
+
+<p>
+Kita tahu total panjang barisan adalah 13, dan kita ingin menempatkan 4 angka 0, artinya sisa 9 tempat untuk angka bukan 0. Tapi karena 
+antara dua 0 harus ada minimal dua bukan 0, maka:
+</p>
+
+<ul>
+<li>Kita butuh 3 sela antar 4 nol, masing-masing dengan minimal 2 bukan 0: \( 3 \times 2 = 6 \)</li>
+<li>Sisa angka bukan 0 adalah \( 9 - 6 = 3 \), dan akan kita distribusikan ke 5 bagian (antara dan luar nol)</li>
+</ul>
+
+<p>
+Maka kita ingin banyak cara membagi bilangan 3 ke 4 variabel tak negatif: \( x_1 + x_2 + x_3 + x_4 = 3 \)
+yang jawabannya adalah:
+\[
+\binom{3 + 4 - 1}{4 - 1} = \binom{6}{3} = 20
+\]
+
+</p>
+
+<p>
+Setiap elemen bukan nol bisa bernilai 1 atau 2, maka untuk setiap distribusi, banyak pilihan nilainya adalah \( 2^9 \) (karena total bukan 0 = 9 suku).
+</p>
+
+<h4>Jawaban akhir:</h4>
+
+\[
+\boxed{\binom{6}{3} \cdot 2^9 = 20 \cdot 512 = \boxed{10240}}
+\]
 
 			</div>
 			</div>
