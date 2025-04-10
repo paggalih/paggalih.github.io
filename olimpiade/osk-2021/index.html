@@ -660,35 +660,13 @@ Kita ingin:
 \]
 Gunakan identitas:
 \[
-\gcd(x, y) = \gcd(x, y - x)
+\gcd(x, y) = \gcd(x, y - bx) \text{ dengan $b\in\mathbb{Z}$}
 \]
 Maka:
-\[
-\gcd(a_n, a_{n+1}) = \gcd(a_n, a_{n+1} - a_n)
-\]
-\[
-= \gcd(n^2 + 19n + b, (n+1)^2 + 19(n+1) + b - (n^2 + 19n + b))
-\]
-\[
-= \gcd(n^2 + 19n + b, 2n + 20)
-\]
+$$\begin{array}{rl}&\gcd(a_n, a_{n+1}) = \gcd(a_n, a_{n+1} - a_n)\\&= \gcd(n^2 + 19n + b, (n+1)^2 + 19(n+1) + b - (n^2 + 19n + b))\\&= \gcd(n^2 + 19n + b, 2n + 20)\\&\gcd(n^2+19n+b,n+10)\text{ (karena $a_n$ ganjil)}\\&\gcd()\end{array}$$
 
 Selanjutnya:
-\[
-\gcd(a_{n+2}, a_{n+1}) = \gcd((n+2)^2 + 19(n+2) + b, (n+1)^2 + 19(n+1) + b)
-\]
-\[
-= \gcd(n^2 + 4n + 4 + 19n + 38 + b, n^2 + 2n + 1 + 19n + 19 + b)
-\]
-\[
-= \gcd(n^2 + 23n + 42 + b, n^2 + 21n + 20 + b)
-\]
-\[
-= \gcd((n^2 + 23n + 42 + b) - (n^2 + 21n + 20 + b), n^2 + 21n + 20 + b)
-\]
-\[
-= \gcd(2n + 22, n^2 + 21n + 20 + b) = \gcd(n + 11, n^2 + 21n + 20 + b)
-\]
+$$\begin{array}{rl}&\gcd(a_{n+2}, a_{n+1}) = \gcd((n+2)^2 + 19(n+2) + b, (n+1)^2 + 19(n+1) + b)\\&= \gcd(n^2 + 4n + 4 + 19n + 38 + b, n^2 + 2n + 1 + 19n + 19 + b)\\&= \gcd(n^2 + 23n + 42 + b, n^2 + 21n + 20 + b)\\&= \gcd((n^2 + 23n + 42 + b) - (n^2 + 21n + 20 + b), n^2 + 21n + 20 + b)\\&= \gcd(2n + 22, n^2 + 21n + 20 + b) = \gcd(n + 11, n^2 + 21n + 20 + b) \end{array}$$
 
 Agar kedua FPB sama untuk semua \( n \), kita butuh:
 \[
