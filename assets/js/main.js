@@ -295,8 +295,8 @@ function createLink(href, className, iconClass, tooltipText) {
   link.className = className;
   
   // Add tooltip attributes
-  link.setAttribute('data-bs-toggle', 'tooltip');
-  link.setAttribute('data-bs-placement', 'top');
+  link.setAttribute('data-toggle', 'tooltip');
+  link.setAttribute('data-placement', 'top');
   link.setAttribute('title', tooltipText);
 
   const icon = document.createElement('i');
@@ -316,8 +316,8 @@ socialLinks.appendChild(createLink('https://bermain.asia', '', 'bi bi-at', 'Webs
 // Append Google Scholar link separately due to different structure
 const scholarLink = document.createElement('a');
 scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
-scholarLink.setAttribute('data-bs-toggle', 'tooltip');
-scholarLink.setAttribute('data-bs-placement', 'top');
+scholarLink.setAttribute('data-toggle', 'tooltip');
+scholarLink.setAttribute('data-placement', 'top');
 scholarLink.setAttribute('title', 'Google Scholar');
 
 const scholarIcon = document.createElement('span');
@@ -329,7 +329,7 @@ scholarLink.appendChild(scholarIcon);
 socialLinks.appendChild(scholarLink);
 
 // Initialize Bootstrap tooltips
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
 tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
