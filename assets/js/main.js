@@ -287,13 +287,18 @@ container.appendChild(paragraph);
 const socialLinks = document.createElement('div');
 socialLinks.className = 'social-links';
 
-// Function to create a link with an icon
-function createLink(href, className, iconClass) {
+// Function to create a link with an icon and tooltip
+function createLink(href, className, iconClass, tooltipText) {
   const link = document.createElement('a');
   link.href = href;
   link.target = '_blank';
   link.className = className;
   
+  // Add tooltip attributes
+  link.setAttribute('data-bs-toggle', 'tooltip');
+  link.setAttribute('data-bs-placement', 'top');
+  link.setAttribute('title', tooltipText);
+
   const icon = document.createElement('i');
   icon.className = iconClass;
   link.appendChild(icon);
@@ -301,18 +306,20 @@ function createLink(href, className, iconClass) {
   return link;
 }
 
-// Append social links
-socialLinks.appendChild(createLink('https://paggalih.github.io', 'home', 'bx bx-home'));
-// socialLinks.appendChild(createLink('https://www.tiktok.com/@galihagpradananta', 'tiktok', 'bx bxl-tiktok'));
-socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook'));
-socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt'));
-socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube'));
-socialLinks.appendChild(createLink('https://bermain.asia', '', 'bi bi-at'));
+// Append social links with tooltips
+const socialLinks = document.getElementById('social-links');  // Assuming you have an element with id 'social-links'
+socialLinks.appendChild(createLink('https://paggalih.github.io', 'home', 'bx bx-home', 'Home'));
+socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook', 'Facebook'));
+socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt', 'Instagram'));
+socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube', 'YouTube'));
+socialLinks.appendChild(createLink('https://bermain.asia', '', 'bi bi-at', 'Website'));
 
 // Append Google Scholar link separately due to different structure
 const scholarLink = document.createElement('a');
 scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
-// scholarLink.target = '_blank';
+scholarLink.setAttribute('data-bs-toggle', 'tooltip');
+scholarLink.setAttribute('data-bs-placement', 'top');
+scholarLink.setAttribute('title', 'Google Scholar');
 
 const scholarIcon = document.createElement('span');
 scholarIcon.className = 'material-symbols-outlined';
@@ -321,6 +328,13 @@ scholarIcon.textContent = 'school';
 
 scholarLink.appendChild(scholarIcon);
 socialLinks.appendChild(scholarLink);
+
+// Initialize Bootstrap tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
 
 // Append the social links div to the container
 container.appendChild(socialLinks);
@@ -511,3 +525,9 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 		
 });
+
+    // Mengaktifkan semua tooltip di halaman
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
