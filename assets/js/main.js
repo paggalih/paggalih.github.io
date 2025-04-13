@@ -296,7 +296,7 @@ function createLink(href, className, iconClass, tooltipText) {
   
   // Add tooltip attributes
   link.setAttribute('data-toggle', 'tooltip');
-  link.setAttribute('data-html', 'top');
+  link.setAttribute('data-html', 'true');
   link.setAttribute('title', tooltipText);
 
   const icon = document.createElement('i');
@@ -332,11 +332,26 @@ socialLinks.appendChild(scholarLink);
 // Append the social links div to the container
 container.appendChild(socialLinks);
 
-// Initialize Bootstrap tooltips
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
-tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+    var head = document.getElementsByTagName('head')[0];
+    var script = document.createElement('script');
+    script.type = 'text/javascript';
+    script.src = "http://code.jquery.com/jquery-2.2.1.min.js";
+
+    // Then bind the event to the callback function.
+    // There are several events for cross browser compatibility.
+    script.onreadystatechange = handler;
+    script.onload = handler;
+
+    // Fire the loading
+    head.appendChild(script);
+
+    function handler(){
+       console.log('jquery added :)');
+    }
+		
+		$(document).ready(function(){
+			$('[data-toggle="tooltip"]').tooltip();   
+		});
 
 // Create and append the flag counter link
 const flagCounterLink = document.createElement('a');
