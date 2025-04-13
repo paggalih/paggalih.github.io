@@ -332,6 +332,10 @@ socialLinks.appendChild(scholarLink);
 // Append the social links div to the container
 container.appendChild(socialLinks);
 
+$(document).ready(function(){
+  $('[data-toggle="tooltip"]').tooltip();   
+});
+
 // Create and append the flag counter link
 const flagCounterLink = document.createElement('a');
 flagCounterLink.href = 'https://info.flagcounter.com/rFMs';
