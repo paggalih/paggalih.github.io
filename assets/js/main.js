@@ -334,6 +334,7 @@ tooltipTriggerList.map(function (tooltipTriggerEl) {
   return new bootstrap.Tooltip(tooltipTriggerEl);
 });
 
+container.appendChild(socialLinks);
 
 // Create and append the flag counter link
 const flagCounterLink = document.createElement('a');
