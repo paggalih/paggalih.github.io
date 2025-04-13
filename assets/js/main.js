@@ -332,8 +332,10 @@ socialLinks.appendChild(scholarLink);
 // Append the social links div to the container
 container.appendChild(socialLinks);
 
-$(document).ready(function(){
-  $('[data-toggle="tooltip"]').tooltip();   
+// Initialize Bootstrap tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
+tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
 });
 
 // Create and append the flag counter link
