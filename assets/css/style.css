@@ -1466,7 +1466,7 @@ section {
 
 .pasfoto {
     width: 110%;
-    max-width: 400px; /* Batas maksimum gambar di PC */
+    max-width: 350px; /* Batas maksimum gambar di PC */
     height: auto; /* Biarkan proporsional */
     display: block;
     margin: 0 auto; /* Pusatkan gambar */
