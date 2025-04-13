@@ -295,8 +295,8 @@ function createLink(href, className, iconClass, tooltipText) {
   link.className = className;
   
   // Add tooltip attributes
-  link.setAttribute('data-toggle', 'tooltip');
-  link.setAttribute('data-html', 'true');
+  link.setAttribute('data-bs-toggle', 'tooltip');
+  link.setAttribute('data-bs-placement', 'top');
   link.setAttribute('title', tooltipText);
 
   const icon = document.createElement('i');
@@ -307,7 +307,6 @@ function createLink(href, className, iconClass, tooltipText) {
 }
 
 // Append social links with tooltips
-const socialLinks = document.getElementById('social-links');  // Assuming you have an element with id 'social-links'
 socialLinks.appendChild(createLink('https://paggalih.github.io', 'home', 'bx bx-home', 'Home'));
 socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook', 'Facebook'));
 socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt', 'Instagram'));
@@ -317,8 +316,8 @@ socialLinks.appendChild(createLink('https://bermain.asia', '', 'bi bi-at', 'Webs
 // Append Google Scholar link separately due to different structure
 const scholarLink = document.createElement('a');
 scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
-scholarLink.setAttribute('data-toggle', 'tooltip');
-scholarLink.setAttribute('data-html', 'true');
+scholarLink.setAttribute('data-bs-toggle', 'tooltip');
+scholarLink.setAttribute('data-bs-placement', 'top');
 scholarLink.setAttribute('title', 'Google Scholar');
 
 const scholarIcon = document.createElement('span');
@@ -328,6 +327,13 @@ scholarIcon.textContent = 'school';
 
 scholarLink.appendChild(scholarIcon);
 socialLinks.appendChild(scholarLink);
+
+// Initialize Bootstrap tooltips
+var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+tooltipTriggerList.map(function (tooltipTriggerEl) {
+  return new bootstrap.Tooltip(tooltipTriggerEl);
+});
+
 
 // Create and append the flag counter link
 const flagCounterLink = document.createElement('a');
