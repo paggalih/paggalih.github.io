@@ -30,6 +30,7 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+
   </head>
   <body>
     <!-- ======= Mobile nav toggle button ======= -->
@@ -95,7 +96,7 @@
 							<a href="https://www.tiktok.com/@galihagpradananta" target="_blank" class="tiktok">
 								<i class="bx bxl-tiktok"></i>
 							</a>
-							<a href="https://www.facebook.com/paggalih" target="_blank" class="facebook">
+							<a href="https://www.facebook.com/paggalih" target="_blank" class="facebook" data-bs-toggle="tooltip" data-bs-placement="top" title="Facebook">
 								<i class="bx bxl-facebook"></i>
 							</a>
 							<a href="https://www.instagram.com/paggalih/" target="_blank" class="instagram-alt">
@@ -111,6 +112,13 @@
 								<span class="material-symbols-outlined">school</span>
 							</a>
 						</div>
+<script>
+    // Mengaktifkan semua tooltip di halaman
+    var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+    tooltipTriggerList.map(function (tooltipTriggerEl) {
+        return new bootstrap.Tooltip(tooltipTriggerEl);
+    });
+</script>
             </div>
 			</div>
       </div>
