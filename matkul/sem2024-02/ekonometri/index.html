@@ -472,7 +472,64 @@
                     <div class="section-title">
                         <h2>Pertemuan 5</h2>
                     </div>
-			
+<h1 class="text-center">Bab 5: Diagnostik Regresi II – Heteroskedastisitas</h1>
+
+<h2>1. Pengertian dan Konsekuensi</h2>
+<p><strong>Heteroskedastisitas</strong> adalah kondisi di mana varian galat tidak konstan di seluruh observasi, terutama pada data cross-section.</p>
+<p>Model klasik mengasumsikan:</p>
+<p>\[ \text{Var}(u_i) = \sigma^2 \]</p>
+<p>Heteroskedastisitas terjadi jika:</p>
+<p>\[ \text{Var}(u_i) = \sigma_i^2 \]</p>
+<p><strong>Konsekuensi:</strong></p>
+<ul>
+  <li>OLS tetap <em>unbiased</em> dan konsisten</li>
+  <li>Tidak efisien (bukan BLUE)</li>
+  <li>Statistik \( t \) dan \( F \) bisa menyesatkan</li>
+  <li>Solusi: Weighted Least Squares (WLS)</li>
+</ul>
+
+<h2>2. Studi Kasus: Tingkat Aborsi di AS</h2>
+<ul>
+  <li>Model regresi: \( \text{ABR}_i = \beta_1 + \beta_2 X_{2i} + \cdots + \beta_k X_{ki} + u_i \)</li>
+  <li>Variabel signifikan: \( \text{PRICE}, \text{INCOME}, \text{PICKET} \)</li>
+  <li>\( R^2 = 0.58 \), tetapi ada indikasi heteroskedastisitas dari grafik residu kuadrat</li>
+</ul>
+
+<h2>3. Uji Deteksi Heteroskedastisitas</h2>
+<h4>Breusch–Pagan Test</h4>
+<p>Langkah:</p>
+<ol>
+  <li>Hitung residu kuadrat \( e_i^2 \)</li>
+  <li>Regresi \( e_i^2 = A_1 + A_2 X_{2i} + \cdots + A_k X_{ki} + v_i \)</li>
+  <li>Hipotesis nol: semua \( A_j = 0 \)</li>
+  <li>Gunakan \( nR^2 \sim \chi^2_k \)</li>
+</ol>
+
+<h4>White Test</h4>
+<p>Regresikan \( e_i^2 \) pada:</p>
+<ul>
+  <li>Variabel asli</li>
+  <li>Kuadrat variabel</li>
+  <li>Cross-product variabel</li>
+</ul>
+<p>Atau versi singkat:</p>
+<p>\[ e_i^2 = \alpha_1 + \alpha_2 \hat{Y}_i + \alpha_3 \hat{Y}_i^2 + v_i \]</p>
+
+<h2>4. Solusi Heteroskedastisitas</h2>
+<ol>
+  <li><strong>Transformasi Model:</strong> bagi seluruh persamaan dengan variabel penyebab varians berubah.</li>
+  <li><strong>Log Transformasi:</strong> gunakan model semi-log: \( \log(Y) = \beta_0 + \beta_1 X_1 + \cdots + \beta_k X_k + u \)</li>
+  <li><strong>White's Robust Standard Errors:</strong> koreksi standard error tanpa mengubah koefisien \( \beta \).</li>
+</ol>
+
+<h2>5. Kesimpulan</h2>
+<ul>
+  <li>Heteroskedastisitas adalah pelanggaran asumsi CLRM yang umum</li>
+  <li>Tidak merusak unbiasedness, tapi mengurangi efisiensi</li>
+  <li>Gunakan uji BP dan White untuk deteksi</li>
+  <li>Solusi: transformasi atau gunakan <em>robust standard errors</em></li>
+</ul>
+
                 </div>
             </section>
             <section id="p6">
