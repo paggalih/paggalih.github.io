@@ -609,7 +609,7 @@ Dengan metode estimasi interval kepercayaan, ia dapat menentukan jumlah stok yan
     <p>Pengujian hipotesis adalah metode statistik yang digunakan untuk membuat keputusan tentang parameter populasi berdasarkan data sampel. Komponen utama dalam pengujian hipotesis meliputi:</p>
     <ul>
         <li><strong>Hipotesis Nol (\(H_0\))</strong>: Pernyataan bahwa tidak ada perbedaan atau efek dalam populasi.</li>
-        <li><strong>Hipotesis Alternatif (\(H_a\))</strong>: Pernyataan yang bertentangan dengan \(H_0\), menunjukkan adanya perbedaan atau efek.</li>
+        <li><strong>Hipotesis Alternatif (\(H_1\))</strong>: Pernyataan yang bertentangan dengan \(H_0\), menunjukkan adanya perbedaan atau efek.</li>
         <li><strong>Statistik Uji</strong>: Nilai yang dihitung dari data sampel untuk menentukan apakah \(H_0\) dapat ditolak.</li>
         <li><strong>P-value</strong>: Probabilitas mendapatkan hasil yang diamati jika \(H_0\) benar.</li>
         <li><strong>Tingkat Signifikansi (\(\alpha\))</strong>: Batas probabilitas (biasanya 0.05) untuk menolak \(H_0\).</li>
@@ -717,6 +717,78 @@ Dengan metode estimasi interval kepercayaan, ia dapat menentukan jumlah stok yan
                     <div class="section-title">
                         <h2>Pertemuan 5</h2>
                     </div>
+  <h2>Bab 12: Inferensi tentang Populasi</h2>
+
+  <p>Bab ini membahas teknik inferensial statistik yang digunakan untuk mendeskripsikan populasi, baik untuk data interval maupun data nominal.</p>
+
+  <h3>12-1. Inferensi terhadap Rata-rata Populasi saat Simpangan Baku Tidak Diketahui</h3>
+  <p>Saat simpangan baku populasi tidak diketahui, kita menggunakan <em>Student's t-distribution</em>.</p>
+  
+  <p><strong>Statistik uji:</strong></p>
+  <p>
+    \[
+    t = \frac{\bar{x} - \mu}{s / \sqrt{n}}, \quad \text{dengan derajat bebas } \nu = n - 1
+    \]
+  </p>
+
+  <p><strong>Estimator interval kepercayaan:</strong></p>
+  <p>
+    \[
+    \bar{x} \pm t_{\alpha/2} \cdot \frac{s}{\sqrt{n}}
+    \]
+  </p>
+
+  <h3>12-2. Inferensi terhadap Variansi Populasi</h3>
+  <p>Untuk menguji variansi populasi, digunakan distribusi chi-kuadrat.</p>
+
+  <p><strong>Statistik uji:</strong></p>
+  <p>
+    \[
+    \chi^2 = \frac{(n - 1)s^2}{\sigma^2}
+    \]
+  </p>
+
+  <p><strong>Estimator interval kepercayaan:</strong></p>
+  <p>
+    \[
+    \text{LCL} = \frac{(n - 1)s^2}{\chi^2_{\alpha/2}}, \quad \text{UCL} = \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2}}
+    \]
+  </p>
+
+  <h3>12-3. Inferensi terhadap Proporsi Populasi</h3>
+  <p>Saat data bersifat nominal, parameter yang diuji adalah proporsi populasi, \( p \).</p>
+
+  <p><strong>Statistik uji:</strong></p>
+  <p>
+    \[
+    z = \frac{\hat{p} - p}{\sqrt{p(1 - p)/n}}
+    \]
+  </p>
+
+  <p><strong>Estimator interval kepercayaan:</strong></p>
+  <p>
+    \[
+    \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+    \]
+  </p>
+
+  <p><strong>Estimasi jumlah total sukses di populasi terbatas:</strong></p>
+  <p>
+    \[
+    N \left( \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \right)
+    \]
+  </p>
+
+  <p><strong>Penentuan ukuran sampel untuk estimasi proporsi:</strong></p>
+  <p>
+    \[
+    n = \left( \frac{z_{\alpha/2} \cdot \sqrt{\hat{p}(1 - \hat{p})}}{B} \right)^2
+    \]
+  </p>
+
+  <h3>12-4. (Opsional) Aplikasi Pemasaran: Segmentasi Pasar</h3>
+  <p>Teknik inferensi juga dapat digunakan untuk memperkirakan ukuran segmen pasar dari survei. Ukuran segmen ditentukan dari proporsi hasil survei dikalikan jumlah total populasi.</p>
+
                 </div>
             </section>
             <section id="p6">
