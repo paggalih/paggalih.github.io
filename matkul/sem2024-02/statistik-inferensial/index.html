@@ -719,76 +719,116 @@ Dengan metode estimasi interval kepercayaan, ia dapat menentukan jumlah stok yan
                     </div>
   <h2>Bab 12: Inferensi tentang Populasi</h2>
 
-  <p>Bab ini membahas teknik inferensial statistik yang digunakan untuk mendeskripsikan populasi, baik untuk data interval maupun data nominal.</p>
+  <p>Bab ini membahas teknik inferensial statistik untuk mendeskripsikan parameter populasi berdasarkan data sampel.</p>
 
   <h3>12-1. Inferensi terhadap Rata-rata Populasi saat Simpangan Baku Tidak Diketahui</h3>
-  <p>Saat simpangan baku populasi tidak diketahui, kita menggunakan <em>Student's t-distribution</em>.</p>
-  
-  <p><strong>Statistik uji:</strong></p>
-  <p>
-    \[
-    t = \frac{\bar{x} - \mu}{s / \sqrt{n}}, \quad \text{dengan derajat bebas } \nu = n - 1
-    \]
-  </p>
+  <p>Gunakan distribusi t ketika simpangan baku populasi tidak diketahui.</p>
 
-  <p><strong>Estimator interval kepercayaan:</strong></p>
-  <p>
-    \[
-    \bar{x} \pm t_{\alpha/2} \cdot \frac{s}{\sqrt{n}}
-    \]
-  </p>
+  <p><strong>Statistik uji:</strong></p>
+  \[
+  t = \frac{\bar{x} - \mu}{s / \sqrt{n}}, \quad \text{df} = n - 1
+  \]
+
+  <p><strong>Interval kepercayaan:</strong></p>
+  \[
+  \bar{x} \pm t_{\alpha/2} \cdot \frac{s}{\sqrt{n}}
+  \]
+
+  <p><strong>Contoh:</strong> Rata-rata waktu tidur 12 mahasiswa adalah 6.75 jam per malam, dengan simpangan baku sampel 0.945 jam. Hitung interval kepercayaan 95% untuk rata-rata jumlah tidur seluruh mahasiswa.</p>
+  <p><strong>Jawaban:</strong></p>
+  \[
+  \text{CI} = 6.75 \pm t_{0.025, 11} \cdot \frac{0.945}{\sqrt{12}} \approx 6.75 \pm 0.535
+  \]
+  <p>Jadi, interval kepercayaan: (6.215, 7.285)</p>
+
+  <hr>
 
   <h3>12-2. Inferensi terhadap Variansi Populasi</h3>
-  <p>Untuk menguji variansi populasi, digunakan distribusi chi-kuadrat.</p>
+  <p>Menggunakan distribusi chi-kuadrat.</p>
 
   <p><strong>Statistik uji:</strong></p>
-  <p>
-    \[
-    \chi^2 = \frac{(n - 1)s^2}{\sigma^2}
-    \]
-  </p>
+  \[
+  \chi^2 = \frac{(n - 1)s^2}{\sigma^2}
+  \]
 
-  <p><strong>Estimator interval kepercayaan:</strong></p>
-  <p>
-    \[
-    \text{LCL} = \frac{(n - 1)s^2}{\chi^2_{\alpha/2}}, \quad \text{UCL} = \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2}}
-    \]
-  </p>
+  <p><strong>Interval kepercayaan untuk variansi:</strong></p>
+  \[
+  \left( \frac{(n - 1)s^2}{\chi^2_{\alpha/2}}, \frac{(n - 1)s^2}{\chi^2_{1 - \alpha/2}} \right)
+  \]
+
+  <p><strong>Contoh:</strong> Sebuah mesin menghasilkan bagian dengan simpangan baku sampel 0.0198 dari 15 bagian. Hitung interval kepercayaan 95% untuk simpangan baku populasi.</p>
+  <p><strong>Jawaban:</strong></p>
+  \[
+  \text{CI variansi} = \left( \frac{14 \cdot 0.0198^2}{\chi^2_{0.025}}, \frac{14 \cdot 0.0198^2}{\chi^2_{0.975}} \right)
+  \]
+  <p>CI simpangan baku diperoleh dari akar variansinya.</p>
+
+  <hr>
 
   <h3>12-3. Inferensi terhadap Proporsi Populasi</h3>
-  <p>Saat data bersifat nominal, parameter yang diuji adalah proporsi populasi, \( p \).</p>
 
   <p><strong>Statistik uji:</strong></p>
-  <p>
-    \[
-    z = \frac{\hat{p} - p}{\sqrt{p(1 - p)/n}}
-    \]
-  </p>
+  \[
+  z = \frac{\hat{p} - p}{\sqrt{p(1 - p)/n}}
+  \]
 
-  <p><strong>Estimator interval kepercayaan:</strong></p>
-  <p>
-    \[
-    \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
-    \]
-  </p>
+  <p><strong>Interval kepercayaan:</strong></p>
+  \[
+  \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}}
+  \]
 
-  <p><strong>Estimasi jumlah total sukses di populasi terbatas:</strong></p>
-  <p>
-    \[
-    N \left( \hat{p} \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}(1 - \hat{p})}{n}} \right)
-    \]
-  </p>
+  <p><strong>Contoh:</strong> Dalam survei terhadap 1000 pelanggan, 380 menyatakan puas terhadap layanan. Hitung interval kepercayaan 95% terhadap proporsi pelanggan yang puas.</p>
+  <p><strong>Jawaban:</strong></p>
+  \[
+  \hat{p} = \frac{380}{1000} = 0.38,\quad SE = \sqrt{\frac{0.38(0.62)}{1000}} \approx 0.0153
+  \]
+  \[
+  \text{CI} = 0.38 \pm 1.96 \cdot 0.0153 \approx (0.350, 0.410)
+  \]
 
-  <p><strong>Penentuan ukuran sampel untuk estimasi proporsi:</strong></p>
-  <p>
-    \[
-    n = \left( \frac{z_{\alpha/2} \cdot \sqrt{\hat{p}(1 - \hat{p})}}{B} \right)^2
-    \]
-  </p>
+  <p><strong>Ukuran sampel untuk proporsi:</strong></p>
+  \[
+  n = \left( \frac{z_{\alpha/2} \cdot \sqrt{\hat{p}(1 - \hat{p})}}{B} \right)^2
+  \]
 
-  <h3>12-4. (Opsional) Aplikasi Pemasaran: Segmentasi Pasar</h3>
-  <p>Teknik inferensi juga dapat digunakan untuk memperkirakan ukuran segmen pasar dari survei. Ukuran segmen ditentukan dari proporsi hasil survei dikalikan jumlah total populasi.</p>
+  <p><strong>Contoh:</strong> Untuk estimasi proporsi dengan margin kesalahan 3% dan \( \hat{p} = 0.5 \), hitung ukuran sampel untuk tingkat kepercayaan 95%.</p>
+  \[
+  n = \left( \frac{1.96 \cdot \sqrt{0.5 \cdot 0.5}}{0.03} \right)^2 \approx 1067
+  \]
 
+  <hr>
+
+  <h3>12-4. Aplikasi Pemasaran: Segmentasi Pasar</h3>
+  <p>Jika hasil survei menunjukkan bahwa 18 dari 100 orang dalam sampel menunjukkan minat terhadap suatu produk, dan total populasi target adalah 10.000, maka estimasi ukuran segmen pasar adalah:</p>
+  \[
+  10.000 \cdot \left( \frac{18}{100} \right) = 1800
+  \]
+    <div class="container mt-5">
+        <div class="accordion" id="accordionP4">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP4">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP4" aria-expanded="true" aria-controls="collapseP4">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP4" class="accordion-collapse collapse" aria-labelledby="headingP4" data-bs-parent="#accordionP4">
+                    <div class="accordion-body">
+												<p>Soal 1: 
+												</p>
+
+												<p>Soal 2:
+												</p>
+
+												<p>Soal 3:
+												</p>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
             </section>
             <section id="p6">
