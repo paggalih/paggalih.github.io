@@ -872,6 +872,80 @@ Dengan metode estimasi interval kepercayaan, ia dapat menentukan jumlah stok yan
                     <div class="section-title">
                         <h2>Pertemuan 6</h2>
                     </div>
+<h2>1. Uji Z untuk Selisih Dua Rata-rata (σ diketahui)</h2>
+<p>
+\[
+z = \frac{(7.000.000 - 6.500.000)}{\sqrt{\frac{1.000.000^2}{36} + \frac{1.200.000^2}{49}}} = 2{,}0912
+\]
+</p>
+<p>
+Nilai p-value: \( 0{,}0365 \). Karena \( p < 0{,}05 \), maka <b>ada perbedaan signifikan</b> antara rata-rata penghasilan.
+</p>
+
+<hr>
+
+<h2>2. Uji t Dua Sampel (σ tidak diketahui, varians diasumsikan sama)</h2>
+<p>
+\[
+t = \frac{(210 - 200)}{s_p \cdot \sqrt{\frac{1}{10} + \frac{1}{12}}}, \quad s_p = 17{,}707
+\Rightarrow t = 1{,}303
+\]
+</p>
+<p>
+Derajat bebas: \( df = 20 \), p-value: \( 0{,}2074 \). Karena \( p > 0{,}05 \), <b>tidak signifikan</b>.
+</p>
+
+<hr>
+
+<h2>3. Uji t Welch (varians tidak sama)</h2>
+<p>
+\[
+t = \frac{4{,}5 - 3{,}8}{\sqrt{\frac{1{,}2^2}{15} + \frac{2^2}{10}}} = 0{,}9939
+\]
+</p>
+<p>
+Derajat bebas: \( df \approx 13{,}34 \), p-value: \( 0{,}3379 \). <b>Tidak signifikan</b>.
+</p>
+
+<hr>
+
+<h2>4. Uji Z untuk Selisih Dua Proporsi</h2>
+<p>
+\[
+\hat{p}_1 = \frac{150}{200} = 0{,}75, \quad \hat{p}_2 = \frac{126}{180} = 0{,}7, \quad p = \frac{276}{380} \approx 0{,}726
+\]
+\[
+z = \frac{0{,}75 - 0{,}7}{\sqrt{0{,}726 \cdot (1 - 0{,}726) \cdot \left( \frac{1}{200} + \frac{1}{180} \right)}} = 1{,}0915
+\]
+</p>
+<p>
+p-value: \( 0{,}275 \). Karena \( p > 0{,}05 \), maka <b>tidak signifikan</b>.
+</p>
+
+<hr>
+
+<h2>5. Interval Kepercayaan Selisih Proporsi (95%)</h2>
+<p>
+\[
+\text{CI} = (0{,}75 - 0{,}7) \pm 1{,}96 \cdot \sqrt{\frac{0{,}75 \cdot 0{,}25}{200} + \frac{0{,}7 \cdot 0{,}3}{180}} 
+= ( -0{,}0399, 0{,}1399 )
+\]
+</p>
+<p>
+Karena interval mencakup nol, maka <b>tidak ada perbedaan signifikan</b>.
+</p>
+
+<hr>
+
+<h2>6. Uji F untuk Perbandingan Varians</h2>
+<p>
+\[
+F = \frac{16}{9} = 1{,}7778
+\]
+</p>
+<p>
+Derajat bebas: \( df_1 = 24 \), \( df_2 = 19 \), p-value: \( \approx 0{,}1575 \) → <b>tidak signifikan</b> (karena \( p > 0{,}05 \)).
+</p>
                 </div>
             </section>
             <section id="p7">
