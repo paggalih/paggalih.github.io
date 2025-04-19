@@ -291,7 +291,7 @@ socialLinks.className = 'social-links';
 function createLink(href, className, iconClass, tooltipText) {
   const link = document.createElement('a');
   link.href = href;
-  link.target = '_blank';
+  // link.target = '_blank';
   link.className = className;
   
   // Add tooltip attributes
