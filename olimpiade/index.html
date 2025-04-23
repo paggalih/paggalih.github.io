@@ -1,38 +1,11 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Index Olimpiade</title>
-    <script>
-        async function fetchGitHubFolders() {
-            const repo = "paggalih.github.io";
-            const branch = "main";
-            const path = "olimpiade";
-            const apiUrl = `https://api.github.com/repos/paggalih/${repo}/contents/${path}?ref=${branch}`;
-
-            try {
-                let response = await fetch(apiUrl);
-                let data = await response.json();
-                let listContainer = document.getElementById("folder-list");
-
-                data.forEach(item => {
-                    if (item.type === "dir") {
-                        let listItem = document.createElement("li");
-                        let link = document.createElement("a");
-                        link.href = `./${item.name}/`;
-                        link.textContent = item.name;
-                        listItem.appendChild(link);
-                        listContainer.appendChild(listItem);
-                    }
-                });
-            } catch (error) {
-                console.error("Gagal mengambil data dari GitHub API:", error);
-            }
-        }
-
-        document.addEventListener("DOMContentLoaded", fetchGitHubFolders);
-    </script>
+	<!DOCTYPE html>
+	<html lang="id-ID">
+			<head>
+					<meta charset="utf-8">
+					<meta content="width=device-width, initial-scale=1.0" name="viewport">
+					<title>Statistik</title>
+					<meta content="Kumpulan Soal Olimpiade dari Berbagai Tingkatan yang Tidak Dirapikan" name="description">
+					<meta content="olimpiade matematika" name="keywords">
 					<meta name="author" content="Galih Pradananta">
 					<!-- Favicons -->
 					<link href="/assets/img/letter-g.gif" rel="icon">
@@ -65,6 +38,36 @@
 							};
 					</script>
 					<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+    <script>
+        async function fetchGitHubFolders() {
+            const repo = "paggalih.github.io";
+            const branch = "main";
+            const path = "olimpiade";
+            const apiUrl = `https://api.github.com/repos/paggalih/${repo}/contents/${path}?ref=${branch}`;
+
+            try {
+                let response = await fetch(apiUrl);
+                let data = await response.json();
+                let listContainer = document.getElementById("folder-list");
+
+                data.forEach(item => {
+                    if (item.type === "dir") {
+                        let listItem = document.createElement("li");
+                        let link = document.createElement("a");
+                        link.href = `./${item.name}/`;
+                        link.textContent = item.name;
+                        listItem.appendChild(link);
+                        listContainer.appendChild(listItem);
+                    }
+                });
+            } catch (error) {
+                console.error("Gagal mengambil data dari GitHub API:", error);
+            }
+        }
+
+        document.addEventListener("DOMContentLoaded", fetchGitHubFolders);
+    </script>
+					
 <style>
 	body{
 		padding:20px;
