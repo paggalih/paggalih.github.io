@@ -784,7 +784,108 @@
                     <div class="section-title">
                         <h2>Pertemuan 6</h2>
                     </div>
+  <h2 class="text-center mb-4">Masalah Pemrograman Linier: Studio Kaca</h2>
 
+  <h5>Rangkuman Materi:</h5>
+  <p>Pemrograman linier adalah metode untuk memaksimalkan atau meminimalkan suatu fungsi objektif linear yang dibatasi oleh kendala dalam bentuk pertidaksamaan linear. Teknik ini sangat penting dalam ekonomi dan manajemen untuk membantu pengambilan keputusan optimal dengan sumber daya terbatas.</p>
+  <p>Model dasar pemrograman linier terdiri dari:</p>
+  <ul>
+    <li>Fungsi objektif: fungsi yang akan dioptimalkan (maksimum/minimum)</li>
+    <li>Variabel keputusan: besaran yang harus ditentukan nilainya</li>
+    <li>Kendala: batasan yang dikenakan pada variabel keputusan</li>
+    <li>Daerah layak: himpunan solusi yang memenuhi semua kendala</li>
+  </ul>
+
+  <p>Solusi optimal dari masalah pemrograman linier dengan dua variabel dapat ditemukan secara grafis melalui:</p>
+  <ol>
+    <li>Menggambar daerah layak berdasarkan semua kendala</li>
+    <li>Menentukan titik sudut daerah layak</li>
+    <li>Menilai fungsi objektif di titik-titik sudut tersebut</li>
+  </ol>
+
+  <h5>Soal Studi Kasus:</h5>
+  <p>Sebuah studio kerajinan memproduksi <strong>mangkuk kaca</strong> dan <strong>piring kaca</strong>. Keuntungan yang diperoleh dari penjualan adalah $150 per mangkuk dan $100 per piring.</p>
+
+  <h5>Variabel Keputusan:</h5>
+  <ul>
+    <li>\( x \) = jumlah mangkuk yang diproduksi</li>
+    <li>\( y \) = jumlah piring yang diproduksi</li>
+  </ul>
+
+  <h5>Fungsi Objektif:</h5>
+  <p>\[ \text{Maksimalkan } Z = 150x + 100y \]</p>
+
+  <h5>Kendala:</h5>
+  <ul>
+    <li>Waktu meniup kaca: \( 2x + y \leq 70 \)</li>
+    <li>Waktu pendinginan kaca: \( 4x + y \leq 130 \)</li>
+    <li>Ketersediaan pasir silika: \( x + y \leq 45 \)</li>
+    <li>Kendala non-negativitas: \( x \geq 0, \quad y \geq 0 \)</li>
+  </ul>
+
+  <h5>Langkah Penyelesaian:</h5>
+  <ol>
+    <li>Sketsa wilayah layak berdasarkan tiga garis batas:</li>
+    <ul>
+      <li>\( 2x + y = 70 \) melalui titik \( (0, 70) \) dan \( (35, 0) \)</li>
+      <li>\( 4x + y = 130 \) melalui titik \( (0, 130) \) dan \( (32.5, 0) \)</li>
+      <li>\( x + y = 45 \) melalui titik \( (0, 45) \) dan \( (45, 0) \)</li>
+    </ul>
+    <li>Tentukan titik sudut daerah layak: (0,0), (0,45), (25,20), (30,10), dan (32.5,0)</li>
+    <li>Evaluasi fungsi objektif di setiap titik:</li>
+    <ul>
+      <li>\( (0,0): Z = 150(0) + 100(0) = 0 \)</li>
+      <li>\( (0,45): Z = 150(0) + 100(45) = 4500 \)</li>
+      <li>\( (25,20): Z = 150(25) + 100(20) = 5750 \)</li>
+      <li>\( (30,10): Z = 150(30) + 100(10) = 5500 \)</li>
+      <li>\( (32.5,0): Z = 150(32.5) + 100(0) = 4875 \)</li>
+    </ul>
+    <li>Kesimpulan: Nilai maksimum \( Z = 5750 \) diperoleh saat \( x = 25 \) dan \( y = 20 \)</li>
+  </ol>
+
+  <h5>Analisis Shadow Price:</h5>
+  <p>Jika waktu meniup kaca ditambah 1 jam menjadi \( 2x + y \leq 71 \), maka:</p>
+  <ul>
+    <li>Garis menjadi \( 2x + y = 71 \), berpotongan dengan \( x + y = 45 \)</li>
+    <li>Solusi sistem:
+      \[
+        \begin{aligned}
+        x + y &= 45 \\
+        2x + y &= 71
+        \end{aligned}
+      \]
+      \[
+        x = 26, \quad y = 19
+      \]
+    </li>
+    <li>Profit baru: \( 150(26) + 100(19) = 5800 \)</li>
+    <li>Selisih profit: \( 5800 - 5750 = 50 \Rightarrow \text{Shadow Price} = 50 \)</li>
+  </ul>
+    <div class="container mt-5">      
+        <div class="accordion" id="accordionP6">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP6">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP6" aria-expanded="true" aria-controls="collapseP6">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP6" class="accordion-collapse collapse" aria-labelledby="headingP6" data-bs-parent="#accordionP6">
+                    <div class="accordion-body">
+												<p>Soal 1: 
+												</p>
+
+												<p>Soal 2:
+												</p>
+
+												<p>Soal 3:
+												</p>
+
+										</div>
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
             </section>
             <section id="p7">
