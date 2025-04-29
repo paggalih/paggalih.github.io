@@ -975,6 +975,68 @@ Pemerintah: \( s_2^2 = 9, n_2 = 20 \)</p>
 F = \frac{16}{9} = 1{,}7778, \quad p\text{-value} \approx 0{,}1575 \Rightarrow \text{Tidak signifikan}
 \]
 
+<h2>7. Uji T untuk Data Berpasangan</h2>
+<p><strong>Rumus:</strong></p>
+\[
+t = \frac{\overline{x}_D-\mu_D}{s_D\/\sqrt{n_D}}
+\]
+
+<p><strong>Contoh:</strong>  
+<p>
+Banyak orang menggunakan pemindai (scanner) untuk membaca dokumen dan menyimpannya dalam file Word (atau perangkat lunak lainnya).
+Untuk menentukan merek scanner mana yang lebih baik untuk dibeli, seorang mahasiswa melakukan eksperimen dengan memindai 8 dokumen menggunakan masing-masing dari dua scanner yang ingin dibandingkannya.
+</p>
+
+<p>
+Ia mencatat jumlah kesalahan (errors) yang terjadi untuk masing-masing scanner. Data dicatat sebagai berikut:
+</p>
+
+<table border="1" cellpadding="4">
+<tr>
+  <th>Dokumen</th>
+  <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+</tr>
+<tr>
+  <th>Brand A</th>
+  <td>17</td><td>29</td><td>18</td><td>14</td><td>21</td><td>25</td><td>22</td><td>29</td>
+</tr>
+<tr>
+  <th>Brand B</th>
+  <td>21</td><td>38</td><td>15</td><td>19</td><td>22</td><td>30</td><td>31</td><td>37</td>
+</tr>
+</table>
+
+<h3>Pertanyaan:</h3>
+<ul>
+  <li>Apakah dapat disimpulkan bahwa Brand A (scanner yang lebih mahal) lebih baik daripada Brand B, dengan data ini?</li>
+</ul>
+
+<h3>Hipotesis:</h3>
+
+<p>
+\[
+H_0: \mu_d = 0 \quad \text{(tidak ada perbedaan kesalahan)}
+\]
+\[
+H_1: \mu_d &lt; 0 \quad \text{(Brand A memiliki lebih sedikit kesalahan daripada Brand B)}
+\]
+</p>
+
+<h3>Langkah Penyelesaian:</h3>
+<ol>
+  <li>Hitung selisih tiap pasangan: \( d_i = \text{Brand A} - \text{Brand B} \)</li>
+  <li>Hitung rata-rata selisih \( \bar{d} \) dan simpangan baku \( s_d \)</li>
+  <li>Hitung nilai statistik uji:</li>
+
+  <p>
+  \[
+  t = \frac{\bar{d}}{s_d/\sqrt{n}}
+  \]
+  </p>
+
+  <li>Bandingkan nilai \( t \) dengan nilai kritis \( t \)-distribusi pada \( \alpha = 0.05 \) untuk uji satu arah (left-tailed test).</li>
+</ol>
+
     <div class="container mt-5">
         <div class="accordion" id="accordionP6">
             
