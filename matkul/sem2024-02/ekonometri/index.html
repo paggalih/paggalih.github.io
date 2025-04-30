@@ -537,7 +537,72 @@
                     <div class="section-title">
                         <h2>Pertemuan 6</h2>
                     </div>
+  <h1 class="text-center">Bab 6: Diagnostik Regresi III – Autokorelasi</h1>
 
+  <h2>1. Konsep dan Konsekuensi</h2>
+  <p>Autokorelasi terjadi jika error term \( u_t \) berkorelasi dengan nilai sebelumnya seperti \( u_{t-1} \).</p>
+  <p><strong>Konsekuensi:</strong></p>
+  <ul>
+    <li>OLS tetap unbiased dan konsisten</li>
+    <li>Tetapi tidak efisien (bukan BLUE)</li>
+    <li>Standard error salah estimasi → \( t \)-statistik dan uji hipotesis menjadi bias</li>
+  </ul>
+
+  <h2>2. Contoh Kasus: Fungsi Konsumsi AS</h2>
+  <p>Model regresi:</p>
+  <p>\[ \ln C_t = \beta_1 + \beta_2 \ln DPI_t + \beta_3 \ln W_t + \beta_4 R_t + u_t \]</p>
+  <p>Indikasi autokorelasi: nilai Durbin–Watson = 1.28</p>
+
+  <h2>3. Uji Autokorelasi</h2>
+  <h5>a. Grafik</h5>
+  <p>Plot residual \( e_t \) → jika berpola, indikasi autokorelasi</p>
+
+  <h5>b. Durbin–Watson</h5>
+  <ul>
+    <li>\( d < d_L \) → autokorelasi positif</li>
+    <li>\( d > 4 - d_L \) → autokorelasi negatif</li>
+    <li>\( d \approx 2 \) → tidak ada autokorelasi</li>
+  </ul>
+  <p>Contoh: \( d = 1.28 < d_L = 1.452 \) → ada autokorelasi positif</p>
+
+  <h5>c. Uji Breusch–Godfrey (BG)</h5>
+  <p>Model uji:</p>
+  <p>
+    \[ e_t = \alpha_0 + \alpha_1 X_{1t} + \cdots + \alpha_k X_{kt} + \phi_1 e_{t-1} + \cdots + \phi_p e_{t-p} + v_t \]
+  </p>
+  <p>Gunakan \( R^2 \) dari regresi ini untuk uji \( \chi^2 \) atau \( F \).</p>
+
+  <h2>4. Penanganan Autokorelasi</h2>
+  <h5>a. First Difference</h5>
+  <p>
+    \[ \Delta \ln C_t = \beta_2 \Delta \ln DPI_t + \beta_3 \Delta \ln W_t + \beta_4 \Delta R_t + v_t \]
+  </p>
+
+  <h5>b. Generalized Least Squares (GLS)</h5>
+  <p>Asumsi:</p>
+  <p>
+    \[ u_t = \rho u_{t-1} + v_t \quad \Rightarrow \quad e_t = \hat{\rho} e_{t-1} + \text{error} \]
+  </p>
+  <p>Transformasi data menggunakan \( \hat{\rho} \), lakukan regresi ulang</p>
+
+  <h5>c. Newey–West (HAC)</h5>
+  <p>Gunakan standard error yang disesuaikan tanpa mengubah koefisien OLS</p>
+  <p>Cocok untuk data dengan <em>autokorelasi + heteroskedastisitas</em>, efektif jika sampel besar</p>
+
+  <h2>5. Evaluasi Model dan Respesifikasi</h2>
+  <ul>
+    <li>Masukkan \( \ln C_{t-1} \) sebagai regressor → model autoregresif</li>
+    <li>Gunakan uji BG (karena DW tidak berlaku jika ada lag Y)</li>
+    <li>Jika tetap terjadi autokorelasi, gunakan HAC atau IV</li>
+  </ul>
+
+  <h2>6. Kesimpulan</h2>
+  <ul>
+    <li>Autokorelasi umum pada data time series</li>
+    <li>Uji: grafik, DW, BG</li>
+    <li>Penanganan: transformasi (first difference / GLS) atau gunakan HAC</li>
+    <li>Tujuan: memperbaiki standard error untuk inference yang valid</li>
+  </ul>
                 </div>
             </section>
             <section id="p7">
