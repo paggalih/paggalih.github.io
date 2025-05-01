@@ -166,7 +166,7 @@ Ilustrasi untuk $3\times 3.$
 <div class="text-center overflow-auto">
 <img src="//i.upmath.me/svg/%5Cbegin%7Btikzpicture%7D%5Bscale%3D2%5D%0A%0A%25%20Titik-titik%20segitiga%20besar%0A%5Ccoordinate%20(A)%20at%20(0%2C0)%3B%0A%5Ccoordinate%20(B)%20at%20(3%2C0)%3B%0A%5Ccoordinate%20(C)%20at%20(1.5%2C2.598)%3B%20%25%203%E2%88%9A3%2F2%0A%0A%25%20Titik%20di%20sisi%20AB%0A%5Ccoordinate%20(A1)%20at%20(1%2C0)%3B%0A%5Ccoordinate%20(A2)%20at%20(2%2C0)%3B%0A%0A%25%20Titik%20di%20sisi%20AC%20(bagi%203%20secara%20linear)%0A%5Ccoordinate%20(C1)%20at%20(0.5%2C%200.866)%3B%20%20%25%201%2F3%20dari%20A%20ke%20C%0A%5Ccoordinate%20(C2)%20at%20(1.0%2C%201.732)%3B%20%20%25%202%2F3%20dari%20A%20ke%20C%0A%0A%25%20Titik%20di%20sisi%20BC%20(bagi%203%20dari%20B%20ke%20C)%0A%5Ccoordinate%20(B1)%20at%20(2.0%2C%201.732)%3B%20%20%25%201%2F3%20dari%20B%20ke%20C%0A%5Ccoordinate%20(B2)%20at%20(2.5%2C%200.866)%3B%20%20%25%202%2F3%20dari%20B%20ke%20C%0A%0A%25%20Gambar%20segitiga%20besar%0A%5Cdraw%5Bthick%5D%20(A)%20--%20(B)%20--%20(C)%20--%20cycle%3B%0A%0A%25%20Garis-garis%20pembagi%0A%5Cdraw%20(A1)node%5Bbelow%5D%7B%24A_1%24%7D%20--%20(B1)node%5Babove%20right%5D%7B%24B_1%24%7D%3B%0A%5Cdraw%20(A2)node%5Bbelow%5D%7B%24A_2%24%7D%20--%20(B2)node%5Babove%20right%5D%7B%24B_2%24%7D%3B%0A%5Cdraw%20(C1)node%5Babove%20left%5D%7B%24C_1%24%7D%20--%20(A1)%3B%0A%5Cdraw%20(C2)node%5Babove%20left%5D%7B%24C_2%24%7D%20--%20(A2)%3B%0A%5Cdraw%20(C1)%20--%20(B2)%3B%0A%5Cdraw%20(C2)%20--%20(B1)%3B%0A%0A%5Cend%7Btikzpicture%7D" class="img-fluid" alt="i.upmath.me">
 </div>
-Ketika kita mengambil dua titik yang tidak ada garis yang melewati keduanya akan mendefinisikan satu jajargenjang yang unik. Maka tugas kita pertama menghitung total pasangan titik yang tersedia. Sebelum itu jumlahkan seluruh titik yang tersedia yaitu $\dfrac{20\times 21}{2}=210.$ Akibatnya banyaknya pasangan titik yang dapat dibentuk adalah $\binom{210}{2}=\dfrac{210\times 109}{2}.$ Selanjutnya kita cari banyaknya pasangan titik yang dilewati garis. $$\begin{array}{rl}\text{pada garis horizontal ke-1}& \binom{2}{2}\\ \text{pada garis horizontal ke-2}& \binom{3}{2}\\ \cdots & \cdots \\ \text{pada garis horizontal ke-19}& \binom{20}{2} \end{array}$$ Jumlahkan $$\begin{array}{rl}\binom{2}{2}+\binom{3}{2}+\cdots+\binom{20}{2}&=\binom{21}{3}\\ &=\dfrac{21\cdots 20\cdots 19}{6}\end{array}$$ Karena ada tiga tipe garis yaitu horizontal, miring ke kanan, dan miring ke kiri maka hasil tersebut kita kalikan $3$ yaitu $\dfrac{21\cdot 20\cdot 19}{2}$ Maka $$\begin{array}{rl}19k&=\dfrac{210\cdot 109}{2}-\dfrac{21\cdot 20\cdot 19}{2}\\ k&=105\cdot 11-210\\ &=945\end{array}$$
+Ketika kita mengambil dua titik yang tidak ada garis yang melewati keduanya akan mendefinisikan satu jajargenjang yang unik. Maka tugas kita pertama menghitung total pasangan titik yang tersedia. Sebelum itu jumlahkan seluruh titik yang tersedia yaitu $\dfrac{20\times 21}{2}=210.$ Akibatnya banyaknya pasangan titik yang dapat dibentuk adalah $\binom{210}{2}=\dfrac{210\times 109}{2}.$ Selanjutnya kita cari banyaknya pasangan titik yang dilewati garis. $$\begin{array}{rl}\text{pada garis horizontal ke-1}& \binom{2}{2}\\ \text{pada garis horizontal ke-2}& \binom{3}{2}\\ \cdots & \cdots \\ \text{pada garis horizontal ke-19}& \binom{20}{2} \end{array}$$ Jumlahkan $$\begin{array}{rl}\binom{2}{2}+\binom{3}{2}+\cdots+\binom{20}{2}&=\binom{21}{3}\\ &=\dfrac{21\cdot 20\cdot 19}{6}\end{array}$$ Karena ada tiga tipe garis yaitu horizontal, miring ke kanan, dan miring ke kiri maka hasil tersebut kita kalikan $3$ yaitu $\dfrac{21\cdot 20\cdot 19}{2}$ Maka $$\begin{array}{rl}19k&=\dfrac{210\cdot 109}{2}-\dfrac{21\cdot 20\cdot 19}{2}\\ k&=105\cdot 11-210\\ &=945\end{array}$$
 		</div>
 	  </div>
     </div>
@@ -190,8 +190,8 @@ Hasil penjumlahan semua nilai yang mungkin yang \( b \) adalah …
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse4" aria-expanded="false" aria-controls="collapse4">
 			Jawaban
 		  </button>
-		<div class="collapse" id="collapse4">$$\boxed{ == }$$
-Perhatikan $$\begin{array}{rl}\sqrt{a+\dfrac{15}{b}} &= a\sqrt{\dfrac{15}{b}}\hspace{1cm}\text{ (kuadratkan)}\\ a+\dfrac{15}{b}&=a^2\left(\dfrac{15}{b}\right)\hspace{1cm}\text{ (kalikan $\dfrac{b}{a}$)}\\ b+\dfrac{15}{a}&=15a\\ b&=15a-\dfrac{15}{a}\end{array}$$ Karena $a,b\in\mathbb{N}$ maka $a$ faktor dari $15$. Akibatnya $$\begin{array}{rlcrl}a&=1&&b&=15-15=0\boxed{X}\\ a&=3&&b&=45-5=40\boxed{V}\\ a&=5&&b&=75-3=72\boxed{V}\\ a&=15&&b&=225-1=224\boxed{V}\\\end{array}$$ Jadi jumlah seluruh $b$ yang mungkin adalah $$\boxed{336}$$
+		<div class="collapse" id="collapse4">$$\boxed{ 336 }$$
+Perhatikan $$\begin{array}{rl}\sqrt{a+\dfrac{15}{b}} &= a\sqrt{\dfrac{15}{b}}\hspace{1cm}\text{ (kuadratkan)}\\ a+\dfrac{15}{b}&=a^2\left(\dfrac{15}{b}\right)\hspace{1cm}\text{ (kalikan $\dfrac{b}{a}$)}\\ b+\dfrac{15}{a}&=15a\\ b&=15a-\dfrac{15}{a}\end{array}$$ Karena $a,b\in\mathbb{N}$ maka $a$ faktor dari $15$. Akibatnya $$\begin{array}{rlcrlr}a&=1&&b&=15-15=0& \boxed{X}\\ a&=3&&b&=45-5=40& \boxed{V}\\ a&=5&&b&=75-3=72& \boxed{V}\\ a&=15&&b&=225-1=224& \boxed{V}\\\end{array}$$ Jadi jumlah seluruh $b$ yang mungkin adalah $$\boxed{336}$$
 		</div>
 	  </div>
     </div>
@@ -211,7 +211,7 @@ Tinjau barisan semua bilangan tujuh angka (digit) yang masing-masing menggunakan
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse5" aria-expanded="false" aria-controls="collapse5">
 			Jawaban
 		  </button>
-		<div class="collapse" id="collapse5">$$\boxed{97}$$
+		<div class="collapse" id="collapse5">$$\boxed{ == }$$
 ========================
 		</div>
 	  </div>
