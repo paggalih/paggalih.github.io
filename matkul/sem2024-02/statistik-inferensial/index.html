@@ -308,6 +308,9 @@
         </table>
     </div>
 </div>
+<div class="overflow-auto text-center">
+<iframe width="560" height="315" src="https://www.youtube.com/embed/b6YQocYrn5g?si=24PyvKbgOnPhMXu3" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+</div>
                 </div>
             </section>
             <section id="p2">
@@ -1138,6 +1141,216 @@ H_1: \mu_d &lt; 0 \quad \text{(Brand A memiliki lebih sedikit kesalahan daripada
                     <div class="section-title">
                         <h2>Pertemuan 7</h2>
                     </div>
+<h2>5. Interval Kepercayaan Selisih Proporsi (95%)</h2>
+<p><strong>Rumus:</strong></p>
+\[
+(\hat{p}_1 - \hat{p}_2) \pm z_{\alpha/2} \cdot \sqrt{\frac{\hat{p}_1(1 - \hat{p}_1)}{n_1} + \frac{\hat{p}_2(1 - \hat{p}_2)}{n_2}}
+\]
+
+<p><strong>Jawaban:</strong></p>
+\[
+\text{CI} = (-0{,}0399,\ 0{,}1399) \Rightarrow \text{Tidak signifikan karena mencakup nol}
+\]
+
+<hr>
+
+<h2>6. Uji F untuk Perbandingan Dua Varians</h2>
+<p><strong>Rumus:</strong></p>
+\[
+F = \frac{s_1^2}{s_2^2}
+\]
+
+<p><strong>Contoh:</strong>  
+Sektor Swasta: \( s_1^2 = 16, n_1 = 25 \)  
+Pemerintah: \( s_2^2 = 9, n_2 = 20 \)</p>
+
+<p><strong>Jawaban:</strong></p>
+\[
+F = \frac{16}{9} = 1{,}7778, \quad p\text{-value} \approx 0{,}1575 \Rightarrow \text{Tidak signifikan}
+\]
+
+<h2>7. Uji T untuk Data Berpasangan</h2>
+<p><strong>Rumus:</strong></p>
+\[
+t = \frac{\overline{x}_D-\mu_D}{s_D&sol;\sqrt{n_D}}
+\]
+
+<p><strong>Contoh:</strong>  
+<p>
+Banyak orang menggunakan pemindai (scanner) untuk membaca dokumen dan menyimpannya dalam file Word (atau perangkat lunak lainnya).
+Untuk menentukan merek scanner mana yang lebih baik untuk dibeli, seorang mahasiswa melakukan eksperimen dengan memindai 8 dokumen menggunakan masing-masing dari dua scanner yang ingin dibandingkannya.
+</p>
+
+<p>
+Ia mencatat jumlah kesalahan (errors) yang terjadi untuk masing-masing scanner. Data dicatat sebagai berikut:
+</p>
+
+<table border="1" cellpadding="4">
+<tr>
+  <th>Dokumen</th>
+  <td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td>
+</tr>
+<tr>
+  <th>Brand A</th>
+  <td>17</td><td>29</td><td>18</td><td>14</td><td>21</td><td>25</td><td>22</td><td>29</td>
+</tr>
+<tr>
+  <th>Brand B</th>
+  <td>21</td><td>38</td><td>15</td><td>19</td><td>22</td><td>30</td><td>31</td><td>37</td>
+</tr>
+</table>
+
+<h3>Pertanyaan:</h3>
+<ul>
+  <li>Apakah dapat disimpulkan bahwa Brand A (scanner yang lebih mahal) lebih baik daripada Brand B, dengan data ini?</li>
+</ul>
+
+<h3>Hipotesis:</h3>
+
+<p>
+\[
+H_0: \mu_d = 0 \quad \text{(tidak ada perbedaan kesalahan)}
+\]
+\[
+H_1: \mu_d &lt; 0 \quad \text{(Brand A memiliki lebih sedikit kesalahan daripada Brand B)}
+\]
+</p>
+
+<h3>Langkah Penyelesaian:</h3>
+<ol>
+  <li>Hitung selisih tiap pasangan: \( d_i = \text{Brand A} - \text{Brand B} \)</li>
+  <li>Hitung rata-rata selisih \( \bar{d} \) dan simpangan baku \( s_d \)</li>
+  <li>Hitung nilai statistik uji:</li>
+
+  <p>
+  \[
+  t = \frac{\bar{d}}{s_d&sol;\sqrt{n}}
+  \]
+  </p>
+
+  <li>Bandingkan nilai \( t \) dengan nilai kritis \( t \)-distribusi pada \( \alpha = 0.05 \) untuk uji satu arah (left-tailed test).</li>
+</ol>
+    <div class="container mt-5">
+        <div class="accordion" id="accordionP7">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP7">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP7" aria-expanded="true" aria-controls="collapseP7">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP7" class="accordion-collapse collapse" aria-labelledby="headingP7" data-bs-parent="#accordionP7">
+                    <div class="accordion-body">
+												<p>Soal 1: 
+												</p>
+
+												<p>Seorang manajer sumber daya manusia di sebuah perusahaan mobil ingin mengetahui apakah pekerja lini produksi memiliki jumlah hari ketidakhadiran yang lebih banyak dibandingkan dengan pekerja kantor.</p>
+
+												<p>Ia mengambil sampel acak sebanyak 8 pekerja dari masing-masing kategori dan mencatat jumlah hari ketidakhadiran selama satu tahun terakhir.</p>
+
+												<p>Data hari ketidakhadiran:</p>
+
+												<ul>
+													<li><b>Pekerja Lini Produksi:</b> 4, 0, 6, 8, 3, 11, 13, 5</li>
+													<li><b>Pekerja Kantor:</b> 9, 2, 7, 1, 4, 7, 9, 8</li>
+												</ul>
+
+												<p><b>Pertanyaan:</b> Dapatkah kita menyimpulkan bahwa terdapat perbedaan rata-rata jumlah hari ketidakhadiran antara kedua kelompok pekerja ini?</p>
+
+												<p>Soal 2:
+												</p>
+												<p>Untuk menentukan apakah pupuk jenis baru lebih efektif dibandingkan pupuk yang saat ini digunakan, peneliti mengambil 12 petak tanah (masing-masing seluas 2 acre) yang tersebar di seluruh wilayah.</p>
+
+												<p>Setiap petak dibagi menjadi dua sub-petak yang sama besar. Satu sub-petak diberi pupuk saat ini, dan sub-petak lainnya diberi pupuk baru. Gandum ditanam, dan hasil panen diukur (dalam satuan hasil panen yang setara).</p>
+
+												<h3>Data Hasil Panen:</h3>
+
+												<table border="1" cellpadding="4">
+													<tr>
+														<th>Plot</th>
+														<td>1</td><td>2</td><td>3</td><td>4</td><td>5</td><td>6</td><td>7</td><td>8</td><td>9</td><td>10</td><td>11</td><td>12</td>
+													</tr>
+													<tr>
+														<th>Pupuk Saat Ini</th>
+														<td>56</td><td>45</td><td>68</td><td>72</td><td>61</td><td>69</td><td>57</td><td>55</td><td>60</td><td>72</td><td>75</td><td>66</td>
+													</tr>
+													<tr>
+														<th>Pupuk Baru</th>
+														<td>60</td><td>49</td><td>66</td><td>73</td><td>59</td><td>67</td><td>61</td><td>58</td><td>75</td><td>68</td><td>72</td><td>68</td>
+													</tr>
+												</table>
+
+												<h3>Pertanyaan:</h3>
+
+												<ol type="a">
+													<li>Bisakah kita menyimpulkan, pada tingkat signifikansi 5%, bahwa pupuk baru lebih efektif dari pupuk saat ini?</li>
+													<li>Hitung estimasi selisih rata-rata hasil panen antara kedua pupuk tersebut dengan tingkat kepercayaan 95%.</li>
+													<li>Apa saja kondisi yang harus dipenuhi agar hasil dari (a) dan (b) valid?</li>
+													<li>Apakah kondisi tersebut terpenuhi dalam data ini?</li>
+													<li>Apakah data ini termasuk data eksperimen atau observasional? Jelaskan.</li>
+												</ol>
+												<p>Soal 3:
+												</p>
+												<p>
+												Seorang manajer operasional yang mengawasi jalur perakitan mengalami masalah dalam urutan pengerjaan tugas.
+												Masalah ini disebabkan oleh adanya hambatan (bottlenecks) akibat ketidakkonsistenan dalam operasi berurutan.
+												</p>
+
+												<p>
+												Untuk menyelidikinya, ia melakukan eksperimen dengan menggunakan dua metode berbeda untuk menyelesaikan tugas yang sama.
+												Ia mencatat waktu pengerjaan (dalam detik) dan memperoleh data sebagai berikut:
+												</p>
+
+												<table border="1" cellpadding="4">
+													<tr>
+														<th>Metode 1</th>
+														<td>8.8</td><td>9.6</td><td>8.4</td><td>9.0</td><td>8.3</td><td>9.2</td><td>9.0</td><td>8.7</td><td>8.5</td><td>9.4</td>
+													</tr>
+													<tr>
+														<th>Metode 2</th>
+														<td>9.2</td><td>9.4</td><td>8.9</td><td>9.6</td><td>9.7</td><td>8.4</td><td>8.8</td><td>8.9</td><td>9.0</td><td>9.7</td>
+													</tr>
+												</table>
+
+												<p>
+												Pertanyaannya: <b>Dapatkah disimpulkan bahwa metode kedua lebih konsisten daripada metode pertama?</b>
+												</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </section>
+            <section id="p8">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 8</h2>
+                    </div>
+										
+    <div class="container mt-5">
+        <div class="accordion" id="accordionP8">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingP8">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP8" aria-expanded="true" aria-controls="collapseP8">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapseP8" class="accordion-collapse collapse" aria-labelledby="headingP8" data-bs-parent="#accordionP8">
+                    <div class="accordion-body">
+												<p>Soal 1:</p>
+
+												<p>Soal 2:</p>
+
+												<p>Soal 3:</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
                 </div>
             </section>
             <section id="daftar_hadir">
