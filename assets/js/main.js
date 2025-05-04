@@ -421,7 +421,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     button.href = `../${item.name}/`; // Link ke folder
                     button.id = "baca_juga"; // Ganti class dengan id
                     button.className = "btn btn-outline-primary w-auto";
-                    button.textContent = item.name;
+                    // button.textContent = item.name;
+                    button.textContent = item.name.replace(/-/g, ' ').toUpperCase();
                     folderList.appendChild(button);
                 }
             });
