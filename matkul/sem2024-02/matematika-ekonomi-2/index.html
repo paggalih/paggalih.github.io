@@ -1118,25 +1118,26 @@
                         <h2>Pertemuan 8</h2>
                     </div>
 										
-<div class="container mt-5">
-    <!-- Form untuk memasukkan password dan nomor induk -->
-    <div id="passwordForm">
-        <h3>Masukkan Password dan Nomor Induk Anda</h3>
-        <form id="loginForm">
-            <div class="mb-3">
-                <label for="password" class="form-label">Password</label>
-                <input type="password" class="form-control" id="password" placeholder="Masukkan password" required>
-            </div>
-            <div class="mb-3">
-                <label for="nim" class="form-label">Nomor Induk Mahasiswa (NIM)</label>
-                <input type="text" class="form-control" id="nim" placeholder="Masukkan NIM" required>
-            </div>
-            <button type="submit" class="btn btn-primary">Masuk</button>
-        </form>
+    <h1 class="text-center">Ketentuan UAS</h1>
+    <ol>
+        <li>UAS hanya boleh dikerjakan selama 2 jam (termasuk mengunggah jawaban dalam bentuk <strong>pdf</strong>).</li>
+        <li>UAS untuk kelas PS4B dapat dikerjakan dari 09:00-11:00 dan kelas PS4A dari 11:30-13:30.</li>
+        <li>Jawaban UAS dikirimkan melalui formulir di <a href="https://bermain.asia" target="_blank">https://bermain.asia</a> dengan kata kunci <strong>Jawaban UAS</strong>.</li>
+        <li>Setiap mahasiswa akan menerima soal sesuai dengan NIM masing-masing.</li>
+    </ol>
+
+    <div class="d-flex justify-content-center gap-2 mt-4">
+        <button id="tombol_mulai_4a" class="btn btn-primary" onclick="validateUAS4A()">Mulai UAS (PS4A)</button>
+        <button id="tombol_mulai" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PS4B)</button>
+        <button class="btn btn-danger" onclick="closeValidateUAS()">Akhiri</button>
     </div>
 
-    <!-- Accordion untuk soal latihan -->
-    <div class="accordion mt-3" id="accordionP8" style="display:none;"> <!-- Awalnya disembunyikan -->
+    <!-- Timer -->
+    <h3 id="timerUAS" class="text-center timer" style="display:none;"></h3>
+    <h3 id="timerUAS4A" class="text-center timer" style="display:none;"></h3>
+
+    <!-- Soal UAS Accordion -->
+    <div class="accordion mt-4" id="accordionP8">
         <div class="accordion-item">
             <h2 class="accordion-header" id="headingP8">
                 <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapseP8" aria-expanded="true" aria-controls="collapseP8">
@@ -1145,46 +1146,137 @@
             </h2>
             <div id="collapseP8" class="accordion-collapse collapse" aria-labelledby="headingP8" data-bs-parent="#accordionP8">
                 <div class="accordion-body">
-                    <!-- Soal akan dimasukkan di sini berdasarkan NIM -->
-                    <p id="soal1">Soal 1:</p>
-                    <p id="soal2">Soal 2:</p>
-                    <p id="soal3">Soal 3:</p>
+                    <p>Soal 1:</p>
+                    <p>Soal 2:</p>
+                    <p>Soal 3:</p>
                 </div>
             </div>
         </div>
     </div>
-</div>
 
-<script>
-    // Password dan NIM yang valid
-    const validPassword = '12345'; // Gantilah dengan password yang sesuai
-    const soalPerNIM = {
-        '123': ['Soal 1: Apa itu ekonometri? \(\sigma \)', 'Soal 2: Jelaskan regresi linear! $2x+5$', 'Soal 3: Apa yang dimaksud dengan heteroskedastisitas?'],
-        '456': ['Soal 1: Definisikan GDP.', 'Soal 2: Jelaskan teori konsumsi.', 'Soal 3: Apa itu inflasi?'],
-        // Tambahkan data soal berdasarkan NIM di sini
-    };
+    <h3 id="soalUASTitle" class="mt-4 text-center">Soal UAS</h3>
+    <ol id="soalUAS" class="soal-list">
+        <li id="nomer1"></li>
+        <li id="nomer2"></li>
+        <li id="nomer3"></li>
+        <li id="nomer4"></li>
+        <li id="nomer5"></li>
+    </ol>
 
-    document.getElementById('loginForm').addEventListener('submit', function(e) {
-        e.preventDefault(); // Mencegah form submit standar
+    <script>
+        var mulaiUAS = new Date("May 28, 2024 09:00:00").getTime();
+        var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+        var mulaiUAS4A = new Date("May 28, 2024 11:30:00").getTime();
+        var akhirUAS4A = new Date("May 28, 2024 13:30:00").getTime();
+        var sekarang = new Date().getTime();
 
-        const password = document.getElementById('password').value;
-        const nim = document.getElementById('nim').value;
+        function validateUAS4A() {
+            document.getElementById('timerUAS4A').style.display = "block";
+            document.getElementById('timerUAS').style.display = "none";
 
-        if (password === validPassword && soalPerNIM[nim]) {
-            // Menyembunyikan form login dan menampilkan accordion
-            document.getElementById('passwordForm').style.display = 'none';
-            document.getElementById('accordionP8').style.display = 'block';
-
-            // Menampilkan soal berdasarkan NIM
-            const soal = soalPerNIM[nim];
-            document.getElementById('soal1').textContent = soal[0];
-            document.getElementById('soal2').textContent = soal[1];
-            document.getElementById('soal3').textContent = soal[2];
-        } else {
-            alert('Password atau NIM salah!');
+            if (sekarang - mulaiUAS4A < 0) {
+                alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 11.30");
+            } else {
+                if (sekarang - akhirUAS4A < 0) {
+                    let person = prompt("Masukkan Password", "");
+                    if (person === "") {
+                        document.getElementById("tombol_mulai_4a").style.display = "none";
+                        document.getElementById("berhasilValidateUAS").style.display = "block";
+                        let nim = Number(prompt('Masukkan NIM', ''));
+                        var b = (nim * 3 * 3) % 5;
+                        var c = [
+                            ['soal3', 'soal5', 'soal1', 'soal7', 'soal8'],
+                            ['soal1', 'soal3', 'soal6', 'soal7', 'soal8'],
+                            ['soal5', 'soal4', 'soal7', 'soal1', 'soal8'],
+                            ['soal2', 'soal5', 'soal3', 'soal8', 'soal7'],
+                            ['soal2', 'soal6', 'soal4', 'soal8', 'soal7']
+                        ];
+                        var d = c[b];
+                        for (let i = 1; i < 6; i++) {
+                            var e = document.getElementById(d[i - 1]);
+                            document.getElementById('nomer' + i).appendChild(e);
+                            e.style.display = "block";
+                            document.getElementById('nomer' + i).style.display = "block";
+                        }
+                    } else {
+                        alert("Maaf, password yang Anda masukkan salah.");
+                    }
+                } else {
+                    alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 28 Mei 2024 pukul 13.30");
+                }
+            }
         }
-    });
-</script>
+
+        function validateUAS() {
+            document.getElementById('timerUAS').style.display = "block";
+            document.getElementById('timerUAS4A').style.display = "none";
+
+            if (sekarang - mulaiUAS < 0) {
+                alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 09.00");
+            } else {
+                if (sekarang - akhirUAS < 0) {
+                    let person = prompt("Masukkan Password", "");
+                    if (person === "") {
+                        document.getElementById("tombol_mulai").style.display = "none";
+                        document.getElementById("berhasilValidateUAS").style.display = "block";
+                        let nim = Number(prompt('Masukkan NIM', ''));
+                        var b = (nim * 3) % 5;
+                        var c = [
+                            ['soal3', 'soal5', 'soal1', 'soal7', 'soal8'],
+                            ['soal1', 'soal3', 'soal6', 'soal7', 'soal8'],
+                            ['soal5', 'soal4', 'soal7', 'soal1', 'soal8'],
+                            ['soal2', 'soal5', 'soal3', 'soal8', 'soal7'],
+                            ['soal2', 'soal6', 'soal4', 'soal8', 'soal7']
+                        ];
+                        var d = c[b];
+                        for (let i = 1; i < 6; i++) {
+                            var e = document.getElementById(d[i - 1]);
+                            document.getElementById('nomer' + i).appendChild(e);
+                            e.style.display = "block";
+                            document.getElementById('nomer' + i).style.display = "block";
+                        }
+                    } else {
+                        alert("Maaf, password yang Anda masukkan salah.");
+                    }
+                } else {
+                    alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 28 Mei 2024 pukul 11.00");
+                }
+            }
+        }
+
+        function closeValidateUAS() {
+            document.getElementById("berhasilValidateUAS").style.display = "none";
+        }
+
+        // Update timer
+        var x = setInterval(function () {
+            var sekarang = new Date().getTime();
+            var distance = akhirUAS - sekarang;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + " hari " + hours + " jam " + minutes + " menit " + seconds + " detik ";
+            if (distance < 0) {
+                clearInterval(x);
+                document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+            }
+        }, 1000);
+
+        var x4A = setInterval(function () {
+            var sekarang4A = new Date().getTime();
+            var distance = akhirUAS4A - sekarang4A;
+            var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+            document.getElementById("timerUAS4A").innerHTML = "WAKTU TERSISA <br>" + days + " hari " + hours + " jam " + minutes + " menit " + seconds + " detik ";
+            if (distance < 0) {
+                clearInterval(x4A);
+                document.getElementById("timerUAS4A").innerHTML = "WAKTU HABIS";
+            }
+        }, 1000);
+    </script>
 
                 </div>
             </section>
