@@ -515,7 +515,7 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 
     document.getElementById("quotesCloud").addEventListener("click", function() {
-        window.location.href = "https://paggalih.github.io/speaker/quotes/";
+        window.location.href = "https://paggalih.github.io/reflection/";
     });
 
     document.getElementById("quotesOverlay").addEventListener("click", function() {
