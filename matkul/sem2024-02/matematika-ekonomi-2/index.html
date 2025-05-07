@@ -1122,31 +1122,30 @@
                         <h2>Pertemuan 8</h2>
                     </div>
 									
-<p class="h1">Ketentuan UAS</p>
+<p class="h1">Ketentuan UTS</p>
 <ol>
 	<li>UAS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
 	<li>UAS untuk kelas PS4B boleh dikerjakan dari 13:00-14:30</li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
-<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
-<button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
+<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUTS()">Mulai UTS</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUTS()">Akhiri</button>
 <script>
-var mulaiUAS = new Date("May 7, 2025 13:00:00").getTime();
-var akhirUAS = new Date("Jun 28, 2025 14:30:00").getTime();
+var mulaiUTS = new Date("May 7, 2025 13:00:00").getTime();
+var akhirUTS = new Date("Jun 28, 2025 14:30:00").getTime();
 var sekarang = new Date().getTime();
-function validateUAS() {
+function validateUTS() {
 	document.getElementById('timerUAS').style.display="block";
-	document.getElementById('timerUAS4A').style.display="none";
 
-	if (sekarang-mulaiUAS<0){
-		alert("Belum waktunya. UAS hanya boleh dimulai 8 Mei 2025 pukul 13.00");
+	if (sekarang-mulaiUTS<0){
+		alert("Belum waktunya. UTS hanya boleh dimulai 8 Mei 2025 pukul 13.00");
 	}
 	else {
-		if (sekarang-akhirUAS<0) {
+		if (sekarang-akhirUTS<0) {
 			 let person = prompt("Masukkan Password", "topglobal");
 			 if (person === "") {
 				document.getElementById("tombol_mulai").style.display="none";
-				document.getElementById("berhasilValidateUAS").style.display = "block";
+				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
 				var b = (nim*3)% 5;
 				var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
@@ -1163,12 +1162,12 @@ function validateUAS() {
 			}
 		}
 		else{
-			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 8 Mei 2025 pukul 14.30");
+			alert("Sudah selesai. UTS hanya boleh dikerjakan sampai 8 Mei 2025 pukul 14.30");
 		}
 	}
 }
-function closeValidateUAS() {
-	document.getElementById("berhasilValidateUAS").style.display = "none";
+function closeValidateUTS() {
+	document.getElementById("berhasilValidateUTS").style.display = "none";
 }
 // Update the count down every 1 second
 var x = setInterval(function() {	
@@ -1177,7 +1176,7 @@ var x = setInterval(function() {
 	var sekarang = new Date().getTime();
 
 	// Find the distance between now and the count down date
-	var distance = akhirUAS - sekarang;
+	var distance = akhirUTS - sekarang;
 		
 	// Time calculations for days, hours, minutes and seconds
 	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
@@ -1186,19 +1185,19 @@ var x = setInterval(function() {
 	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
 		
 	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
 	+ minutes + "menit " + seconds + "detik ";
 		
 	// If the count down is over, write some text 
 	if (distance < 0) {
 		clearInterval(x);
-		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
 	}
 }, 1000);
 // Update the count down every 1 second
 </script>
 
-<div id="berhasilValidateUAS" style="display: none">
+<div id="berhasilValidateUTS" style="display: none">
 <div id="soal1" style='display:none;'>Tentukan solusi dari persamaan diferensial $\frac{dy}{dt}=$ $3t^2-$ $\frac{4}{\sqrt{t}}$ dengan kondisi awal $y(0)=4.$</div>
 
 <div id="soal2" style='display:none;'>Pertimbangkan persamaan pasar $$\begin{array}{ll}Q_S&=4P-3\\Q_D&=-2P+13\\\frac{dP}{dt}&=0.4(Q_D-Q_S)\end{array}$$ Tentukan $Q_D (t)$ jika $P(0)=2.$</div>
@@ -1215,10 +1214,9 @@ var x = setInterval(function() {
 
 <div id="soal8" style='display:none;'>Gunakan maximin regret untuk memilih salah satu dari projek di bawah ini.<div class="overflow-auto"><table class="table table-bordered text-center"><tbody><tr><td width="138"><p>&nbsp;</p></td><td colspan="3" width="415"><p>Profit</p></td></tr><tr><td width="138"><p>Projek</p></td><td width="138"><p>Kota 1</p></td><td width="138"><p>Kota 2</p></td><td width="138"><p>Kota 3</p></td></tr><tr><td width="138"><p>Membeli Ruko</p></td><td width="138"><p>120</p></td><td width="138"><p>71</p></td><td width="138"><p>50</p></td></tr><tr><td width="138"><p>Membangun Villa</p></td><td width="138"><p>89</p></td><td width="138"><p>114</p></td><td width="138"><p>34</p></td></tr><tr><td width="138"><p>Membangun Hotel</p></td><td width="138"><p>100</p></td><td width="138"><p>48</p></td><td width="138"><p>120</p></td></tr><tr><td width="138"><p>Mendirikan Travel</p></td><td width="138"><p>150</p></td><td width="138"><p>157</p></td><td width="138"><p>100</p></td></tr></tbody></table></div></div>
 
-<h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
-<h3 id="timerUAS4A" class="text-center bg-info bg-opacity-10 border border-info rounded" style="display:none;"></h3>
-<p class="h1 text-center">Soal UAS</p>
-<ol id="soalUAS">
+<h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<p class="h1 text-center">Soal UTS</p>
+<ol id="soalUTS">
 	<li id='nomer1'><h2>Soal 1</h2></li>
 	<li id='nomer2'><h2>Soal 2</h2></li>
 	<li id='nomer3'><h2>Soal 3</h2></li>
