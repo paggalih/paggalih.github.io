@@ -1125,7 +1125,7 @@
 <p class="h1">Ketentuan UTS</p>
 <ol>
 	<li>UAS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-	<li>Soal UAS boleh dikerjakan dari 13:00-14:30 dan selanjutnya 14:30-15:00 mengunggah jawaban di google form.</li>
+	<li>Soal UAS boleh dikerjakan dari 13:00-14:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUTS()">Mulai UTS</button>
@@ -1176,8 +1176,8 @@ function validateUTS() {
 function closeValidateUTS() {
 	document.getElementById("berhasilValidateUTS").style.display = "none";
     setTimeout(function() {
-        window.location.href = "https://paggalih.github.io";
-    }, 1000); // Jeda 1 detik (1000ms) sebelum redirect
+        window.location.href = "https://forms.gle/CNzhf9aZMD2Rff1w7";
+    }, 500);
 }
 // Update the count down every 1 second
 var x = setInterval(function() {	
