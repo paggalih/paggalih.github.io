@@ -1132,7 +1132,7 @@
 <button type="button" class="btn btn-primary" onclick="closeValidateUTS()">Akhiri</button>
 <script>
 var mulaiUTS = new Date("May 7, 2025 22:30:00").getTime();
-var akhirUTS = new Date("May 7, 2025 23:01:00").getTime();
+var akhirUTS = new Date("May 7, 2025 23:04:00").getTime();
 var sekarang = new Date().getTime();
 function validateUTS() {
 	document.getElementById('timerUTS').style.display="block";
@@ -1204,7 +1204,7 @@ var x = setInterval(function() {
 }, 1000);
 // Update the count down every 1 second
 </script>
-
+<h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUTS" style="display: none">
 <div id="soal1" style='display:none;'>
 	<p>Dua matriks \( C \) dan \( D \) diberikan sebagai berikut:</p>
@@ -1350,7 +1350,6 @@ var x = setInterval(function() {
     \]</p>
 </div>
 
-<h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <p class="h1 text-center">Soal UTS</p>
 <ol id="soalUTS">
 	<li id='nomer1'><h2>Soal 1</h2></li>
