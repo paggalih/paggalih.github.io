@@ -1122,8 +1122,7 @@
 	<li>UAS untuk kelas PS4B boleh dikerjakan dari 09:00-11:00 dan kelas PS4A dari 11:30-13:30.</li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
-<button id="tombol_mulai_4a" type="button" class="btn btn-primary" onclick="validateUAS4A()">Mulai UAS (PS4A)</button>
-<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PS4B)</button>
+<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
 var mulaiUAS = new Date("May 7, 2025 13:00:00").getTime();
@@ -1205,9 +1204,9 @@ var x = setInterval(function() {
 
 <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <h3 id="timerUAS4A" class="text-center bg-info bg-opacity-10 border border-info rounded" style="display:none;"></h3>
-<p class="h1">Soal UAS</p>
+<p class="h1 text-center">Soal UAS</p>
 <ol id="soalUAS">
-	<li id='nomer1'></li>
+	<li id='nomer1'>Nomor 1:<br></li>
 	<li id='nomer2'></li>
 	<li id='nomer3'></li>
 	<li id='nomer4'></li>
