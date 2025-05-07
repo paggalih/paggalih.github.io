@@ -1129,7 +1129,7 @@
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUTS()">Mulai UTS</button>
-<button type="button" class="btn btn-primary" onclick="closeValidateUTS()">Akhiri</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUTS()">Kirim Jawaban</button>
 <script>
 var mulaiUTS = new Date("May 7, 2025 22:30:00").getTime();
 var akhirUTS = new Date("May 7, 2025 23:07:00").getTime();
@@ -1175,6 +1175,9 @@ function validateUTS() {
 }
 function closeValidateUTS() {
 	document.getElementById("berhasilValidateUTS").style.display = "none";
+    setTimeout(function() {
+        window.location.href = "https://paggalih.github.io";
+    }, 1000); // Jeda 1 detik (1000ms) sebelum redirect
 }
 // Update the count down every 1 second
 var x = setInterval(function() {	
