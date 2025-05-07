@@ -1120,62 +1120,25 @@
 <ol>
 	<li>UAS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
 	<li>UAS untuk kelas PS4B boleh dikerjakan dari 09:00-11:00 dan kelas PS4A dari 11:30-13:30.</li>
-	<li>Jawaban UAS dikirimkan pada formulir di https://bermain.asia dengan mencari berkata kunci <strong>Jawaban UAS.</strong></li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
 <button id="tombol_mulai_4a" type="button" class="btn btn-primary" onclick="validateUAS4A()">Mulai UAS (PS4A)</button>
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS (PS4B)</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Akhiri</button>
 <script>
-var mulaiUAS = new Date("May 28, 2024 09:00:00").getTime();
-var akhirUAS = new Date("Jun 28, 2024 11:00:00").getTime();
-var mulaiUAS4A = new Date("May 28, 2024 11:30:00").getTime();
-var akhirUAS4A = new Date("Jun 28, 2024 13:30:00").getTime();
+var mulaiUAS = new Date("May 7, 2025 13:00:00").getTime();
+var akhirUAS = new Date("Jun 28, 2025 14:30:00").getTime();
 var sekarang = new Date().getTime();
-function validateUAS4A() {
-	document.getElementById('timerUAS4A').style.display="block";
-	document.getElementById('timerUAS').style.display="none";
-
-	if (sekarang-mulaiUAS4A<0){
-		alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 11.30");
-	}
-	else {
-		if (sekarang-akhirUAS4A<0) {
-			 let person = prompt("Masukkan Password", "");
-			 if (person === "") {
-				document.getElementById("tombol_mulai_4a").style.display="none";
-				document.getElementById("berhasilValidateUAS").style.display = "block";
-				let nim = Number(prompt('Masukkan NIM',''));
-				var b = (nim*3*3)% 5;
-				var c = [['soal3','soal5','soal1','soal7','soal8'],['soal1','soal3','soal6','soal7','soal8'],['soal5','soal4','soal7','soal1','soal8'],['soal2','soal5','soal3','soal8','soal7'],['soal2','soal6','soal4','soal8','soal7']];
-				var d = c[b];
-				for (i = 1; i < 6; i++) {
-					var e = document.getElementById(d[i-1]);
-					document.getElementById('nomer'+i).appendChild(e);
-					e.style.display="block";
-					document.getElementById('nomer'+i).style.display="block";
-				}
-			}
-			 else {
-				alert("Maaf, password yang Anda masukkan salah.");
-			 }
-		}
-		else{
-			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 28 Mei 2024 pukul 13.30");
-		}
-	}
-}
-
 function validateUAS() {
 	document.getElementById('timerUAS').style.display="block";
 	document.getElementById('timerUAS4A').style.display="none";
 
 	if (sekarang-mulaiUAS<0){
-		alert("Belum waktunya. UAS hanya boleh dimulai 28 Mei 2024 pukul 09.00");
+		alert("Belum waktunya. UAS hanya boleh dimulai 8 Mei 2025 pukul 13.00");
 	}
 	else {
 		if (sekarang-akhirUAS<0) {
-			 let person = prompt("Masukkan Password", "");
+			 let person = prompt("Masukkan Password", "topglobal");
 			 if (person === "") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
@@ -1195,7 +1158,7 @@ function validateUAS() {
 			}
 		}
 		else{
-			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 28 Mei 2024 pukul 11.00");
+			alert("Sudah selesai. UAS hanya boleh dikerjakan sampai 8 Mei 2025 pukul 14.30");
 		}
 	}
 }
@@ -1228,30 +1191,6 @@ var x = setInterval(function() {
 	}
 }, 1000);
 // Update the count down every 1 second
-var x4A = setInterval(function() {	
-	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang4A = new Date().getTime();
-
-	// Find the distance between now and the count down date
-	var distance = akhirUAS4A - sekarang4A;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS4A").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
-	+ minutes + "menit " + seconds + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distance < 0) {
-		clearInterval(x);
-		document.getElementById("timerUAS4A").innerHTML = "WAKTU HABIS";
-	}
-}, 1000);
 </script>
 
 <div id="berhasilValidateUAS" style="display: none">
