@@ -42,7 +42,7 @@
         <style>
             @media (min-width: 991px) {
 			#matkul_icon {
-				z-index: 1;
+				z-index: 2000;
 				position: fixed;
 				right: 20px;
 				top: 20px;
@@ -610,7 +610,116 @@
                     <div class="section-title">
                         <h2>Pertemuan 7</h2>
                     </div>
-										<p class="h3">Integral</p>
+<h1 class="text-center">Bab 7: Kesalahan Spesifikasi Model Regresi</h1>
+
+<h2>1. Pentingnya Spesifikasi Model</h2>
+<ul>
+  <li>Model harus memuat semua variabel penting dan tidak memasukkan variabel yang tidak relevan.</li>
+  <li>Harus memiliki bentuk fungsional yang tepat dan tidak mengandung kesalahan pengukuran, outlier, atau simultanitas.</li>
+</ul>
+
+<h2>2. Penghilangan Variabel Penting</h2>
+<ul>
+  <li>Menimbulkan estimasi yang <strong>bias dan tidak konsisten</strong>.</li>
+  <li>Prediksi dan inferensi menjadi tidak valid.</li>
+</ul>
+<p><strong>Solusi:</strong> uji F untuk membandingkan model terbatas dan lengkap.</p>
+
+<h2>3. Uji Deteksi</h2>
+<h5>Ramsey RESET Test</h5>
+<p>Tambahkan \( \hat{Y}^2 \), \( \hat{Y}^3 \) ke dalam model. Jika signifikan → salah spesifikasi.</p>
+
+<h5>Lagrange Multiplier (LM) Test</h5>
+<p>Regresi residual terhadap variabel asli dan dugaan variabel hilang. Uji dengan \( nR^2 \).</p>
+
+<h2>4. Menyertakan Variabel Tidak Relevan</h2>
+<ul>
+  <li>Estimator tetap <em>unbiased</em> dan konsisten, tetapi efisiensi menurun.</li>
+  <li>Multikolinearitas bisa muncul, derajat kebebasan menurun.</li>
+</ul>
+
+<h2>5. Salah Bentuk Fungsional</h2>
+<ul>
+  <li>Salah bentuk → estimasi bias.</li>
+  <li>Perbandingan model log vs linear dapat dilihat dari normalitas residual dan uji \( R^2 \).</li>
+</ul>
+
+<h2>6. Kesalahan Pengukuran</h2>
+<ul>
+  <li><strong>Y salah ukur</strong> → tetap unbiased tapi tidak efisien.</li>
+  <li><strong>X salah ukur</strong> → estimasi menjadi bias dan tidak konsisten.</li>
+</ul>
+<p><strong>Solusi:</strong> gunakan <em>instrumental variables</em>.</p>
+
+<h2>7. Outlier, Leverage, Influence</h2>
+<ul>
+  <li>Outlier → residual besar.</li>
+  <li>Leverage → observasi jauh dari pusat X.</li>
+  <li>Influence → sangat mengubah hasil regresi jika dihilangkan.</li>
+</ul>
+
+<h2>8. Normalitas Galat</h2>
+<p>Gunakan uji <strong>Jarque–Bera (JB)</strong>:</p>
+<p>
+  \[ JB = \frac{n}{6} \left( S^2 + \frac{(K - 3)^2}{4} \right) \]
+</p>
+<p>Jika JB signifikan → tolak hipotesis normalitas.</p>
+
+<h2>9. Simultaneity Bias</h2>
+<p>Contoh model konsumsi Keynes:</p>
+<p>
+  \[ C_t = B_1 + B_2 Y_t + u_t \]</p>
+<p>
+  \[ Y_t = C_t + I_t \]</p>
+<p><strong>Solusi:</strong> Gunakan metode ILS atau 2SLS.</p>
+
+<h2>10. Model Dinamis & Lag</h2>
+<h5>Distributed Lag Model (DLM)</h5>
+<p>
+  \[ Y_t = \alpha + \beta_0 X_t + \beta_1 X_{t-1} + \cdots + u_t \]
+</p>
+
+<h5>Koyck Transformation</h5>
+<p>
+  \[ Y_t = \alpha + \beta_0 X_t + \rho Y_{t-1} + v_t \]
+</p>
+<p>Model dinamis tanpa perlu menyertakan semua lag secara eksplisit.</p>
+
+<h5>Autoregressive Distributed Lag Model (ARDL)</h5>
+<p>
+  \[ Y_t = \alpha + \sum A_i Y_{t-i} + \sum B_j X_{t-j} + u_t \]
+</p>
+<p>Dapat mengestimasi multiplikator jangka pendek dan panjang.</p>
+
+<h2>Kesimpulan</h2>
+<ul>
+  <li>Kesalahan spesifikasi menyebabkan estimasi bias dan tidak efisien.</li>
+  <li>Gunakan uji RESET, LM, dan evaluasi bentuk model.</li>
+  <li>Perhatikan outliers, simultanitas, dan dinamika waktu.</li>
+</ul>
+                </div>
+            </section>
+            <section id="p8">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 8</h2>
+                    </div>
+
+                </div>
+            </section>
+            <section id="p9">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 9</h2>
+                    </div>
+
+                </div>
+            </section>
+            <section id="p10">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 10</h2>
+                    </div>
 
                 </div>
             </section>
