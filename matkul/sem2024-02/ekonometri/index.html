@@ -71,12 +71,10 @@
 				}
 				
 #tabel-UTS td {
-  padding: 12px 15px; /* Atur sesuai kebutuhan */
-  /* atau */
   padding-top: 10px;
   padding-bottom: 10px;
-  padding-left: 20px;
-  padding-right: 20px;
+  padding-left: 10px;
+  padding-right: 10px;
 }
         </style>
     </head>
@@ -720,7 +718,7 @@ fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = '<table>';
+    let html = '<table class="table table-striped-columns text-center">';
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
