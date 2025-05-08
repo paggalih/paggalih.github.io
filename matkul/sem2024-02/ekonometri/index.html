@@ -69,6 +69,15 @@
 				.accordion-item {
 					background-color: #f7f8f6;
 				}
+				
+#tabel-UTS td {
+  padding: 12px 15px; /* Atur sesuai kebutuhan */
+  /* atau */
+  padding-top: 10px;
+  padding-bottom: 10px;
+  padding-left: 20px;
+  padding-right: 20px;
+}
         </style>
     </head>
     <body>
@@ -705,7 +714,7 @@
                         <h2>Pertemuan 8</h2>
                     </div>
 <h2>UTS</h2>
-<div class="overflow-auto">
+<div class="overflow-auto" id="tabel-UTS"></div>
 <script>
 fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
@@ -720,10 +729,9 @@ fetch('Data_Regresi_UTS.csv')
       html += '</tr>';
     });
     html += '</table>';
-    document.body.innerHTML = html;
+document.getElementById("tabel-UTS").innerHTML = html;
   });
 </script>
-</div>
 
                 </div>
             </section>
