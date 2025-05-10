@@ -1207,7 +1207,7 @@ function validateUTSmbs2d() {
 			}
 		}
 		else{
-			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 8 Mei 2025 pukul 14.30");
+			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
 		}
 	}
 }
@@ -1239,6 +1239,91 @@ var x = setInterval(function() {
 	// If the count down is over, write some text 
 	if (distancembs2d < 0) {
 		clearIntervalmbs2d(x);
+		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUTS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<p class="h1">Ketentuan UTS MBS2E</p>
+<ol>
+	<li>UTS MBS2E hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UTS MBS2E boleh dikerjakan dari 14:40-16:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_mulai_mbs2e" type="button" class="btn btn-primary" onclick="validateUTSmbs2e()">Mulai UTS MBS2E</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban MBS2E</button>
+<script>
+var mulaiUTSmbs2e = new Date("May 8, 2025 12:59:00").getTime();
+var akhirUTSmbs2e = new Date("May 13, 2025 16:10:00").getTime();
+var sekarang = new Date().getTime();
+function validateUTSmbs2e() {
+	document.getElementById('timerUTS').style.display="block";
+
+	if (sekarang-mulaiUTSmbs2e<0){
+		alert("Belum waktunya. UTS MBS2E hanya boleh dimulai 13 Mei 2025 pukul 14.40");
+	}
+	else {
+		if (sekarang-akhirUTSmbs2e<0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "toppingvanila") {
+				document.getElementById("tombol_mulai").style.display="none";
+				document.getElementById("berhasilValidateUTS").style.display = "block";
+				let nim = Number(prompt('Masukkan NIM',''));
+				var b = (nim*5)% 6;
+				var c = [
+				['soal4','soal7','soal9','soal13','soal1'],
+				['soal16','soal7','soal4','soal10','soal14'],
+				['soal6','soal7','soal15','soal14','soal10'],
+				['soal6','soal1','soal8','soal10','soal3'],
+				['soal4','soal8','soal2','soal13','soal11'],
+				['soal8','soal12','soal4','soal9','soal14']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai. UTS MBS2E hanya boleh dikerjakan sampai 13 Mei 2025 pukul 16.10");
+		}
+	}
+}
+function closeValidateUTSmbs2e() {
+	document.getElementById("berhasilValidateUTS").style.display = "none";
+    setTimeout(function() {
+        window.location.href = "--";
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distancembs2e = akhirUTSmbs2e - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var daysmbs2e = Math.floor(distancembs2e / (1000 * 60 * 60 * 24));
+	var hoursmbs2e = Math.floor((distancembs2e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutesmbs2e = Math.floor((distancembs2e % (1000 * 60 * 60)) / (1000 * 60));
+	var secondsmbs2e = Math.floor((distancembs2e % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2e + "hari " + hoursmbs2e + "jam "
+	+ minutesmbs2e + "menit " + secondsmbs2e + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancembs2e < 0) {
+		clearIntervalmbs2e(x);
 		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUTS").style.display = "none";
 	}
