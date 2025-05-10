@@ -1160,25 +1160,246 @@
     <div class="container mt-5">
         <div class="accordion" id="accordionp8">
             
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingp8">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep8" aria-expanded="true" aria-controls="collapsep8">
-                        Soal Latihan
-                    </button>
-                </h2>
-                <div id="collapsep8" class="accordion-collapse collapse" aria-labelledby="headingp8" data-bs-parent="#accordionp8">
-                    <div class="accordion-body">
-												<p>Soal 1</p>
+<p class="h1">Ketentuan UTS MBS2D</p>
+<ol>
+	<li>UTS MBS2D hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UTS MBS2D boleh dikerjakan dari 13:00-14:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS MBS2D</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban MBS2D</button>
+<script>
+var mulaiUTSmbs2d = new Date("May 8, 2025 12:59:00").getTime();
+var akhirUTSmbs2d = new Date("May 13, 2025 14:30:00").getTime();
+var sekarang = new Date().getTime();
+function validateUTSmbs2d() {
+	document.getElementById('timerUTS').style.display="block";
 
-                        <p>Soal 2</p>
+	if (sekarang-mulaiUTSmbs2d<0){
+		alert("Belum waktunya. UTS MBS2D hanya boleh dimulai 13 Mei 2025 pukul 13.00");
+	}
+	else {
+		if (sekarang-akhirUTS<0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "toppingcoklat") {
+				document.getElementById("tombol_mulai_mbs2d").style.display="none";
+				document.getElementById("berhasilValidateUTS").style.display = "block";
+				let nim = Number(prompt('Masukkan NIM',''));
+				var b = (nim*5)% 6;
+				var c = [
+				['soal4','soal7','soal9','soal13','soal1'],
+				['soal16','soal7','soal4','soal10','soal14'],
+				['soal6','soal7','soal15','soal14','soal10'],
+				['soal6','soal1','soal8','soal10','soal3'],
+				['soal4','soal8','soal2','soal13','soal11'],
+				['soal8','soal12','soal4','soal9','soal14']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 8 Mei 2025 pukul 14.30");
+		}
+	}
+}
+function closeValidateUTSmbs2d() {
+	document.getElementById("berhasilValidateUTS").style.display = "none";
+    setTimeout(function() {
+        window.location.href = "#";
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	var sekarang = new Date().getTime();
 
-                        <p>Soal 3</p>
+	// Find the distance between now and the count down date
+	var distancembs2d = akhirUTSmbs2d - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var daysmbs2d = Math.floor(distance / (1000 * 60 * 60 * 24));
+	var hoursmbs2d = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutesmbs2d = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	var secondsmbs2d = Math.floor((distance % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancembs2d < 0) {
+		clearIntervalmbs2d(x);
+		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUTS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<div id="berhasilValidateUTS" style="display: none">
+<div id="soal1" style='display:none;'>
+	<p>Dua matriks \( C \) dan \( D \) diberikan sebagai berikut:</p>
+	<p>\[ C = \begin{bmatrix} x + 2 & y - 3 \\ 2x - y & 4z \end{bmatrix}, \quad D = \begin{bmatrix} 5 & 0 \\ 4 & 12 \end{bmatrix} \]</p>
+	<p>Jika \( C = D \), tentukan nilai \( x, y \), dan \( z \).</p>
+</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="soal2" style='display:none;'>
+    <p>Jika \( E \) dan \( F \) diberikan sebagai berikut:</p>
+    <p>\[ E = \begin{bmatrix} 1 & 4 \\ -2 & 0 \end{bmatrix}, \quad F = \begin{bmatrix} 3 & 1 \\ 5 & -1 \end{bmatrix} \]</p>
+    <p>Tentukan matriks \( Y \) yang memenuhi persamaan \( 3E - 2Y^T = F \).</p>
+</div>
+
+<div id="soal3" style='display:none;'>
+    <p>Diberikan matriks:</p>
+    <p>\[ G = \begin{bmatrix} 2a & b + 1 & 3c \\ a - b & 4 & 0 \\ 1 & 2d & 5 \end{bmatrix}, \quad H = \begin{bmatrix} 6 & 3 & 9 \\ 1 & 4 & 0 \\ 1 & 8 & 5 \end{bmatrix} \]</p>
+    <p>Jika \( G = H \), tentukan nilai \( a, b, c \), dan \( d \).</p>
+</div>
+<!-- ======================= -->
+<div id="soal4" style='display:none;'>
+    <p>Gunakan aturan Cramer untuk menyelesaikan \( y \) dari sistem persamaan berikut:</p>
+    <p>\[
+    \begin{bmatrix}
+    2 & 1 & -3 \\
+    4 & 0 & 2 \\
+    1 & 5 & -1
+    \end{bmatrix}
+    \begin{bmatrix}
+    x \\
+    y \\
+    z
+    \end{bmatrix}
+    =
+    \begin{bmatrix}
+    5 \\
+    10 \\
+    8
+    \end{bmatrix}
+    \]</p>
+</div>
+
+<div id="soal5" style='display:none;'>
+    <p>Tentukan kofaktor \( A_{31} \) dari matriks berikut:</p>
+    <p>\[
+    A = \begin{bmatrix}
+    3 & -1 & 2 \\
+    0 & 4 & -5 \\
+    7 & 6 & 9
+    \end{bmatrix}
+    \]</p>
+</div>
+
+<div id="soal6" style='display:none;'>
+    <p>Cari invers (jika ada) dari matriks berikut:</p>
+    <p>\[
+    A = \begin{bmatrix}
+    1 & 2 & 3 \\
+    0 & 1 & 4 \\
+    5 & 6 & 0
+    \end{bmatrix}, \quad B = \begin{bmatrix}
+    2 & 1 & 1 \\
+    4 & 2 & 2 \\
+    6 & 3 & 3
+    \end{bmatrix}
+    \]</p>
+</div>
+<!-- ============================ -->
+<div id="soal7" style='display:none;'>
+    <p>Sebuah usaha kerajinan memproduksi Lukisan dan Patung dengan data:</p>
+    <ul>
+        <li><strong>Lukisan</strong>: Biaya produksi Rp50.000 (dijual Rp80.000), biaya pengemasan Rp5.000/unit.</li>
+        <li><strong>Patung</strong>: Biaya produksi Rp30.000 (dijual Rp60.000), biaya pengemasan Rp8.000/unit.</li>
+    </ul>
+    <p>Batasan:</p>
+    <ol>
+        <li>Total biaya produksi ≤ Rp1.500.000.</li>
+        <li>Total biaya pengemasan ≤ Rp200.000.</li>
+    </ol>
+    <p>Tentukan jumlah optimal masing-masing produk.</p>
+</div>
+
+<div id="soal8" style='display:none;'>
+    <p>Sebuah percetakan memproduksi buku Fiksi dan Non-Fiksi dengan data:</p>
+    <ul>
+        <li><strong>Fiksi</strong>: Keuntungan Rp15.000/unit, waktu cetak 10 menit, waktu jilid 15 menit.</li>
+        <li><strong>Non-Fiksi</strong>: Keuntungan Rp20.000/unit, waktu cetak 12 menit, waktu jilid 10 menit.</li>
+    </ul>
+    <p>Batasan:</p>
+    <ol>
+        <li>Total waktu cetak ≤ 480 menit.</li>
+        <li>Total waktu jilid ≤ 420 menit.</li>
+    </ol>
+    <p>Tentukan kombinasi produksi untuk keuntungan maksimal.</p>
+</div>
+<!-- ====================== -->
+<div id="soal9" style='display:none;'>
+    <p>Diberikan model ekonomi dua sektor:</p>
+    <p>\[ Y_t = C_t + 200 \]</p>
+    <p>\[ C_t = 0.75Y_{t-1} + 50 \]</p>
+    <p>Jika \( Y_0 = 300 \), hitung nilai \( C_3 \).</p>
+</div>
+
+<div id="soal10" style='display:none;'>
+    <p>Temukan solusi khusus dari persamaan diferensial berikut:</p>
+    <p>\[ \frac{dy}{dt} = -2y + 4e^{2t} \]</p>
+    <p>dengan syarat awal \( y(0) = 1 \).</p>
+</div>
+
+<div id="soal11" style='display:none;'>
+    <p>Pertimbangkan fungsi penawaran dan permintaan berikut:</p>
+    <p>\[ Q_s = 3P_{t-1} - 5 \]</p>
+    <p>\[ Q_d = -2P_t + 30 \]</p>
+    <p>Jika \( P_0 = 6 \), tentukan nilai \( Q \) saat \( t = 2 \).</p>
+</div>
+<!-- ========================= -->
+<div id="soal12" style='display:none;'>
+    <p>Jika aliran investasi sebuah perusahaan diberikan oleh:</p>
+    <p>\[ I(t) = 9000t^{1/2} \]</p>
+    <p>Hitung pembentukan modal selama sembilan tahun pertama.</p>
+</div>
+
+<div id="soal13" style='display:none;'>
+    <p>Berapa surplus konsumen saat \( P = 50 \) jika fungsi permintaan diberikan oleh:</p>
+    <p>\[ P = 80 - 2Q^2 \]</p>
+</div>
+
+<div id="soal14" style='display:none;'>
+    <p>Fungsi penawaran dan permintaan suatu barang diberikan oleh:</p>
+    <p>\[ P = 20 + Q_s^2 \]</p>
+    <p>\[ P = 120 - \frac{Q_D^2}{2} \]</p>
+    <p>Di mana \( P, Q_s \), dan \( Q_D \) berturut-turut menunjukkan harga, jumlah yang ditawarkan, dan jumlah yang diminta. Hitung surplus produsen dan konsumen pada titik ekuilibrium.</p>
+</div>
+<!-- ====================== -->
+<div id="soal15" style='display:none;'>
+    <p>Tentukan nilai dari \[
+    \int_1^3 (3x - 2) dx
+    \]</p>
+</div>
+
+<div id="soal16" style='display:none;'>
+    <p>Tentukan nilai dari \[
+    \int_0^2 \left( x^3 + 2x - 5 \right) dx
+    \]</p>
+</div>
+
+<p class="h1 text-center">Soal UTS</p>
+<ol id="soalUTS">
+	<li id='nomer1'><h2>Soal 1</h2></li>
+	<li id='nomer2'><h2>Soal 2</h2></li>
+	<li id='nomer3'><h2>Soal 3</h2></li>
+	<li id='nomer4'><h2>Soal 4</h2></li>
+	<li id='nomer5'><h2>Soal 5</h2></li>
+</ol>
+</div>
 									</div>
 							</section>
 							<section id="p9">
