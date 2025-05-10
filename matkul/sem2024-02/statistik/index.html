@@ -1267,7 +1267,7 @@ function validateUTSmbs2e() {
 		if (sekarang-akhirUTSmbs2e<0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
 			 if (person === "toppingvanila") {
-				document.getElementById("tombol_mulai").style.display="none";
+				document.getElementById("tombol_mulai_mbs2e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
 				var b = (nim*5)% 6;
@@ -1299,7 +1299,7 @@ function validateUTSmbs2e() {
 function closeValidateUTSmbs2e() {
 	document.getElementById("berhasilValidateUTS").style.display = "none";
     setTimeout(function() {
-        window.location.href = "--";
+        window.location.href = "#";
     }, 500);
 }
 // Update the count down every 1 second
