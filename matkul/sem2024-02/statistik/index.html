@@ -1179,7 +1179,7 @@ function validateUTSmbs2d() {
 		alert("Belum waktunya. UTS MBS2D hanya boleh dimulai 13 Mei 2025 pukul 13.00");
 	}
 	else {
-		if (sekarang-akhirUTS<0) {
+		if (sekarang-akhirUTSmbs2d<0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
 			 if (person === "toppingcoklat") {
 				document.getElementById("tombol_mulai_mbs2d").style.display="none";
@@ -1227,10 +1227,10 @@ var x = setInterval(function() {
 	var distancembs2d = akhirUTSmbs2d - sekarang;
 		
 	// Time calculations for days, hours, minutes and seconds
-	var daysmbs2d = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hoursmbs2d = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutesmbs2d = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var secondsmbs2d = Math.floor((distance % (1000 * 60)) / 1000);
+	var daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	var hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	var secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
 		
 	// Output the result in an element with id="demo"
 	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
