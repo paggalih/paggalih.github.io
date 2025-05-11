@@ -1181,7 +1181,7 @@ function validateUTSmbs2d() {
 	else {
 		if (sekarang-akhirUTSmbs2d<0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "toppingcoklat") {
+			 if (person === "matagaruda") {
 				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
@@ -1266,18 +1266,18 @@ function validateUTSmbs2e() {
 	else {
 		if (sekarang-akhirUTSmbs2e<0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "toppingvanila") {
+			 if (person === "matanajwa") {
 				document.getElementById("tombol_mulai_mbs2e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
 				var b = (nim*5)% 6;
 				var c = [
-				['soal4','soal7','soal9','soal13','soal1'],
-				['soal16','soal7','soal4','soal10','soal14'],
-				['soal6','soal7','soal15','soal14','soal10'],
-				['soal6','soal1','soal8','soal10','soal3'],
-				['soal4','soal8','soal2','soal13','soal11'],
-				['soal8','soal12','soal4','soal9','soal14']
+					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
+					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
+					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
+					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
+					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
+					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
 				];
 				var d = c[b];
 				for (i = 1; i < 6; i++) {
