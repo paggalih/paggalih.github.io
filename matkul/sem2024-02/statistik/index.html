@@ -1184,12 +1184,18 @@ function validateUTSmbs2d() {
 			 if (person === "matagaruda") {
 				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-				let nim = Number(prompt('Masukkan NIM',''));
-				let konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-				if (!konfirmasi) {
-						alert("Silakan ulangi dan masukkan NIM yang benar.");
-						return validateUTSmbs2d();
-						}
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+
 				var b = (nim*5)% 6;
 				var c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
@@ -1274,12 +1280,17 @@ function validateUTSmbs2e() {
 			 if (person === "matanajwa") {
 				document.getElementById("tombol_mulai_mbs2e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-				let nim = Number(prompt('Masukkan NIM',''));
-				let konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-				if (!konfirmasi) {
-						alert("Silakan ulangi dan masukkan NIM yang benar.");
-						validateUTSmbs2d();
-						}
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
 				var b = (nim*5)% 6;
 				var c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
