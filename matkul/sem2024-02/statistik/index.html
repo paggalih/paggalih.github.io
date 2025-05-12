@@ -1185,7 +1185,7 @@ function validateUTSmbs2d() {
 				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
-				let konfirmasi = confirm(`Apakah NIM Anda sudah benar: ${nim}?`);
+				let konfirmasi = confirm('Apakah NIM Anda sudah benar:'+nim.toString()+'?' );
 				if (!konfirmasi) {
 						alert("Silakan ulangi dan masukkan NIM yang benar.");
 						return;
@@ -1274,7 +1274,7 @@ function validateUTSmbs2e() {
 				document.getElementById("tombol_mulai_mbs2e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
-				let konfirmasi = confirm(`Apakah NIM Anda sudah benar: ${nim}?`);
+				let konfirmasi = confirm('Apakah NIM Anda sudah benar:'+nim.toString()+'?' );
 				if (!konfirmasi) {
 						alert("Silakan ulangi dan masukkan NIM yang benar.");
 						return;
