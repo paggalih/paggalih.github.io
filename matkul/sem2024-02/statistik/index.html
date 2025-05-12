@@ -1185,6 +1185,10 @@ function validateUTSmbs2d() {
 				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
+				let konfirmasi = confirm(`Apakah NIM Anda sudah benar: ${nim}?`);
+				if (!konfirmasi) {
+						alert("Silakan ulangi dan masukkan NIM yang benar.");
+						return;
 				var b = (nim*5)% 6;
 				var c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
@@ -1270,6 +1274,10 @@ function validateUTSmbs2e() {
 				document.getElementById("tombol_mulai_mbs2e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
+				let konfirmasi = confirm(`Apakah NIM Anda sudah benar: ${nim}?`);
+				if (!konfirmasi) {
+						alert("Silakan ulangi dan masukkan NIM yang benar.");
+						return;
 				var b = (nim*5)% 6;
 				var c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
