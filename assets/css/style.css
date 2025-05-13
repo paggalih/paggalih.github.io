@@ -1529,3 +1529,11 @@ section {
     padding: 5px 10px;
     font-size: 0.9rem;
 }
+
+  .tabel-kotak {
+    table-layout: fixed;
+  }
+  .tabel-kotak td {
+    text-align: center;
+    vertical-align: middle;
+  }
