@@ -523,3 +523,16 @@ document.addEventListener("DOMContentLoaded", function() {
     });
 		
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const tables = document.querySelectorAll(".tabel-kotak");
+  tables.forEach(table => {
+    const rows = table.rows.length;
+    const cols = table.rows[0].cells.length;
+    const totalWidth = table.offsetWidth;
+    const cellSize = totalWidth / cols;
+    [...table.rows].forEach(row => {
+      row.style.height = `${cellSize}px`;
+    });
+  });
+});
