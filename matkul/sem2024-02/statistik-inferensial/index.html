@@ -1251,29 +1251,206 @@ H_1: \mu_d &lt; 0 \quad \text{(Brand A memiliki lebih sedikit kesalahan daripada
                     <div class="section-title">
                         <h2>Pertemuan 8</h2>
                     </div>
-										
-    <div class="container mt-5">
-        <div class="accordion" id="accordionp8">
-            
-            <div class="accordion-item">
-                <h2 class="accordion-header" id="headingp8">
-                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep8" aria-expanded="true" aria-controls="collapsep8">
-                        Soal Latihan
-                    </button>
-                </h2>
-                <div id="collapsep8" class="accordion-collapse collapse" aria-labelledby="headingp8" data-bs-parent="#accordionp8">
-                    <div class="accordion-body">
-												<p>Soal 1:</p>
+<p class="h1">Ketentuan UTS ES4F</p>
+<ol>
+	<!-- <li>UTS ES4F hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li> -->
+	<!-- <li>Soal UTS ES4F boleh dikerjakan dari 08:40-10:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li> -->
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_mulai_es4f" type="button" class="btn btn-primary" onclick="validateUTSes4f()">Mulai UTS ES4F</button>
+<!-- <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban ES4F</button> -->
+<script>
+var mulaiUTSes4f = new Date("May 13, 2025 14:39:00").getTime();
+var akhirUTSes4f = new Date("May 15, 2025 10:10:00").getTime();
+var sekarang = new Date().getTime();
+function validateUTSes4f() {
+	document.getElementById('timerUTS').style.display="block";
 
-												<p>Soal 2:</p>
+	if (sekarang-mulaiUTSes4f < 0){
+		alert("Belum waktunya. UTS ES4F hanya boleh dimulai 15 Mei 2025 pukul 08.40");
+	}
+	else {
+		if (sekarang-akhirUTSes4f < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "matanajwa") {
+				document.getElementById("tombol_mulai_es4f").style.display="none";
+				document.getElementById("berhasilValidateUTS").style.display = "block";
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+				var b = (nim*5)% 6;
+				var c = [
+					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
+					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
+					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
+					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
+					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
+					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai. UTS ES4F hanya boleh dikerjakan sampai 15 Mei 2025 pukul 10.10");
+		}
+	}
+}
+function closeValidateUTSmbs2e() {
+    setTimeout(function() {
+        window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	var sekarang = new Date().getTime();
 
-												<p>Soal 3:</p>
+	// Find the distance between now and the count down date
+	var distancees4f = akhirUTSes4f - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
+	var hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
+	var secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam "
+	+ minuteses4f + "menit " + secondses4f + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancees4f < 0) {
+		clearIntervales4f(x);
+		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUTS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<div id="berhasilValidateUTS" style="display: none">
+<div id="soal1" style='display:none;'>
+<p>
+Waktu yang dibutuhkan untuk menyelesaikan transaksi per pelanggan di sebuah toko ritel diasumsikan mengikuti distribusi normal dengan rata-rata 
+\( \mu = 4 \) menit dan simpangan baku \( \sigma = 0,8 \) menit.
+</p>
+<ol>
+  <li>Berapa probabilitas bahwa satu pelanggan menyelesaikan transaksinya lebih dari $5$ menit?</li>
+  <li>Berapa probabilitas bahwa rata-rata waktu transaksi dari sampel acak $9$ pelanggan lebih dari $5$ menit?</li>
+  <li>Berapa probabilitas bahwa seluruh $9$ pelanggan dalam satu sampel acak masing-masing menyelesaikan transaksi lebih dari $5$ menit?</li>
+</ol>
+</div>
 
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
+<div id="soal2" style='display:none;'>
+<p>
+Jumlah kendaraan yang melewati gerbang tol setiap jam mengikuti distribusi normal dengan rata-rata 
+\( \mu = 450 \) kendaraan per jam dan simpangan baku \( \sigma = 80 \).
+Jika gerbang tol beroperasi selama $18$ jam sehari, berapa probabilitas bahwa total jumlah kendaraan yang lewat melebihi $10.000$ kendaraan?
+</p>
+</div>
+
+<div id="soal3" style='display:none;'>
+<p>
+Manajer hotel percaya bahwa pelanggan yang check-in melalui aplikasi mandiri akan lebih cepat mendapatkan kamar dibandingkan pelanggan yang check-in di meja resepsionis. Rata-rata waktu check-in via aplikasi adalah $6$ menit dengan simpangan baku $2$ menit, sedangkan melalui resepsionis rata-rata $7$ menit dengan simpangan baku $2,5$ menit.
+Dalam studi awal, $12$ pelanggan check-in via aplikasi dan $10$ pelanggan melalui resepsionis.
+</p>
+<p>
+Apakah dapat disimpulkan bahwa check-in via aplikasi lebih cepat dibandingkan check-in di resepsionis pada tingkat signifikansi $5\%$?
+</p>
+</div>
+<!-- ======================= -->
+<div id="soal4" style='display:none;'>
+<p>
+Seorang ahli gizi ingin mengetahui seberapa banyak berat badan rata-rata yang turun selama $3$ bulan pertama pada peserta program diet baru. Diketahui bahwa penurunan berat badan dalam populasi mengikuti distribusi normal dengan simpangan baku \( \sigma = 5 \) kg. Sebuah sampel acak dari $10$ peserta program memberikan data penurunan berat badan sebagai berikut (dalam kg):
+</p>
+<p>
+7, 5, 9, 3, 6, 8, 4, 10, 6, 7
+</p>
+<p>
+Tentukan estimasi interval kepercayaan <b>90%</b> untuk rata-rata penurunan berat badan peserta program diet tersebut.
+</p>
+</div>
+
+<div id="soal5" style='display:none;'>
+<p>
+Seorang dosen ingin memperkirakan jumlah rata-rata jam belajar mandiri mahasiswa selama satu minggu.
+Ia mengambil sampel acak $64$ mahasiswa dan menemukan bahwa rata-rata waktu belajar mereka adalah $15$ jam.
+Diketahui bahwa simpangan baku populasi adalah \( \sigma = 4 \) jam.
+</p>
+<p>
+Hitung estimasi interval kepercayaan <b>95%</b> untuk rata-rata jam belajar mingguan seluruh mahasiswa.
+</p>
+</div>
+<!-- ========================= -->
+<div id="soal6" style='display:none;'>
+
+</div>
+
+<div id="soal7" style='display:none;'>
+
+</div>
+
+<div id="soal8" style='display:none;'>
+
+</div>
+<!-- ====================== -->
+<div id="soal9" style='display:none;'>
+
+</div>
+
+<div id="soal10" style='display:none;'>
+
+</div>
+
+<div id="soal11" style='display:none;'>
+
+</div>
+<!-- ========================= -->
+<div id="soal12" style='display:none;'>
+
+</div>
+
+<div id="soal13" style='display:none;'>
+
+</div>
+
+<div id="soal14" style='display:none;'>
+
+</div>
+
+<div id="soal15" style='display:none;'>
+
+</div>
+
+
+<p class="h1 text-center">Soal UTS</p>
+<ol id="soalUTS">
+	<li id='nomer1'><h2>Soal 1</h2></li>
+	<li id='nomer2'><h2>Soal 2</h2></li>
+	<li id='nomer3'><h2>Soal 3</h2></li>
+	<li id='nomer4'><h2>Soal 4</h2></li>
+	<li id='nomer5'><h2>Soal 5</h2></li>
+</ol>
+</div>										
+
                 </div>
             </section>
             <section id="p9">
