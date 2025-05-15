@@ -1370,7 +1370,70 @@ var x = setInterval(function() {
                     <div class="section-title">
                         <h2>Pertemuan 9</h2>
                     </div>
+  <h2 class="text-center">Rangkuman Bab 17: Metode Simpleks</h2>
 
+  <h4>17.1 Pendahuluan</h4>
+  <p>Metode dua variabel tidak memadai untuk banyak kasus nyata. Metode <em>simplex</em> digunakan untuk menyelesaikan masalah linear programming dengan lebih dari dua variabel dan banyak kendala.</p>
+
+  <h4>17.2 Kasus: Pinjaman Paling Menguntungkan</h4>
+  <p>Model matematis:</p>
+  <p>
+    \[
+    \max P = 2x + y
+    \]
+    Dengan kendala:
+    \[
+    3x + y \leq 138, \quad x + y \leq 72
+    \]
+  </p>
+  <ul>
+    <li>Gunakan variabel slack: \( s_1, s_2 \)</li>
+    <li>Solusi awal: \( s_1 = 138, s_2 = 72 \)</li>
+    <li>Pivoting dilakukan untuk memaksimalkan profit</li>
+  </ul>
+  <p><strong>Solusi optimal:</strong> \( x = 33, \ y = 39, \ P = 105 \)</p>
+
+  <h4>17.2.1 Contoh: Pemilihan Jenis Pembiayaan</h4>
+  <p>Model:</p>
+  <p>
+    \[
+    \max P = 65x + 75y + 55z
+    \]
+    <p>Kendala:</p>
+    \[
+    2x + 3y + 4z \leq 6000 \\
+    4x + 3y + 2z \leq 5000
+    \]
+  </p>
+  <p><strong>Solusi optimal:</strong> \( x = 0, \ y = 1333.33, \ z = 500, \ P = 127,500 \)</p>
+
+  <h4>17.3 Aturan Umum Simpleks</h4>
+  <ul>
+    <li><strong>Standardisasi:</strong> Ubah semua kendala agar RHS positif</li>
+    <li><strong>Slack:</strong> untuk \( \leq \)</li>
+    <li><strong>Surplus:</strong> untuk \( \geq \)</li>
+    <li><strong>Artificial:</strong> untuk \( \geq \) dan \( = \), dengan koefisien \( \pm M \)</li>
+  </ul>
+
+  <h4>17.3.4 Contoh: Minimasi Biaya</h4>
+  <p>Model:</p>
+  <p>
+    \[ \min Z = x_1 + x_2 + x_3 + x_4 \]</p>
+  <p>Kendala:</p>
+  <p>
+    \[ 3x_1 + 2x_2 + x_3 \geq 1000 \]</p>
+    \[ x_1 + 3x_2 + 4x_3 + 6x_4 = 1000 \]</p>
+  <p>Gunakan: slack, surplus, artificial variable. Solusi optimal:</p>
+  <p>
+    \[ x_1 = 142.86, \quad x_2 = 285.71, \quad Z = 428.57 \]
+  </p>
+
+  <h4>17.4 Pertimbangan dan Keterbatasan</h4>
+  <ul>
+    <li>Validasi manual diperlukan meskipun software tersedia</li>
+    <li>Model linier bisa jadi tidak merepresentasikan kenyataan</li>
+    <li>Pemilihan variabel dan asumsi linier sangat mempengaruhi hasil</li>
+  </ul>
 <div class="overflow-auto text-center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Rwt1rvC_BD8?si=6pYIEGtuPdxTNQrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
