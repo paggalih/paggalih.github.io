@@ -754,7 +754,91 @@ document.getElementById("tabel-UTS").innerHTML = html;
                     <div class="section-title">
                         <h2>Pertemuan 9</h2>
                     </div>
+  <h1 class="text-center">Bab 8: Model Logit dan Probit</h1>
 
+  <h2>1. Latar Belakang</h2>
+  <p>Variabel dependen sering kali bersifat <em>binary</em>, seperti merokok (1) atau tidak (0). Model regresi biasa tidak cocok untuk jenis data ini. Oleh karena itu digunakan model <strong>logit</strong> dan <strong>probit</strong>.</p>
+
+  <h2>2. Linear Probability Model (LPM)</h2>
+  <p>Model LPM diasumsikan sebagai:</p>
+  <p>\[ Y_i = \beta_1 + \beta_2 \text{AGE}_i + \beta_3 \text{EDUC}_i + \beta_4 \text{INCOME}_i + \beta_5 \text{PCIGS}_i + u_i \]</p>
+  <p>LPM memiliki banyak kelemahan:</p>
+  <ul>
+    <li>Probabilitas bisa di luar [0,1]</li>
+    <li>Hubungan diasumsikan linear</li>
+    <li>Error tidak normal dan heteroskedastik</li>
+  </ul>
+
+  <h2>3. Model Logit</h2>
+  <p>Fungsi logit:</p>
+  <p>\[ P_i = \frac{1}{1 + e^{-Z_i}}, \quad Z_i = \beta X_i \]</p>
+  <p>Odds ratio:</p>
+  <p>\[ \ln\left(\frac{P_i}{1 - P_i}\right) = \beta X_i \]</p>
+  <p>Model diestimasi dengan <strong>Maximum Likelihood Estimation (MLE)</strong>.</p>
+
+  <h2>4. Interpretasi Koefisien</h2>
+  <ul>
+    <li>Koefisien logit menunjukkan perubahan <em>log odds</em></li>
+    <li>Efek marginal tergantung nilai semua X</li>
+  </ul>
+
+  <h2>5. Model dengan Interaksi</h2>
+  <p>Koefisien interaksi (misal EDUC × INCOME) bisa mengungkap pengaruh gabungan dua variabel terhadap probabilitas.</p>
+
+  <h2>6. Model Probit</h2>
+  <p>Dalam model probit, distribusi error mengikuti distribusi normal:</p>
+  <p>\[ P(Y = 1 | X) = \Phi(\beta X) \]</p>
+  <p>Fungsi distribusi kumulatif:</p>
+  <p>
+    \[ \Phi(Z) = \int_{-\infty}^{Z} \frac{1}{\sqrt{2\pi}} e^{-\frac{t^2}{2}} dt \]
+  </p>
+  <p>Estimasi juga dilakukan dengan MLE.</p>
+
+  <h2>7. Marginal Effect Probit</h2>
+  <p>Efek marginal:</p>
+  <p>\[ \frac{\partial P}{\partial X_i} = f(\beta X) \cdot \beta_i \]</p>
+  <p>di mana \( f(\beta X) \) adalah nilai dari fungsi kepadatan normal standar.</p>
+
+  <h2>8. Perbandingan LPM, Logit, dan Probit</h2>
+  <table class="table table-bordered">
+    <thead><tr><th>Model</th><th>Distribusi Error</th><th>Estimasi</th><th>Batas Probabilitas</th></tr></thead>
+    <tbody>
+      <tr><td>LPM</td><td>Non-normal</td><td>OLS</td><td>Tidak dibatasi</td></tr>
+      <tr><td>Logit</td><td>Logistik</td><td>MLE</td><td>[0,1]</td></tr>
+      <tr><td>Probit</td><td>Normal</td><td>MLE</td><td>[0,1]</td></tr>
+    </tbody>
+  </table>
+
+  <h2>9. Goodness of Fit</h2>
+  <p><strong>Count R<sup>2</sup>:</strong></p>
+  <p>\[ \text{Count } R^2 = \frac{\text{jumlah prediksi benar}}{\text{total observasi}} \]</p>
+  <p><strong>McFadden R<sup>2</sup></strong> juga digunakan sebagai pseudo R<sup>2</sup>.</p>
+
+  <h2>10. Kesimpulan</h2>
+  <ul>
+    <li>LPM tidak cocok untuk data binary</li>
+    <li>Logit dan probit lebih stabil dan sesuai</li>
+    <li>Efek marginal logit/probit bergantung pada semua X</li>
+    <li>Logit lebih sederhana secara matematis; probit lebih umum dalam literatur statistik</li>
+  </ul>
+<div class="overflow-auto" id="tabel-p9"></div>
+<script>
+fetch('Data_Smoker.csv')
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.split('\n');
+    let html = '<table class="table table-striped-columns text-center">';
+    rows.forEach(row => {
+      html += '<tr>';
+      row.split(',').forEach(cell => {
+        html += `<td>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</table>';
+document.getElementById("tabel-p9").innerHTML = html;
+  });
+</script>
                 </div>
             </section>
             <section id="p10">
