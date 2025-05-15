@@ -1499,7 +1499,64 @@ var x = setInterval(function() {
                     <div class="section-title">
                         <h2>Pertemuan 10</h2>
                     </div>
+  <h2 class="text-center">Contoh Soal Simpleks: Maksimalkan dengan Satu Kendala \( \geq \)</h2>
 
+  <h4>Contoh 1</h4>
+  <p>Model:</p>
+  <p>\( \max Z = 8x + 6y + 10z \)</p>
+  <p>Kendala:</p>
+  <ul>
+    <li>\( 3x + 2y + z \geq 30 \)</li>
+    <li>\( x + 2y + 4z \leq 40 \)</li>
+    <li>\( x + y + z \leq 25 \)</li>
+  </ul>
+  <p>Variabel slack/surplus/artificial ditambahkan:</p>
+  <pre><code>
+Cj     8    6    10   0   0   -M
+--------------------------------
+xB  |  x    y    z  s1  s2   a1  | RHS
+---------------------------------------
+a1 |  3    2    1   0   0    1  | 30
+s1 |  1    2    4   1   0    0  | 40
+s2 |  1    1    1   0   1    0  | 25
+  </code></pre>
+  <p><strong>Iterasi 1:</strong></p>
+  <ul>
+    <li>Pilih kolom pivot: z (nilai Cj terbesar)</li>
+    <li>Hitung rasio: baris a1 → 30/1 = 30, baris s1 → 40/4 = 10, baris s2 → 25/1 = 25</li>
+    <li>Pivot pada baris s1 dan kolom z</li>
+  </ul>
+  <p><strong>Jawaban Optimal:</strong> \( x = 20, y = 0, z = 5, Z = 210 \)</p>
+
+  <hr>
+
+  <h4>Contoh 2</h4>
+  <p>Model:</p>
+  <p>\( \max Z = 20x + 25y + 30z \)</p>
+  <p>Kendala:</p>
+  <ul>
+    <li>\( x + y + z \geq 30 \)</li>
+    <li>\( 2x + 3y + 4z \leq 100 \)</li>
+    <li>\( x + 2y + z \leq 90 \)</li>
+  </ul>
+  <p>Dengan surplus dan artificial variabel:</p>
+  <pre><code>
+Cj    20   25   30   0   0   -M
+--------------------------------
+xB |  x    y    z  s1  s2   a1  | RHS
+--------------------------------------
+a1 |  1    1    1   0   0    1  | 30
+s1 |  2    3    4   1   0    0  | 100
+s2 |  1    2    1   0   1    0  | 90
+  </code></pre>
+  <p><strong>Iterasi 1:</strong></p>
+  <ul>
+    <li>Pilih kolom pivot: z (nilai Cj terbesar)</li>
+    <li>Hitung rasio: baris a1 → 30/1 = 30, s1 → 100/4 = 25, s2 → 90/1 = 90</li>
+    <li>Pivot pada baris s1 dan kolom z</li>
+  </ul>
+  <p><strong>Jawaban Optimal:</strong> \( x = 10, y = 10, z = 10, Z = 750 \)</p>
+</div>
 <div class="overflow-auto text-center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Rwt1rvC_BD8?si=6pYIEGtuPdxTNQrl" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
@@ -1515,10 +1572,24 @@ var x = setInterval(function() {
                 <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
                     <div class="accordion-body">
 												<p>Soal 1:</p>
-
+												<p><strong>Soal 1:</strong> Maksimalkan \( Z = 12x + 18y + 14z \)</p>
+												<p>Kendala:</p>
+												<ul>
+													<li>\( 2x + 3y + z \geq 36 \)</li>
+													<li>\( x + y + z \leq 30 \)</li>
+													<li>\( 3x + 2y + 2z \leq 60 \)</li>
+												</ul>
+												<p>Selesaikan dengan metode simpleks.</p>
+	
 												<p>Soal 2:</p>
-
-												<p>Soal 3:</p>
+												<p><strong>Soal 2:</strong> Maksimalkan \( Z = 9x + 7y + 11z \)</p>
+												<p>Kendala:</p>
+												<ul>
+													<li>\( x + y + 2z \geq 25 \)</li>
+													<li>\( 2x + y + z \leq 40 \)</li>
+													<li>\( x + 3y + 2z \leq 50 \)</li>
+												</ul>
+												<p>Gunakan tabel simpleks untuk menemukan solusi optimal.</p>
 
 										</div>
                 </div>
