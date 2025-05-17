@@ -1251,29 +1251,29 @@ H_1: \mu_d &lt; 0 \quad \text{(Brand A memiliki lebih sedikit kesalahan daripada
                     <div class="section-title">
                         <h2>Pertemuan 8</h2>
                     </div>
-<p class="h1">Ketentuan UTS ES4F</p>
+<p class="h1">Ketentuan UTS ES4D</p>
 <ol>
 	<!-- <li>UTS ES4F hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li> -->
 	<!-- <li>Soal UTS ES4F boleh dikerjakan dari 08:40-10:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li> -->
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
-<button id="tombol_mulai_es4f" type="button" class="btn btn-primary" onclick="validateUTSes4f()">Mulai UTS ES4F</button>
+<button id="tombol_mulai_es4d" type="button" class="btn btn-primary" onclick="validateUTSes4d()">Mulai UTS ES4D</button>
 <!-- <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban ES4F</button> -->
 <script>
-var mulaiUTSes4f = new Date("May 15, 2025 08:39:00").getTime();
-var akhirUTSes4f = new Date("May 15, 2025 10:10:00").getTime();
+var mulaiUTSes4d = new Date("May 15, 2025 08:39:00").getTime();
+var akhirUTSes4d = new Date("May 19, 2025 11:50:00").getTime();
 var sekarang = new Date().getTime();
-function validateUTSes4f() {
+function validateUTSes4d() {
 	document.getElementById('timerUTS').style.display="block";
 
-	if (sekarang-mulaiUTSes4f < 0){
-		alert("Belum waktunya. UTS ES4F hanya boleh dimulai 15 Mei 2025 pukul 08.40");
+	if (sekarang-mulaiUTSes4d < 0){
+		alert("Belum waktunya. UTS ES4D hanya boleh dimulai 19 Mei 2025 pukul 10.20");
 	}
 	else {
-		if (sekarang-akhirUTSes4f < 0) {
+		if (sekarang-akhirUTSes4d < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "matanajwa") {
-				document.getElementById("tombol_mulai_es4f").style.display="none";
+			 if (person === "yangjujur") {
+				document.getElementById("tombol_mulai_es4d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
 let validNIM = false;
 let nim;
@@ -1308,37 +1308,127 @@ while (!validNIM) {
 			}
 		}
 		else{
-			alert("Sudah selesai. UTS ES4F hanya boleh dikerjakan sampai 15 Mei 2025 pukul 10.10");
+			alert("Sudah selesai. UTS ES4D hanya boleh dikerjakan sampai 19 Mei 2025 pukul 11.50");
 		}
 	}
 }
-function closeValidateUTSmbs2e() {
+function closeValidateUTSes4d() {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
     }, 500);
 }
 // Update the count down every 1 second
 var x = setInterval(function() {	
-	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
 	var sekarang = new Date().getTime();
 
 	// Find the distance between now and the count down date
-	var distancees4f = akhirUTSes4f - sekarang;
+	var distancees4d = akhirUTSes4d - sekarang;
 		
 	// Time calculations for days, hours, minutes and seconds
-	var dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
-	var hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
-	var secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
+	var dayses4d = Math.floor(distancees4d / (1000 * 60 * 60 * 24));
+	var hourses4d = Math.floor((distancees4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minuteses4d = Math.floor((distancees4d % (1000 * 60 * 60)) / (1000 * 60));
+	var secondses4d = Math.floor((distancees4d % (1000 * 60)) / 1000);
 		
 	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam "
-	+ minuteses4f + "menit " + secondses4f + "detik ";
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4d + "hari " + hourses4d + "jam "
+	+ minuteses4d + "menit " + secondses4d + "detik ";
 		
 	// If the count down is over, write some text 
-	if (distancees4f < 0) {
-		clearIntervales4f(x);
+	if (distancees4d < 0) {
+		clearIntervales4d(x);
+		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUTS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<p class="h1">Ketentuan UTS ES4E</p>
+<ol>
+	<!-- <li>UTS ES4F hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li> -->
+	<!-- <li>Soal UTS ES4F boleh dikerjakan dari 08:40-10:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li> -->
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_mulai_es4e" type="button" class="btn btn-primary" onclick="validateUTSes4e()">Mulai UTS ES4F</button>
+<!-- <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban ES4F</button> -->
+<script>
+var mulaiUTSes4e = new Date("May 15, 2025 08:39:00").getTime();
+var akhirUTSes4e = new Date("May 19, 2025 14:30:00").getTime();
+var sekarang = new Date().getTime();
+function validateUTSes4e() {
+	document.getElementById('timerUTS').style.display="block";
+
+	if (sekarang-mulaiUTSes4e < 0){
+		alert("Belum waktunya. UTS ES4E hanya boleh dimulai 19 Mei 2025 pukul 13.00");
+	}
+	else {
+		if (sekarang-akhirUTSes4e < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "yangsemangat") {
+				document.getElementById("tombol_mulai_es4e").style.display="none";
+				document.getElementById("berhasilValidateUTS").style.display = "block";
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+				var b = (nim*5)% 6;
+				var c = [
+					['soal2', 'soal4', 'soal6', 'soal9', 'soal13'],
+					['soal1', 'soal5', 'soal7', 'soal8', 'soal12'],
+					['soal1', 'soal4', 'soal6', 'soal9', 'soal11'],
+					['soal3', 'soal5', 'soal7', 'soal8', 'soal12'],
+					['soal3', 'soal4', 'soal7', 'soal10', 'soal11'],
+					['soal2', 'soal5', 'soal6', 'soal10', 'soal13']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai. UTS ES4E hanya boleh dikerjakan sampai 19 Mei 2025 pukul 14.30");
+		}
+	}
+}
+function closeValidateUTSes4e() {
+    setTimeout(function() {
+        window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distancees4e = akhirUTSes4e - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
+	var hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
+	var secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
+	+ minuteses4e + "menit " + secondses4e + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancees4e < 0) {
+		clearIntervales4e(x);
 		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUTS").style.display = "none";
 	}
@@ -1547,6 +1637,156 @@ Ia mencatat waktu pengerjaan (dalam detik) dan memperoleh data sebagai berikut:
                     </button>
                 </h2>
                 <div id="collapsep9" class="accordion-collapse collapse" aria-labelledby="headingp9" data-bs-parent="#accordionp9">
+                    <div class="accordion-body">
+												<p>Soal 1:</p>
+
+												<p>Soal 2:</p>
+
+												<p>Soal 3:</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </section>
+            <section id="p10">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 10</h2>
+                    </div>
+										
+    <div class="container mt-5">
+        <div class="accordion" id="accordionp10">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp10">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep10" aria-expanded="true" aria-controls="collapsep10">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
+                    <div class="accordion-body">
+												<p>Soal 1:</p>
+
+												<p>Soal 2:</p>
+
+												<p>Soal 3:</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </section>
+            <section id="p11">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 11</h2>
+                    </div>
+										
+    <div class="container mt-5">
+        <div class="accordion" id="accordionp11">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp11">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep11" aria-expanded="true" aria-controls="collapsep11">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapsep11" class="accordion-collapse collapse" aria-labelledby="headingp11" data-bs-parent="#accordionp11">
+                    <div class="accordion-body">
+												<p>Soal 1:</p>
+
+												<p>Soal 2:</p>
+
+												<p>Soal 3:</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </section>
+            <section id="p12">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 12</h2>
+                    </div>
+										
+    <div class="container mt-5">
+        <div class="accordion" id="accordionp12">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp12">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep12" aria-expanded="true" aria-controls="collapsep12">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapsep12" class="accordion-collapse collapse" aria-labelledby="headingp12" data-bs-parent="#accordionp12">
+                    <div class="accordion-body">
+												<p>Soal 1:</p>
+
+												<p>Soal 2:</p>
+
+												<p>Soal 3:</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </section>
+            <section id="p13">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 13</h2>
+                    </div>
+										
+    <div class="container mt-5">
+        <div class="accordion" id="accordionp13">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp13">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep13" aria-expanded="true" aria-controls="collapsep13">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapsep13" class="accordion-collapse collapse" aria-labelledby="headingp13" data-bs-parent="#accordionp13">
+                    <div class="accordion-body">
+												<p>Soal 1:</p>
+
+												<p>Soal 2:</p>
+
+												<p>Soal 3:</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+                </div>
+            </section>
+            <section id="p14">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 14</h2>
+                    </div>
+										
+    <div class="container mt-5">
+        <div class="accordion" id="accordionp14">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp14">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep14" aria-expanded="true" aria-controls="collapsep14">
+                        Soal Latihan
+                    </button>
+                </h2>
+                <div id="collapsep14" class="accordion-collapse collapse" aria-labelledby="headingp14" data-bs-parent="#accordionp14">
                     <div class="accordion-body">
 												<p>Soal 1:</p>
 
