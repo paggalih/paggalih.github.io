@@ -1349,7 +1349,7 @@ var x = setInterval(function() {
 	<!-- <li>Soal UTS ES4F boleh dikerjakan dari 08:40-10:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li> -->
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
-<button id="tombol_mulai_es4e" type="button" class="btn btn-primary" onclick="validateUTSes4e()">Mulai UTS ES4F</button>
+<button id="tombol_mulai_es4e" type="button" class="btn btn-primary" onclick="validateUTSes4e()">Mulai UTS ES4E</button>
 <!-- <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban ES4F</button> -->
 <script>
 var mulaiUTSes4e = new Date("May 15, 2025 08:39:00").getTime();
@@ -1626,7 +1626,328 @@ Ia mencatat waktu pengerjaan (dalam detik) dan memperoleh data sebagai berikut:
                     <div class="section-title">
                         <h2>Pertemuan 9</h2>
                     </div>
-										
+<h1>Bab 14: Analisis Varians (ANOVA) dan Perbandingan Berganda</h1>
+
+<h2>14.1 One-Way Analysis of Variance</h2>
+<p>
+Digunakan untuk menguji apakah terdapat perbedaan yang signifikan antara dua atau lebih rata-rata populasi.
+</p>
+<p><b>Hipotesis:</b></p>
+\[
+H_0 : \mu_1 = \mu_2 = \cdots = \mu_k
+\quad\text{vs}\quad
+H_1 : \text{paling tidak ada dua rata-rata berbeda}
+\]
+
+<p><b>Statistik uji F:</b></p>
+\[
+F = \frac{MST}{MSE}
+\quad\text{dengan}\quad
+MST = \frac{SST}{k - 1},\quad MSE = \frac{SSE}{n - k}
+\]
+
+<ul>
+  <li>SST: jumlah kuadrat antar grup</li>
+  <li>SSE: jumlah kuadrat dalam grup</li>
+  <li>Data harus dari distribusi normal dengan varians yang sama</li>
+</ul>
+
+<hr>
+
+<h2>14.2 Multiple Comparisons</h2>
+<p>Jika uji F signifikan, kita lanjut untuk melihat <i>pasangan mana</i> yang berbeda. Metode umum:</p>
+<ul>
+  <li><b>Fisher’s LSD</b>: sensitif, gunakan jika jumlah perbandingan sedikit</li>
+  <li><b>Bonferroni</b>: sesuaikan \( \alpha \to \frac{\alpha}{C} \) untuk C perbandingan</li>
+  <li><b>Tukey’s HSD</b>: berbasis Studentized Range, cocok untuk semua perbandingan</li>
+</ul>
+
+<hr>
+
+<h2>14.3 Desain Eksperimen</h2>
+<ul>
+  <li><b>One-Way ANOVA</b>: satu faktor (misal, usia)</li>
+  <li><b>Randomized Block (Two-Way)</b>: dua faktor (misal, usia dan gender)</li>
+  <li><b>Fixed Effects</b>: semua level diamati</li>
+  <li><b>Random Effects</b>: level merupakan sampel dari populasi</li>
+</ul>
+
+<hr>
+
+<h2>Contoh: Pengaruh Metode Belajar terhadap Skor Ujian</h2>
+
+<p>
+Seorang guru ingin mengetahui apakah metode belajar yang berbeda mempengaruhi hasil ujian siswa.
+Ia membagi siswa ke dalam tiga kelompok:
+</p>
+<ol>
+  <li><b>Kelompok A:</b> membaca mandiri</li>
+  <li><b>Kelompok B:</b> video pembelajaran</li>
+  <li><b>Kelompok C:</b> diskusi kelompok</li>
+</ol>
+
+<table border="1" cellpadding="4">
+<tr>
+  <th>Kelompok A</th><td>70</td><td>72</td><td>68</td><td>71</td><td>69</td><td>73</td>
+</tr>
+<tr>
+  <th>Kelompok B</th><td>78</td><td>74</td><td>75</td><td>77</td><td>76</td><td>80</td>
+</tr>
+<tr>
+  <th>Kelompok C</th><td>82</td><td>88</td><td>85</td><td>87</td><td>90</td><td>86</td>
+</tr>
+</table>
+
+<h3>Hipotesis:</h3>
+\[
+H_0: \mu_A = \mu_B = \mu_C
+\quad\text{vs}\quad
+H_1: \text{paling tidak ada dua rata-rata berbeda}
+\]
+
+<p>
+Setelah perhitungan, diperoleh \( F = 6.85 \), dan \( p = 0.006 \).
+Karena \( p < 0.05 \), maka <b>tolak H₀</b> dan lanjutkan ke uji lanjut.
+</p>
+<h2>Penjelasan Multiple Comparisons Setelah ANOVA</h2>
+
+<p>
+Setelah kita menemukan hasil ANOVA signifikan (artinya terdapat perbedaan rata-rata antar grup), langkah berikutnya adalah mencari tahu: 
+<b>pasangan rata-rata mana yang berbeda secara signifikan</b>.
+</p>
+
+<p>
+Untuk menjawab ini, digunakan <b>uji perbandingan berganda</b> (multiple comparisons).
+Tiga metode yang umum digunakan adalah:
+</p>
+
+<hr>
+
+<h3>1. Fisher’s LSD (Least Significant Difference)</h3>
+
+<p>
+Rumus:
+\[
+\text{LSD} = t_{\alpha/2} \cdot \sqrt{2 \cdot \frac{MSE}{n}}
+\]
+</p>
+
+<ul>
+  <li>Sangat sederhana dan mudah dihitung.</li>
+  <li>Seperti uji t dua sampel, tetapi hanya dilakukan <b>jika ANOVA signifikan</b>.</li>
+  <li>Sensitif: mudah mendeteksi perbedaan.</li>
+  <li><b>Kelemahan:</b> Jika terlalu banyak pasangan dibandingkan, risiko kesalahan Tipe I (false positive) meningkat.</li>
+</ul>
+
+<p><i>Gunakan Fisher’s LSD jika:</i></p>
+<ul>
+  <li>Jumlah grup sedikit (misal 3 grup).</li>
+  <li>Anda hanya ingin ilustrasi atau eksplorasi awal.</li>
+</ul>
+
+<hr>
+
+<h3>2. Bonferroni Adjustment</h3>
+
+<p>
+Ide utama Bonferroni adalah menyesuaikan tingkat signifikansi:
+\[
+\alpha_{\text{baru}} = \frac{\alpha}{C}
+\quad \text{dengan } C = \text{jumlah perbandingan pasangan}
+\]
+</p>
+
+<p>
+Kemudian gunakan uji t biasa dengan \( \alpha_{\text{baru}} \) tersebut untuk tiap pasangan.
+</p>
+
+<ul>
+  <li><b>Lebih hati-hati (konservatif)</b> daripada Fisher’s LSD.</li>
+  <li>Risiko Type I Error sangat kecil.</li>
+  <li><b>Kekurangan:</b> Bisa terlalu ketat sehingga gagal mendeteksi perbedaan yang benar (Type II Error meningkat).</li>
+</ul>
+
+<p><i>Gunakan Bonferroni jika:</i></p>
+<ul>
+  <li>Anda hanya membandingkan beberapa pasangan penting (planned comparisons).</li>
+  <li>Anda ingin sangat yakin terhadap hasil yang signifikan.</li>
+</ul>
+
+<hr>
+
+<h3>3. Tukey’s HSD (Honestly Significant Difference)</h3>
+
+<p>
+Dirancang khusus untuk membandingkan <b>semua pasangan rata-rata</b> dengan kontrol penuh terhadap keseluruhan tingkat kesalahan (family-wise error rate).
+</p>
+
+<p>
+Rumus:
+\[
+\text{HSD} = q_{\alpha;k,n-k} \cdot \sqrt{\frac{MSE}{n}}
+\]
+</p>
+
+<ul>
+  <li>\( q \): nilai dari distribusi studentized range.</li>
+  <li><b>Direkomendasikan</b> untuk perbandingan menyeluruh.</li>
+  <li>Kontrol error lebih baik dibanding LSD, dan tidak seketat Bonferroni.</li>
+</ul>
+
+<p><i>Gunakan Tukey’s HSD jika:</i></p>
+<ul>
+  <li>Anda ingin membandingkan semua pasangan rata-rata.</li>
+  <li>Jumlah grup lebih dari 3.</li>
+</ul>
+
+<hr>
+
+<h2>Kesimpulan Praktis</h2>
+
+<table border="1" cellpadding="6">
+  <thead>
+    <tr>
+      <th>Metode</th>
+      <th>Kapan digunakan</th>
+      <th>Keunggulan</th>
+      <th>Kekurangan</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Fisher’s LSD</td>
+      <td>Grup sedikit (2–3)</td>
+      <td>Sederhana, sensitif</td>
+      <td>Tidak kontrol error saat banyak perbandingan</td>
+    </tr>
+    <tr>
+      <td>Bonferroni</td>
+      <td>Planned comparisons</td>
+      <td>Sangat aman terhadap Type I Error</td>
+      <td>Terlalu konservatif</td>
+    </tr>
+    <tr>
+      <td>Tukey’s HSD</td>
+      <td>All-pairwise comparisons</td>
+      <td>Keseimbangan power dan kontrol error</td>
+      <td>Butuh tabel khusus untuk nilai \( q \)</td>
+    </tr>
+  </tbody>
+</table>
+<h2>Contoh Perbandingan Metode: Fisher’s LSD, Bonferroni, dan Tukey’s HSD</h2>
+
+<h3>Situasi:</h3>
+<p>
+Seorang dosen ingin mengetahui apakah terdapat perbedaan skor ujian rata-rata antara tiga metode pembelajaran berbeda.
+Ia mengumpulkan data dari 18 siswa, 6 orang di setiap kelompok:
+</p>
+
+<table border="1" cellpadding="4">
+<tr>
+  <th>Metode A</th><td>70</td><td>72</td><td>68</td><td>71</td><td>69</td><td>73</td>
+</tr>
+<tr>
+  <th>Metode B</th><td>78</td><td>74</td><td>75</td><td>77</td><td>76</td><td>80</td>
+</tr>
+<tr>
+  <th>Metode C</th><td>82</td><td>88</td><td>85</td><td>87</td><td>90</td><td>86</td>
+</tr>
+</table>
+
+<p>Total sampel: \( n = 18 \), jumlah grup: \( k = 3 \)</p>
+
+<h3>Langkah 1: Hitung Rata-rata</h3>
+<ul>
+  <li>\( \bar{X}_A = 70.5 \)</li>
+  <li>\( \bar{X}_B = 76.7 \)</li>
+  <li>\( \bar{X}_C = 86.3 \)</li>
+</ul>
+
+<h3>Langkah 2: MSE dari ANOVA</h3>
+<p>Dari ANOVA, didapatkan:</p>
+<ul>
+  <li>\( MSE = 8.72 \)</li>
+  <li>\( df_{error} = 15 \)</li>
+</ul>
+
+<hr>
+
+<h2>Perbandingan Antar Pasangan</h2>
+<p>Setiap metode akan membandingkan:</p>
+<ol>
+  <li>A vs B → \( |\bar{X}_B - \bar{X}_A| = 6.2 \)</li>
+  <li>A vs C → \( |\bar{X}_C - \bar{X}_A| = 15.8 \)</li>
+  <li>B vs C → \( |\bar{X}_C - \bar{X}_B| = 9.6 \)</li>
+</ol>
+
+<hr>
+
+<h3>1. Fisher’s LSD</h3>
+<p>
+\[
+LSD = t_{0.025,15} \cdot \sqrt{2 \cdot \frac{MSE}{n}} = 2.131 \cdot \sqrt{2 \cdot \frac{8.72}{6}} \approx 3.58
+\]
+</p>
+
+<p><b>Keputusan:</b></p>
+<ul>
+  <li>A vs B: 6.2 > 3.58 → Signifikan</li>
+  <li>A vs C: 15.8 > 3.58 → Signifikan</li>
+  <li>B vs C: 9.6 > 3.58 → Signifikan</li>
+</ul>
+
+<hr>
+
+<h3>2. Bonferroni</h3>
+<p>
+Ada 3 perbandingan, maka:
+\[
+\alpha_{\text{baru}} = \frac{0.05}{3} \approx 0.0167
+\quad \Rightarrow \quad t_{0.00835,15} \approx 2.552
+\]
+\[
+LSD_{\text{Bonf}} = 2.552 \cdot \sqrt{2 \cdot \frac{8.72}{6}} \approx 4.29
+\]
+</p>
+
+<p><b>Keputusan:</b></p>
+<ul>
+  <li>A vs B: 6.2 > 4.29 → Signifikan</li>
+  <li>A vs C: 15.8 > 4.29 → Signifikan</li>
+  <li>B vs C: 9.6 > 4.29 → Signifikan</li>
+</ul>
+
+<hr>
+
+<h3>3. Tukey’s HSD</h3>
+<p>
+\[
+HSD = q_{\alpha, k, n-k} \cdot \sqrt{\frac{MSE}{n}} \quad
+q_{0.05,3,15} \approx 3.674
+\]
+\[
+HSD = 3.674 \cdot \sqrt{\frac{8.72}{6}} \approx 4.37
+\]
+</p>
+
+<p><b>Keputusan:</b></p>
+<ul>
+  <li>A vs B: 6.2 > 4.37 → Signifikan</li>
+  <li>A vs C: 15.8 > 4.37 → Signifikan</li>
+  <li>B vs C: 9.6 > 4.37 → Signifikan</li>
+</ul>
+
+<hr>
+
+<h2>Kesimpulan Akhir</h2>
+<ul>
+  <li>Ketiga metode menunjukkan hasil yang <b>konsisten</b> dalam kasus ini: semua pasangan berbeda secara signifikan.</li>
+  <li>Namun, jika selisih lebih kecil, metode seperti Bonferroni atau Tukey mungkin menghasilkan keputusan berbeda.</li>
+</ul>
+
+<p>
+Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih metode yang sesuai dengan tujuan analisis dan tingkat kehati-hatian terhadap error.
+</p>
     <div class="container mt-5">
         <div class="accordion" id="accordionp9">
             
