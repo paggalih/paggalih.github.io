@@ -537,39 +537,22 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-/**
- * Fungsi untuk membungkus semua tabel dengan div wrapper
- * @param {string} wrapperClass - Class untuk div wrapper (default: 'overflow-auto text-center')
- */
-function wrapTables(wrapperClass = 'overflow-auto text-center') {
-  // Dapatkan semua elemen tabel di dokumen
-  const tables = document.getElementsByTagName('table');
-  
-  // Konversi HTMLCollection ke Array untuk looping yang lebih aman
-  Array.from(tables).forEach(table => {
-    // Cek apakah tabel sudah dibungkus atau belum
-    if (!table.parentElement.classList.contains(wrapperClass.replace(' ', '.'))) {
-      // Buat div wrapper
-      const wrapper = document.createElement('div');
-      
-      // Tambahkan class ke wrapper
-      wrapper.className = wrapperClass;
-      
-      // Bungkus tabel
-      table.parentNode.insertBefore(wrapper, table);
-      wrapper.appendChild(table);
 
+document.addEventListener("DOMContentLoaded", function () {
+  // Ambil semua tabel yang belum dibungkus
+  const tables = document.querySelectorAll("table");
+
+  tables.forEach(table => {
+    // Cek apakah tabel sudah dibungkus agar tidak double wrap
+    if (!table.parentElement.classList.contains("overflow-auto")) {
+      const wrapper = document.createElement("div");
+      wrapper.className = "overflow-auto text-center";
+
+      // Sisipkan wrapper sebelum table
+      table.parentNode.insertBefore(wrapper, table);
+      // Pindahkan table ke dalam wrapper
+      wrapper.appendChild(table);
     }
   });
-}
-
-// Jalankan fungsi ketika:
-// 1. Halaman selesai dimuat
-document.addEventListener('DOMContentLoaded', wrapTables);
-
-// 2. Ketika ada konten dinamis yang dimuat (untuk SPA/AJAX)
-new MutationObserver(wrapTables).observe(document.body, {
-  childList: true,
-  subtree: true
 });
 
