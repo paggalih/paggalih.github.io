@@ -1537,3 +1537,7 @@ section {
     text-align: center;
     vertical-align: middle;
   }
+	
+	.scroll-progress {
+  border-radius: 2px;
+}
