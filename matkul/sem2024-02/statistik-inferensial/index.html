@@ -1705,10 +1705,110 @@ H_0: \mu_A = \mu_B = \mu_C
 H_1: \text{paling tidak ada dua rata-rata berbeda}
 \]
 
+<h2>Langkah Perhitungan ANOVA Satu Arah</h2>
+
+<h3>Data:</h3>
+
+<table border="1" cellpadding="4">
+<tr>
+  <th>Kelompok A</th><td>70</td><td>72</td><td>68</td><td>71</td><td>69</td><td>73</td>
+</tr>
+<tr>
+  <th>Kelompok B</th><td>78</td><td>74</td><td>75</td><td>77</td><td>76</td><td>80</td>
+</tr>
+<tr>
+  <th>Kelompok C</th><td>82</td><td>88</td><td>85</td><td>87</td><td>90</td><td>86</td>
+</tr>
+</table>
+
+<p>Total data = 18, jumlah grup = 3, \( n_i = 6 \)</p>
+
+<hr>
+
+<h3>Langkah 1: Hitung rata-rata tiap grup dan total</h3>
+
 <p>
-Setelah perhitungan, diperoleh \( F = 6.85 \), dan \( p = 0.006 \).
-Karena \( p < 0.05 \), maka <b>tolak H₀</b> dan lanjutkan ke uji lanjut.
+\[
+\bar{X}_A = \frac{70 + 72 + 68 + 71 + 69 + 73}{6} = 70.5
+\]
+\[
+\bar{X}_B = \frac{78 + 74 + 75 + 77 + 76 + 80}{6} = 76.7
+\]
+\[
+\bar{X}_C = \frac{82 + 88 + 85 + 87 + 90 + 86}{6} = 86.3
+\]
+\[
+\bar{X}_T = \frac{\text{total seluruh data}}{18} = \frac{1407}{18} = 78.17
+\]
 </p>
+
+<hr>
+
+<h3>Langkah 2: Hitung Total Sum of Squares (SST)</h3>
+
+\[
+SST = \sum (X_{ij} - \bar{X}_T)^2
+\]
+
+(Menggunakan semua 18 nilai → selisih tiap nilai dari \(\bar{X}_T\), lalu dikuadratkan dan dijumlahkan)
+
+\[
+SST \approx 810.3
+\]
+
+<hr>
+
+<h3>Langkah 3: Hitung Sum of Squares Treatment (SST)</h3>
+
+\[
+SSB = n_i \cdot \sum (\bar{X}_i - \bar{X}_T)^2
+\]
+\[
+= 6 \cdot \left[(70.5 - 78.17)^2 + (76.7 - 78.17)^2 + (86.3 - 78.17)^2\right]
+\]
+\[
+= 6 \cdot (58.82 + 2.17 + 66.02) \approx 763.1
+\]
+
+<hr>
+
+<h3>Langkah 4: Hitung Sum of Squares Error (SSE)</h3>
+
+\[
+SSW = SST - SSB = 810.3 - 763.1 = 47.2
+\]
+
+<hr>
+
+<h3>Langkah 5: Hitung Mean Squares dan F-Statistik</h3>
+
+<ul>
+  <li>df<sub>antara</sub> = \( k - 1 = 2 \)</li>
+  <li>df<sub>dalam</sub> = \( n - k = 15 \)</li>
+</ul>
+
+<p>
+\[
+MSB = \frac{SST}{2} = \frac{763.1}{2} = 381.6
+\]
+\[
+MSW = \frac{SSE}{15} = \frac{47.2}{15} \approx 3.15
+\]
+\[
+F = \frac{MST}{MSE} = \frac{381.6}{3.15} \approx 121.14
+\]
+</p>
+
+<hr>
+
+<h3>Langkah 6: Keputusan</h3>
+<ul>
+  <li>Nilai $F = 121.14$ sangat besar</li>
+  <li>Nilai $p < 0.001$ (jauh lebih kecil dari $0.05$)</li>
+</ul>
+
+<p><b>Kesimpulan:</b> Tolak \( H_0 \). Terdapat perbedaan signifikan rata-rata skor ujian antar metode belajar.</p>
+
 <h2>Penjelasan Multiple Comparisons Setelah ANOVA</h2>
 
 <p>
