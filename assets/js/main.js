@@ -525,8 +525,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const tables = document.querySelectorAll(".tabel-kotak");
-  tables.forEach(table => {
+  const tabel-kotak = document.querySelectorAll(".tabel-kotak");
+  tabel-kotak.forEach(table => {
     const rows = table.rows.length;
     const cols = table.rows[0].cells.length;
     const totalWidth = table.offsetWidth;
@@ -555,17 +555,10 @@ function wrapTables(wrapperClass = 'overflow-auto text-center') {
       // Tambahkan class ke wrapper
       wrapper.className = wrapperClass;
       
-      // Tambahkan style dasar untuk memastikan responsif
-      wrapper.style.maxWidth = '100%';
-      wrapper.style.margin = '1rem 0';
-      
       // Bungkus tabel
       table.parentNode.insertBefore(wrapper, table);
       wrapper.appendChild(table);
-      
-      // Tambahkan style dasar ke tabel
-      table.style.minWidth = '100%';
-      table.style.whiteSpace = 'nowrap';
+
     }
   });
 }
@@ -579,3 +572,4 @@ new MutationObserver(wrapTables).observe(document.body, {
   childList: true,
   subtree: true
 });
+
