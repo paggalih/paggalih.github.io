@@ -536,3 +536,46 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
+
+/**
+ * Fungsi untuk membungkus semua tabel dengan div wrapper
+ * @param {string} wrapperClass - Class untuk div wrapper (default: 'overflow-auto text-center')
+ */
+function wrapTables(wrapperClass = 'overflow-auto text-center') {
+  // Dapatkan semua elemen tabel di dokumen
+  const tables = document.getElementsByTagName('table');
+  
+  // Konversi HTMLCollection ke Array untuk looping yang lebih aman
+  Array.from(tables).forEach(table => {
+    // Cek apakah tabel sudah dibungkus atau belum
+    if (!table.parentElement.classList.contains(wrapperClass.replace(' ', '.'))) {
+      // Buat div wrapper
+      const wrapper = document.createElement('div');
+      
+      // Tambahkan class ke wrapper
+      wrapper.className = wrapperClass;
+      
+      // Tambahkan style dasar untuk memastikan responsif
+      wrapper.style.maxWidth = '100%';
+      wrapper.style.margin = '1rem 0';
+      
+      // Bungkus tabel
+      table.parentNode.insertBefore(wrapper, table);
+      wrapper.appendChild(table);
+      
+      // Tambahkan style dasar ke tabel
+      table.style.minWidth = '100%';
+      table.style.whiteSpace = 'nowrap';
+    }
+  });
+}
+
+// Jalankan fungsi ketika:
+// 1. Halaman selesai dimuat
+document.addEventListener('DOMContentLoaded', wrapTables);
+
+// 2. Ketika ada konten dinamis yang dimuat (untuk SPA/AJAX)
+new MutationObserver(wrapTables).observe(document.body, {
+  childList: true,
+  subtree: true
+});
