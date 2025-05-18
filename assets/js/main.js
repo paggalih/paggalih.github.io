@@ -525,8 +525,8 @@ document.addEventListener("DOMContentLoaded", function() {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const tabel-kotak = document.querySelectorAll(".tabel-kotak");
-  tabel-kotak.forEach(table => {
+  const tabel_kotak = document.querySelectorAll(".tabel-kotak");
+  tabel_kotak.forEach(table => {
     const rows = table.rows.length;
     const cols = table.rows[0].cells.length;
     const totalWidth = table.offsetWidth;
