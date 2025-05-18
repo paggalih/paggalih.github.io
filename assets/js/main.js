@@ -536,19 +536,3 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 });
-
-document.addEventListener("DOMContentLoaded", function () {
-  document.querySelectorAll("table").forEach(table => {
-    const parent = table.parentElement;
-
-    // Jangan bungkus jika parent sudah punya class overflow-auto
-    if (!parent.classList.contains("overflow-auto")) {
-      const wrapper = document.createElement("div");
-      wrapper.className = "overflow-auto text-center my-3";
-
-      // Sisipkan wrapper dan pindahkan tabel ke dalamnya
-      parent.insertBefore(wrapper, table);
-      wrapper.appendChild(table);
-    }
-  });
-});
