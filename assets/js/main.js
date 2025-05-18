@@ -537,22 +537,18 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
 document.addEventListener("DOMContentLoaded", function () {
-  // Ambil semua tabel yang belum dibungkus
-  const tables = document.querySelectorAll("table");
+  document.querySelectorAll("table").forEach(table => {
+    const parent = table.parentElement;
 
-  tables.forEach(table => {
-    // Cek apakah tabel sudah dibungkus agar tidak double wrap
-    if (!table.parentElement.classList.contains("overflow-auto")) {
+    // Jangan bungkus jika parent sudah punya class overflow-auto
+    if (!parent.classList.contains("overflow-auto")) {
       const wrapper = document.createElement("div");
-      wrapper.className = "overflow-auto text-center";
+      wrapper.className = "overflow-auto text-center my-3";
 
-      // Sisipkan wrapper sebelum table
-      table.parentNode.insertBefore(wrapper, table);
-      // Pindahkan table ke dalam wrapper
+      // Sisipkan wrapper dan pindahkan tabel ke dalamnya
+      parent.insertBefore(wrapper, table);
       wrapper.appendChild(table);
     }
   });
 });
-
