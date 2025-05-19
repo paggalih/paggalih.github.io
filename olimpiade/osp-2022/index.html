@@ -427,8 +427,38 @@ Tanpa menggunakan kalkulus (turunan/integral), tentukan nilai maksimum dari \( x
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse13" aria-expanded="false" aria-controls="collapse13">
 			Jawaban
 		  </button>
-		<div class="collapse" id="collapse13">$$\boxed{910}$$
-=======================
+		<div class="collapse" id="collapse13">$$\boxed{ \dfrac{14}{3} }$$
+<p>Misalkan \( xy - 2x + 5y = k \). Maka, \( xy = k + 2x - 5y \). Perhatikan bahwa</p>
+
+\[
+\begin{aligned}
+3 &= 5x^2 + 4xy + 11y^2 \\
+  &= 5x^2 + 2xy + 2xy + 11y^2 \\
+  &= 5x^2 + 2xy + 2(k + 2x - 5y) + 11y^2 \\
+  &= 5x^2 + 2xy + 2k + 4x - 10y + 11y^2
+\end{aligned}
+\]
+
+<p>Persamaan terakhir dapat ditulis ulang menjadi:</p>
+
+\[
+k = \frac{13}{4} - \frac{1}{2}\left( (2x+1)^2 + (x+y)^2 + 10\left(y - \frac{1}{2}\right)^2 \right)
+\]
+
+<p>Karna tidak ada bilangan kuadrat yang negatif, maka \( k \leq \frac{13}{4} \). Perhatikan bahwa:</p>
+
+\[
+k = \frac{13}{4} \iff 2x + 1 = x + y = y - \frac{1}{2} = 0 \Rightarrow x = -\frac{1}{2}, y = \frac{1}{2}
+\]
+
+<p>Dapat dicek bahwa \( x = -\frac{1}{2} \) dan \( y = \frac{1}{2} \) memenuhi \( 5x^2 + 4xy + 11y^2 = 3 \).</p>
+
+<p>Jadi, nilai maksimum dari \( xy - 2x + 5y \) adalah</p>
+
+\[
+\boxed{\frac{13}{4}}
+\]
+
 		</div>
 	  </div>
     </div>
