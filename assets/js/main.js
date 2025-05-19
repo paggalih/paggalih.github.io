@@ -537,34 +537,3 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", function () {
-  const scrollables = document.querySelectorAll('.overflow-auto, mjx-container');
-
-  scrollables.forEach(el => {
-    if (el.scrollWidth > el.clientWidth) {
-      el.style.position = 'relative';
-      el.style.overflowX = 'auto';
-
-      const progress = document.createElement('div');
-      progress.className = 'scroll-progress';
-      progress.style.height = '3px';
-      progress.style.backgroundColor = '#0d6efd'; // Bootstrap primary
-      progress.style.position = 'absolute';
-      progress.style.bottom = '0';
-      progress.style.left = '0';
-      progress.style.width = '0';
-      progress.style.transition = 'width 0.1s';
-      progress.style.zIndex = '10';
-      progress.style.pointerEvents = 'none';
-
-      el.appendChild(progress);
-
-      el.addEventListener('scroll', () => {
-        const maxScroll = el.scrollWidth - el.clientWidth;
-        const percent = (el.scrollLeft / maxScroll) * 100;
-        progress.style.width = `${percent}%`;
-      });
-    }
-  });
-});
-
