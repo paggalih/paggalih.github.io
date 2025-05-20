@@ -1550,7 +1550,61 @@ var x = setInterval(function() {
 											<div class="section-title">
 													<h2>Pertemuan 9</h2>
 											</div>
+  <h1 class="text-center">Distribusi Peluang Kontinu</h1>
 
+  <h2>1. Distribusi Uniform Kontinu</h2>
+  <p><strong>Ciri-ciri:</strong></p>
+  <ul>
+    <li>Semua nilai dalam interval \([a, b]\) memiliki peluang yang sama</li>
+    <li>Digunakan saat data seragam, misalnya waktu tunggu</li>
+  </ul>
+  <p><strong>Rumus:</strong></p>
+  <ul>
+    <li>Fungsi kerapatan: \( f(x) = \frac{1}{b - a} \)</li>
+    <li>Mean: \( \mu = \frac{a + b}{2} \)</li>
+    <li>Standar deviasi: \( \sigma = \sqrt{\frac{(b - a)^2}{12}} \)</li>
+    <li>Probabilitas: \( P(c \leq x \leq d) = \frac{d - c}{b - a} \)</li>
+  </ul>
+  <p><strong>Contoh:</strong> Waktu pelayanan antara 4 hingga 10 menit. Peluang pelanggan dilayani antara 5 dan 8 menit:</p>
+  <p>
+    \[ P(5 \leq x \leq 8) = \frac{8 - 5}{10 - 4} = \frac{3}{6} = 0.5 \]
+  </p>
+
+  <h2>2. Distribusi Normal</h2>
+  <p><strong>Ciri-ciri:</strong></p>
+  <ul>
+    <li>Kurva lonceng simetris</li>
+    <li>Mean = median = modus</li>
+    <li>Total area di bawah kurva = 1</li>
+  </ul>
+  <p><strong>Rumus:</strong></p>
+  <p>
+    \[ f(x) = \frac{1}{\sigma \sqrt{2\pi}} e^{- \frac{(x - \mu)^2}{2\sigma^2}} \]
+  </p>
+  <p><strong>Contoh:</strong> Nilai ujian dengan \( \mu = 70 \), \( \sigma = 10 \), cari peluang \( x < 85 \):</p>
+  <p>
+    \[ z = \frac{85 - 70}{10} = 1.5 \Rightarrow P(Z < 1.5) = 0.9332 \]
+  </p>
+
+  <h2>3. Distribusi Normal Standar</h2>
+  <p>Distribusi dengan \( \mu = 0 \), \( \sigma = 1 \), gunakan transformasi:</p>
+  <p>
+    \[ z = \frac{x - \mu}{\sigma} \]
+  </p>
+  <p><strong>Contoh:</strong> \( x = 82, \mu = 80, \sigma = 4 \Rightarrow z = 0.5 \Rightarrow P(Z < 0.5) = 0.6915 \)</p>
+
+  <h2>4. Distribusi Eksponensial</h2>
+  <p><strong>Ciri:</strong> memodelkan waktu antar kejadian (positively skewed)</p>
+  <p><strong>Rumus:</strong></p>
+  <ul>
+    <li>Fungsi probabilitas: \( f(x) = \lambda e^{-\lambda x} \)</li>
+    <li>Mean dan standar deviasi: \( \mu = \sigma = \frac{1}{\lambda} \)</li>
+  </ul>
+  <p><strong>Contoh:</strong> Rata-rata antar kedatangan 10 menit, cari peluang pelanggan datang < 5 menit:</p>
+  <p>
+    \[ \lambda = 0.1 \Rightarrow P(x < 5) = 1 - e^{-0.1 \cdot 5} = 1 - e^{-0.5} \approx 0.3935 \]
+  </p>
+	
     <div class="container mt-5">
         <div class="accordion" id="accordionp9">
             
