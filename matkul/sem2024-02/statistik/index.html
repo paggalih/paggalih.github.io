@@ -1350,6 +1350,98 @@ var x = setInterval(function() {
 }, 1000);
 // Update the count down every 1 second
 </script>
+<p class="h1">Ketentuan UTS PWS2A</p>
+<ol>
+	<li>UTS PWS2A hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UTS PWS2A boleh dikerjakan dari 8:40-10:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_mulai_pws2a" type="button" class="btn btn-primary" onclick="validateUTSpws2a()">Mulai UTS PWS2A</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUTSpws2a()">Kirim Jawaban PWS2A</button>
+<script>
+var mulaiUTSpws2a = new Date("May 13, 2025 08:39:00").getTime();
+var akhirUTSpws2a = new Date("May 22, 2025 10:10:00").getTime();
+var sekarang = new Date().getTime();
+function validateUTSpws2a() {
+	document.getElementById('timerUTS').style.display="block";
+
+	if (sekarang-mulaiUTSpws2a<0){
+		alert("Belum waktunya. UTS PWS2A hanya boleh dimulai 22 Mei 2025 pukul 8.40");
+	}
+	else {
+		if (sekarang-akhirUTSpws2a<0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "matanajwa") {
+				document.getElementById("tombol_mulai_pws2a").style.display="none";
+				document.getElementById("berhasilValidateUTS").style.display = "block";
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+				var b = (nim*5)% 6;
+				var c = [
+					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
+					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
+					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
+					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
+					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
+					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai. UTS PWS2A hanya boleh dikerjakan sampai 22 Mei 2025 pukul 10.10");
+		}
+	}
+}
+function closeValidateUTSpws2a() {
+    setTimeout(function() {
+        window.open("https://forms.gle/zYTYWqYw4LV9fibt6", "_blank");
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distancepws2a = akhirUTSpws2a - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var dayspws2a = Math.floor(distancepws2a / (1000 * 60 * 60 * 24));
+	var hourspws2a = Math.floor((distancepws2a % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutespws2a = Math.floor((distancepws2a % (1000 * 60 * 60)) / (1000 * 60));
+	var secondspws2a = Math.floor((distancepws2a % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayspws2a + "hari " + hourspws2a + "jam "
+	+ minutespws2a + "menit " + secondspws2a + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancepws2a < 0) {
+		clearIntervalpws2a(x);
+		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUTS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
 <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUTS" style="display: none">
 <div id="soal1" style='display:none;'>
