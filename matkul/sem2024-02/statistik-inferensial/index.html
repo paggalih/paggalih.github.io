@@ -1724,7 +1724,7 @@ H_1: \text{paling tidak ada dua rata-rata berbeda}
 </table>
 </div>
 
-<p>Total data = 18, jumlah grup = 3, \( n_i = 6 \)</p>
+<p>Total data $n= 18,$ jumlah grup $k= 3,$ dan \( n_i = 6 \)</p>
 
 <hr>
 
@@ -1732,16 +1732,16 @@ H_1: \text{paling tidak ada dua rata-rata berbeda}
 
 <p>
 \[
-\bar{X}_A = \frac{70 + 72 + 68 + 71 + 69 + 73}{6} = 70.5
+\bar{X}_A = \frac{70 + 72 + 68 + 71 + 69 + 73}{6} = \frac{423}{6} = 70.5
 \]
 \[
-\bar{X}_B = \frac{78 + 74 + 75 + 77 + 76 + 80}{6} = 76.7
+\bar{X}_B = \frac{78 + 74 + 75 + 77 + 76 + 80}{6} =\frac{460}{6} =76.7
 \]
 \[
-\bar{X}_C = \frac{82 + 88 + 85 + 87 + 90 + 86}{6} = 86.3
+\bar{X}_C = \frac{82 + 88 + 85 + 87 + 90 + 86}{6} = \frac{518}{6}=86.3
 \]
 \[
-\bar{X}_T = \frac{\text{total seluruh data}}{18} = \frac{1407}{18} = 78.17
+\bar{X}_T = \frac{\text{total seluruh data}}{18} = \frac{1401}{18} = 77.83
 \]
 </p>
 
@@ -1756,7 +1756,7 @@ Total SS = \sum (X_{ij} - \bar{X}_T)^2
 (Menggunakan semua 18 nilai → selisih tiap nilai dari \(\bar{X}_T\), lalu dikuadratkan dan dijumlahkan)
 
 \[
-Total SS \approx 810.3
+Total SS \approx 842.5
 \]
 
 <hr>
@@ -1764,13 +1764,13 @@ Total SS \approx 810.3
 <h3>Langkah 3: Hitung Sum of Squares Treatment (SST)</h3>
 
 \[
-SST = n_i \cdot \sum (\bar{X}_i - \bar{X}_T)^2
+SST =  \sum n_i(\bar{X}_i - \bar{X}_T)^2
 \]
 \[
-= 6 \cdot \left[(70.5 - 78.17)^2 + (76.7 - 78.17)^2 + (86.3 - 78.17)^2\right]
+= 6(70.5 - 77.83)^2 + 6(76.7 - 77.83)^2 + 6(86.3 - 77.83)^2
 \]
 \[
-= 6 \cdot (58.82 + 2.17 + 66.02) \approx 763.1
+= 6 \cdot (53.78 + 1.36 + 72.25) \approx 764.3
 \]
 
 <hr>
@@ -1778,7 +1778,7 @@ SST = n_i \cdot \sum (\bar{X}_i - \bar{X}_T)^2
 <h3>Langkah 4: Hitung Sum of Squares Error (SSE)</h3>
 
 \[
-SSE = Total SS - SST = 810.3 - 763.1 = 47.2
+SSE = Total SS - SST = 842.5 - 764.3 = 78.17
 \]
 
 <hr>
@@ -1792,13 +1792,13 @@ SSE = Total SS - SST = 810.3 - 763.1 = 47.2
 
 <p>
 \[
-MST = \frac{SST}{2} = \frac{763.1}{2} = 381.6
+MST = \frac{SST}{2} = \frac{764.3}{2} = 382.15
 \]
 \[
-MSE = \frac{SSE}{15} = \frac{47.2}{15} \approx 3.15
+MSE = \frac{SSE}{15} = \frac{78.17}{15} \approx 5.21
 \]
 \[
-F = \frac{MST}{MSE} = \frac{381.6}{3.15} \approx 121.14
+F = \frac{MST}{MSE} = \frac{382.15}{5.21} \approx 73.35
 \]
 </p>
 
@@ -1806,8 +1806,8 @@ F = \frac{MST}{MSE} = \frac{381.6}{3.15} \approx 121.14
 
 <h3>Langkah 6: Keputusan</h3>
 <ul>
-  <li>Nilai $F = 121.14$ sangat besar</li>
-  <li>Nilai $p < 0.001$ (jauh lebih kecil dari $0.05$)</li>
+  <li>Nilai $F = 73.35$ sangat besar</li>
+  <li>Nilai batas kritis $F_{(0.025)(2)(15)}=4.77$ </li>
 </ul>
 
 <p><b>Kesimpulan:</b> Tolak \( H_0 \). Terdapat perbedaan signifikan rata-rata skor ujian antar metode belajar.</p>
@@ -1831,7 +1831,7 @@ Tiga metode yang umum digunakan adalah:
 <p>
 Rumus:
 \[
-\text{LSD} = t_{\alpha/2} \cdot \sqrt{2 \cdot \frac{MSE}{n}}
+\text{LSD} = t_{\alpha/2} \cdot \sqrt{2 \cdot \frac{MSE}{n_i}}
 \]
 </p>
 
@@ -1887,7 +1887,7 @@ Dirancang khusus untuk membandingkan <b>semua pasangan rata-rata</b> dengan kont
 <p>
 Rumus:
 \[
-\text{HSD} = q_{\alpha;k,n-k} \cdot \sqrt{\frac{MSE}{n}}
+\text{HSD} = q_{\alpha;k,n-k} \cdot \sqrt{\frac{MSE}{n_i}}
 \]
 </p>
 
@@ -2065,6 +2065,30 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
                 <div id="collapsep9" class="accordion-collapse collapse" aria-labelledby="headingp9" data-bs-parent="#accordionp9">
                     <div class="accordion-body">
 												<p>Soal 1:</p>
+<p>
+Banyak mahasiswa perguruan tinggi dan universitas bekerja selama musim panas.
+Seorang profesor statistik ingin mengetahui apakah mahasiswa dari program studi yang berbeda memiliki rata-rata pendapatan musim panas yang berbeda. Sebuah sampel acak dari 5 mahasiswa pada masing-masing program B.A., B.Sc., dan B.B.A. diminta untuk melaporkan pendapatan musim panas mereka sebelumnya (dalam ribuan dolar). Berikut adalah data yang diperoleh (dalam ribuan dolar):
+</p>
+
+<table border="1" cellpadding="5">
+<thead>
+<tr>
+  <th>B.A.</th>
+  <th>B.Sc.</th>
+  <th>B.B.A.</th>
+</tr>
+</thead>
+<tbody>
+<tr><td>3.3</td><td>3.9</td><td>4.0</td></tr>
+<tr><td>2.5</td><td>5.1</td><td>6.2</td></tr>
+<tr><td>4.6</td><td>3.9</td><td>6.3</td></tr>
+<tr><td>5.4</td><td>6.2</td><td>5.9</td></tr>
+<tr><td>3.9</td><td>4.8</td><td>6.4</td></tr>
+</tbody>
+</table>
+<p>
+Dapatkah profesor menyimpulkan, pada tingkat signifikansi 5%, bahwa mahasiswa dari program studi yang berbeda memiliki perbedaan rata-rata pendapatan musim panas?
+</p>
 
 												<p>Soal 2:</p>
 
