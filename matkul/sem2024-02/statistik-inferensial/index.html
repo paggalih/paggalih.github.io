@@ -1747,16 +1747,16 @@ H_1: \text{paling tidak ada dua rata-rata berbeda}
 
 <hr>
 
-<h3>Langkah 2: Hitung Total Sum of Squares (SST)</h3>
+<h3>Langkah 2: Hitung Total Sum of Squares (Total SS)</h3>
 
 \[
-SST = \sum (X_{ij} - \bar{X}_T)^2
+Total SS = \sum (X_{ij} - \bar{X}_T)^2
 \]
 
 (Menggunakan semua 18 nilai → selisih tiap nilai dari \(\bar{X}_T\), lalu dikuadratkan dan dijumlahkan)
 
 \[
-SST \approx 810.3
+Total SS \approx 810.3
 \]
 
 <hr>
@@ -1764,7 +1764,7 @@ SST \approx 810.3
 <h3>Langkah 3: Hitung Sum of Squares Treatment (SST)</h3>
 
 \[
-SSB = n_i \cdot \sum (\bar{X}_i - \bar{X}_T)^2
+SST = n_i \cdot \sum (\bar{X}_i - \bar{X}_T)^2
 \]
 \[
 = 6 \cdot \left[(70.5 - 78.17)^2 + (76.7 - 78.17)^2 + (86.3 - 78.17)^2\right]
@@ -1778,7 +1778,7 @@ SSB = n_i \cdot \sum (\bar{X}_i - \bar{X}_T)^2
 <h3>Langkah 4: Hitung Sum of Squares Error (SSE)</h3>
 
 \[
-SSW = SST - SSB = 810.3 - 763.1 = 47.2
+SSE = Total SS - SST = 810.3 - 763.1 = 47.2
 \]
 
 <hr>
@@ -1792,10 +1792,10 @@ SSW = SST - SSB = 810.3 - 763.1 = 47.2
 
 <p>
 \[
-MSB = \frac{SST}{2} = \frac{763.1}{2} = 381.6
+MST = \frac{SST}{2} = \frac{763.1}{2} = 381.6
 \]
 \[
-MSW = \frac{SSE}{15} = \frac{47.2}{15} \approx 3.15
+MSE = \frac{SSE}{15} = \frac{47.2}{15} \approx 3.15
 \]
 \[
 F = \frac{MST}{MSE} = \frac{381.6}{3.15} \approx 121.14
@@ -2258,7 +2258,6 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
         </a>
         <!-- Vendor JS Files -->
         <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-        <script src="/assets/vendor/aos/aos.js"></script>
         <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
         <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
