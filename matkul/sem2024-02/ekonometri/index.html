@@ -10,7 +10,7 @@
         <!-- Favicons -->
         <link href="/assets/img/letter-g.gif" rel="icon">
         <!-- Vendor CSS Files -->
-        <link href="/assets/vendor/aos/aos.css" rel="stylesheet">
+        <!-- <link href="/assets/vendor/aos/aos.css" rel="stylesheet"> -->
         <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
         <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
         <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
@@ -846,7 +846,67 @@ document.getElementById("tabel-p9").innerHTML = html;
                     <div class="section-title">
                         <h2>Pertemuan 10</h2>
                     </div>
+  <h1 class="text-center">Multinomial Regression Models</h1>
 
+  <h2>1. Tiga Jenis Model Multinomial</h2>
+  <h4>a. Chooser-Specific Model (MLM)</h4>
+  <p>Model ini menggunakan karakteristik <strong>individu</strong> (usia, pendapatan, pendidikan) untuk menjelaskan pilihan.</p>
+  <ul>
+    <li>Contoh 1: Lulusan SMA memilih antara tidak kuliah, kuliah 2 tahun, atau kuliah 4 tahun berdasarkan nilai dan pendapatan keluarga.</li>
+    <li>Contoh 2: Pemilih dalam pemilu memilih partai politik berdasarkan usia, pendidikan, dan afiliasi agama.</li>
+    <li>Contoh 3: Pasien memilih antara rumah sakit umum, rumah sakit swasta, dan klinik berdasarkan usia dan jenis kelamin.</li>
+  </ul>
+
+  <h4>b. Choice-Specific Model (CLM)</h4>
+  <p>Model ini menggunakan karakteristik dari <strong>alternatif</strong> (harga, waktu, fitur) untuk menjelaskan pilihan.</p>
+  <ul>
+    <li>Contoh 1: Konsumen memilih antara tiga merek deterjen berdasarkan harga dan ukuran kemasan.</li>
+    <li>Contoh 2: Wisatawan memilih hotel berdasarkan lokasi, harga, dan rating.</li>
+    <li>Contoh 3: Penumpang memilih moda transportasi berdasarkan biaya dan waktu tempuh.</li>
+  </ul>
+
+  <h4>c. Mixed Logit Model (MXL)</h4>
+  <p>Model ini menggabungkan karakteristik <strong>individu dan alternatif</strong>, termasuk interaksi antara keduanya.</p>
+  <ul>
+    <li>Contoh 1: Pekerja memilih moda transportasi berdasarkan pendapatan dan waktu tempuh tiap moda.</li>
+    <li>Contoh 2: Konsumen memilih restoran berdasarkan usia dan harga makanan.</li>
+    <li>Contoh 3: Mahasiswa memilih universitas berdasarkan nilai ujian dan biaya kuliah.</li>
+  </ul>
+
+  <h2>2. Multinomial Logit Model (MLM)</h2>
+  <p>Probabilitas memilih kategori \( j \):</p>
+  <p>\[ P_{ij} = \frac{e^{\beta_j X_i}}{1 + \sum_{k=2}^{J} e^{\beta_k X_i}}, \quad j = 2, 3 \]</p>
+  <p>Probabilitas kategori referensi (misal: tidak kuliah):</p>
+  <p>\[ P_{i1} = \frac{1}{1 + e^{\beta_2 X_i} + e^{\beta_3 X_i}} \]</p>
+
+  <h2>3. Interpretasi Koefisien</h2>
+  <p>Koefisien menyatakan perubahan <em>log odds</em> memilih kategori \( j \) terhadap referensi.</p>
+  <p>Contoh: \( \text{grades} = -0.2995 \) → setiap kenaikan 1 poin nilai menurunkan odds memilih kuliah 2 tahun sebesar 26% (karena \( e^{-0.2995} \approx 0.74 \)).</p>
+
+  <h2>4. Goodness of Fit</h2>
+  <p>Gunakan pseudo-\( R^2 \):</p>
+  <p>\[ R^2 = 1 - \frac{\ln L_{\text{fit}}}{\ln L_0} \]</p>
+  <p>Atau gunakan uji LR (likelihood ratio test).</p>
+
+  <h2>5. Conditional Logit Model (CLM)</h2>
+  <p>Digunakan ketika karakteristik alternatif memengaruhi pilihan:</p>
+  <p>\[ P_{ij} = \frac{e^{\beta X_{ij}}}{\sum_{k=1}^{J} e^{\beta X_{ik}}} \]</p>
+
+  <h2>6. Mixed Logit Model (MXL)</h2>
+  <p>Gabungan antara CLM dan MLM, mengakomodasi variabel interaksi seperti:</p>
+  <p><code>train × income</code>, <code>bus × party_size</code></p>
+  <p>Interpretasi: jika koefisien \( \text{train} \times \text{income} = -0.059 \), maka kenaikan income 1 unit menurunkan odds naik kereta sebesar 5.9%.</p>
+
+  <h2>7. Asumsi IIA</h2>
+  <p>Independence of Irrelevant Alternatives (IIA): probabilitas memilih suatu alternatif tidak boleh tergantung pada keberadaan pilihan lain yang tidak relevan.</p>
+  <p>Contoh pelanggaran: red bus vs blue bus → hanya warna berbeda, tapi pilihan tetap berubah secara signifikan.</p>
+
+  <h2>8. Kesimpulan</h2>
+  <ul>
+    <li>Gunakan MLM untuk karakteristik individu, CLM untuk karakteristik pilihan, dan MXL untuk kombinasi keduanya.</li>
+    <li>Estimasi dilakukan dengan Maximum Likelihood (MLE).</li>
+    <li>Perhatikan asumsi IIA dan gunakan pseudo \( R^2 \) untuk evaluasi model.</li>
+  </ul>
                 </div>
             </section>
             <section id="p11">
@@ -912,7 +972,7 @@ document.getElementById("tabel-p9").innerHTML = html;
         </a>
         <!-- Vendor JS Files -->
         <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-        <script src="/assets/vendor/aos/aos.js"></script>
+        <!-- <script src="/assets/vendor/aos/aos.js"></script> -->
         <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
         <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
