@@ -505,8 +505,96 @@ Tentukan banyaknya langkah maksimum yang mungkin dapat dilakukan.
 		<button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapse15" aria-expanded="false" aria-controls="collapse15">
 			Jawaban
 		  </button>
-		<div class="collapse" id="collapse15">$$\boxed{----}$$
-		
+		<div class="collapse" id="collapse15">$$\boxed{ 440 }$$
+Perhatikan bahwa prosedur ini berusaha menyeimbangkan antara $a$ dan $b.$ Sehingga proses ini akan berhenti ketika selisih nilai antara $a$ dan $b$ adalah $1.$ 
+<p>
+Untuk kemungkinan kedua, misalkan bilangan yang tersisa adalah \( x \) dan \( x + 1 \) dengan banyaknya masing-masing adalah \( k \) dan \( 22 - k \), berturut-turut.
+Kita punya persamaan:
+</p>
+<p>
+\[
+11 \times 23 = kx + (22 - k)(x + 1) \Rightarrow 231 = 22x - k
+\]
+</p>
+<p>
+Dengan ini, \( k \equiv 11 \pmod{22} \). Karena \( 0 \leq k \leq 22 \), maka \( k = 11 \) dan \( x = 11 \). 
+Jadi, prosedur harus berakhir saat bilangan yang tersisa adalah:
+</p>
+<p>
+\[
+\underbrace{11, 11, \ldots, 11}_{11 \text{ kali}}, \underbrace{12, 12, \ldots, 12}_{11 \text{ kali}}.
+\]
+</p>
+<p>Sekarang perhatikan nilai</p>
+
+<p>
+\[
+S(x_1, x_2, \ldots, x_{22}) = \sum_{i=1}^{22} \left( x_i - \frac{23}{2} \right)^2
+\]
+</p>
+
+<p>
+dengan \( x_1, x_2, \ldots, x_{22} \) adalah bilangan di papan. Untuk setiap dua langkah berurutan yang mengganti pasangan \( (a, b) \) menjadi \( (a+1, b-1) \), didapat nilai \( S \) yang berubah (turun) sebesar:
+</p>
+
+<p>
+\[
+\left( a - \frac{23}{2} \right)^2 + \left( a - \frac{23}{2} \right)^2 - \left( a - \frac{21}{2} \right)^2 - \left( b - \frac{25}{2} \right)^2 = 2(b - a - 1) \geq 2
+\]
+</p>
+
+<p>
+Karena \( S(1, 2, \ldots, 22) = \frac{1771}{2} \) dan \( S(11, \ldots, 11, 12, \ldots, 12) = \frac{11}{2} \), maka banyaknya langkah maksimum adalah:
+</p>
+
+<p>
+\[
+\frac{1}{2} \left( \frac{1771}{2} - \frac{11}{2} \right) = 440
+\]
+</p>
+
+<p>Untuk konfigurasi 440 langkah dapat dilakukan dengan cara berikut:</p>
+
+<p>Perhatikan bilangan-bilangan</p>
+
+<p>
+\[
+a, a+1, \ldots, b-1, b
+\]
+</p>
+<p>
+Dengan memilih pasangan-pasangan \( (a, a+2), (a+1, a+3), (a+2, a+4), \ldots, (b-2, b) \) secara berturut-turut, kita telah melakukan \( b - a - 1 \) langkah dan pada akhirnya kita hanya mengubah satu buah \( a \) menjadi \( a + 1 \) dan satu buah \( b \) menjadi \( b - 1 \).
+</p>
+
+<p>
+Dengan observasi tersebut, kita bisa membuat susunan langkah berikut:
+</p>
+
+<ul>
+  <li>Dari 1, 2, 3, ..., 22, lakukan 20 langkah untuk mendapatkan 2, 2, 3, 4, 5, ..., 19, 20, 21.</li>
+  <li>Dari konfigurasi sebelumnya, lakukan 18 langkah untuk mendapatkan 2, 3, 3, 4, 5, ..., 19, 20, 20, 21.</li>
+  <li>Lanjutkan 18 langkah lagi untuk mendapatkan 3, 3, 3, 4, 5, ..., 18, 19, 20, 20.</li>
+</ul>
+
+<p>
+Sampai sini, kita melakukan dua kali 18 langkah untuk mengubah dua buah 2 di poin pertama menjadi dua buah 3 di poin ini.
+</p>
+
+<ul>
+  <li>Lanjutkan dengan \( 3 \times 16 \) langkah berikutnya untuk mengubah tiga buah 3 menjadi tiga buah 4.</li>
+  <li>Dan seterusnya.</li>
+</ul>
+
+<p>
+Dengan ini, banyaknya langkah adalah:
+</p>
+
+<p>
+\[
+20 + 2(18) + 3(16) + 4(14) + 5(12) + 6(10) + 7(8) + 8(6) + 9(4) + 10(2) = 440
+\]
+</p>
+
 		</div>
 	  </div>
     </div>
