@@ -744,7 +744,7 @@ fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto datatable">`;
+    let html = `<table class="table table-striped-columns text-center w-auto datatable" id="datatable-UTS">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -755,7 +755,11 @@ fetch('Data_Regresi_UTS.csv')
     html += '</table>';
 document.getElementById("tabel-UTS").innerHTML = html;
   });
-
+    $('#datatable-UTS').DataTable({
+      paging: true,
+      searching: true,
+      scrollX: true
+    });
 </script>
 
                 </div>
@@ -855,7 +859,7 @@ fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto datatable">`;
+    let html = `<table class="table table-striped-columns text-center w-auto datatable" id="datatable-smoker">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -866,7 +870,11 @@ fetch('Data_Smoker.csv')
     html += '</table>';
 document.getElementById("tabel-smoker").innerHTML = html;
   });
-	
+    $('#datatable-smoker').DataTable({
+      paging: true,
+      searching: true,
+      scrollX: true
+    });
 </script>
 
 
@@ -1027,7 +1035,7 @@ document.getElementById("tabel-smoker").innerHTML = html;
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 				<script>
-    setTimeout(function() {
+    <!-- setTimeout(function() { -->
   <!-- $(document).ready(function () { -->
     $('.datatable').DataTable({
       paging: true,
@@ -1035,7 +1043,7 @@ document.getElementById("tabel-smoker").innerHTML = html;
       scrollX: true
     });
   <!-- }); -->
-	}, 1500);
+	<!-- }, 1500); -->
 				</script>
 
     </body>
