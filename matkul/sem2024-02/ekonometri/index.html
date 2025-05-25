@@ -743,26 +743,37 @@
 fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
-    const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto" id="datatable-UTS">`;
-    rows.forEach(row => {
+    const rows = csv.trim().split('\n').map(row => row.split(','));
+
+    if (rows.length === 0) return;
+
+    // Ambil baris pertama sebagai header
+    const headers = rows[0];
+    const dataRows = rows.slice(1);
+
+    let html = `<table class="table table-striped text-center w-auto" id="datatable-UTS">`;
+
+    // Buat bagian thead
+    html += '<thead><tr>';
+    headers.forEach(header => {
+      html += `<th>${header}</th>`;
+    });
+    html += '</tr></thead>';
+
+    // Buat bagian tbody
+    html += '<tbody>';
+    dataRows.forEach(row => {
       html += '<tr>';
-      row.split(',').forEach(cell => {
+      row.forEach(cell => {
         html += `<td>${cell}</td>`;
       });
       html += '</tr>';
     });
-    html += '</table>';
-document.getElementById("tabel-UTS").innerHTML = html;
-  });
+    html += '</tbody>';
 
-  $(document).ready(function () {
-    $('#datatable-UTS').DataTable({
-      paging: true,
-      searching: true,
-      scrollX: true
-    });
-  });
+    html += '</table>';
+    document.getElementById("tabel-smoker").innerHTML = html;
+		});
 </script>
 
                 </div>
@@ -1064,7 +1075,7 @@ fetch('Data_Smoker.csv')
 				<script>
     <!-- setTimeout(function() { -->
   <!-- $(document).ready(function () { -->
-    $('.datatable').DataTable({
+    $('.datatable, #datatable-UTS').DataTable({
       paging: true,
       searching: true,
       scrollX: true
