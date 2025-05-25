@@ -848,24 +848,24 @@ document.getElementById("tabel-UTS").innerHTML = html;
     <li>Logit lebih sederhana secara matematis; probit lebih umum dalam literatur statistik</li>
   </ul>
 	
-<div class="overflow-auto" id="tabel-p9" style="height:auto;">
-  <table id="csv-table" class="table table-striped text-center w-100"></table>
-</div>
-
+<div class="overflow-auto" id="tabel-smoker"></div>
 <script>
-  fetch('Data_Smoker.csv')
-    .then(res => res.text())
-    .then(csv => {
-      const rows = csv.trim().split('\n').map(row => row.split(','));
-
-      const thead = `<thead><tr>${rows[0].map(c => `<th>${c}</th>`).join('')}</tr></thead>`;
-      const tbody = `<tbody>${rows.slice(1).map(row =>
-        `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`
-      ).join('')}</tbody>`;
-
-      document.getElementById("csv-table").innerHTML = thead + tbody;
+fetch('Data_Smoker.csv')
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.split('\n');
+    let html = '<table class="table table-striped-columns text-center w-auto">';
+    rows.forEach(row => {
+      html += '<tr>';
+      row.split(',').forEach(cell => {
+        html += `<td>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</table>';
+document.getElementById("tabel-smoker").innerHTML = html;
+  });
 </script>
-
 
                 </div>
             </section>
