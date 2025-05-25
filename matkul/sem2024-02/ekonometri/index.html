@@ -744,7 +744,7 @@ fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto">`;
+    let html = `<table class="table table-striped-columns text-center w-auto datatable">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -855,7 +855,7 @@ fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto">`;
+    let html = `<table class="table table-striped-columns text-center w-auto datatable">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -1029,7 +1029,7 @@ document.getElementById("tabel-smoker").innerHTML = html;
 				<script>
     <!-- setTimeout(function() { -->
   <!-- $(document).ready(function () { -->
-    $('.datatable, #tabel-smoker, #tabel-UTS').DataTable({
+    $('.datatable').DataTable({
       paging: true,
       searching: true,
       scrollX: true
