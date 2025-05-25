@@ -861,21 +861,31 @@ document.getElementById("tabel-UTS").innerHTML = html;
 fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
-    const rows = csv.trim().split('\n').map(row => row.split(','));
-    let html = `<table class="table table-striped text-center w-100"><thead><tr>`;
-    html += rows[0].map(cell => `<th>${cell}</th>`).join('');
-    html += `</tr></thead><tbody>`;
-    html += rows.slice(1).map(row =>
-      `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`
-    ).join('');
-    html += `</tbody></table>`;
+    const rows = csv.trim().split('\n');
+    let html = `<table class="datatable table table-striped text-center w-100">`;
 
+    rows.forEach((row, idx) => {
+      const tag = idx === 0 ? 'th' : 'td';
+      html += '<tr>';
+      row.split(',').forEach(cell => {
+        html += `<${tag}>${cell.trim()}</${tag}>`;
+      });
+      html += '</tr>';
+    });
+
+    html += '</table>';
     document.getElementById("tabel-smoker").innerHTML = html;
 
-    // Inisialisasi ulang DataTables jika ada tabel baru
-    initDataTables();
+    $(document).ready(function () {
+      $('#tabel-smoker .datatable').DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true
+      });
+    });
   });
 </script>
+
 
                 </div>
             </section>
