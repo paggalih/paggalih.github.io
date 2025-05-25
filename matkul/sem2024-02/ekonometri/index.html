@@ -755,11 +755,14 @@ fetch('Data_Regresi_UTS.csv')
     html += '</table>';
 document.getElementById("tabel-UTS").innerHTML = html;
   });
+
+  $(document).ready(function () {
     $('#datatable-UTS').DataTable({
       paging: true,
       searching: true,
       scrollX: true
     });
+  });
 </script>
 
                 </div>
@@ -870,11 +873,14 @@ fetch('Data_Smoker.csv')
     html += '</table>';
 document.getElementById("tabel-smoker").innerHTML = html;
   });
+
+  $(document).ready(function () {
     $('#datatable-smoker').DataTable({
       paging: true,
       searching: true,
       scrollX: true
     });
+  });
 </script>
 
 
