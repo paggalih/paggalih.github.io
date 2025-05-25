@@ -744,7 +744,7 @@ fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto datatable" id="datatable-UTS">`;
+    let html = `<table class="table table-striped-columns text-center w-auto" id="datatable-UTS">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -859,7 +859,7 @@ fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto datatable" id="datatable-smoker">`;
+    let html = `<table class="table table-striped-columns text-center w-auto" id="datatable-smoker">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
