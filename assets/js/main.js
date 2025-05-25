@@ -538,10 +538,6 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  document.querySelectorAll("table").forEach(tbl => {
-    tbl.classList.add("datatable");
-  });
-
   $(document).ready(function () {
     $('.datatable').DataTable({
       paging: true,
