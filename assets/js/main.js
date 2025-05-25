@@ -537,10 +537,13 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-  $(document).ready(function () {
-    $('.table').DataTable({
+document.addEventListener("DOMContentLoaded", () => {
+  const tabel = document.querySelectorAll(".tabel");
+  tabel.forEach(table => {
+    table.DataTable({
       paging: true,
       searching: true,
       scrollX: true
     });
   });
+});
