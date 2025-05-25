@@ -773,6 +773,15 @@ fetch('Data_Regresi_UTS.csv')
 
     html += '</table>';
     document.getElementById("tabel-UTS").innerHTML = html;
+		
+    // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+    $(document).ready(function () {
+      $('#datatable-UTS').DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true
+      });
+    });
 		});
 </script>
 
@@ -1075,7 +1084,7 @@ fetch('Data_Smoker.csv')
 				<script>
     <!-- setTimeout(function() { -->
   <!-- $(document).ready(function () { -->
-    $('.datatable, #datatable-UTS').DataTable({
+    $('.datatable').DataTable({
       paging: true,
       searching: true,
       scrollX: true
