@@ -225,7 +225,7 @@
 <div class="container mt-4">
     <h1 class="text-center">Rencana Pembelajaran Ekonometrika</h1>
     
-    <table class="table table-bordered table-striped">
+    <table class="datatable table table-bordered table-striped">
         <thead class="table-dark">
             <tr>
                 <th>Minggu</th>
@@ -744,7 +744,7 @@ fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto">`;
+    let html = `<table class="datatable table table-striped-columns text-center w-auto">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -755,14 +755,7 @@ fetch('Data_Regresi_UTS.csv')
     html += '</table>';
 document.getElementById("tabel-UTS").innerHTML = html;
   });
-	
-	  $(document).ready(function () {
-    $('#tabel-UTS').DataTable({
-      paging: true,
-      searching: true,
-      scrollX: true
-    });
-  });
+
 </script>
 
                 </div>
@@ -818,7 +811,7 @@ document.getElementById("tabel-UTS").innerHTML = html;
   <p>di mana \( f(\beta X) \) adalah nilai dari fungsi kepadatan normal standar.</p>
 
   <h2>8. Perbandingan LPM, Logit, dan Probit</h2>
-  <table class="table table-bordered">
+  <table class="datatable table table-bordered">
     <thead><tr><th>Model</th><th>Distribusi Error</th><th>Estimasi</th><th>Batas Probabilitas</th></tr></thead>
     <tbody>
       <tr><td>LPM</td><td>Non-normal</td><td>OLS</td><td>Tidak dibatasi</td></tr>
@@ -862,7 +855,7 @@ fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto">`;
+    let html = `<table class="datatable table table-striped-columns text-center w-auto">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -874,13 +867,6 @@ fetch('Data_Smoker.csv')
 document.getElementById("tabel-smoker").innerHTML = html;
   });
 	
-	  $(document).ready(function () {
-    $('#tabel-UTS').DataTable({
-      paging: true,
-      searching: true,
-      scrollX: true
-    });
-  });
 </script>
 
 
@@ -1040,6 +1026,15 @@ document.getElementById("tabel-smoker").innerHTML = html;
         <!-- chart.js diagram -->
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+				<script>
+  $(document).ready(function () {
+    $('.datatable #tabel-UTS #tabel-smoker').DataTable({
+      paging: true,
+      searching: true,
+      scrollX: true
+    });
+  });
+				</script>
 
     </body>
 </html>
