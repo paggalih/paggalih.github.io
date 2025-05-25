@@ -537,6 +537,7 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+document.addEventListener("DOMContentLoaded", () => {
   document.querySelectorAll("table").forEach(tbl => {
     tbl.classList.add("datatable");
   });
@@ -548,4 +549,6 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollX: true
     });
   });
+});
+
 
