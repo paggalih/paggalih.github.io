@@ -744,7 +744,7 @@ fetch('Data_Regresi_UTS.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.split('\n');
-    let html = `<table class="datatable table table-striped-columns text-center w-auto">`;
+    let html = `<table class="table table-striped-columns text-center w-auto">`;
     rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
@@ -763,7 +763,6 @@ document.getElementById("tabel-UTS").innerHTML = html;
       scrollX: true
     });
   });
-	});
 </script>
 
                 </div>
@@ -862,30 +861,28 @@ document.getElementById("tabel-UTS").innerHTML = html;
 fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
-    const rows = csv.trim().split('\n');
-    let html = `<table class="datatable table table-striped text-center w-100">`;
-
-    rows.forEach((row, idx) => {
-      const tag = idx === 0 ? 'th' : 'td';
+    const rows = csv.split('\n');
+    let html = `<table class="table table-striped-columns text-center w-auto">`;
+    rows.forEach(row => {
       html += '<tr>';
       row.split(',').forEach(cell => {
-        html += `<${tag}>${cell.trim()}</${tag}>`;
+        html += `<td>${cell}</td>`;
       });
       html += '</tr>';
     });
-
     html += '</table>';
-    document.getElementById("tabel-smoker").innerHTML = html;
-
-    $(document).ready(function () {
-      $('#tabel-smoker').DataTable({
-        paging: true,
-        searching: true,
-        scrollX: true
-      });
+document.getElementById("tabel-smoker").innerHTML = html;
+  });
+	
+	  $(document).ready(function () {
+    $('#tabel-UTS').DataTable({
+      paging: true,
+      searching: true,
+      scrollX: true
     });
   });
 </script>
+
 
 
                 </div>
