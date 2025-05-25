@@ -878,7 +878,7 @@ fetch('Data_Smoker.csv')
     document.getElementById("tabel-smoker").innerHTML = html;
 
     $(document).ready(function () {
-      $('#tabel-smoker .datatable').DataTable({
+      $('#tabel-smoker').DataTable({
         paging: true,
         searching: true,
         scrollX: true
