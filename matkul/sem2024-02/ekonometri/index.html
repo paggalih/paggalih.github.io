@@ -814,14 +814,30 @@ document.getElementById("tabel-UTS").innerHTML = html;
   <p>\[ \text{Count } R^2 = \frac{\text{jumlah prediksi benar}}{\text{total observasi}} \]</p>
   <p><strong>McFadden R<sup>2</sup></strong> juga digunakan sebagai pseudo R<sup>2</sup>.</p>
 
-  <h2>10. Kesimpulan</h2>
+  <h2>10. Asumsi</h2>
+	<ul>
+		<li>
+		Variabel Dependen Bersifat Dikotomis (Binary)<br>Variabel outcome harus berupa 0 atau 1 (dua kategori saling eksklusif). <br>Contoh: merokok (1) vs tidak merokok (0), diterima (1) vs ditolak (0).</li>
+		<li>
+		Tidak Ada Multikolinearitas Tinggi<br>Prediktor tidak boleh sangat berkorelasi satu sama lain.<br> Multikolinearitas menyebabkan koefisien tidak stabil dan standard error besar.</li>
+		<li>
+		Observasi Bersifat Independen<br>Data harus bebas dari autokorelasi atau dependensi antar observasi (terutama pada data time series atau panel).<br>Jika tidak terpenuhi → hasil uji statistik bisa bias.</li>
+		<li>
+		Ukuran Sampel yang Cukup<br>Karena estimasi dilakukan dengan Maximum Likelihood, maka:<br>Dibutuhkan jumlah observasi yang cukup (disarankan: >10 kasus per parameter).<br>Imbalanced data (sangat banyak 0 atau sangat banyak 1) dapat mengganggu hasil.</li>
+		<li>
+		Tidak Ada Outlier Ekstrem atau Leverage Tinggi</li>
+		<li>
+		Error Tidak Harus Normal atau Homoskedastik<br>   Logit tidak mengasumsikan error harus normal atau memiliki varian konstan.<br>    Ini berbeda dari regresi linear OLS.</li>
+	</ul>
+
+  <h2>11. Kesimpulan</h2>
   <ul>
     <li>LPM tidak cocok untuk data binary</li>
     <li>Logit dan probit lebih stabil dan sesuai</li>
     <li>Efek marginal logit/probit bergantung pada semua X</li>
     <li>Logit lebih sederhana secara matematis; probit lebih umum dalam literatur statistik</li>
   </ul>
-<div class="overflow-auto" id="tabel-p9"></div>
+<div class="overflow-auto" id="tabel-p9" style="height:200px"></div>
 <script>
 fetch('Data_Smoker.csv')
   .then(res => res.text())
