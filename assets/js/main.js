@@ -537,18 +537,25 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
+// Fungsi global untuk inisialisasi DataTable jika belum
+function initDataTables() {
   document.querySelectorAll("table").forEach(tbl => {
-    tbl.classList.add("datatable");
+    if (!tbl.classList.contains("datatable-initialized")) {
+      tbl.classList.add("datatable"); // Tambah class jika mau styling
+      $(tbl).DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true
+      });
+      tbl.classList.add("datatable-initialized"); // Penanda bahwa sudah diinisialisasi
+    }
   });
+}
 
-  $(document).ready(function () {
-    $('.datatable').DataTable({
-      paging: true,
-      searching: true,
-      scrollX: true
-    });
-  });
+// Panggil saat halaman selesai dimuat
+document.addEventListener("DOMContentLoaded", () => {
+  initDataTables();
 });
+
 
 
