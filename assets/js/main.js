@@ -537,13 +537,15 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  const tabel = document.querySelectorAll(".tabel");
-  tabel.forEach(table => {
-    table.DataTable({
+  document.querySelectorAll("table").forEach(tbl => {
+    tbl.classList.add("datatable");
+  });
+
+  $(document).ready(function () {
+    $('.datatable').DataTable({
       paging: true,
       searching: true,
       scrollX: true
     });
   });
-});
+
