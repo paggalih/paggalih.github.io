@@ -537,15 +537,5 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-document.addEventListener("DOMContentLoaded", () => {
-  $(document).ready(function () {
-    $('.datatable').DataTable({
-      paging: true,
-      searching: true,
-      scrollX: true
-    });
-  });
-});
-
 
 
