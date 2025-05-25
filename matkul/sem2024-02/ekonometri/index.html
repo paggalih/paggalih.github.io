@@ -857,19 +857,19 @@ document.getElementById("tabel-UTS").innerHTML = html;
     .then(res => res.text())
     .then(csv => {
       const rows = csv.trim().split('\n').map(row => row.split(','));
-      const thead = '<thead><tr>' + rows[0].map(c => '<th>${c}</th>').join('') + '</tr></thead>';
-      const tbody = '<tbody>' + rows.slice(1).map(row =>
-        '<tr>' + row.map(cell => '<td>${cell}</td>').join('') + '</tr>'
-      ).join('') + '</tbody>';
+
+      const thead = `<thead><tr>${rows[0].map(c => `<th>${c}</th>`).join('')}</tr></thead>`;
+      const tbody = `<tbody>${rows.slice(1).map(row =>
+        `<tr>${row.map(cell => `<td>${cell}</td>`).join('')}</tr>`
+      ).join('')}</tbody>`;
 
       document.getElementById("csv-table").innerHTML = thead + tbody;
 
-      // Inisialisasi DataTables setelah isi HTML terpasang
-      $(document).ready(function () {
-        $('#csv-table').DataTable({
-          paging: true,
-          scrollX: true
-        });
+      // Aktifkan DataTables setelah render tabel
+      $('#csv-table').DataTable({
+        paging: true,
+        scrollX: true,
+        responsive: true
       });
     });
 </script>
