@@ -861,26 +861,47 @@ document.getElementById("tabel-UTS").innerHTML = html;
 fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
-    const rows = csv.split('\n');
-    let html = `<table class="table table-striped-columns text-center w-auto" id="datatable-smoker">`;
-    rows.forEach(row => {
+    const rows = csv.trim().split('\n').map(row => row.split(','));
+
+    if (rows.length === 0) return;
+
+    // Ambil baris pertama sebagai header
+    const headers = rows[0];
+    const dataRows = rows.slice(1);
+
+    let html = `<table class="table table-striped text-center w-auto" id="datatable-smoker">`;
+
+    // Buat bagian thead
+    html += '<thead><tr>';
+    headers.forEach(header => {
+      html += `<th>${header}</th>`;
+    });
+    html += '</tr></thead>';
+
+    // Buat bagian tbody
+    html += '<tbody>';
+    dataRows.forEach(row => {
       html += '<tr>';
-      row.split(',').forEach(cell => {
+      row.forEach(cell => {
         html += `<td>${cell}</td>`;
       });
       html += '</tr>';
     });
-    html += '</table>';
-document.getElementById("tabel-smoker").innerHTML = html;
-  });
+    html += '</tbody>';
 
-  $(document).ready(function () {
-    $('#datatable-smoker').DataTable({
-      paging: true,
-      searching: true,
-      scrollX: true
+    html += '</table>';
+    document.getElementById("tabel-smoker").innerHTML = html;
+
+    // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+    $(document).ready(function () {
+      $('#datatable-smoker').DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true
+      });
     });
   });
+
 </script>
 
 
