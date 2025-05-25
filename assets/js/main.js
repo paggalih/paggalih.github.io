@@ -537,3 +537,10 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
+  $(document).ready(function () {
+    $('.table').DataTable({
+      paging: true,
+      searching: true,
+      scrollX: true
+    });
+  });
