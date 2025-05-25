@@ -1027,6 +1027,7 @@ document.getElementById("tabel-smoker").innerHTML = html;
         <script src="/app/aplikasi-statistik/chart.js"></script>
         <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 				<script>
+    setTimeout(function() {
   $(document).ready(function () {
     $('.datatable').DataTable({
       paging: true,
@@ -1034,6 +1035,7 @@ document.getElementById("tabel-smoker").innerHTML = html;
       scrollX: true
     });
   });
+	}, 1500);
 				</script>
 
     </body>
