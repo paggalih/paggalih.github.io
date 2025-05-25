@@ -20,10 +20,13 @@
         <link href="/assets/css/style.css" rel="stylesheet">
 				
 <!-- DataTables CSS & JS -->
-<link rel="stylesheet" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap5.min.css">
-<script src="https://cdn.datatables.net/1.13.6/js/jquery.dataTables.min.js"></script>
-<script src="https://cdn.datatables.net/1.13.6/js/dataTables.bootstrap5.min.js"></script>
-<script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
+<script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
 
@@ -844,28 +847,33 @@ document.getElementById("tabel-UTS").innerHTML = html;
     <li>Efek marginal logit/probit bergantung pada semua X</li>
     <li>Logit lebih sederhana secara matematis; probit lebih umum dalam literatur statistik</li>
   </ul>
+	
 <div class="overflow-auto" id="tabel-p9" style="height:auto;">
-  <table id="csv-table" class="table table-striped-columns text-center w-auto"></table>
+  <table id="csv-table" class="table table-striped text-center w-100"></table>
 </div>
 
 <script>
-fetch('Data_Smoker.csv')
-  .then(res => res.text())
-  .then(csv => {
-    const rows = csv.trim().split('\n').map(row => row.split(','));
-    let thead = '<thead><tr>' + rows[0].map(cell => '<th>${cell}</th>').join('') + '</tr></thead>';
-    let tbody = '<tbody>' + rows.slice(1).map(row =>
-      '<tr>' + row.map(cell => '<td>${cell}</td>').join('') + '</tr>'
-    ).join('') + '</tbody>';
+  fetch('Data_Smoker.csv')
+    .then(res => res.text())
+    .then(csv => {
+      const rows = csv.trim().split('\n').map(row => row.split(','));
+      const thead = '<thead><tr>' + rows[0].map(c => '<th>${c}</th>').join('') + '</tr></thead>';
+      const tbody = '<tbody>' + rows.slice(1).map(row =>
+        '<tr>' + row.map(cell => '<td>${cell}</td>').join('') + '</tr>'
+      ).join('') + '</tbody>';
 
-    document.getElementById("csv-table").innerHTML = thead + tbody;
+      document.getElementById("csv-table").innerHTML = thead + tbody;
 
-    // Aktifkan DataTable
-    $(document).ready(function () {
-      $('#csv-table').DataTable();
+      // Inisialisasi DataTables setelah isi HTML terpasang
+      $(document).ready(function () {
+        $('#csv-table').DataTable({
+          paging: true,
+          scrollX: true
+        });
+      });
     });
-  });
 </script>
+
 
                 </div>
             </section>
