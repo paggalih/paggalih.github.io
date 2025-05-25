@@ -853,9 +853,9 @@ fetch('Data_Smoker.csv')
   .then(res => res.text())
   .then(csv => {
     const rows = csv.trim().split('\n').map(row => row.split(','));
-    let thead = '<thead><tr>' + rows[0].map(cell => `<th>${cell}</th>`).join('') + '</tr></thead>';
+    let thead = '<thead><tr>' + rows[0].map(cell => '<th>${cell}</th>').join('') + '</tr></thead>';
     let tbody = '<tbody>' + rows.slice(1).map(row =>
-      '<tr>' + row.map(cell => `<td>${cell}</td>`).join('') + '</tr>'
+      '<tr>' + row.map(cell => '<td>${cell}</td>').join('') + '</tr>'
     ).join('') + '</tbody>';
 
     document.getElementById("csv-table").innerHTML = thead + tbody;
