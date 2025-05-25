@@ -537,5 +537,9 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 });
 
-
+    $('.datatable').DataTable({
+      paging: true,
+      searching: true,
+      scrollX: true
+    });
 
