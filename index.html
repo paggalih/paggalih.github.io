@@ -750,12 +750,6 @@
       <!-- </section> -->
     </main>
     <!-- End #main -->
-<div id="liveSearchBox" class="position-fixed top-0 end-0 m-3 bg-white border rounded shadow p-2" style="z-index:9999; width: 250px;">
-  <div class="d-flex align-items-center">
-    <img src="https://i.gifer.com/6M3j.gif" alt="search-icon" width="32" height="32" class="me-2">
-    <input type="text" id="liveSearchInput" class="form-control" placeholder="Cari di halaman...">
-  </div>
-</div>
 
     <!-- ======= Footer ======= -->
     <footer id="footer"></footer>
@@ -788,32 +782,67 @@
 			main.scrollIntoView({ behavior: 'auto' });
 		}, delay);
 		</script>
-<script>
-  document.getElementById('liveSearchInput').addEventListener('input', function () {
-    const keyword = this.value.trim().toLowerCase();
-    if (!keyword) return;
 
-    // Cari teks pertama yang cocok dan scroll ke sana
-    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
-      acceptNode: function (node) {
-        if (node.nodeValue.toLowerCase().includes(keyword)) {
-          return NodeFilter.FILTER_ACCEPT;
-        }
-        return NodeFilter.FILTER_REJECT;
+  <!-- Floating Live Search Box -->
+  <div id="liveSearchBox" class="position-fixed top-0 end-0 m-3 bg-white border rounded shadow p-2" style="z-index:9999; width: 280px;">
+    <div class="d-flex align-items-center mb-2">
+      <img src="assets/img/letter-g.gif" alt="search-icon" width="32" height="32" class="me-2">
+      <input type="text" id="liveSearchInput" class="form-control" placeholder="Cari di halaman...">
+    </div>
+    <div class="d-flex justify-content-between align-items-center">
+      <span id="matchCount">0 hasil</span>
+      <div>
+        <button class="btn btn-sm btn-outline-secondary" id="prevMatch">&laquo;</button>
+        <button class="btn btn-sm btn-outline-secondary" id="nextMatch">&raquo;</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    let matches = [];
+    let currentIndex = 0;
+
+    document.getElementById("liveSearchInput").addEventListener("input", function () {
+      matches.forEach(el => el.classList.remove("highlight"));
+      matches = [];
+      currentIndex = 0;
+
+      const keyword = this.value.trim().toLowerCase();
+      if (!keyword) {
+        document.getElementById("matchCount").textContent = "0 hasil";
+        return;
       }
+
+      const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+        acceptNode: function (node) {
+          return node.nodeValue.toLowerCase().includes(keyword) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
+        }
+      });
+
+      let node;
+      while ((node = walker.nextNode())) {
+        const span = document.createElement("span");
+        span.className = "highlight";
+        const regex = new RegExp(keyword, "gi");
+        span.innerHTML = node.nodeValue.replace(regex, match => `<mark>${match}</mark>`);
+        const parent = node.parentNode;
+        parent.replaceChild(span, node);
+        matches.push(span);
+      }
+
+      document.getElementById("matchCount").textContent = `${matches.length} hasil`;
+      if (matches.length > 0) scrollToMatch(0);
     });
 
-    const match = walker.nextNode();
-    if (match) {
-      const range = document.createRange();
-      range.selectNodeContents(match);
-      const sel = window.getSelection();
-      sel.removeAllRanges();
-      sel.addRange(range);
-      match.parentElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    function scrollToMatch(index) {
+      if (matches.length === 0) return;
+      currentIndex = (index + matches.length) % matches.length;
+      matches[currentIndex].scrollIntoView({ behavior: "smooth", block: "center" });
     }
-  });
-</script>
+
+    document.getElementById("prevMatch").addEventListener("click", () => scrollToMatch(currentIndex - 1));
+    document.getElementById("nextMatch").addEventListener("click", () => scrollToMatch(currentIndex + 1));
+  </script>
 
   </body>
 </html>
