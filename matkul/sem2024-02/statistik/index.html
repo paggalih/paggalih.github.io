@@ -1763,6 +1763,60 @@ var x = setInterval(function() {
 											<div class="section-title">
 													<h2>Pertemuan 10</h2>
 											</div>
+<h2>Bab 8: Sampling, Metode Sampling, dan Teorema Limit Pusat</h2>
+<h3>1. Pengenalan Sampling</h3>
+<ul>
+<li>
+<b>Populasi vs. Sampel:</b> Populasi adalah seluruh kelompok individu atau objek yang menjadi fokus studi, sedangkan sampel adalah bagian dari populasi.</li>
+<li>
+<b>Tujuan Sampling:</b> Menghemat waktu dan biaya, terutama ketika populasi besar atau sulit diakses.</li>
+<li>
+<b>Alasan Sampling:</b>
+<ol>
+<li><b>Efisiensi Waktu:</b> Menghubungi seluruh populasi memakan waktu lama.</li>
+<li><b>Biaya:</b> Studi terhadap seluruh populasi bisa sangat mahal.</li>
+<li><b>Keterbatasan Fisik:</b> Beberapa populasi terlalu besar atau dinamis untuk diukur sepenuhnya.</li>
+<li><b>Uji Destruktif:</b> Beberapa pengujian merusak sampel (misalnya, uji kekuatan bahan).</li>
+</ol></li>
+</ul>
+<h3>2. Metode Sampling</h3>
+<ol>
+<li>
+Simple Random Sampling (Sampling Acak Sederhana):<ul><li>Setiap anggota populasi memiliki peluang yang sama untuk terpilih.</li><li>Contoh: Menggunakan tabel angka acak atau generator angka acak untuk memilih sampel.</li></ul>
+</li>
+<li>
+Systematic Random Sampling (Sampling Sistematis):<ul><li>Memilih sampel dengan interval tetap (misalnya, setiap anggota ke-10 dari daftar populasi).</li><li>Contoh: Memilih setiap pelanggan ke-10 yang masuk toko.</li></ul>
+</li>
+<li>
+Stratified Random Sampling (Sampling Stratifikasi):<ul><li>Populasi dibagi ke dalam strata (kelompok homogen), lalu sampel diambil dari setiap strata.</li><li>Contoh: Membagi perusahaan berdasarkan profitabilitas, lalu mengambil sampel dari setiap kelompok.</li></ul>
+</li>
+<li>
+Cluster Sampling (Sampling Kluster):<ul><li>Populasi dibagi ke dalam kluster (berdasarkan wilayah atau kelompok alami), lalu beberapa kluster dipilih secara acak untuk diambil sampelnya.</li><li>Contoh: Memilih beberapa kabupaten secara acak untuk survei penduduk.</li></ul>
+</li>
+</ol>
+<h3>3. Distribusi Sampling Rata-Rata Sampel</h3>
+<ul>
+<li><b>Distribusi Sampling:</b> Distribusi probabilitas dari semua kemungkinan nilai rata-rata sampel untuk ukuran sampel tertentu.</li>
+<li><b>Karakteristik:</b><ol>
+<li>Rata-rata distribusi sampling sama dengan rata-rata populasi $(\mu_{\overline{X}}=\mu.)$</li>
+<li>Penyebaran distribusi sampling lebih sempit dibanding populasi.</li>
+<li>Bentuk distribusi sampling mendekati normal ketika ukuran sampel besar (Teorema Limit Pusat).</li>
+</ol></li>
+</ul>
+<h3>4. Teorema Limit Pusat</h3>
+<ul>
+<li><b>Konsep:</b> Untuk ukuran sampel yang besar $(n\ge 30),$ distribusi sampling rata-rata sampel akan mendekati distribusi normal, terlepas dari bentuk distribusi populasi.</li>
+<li><b>Contoh:</b> Meskipun populasi memiliki distribusi miring, rata-rata sampel akan berdistribusi normal jika sampel cukup besar.</li>
+<li><b>Pentingnya:</b> Memungkinkan penggunaan metode statistik berbasis distribusi normal untuk analisis sampel.</li>
+</ul>
+<h3>5. Standar Error Rata-Rata</h3>
+<ul>
+<li><b>Rumus:</b>$$\sigma_{\overline{}X}=\dfrac{\sigma}{\sqrt{n}}$$</li>
+<li><b>Interpretasi:</b> Standar error mengukur variabilitas rata-rata sampel di sekitar rata-rata populasi. Semakin besar sampel, semakin kecil standar error.</li>
+</ul>
+<h3>6. Penerapan Teorema Limit Pusat</h3>
+<b>Contoh Soal</b>
+Jika rata-rata populasi $(\mu) = 31.2$ ons dan standar deviasi $(\sigma) = 0.4$ ons, hitung probabilitas rata-rata sampel $(n=16)$ lebih dari $31.38$ ons.<br><b>Solusi</b><br>$$\begin{array}{rl}P(\overline{X} > 31.38)=P(\dfrac{\overline{X}-\mu}{\sigma/\sqrt{n}} > \dfrac{31.38-31.2}{0.4/\sqrt{16}})=P(Z > 1.80)=0.035=3.5\%\end{array}$$
 
     <div class="container mt-5">
         <div class="accordion" id="accordionp10">
