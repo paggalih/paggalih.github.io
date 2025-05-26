@@ -897,13 +897,24 @@
     searchActive = true;
     const regex = new RegExp(escapeRegExp(keyword), "gi");
     
-    // Walk through all text nodes in the document
-    const walker = document.createTreeWalker(
+    // Get all text content from the body
+    const bodyText = document.body.textContent || document.body.innerText;
+    
+    // Find all matches first to get accurate count
+    const globalMatches = [...bodyText.matchAll(regex)];
+    if (globalMatches.length === 0) {
+      updateMatchCount();
+      updateButtonStates();
+      return;
+    }
+    
+    // Now process the DOM for highlighting
+    const treeWalker = document.createTreeWalker(
       document.body,
       NodeFilter.SHOW_TEXT,
       {
         acceptNode: function(node) {
-          // Skip script, style, textarea, and other non-content elements
+          // Skip script, style, and other non-content elements
           if (node.parentNode.nodeName === 'SCRIPT' || 
               node.parentNode.nodeName === 'STYLE' ||
               node.parentNode.nodeName === 'TEXTAREA' ||
@@ -912,17 +923,23 @@
           }
           return regex.test(node.nodeValue) ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_REJECT;
         }
-      }
+      },
+      false
     );
     
-    let node;
-    while ((node = walker.nextNode())) {
+    const textNodes = [];
+    while (treeWalker.nextNode()) {
+      textNodes.push(treeWalker.currentNode);
+    }
+    
+    // Process all matching text nodes
+    textNodes.forEach(node => {
       const span = document.createElement("span");
       span.className = "highlight";
       span.innerHTML = node.nodeValue.replace(regex, match => `<mark>${match}</mark>`);
       node.parentNode.replaceChild(span, node);
       matches.push(span);
-    }
+    });
     
     if (matches.length > 0) {
       scrollToMatch(0);
