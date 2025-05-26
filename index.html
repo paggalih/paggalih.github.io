@@ -30,6 +30,12 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+<style>
+  #liveSearchBox input {
+    font-size: 14px;
+    padding: 5px;
+  }
+</style>
 
   </head>
   <body>
@@ -744,6 +750,13 @@
       <!-- </section> -->
     </main>
     <!-- End #main -->
+<div id="liveSearchBox" class="position-fixed top-0 end-0 m-3 bg-white border rounded shadow p-2" style="z-index:9999; width: 250px;">
+  <div class="d-flex align-items-center">
+    <img src="https://i.gifer.com/6M3j.gif" alt="search-icon" width="32" height="32" class="me-2">
+    <input type="text" id="liveSearchInput" class="form-control" placeholder="Cari di halaman...">
+  </div>
+</div>
+
     <!-- ======= Footer ======= -->
     <footer id="footer"></footer>
     <!-- End Footer -->
@@ -775,5 +788,32 @@
 			main.scrollIntoView({ behavior: 'auto' });
 		}, delay);
 		</script>
+<script>
+  document.getElementById('liveSearchInput').addEventListener('input', function () {
+    const keyword = this.value.trim().toLowerCase();
+    if (!keyword) return;
+
+    // Cari teks pertama yang cocok dan scroll ke sana
+    const walker = document.createTreeWalker(document.body, NodeFilter.SHOW_TEXT, {
+      acceptNode: function (node) {
+        if (node.nodeValue.toLowerCase().includes(keyword)) {
+          return NodeFilter.FILTER_ACCEPT;
+        }
+        return NodeFilter.FILTER_REJECT;
+      }
+    });
+
+    const match = walker.nextNode();
+    if (match) {
+      const range = document.createRange();
+      range.selectNodeContents(match);
+      const sel = window.getSelection();
+      sel.removeAllRanges();
+      sel.addRange(range);
+      match.parentElement.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+  });
+</script>
+
   </body>
 </html>
