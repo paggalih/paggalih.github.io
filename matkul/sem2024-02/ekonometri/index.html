@@ -21,7 +21,7 @@
 				
 <!-- DataTables CSS & JS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-<!-- <script src="https://code.jquery.com/jquery-3.7.1.js"></script> -->
+<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
 
@@ -749,7 +749,7 @@ fetch('Data_Regresi_UTS.csv')
     const headers = rows[0];
     const dataRows = rows.slice(1);
 
-    let html = `<table class="table table-striped text-center w-auto" id="datatable-UTS">`;
+    let html = `<table class="table table-striped text-center" id="datatable-UTS">`;
 
     // Buat bagian thead
     html += '<thead><tr>';
@@ -887,7 +887,7 @@ fetch('Data_Smoker.csv')
     const headers = rows[0];
     const dataRows = rows.slice(1);
 
-    let html = `<table class="table table-striped text-center w-auto" id="datatable-smoker">`;
+    let html = `<table class="table table-striped text-center" id="datatable-smoker">`;
 
     // Buat bagian thead
     html += '<thead><tr>';
