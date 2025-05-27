@@ -1827,6 +1827,133 @@ Cluster Sampling (Sampling Kluster):<ul><li>Populasi dibagi ke dalam kluster (be
 <li>Bentuk distribusi sampling mendekati normal ketika ukuran sampel besar (Teorema Limit Pusat).</li>
 </ol></li>
 </ul>
+   <h2>Soal 6</h2>
+    <p>Sebuah populasi terdiri dari lima nilai berikut: 2, 2, 4, 4, dan 8.</p>
+
+    <div class="solusi">
+        <h3>Bagian a</h3>
+        <p>Daftar semua sampel berukuran 2 dan hitung rata-rata setiap sampel.</p>
+        
+        <p><strong>Penyelesaian:</strong></p>
+        <p>Total sampel yang mungkin (dengan penggantian): \( C(5, 2) = 10 \). Berikut semua sampel dan rata-ratanya:</p>
+        
+        <table>
+            <tr>
+                <th>Sampel</th>
+                <th>Nilai</th>
+                <th>Rata-rata (\(\overline{X}\))</th>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>(2, 2)</td>
+                <td>\(\frac{2 + 2}{2} = 2\)</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td>(2, 4)</td>
+                <td>\(\frac{2 + 4}{2} = 3\)</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td>(2, 4)</td>
+                <td>\(\frac{2 + 4}{2} = 3\)</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td>(2, 8)</td>
+                <td>\(\frac{2 + 8}{2} = 5\)</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td>(2, 4)</td>
+                <td>\(\frac{2 + 4}{2} = 3\)</td>
+            </tr>
+            <tr>
+                <td>6</td>
+                <td>(2, 4)</td>
+                <td>\(\frac{2 + 4}{2} = 3\)</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td>(2, 8)</td>
+                <td>\(\frac{2 + 8}{2} = 5\)</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td>(4, 4)</td>
+                <td>\(\frac{4 + 4}{2} = 4\)</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td>(4, 8)</td>
+                <td>\(\frac{4 + 8}{2} = 6\)</td>
+            </tr>
+            <tr>
+                <td>10</td>
+                <td>(4, 8)</td>
+                <td>\(\frac{4 + 8}{2} = 6\)</td>
+            </tr>
+        </table>
+    </div>
+
+    <div class="solusi">
+        <h3>Bagian b</h3>
+        <p>Hitung rata-rata distribusi rata-rata sampel dan rata-rata populasi. Bandingkan kedua nilai tersebut.</p>
+        
+        <p><strong>Penyelesaian:</strong></p>
+        <p><strong>Rata-rata populasi (\(\mu\)):</strong></p>
+        \[
+        \mu = \frac{2 + 2 + 4 + 4 + 8}{5} = \frac{20}{5} = 4
+        \]
+        
+        <p><strong>Rata-rata distribusi sampel (\(\mu_{\overline{X}}\)):</strong></p>
+        \[
+        \mu_{\overline{X}} = \frac{2 + 3 + 3 + 5 + 3 + 3 + 5 + 4 + 6 + 6}{10} = \frac{40}{10} = 4
+        \]
+        
+        <p><strong>Perbandingan:</strong></p>
+        \[
+        \mu = \mu_{\overline{X}} = 4
+        \]
+        <p>Kedua nilai sama, sesuai dengan teori distribusi sampling bahwa \(\mu_{\overline{X}} = \mu\).</p>
+    </div>
+
+    <div class="solusi">
+        <h3>Bagian c</h3>
+        <p>Bandingkan dispersi dalam populasi dengan dispersi rata-rata sampel.</p>
+        
+        <p><strong>Penyelesaian:</strong></p>
+        <p><strong>Varians populasi (\(\sigma^2\)):</strong></p>
+        \[
+        \sigma^2 = \frac{(2-4)^2 + (2-4)^2 + (4-4)^2 + (4-4)^2 + (8-4)^2}{5} = \frac{4 + 4 + 0 + 0 + 16}{5} = 4.8
+        \]
+        <p>Standar deviasi populasi: \(\sigma = \sqrt{4.8} \approx 2.19\)</p>
+        
+        <p><strong>Varians rata-rata sampel (\(\sigma_{\overline{X}}^2\)):</strong></p>
+        \[
+        \sigma_{\overline{X}}^2 = \frac{(2-4)^2 + (3-4)^2 + \cdots + (6-4)^2}{10} = \frac{4 + 1 + 1 + 1 + 1 + 1 + 4 + 0 + 4 + 4}{10} = 2.0
+        \]
+        <p>Standar error: \(\sigma_{\overline{X}} = \sqrt{2.0} \approx 1.41\)</p>
+        
+        <p><strong>Perbandingan:</strong></p>
+        \[
+        \sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}} = \frac{2.19}{\sqrt{2}} \approx 1.55 \quad \text{(mendekati hasil perhitungan langsung)}
+        \]
+        <p>Dispersi rata-rata sampel (\(\sigma_{\overline{X}} \approx 1.41\)) lebih kecil daripada dispersi populasi (\(\sigma \approx 2.19\)), menunjukkan bahwa rata-rata sampel lebih stabil dibanding nilai individu dalam populasi.</p>
+    </div>
+
+    <div class="solusi">
+        <h3>Kesimpulan</h3>
+        <ul>
+            <li>Rata-rata populasi dan rata-rata distribusi sampel sama (\(\mu = \mu_{\overline{X}} = 4\)).</li>
+            <li>Dispersi rata-rata sampel (\(\sigma_{\overline{X}} \approx 1.41\)) lebih kecil daripada dispersi populasi (\(\sigma \approx 2.19\)), membuktikan bahwa rata-rata sampel lebih stabil.</li>
+        </ul>
+        
+        <p><strong>Rumus Kunci:</strong></p>
+        \[
+        \mu_{\overline{X}} = \mu \quad \text{dan} \quad \sigma_{\overline{X}} = \frac{\sigma}{\sqrt{n}}
+        \]
+    </div>
 <h3>4. Teorema Limit Pusat</h3>
 <h4>Distribusi Populasi</h4>
 <div class="overflow-auto text-center">
@@ -1873,7 +2000,7 @@ Jika rata-rata populasi $(\mu) = 31.2$ ons dan standar deviasi $(\sigma) = 0.4$ 
                 <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
                     <div class="accordion-body">
 												<p>Soal 1</p>
-  <p>Sebuah populasi terdiri dari lima nilai: 2, 2, 4, 4, dan 8.</p>
+  <p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
   <ol type="a">
     <li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
     <li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
