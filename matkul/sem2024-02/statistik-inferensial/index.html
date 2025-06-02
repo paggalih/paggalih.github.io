@@ -2162,7 +2162,136 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
                     <div class="section-title">
                         <h2>Pertemuan 10</h2>
                     </div>
-										
+<h2>📘 Rangkuman Bab 14: ANOVA Lanjutan</h2>
+
+<h3>1. Randomized Block ANOVA (Two-Way Tanpa Interaksi)</h3>
+<ul>
+  <li>Model: Memasukkan dua sumber variasi — perlakuan dan blok</li>
+  <li>Pembagian variasi:</li>
+</ul>
+
+\[
+SS_{Total} = SS_{Treatment} + SS_{Block} + SS_E
+\]
+
+\[
+F_{Treatment} = \frac{MS_{Treatment}}{MS_E}, \quad F_{Block} = \frac{MS_{Block}}{MS_E}
+\]
+
+---
+
+<h4>🧮 Contoh 1: Randomized Block ANOVA</h4>
+
+<p>Seorang peneliti ingin menguji tiga metode pelatihan (A, B, C) terhadap hasil ujian, dengan lima kelompok usia berbeda (blok). Skor ujian:</p>
+
+<table border="1" cellpadding="6">
+<tr><th>Kelompok</th><th>Metode A</th><th>Metode B</th><th>Metode C</th></tr>
+<tr><td>1</td><td>75</td><td>78</td><td>72</td></tr>
+<tr><td>2</td><td>80</td><td>85</td><td>79</td></tr>
+<tr><td>3</td><td>78</td><td>82</td><td>74</td></tr>
+<tr><td>4</td><td>85</td><td>89</td><td>81</td></tr>
+<tr><td>5</td><td>83</td><td>87</td><td>80</td></tr>
+</table>
+
+<h4>🔍 Perhitungan:</h4>
+
+<p><b>Rata-rata total:</b></p>
+\[ \bar{X}_T = 80.53 \]
+
+<p><b>Jumlah Kuadrat:</b></p>
+<ul>
+  <li>\( SS_T = 123.33 \)</li>
+  <li>\( SS_B = 196.40 \)</li>
+  <li>\( SS_E = 4.00 \)</li>
+</ul>
+
+<p><b>Mean Square:</b></p>
+<ul>
+  <li>\( MS_T = \frac{123.33}{2} = 61.67 \)</li>
+  <li>\( MS_B = \frac{196.40}{4} = 49.10 \)</li>
+  <li>\( MS_E = \frac{4.00}{8} = 0.50 \)</li>
+</ul>
+
+<p><b>Nilai F:</b></p>
+<ul>
+  <li>\( F_{Treatment} = \frac{61.67}{0.50} = 123.33 \)</li>
+  <li>\( F_{Block} = \frac{49.10}{0.50} = 98.20 \)</li>
+</ul>
+
+<p>Karena nilai F sangat besar, baik perlakuan maupun blok berpengaruh signifikan terhadap hasil ujian.</p>
+
+---
+
+<h3>2. Two-Factor ANOVA Dengan Interaksi</h3>
+<ul>
+  <li>Model memasukkan dua faktor dan interaksi:</li>
+</ul>
+
+\[
+Y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \varepsilon_{ijk}
+\]
+
+\[
+SS_{Total} = SS_A + SS_B + SS_{AB} + SS_E
+\]
+
+---
+
+<h4>🧮 Contoh 2: Two-Way ANOVA</h4>
+
+<p>Peneliti ingin menganalisis efek <b>Jenis Kelamin (A)</b> dan <b>Metode Belajar (B)</b> terhadap nilai akhir. Desain 2 × 3, masing-masing sel 4 responden.</p>
+
+<table border="1" cellpadding="6">
+<tr><th></th><th>Online</th><th>Hybrid</th><th>Offline</th></tr>
+<tr><td>Laki-laki</td><td>78, 80, 82, 79</td><td>84, 83, 85, 86</td><td>75, 77, 76, 78</td></tr>
+<tr><td>Perempuan</td><td>82, 81, 83, 80</td><td>88, 87, 89, 90</td><td>79, 80, 81, 82</td></tr>
+</table>
+
+<p>Langkah:</p>
+
+1. Hitung rata-rata setiap sel
+2. Hitung:
+\[
+SS_A,\quad SS_B,\quad SS_{AB},\quad SS_E
+\]
+
+3. Hitung derajat bebas dan nilai F:
+\[
+F_A = \frac{MS_A}{MS_E},\quad F_B = \frac{MS_B}{MS_E},\quad F_{AB} = \frac{MS_{AB}}{MS_E}
+\]
+
+---
+
+<h3>3. Aplikasi Industri: Six Sigma & Taguchi</h3>
+
+<p><b>Six Sigma</b> merupakan pendekatan berbasis data untuk meningkatkan kualitas dengan mengurangi variasi dan cacat pada proses. Digunakan secara luas di industri manufaktur dan jasa.</p>
+
+<p><b>Indeks Kapabilitas Proses:</b></p>
+\[
+C_p = \frac{USL - LSL}{6\sigma}, \quad C_{pk} = \min\left(\frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma}\right)
+\]
+
+<p>Nilai \( C_p \) atau \( C_{pk} \) lebih besar dari 1.33 dianggap baik untuk produksi massal.</p>
+
+<p><b>Taguchi Loss Function</b> digunakan untuk mengukur kerugian kualitas akibat penyimpangan dari target nilai (T):</p>
+
+\[
+L(x) = k(x - T)^2
+\]
+
+<p>Dimana \(k\) adalah konstanta biaya, \(x\) adalah nilai aktual, dan \(T\) adalah target. Fungsi ini menunjukkan bahwa semakin jauh dari target, semakin besar kerugian ekonomi — meskipun masih dalam batas spesifikasi.</p>
+
+<p>ANOVA digunakan dalam eksperimen Taguchi untuk membedakan pengaruh faktor terhadap variasi output dan memilih kombinasi faktor terbaik.</p>
+
+---
+
+<h2>📌 Kesimpulan</h2>
+<ul>
+  <li>ANOVA dua arah mengungkap pengaruh faktor tunggal dan interaksi.</li>
+  <li>Metode blok dapat mengurangi galat eksperimental.</li>
+  <li>Six Sigma dan Taguchi menggunakan ANOVA untuk pengambilan keputusan kualitas dan efisiensi biaya.</li>
+</ul>
+
     <div class="container mt-5">
         <div class="accordion" id="accordionp10">
             
