@@ -2350,6 +2350,75 @@ Silakan masukkan ini ke bagian "3. Aplikasi Industri: Six Sigma & Taguchi" dalam
                 <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
                     <div class="accordion-body">
 												<p>Soal 1:</p>
+												<p>
+												Sebagian besar dosen perguruan tinggi ingin mahasiswanya aktif berpartisipasi di kelas.
+												Idealnya, mahasiswa akan mengajukan pertanyaan dan menjawab pertanyaan dosen, sehingga pengalaman belajar lebih menyenangkan dan bermanfaat.
+												</p>
+
+												<p>
+												Seorang dosen statistik di sebuah community college di negara bagian New York percaya bahwa ada beberapa faktor eksternal yang memengaruhi partisipasi mahasiswa di kelas.
+												Ia percaya bahwa waktu pelaksanaan kelas dan konfigurasi tempat duduk adalah dua faktor tersebut.
+												</p>
+
+												<p>
+												Oleh karena itu, ia merancang eksperimen berikut:
+												6 kelas dengan 60 mahasiswa dijadwalkan untuk satu semester.
+												Dua kelas dijadwalkan pada pukul <b>9:00 pagi</b>, dua kelas pada <b>1:00 siang</b>, dan dua kelas pada <b>4:00 sore</b>.
+												Pada setiap waktu, satu kelas ditempatkan di ruang dengan konfigurasi <b>baris (rows)</b> dan satu di ruang dengan konfigurasi <b>U-shape</b>.
+												</p>
+
+												<p>
+												Di masing-masing dari 6 ruang kelas tersebut, selama 5 hari, partisipasi mahasiswa diukur berdasarkan <i>jumlah pertanyaan yang diajukan dan dijawab oleh mahasiswa</i>.
+												</p>
+
+												<h3>Data Partisipasi Mahasiswa:</h3>
+
+												<table border="1" cellpadding="6">
+													<thead>
+														<tr>
+															<th>Konfigurasi Kelas</th>
+															<th>9:00 A.M.</th>
+															<th>1:00 P.M.</th>
+															<th>4:00 P.M.</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Rows</td>
+															<td>10, 9, 9, 8</td>
+															<td>12, 9, 14, 6</td>
+															<td>7, 9, 20, 12</td>
+														</tr>
+														<tr>
+															<td>U-Shape</td>
+															<td>15, 11, 13, 13</td>
+															<td>4, 7, 4, 6</td>
+															<td>7, 9, 6, 6</td>
+														</tr>
+													</tbody>
+												</table>
+
+												<h3>Pertanyaan:</h3>
+												<ol type="a">
+													<li>Berapa banyak faktor dalam eksperimen ini? Sebutkan.</li>
+													<li>Apa variabel responnya?</li>
+													<li>Identifikasi level dari masing-masing faktor.</li>
+													<li>Kesimpulan apa yang bisa diambil oleh dosen dari data ini?</li>
+												</ol>
+
+												<h3>Struktur Model ANOVA Dua Arah:</h3>
+
+												\[
+												Y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \varepsilon_{ijk}
+												\]
+
+												<ul>
+													<li>\( \alpha_i \): efek dari konfigurasi tempat duduk</li>
+													<li>\( \beta_j \): efek dari waktu pelaksanaan</li>
+													<li>\( (\alpha\beta)_{ij} \): interaksi antara kedua faktor</li>
+												</ul>
+
+												<p>Data ini dapat dianalisis menggunakan Two-Way ANOVA untuk menentukan apakah konfigurasi ruangan dan waktu pelaksanaan kelas memengaruhi partisipasi mahasiswa.</p>
 
 												<p>Soal 2:</p>
 
