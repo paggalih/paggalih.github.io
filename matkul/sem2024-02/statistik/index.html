@@ -2027,6 +2027,99 @@ Jika rata-rata populasi $(\mu) = 31.2$ ons dan standar deviasi $(\sigma) = 0.4$ 
 											<div class="section-title">
 													<h2>Pertemuan 11</h2>
 											</div>
+  <h1 class="text-center">Bab 9: Estimasi dan Interval Kepercayaan</h1>
+
+  <h2>1. Estimasi Titik</h2>
+  <p><strong>Estimasi titik</strong> adalah nilai tunggal yang digunakan untuk memperkirakan parameter populasi.</p>
+  <p><em>Contoh:</em> Rata-rata pengeluaran 500 turis di Barbados: \( \bar{x} = 168 \). Maka, 168 adalah estimasi titik dari pengeluaran populasi.</p>
+
+  <h2>2. Interval Kepercayaan</h2>
+  <h4>a. Jika simpangan baku populasi diketahui:</h4>
+  <p>
+    \[ \bar{x} \pm z \cdot \frac{\sigma}{\sqrt{n}} \]
+  </p>
+  <p><em>Contoh:</em> \( \bar{x} = 4.507 \), \( \sigma = 0.04 \), \( n = 64 \), \( z = 1.96 \)</p>
+  <p>
+    \[ 4.507 \pm 1.96 \cdot \frac{0.04}{\sqrt{64}} = 4.507 \pm 0.0098 \Rightarrow (4.4972, 4.5168) \]
+  </p>
+
+  <h4>b. Jika simpangan baku populasi tidak diketahui:</h4>
+  <p>
+    \[ \bar{x} \pm t \cdot \frac{s}{\sqrt{n}} \]
+  </p>
+  <p><em>Contoh:</em> \( \bar{x} = 0.32 \), \( s = 0.09 \), \( n = 10 \), \( t = 2.262 \)</p>
+  <p>
+    \[ 0.32 \pm 2.262 \cdot \frac{0.09}{\sqrt{10}} = 0.32 \pm 0.064 \Rightarrow (0.256, 0.384) \]
+  </p>
+
+  <h2>3. Estimasi Proporsi Populasi</h2>
+  <p>
+    \[ p \pm z \cdot \sqrt{ \frac{p(1 - p)}{n} } \]
+  </p>
+  <p><em>Contoh:</em> \( p = 0.8 \), \( n = 2000 \), \( z = 1.96 \)</p>
+  <p>
+    \[ 0.8 \pm 1.96 \cdot \sqrt{ \frac{0.8(1-0.8)}{2000} } = 0.8 \pm 0.018 \Rightarrow (0.782, 0.818) \]
+  </p>
+
+  <h2>4. Penentuan Ukuran Sampel</h2>
+  <h4>a. Untuk rata-rata:</h4>
+  <p>
+    \[ n = \left( \frac{z \cdot \sigma}{E} \right)^2 \]
+  </p>
+
+  <h4>b. Untuk proporsi:</h4>
+  <p>
+    \[ n = \pi(1 - \pi) \left( \frac{z}{E} \right)^2 \]
+  </p>
+  <p><em>Contoh:</em> \( \pi = 0.5 \), \( E = 0.05 \), \( z = 1.96 \)</p>
+  <p>
+    \[ n = 0.5(1 - 0.5) \left( \frac{1.96}{0.05} \right)^2 = 384.16 \Rightarrow 385 \]
+  </p>
+
+  <h2>5. Koreksi Populasi Hingga</h2>
+  <p>
+    \[ \text{FPC} = \sqrt{ \frac{N - n}{N - 1} } \]
+  </p>
+  <p>
+    \[ \text{CI} = \bar{x} \pm t \cdot \frac{s}{\sqrt{n}} \cdot \text{FPC} \]
+  </p>
+  <p><em>Contoh:</em> \( N = 250 \), \( n = 40 \), \( \bar{x} = 450 \), \( s = 75 \), \( t = 1.685 \)</p>
+  <p>
+    \[ \text{FPC} = \sqrt{\frac{210}{249}} \approx 0.916 \]</p>
+  <p>
+    \[ CI = 450 \pm 1.685 \cdot \frac{75}{\sqrt{40}} \cdot 0.916 \approx 450 \pm 18.35 \Rightarrow (431.65, 468.35) \]</p>
+
+  <h2>Rangkuman Rumus</h2>
+  <table class="table table-bordered text-center">
+    <thead class="table-light">
+      <tr>
+        <th>Jenis</th>
+        <th>Rumus</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>CI Mean, \( \sigma \) diketahui</td>
+        <td>\( \bar{x} \pm z \cdot \frac{\sigma}{\sqrt{n}} \)</td>
+      </tr>
+      <tr>
+        <td>CI Mean, \( \sigma \) tidak diketahui</td>
+        <td>\( \bar{x} \pm t \cdot \frac{s}{\sqrt{n}} \)</td>
+      </tr>
+      <tr>
+        <td>CI Proporsi</td>
+        <td>\( p \pm z \cdot \sqrt{\frac{p(1 - p)}{n}} \)</td>
+      </tr>
+      <tr>
+        <td>Ukuran sampel Mean</td>
+        <td>\( n = \left( \frac{z\sigma}{E} \right)^2 \)</td>
+      </tr>
+      <tr>
+        <td>Ukuran sampel Proporsi</td>
+        <td>\( n = \pi(1 - \pi) \left( \frac{z}{E} \right)^2 \)</td>
+      </tr>
+    </tbody>
+  </table>
 
     <div class="container mt-5">
         <div class="accordion" id="accordionp11">
