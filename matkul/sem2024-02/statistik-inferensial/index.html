@@ -2178,8 +2178,6 @@ SS_{Total} = SS_{Treatment} + SS_{Block} + SS_E
 F_{Treatment} = \frac{MS_{Treatment}}{MS_E}, \quad F_{Block} = \frac{MS_{Block}}{MS_E}
 \]
 
----
-
 <h4>🧮 Contoh 1: Randomized Block ANOVA</h4>
 
 <p>Seorang peneliti ingin menguji tiga metode pelatihan (A, B, C) terhadap hasil ujian, dengan lima kelompok usia berbeda (blok). Skor ujian:</p>
@@ -2220,8 +2218,6 @@ F_{Treatment} = \frac{MS_{Treatment}}{MS_E}, \quad F_{Block} = \frac{MS_{Block}}
 
 <p>Karena nilai F sangat besar, baik perlakuan maupun blok berpengaruh signifikan terhadap hasil ujian.</p>
 
----
-
 <h3>2. Two-Factor ANOVA Dengan Interaksi</h3>
 <ul>
   <li>Model memasukkan dua faktor dan interaksi:</li>
@@ -2234,8 +2230,6 @@ Y_{ijk} = \mu + \alpha_i + \beta_j + (\alpha\beta)_{ij} + \varepsilon_{ijk}
 \[
 SS_{Total} = SS_A + SS_B + SS_{AB} + SS_E
 \]
-
----
 
 <h4>🧮 Contoh 2: Two-Way ANOVA</h4>
 
@@ -2260,8 +2254,6 @@ SS_A,\quad SS_B,\quad SS_{AB},\quad SS_E
 F_A = \frac{MS_A}{MS_E},\quad F_B = \frac{MS_B}{MS_E},\quad F_{AB} = \frac{MS_{AB}}{MS_E}
 \]
 
----
-
 <h3>3. Aplikasi Industri: Six Sigma & Taguchi</h3>
 
 <p><b>Six Sigma</b> merupakan pendekatan berbasis data untuk meningkatkan kualitas dengan mengurangi variasi dan cacat pada proses. Digunakan secara luas di industri manufaktur dan jasa.</p>
@@ -2283,7 +2275,61 @@ L(x) = k(x - T)^2
 
 <p>ANOVA digunakan dalam eksperimen Taguchi untuk membedakan pengaruh faktor terhadap variasi output dan memilih kombinasi faktor terbaik.</p>
 
----
+<h3>🧮 Contoh 1: Indeks Kapabilitas Proses</h3>
+
+<p>
+Sebuah perusahaan memproduksi baut dengan spesifikasi panjang:
+<ul>
+  <li>Batas atas (USL) = 10.10 mm</li>
+  <li>Batas bawah (LSL) = 9.90 mm</li>
+</ul>
+Setelah dilakukan pengukuran terhadap ratusan sampel, diperoleh:
+<ul>
+  <li>Rata-rata (\( \mu \)) = 10.01 mm</li>
+  <li>Simpangan baku (\( \sigma \)) = 0.03 mm</li>
+</ul>
+</p>
+
+<p>Hitung indeks kapabilitas proses \( C_p \) dan \( C_{pk} \)</p>
+
+<p><b>Penyelesaian:</b></p>
+
+\[
+C_p = \frac{USL - LSL}{6\sigma} = \frac{10.10 - 9.90}{6 \cdot 0.03} = \frac{0.20}{0.18} \approx 1.11
+\]
+
+\[
+C_{pk} = \min\left( \frac{USL - \mu}{3\sigma}, \frac{\mu - LSL}{3\sigma} \right) = \min\left( \frac{10.10 - 10.01}{0.09}, \frac{10.01 - 9.90}{0.09} \right)
+\]
+
+\[
+C_{pk} = \min(1.0, 1.22) = 1.00
+\]
+
+<p><b>Interpretasi:</b> Proses ini cukup baik, tetapi belum ideal. Umumnya standar industri mensyaratkan \( C_{pk} > 1.33 \) untuk kapabilitas tinggi.</p>
+
+<hr>
+
+<h3>🧮 Contoh 2: Taguchi Loss Function</h3>
+
+<p>Sebuah resistor memiliki target nilai \( T = 100 \Omega \), dan biaya kerugian ditetapkan sebesar \$5 ketika deviasi sebesar 5 ohm terjadi.</p>
+
+<p>Konstanta kerugian:</p>
+\[
+k = \frac{5}{(5)^2} = \frac{5}{25} = 0.2
+\]
+
+<p>Jika ditemukan resistor dengan nilai aktual \( x = 103 \Omega \), hitung nilai kerugian:</p>
+
+\[
+L(x) = k(x - T)^2 = 0.2 \cdot (103 - 100)^2 = 0.2 \cdot 9 = 1.8
+\]
+
+<p><b>Interpretasi:</b> Meski resistor masih dalam batas toleransi, penyimpangan 3 ohm menghasilkan kerugian ekonomis sebesar \$1.80 per unit menurut fungsi Taguchi.</p>
+
+
+Silakan masukkan ini ke bagian "3. Aplikasi Industri: Six Sigma & Taguchi" dalam HTML Anda. Jika Anda ingin saya bantu menyisipkan langsung, tinggal beri tahu 😊
+
 
 <h2>📌 Kesimpulan</h2>
 <ul>
