@@ -2334,20 +2334,20 @@ L(x) = k(x - T)^2 = 0.2 \cdot (103 - 100)^2 = 0.2 \cdot 9 = 1.8
 
 <div class="mermaid">
 flowchart TD
-    SS["`SS(Total)\nd.f. = n - 1`"]
+    SS["`SS(Total) d.f. = n - 1`"]
 
     subgraph "Single-Factor Analysis"
         direction TB
-        SST["`SST\nd.f. = k - 1`"]
-        SSE1["`SSE\nd.f. = n - k`"]
+        SST["`SST d.f. = k - 1`"]
+        SSE1["`SSE d.f. = n - k`"]
     end
 
     subgraph "Two-Factor Analysis"
         direction TB
-        SSA["`SSA(A)\nd.f. = a - 1`"]
-        SSB["`SSB(B)\nd.f. = b - 1`"]
-        SSAB["`SSA(AB)\nd.f. = (a - 1)(b - 1)`"]
-        SSE2["`SSE\nd.f. = n - ab`"]
+        SSA["`SSA d.f. = a - 1`"]
+        SSB["`SSB d.f. = b - 1`"]
+        SSAB["`SSAB d.f. = (a - 1)(b - 1)`"]
+        SSE2["`SSE d.f. = n - ab`"]
     end
 
     SS --> SST
