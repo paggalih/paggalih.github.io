@@ -1326,7 +1326,8 @@ section {
 }
 
 .dropdown-item {
-	font-size: 10px;
+	/* font-size: 10px; */
+	overflow-y: scroll;
 }
 
 .accordion-button:active,
