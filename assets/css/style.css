@@ -1325,6 +1325,10 @@ section {
     transition: background-color 0.3s ease, color 0.3s ease; /* Transisi halus */
 }
 
+.dropdown-item {
+	font-size: 10px;
+}
+
 .accordion-button:active,
 .dropdown-toggle:active,
 .accordion-button:hover,
