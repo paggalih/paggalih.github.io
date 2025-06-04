@@ -1008,6 +1008,71 @@ fetch('Data_Smoker.csv')
                     <div class="section-title">
                         <h2>Pertemuan 11</h2>
                     </div>
+  <h2>Bab 11: Limited Dependent Variable Regression Models</h2>
+  <p>Model ini digunakan ketika variabel dependen hanya terobservasi sebagian (censored) atau hanya dalam subset sampel (truncated).</p>
+
+  <h4>Censored Model (Tobit):</h4>
+  <ul>
+    <li>Digunakan ketika sebagian data Y bernilai nol atau tidak diketahui, tetapi X diketahui penuh.</li>
+    <li>Model: \( Y_i^* = X_i\beta + u_i \), dan \( Y_i = \max(0, Y_i^*) \)</li>
+    <li>Estimasi dengan metode <strong>Maximum Likelihood</strong>.</li>
+  </ul>
+
+  <h4>Truncated Model:</h4>
+  <ul>
+    <li>Observasi Y dan X hanya tersedia jika nilai Y memenuhi kriteria tertentu.</li>
+    <li>Bias dan inkonsistensi muncul jika menggunakan OLS pada data tertruncasi.</li>
+    <li>Solusi: <strong>ML dengan distribusi normal tertruncasi</strong>.</li>
+  </ul>
+
+  <p><strong>Catatan:</strong> Koefisien Tobit menunjukkan efek pada variabel laten \( Y^* \), bukan langsung pada Y. Marginal effect harus dikalikan dengan probabilitas observasi.</p>
+
+  <h2>Bab 12: Modeling Count Data – Poisson & Negative Binomial</h2>
+  <p>Model ini digunakan ketika variabel dependen adalah data hitung, seperti jumlah paten, kunjungan, dll.</p>
+
+  <h4>Poisson Regression Model (PRM):</h4>
+  <ul>
+    <li>Asumsi: \( E(Y_i) = \lambda_i = \exp(X_i\beta) \), dan \( \text{Var}(Y_i) = \lambda_i \) (equidispersion).</li>
+    <li>Estimasi dengan ML. Cocok untuk data hitung langka.</li>
+    <li>Masalah umum: <strong>overdispersion</strong> (varian > mean).</li>
+    <li>Jika ditemukan overdispersion → standard error PRM <em>underestimated</em>.</li>
+  </ul>
+
+  <h4>Uji Overdispersion (Cameron & Trivedi):</h4>
+  <ol>
+    <li>Hitung residu: \( e_i = Y_i - \hat{Y}_i \)</li>
+    <li>Hitung: \( e_i^2 - Y_i \)</li>
+    <li>Regresikan terhadap \( \hat{Y}_i^2 \). Jika signifikan → overdispersion.</li>
+  </ol>
+
+  <h4>Solusi untuk Overdispersion:</h4>
+  <ul>
+    <li><strong>QMLE</strong> dan <strong>GLM</strong>: perbaiki standard error, koefisien tetap.</li>
+    <li><strong>Negative Binomial Regression Model (NBRM)</strong>:
+      <ul>
+        <li>Asumsi: \( \text{Var}(Y_i) = \mu_i + \alpha \mu_i^2 \)</li>
+        <li>Lebih fleksibel karena mengakomodasi overdispersion.</li>
+        <li>Parameter bentuk \( \alpha \) mengukur seberapa besar kelebihan varian.</li>
+      </ul>
+    </li>
+  </ul>
+
+  <h4>Contoh Data Paten:</h4>
+  <ul>
+    <li>Jumlah paten vs. log pengeluaran R&D, industri, dan negara.</li>
+    <li>Hasil PRM: semua variabel signifikan, tapi ada overdispersion.</li>
+    <li>Setelah koreksi: hanya sebagian variabel tetap signifikan.</li>
+    <li>Hasil NBRM menunjukkan standar error lebih besar, dan hasil lebih realistis.</li>
+  </ul>
+
+  <h2>Kesimpulan Umum</h2>
+  <ul>
+    <li>Tobit digunakan untuk model terbatas (truncated/censored).</li>
+    <li>PRM digunakan untuk data hitung, tapi rawan overdispersion.</li>
+    <li>NBRM direkomendasikan ketika ditemukan overdispersion.</li>
+    <li>Software statistik seperti Stata dan EViews mendukung estimasi model-model ini dan koreksi robust error.</li>
+  </ul>
+
 
                 </div>
             </section>
