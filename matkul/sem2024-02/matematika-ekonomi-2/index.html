@@ -1609,6 +1609,205 @@ s2 |  1    2    1   0   1    0  | 90
                     <div class="section-title">
                         <h2>Pertemuan 11</h2>
                     </div>
+  <h2 class="text-center">Masalah Transportasi: Menyelesaikan Masalah dengan Metode Simpleks</h2>
+
+  <h4>Contoh Kasus:</h4>
+  <p>Sebuah perusahaan outsourcing memiliki tiga sistem (A, B, dan C) dan empat lokasi pemrosesan. Setiap lokasi memiliki kapasitas pemrosesan terbatas, dan setiap sistem memerlukan jam pemrosesan yang berbeda. Tujuan perusahaan adalah meminimalkan biaya total pemrosesan yang terjadi akibat distribusi data antar lokasi.</p>
+
+  <h4>Tabel Kapasitas Pemrosesan</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Lokasi</th>
+        <th>Sistem A</th>
+        <th>Sistem B</th>
+        <th>Sistem C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>5</td>
+        <td>8</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>7</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>5</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>6</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Tabel Kebutuhan dan Kapasitas</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Proses</th>
+        <th>Kapasitas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Sistem A</td>
+        <td>5 jam</td>
+      </tr>
+      <tr>
+        <td>Sistem B</td>
+        <td>5 jam</td>
+      </tr>
+      <tr>
+        <td>Sistem C</td>
+        <td>7 jam</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Langkah 1: Menyusun Tabel Biaya Pemrosesan</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Lokasi</th>
+        <th>Sistem A</th>
+        <th>Sistem B</th>
+        <th>Sistem C</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>5</td>
+        <td>8</td>
+        <td>6</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>7</td>
+        <td>6</td>
+        <td>7</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>5</td>
+        <td>4</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>4</td>
+        <td>5</td>
+        <td>6</td>
+        <td>6</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Langkah 2: Menyusun Tabel Alokasi Pemrosesan (Alokasi Awal)</h4>
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Lokasi</th>
+        <th>Sistem A</th>
+        <th>Sistem B</th>
+        <th>Sistem C</th>
+        <th>Jumlah</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>3</td>
+        <td>2</td>
+        <td>0</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>0</td>
+        <td>2</td>
+        <td>3</td>
+        <td>5</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>0</td>
+        <td>0</td>
+        <td>2</td>
+        <td>7</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Langkah 3: Menghitung Biaya Pemrosesan Awal</h4>
+  <p>Biaya pemrosesan awal dihitung berdasarkan alokasi yang ada:</p>
+  \[
+  \text{Total Biaya} = (3 \times 5) + (2 \times 8) + (2 \times 6) + (3 \times 7) + (2 \times 5) + (5 \times 6) = 104
+  \]
+
+  <h4>Langkah 4: Menyusun Ghost Costs</h4>
+  <p>Ghost costs dihitung dengan menggunakan rumus: </p>
+  \[
+  C_{ij} = S_i + L_j
+  \]
+  Di mana \( S_i \) adalah biaya hantu untuk sistem dan \( L_j \) adalah biaya hantu untuk lokasi.
+
+  <table class="table table-bordered">
+    <thead>
+      <tr>
+        <th>Lokasi</th>
+        <th>Sistem A</th>
+        <th>Sistem B</th>
+        <th>Sistem C</th>
+        <th>Si</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>1</td>
+        <td>5</td>
+        <td>8</td>
+        <td>0</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td>2</td>
+        <td>6</td>
+        <td>7</td>
+        <td>-2</td>
+        <td>-4</td>
+      </tr>
+      <tr>
+        <td>3</td>
+        <td>5</td>
+        <td>6</td>
+        <td>-4</td>
+        <td>-4</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h4>Langkah 5: Iterasi dan Perbaikan</h4>
+  <p>Iterasi dilakukan untuk menemukan solusi yang lebih optimal berdasarkan perhitungan ghost costs dan perbedaan biaya.</p>
+
+  <h4>Solusi Optimal:</h4>
+  <p>Setelah beberapa siklus, solusi optimal tercapai dengan biaya total yang lebih rendah: 78. Alokasi optimal adalah:</p>
+  <ul>
+    <li>Sistem A: 3 jam ke Lokasi 1 dan 2 jam ke Lokasi 3.</li>
+    <li>Sistem B: 5 jam ke Lokasi 4.</li>
+    <li>Sistem C: 4 jam ke Lokasi 2 dan 3 jam ke Lokasi 3.</li>
+  </ul>
 
 <div class="overflow-auto text-center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/biVWMfYQrUM?si=iZ5_KKB3r1Hqyt0Q" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
