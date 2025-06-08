@@ -2188,6 +2188,91 @@ graph TD
 											<div class="section-title">
 													<h2>Pertemuan 12</h2>
 											</div>
+  <h1 class="text-center">Bab 10: Uji Hipotesis Satu Sampel</h1>
+  <h2 class="text-center">(untuk Pariwisata Syariah)</h2>
+
+  <h2>Tujuan Pembelajaran</h2>
+  <ul>
+    <li>Menjelaskan proses uji hipotesis.</li>
+    <li>Menerapkan enam langkah prosedur uji hipotesis.</li>
+    <li>Membedakan uji satu arah dan dua arah.</li>
+    <li>Melakukan uji terhadap mean populasi (dengan z atau t).</li>
+    <li>Menghitung dan menginterpretasikan <em>p-value</em>.</li>
+    <li>Menggunakan statistik t jika simpangan baku populasi tidak diketahui.</li>
+    <li>Menghitung probabilitas galat Tipe II.</li>
+  </ul>
+
+  <h2>1. Konsep Uji Hipotesis</h2>
+  <p><strong>Hipotesis nol (H₀)</strong>: pernyataan yang diuji (misalnya \( \mu = 200 \))</p>
+  <p><strong>Hipotesis alternatif (H₁)</strong>: pernyataan saingan (misalnya \( \mu \ne 200 \))</p>
+
+  <h2>2. Enam Langkah Uji Hipotesis</h2>
+  <ol>
+    <li>Nyatakan \( H_0 \) dan \( H_1 \)</li>
+    <li>Tentukan tingkat signifikansi \( \alpha \)</li>
+    <li>Pilih statistik uji (z atau t)</li>
+    <li>Tentukan aturan keputusan (nilai kritis)</li>
+    <li>Hitung nilai statistik uji</li>
+    <li>Buat keputusan dan interpretasi hasil</li>
+  </ol>
+
+  <div class="mt-4">
+    <h5>Contoh Soal:</h5>
+    <p>Sebuah perusahaan mengklaim bahwa rata-rata waktu layanan pelanggan adalah 5 menit. Sebuah sampel acak sebanyak 36 layanan menunjukkan rata-rata waktu layanan 4,6 menit dengan simpangan baku populasi diketahui sebesar 1,2 menit. Ujilah hipotesis pada tingkat signifikansi 5%.</p>
+    <p><strong>Penyelesaian:</strong></p>
+    <ul>
+      <li>Langkah 1: Hipotesis
+        \[ H_0: \mu = 5 \quad \text{dan} \quad H_1: \mu \ne 5 \]</li>
+      <li>Langkah 2: \( \alpha = 0.05 \)</li>
+      <li>Langkah 3: Gunakan statistik z karena \( \sigma \) diketahui.</li>
+      <li>Langkah 4: Nilai kritis untuk uji dua arah adalah \( z = \pm 1.96 \)</li>
+      <li>Langkah 5:
+        \[
+        z = \frac{4.6 - 5}{1.2 / \sqrt{36}} = \frac{-0.4}{0.2} = -2.00
+        \]</li>
+      <li>Langkah 6: Karena \( -2.00 < -1.96 \), maka tolak \( H_0 \). Terdapat cukup bukti untuk menyatakan bahwa rata-rata waktu layanan berbeda dari 5 menit.</li>
+    </ul>
+  </div>
+
+  <h2>3. Jenis Uji</h2>
+  <ul>
+    <li><strong>Satu Arah (One-Tailed)</strong>: \( H_1: \mu > \mu_0 \) atau \( H_1: \mu < \mu_0 \)</li>
+    <li><strong>Dua Arah (Two-Tailed)</strong>: \( H_1: \mu \ne \mu_0 \)</li>
+  </ul>
+
+  <h2>4. Statistik Uji</h2>
+  <ul>
+    <li>Jika \( \sigma \) diketahui: 
+      \[ z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} \]</li>
+    <li>Jika \( \sigma \) tidak diketahui:
+      \[ t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} \]</li>
+  </ul>
+
+  <h2>5. p-value</h2>
+  <ul>
+    <li>p-value adalah probabilitas mendapatkan nilai statistik uji seperti yang diamati jika \( H_0 \) benar.</li>
+    <li>Jika \( p < \alpha \): tolak \( H_0 \)</li>
+    <li>Jika \( p \ge \alpha \): gagal menolak \( H_0 \)</li>
+  </ul>
+
+  <h2>6. Galat Tipe I dan II</h2>
+  <ul>
+    <li><strong>Tipe I</strong> (\( \alpha \)): Menolak \( H_0 \) padahal benar</li>
+    <li><strong>Tipe II</strong> (\( \beta \)): Gagal menolak \( H_0 \) padahal salah</li>
+    <li><strong>Kekuatan Uji (Power)</strong>: \( 1 - \beta \)</li>
+  </ul>
+
+  <h2>7. Rumus Penting</h2>
+  <table class="table table-bordered text-center">
+    <thead class="table-light">
+      <tr><th>Kasus</th><th>Statistik Uji</th><th>Rumus</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>\( \sigma \) diketahui</td><td>z</td><td>\( z = \frac{\bar{x} - \mu_0}{\sigma / \sqrt{n}} \)</td></tr>
+      <tr><td>\( \sigma \) tidak diketahui</td><td>t</td><td>\( t = \frac{\bar{x} - \mu_0}{s / \sqrt{n}} \)</td></tr>
+      <tr><td>Estimasi \( \beta \)</td><td>z</td><td>\( z = \frac{x_c - \mu_1}{\sigma / \sqrt{n}} \)</td></tr>
+    </tbody>
+  </table>
 
     <div class="container mt-5">
         <div class="accordion" id="accordionp12">
@@ -2195,10 +2280,32 @@ graph TD
             <div class="accordion-item">
                 <h2 class="accordion-header" id="headingp12">
                     <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep12" aria-expanded="true" aria-controls="collapsep12">
-                        Soal Latihan
+                        Soal Latihan PWS
                     </button>
                 </h2>
                 <div id="collapsep12" class="accordion-collapse collapse" aria-labelledby="headingp12" data-bs-parent="#accordionp12">
+                    <div class="accordion-body">
+												<p>Soal 1</p>
+
+                        <p>Soal 2</p>
+
+                        <p>Soal 3</p>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container mt-5">
+        <div class="accordion" id="accordionp12mbs">
+            
+            <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp12mbs">
+                    <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep12mbs" aria-expanded="true" aria-controls="collapsep12mbs">
+                        Soal Latihan MBS
+                    </button>
+                </h2>
+                <div id="collapsep12mbs" class="accordion-collapse collapse" aria-labelledby="headingp12mbs" data-bs-parent="#accordionp12mbs">
                     <div class="accordion-body">
 												<p>Soal 1</p>
 
