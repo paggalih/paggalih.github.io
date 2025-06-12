@@ -1230,7 +1230,17 @@ var trace2 = {
   line: {color: '#7F7F7F'}
 }
 
-var data = [trace1,trace2];
+var trace3 = {
+  type: "scatter",
+  mode: "lines",
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'D(Random_Walk)'),
+	name: "D(Random_Walk)",
+  line: {color: '#7F7F7F'}
+}
+
+
+var data = [trace1,trace2,trace3];
 
 var layout = {
   title: {
