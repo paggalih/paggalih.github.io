@@ -1895,6 +1895,95 @@ s2 |  1    2    1   0   1    0  | 90
                         <h2>Pertemuan 12</h2>
                     </div>
 
+
+  <h2 class="text-center">Bab 19: Dynamic Programming</h2>
+
+  <h4>19.1 Pengantar</h4>
+  <p>Dynamic Programming memecah masalah besar menjadi sub-masalah yang lebih kecil. Solusi dari masing-masing sub-masalah akan digunakan untuk membangun solusi optimal secara keseluruhan.</p>
+
+  <h4>19.2 Prinsip Optimalitas</h4>
+  <p>Jika serangkaian keputusan optimal telah ditemukan, maka semua sub-keputusan di dalamnya juga optimal.</p>
+
+  <p>Total return yang dioptimalkan secara umum dapat dituliskan:</p>
+  \[
+  R = \sum r_t
+  \]
+
+  <p>Terdapat dua pendekatan:</p>
+  <ul>
+    <li>Forward recursion (maju)</li>
+    <li>Backward recursion (mundur)</li>
+  </ul>
+
+  <h4>19.3 Contoh-contoh Dynamic Programming</h4>
+
+  <h5>19.3.1 Jaringan Minimum (Shortest Path)</h5>
+  <p>Mencari jalur minimum dari node A ke B melalui beberapa simpul. Baik forward maupun backward recursion menghasilkan biaya minimum total:</p>
+  \[
+  \text{Biaya Minimum} = 13
+  \]
+
+  <h5>19.3.2 Penggantian AC Portable</h5>
+  <p>Masalah penjadwalan pembelian AC selama 5 tahun:</p>
+  <ul>
+    <li>Harga beli: £1,500</li>
+    <li>Biaya perawatan tahunan: £140, £180, £240</li>
+    <li>Nilai jual kembali: £1,000 (thn 1), £800 (thn 2), £400 (thn 3)</li>
+  </ul>
+
+  <p>Total biaya kepemilikan untuk masing-masing opsi:</p>
+  <ul>
+    <li>1 tahun: £640</li>
+    <li>2 tahun: £1,020</li>
+    <li>3 tahun: £1,660</li>
+  </ul>
+
+  <p><strong>Hasil optimal:</strong></p>
+  \[
+  \text{Total Biaya Minimum} = £2,680
+  \]
+
+  <h5>19.3.3 Produksi Brosur</h5>
+  <p>Perusahaan memproduksi brosur selama 5 kuartal, permintaan (dalam ribuan):</p>
+  <ul>
+    <li>100, 200, 250, 250, 150</li>
+  </ul>
+
+  <p>Biaya produksi tetap: £500 per batch</p>
+  <p>Biaya penyimpanan per unit:</p>
+  <ul>
+    <li>Kasus 1: £1 per unit</li>
+    <li>Kasus 2: £2 per unit</li>
+  </ul>
+
+  <p><strong>Hasil optimal:</strong></p>
+  <ul>
+    <li>Jika biaya penyimpanan £1: total biaya minimum £1,750</li>
+    <li>Jika biaya penyimpanan £2: total biaya minimum £2,200</li>
+  </ul>
+
+  <h5>19.3.4 Travelling Salesman Problem (TSP)</h5>
+  <p>Sales mengunjungi 5 kota (A, B, C, D, E). Total kemungkinan rute:</p>
+  \[
+  5! = 120
+  \]
+  <p>Untuk 10 kota:</p>
+  \[
+  10! = 3,628,800
+  \]
+
+  <p><strong>Hasil optimal:</strong></p>
+  \[
+  \text{Total jarak minimum} = 31
+  \]
+
+  <h4>Kesimpulan:</h4>
+  <ul>
+    <li>Dynamic programming efektif untuk: penjadwalan, penggantian, produksi, dan rute minimum.</li>
+    <li>Backward recursion lebih umum, namun prinsip optimalitas berlaku untuk keduanya.</li>
+  </ul>
+
+
 <div class="overflow-auto text-center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/u-ulWdrbB-o?si=Hc3VJbNfH-aLgdca" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
 </div>
