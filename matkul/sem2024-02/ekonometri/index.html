@@ -1081,7 +1081,133 @@ fetch('Data_Smoker.csv')
                     <div class="section-title">
                         <h2>Pertemuan 12</h2>
                     </div>
+  <h1 class="text-center">Bab 13: Stationary and Nonstationary Time Series</h1>
 
+  <h2>1. Definisi Stasioner</h2>
+  <ul>
+    <li>Mean konstan sepanjang waktu</li>
+    <li>Varians konstan sepanjang waktu</li>
+    <li>Kovarians hanya bergantung pada lag, bukan pada waktu</li>
+  </ul>
+  <p><strong>Strictly stationary</strong>: seluruh distribusi tidak berubah sepanjang waktu.<br>
+     <strong>Weakly stationary</strong>: hanya mean, varians, dan kovarians yang konstan.</p>
+
+  <h2>2. Kenapa Stasioner Penting?</h2>
+  <ul>
+    <li>Jika nonstasioner, regresi bisa menghasilkan <em>spurious regression</em>.</li>
+    <li>Model hanya berlaku di sampel, buruk untuk forecasting.</li>
+  </ul>
+
+  <h2>3. Cara Menguji Stasioneritas</h2>
+  <ul>
+    <li><strong>Plot Grafik</strong>: lihat pola tren atau fluktuasi stabil.</li>
+    <li><strong>Autocorrelation Function (ACF)</strong>: ACF lambat turun mengindikasikan nonstasioner.</li>
+    <li><strong>Unit Root Test</strong>: Dickey-Fuller (DF) atau Augmented Dickey-Fuller (ADF).</li>
+  </ul>
+
+  <h2>4. Model Uji Akar Unit (Unit Root Test)</h2>
+  <p>Model DF umum:</p>
+  <p>\[ \Delta Y_t = \beta_1 + \beta_2 t + \beta_3 Y_{t-1} + u_t \]</p>
+  <p>Hipotesis:</p>
+  <ul>
+    <li>H0: \( \beta_3 = 0 \) (nonstasioner)</li>
+    <li>H1: \( \beta_3 < 0 \) (stasioner)</li>
+  </ul>
+
+  <h2>5. Contoh Data Kurs Dollar/Euro</h2>
+  <ul>
+    <li>Data kurs menunjukkan nonstasioner.</li>
+    <li>ADF test: statistik -3.0265 &gt; critical value -3.1277 → gagal tolak H0.</li>
+    <li>Setelah differencing, data menjadi stasioner.</li>
+  </ul>
+
+  <h2>6. Trend Stationary vs Difference Stationary</h2>
+  <ul>
+    <li><strong>Trend Stationary (TSP)</strong>: stasioner setelah tren dihapus.</li>
+    <li><strong>Difference Stationary (DSP/I(1))</strong>: stasioner setelah differencing.</li>
+  </ul>
+
+  <h2>7. Random Walk Model</h2>
+  <p>Model:</p>
+  <p>\[ Y_t = Y_{t-1} + u_t \]</p>
+  <p>Jika ada drift:</p>
+  <p>\[ Y_t = \delta + Y_{t-1} + u_t \]</p>
+  <p>Ciri random walk: varians meningkat seiring waktu, nonstasioner, tetapi menjadi stasioner setelah differencing.</p>
+
+  <h2>8. Contoh Harga Saham IBM</h2>
+  <ul>
+    <li>Level harga: nonstasioner (ADF -1.02, p = 0.75).</li>
+    <li>Setelah differencing: stasioner (ADF -27.65, p = 0.0000).</li>
+    <li>Kesimpulan: mengikuti random walk (I(1)).</li>
+  </ul>
+
+  <h2>9. Notasi Integrasi</h2>
+  <ul>
+    <li>I(0): stasioner di level.</li>
+    <li>I(1): stasioner setelah differencing satu kali.</li>
+    <li>I(2): stasioner setelah differencing dua kali.</li>
+  </ul>
+
+  <h2>10. Simulasi Data (Contoh Praktis)</h2>
+  <p>Grafik berikut mensimulasikan data random walk (nonstasioner) dan white noise (stasioner):</p>
+  <img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAyAAAAJYCAIAAAC2b....." alt="Simulasi Grafik" class="img-fluid"/>
+
+  <h3>Contoh Data Mentah</h3>
+<div class="overflow-auto" id="tabel-time-series"></div>
+<script>
+fetch('Data_Mentah_Time_Series.csv')
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.trim().split('\n').map(row => row.split(','));
+
+    if (rows.length === 0) return;
+
+    // Ambil baris pertama sebagai header
+    const headers = rows[0];
+    const dataRows = rows.slice(1);
+
+    let html = `<table class="table table-striped text-center" id="datatable-time-series">`;
+
+    // Buat bagian thead
+    html += '<thead><tr>';
+    headers.forEach(header => {
+      html += `<th>${header}</th>`;
+    });
+    html += '</tr></thead>';
+
+    // Buat bagian tbody
+    html += '<tbody>';
+    dataRows.forEach(row => {
+      html += '<tr>';
+      row.forEach(cell => {
+        html += `<td>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</tbody>';
+
+    html += '</table>';
+    document.getElementById("tabel-time-series").innerHTML = html;
+
+    // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+    $(document).ready(function () {
+      $('#datatable-time-series').DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true
+      });
+    });
+  });
+
+</script>
+
+  <h2>Kesimpulan Umum</h2>
+  <ul>
+    <li>Pengujian stasioneritas adalah syarat wajib dalam analisis time series.</li>
+    <li>ADF Test paling umum digunakan.</li>
+    <li>Random walk sangat umum dalam data keuangan.</li>
+  </ul>
+	
                 </div>
             </section>
             <section id="p13">
