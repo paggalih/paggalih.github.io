@@ -24,6 +24,9 @@
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+	<!-- Load plotly.js into the DOM -->
+	<script src='https://cdn.plot.ly/plotly-3.0.1.min.js'></script>
+	<script src='https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.17/d3.min.js'></script>
 
 
 <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
@@ -1200,6 +1203,52 @@ fetch('Data_Mentah_Time_Series.csv')
   });
 
 </script>
+	<div id='myDiv'><!-- Plotly chart will be drawn inside this DIV --></div>
+	<script>
+d3.csv("https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2024-02/ekonometri/Data_Mentah_Time_Series.csv", function(err, rows){
+
+  function unpack(rows, key) {
+  return rows.map(function(row) { return row[key]; });
+}
+
+
+var trace1 = {
+  type: "scatter",
+  mode: "lines",
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'Random_Walk'),
+  line: {color: '#17BECF'}
+}
+
+var trace2 = {
+  type: "scatter",
+  mode: "lines",
+  x: unpack(rows, 'Time'),
+  y: unpack(rows, 'White_Noise'),
+  line: {color: '#7F7F7F'}
+}
+
+var data = [trace1,trace2];
+
+var layout = {
+  title: {
+    text: 'Grafik'
+  },
+  xaxis: {
+    range: ['0', '299'],
+    type: 'date'
+  },
+  yaxis: {
+    autorange: true,
+    range: [86.8700008333, 138.870004167],
+    type: 'linear'
+  }
+};
+
+Plotly.newPlot('myDiv', data, layout);
+})
+
+	</script>
 
   <h2>Kesimpulan Umum</h2>
   <ul>
