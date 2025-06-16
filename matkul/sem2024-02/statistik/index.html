@@ -2303,6 +2303,80 @@ graph TD
 											<div class="section-title">
 													<h2>Pertemuan 13</h2>
 											</div>
+  <h1 class="text-center">Bab 11: Uji Hipotesis Dua Sampel</h1>
+
+  <h2>1. Dua Sampel Independen (Standar Deviasi Populasi Diketahui)</h2>
+  <p>
+    \[ z = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{\sigma_1^2}{n_1} + \frac{\sigma_2^2}{n_2}}} \]
+  </p>
+  <ul>
+    <li>Populasi normal</li>
+    <li>Sampel independen</li>
+    <li>Standar deviasi populasi diketahui</li>
+  </ul>
+
+  <h2>2. Dua Sampel Independen (Standar Deviasi Tidak Diketahui, Varians Sama)</h2>
+  <p>Gunakan pooled variance:</p>
+  <p>
+    \[ s_p^2 = \frac{(n_1 - 1)s_1^2 + (n_2 - 1)s_2^2}{n_1 + n_2 - 2} \]
+  </p>
+  <p>Rumus statistik uji:</p>
+  <p>
+    \[ t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{s_p^2 \left( \frac{1}{n_1} + \frac{1}{n_2} \right)}} \]
+  </p>
+  <p>Derajat bebas:</p>
+  <p>
+    \[ df = n_1 + n_2 - 2 \]
+  </p>
+
+  <h2>3. Dua Sampel Independen (Varians Tidak Sama / Welch's t-test)</h2>
+  <p>Rumus statistik uji:</p>
+  <p>
+    \[ t = \frac{\bar{x}_1 - \bar{x}_2}{\sqrt{\frac{s_1^2}{n_1} + \frac{s_2^2}{n_2}}} \]
+  </p>
+  <p>Derajat bebas menggunakan rumus Welch-Satterthwaite:</p>
+  <p>
+    \[ df = \frac{\left( \frac{s_1^2}{n_1} + \frac{s_2^2}{n_2} \right)^2}{\frac{\left( \frac{s_1^2}{n_1} \right)^2}{n_1 - 1} + \frac{\left( \frac{s_2^2}{n_2} \right)^2}{n_2 - 1}} \]
+  </p>
+
+  <h2>4. Sampel Berpasangan (Dependent Samples)</h2>
+  <p>Statistik uji:</p>
+  <p>
+    \[ t = \frac{\bar{d}}{s_d / \sqrt{n}} \]
+  </p>
+  <ul>
+    <li>\( \bar{d} \): rata-rata selisih</li>
+    <li>\( s_d \): standar deviasi selisih</li>
+    <li>\( n \): jumlah pasangan</li>
+  </ul>
+
+  <h2>5. Perbandingan Sampel Independen vs Dependen</h2>
+  <table class="table table-bordered text-center">
+    <thead class="table-light">
+      <tr>
+        <th>Independent Samples</th>
+        <th>Dependent Samples</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Subjek berbeda antar sampel</td>
+        <td>Subjek sama antar pengukuran</td>
+      </tr>
+      <tr>
+        <td>Variasi lebih besar</td>
+        <td>Variasi lebih kecil</td>
+      </tr>
+      <tr>
+        <td>Derajat bebas lebih besar</td>
+        <td>Derajat bebas lebih kecil</td>
+      </tr>
+      <tr>
+        <td>Tidak menghitung selisih</td>
+        <td>Menghitung selisih antar pasangan</td>
+      </tr>
+    </tbody>
+  </table>
 
     <div class="container mt-5">
         <div class="accordion" id="accordionp13">
