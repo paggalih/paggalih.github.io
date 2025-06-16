@@ -2847,7 +2847,140 @@ r = \frac{s_{xy}}{s_x s_y}
                     <div class="section-title">
                         <h2>Pertemuan 13</h2>
                     </div>
-										
+<h1>Bab 17: Regresi Berganda</h1>
+
+<h2>Model Regresi Berganda</h2>
+
+<p>Model umum:</p>
+\[
+y = \beta_0 + \beta_1 x_1 + \beta_2 x_2 + \cdots + \beta_k x_k + \varepsilon
+\]
+
+<ul>
+  <li>\( y \): variabel dependen</li>
+  <li>\( x_i \): variabel independen ke-i</li>
+  <li>\( \beta_0, \beta_1, \dots \): parameter</li>
+  <li>\( \varepsilon \): error (galat acak)</li>
+</ul>
+
+---
+
+<h2>Syarat Model Regresi Berganda</h2>
+
+<ul>
+  <li>Distribusi error normal: \( \varepsilon \sim N(0, \sigma^2) \)</li>
+  <li>Rata-rata error nol: \( E(\varepsilon) = 0 \)</li>
+  <li>Variansi error konstan (homoskedastisitas)</li>
+  <li>Error independen antar observasi</li>
+</ul>
+
+---
+
+<h2>Estimasi Koefisien Model</h2>
+
+<p>Model estimasi:</p>
+\[
+\hat{y} = b_0 + b_1 x_1 + b_2 x_2 + \cdots + b_k x_k
+\]
+
+<p>Biasanya dihitung menggunakan software statistik melalui metode <i>least squares</i>.</p>
+
+---
+
+<h2>Mengukur Kesesuaian Model</h2>
+
+<h3>a. Standard Error of Estimate:</h3>
+\[
+s_\varepsilon = \sqrt{ \frac{SSE}{n - k - 1} }
+\]
+
+<h3>b. Koefisien Determinasi \( R^2 \):</h3>
+\[
+R^2 = 1 - \frac{SSE}{\sum (y_i - \bar{y})^2}
+\]
+
+<p>Semakin tinggi \( R^2 \), semakin baik model menjelaskan variasi \( y \).</p>
+
+<h3>c. Adjusted \( R^2 \):</h3>
+\[
+R^2_{\text{adj}} = 1 - \left( \frac{SSE/(n - k - 1)}{SST/(n-1)} \right)
+\]
+
+<p>Mengoreksi pengaruh jumlah variabel independen.</p>
+
+<h3>d. Uji F: Validitas Keseluruhan Model</h3>
+
+<p>Hipotesis:</p>
+\[
+H_0: \beta_1 = \beta_2 = \cdots = \beta_k = 0
+\]
+
+<p>Statistik uji:</p>
+\[
+F = \frac{MSR}{MSE} = \frac{SSR / k}{SSE / (n - k - 1)}
+\]
+
+---
+
+<h2>Uji Signifikansi Koefisien Individu (uji t)</h2>
+
+<p>Untuk tiap koefisien:</p>
+\[
+t = \frac{b_i}{s_{b_i}}
+\]
+
+<p>Derajat bebas: \( n - k - 1 \)</p>
+
+---
+
+<h2>Diagnostik Regresi Berganda</h2>
+
+<h3>a. Normalitas residual</h3>
+<ul><li>Diperiksa melalui histogram residual.</li></ul>
+
+<h3>b. Homoskedastisitas</h3>
+<ul><li>Diperiksa melalui scatterplot residual terhadap nilai prediksi.</li></ul>
+
+<h3>c. Autokorelasi (Durbin-Watson test)</h3>
+\[
+d = \frac{ \sum_{i=2}^n (e_i - e_{i-1})^2 }{ \sum_{i=1}^n e_i^2 }
+\]
+
+<ul>
+  <li>Jika \( d \approx 2 \), maka tidak ada autokorelasi.</li>
+  <li>Jika \( d < 2 \), ada autokorelasi positif.</li>
+  <li>Jika \( d > 2 \), ada autokorelasi negatif.</li>
+</ul>
+
+<h3>d. Multikolinearitas</h3>
+<ul>
+  <li>Terjadi ketika antar variabel independen berkorelasi tinggi.</li>
+  <li>Gejala umum: uji F signifikan tetapi banyak uji t tidak signifikan.</li>
+</ul>
+
+---
+
+<h2>Penggunaan Model Regresi</h2>
+
+<h3>a. Confidence Interval Rata-rata:</h3>
+\[
+\hat{y} \pm t_{\alpha/2, n-k-1} \cdot s_\varepsilon \sqrt{\frac{1}{n} + \frac{(X_g - \bar{X})^2}{(n-1) s_x^2}}
+\]
+
+<h3>b. Prediction Interval untuk Individu:</h3>
+\[
+\hat{y} \pm t_{\alpha/2, n-k-1} \cdot s_\varepsilon \sqrt{1 + \frac{1}{n} + \frac{(X_g - \bar{X})^2}{(n-1) s_x^2}}
+\]
+
+---
+
+<h2>Kesimpulan</h2>
+
+<ul>
+  <li>Regresi berganda memperluas regresi sederhana dengan lebih banyak variabel prediktor.</li>
+  <li>Model valid bila asumsi dasar terpenuhi: normalitas, homoskedastisitas, independensi error.</li>
+  <li>Perlu evaluasi multikolinearitas dan autokorelasi pada model dengan data riil.</li>
+</ul>										
     <div class="container mt-5">
         <div class="accordion" id="accordionp13">
             
