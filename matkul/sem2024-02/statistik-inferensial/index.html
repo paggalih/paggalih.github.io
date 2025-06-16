@@ -2695,6 +2695,128 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
                     <div class="section-title">
                         <h2>Pertemuan 12</h2>
                     </div>
+<h1>Bab 16: Regresi Linear Sederhana dan Korelasi</h1>
+
+<h2>Model Regresi Linear Sederhana</h2>
+
+<p>Model populasi:</p>
+\[
+Y = \beta_0 + \beta_1 X + \varepsilon
+\]
+
+<ul>
+  <li>\( Y \): variabel respon</li>
+  <li>\( X \): variabel prediktor</li>
+  <li>\( \beta_0 \): intercept</li>
+  <li>\( \beta_1 \): slope</li>
+  <li>\( \varepsilon \): error acak</li>
+</ul>
+
+---
+
+<h2>Estimasi Parameter (Least Squares)</h2>
+
+<p>Persamaan estimasi model:</p>
+\[
+\hat{Y} = b_0 + b_1 X
+\]
+
+<p>Perhitungan slope dan intercept:</p>
+\[
+b_1 = \frac{s_{xy}}{s_x^2}, \quad b_0 = \bar{Y} - b_1 \bar{X}
+\]
+
+<p>Dimana:</p>
+\[
+s_{xy} = \frac{\sum (X_i - \bar{X})(Y_i - \bar{Y})}{n-1}
+\]
+
+<p>Jumlah kuadrat error (SSE):</p>
+\[
+SSE = \sum (Y_i - \hat{Y}_i)^2
+\]
+
+---
+
+<h2>Asumsi Model Regresi</h2>
+
+<ul>
+  <li>Error menyebar normal: \( \varepsilon \sim N(0, \sigma^2) \)</li>
+  <li>Error bersifat independen</li>
+  <li>Homoskedastisitas: variansi error konstan</li>
+</ul>
+
+---
+
+<h2>Pengujian Model Regresi</h2>
+
+<h3>Standard Error of Estimate:</h3>
+\[
+s_\varepsilon = \sqrt{\frac{SSE}{n-2}}
+\]
+
+<h3>Pengujian Signifikansi Slope:</h3>
+
+<p>Hipotesis:</p>
+\[
+H_0: \beta_1 = 0 \quad \text{vs} \quad H_1: \beta_1 \neq 0
+\]
+
+<p>Statistik uji:</p>
+\[
+t = \frac{b_1}{s_{b_1}}, \quad s_{b_1} = \frac{s_\varepsilon}{\sqrt{(n-1)s_x^2}}
+\]
+
+---
+
+<h3>Koefisien Determinasi (R-Square):</h3>
+\[
+R^2 = \frac{s_{xy}^2}{s_x^2 s_y^2}
+\]
+
+<p>R-square menunjukkan proporsi variasi \( Y \) yang dijelaskan oleh \( X \).</p>
+
+<h3>Koefisien Korelasi (r):</h3>
+\[
+r = \frac{s_{xy}}{s_x s_y}
+\]
+
+<p>Uji signifikansi korelasi identik dengan uji signifikansi slope.</p>
+
+---
+
+<h2>Prediksi</h2>
+
+<h3>Confidence Interval untuk Rata-rata:</h3>
+\[
+\hat{Y} \pm t_{\alpha/2, n-2} s_\varepsilon \sqrt{\frac{1}{n} + \frac{(X_g - \bar{X})^2}{(n-1)s_x^2}}
+\]
+
+<h3>Prediction Interval untuk Nilai Individu:</h3>
+\[
+\hat{Y} \pm t_{\alpha/2, n-2} s_\varepsilon \sqrt{1 + \frac{1}{n} + \frac{(X_g - \bar{X})^2}{(n-1)s_x^2}}
+\]
+
+---
+
+<h2>Diagnostik Regresi</h2>
+
+<ul>
+  <li>Normalitas residual → histogram residual</li>
+  <li>Homoskedastisitas → scatterplot residual vs prediksi</li>
+  <li>Outlier → residual standar \( > 2 \)</li>
+  <li>Autokorelasi → residual plot terhadap waktu</li>
+  <li>Pengamatan berpengaruh → pengaruh kuat terhadap slope</li>
+</ul>
+
+---
+
+<h2>Caution</h2>
+
+<ul>
+  <li>Korelasi tidak sama dengan sebab-akibat.</li>
+  <li>Model hanya berlaku dalam rentang data pengamatan.</li>
+</ul>
 										
     <div class="container mt-5">
         <div class="accordion" id="accordionp12">
