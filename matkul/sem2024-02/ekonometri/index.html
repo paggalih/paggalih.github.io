@@ -1428,7 +1428,7 @@ Plotly.newPlot('myDiv', data, layout);
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Kirim Jawaban</button>
 <script>
-var mulaiUAS = new Date("June 27, 2025 12:59:00").getTime();
+var mulaiUAS = new Date("June 27, 2025 04:59:00").getTime();
 var akhirUAS = new Date("June 27, 2025 14:30:00").getTime();
 var sekarang = new Date().getTime();
 function validateUAS() {
@@ -1440,7 +1440,7 @@ function validateUAS() {
 	else {
 		if (sekarang-akhirUAS<0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "top") {
+			 if (person === "eko") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
@@ -1507,7 +1507,14 @@ var x = setInterval(function() {
 <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUAS" style="display: none">
 <div id="soal1" style='display:none;'>
-	<p>Dua matriks \( C \) dan \( D \) diberikan sebagai berikut:</p>
+	<p>Di tengah meningkatnya pengangguran terdidik, banyak kampus mendorong mahasiswa untuk menjadi wirausahawan muda. Peneliti ingin memahami faktor-faktor apa yang memengaruhi niat mahasiswa untuk memulai usaha sendiri, terutama:
+<ul>
+<li>    Pendapatan orang tua (X1) — dalam juta rupiah per bulan.</li>
+<li>    Motivasi kewirausahaan (X2) — skor hasil kuisioner (skala 1–5).</li>
+<li>    Niat berwirausaha (Y) — 1 = berniat memulai usaha, 0 = tidak berniat.</li>
+</ul>
+<a href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2024-02/ekonometri/data_logit_probit_uas.csv">Unduh Data Di Sini</a>
+</p>
 
 </div>
 
