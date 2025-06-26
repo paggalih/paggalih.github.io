@@ -1337,6 +1337,73 @@ Plotly.newPlot('myDiv', data, layout);
     <li>Menggambarkan risiko dinamis secara lebih akurat daripada model klasik.</li>
     <li>Sangat relevan untuk analisis risiko, trading, dan forecasting pasar.</li>
   </ul>
+	
+	<h3>1. Latar Belakang: Volatilitas dalam Data Keuangan</h3>
+  <p>Data keuangan seperti harga saham, kurs, dan suku bunga sering menunjukkan fenomena <strong>volatility clustering</strong>, yaitu:</p>
+  <ul>
+    <li>Periode volatilitas tinggi → tinggi terus</li>
+    <li>Periode tenang → tetap tenang</li>
+  </ul>
+  <p>Model klasik mengasumsikan varians error konstan (homoskedastik), padahal volatilitas nyata berubah-ubah.</p>
+
+  <h3>2. Solusi: ARCH dan GARCH</h3>
+  <p>Model ARCH dan GARCH dikembangkan untuk <strong>memodelkan varians error</strong> (volatilitas) yang <em>berubah dari waktu ke waktu</em>.</p>
+
+  <h3>3. Model ARCH</h3>
+  <p>Model mean:</p>
+  <p>\[ Y_t = \mu + u_t \]</p>
+  <p>Model varians bersyarat ARCH(1):</p>
+  <p>\[ \sigma_t^2 = \alpha_0 + \alpha_1 u_{t-1}^2 \]</p>
+  <p>Untuk ARCH(p):</p>
+  <p>\[ \sigma_t^2 = \alpha_0 + \alpha_1 u_{t-1}^2 + \cdots + \alpha_p u_{t-p}^2 \]</p>
+
+  <h3>4. Model GARCH</h3>
+  <p>Model GARCH(1,1):</p>
+  <p>\[ \sigma_t^2 = \alpha_0 + \alpha_1 u_{t-1}^2 + \beta_1 \sigma_{t-1}^2 \]</p>
+  <ul>
+    <li>Menggabungkan efek ARCH dan variansi sebelumnya</li>
+    <li>Lebih fleksibel dan efisien dari segi parameter</li>
+  </ul>
+
+  <h3>5. Model GARCH-in-Mean (GARCH-M)</h3>
+  <p>Ketika risiko (volatilitas) memengaruhi return, kita gunakan:</p>
+  <p>\[ Y_t = \mu + \lambda \sigma_t^2 + u_t \]</p>
+  <p>Risiko dimasukkan ke dalam model mean.</p>
+
+  <h3>6. Estimasi Model</h3>
+  <ul>
+    <li><strong>OLS</strong>: sederhana, tapi tidak selalu positif</li>
+    <li><strong>Maximum Likelihood (ML)</strong>: estimasi simultan mean & variansi, lebih stabil</li>
+  </ul>
+
+  <h3>7. Contoh Praktis</h3>
+  <p>Studi kasus Gujarati pada data Dollar/Euro menunjukkan:</p>
+  <ul>
+    <li>Model ARCH(8) dan GARCH(1,1) dapat menangkap volatilitas</li>
+    <li>GARCH lebih hemat parameter dan efisien</li>
+  </ul>
+
+  <h3>8. Variasi Lanjutan</h3>
+  <ul>
+    <li><strong>EGARCH</strong>: menangkap asimetri (naik-turun tidak sama)</li>
+    <li><strong>TGARCH</strong>: hanya aktif bila melewati threshold</li>
+    <li><strong>GARCH-M</strong>: risiko memengaruhi return</li>
+  </ul>
+
+  <h3>9. Intuisi Ringkas</h3>
+  <table class="table table-bordered">
+    <thead><tr><th>Konsep</th><th>Inti Pemahaman</th></tr></thead>
+    <tbody>
+      <tr><td>ARCH</td><td>Volatilitas tergantung error kuadrat sebelumnya</td></tr>
+      <tr><td>GARCH</td><td>Volatilitas tergantung error dan variansi lag sebelumnya</td></tr>
+      <tr><td>GARCH-M</td><td>Risiko (variansi) masuk ke dalam return</td></tr>
+      <tr><td>White Noise</td><td>Error acak sempurna, tidak punya pola</td></tr>
+      <tr><td>Volatility Clustering</td><td>Periode volatilitas tinggi saling berdekatan</td></tr>
+    </tbody>
+  </table>
+
+  <p>Model-model ini sangat penting untuk <strong>analisis risiko, manajemen portofolio, dan forecasting pasar keuangan</strong>.</p>
+
                 </div>
             </section>
             <section id="p15">
