@@ -1414,6 +1414,187 @@ Plotly.newPlot('myDiv', data, layout);
 
                 </div>
             </section>
+            <section id="p16">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 16</h2>
+                    </div>
+<p class="h1">Ketentuan UAS</p>
+<ol>
+	<li>UTS hanya boleh dikerjakan selama 1 jam 30 menit (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UTS boleh dikerjakan dari ---- dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Kirim Jawaban</button>
+<script>
+var mulaiUAS = new Date("June 27, 2025 12:59:00").getTime();
+var akhirUAS = new Date("June 27, 2025 14:30:00").getTime();
+var sekarang = new Date().getTime();
+function validateUAS() {
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUAS<0){
+		alert("Belum waktunya.");
+	}
+	else {
+		if (sekarang-akhirUAS<0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "top") {
+				document.getElementById("tombol_mulai").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+				let nim = Number(prompt('Masukkan NIM',''));
+				var b = (nim*5)% 6;
+				var c = [
+				['soal4','soal7','soal9','soal13','soal1'],
+				['soal16','soal7','soal4','soal10','soal14'],
+				['soal6','soal7','soal15','soal14','soal10'],
+				['soal6','soal1','soal8','soal10','soal3'],
+				['soal4','soal8','soal2','soal13','soal11'],
+				['soal8','soal12','soal4','soal9','soal14']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Waktu habis.");
+		}
+	}
+}
+function closeValidateUAS() {
+	document.getElementById("berhasilValidateUAS").style.display = "none";
+    setTimeout(function() {
+        window.location.href = "https://forms.gle/Q1wjWyqgN3kJKyP88";
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distance = akhirUAS - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
+	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
+	+ minutes + "menit " + seconds + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distance < 0) {
+		clearInterval(x);
+		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUAS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<div id="berhasilValidateUAS" style="display: none">
+<div id="soal1" style='display:none;'>
+	<p>Dua matriks \( C \) dan \( D \) diberikan sebagai berikut:</p>
+
+</div>
+
+<div id="soal2" style='display:none;'>
+    <p>Jika \( E \) dan \( F \) diberikan sebagai berikut:</p>
+
+</div>
+
+<div id="soal3" style='display:none;'>
+    <p>Diberikan matriks:</p>
+
+</div>
+<!-- ======================= -->
+<div id="soal4" style='display:none;'>
+    <p>Gunakan aturan Cramer untuk menyelesaikan \( y \) dari sistem persamaan berikut:</p>
+
+</div>
+
+<div id="soal5" style='display:none;'>
+    <p>Tentukan kofaktor \( A_{31} \) dari matriks berikut:</p>
+
+</div>
+
+<div id="soal6" style='display:none;'>
+    <p>Cari invers (jika ada) dari matriks berikut:</p>
+
+</div>
+<!-- ============================ -->
+<div id="soal7" style='display:none;'>
+    <p>Sebuah usaha kerajinan memproduksi Lukisan dan Patung dengan data:</p>
+
+</div>
+
+<div id="soal8" style='display:none;'>
+    <p>Sebuah percetakan memproduksi buku Fiksi dan Non-Fiksi dengan data:</p>
+
+</div>
+<!-- ====================== -->
+<div id="soal9" style='display:none;'>
+    <p>Diberikan model ekonomi dua sektor:</p>
+
+</div>
+
+<div id="soal10" style='display:none;'>
+    <p>Temukan solusi khusus dari persamaan diferensial berikut:</p>
+
+</div>
+
+<div id="soal11" style='display:none;'>
+    <p>Pertimbangkan fungsi penawaran dan permintaan berikut:</p>
+
+</div>
+<!-- ========================= -->
+<div id="soal12" style='display:none;'>
+    <p>Jika aliran investasi sebuah perusahaan diberikan oleh:</p>
+
+</div>
+
+<div id="soal13" style='display:none;'>
+    <p>Berapa surplus konsumen saat \( P = 50 \) jika fungsi permintaan diberikan oleh:</p>
+
+</div>
+
+<div id="soal14" style='display:none;'>
+    <p>Fungsi penawaran dan permintaan suatu barang diberikan oleh:</p>
+
+</div>
+<!-- ====================== -->
+<div id="soal15" style='display:none;'>
+
+</div>
+
+<div id="soal16" style='display:none;'>
+
+</div>
+
+<p class="h1 text-center">Soal UAS</p>
+<ol id="soalUTS">
+	<li id='nomer1'><h2>Soal 1</h2></li>
+	<li id='nomer2'><h2>Soal 2</h2></li>
+	<li id='nomer3'><h2>Soal 3</h2></li>
+	<li id='nomer4'><h2>Soal 4</h2></li>
+	<li id='nomer5'><h2>Soal 5</h2></li>
+</ol>
+</div>
+                </div>
+            </section>
             <section id="daftar_hadir">
                 <div class="container aos-init aos-animate" data-aos="fade-up">
                     <div class="section-title">
