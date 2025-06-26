@@ -1282,7 +1282,61 @@ Plotly.newPlot('myDiv', data, layout);
                     <div class="section-title">
                         <h2>Pertemuan 14</h2>
                     </div>
+  <h2 class="text-center">Bab 15: Volatilitas Harga Aset - Model ARCH dan GARCH</h2>
 
+  <h3>1. Volatility Clustering dalam Data Keuangan</h3>
+  <p>Pasar keuangan menunjukkan <strong>volatility clustering</strong> – periode volatilitas tinggi diikuti volatilitas tinggi lainnya, dan sebaliknya.</p>
+
+  <h3>2. Keterbatasan Varians Tak Bersyarat</h3>
+  <p>Model klasik asumsikan varians tetap. Padahal pada kenyataannya, <em>volatilitas berubah dari waktu ke waktu</em>. Solusinya: <strong>ARCH/GARCH</strong>.</p>
+
+  <h3>3. Model ARCH (Autoregressive Conditional Heteroskedasticity)</h3>
+  <p>Model mean:</p>
+  <p>\[ Y_t = \mu + u_t \]</p>
+  <p>Model variansi bersyarat:</p>
+  <p>\[ \sigma_t^2 = \alpha_0 + \alpha_1 u_{t-1}^2 \]</p>
+  <p>Untuk ARCH(p):</p>
+  <p>\[ \sigma_t^2 = \alpha_0 + \alpha_1 u_{t-1}^2 + \cdots + \alpha_p u_{t-p}^2 \]</p>
+
+  <h3>4. Estimasi ARCH</h3>
+  <ul>
+    <li>OLS: hanya cocok jika variansi positif</li>
+    <li>Maximum Likelihood (ML): lebih akurat dan stabil</li>
+  </ul>
+
+  <h3>5. Model GARCH (Generalized ARCH)</h3>
+  <p>Model GARCH(1,1):</p>
+  <p>\[ \sigma_t^2 = \alpha_0 + \alpha_1 u_{t-1}^2 + \beta_1 \sigma_{t-1}^2 \]</p>
+  <ul>
+    <li>Menggabungkan efek ARCH dan variansi lag sebelumnya</li>
+    <li>Efisien dalam jumlah parameter</li>
+  </ul>
+
+  <h3>6. Model GARCH-in-Mean (GARCH-M)</h3>
+  <p>Digunakan ketika risiko memengaruhi mean return:</p>
+  <p>\[ Y_t = \mu + \lambda \sigma_t^2 + u_t \]</p>
+
+  <h3>7. Studi Kasus Dollar/Euro</h3>
+  <ul>
+    <li>ARCH(8) vs GARCH(1,1)</li>
+    <li>Keduanya memodelkan volatilitas dengan baik</li>
+    <li>GARCH lebih ringkas dan efisien</li>
+  </ul>
+
+  <h3>8. Pengembangan Model</h3>
+  <ul>
+    <li>TGARCH: Threshold GARCH</li>
+    <li>EGARCH: Exponential GARCH</li>
+    <li>GARCH-M: GARCH in Mean</li>
+    <li>Model lanjutan lain: TARCH, NARCH, AARCH</li>
+  </ul>
+
+  <h3>9. Kesimpulan</h3>
+  <ul>
+    <li>ARCH dan GARCH adalah fondasi pemodelan volatilitas dalam ekonomi/keuangan.</li>
+    <li>Menggambarkan risiko dinamis secara lebih akurat daripada model klasik.</li>
+    <li>Sangat relevan untuk analisis risiko, trading, dan forecasting pasar.</li>
+  </ul>
                 </div>
             </section>
             <section id="p15">
