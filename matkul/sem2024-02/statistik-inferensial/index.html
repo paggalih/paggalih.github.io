@@ -1316,37 +1316,38 @@ while (!validNIM) {
 			alert("Sudah selesai. UTS ES4D hanya boleh dikerjakan sampai 19 Mei 2025 pukul 11.50");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancees4d = akhirUTSes4d - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let dayses4d = Math.floor(distancees4d / (1000 * 60 * 60 * 24));
+		let hourses4d = Math.floor((distancees4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minuteses4d = Math.floor((distancees4d % (1000 * 60 * 60)) / (1000 * 60));
+		let secondses4d = Math.floor((distancees4d % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4d + "hari " + hourses4d + "jam "
+		+ minuteses4d + "menit " + secondses4d + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancees4d < 0) {
+			clearInterval(x);
+			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUTS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
 function closeValidateUTSes4d() {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-let x = setInterval(function() {	
-	let sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	let distancees4d = akhirUTSes4d - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	let dayses4d = Math.floor(distancees4d / (1000 * 60 * 60 * 24));
-	let hourses4d = Math.floor((distancees4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	let minuteses4d = Math.floor((distancees4d % (1000 * 60 * 60)) / (1000 * 60));
-	let secondses4d = Math.floor((distancees4d % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4d + "hari " + hourses4d + "jam "
-	+ minuteses4d + "menit " + secondses4d + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distancees4d < 0) {
-		clearInterval(x);
-		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUTS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <p class="h1">Ketentuan UTS ES4E</p>
 <ol>
@@ -1408,37 +1409,38 @@ while (!validNIM) {
 			alert("Sudah selesai. UTS ES4E hanya boleh dikerjakan sampai 19 Mei 2025 pukul 14.30");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancees4e = akhirUTSes4e - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
+		let hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
+		let secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
+		+ minuteses4e + "menit " + secondses4e + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancees4e < 0) {
+			clearInterval(x);
+			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUTS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
 function closeValidateUTSes4e() {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-let x = setInterval(function() {	
-	let sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	let distancees4e = akhirUTSes4e - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	let dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
-	let hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	let minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
-	let secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
-	+ minuteses4e + "menit " + secondses4e + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distancees4e < 0) {
-		clearInterval(x);
-		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUTS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUTS" style="display: none">
@@ -3163,7 +3165,7 @@ let intervales4d = setInterval(function() {
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4e()">Kirim Jawaban ES4E</button>
 <script>
 const mulaiUASes4e = new Date("June 30, 2025 02:00:00").getTime();
-const akhirUTSes4e = new Date("June 30, 2025 14:00:00").getTime();
+const akhirUASes4e = new Date("June 30, 2025 14:00:00").getTime();
 function validateUASes4e() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -3309,7 +3311,9 @@ while (!validNIM) {
 			alert("Sudah selesai");
 		}
 	}
+	
 }
+
 function closeValidateUASes4f() {
     setTimeout(function() {
         window.open("https://forms.gle/1V7C1pBokrgrPWP28", "_blank");
