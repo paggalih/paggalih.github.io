@@ -2075,6 +2075,7 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
 												Seorang profesor statistik ingin mengetahui apakah mahasiswa dari program studi yang berbeda memiliki rata-rata pendapatan musim panas yang berbeda. Sebuah sampel acak dari 5 mahasiswa pada masing-masing program B.A., B.Sc., dan B.B.A. diminta untuk melaporkan pendapatan musim panas mereka sebelumnya (dalam ribuan dolar). Berikut adalah data yang diperoleh (dalam ribuan dolar):
 												</p>
 
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="5">
 												<thead>
 												<tr>
@@ -2091,6 +2092,7 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
 												<tr><td>3.9</td><td>4.8</td><td>6.4</td></tr>
 												</tbody>
 												</table>
+												</div>
 												<p>
 												Dapatkah profesor menyimpulkan, pada tingkat signifikansi 5%, bahwa mahasiswa dari program studi yang berbeda memiliki perbedaan rata-rata pendapatan musim panas?
 												</p>
@@ -2103,6 +2105,7 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
 												Apakah data ini memberikan bukti yang cukup untuk menyimpulkan bahwa terdapat perbedaan usia rata-rata komputer antar merek pada tingkat signifikansi \( \alpha = 0.05 \)?
 												</p>
 												<strong>Data Usia Komputer (dalam bulan):</strong>
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="6">
 													<thead>
 														<tr>
@@ -2124,6 +2127,7 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
 														</tr>
 													</tbody>
 												</table>
+												</div>
 
 												<p>Soal 3:</p>
 												<p>
@@ -2134,6 +2138,7 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
 
 												<strong>Data Jumlah Tawaran Pekerjaan:</strong>
 
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="6">
 													<thead>
 														<tr>
@@ -2149,6 +2154,7 @@ Dengan memahami dan membandingkan ketiga metode ini, mahasiswa dapat memilih met
 														<tr><td>1</td><td>4</td><td>6</td></tr>
 													</tbody>
 												</table>
+												</div>
 
                     </div>
                 </div>
@@ -2406,6 +2412,7 @@ flowchart TD
 
 												<h3>Data Partisipasi Mahasiswa:</h3>
 
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="6">
 													<thead>
 														<tr>
@@ -2430,6 +2437,7 @@ flowchart TD
 														</tr>
 													</tbody>
 												</table>
+												</div>
 
 												<ol type="a">
 													<li>Berapa banyak faktor dalam eksperimen ini? Sebutkan.</li>
@@ -2586,6 +2594,7 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
 
 												<p>Tabel Ketidakhadiran Karyawan:</p>
 
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="6">
 													<thead>
 														<tr>
@@ -2608,6 +2617,7 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
 														</tr>
 													</tbody>
 												</table>
+												</div>
 
 												<p>Soal 2:</p>
 												<p>
@@ -2625,6 +2635,7 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
 
 												<p>Tabel Data Kualitas Produksi:</p>
 
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="6">
 												<thead>
 													<tr>
@@ -2645,6 +2656,7 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
 													</tr>
 												</tbody>
 												</table>
+												</div>
 
 												<p>Soal 3:</p>
 												<p>
@@ -2657,6 +2669,7 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
 
 												<h3>Tabel Kepuasan Kerja berdasarkan Gender Atasan/Karyawan</h3>
 
+												<div class="overflow-auto text-center">
 												<table border="1" cellpadding="6">
 													<thead>
 														<tr>
@@ -2682,6 +2695,7 @@ e_{11} = \frac{60 \cdot 61}{152} = 24.08
 														</tr>
 													</tbody>
 												</table>
+												</div>
 
                     </div>
                 </div>
@@ -3037,6 +3051,431 @@ d = \frac{ \sum_{i=2}^n (e_i - e_{i-1})^2 }{ \sum_{i=1}^n e_i^2 }
             </div>
         </div>
     </div>
+                </div>
+            </section>
+            <section id="p16">
+                <div class="container aos-init aos-animate" data-aos="fade-up">
+                    <div class="section-title">
+                        <h2>Pertemuan 16</h2>
+                    </div>
+<p class="h1">Ketentuan UAS ES4D</p>
+<ol>
+	<li>UAS ES4D hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS ES4D boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS ES4D</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban ES4D</button>
+<script>
+var mulaiUASes4d = new Date("June 30, 2025 02:39:00").getTime();
+var akhirUASes4d = new Date("June 30, 2025 11:20:00").getTime();
+var sekarang = new Date().getTime();
+function validateUASes4d() {
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASes4d < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASes4d < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "uastes4d") {
+				document.getElementById("tombol_uas_es4d").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+				var b = (nim*5)% 6;
+				var c = [
+					['soal1', 'soal4', 'soal7'],
+					['soal1', 'soal5', 'soal9'],
+					['soal2', 'soal4', 'soal8'],
+					['soal2', 'soal6', 'soal9'],
+					['soal3', 'soal5', 'soal7'],
+					['soal3', 'soal6', 'soal8']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+}
+function closeValidateUASes4d() {
+    setTimeout(function() {
+        window.open("https://forms.gle/wVCjafCFktn7GQBt8", "_blank");
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distancees4d = akhirUASes4d - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var dayses4d = Math.floor(distancees4d / (1000 * 60 * 60 * 24));
+	var hourses4d = Math.floor((distancees4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minuteses4d = Math.floor((distancees4d % (1000 * 60 * 60)) / (1000 * 60));
+	var secondses4d = Math.floor((distancees4d % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4d + "hari " + hourses4d + "jam "
+	+ minuteses4d + "menit " + secondses4d + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancees4d < 0) {
+		clearIntervales4d(x);
+		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUAS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<p class="h1">Ketentuan UAS ES4E</p>
+<ol>
+	<li>UAS ES4F hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS ES4F boleh dikerjakan dari 13:00-14:00 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_es4e" type="button" class="btn btn-primary" onclick="validateUASes4e()">Mulai UAS ES4E</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASes4e()">Kirim Jawaban ES4E</button>
+<script>
+var mulaiUASes4e = new Date("June 30, 2025 02:00:00").getTime();
+var akhirUTSes4e = new Date("June 30, 2025 14:00:00").getTime();
+var sekarang = new Date().getTime();
+function validateUASes4e() {
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASes4e < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASes4e < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "uastes4e") {
+				document.getElementById("tombol_uas_es4e").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+				var b = (nim*5)% 6;
+				var c = [
+					['soal1', 'soal4', 'soal7'],
+					['soal1', 'soal5', 'soal9'],
+					['soal2', 'soal4', 'soal8'],
+					['soal2', 'soal6', 'soal9'],
+					['soal3', 'soal5', 'soal7'],
+					['soal3', 'soal6', 'soal8']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+}
+function closeValidateUASes4e() {
+    setTimeout(function() {
+        window.open("https://forms.gle/Q6fBTo27qUe5wUDq8", "_blank");
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distancees4e = akhirUASes4e - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
+	var hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
+	var secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
+	+ minuteses4e + "menit " + secondses4e + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancees4e < 0) {
+		clearIntervales4e(x);
+		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUAS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<div id="berhasilValidateUAS" style="display: none">
+<div id="soal1" style='display:none;'>
+												<p>
+												Bagaimana pengaruh jurusan MBA terhadap jumlah tawaran pekerjaan yang diterima?
+												Seorang mahasiswa MBA secara acak mengambil sampel dari empat lulusan terbaru — satu dari masing-masing jurusan <b>finance</b>, <b>marketing</b>, dan <b>management</b> — dan meminta mereka melaporkan jumlah tawaran pekerjaan yang mereka terima.
+												Dapatkah kita menyimpulkan, pada tingkat signifikansi 5%, bahwa terdapat perbedaan rata-rata jumlah tawaran pekerjaan antara tiga jurusan MBA tersebut?
+												</p>
+
+												<strong>Data Jumlah Tawaran Pekerjaan:</strong>
+
+												<div class="overflow-auto text-center">
+												<table border="1" cellpadding="6">
+													<thead>
+														<tr>
+															<th>Finance</th>
+															<th>Marketing</th>
+															<th>Management</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr><td>3</td><td>1</td><td>8</td></tr>
+														<tr><td>1</td><td>5</td><td>5</td></tr>
+														<tr><td>4</td><td>3</td><td>4</td></tr>
+														<tr><td>1</td><td>4</td><td>6</td></tr>
+													</tbody>
+												</table>
+												</div>
+</div>
+
+<div id="soal2" style='display:none;'>
+												<p>
+												Seorang ilmuwan manajemen percaya bahwa salah satu cara untuk menilai apakah sebuah komputer memiliki kapasitas memori yang cukup adalah dengan mengetahui usia komputernya.
+												Dalam studi awal, sampel acak pengguna komputer diminta untuk menyebutkan merek komputernya dan usia komputer tersebut (dalam bulan).
+												Data yang dikategorikan ditampilkan dalam tabel berikut.
+												Apakah data ini memberikan bukti yang cukup untuk menyimpulkan bahwa terdapat perbedaan usia rata-rata komputer antar merek pada tingkat signifikansi \( \alpha = 0.05 \)?
+												</p>
+												<strong>Data Usia Komputer (dalam bulan):</strong>
+												<div class="overflow-auto text-center">
+												<table border="1" cellpadding="6">
+													<thead>
+														<tr>
+															<th>IBM</th>
+															<th>Dell</th>
+															<th>Hewlett-Packard</th>
+															<th>Other</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>17</td><td>8</td><td>6</td><td>24</td>
+														</tr>
+														<tr>
+															<td>10</td><td>4</td><td>15</td><td>12</td>
+														</tr>
+														<tr>
+															<td>13</td><td>21</td><td>8</td><td>15</td>
+														</tr>
+													</tbody>
+												</table>
+												</div>
+</div>
+
+<div id="soal3" style='display:none;'>
+												<p>
+												Banyak mahasiswa perguruan tinggi dan universitas bekerja selama musim panas.
+												Seorang profesor statistik ingin mengetahui apakah mahasiswa dari program studi yang berbeda memiliki rata-rata pendapatan musim panas yang berbeda. Sebuah sampel acak dari 5 mahasiswa pada masing-masing program B.A., B.Sc., dan B.B.A. diminta untuk melaporkan pendapatan musim panas mereka sebelumnya (dalam ribuan dolar). Berikut adalah data yang diperoleh (dalam ribuan dolar):
+												</p>
+
+												<div class="overflow-auto text-center">
+												<table border="1" cellpadding="5">
+												<thead>
+												<tr>
+													<th>B.A.</th>
+													<th>B.Sc.</th>
+													<th>B.B.A.</th>
+												</tr>
+												</thead>
+												<tbody>
+												<tr><td>3.3</td><td>3.9</td><td>4.0</td></tr>
+												<tr><td>2.5</td><td>5.1</td><td>6.2</td></tr>
+												<tr><td>4.6</td><td>3.9</td><td>6.3</td></tr>
+												<tr><td>5.4</td><td>6.2</td><td>5.9</td></tr>
+												<tr><td>3.9</td><td>4.8</td><td>6.4</td></tr>
+												</tbody>
+												</table>
+												</div>
+												<p>
+												Dapatkah profesor menyimpulkan, pada tingkat signifikansi 5%, bahwa mahasiswa dari program studi yang berbeda memiliki perbedaan rata-rata pendapatan musim panas?
+												</p>
+</div>
+<!-- ======================= -->
+<div id="soal4" style='display:none;'>
+												<p>
+												Seorang analis perilaku organisasi sedang meneliti hubungan antara struktur pengawasan pria/wanita di tempat kerja dengan tingkat kepuasan kerja karyawan.
+												</p>
+
+												<p>
+												Hasil dari survei terbaru disajikan dalam tabel berikut. Apakah ada cukup bukti untuk menyimpulkan bahwa tingkat kepuasan kerja bergantung pada kombinasi jenis kelamin antara atasan dan karyawan?
+												</p>
+
+												<h3>Tabel Kepuasan Kerja berdasarkan Gender Atasan/Karyawan</h3>
+
+												<div class="overflow-auto text-center">
+												<table border="1" cellpadding="6">
+													<thead>
+														<tr>
+															<th>Tingkat Kepuasan</th>
+															<th>Perempuan/Pria</th>
+															<th>Perempuan/Perempuan</th>
+															<th>Pria/Pria</th>
+															<th>Pria/Perempuan</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Puas</td>
+															<td>21</td><td>25</td><td>54</td><td>71</td>
+														</tr>
+														<tr>
+															<td>Netral</td>
+															<td>39</td><td>49</td><td>50</td><td>38</td>
+														</tr>
+														<tr>
+															<td>Tidak Puas</td>
+															<td>31</td><td>48</td><td>10</td><td>11</td>
+														</tr>
+													</tbody>
+												</table>
+												</div>
+</div>
+
+<div id="soal5" style='display:none;'>
+												<p>
+												Seorang manajer operasional dari perusahaan pembuat kemeja ingin mengetahui apakah terdapat perbedaan kualitas hasil kerja di antara tiga shift harian.
+												</p>
+
+												<p>
+												Ia secara acak memilih 600 kemeja yang baru diproduksi dan memeriksanya dengan teliti. 
+												Setiap kemeja diklasifikasikan sebagai <b>sempurna (perfect)</b> atau <b>cacat (flawed)</b>, dan shift yang memproduksinya juga dicatat.
+												</p>
+
+												<p>
+												Tabel berikut merangkum jumlah kemeja untuk tiap kombinasi kondisi dan shift:
+												</p>
+
+												<p>Tabel Data Kualitas Produksi:</p>
+
+												<div class="overflow-auto text-center">
+												<table border="1" cellpadding="6">
+												<thead>
+													<tr>
+														<th>Kondisi Kemeja</th>
+														<th>Shift 1</th>
+														<th>Shift 2</th>
+														<th>Shift 3</th>
+													</tr>
+												</thead>
+												<tbody>
+													<tr>
+														<td>Sempurna</td>
+														<td>240</td><td>191</td><td>139</td>
+													</tr>
+													<tr>
+														<td>Cacat</td>
+														<td>10</td><td>9</td><td>11</td>
+													</tr>
+												</tbody>
+												</table>
+												</div>
+</div>
+
+<div id="soal6" style='display:none;'>
+												<p>
+												Misalkan departemen kepegawaian dalam Latihan 15.87 melanjutkan penyelidikannya dengan mengkategorikan ketidakhadiran berdasarkan <b>shift kerja</b> dan <b>hari ketidakhadiran</b>.
+												Data ditampilkan dalam tabel berikut.
+												</p>
+
+												<p>
+												Apakah ada cukup bukti pada tingkat signifikansi 10% (\( \alpha = 0.10 \)) untuk menyimpulkan bahwa terdapat hubungan antara hari saat karyawan tidak masuk dan shift kerja mereka?
+												</p>
+
+												<p>Tabel Ketidakhadiran Karyawan:</p>
+
+												<div class="overflow-auto text-center">
+												<table border="1" cellpadding="6">
+													<thead>
+														<tr>
+															<th>Shift</th>
+															<th>Senin</th>
+															<th>Selasa</th>
+															<th>Rabu</th>
+															<th>Kamis</th>
+															<th>Jumat</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Siang</td>
+															<td>52</td><td>28</td><td>37</td><td>31</td><td>33</td>
+														</tr>
+														<tr>
+															<td>Malam</td>
+															<td>35</td><td>34</td><td>34</td><td>37</td><td>41</td>
+														</tr>
+													</tbody>
+												</table>
+												</div>
+</div>
+<!-- ========================= -->
+<div id="soal7" style='display:none;'>
+<p>
+Apakah ada pengaruh dari panjang jalan terhadap pertumbuhan ekonomi? Jelaskan menggunakan analisis regresi dengan menggunakan data di bawah ini</p>
+<a href="Book1.xlsx">Unduh Data</a>
+</div>
+
+<div id="soal8" style='display:none;'>
+Apakah ada pengaruh dari panjang jalan dan hasil panen terhadap pertumbuhan ekonomi? Jelaskan menggunakan analisis regresi dengan menggunakan data di bawah ini</p>
+<a href="Book1.xlsx">Unduh Data</a>
+</div>
+
+<div id="soal9" style='display:none;'>
+Apakah ada pengaruh dari panjang jalan, hasil panen, dan inflasi terhadap pertumbuhan ekonomi? Jelaskan menggunakan analisis regresi dengan menggunakan data di bawah ini</p>
+<a href="Book1.xlsx">Unduh Data</a>
+</div>
+
+<p class="h1 text-center">Soal UAS</p>
+<ol id="soalUTS">
+	<li id='nomer1'><h2>Soal 1</h2></li>
+	<li id='nomer2'><h2>Soal 2</h2></li>
+	<li id='nomer3'><h2>Soal 3</h2></li>
+</ol>
+</div>										
+
                 </div>
             </section>
             <section id="daftar_hadir">
