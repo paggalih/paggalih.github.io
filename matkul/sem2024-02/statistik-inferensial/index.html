@@ -3153,7 +3153,7 @@ var x = setInterval(function() {
 <p class="h1">Ketentuan UAS ES4E</p>
 <ol>
 	<li>UAS ES4F hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-	<li>Soal UAS ES4F boleh dikerjakan dari 13:00-14:00 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Soal UAS ES4E boleh dikerjakan dari 13:00-14:00 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
 	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 </ol>
 <button id="tombol_uas_es4e" type="button" class="btn btn-primary" onclick="validateUASes4e()">Mulai UAS ES4E</button>
@@ -3236,6 +3236,98 @@ var x = setInterval(function() {
 	// If the count down is over, write some text 
 	if (distancees4e < 0) {
 		clearIntervales4e(x);
+		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+		document.getElementById("berhasilValidateUAS").style.display = "none";
+	}
+}, 1000);
+// Update the count down every 1 second
+</script>
+<p class="h1">Ketentuan UAS ES4F</p>
+<ol>
+	<li>UAS ES4F hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS ES4F boleh dikerjakan dari 14:40-15:40 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_es4f" type="button" class="btn btn-primary" onclick="validateUASes4f()">Mulai UAS ES4F</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASes4f()">Kirim Jawaban ES4F</button>
+<script>
+var mulaiUASes4f = new Date("June 30, 2025 02:40:00").getTime();
+var akhirUTSes4f = new Date("June 30, 2025 15:40:00").getTime();
+var sekarang = new Date().getTime();
+function validateUASes4f() {
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASes4f < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASes4f < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "uastes4f") {
+				document.getElementById("tombol_uas_es4f").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+let validNIM = false;
+let nim;
+while (!validNIM) {
+    nim = prompt("Masukkan NIM:");
+    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+    if (konfirmasi) {
+        validNIM = true;
+    } else {
+        alert("Silakan ulangi dan masukkan NIM yang benar.");
+    }
+}
+				var b = (nim*5)% 6;
+				var c = [
+					['soal1', 'soal4', 'soal7'],
+					['soal1', 'soal5', 'soal9'],
+					['soal2', 'soal4', 'soal8'],
+					['soal2', 'soal6', 'soal9'],
+					['soal3', 'soal5', 'soal7'],
+					['soal3', 'soal6', 'soal8']
+				];
+				var d = c[b];
+				for (i = 1; i < 6; i++) {
+					var e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i).appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i).style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+}
+function closeValidateUASes4f() {
+    setTimeout(function() {
+        window.open("https://forms.gle/1V7C1pBokrgrPWP28", "_blank");
+    }, 500);
+}
+// Update the count down every 1 second
+var x = setInterval(function() {	
+	var sekarang = new Date().getTime();
+
+	// Find the distance between now and the count down date
+	var distancees4f = akhirUASes4f - sekarang;
+		
+	// Time calculations for days, hours, minutes and seconds
+	var dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
+	var hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
+	var secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
+		
+	// Output the result in an element with id="demo"
+	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam "
+	+ minuteses4f + "menit " + secondses4f + "detik ";
+		
+	// If the count down is over, write some text 
+	if (distancees4f < 0) {
+		clearIntervales4f(x);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
