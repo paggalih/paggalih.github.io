@@ -3119,29 +3119,31 @@ while (!validNIM) {
 		}
 	}
 }
+
 function closeValidateUASes4d() {
     setTimeout(function() {
         window.open("https://forms.gle/wVCjafCFktn7GQBt8", "_blank");
     }, 500);
 }
+
 // Update the count down every 1 second
 var intervales4d = setInterval(function() {	
 
 	// Find the distance between now and the count down date
-	var distancees4d = akhirUASes4d - sekarang;
+	var distanceUASes4d = akhirUASes4d - sekarang;
 		
 	// Time calculations for days, hours, minutes and seconds
-	var dayses4d = Math.floor(distancees4d / (1000 * 60 * 60 * 24));
-	var hourses4d = Math.floor((distancees4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minuteses4d = Math.floor((distancees4d % (1000 * 60 * 60)) / (1000 * 60));
-	var secondses4d = Math.floor((distancees4d % (1000 * 60)) / 1000);
+	var daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
+	var hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	var minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
+	var secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
 		
 	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4d + "hari " + hourses4d + "jam "
-	+ minuteses4d + "menit " + secondses4d + "detik ";
+	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
+	+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
 		
 	// If the count down is over, write some text 
-	if (distancees4d < 0) {
+	if (distanceUASes4d < 0) {
 		clearInterval(intervales4d);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
@@ -3250,10 +3252,10 @@ var intervales4e = setInterval(function() {
 <button id="tombol_uas_es4f" type="button" class="btn btn-primary" onclick="validateUASes4f()">Mulai UAS ES4F</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4f()">Kirim Jawaban ES4F</button>
 <script>
-var mulaiUASes4f = new Date("June 30, 2025 02:40:00").getTime();
-var akhirUTSes4f = new Date("June 30, 2025 15:40:00").getTime();
-var sekarang = new Date().getTime();
+let mulaiUASes4f = new Date("June 30, 2025 02:40:00").getTime();
+let akhirUTSes4f = new Date("June 30, 2025 15:40:00").getTime();
 function validateUASes4f() {
+	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
 
 	if (sekarang-mulaiUASes4f < 0){
@@ -3276,8 +3278,8 @@ while (!validNIM) {
         alert("Silakan ulangi dan masukkan NIM yang benar.");
     }
 }
-				var b = (nim*5)% 6;
-				var c = [
+				let b = (nim*5)% 6;
+				let c = [
 					['soal1uas', 'soal4uas', 'soal7uas'],
 					['soal1uas', 'soal5uas', 'soal9uas'],
 					['soal2uas', 'soal4uas', 'soal8uas'],
@@ -3285,9 +3287,9 @@ while (!validNIM) {
 					['soal3uas', 'soal5uas', 'soal7uas'],
 					['soal3uas', 'soal6uas', 'soal8uas']
 				];
-				var d = c[b];
+				let d = c[b];
 				for (i = 1; i < 4; i++) {
-					var e = document.getElementById(d[i-1]);
+					let e = document.getElementById(d[i-1]);
 					document.getElementById('nomer'+i).appendChild(e);
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
@@ -3308,17 +3310,17 @@ function closeValidateUASes4f() {
     }, 500);
 }
 // Update the count down every 1 second
-var intervales4f = setInterval(function() {	
-	var sekarang = new Date().getTime();
+let x = setInterval(function() {	
+	let sekarang = new Date().getTime();
 
 	// Find the distance between now and the count down date
-	var distancees4f = akhirUASes4f - sekarang;
+	let distancees4f = akhirUASes4f - sekarang;
 		
 	// Time calculations for days, hours, minutes and seconds
-	var dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
-	var hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
-	var secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
+	let dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
+	let hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	let minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
+	let secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
 		
 	// Output the result in an element with id="demo"
 	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam "
@@ -3326,7 +3328,7 @@ var intervales4f = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4f < 0) {
-		clearInterval(intervales4f);
+		clearInterval(x);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
