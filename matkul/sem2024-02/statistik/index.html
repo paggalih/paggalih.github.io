@@ -1176,10 +1176,10 @@
 <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS MBS2D</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban MBS2D</button>
 <script>
-var mulaiUTSmbs2d = new Date("May 13, 2025 12:59:00").getTime();
-var akhirUTSmbs2d = new Date("May 13, 2025 14:30:00").getTime();
-var sekarang = new Date().getTime();
+const mulaiUTSmbs2d = new Date("May 13, 2025 12:59:00").getTime();
+const akhirUTSmbs2d = new Date("May 13, 2025 14:30:00").getTime();
 function validateUTSmbs2d() {
+	let sekarang = new Date().getTime();
 	document.getElementById('timerUTS').style.display="block";
 
 	if (sekarang-mulaiUTSmbs2d<0){
@@ -1191,20 +1191,20 @@ function validateUTSmbs2d() {
 			 if (person === "matagaruda") {
 				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-let validNIM = false;
-let nim;
-while (!validNIM) {
-    nim = prompt("Masukkan NIM:");
-    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-    if (konfirmasi) {
-        validNIM = true;
-    } else {
-        alert("Silakan ulangi dan masukkan NIM yang benar.");
-    }
-}
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
 
-				var b = (nim*5)% 6;
-				var c = [
+				let b = (nim*5)% 6;
+				let c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
 					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
 					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
@@ -1212,9 +1212,9 @@ while (!validNIM) {
 					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
 					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
 				];
-				var d = c[b];
+				let d = c[b];
 				for (i = 1; i < 6; i++) {
-					var e = document.getElementById(d[i-1]);
+					let e = document.getElementById(d[i-1]);
 					document.getElementById('nomer'+i).appendChild(e);
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
@@ -1228,40 +1228,42 @@ while (!validNIM) {
 			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancembs2d = akhirUTSmbs2d - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
+		+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancembs2d < 0) {
+			clearInterval(x);
+			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUTS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
+
 function closeValidateUTSmbs2d() {
 	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
     setTimeout(function() {
         window.open("https://forms.gle/XfYVtAqC7c64f1Si9", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-var x = setInterval(function() {	
-	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	var distancembs2d = akhirUTSmbs2d - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
-	var hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
-	var secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
-	+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distancembs2d < 0) {
-		clearIntervalmbs2d(x);
-		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUTS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <p class="h1">Ketentuan UTS MBS2E</p>
 <ol>
@@ -1272,10 +1274,10 @@ var x = setInterval(function() {
 <button id="tombol_mulai_mbs2e" type="button" class="btn btn-primary" onclick="validateUTSmbs2e()">Mulai UTS MBS2E</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban MBS2E</button>
 <script>
-var mulaiUTSmbs2e = new Date("May 13, 2025 14:39:00").getTime();
-var akhirUTSmbs2e = new Date("May 13, 2025 16:10:00").getTime();
-var sekarang = new Date().getTime();
+const mulaiUTSmbs2e = new Date("May 13, 2025 14:39:00").getTime();
+const akhirUTSmbs2e = new Date("May 13, 2025 16:10:00").getTime();
 function validateUTSmbs2e() {
+	let sekarang = new Date().getTime();
 	document.getElementById('timerUTS').style.display="block";
 
 	if (sekarang-mulaiUTSmbs2e<0){
@@ -1287,19 +1289,19 @@ function validateUTSmbs2e() {
 			 if (person === "matanajwa") {
 				document.getElementById("tombol_mulai_mbs2e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-let validNIM = false;
-let nim;
-while (!validNIM) {
-    nim = prompt("Masukkan NIM:");
-    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-    if (konfirmasi) {
-        validNIM = true;
-    } else {
-        alert("Silakan ulangi dan masukkan NIM yang benar.");
-    }
-}
-				var b = (nim*5)% 6;
-				var c = [
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
+				let b = (nim*5)% 6;
+				let c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
 					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
 					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
@@ -1307,9 +1309,9 @@ while (!validNIM) {
 					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
 					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
 				];
-				var d = c[b];
+				let d = c[b];
 				for (i = 1; i < 6; i++) {
-					var e = document.getElementById(d[i-1]);
+					let e = document.getElementById(d[i-1]);
 					document.getElementById('nomer'+i).appendChild(e);
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
@@ -1323,39 +1325,41 @@ while (!validNIM) {
 			alert("Sudah selesai. UTS MBS2E hanya boleh dikerjakan sampai 13 Mei 2025 pukul 16.10");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancembs2e = akhirUTSmbs2e - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let daysmbs2e = Math.floor(distancembs2e / (1000 * 60 * 60 * 24));
+		let hoursmbs2e = Math.floor((distancembs2e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutesmbs2e = Math.floor((distancembs2e % (1000 * 60 * 60)) / (1000 * 60));
+		let secondsmbs2e = Math.floor((distancembs2e % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2e + "hari " + hoursmbs2e + "jam "
+		+ minutesmbs2e + "menit " + secondsmbs2e + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancembs2e < 0) {
+			clearInterval(x);
+			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUTS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
+
 function closeValidateUTSmbs2e() {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-var x = setInterval(function() {	
-	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	var distancembs2e = akhirUTSmbs2e - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var daysmbs2e = Math.floor(distancembs2e / (1000 * 60 * 60 * 24));
-	var hoursmbs2e = Math.floor((distancembs2e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutesmbs2e = Math.floor((distancembs2e % (1000 * 60 * 60)) / (1000 * 60));
-	var secondsmbs2e = Math.floor((distancembs2e % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2e + "hari " + hoursmbs2e + "jam "
-	+ minutesmbs2e + "menit " + secondsmbs2e + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distancembs2e < 0) {
-		clearIntervalmbs2e(x);
-		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUTS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <p class="h1">Ketentuan UTS PWS2A</p>
 <ol>
@@ -1366,10 +1370,10 @@ var x = setInterval(function() {
 <button id="tombol_mulai_pws2a" type="button" class="btn btn-primary" onclick="validateUTSpws2a()">Mulai UTS PWS2A</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUTSpws2a()">Kirim Jawaban PWS2A</button>
 <script>
-var mulaiUTSpws2a = new Date("May 22, 2025 08:39:00").getTime();
-var akhirUTSpws2a = new Date("May 22, 2025 10:10:00").getTime();
-var sekarang = new Date().getTime();
+const mulaiUTSpws2a = new Date("May 22, 2025 08:39:00").getTime();
+const akhirUTSpws2a = new Date("May 22, 2025 10:10:00").getTime();
 function validateUTSpws2a() {
+	let sekarang = new Date().getTime();
 	document.getElementById('timerUTS').style.display="block";
 
 	if (sekarang-mulaiUTSpws2a<0){
@@ -1381,19 +1385,19 @@ function validateUTSpws2a() {
 			 if (person === "matanajwa") {
 				document.getElementById("tombol_mulai_pws2a").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-let validNIM = false;
-let nim;
-while (!validNIM) {
-    nim = prompt("Masukkan NIM:");
-    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-    if (konfirmasi) {
-        validNIM = true;
-    } else {
-        alert("Silakan ulangi dan masukkan NIM yang benar.");
-    }
-}
-				var b = (nim*5)% 6;
-				var c = [
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
+				let b = (nim*5)% 6;
+				let c = [
 					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
 					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
 					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
@@ -1401,9 +1405,9 @@ while (!validNIM) {
 					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
 					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
 				];
-				var d = c[b];
+				let d = c[b];
 				for (i = 1; i < 6; i++) {
-					var e = document.getElementById(d[i-1]);
+					let e = document.getElementById(d[i-1]);
 					document.getElementById('nomer'+i).appendChild(e);
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
@@ -1417,37 +1421,38 @@ while (!validNIM) {
 			alert("Sudah selesai. UTS PWS2A hanya boleh dikerjakan sampai 22 Mei 2025 pukul 10.10");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancepws2a = akhirUTSpws2a - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let dayspws2a = Math.floor(distancepws2a / (1000 * 60 * 60 * 24));
+		let hourspws2a = Math.floor((distancepws2a % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutespws2a = Math.floor((distancepws2a % (1000 * 60 * 60)) / (1000 * 60));
+		let secondspws2a = Math.floor((distancepws2a % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayspws2a + "hari " + hourspws2a + "jam "
+		+ minutespws2a + "menit " + secondspws2a + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancepws2a < 0) {
+			clearInterval(x);
+			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUTS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
 function closeValidateUTSpws2a() {
     setTimeout(function() {
         window.open("https://forms.gle/zYTYWqYw4LV9fibt6", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-var x = setInterval(function() {	
-	var sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	var distancepws2a = akhirUTSpws2a - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var dayspws2a = Math.floor(distancepws2a / (1000 * 60 * 60 * 24));
-	var hourspws2a = Math.floor((distancepws2a % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutespws2a = Math.floor((distancepws2a % (1000 * 60 * 60)) / (1000 * 60));
-	var secondspws2a = Math.floor((distancepws2a % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + dayspws2a + "hari " + hourspws2a + "jam "
-	+ minutespws2a + "menit " + secondspws2a + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distancepws2a < 0) {
-		clearIntervalpws2a(x);
-		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUTS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUTS" style="display: none">
@@ -2512,6 +2517,419 @@ graph TD
             </div>
         </div>
     </div>
+									</div>
+							</section>
+							<section id="p16">
+									<div class="container aos-init aos-animate" data-aos="fade-up">
+											<div class="section-title">
+													<h2>Pertemuan 16</h2>
+											</div>
+
+<p class="h1">Ketentuan UAS PWS2A</p>
+<ol>
+	<li>UAS PWS2A hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS PWS2A boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS PWS2A</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban PWS2A</button>
+<script>
+const mulaiUASes4d = new Date("July 1, 2025 00:20:00").getTime();
+const akhirUASes4d = new Date("July 1, 2025 11:20:00").getTime();
+function validateUASes4d() {
+	let sekarang = new Date().getTime();
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASes4d < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASes4d < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "uastes2a") {
+				document.getElementById("tombol_uas_es4d").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
+				let b = (nim*5)% 6;
+				let c = [
+					['soal1uas', 'soal4uas', 'soal7uas'],
+					['soal1uas', 'soal5uas', 'soal9uas'],
+					['soal2uas', 'soal4uas', 'soal8uas'],
+					['soal2uas', 'soal6uas', 'soal9uas'],
+					['soal3uas', 'soal5uas', 'soal7uas'],
+					['soal3uas', 'soal6uas', 'soal8uas']
+				];
+				let d = c[b];
+				for (i = 1; i < 4; i++) {
+					let e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i+'uas').appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i+'uas').style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distanceUASes4d = akhirUASes4d - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
+		let hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
+		let secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
+		+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distanceUASes4d < 0) {
+			clearInterval(x);
+			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUAS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
+}
+
+function closeValidateUASes4d() {
+    setTimeout(function() {
+        window.open("https://forms.gle/wVCjafCFktn7GQBt8", "_blank");
+    }, 500);
+}
+
+</script>
+
+<p class="h1">Ketentuan UAS MBS2D</p>
+<ol>
+	<li>UAS MBS2D hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS MBS2D boleh dikerjakan dari 13:00-14:00 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_es4e" type="button" class="btn btn-primary" onclick="validateUASes4e()">Mulai UAS MBS2D</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASes4e()">Kirim Jawaban MBS2D</button>
+<script>
+const mulaiUASes4e = new Date("July 1, 2025 03:00:00").getTime();
+const akhirUASes4e = new Date("July 1, 2025 14:00:00").getTime();
+function validateUASes4e() {
+	let sekarang = new Date().getTime();
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASes4e < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASes4e < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "uastes2d") {
+				document.getElementById("tombol_uas_es4e").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
+				let b = (nim*5)% 6;
+				let c = [
+					['soal1uas', 'soal4uas', 'soal7uas'],
+					['soal1uas', 'soal5uas', 'soal9uas'],
+					['soal2uas', 'soal4uas', 'soal8uas'],
+					['soal2uas', 'soal6uas', 'soal9uas'],
+					['soal3uas', 'soal5uas', 'soal7uas'],
+					['soal3uas', 'soal6uas', 'soal8uas']
+				];
+				let d = c[b];
+				for (i = 1; i < 4; i++) {
+					let e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i+'uas').appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i+'uas').style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+	
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancees4e = akhirUASes4e - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
+		let hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
+		let secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
+		+ minuteses4e + "menit " + secondses4e + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancees4e < 0) {
+			clearInterval(x);
+			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUAS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
+}
+
+function closeValidateUASes4e() {
+    setTimeout(function() {
+        window.open("https://forms.gle/Q6fBTo27qUe5wUDq8", "_blank");
+    }, 500);
+}
+
+</script>
+
+<p class="h1">Ketentuan UAS MBS2E</p>
+<ol>
+	<li>UAS MBS2E hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS MBS2E boleh dikerjakan dari 14:40-15:40 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_es4f" type="button" class="btn btn-primary" onclick="validateUASes4f()">Mulai UAS MBS2E</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASes4f()">Kirim Jawaban MBS2E</button>
+<script>
+const mulaiUASes4f = new Date("July 1, 2025 02:40:00").getTime();
+const akhirUASes4f = new Date("July 1, 2025 15:40:00").getTime();
+function validateUASes4f() {
+	let sekarang = new Date().getTime();
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASes4f < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASes4f < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "uastes2e") {
+				document.getElementById("tombol_uas_es4f").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
+				let b = (nim*5)% 6;
+				let c = [
+					['soal1uas', 'soal4uas', 'soal7uas'],
+					['soal1uas', 'soal5uas', 'soal9uas'],
+					['soal2uas', 'soal4uas', 'soal8uas'],
+					['soal2uas', 'soal6uas', 'soal9uas'],
+					['soal3uas', 'soal5uas', 'soal7uas'],
+					['soal3uas', 'soal6uas', 'soal8uas']
+				];
+				let d = c[b];
+				for (i = 1; i < 4; i++) {
+					let e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i+'uas').appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i+'uas').style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancees4f = akhirUASes4f - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
+		let hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
+		let secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam "
+		+ minuteses4f + "menit " + secondses4f + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancees4f < 0) {
+			clearInterval(x);
+			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUAS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
+}
+
+function closeValidateUASes4f() {
+    setTimeout(function() {
+        window.open("https://forms.gle/1V7C1pBokrgrPWP28", "_blank");
+    }, 500);
+}
+
+</script>
+
+<h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<div id="berhasilValidateUAS" style="display: none">
+<div id="soal1uas" style='display:none;'>
+												<p>Berdasarkan studi, waktu rata-rata untuk menyiapkan, menyalin, dan mengirimkan formulir pajak 1040 secara elektronik adalah <strong>330 menit</strong>, dengan simpangan baku <strong>80 menit</strong>. Distribusi waktu ini mengikuti distribusi normal. Sebuah lembaga pengawas memilih sampel acak sebanyak <strong>40 wajib pajak</strong>.</p>
+												<ol type="a">
+													<li>Berapa <em>standard error</em> dari rata-rata sampel dalam kasus ini?</li>
+													<li>Berapa probabilitas bahwa <em>rata-rata sampel</em> berada antara 320 dan 350 menit?</li>
+												</ol>
+</div>
+
+<div id="soal2uas" style='display:none;'>
+												<p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
+												<ol type="a">
+													<li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
+													<li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
+													<li>Bandingkan penyebaran (<em>dispersi</em>) dari populasi dengan penyebaran dari rata-rata sampel.</li>
+												</ol>
+</div>
+
+<div id="soal3uas" style='display:none;'>
+												<p>Seorang inspektur daging di Iowa ingin memperkirakan <strong>rata-rata berat bersih</strong> dari paket daging giling berlabel “3 pon.”</p>
+												<p>Sampel sebanyak <strong>36 paket</strong> menunjukkan:</p>
+												<ul>
+													<li>Rata-rata sampel: \( \bar{x} = 3.01 \) pon</li>
+													<li>Simpangan baku: \( s = 0.03 \) pon</li>
+													<li>Ukuran sampel: \( n = 36 \)</li>
+													<li>Tingkat kepercayaan: 95%</li>
+												</ul>
+												<ol type="a">
+													<li>Berapa <em>estimasi titik</em> dari rata-rata populasi?</li>
+													<li>Tentukan <em>interval kepercayaan 95%</em> untuk rata-rata populasi.</li>
+												</ol>
+</div>
+<!-- ======================= -->
+<div id="soal4uas" style='display:none;'>
+												<p>Jumlah air yang dikonsumsi setiap hari oleh orang dewasa sehat mengikuti distribusi normal dengan rata-rata \( \mu = 1.4 \) liter.</p>
+												<p>Sebuah kampanye kesehatan mendorong konsumsi minimal $2.0$ liter per hari. Setelah kampanye, diambil sampel $10$ orang dewasa dengan konsumsi air (dalam liter):</p>
+												<p>$1.5, 1.6,$ $1.5, 1.4,$ $1.9, 1.4,$ $1.3, 1.9,$ $1.8, 1.7$</p>
+												<p>Pada tingkat signifikansi \( \alpha = 0.01 \), dapatkah kita menyimpulkan bahwa konsumsi air meningkat?</p>
+												<p>Hitung dan interpretasikan nilai-\( p \).</p>
+</div>
+
+<div id="soal5uas" style='display:none;'>
+												<p>Rata-rata pendapatan per orang di Amerika Serikat adalah \$60.000 dan distribusi pendapatan mengikuti distribusi normal.</p>
+												<p>Sebuah sampel acak dari 10 penduduk Wilmington, Delaware memiliki rata-rata \$70.000 dan simpangan baku \$10.000.</p>
+												<p>Pada tingkat signifikansi \( \alpha = 0.05 \), apakah ada cukup bukti bahwa penduduk Wilmington memiliki pendapatan <strong>lebih tinggi</strong> dari rata-rata nasional?</p>
+</div>
+
+<div id="soal6uas" style='display:none;'>
+												<p>Manajemen <strong>GoGo Carts</strong> sedang mempertimbangkan metode baru untuk merakit kereta golf. Metode saat ini membutuhkan waktu rata-rata $42.3$ menit per unit. Dari sampel acak sebanyak $24$ unit menggunakan metode baru, rata-rata waktu perakitan adalah $40.6$ menit dan simpangan baku $2.7$ menit.</p>
+												<p>Pada tingkat signifikansi \( \alpha = 0.10 \), apakah metode baru secara signifikan <strong>lebih cepat</strong>?</p>
+</div>
+<!-- ========================= -->
+<div id="soal7uas" style='display:none;'>
+												<p>Lester Hollar mengevaluasi apakah program kebugaran dapat menurunkan jumlah ketidakhadiran karyawan.</p>
+
+												<h4>Data Absensi (Jumlah Hari Tidak Masuk):</h4>
+
+												<table class="table table-bordered text-center">
+													<thead class="table-light">
+														<tr>
+															<th>Employee</th>
+															<th>Sebelum</th>
+															<th>Sesudah</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr><td>Bauman</td><td>6</td><td>5</td></tr>
+														<tr><td>Briggs</td><td>6</td><td>2</td></tr>
+														<tr><td>Dottellis</td><td>7</td><td>1</td></tr>
+														<tr><td>Lee</td><td>7</td><td>3</td></tr>
+														<tr><td>Perrailt</td><td>4</td><td>3</td></tr>
+														<tr><td>Rielly</td><td>3</td><td>6</td></tr>
+														<tr><td>Steinmetz</td><td>5</td><td>5</td></tr>
+														<tr><td>Stoltz</td><td>6</td><td>7</td></tr>
+													</tbody>
+												</table>
+</div>
+
+<div id="soal8uas" style='display:none;'>
+												<p>Grand Strand Family Medical Center menangani kasus darurat ringan di Myrtle Beach. Dua lokasi dibandingkan: <strong>Little River</strong> dan <strong>Murrells Inlet</strong>.</p>
+
+												<h4>Data Waktu Tunggu (dalam menit):</h4>
+											<div class="overflow-auto">
+												<table class="table table-bordered text-center">
+													<thead class="table-light">
+														<tr>
+															<th>Little River</th>
+															<th>Murrells Inlet</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>31, 28, 29, 22, 29, 18, 32, 25, 29, 26</td>
+															<td>22, 23, 26, 27, 26, 25, 30, 29, 23, 22</td>
+														</tr>
+													</tbody>
+												</table>
+											</div>	
+</div>
+
+<div id="soal9uas" style='display:none;'>
+												<p>Clark Heter adalah seorang insinyur industri di Lyons Products. Ia ingin mengetahui apakah jumlah unit yang diproduksi pada shift malam lebih banyak dibanding shift siang.</p>
+
+												<ul>
+													<li>Rata-rata shift siang: \( \bar{x}_1 = 345 \), \( n_1 = 54 \), \( \sigma_1 = 21 \)</li>
+													<li>Rata-rata shift malam: \( \bar{x}_2 = 351 \), \( n_2 = 60 \), \( \sigma_2 = 28 \)</li>
+													<li>Signifikansi: \( \alpha = 0.05 \)</li>
+												</ul>
+</div>
+
+<p class="h1 text-center">Soal UAS</p>
+<ol id="soalUAS">
+	<li id='nomer1uas'><h2>Soal 1</h2></li>
+	<li id='nomer2uas'><h2>Soal 2</h2></li>
+	<li id='nomer3uas'><h2>Soal 3</h2></li>
+</ol>
+</div>	
+
 									</div>
 							</section>
 							<section id="daftar_hadir">
