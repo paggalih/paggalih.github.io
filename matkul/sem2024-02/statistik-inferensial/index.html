@@ -3125,8 +3125,7 @@ function closeValidateUASes4d() {
     }, 500);
 }
 // Update the count down every 1 second
-var x = setInterval(function() {	
-	var sekarang = new Date().getTime();
+var intervales4d = setInterval(function() {	
 
 	// Find the distance between now and the count down date
 	var distancees4d = akhirUASes4d - sekarang;
@@ -3143,7 +3142,7 @@ var x = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4d < 0) {
-		clearInterval(x);
+		clearInterval(intervales4d);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
@@ -3217,8 +3216,7 @@ function closeValidateUASes4e() {
     }, 500);
 }
 // Update the count down every 1 second
-var x = setInterval(function() {	
-	var sekarang = new Date().getTime();
+var intervales4e = setInterval(function() {	
 
 	// Find the distance between now and the count down date
 	var distancees4e = akhirUASes4e - sekarang;
@@ -3235,7 +3233,7 @@ var x = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4e < 0) {
-		clearInterval(x);
+		clearInterval(intervales4e);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
@@ -3310,7 +3308,7 @@ function closeValidateUASes4f() {
     }, 500);
 }
 // Update the count down every 1 second
-var x = setInterval(function() {	
+var intervales4f = setInterval(function() {	
 	var sekarang = new Date().getTime();
 
 	// Find the distance between now and the count down date
@@ -3328,7 +3326,7 @@ var x = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4f < 0) {
-		clearInterval(x);
+		clearInterval(intervales4f);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
