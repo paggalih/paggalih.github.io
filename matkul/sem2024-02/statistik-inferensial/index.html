@@ -3067,7 +3067,7 @@ d = \frac{ \sum_{i=2}^n (e_i - e_{i-1})^2 }{ \sum_{i=1}^n e_i^2 }
 <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS ES4D</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban ES4D</button>
 <script>
-var mulaiUASes4d = new Date("June 30, 2025 02:39:00").getTime();
+var mulaiUASes4d = new Date("June 30, 2025 02:10:00").getTime();
 var akhirUASes4d = new Date("June 30, 2025 11:20:00").getTime();
 var sekarang = new Date().getTime();
 function validateUASes4d() {
@@ -3143,7 +3143,7 @@ var x = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4d < 0) {
-		clearIntervales4d(x);
+		clearInterval(x);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
@@ -3235,7 +3235,7 @@ var x = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4e < 0) {
-		clearIntervales4e(x);
+		clearInterval(x);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
@@ -3327,7 +3327,7 @@ var x = setInterval(function() {
 		
 	// If the count down is over, write some text 
 	if (distancees4f < 0) {
-		clearIntervales4f(x);
+		clearInterval(x);
 		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
 		document.getElementById("berhasilValidateUAS").style.display = "none";
 	}
