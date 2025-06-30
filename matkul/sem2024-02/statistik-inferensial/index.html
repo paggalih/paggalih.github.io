@@ -3312,31 +3312,31 @@ function closeValidateUASes4f() {
         window.open("https://forms.gle/1V7C1pBokrgrPWP28", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-let x = setInterval(function() {	
-	let sekarang = new Date().getTime();
+<!-- // Update the count down every 1 second -->
+<!-- let x = setInterval(function() {	 -->
+	<!-- let sekarang = new Date().getTime(); -->
 
-	// Find the distance between now and the count down date
-	let distancees4f = akhirUASes4f - sekarang;
+	<!-- // Find the distance between now and the count down date -->
+	<!-- let distancees4f = akhirUASes4f - sekarang; -->
 		
-	// Time calculations for days, hours, minutes and seconds
-	let dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24));
-	let hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	let minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60));
-	let secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000);
+	<!-- // Time calculations for days, hours, minutes and seconds -->
+	<!-- let dayses4f = Math.floor(distancees4f / (1000 * 60 * 60 * 24)); -->
+	<!-- let hourses4f = Math.floor((distancees4f % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60)); -->
+	<!-- let minuteses4f = Math.floor((distancees4f % (1000 * 60 * 60)) / (1000 * 60)); -->
+	<!-- let secondses4f = Math.floor((distancees4f % (1000 * 60)) / 1000); -->
 		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam "
-	+ minuteses4f + "menit " + secondses4f + "detik ";
+	<!-- // Output the result in an element with id="demo" -->
+	<!-- document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4f + "hari " + hourses4f + "jam " -->
+	<!-- + minuteses4f + "menit " + secondses4f + "detik "; -->
 		
-	// If the count down is over, write some text 
-	if (distancees4f < 0) {
-		clearInterval(x);
-		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUAS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
+	<!-- // If the count down is over, write some text  -->
+	<!-- if (distancees4f < 0) { -->
+		<!-- clearInterval(x); -->
+		<!-- document.getElementById("timerUAS").innerHTML = "WAKTU HABIS"; -->
+		<!-- document.getElementById("berhasilValidateUAS").style.display = "none"; -->
+	<!-- } -->
+<!-- }, 1000); -->
+<!-- // Update the count down every 1 second -->
 </script>
 
 <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
