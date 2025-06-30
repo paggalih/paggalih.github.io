@@ -3213,37 +3213,40 @@ while (!validNIM) {
 			alert("Sudah selesai");
 		}
 	}
+	
+	// Update the count down every 1 second
+	let intervales4e = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distancees4e = akhirUASes4e - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
+		let hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
+		let secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
+		+ minuteses4e + "menit " + secondses4e + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distancees4e < 0) {
+			clearInterval(intervales4e);
+			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUAS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
+
 function closeValidateUASes4e() {
     setTimeout(function() {
         window.open("https://forms.gle/Q6fBTo27qUe5wUDq8", "_blank");
     }, 500);
 }
-// Update the count down every 1 second
-let intervales4e = setInterval(function() {	
-	let sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	let distancees4e = akhirUASes4e - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	let dayses4e = Math.floor(distancees4e / (1000 * 60 * 60 * 24));
-	let hourses4e = Math.floor((distancees4e % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	let minuteses4e = Math.floor((distancees4e % (1000 * 60 * 60)) / (1000 * 60));
-	let secondses4e = Math.floor((distancees4e % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + dayses4e + "hari " + hourses4e + "jam "
-	+ minuteses4e + "menit " + secondses4e + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distancees4e < 0) {
-		clearInterval(intervales4e);
-		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUAS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 
 <p class="h1">Ketentuan UAS ES4F</p>
