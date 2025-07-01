@@ -2535,7 +2535,7 @@ graph TD
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban PWS2A</button>
 <script>
 const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
-const akhirUASes4d = new Date("July 1, 2025 11:20:00").getTime();
+const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
 function validateUASes4d() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -2546,7 +2546,7 @@ function validateUASes4d() {
 	else {
 		if (sekarang-akhirUASes4d < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "uastes2a") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_es4d").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let validNIM = false;
