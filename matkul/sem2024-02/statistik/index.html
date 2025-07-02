@@ -1183,8 +1183,16 @@ function validateUTSmbs2d() {
 	document.getElementById('timerUTS').style.display="block";
 
 	if (sekarang-mulaiUTSmbs2d<0){
-		let kurang = mulaiUTSmbs2d - sekarang;
-		alert("Belum waktunya. Bisa dimulai dalam "+kurang+" lagi.");
+		// Find the distance between now and the count down date
+		let distancembs2d = akhirUTSmbs2d - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+		alert("Belum waktunya. Bisa dimulai dalam " + daysmbs2d + "hari " + hoursmbs2d + "jam "
+		+ minutesmbs2d + "menit " + secondsmbs2d + "detik "+" lagi.");
 	}
 	else {
 		if (sekarang-akhirUTSmbs2d<0) {
