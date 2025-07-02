@@ -1266,7 +1266,7 @@ H_1: \mu_d &lt; 0 \quad \text{(Brand A memiliki lebih sedikit kesalahan daripada
 <!-- <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban ES4F</button> -->
 <script>
 const mulaiUTSes4d = new Date("May 19, 2025 08:39:00").getTime();
-const akhirUTSes4d = new Date("May 19, 2025 11:50:00").getTime();
+const akhirUTSes4d = new Date("August 19, 2025 11:50:00").getTime();
 function validateUTSes4d() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUTS').style.display="block";
@@ -1277,20 +1277,20 @@ function validateUTSes4d() {
 	else {
 		if (sekarang-akhirUTSes4d < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "yangjujur") {
+			 if (person === "mata") {
 				document.getElementById("tombol_mulai_es4d").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-let validNIM = false;
-let nim;
-while (!validNIM) {
-    nim = prompt("Masukkan NIM:");
-    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-    if (konfirmasi) {
-        validNIM = true;
-    } else {
-        alert("Silakan ulangi dan masukkan NIM yang benar.");
-    }
-}
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
 				let b = (nim*5)% 6;
 				let c = [
 					['soal2', 'soal4', 'soal6', 'soal9', 'soal13'],
@@ -1342,6 +1342,7 @@ while (!validNIM) {
 	}, 1000);
 	// Update the count down every 1 second
 }
+
 function closeValidateUTSes4d() {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
@@ -1359,7 +1360,7 @@ function closeValidateUTSes4d() {
 <!-- <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2e()">Kirim Jawaban ES4F</button> -->
 <script>
 const mulaiUTSes4e = new Date("May 19, 2025 12:59:00").getTime();
-const akhirUTSes4e = new Date("May 19, 2025 14:30:00").getTime();
+const akhirUTSes4e = new Date("August 19, 2025 14:30:00").getTime();
 function validateUTSes4e() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUTS').style.display="block";
@@ -1370,20 +1371,20 @@ function validateUTSes4e() {
 	else {
 		if (sekarang-akhirUTSes4e < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "yangsemangat") {
+			 if (person === "mata") {
 				document.getElementById("tombol_mulai_es4e").style.display="none";
 				document.getElementById("berhasilValidateUTS").style.display = "block";
-let validNIM = false;
-let nim;
-while (!validNIM) {
-    nim = prompt("Masukkan NIM:");
-    konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-    if (konfirmasi) {
-        validNIM = true;
-    } else {
-        alert("Silakan ulangi dan masukkan NIM yang benar.");
-    }
-}
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
 				let b = (nim*5)% 6;
 				let c = [
 					['soal2', 'soal4', 'soal6', 'soal9', 'soal13'],
