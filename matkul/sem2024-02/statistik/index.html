@@ -1184,7 +1184,7 @@ function validateUTSmbs2d() {
 
 	if (sekarang-mulaiUTSmbs2d<0){
 		// Find the distance between now and the count down date
-		let distancembs2d = akhirUTSmbs2d - sekarang;
+		let distancembs2d = mulaiUTSmbs2d - sekarang;
 			
 		// Time calculations for days, hours, minutes and seconds
 		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
