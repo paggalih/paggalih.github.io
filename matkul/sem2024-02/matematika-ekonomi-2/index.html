@@ -2158,6 +2158,7 @@ s2 |  1    2    1   0   1    0  | 90
     <li>Evaluasi proyek secara menyeluruh</li>
   </ol>
 
+	<div class="overflow-auto text-center">
 	<table class="table table-bordered text-center">
   <thead>
     <tr>
@@ -2165,9 +2166,9 @@ s2 |  1    2    1   0   1    0  | 90
       <th colspan="3">Cost</th>
     </tr>
     <tr>
-      <th>1</th>
-      <th>2</th>
-      <th>3</th>
+      <th>Skenarion 1</th>
+      <th>Skenario 2</th>
+      <th>Skenarion 3</th>
     </tr>
   </thead>
   <tbody>
@@ -2191,8 +2192,11 @@ s2 |  1    2    1   0   1    0  | 90
     </tr>
   </tbody>
 </table>
+</div>
+
   <p><strong>Kasus biaya:</strong> minimalkan kerugian maksimum.</p>
 
+	<div class="overflow-auto text-center">
   <table class="table table-bordered">
     <thead><tr><th>Proyek</th><th>Skenario 1</th><th>Skenario 2</th><th>Skenario 3</th><th>Kerugian Maksimum</th></tr></thead>
     <tbody>
@@ -2201,8 +2205,10 @@ s2 |  1    2    1   0   1    0  | 90
       <tr><td>C</td><td>103</td><td>86</td><td>70</td><td>103</td></tr>
     </tbody>
   </table>
+	</div>
   <p>→ Pilih <strong>B</strong></p>
 	
+<div class="overflow-auto text-center">	
 <table class="table table-bordered text-center">
   <thead>
     <tr>
@@ -2242,8 +2248,10 @@ s2 |  1    2    1   0   1    0  | 90
     </tr>
   </tbody>
 </table>
+</div>
 
   <p><strong>Kasus keuntungan:</strong> maksimalkan minimum keuntungan.</p>
+	<div class="overflow-auto text-center">
   <table class="table table-bordered">
     <thead><tr><th>Proyek</th><th>Keuntungan Minimum</th></tr></thead>
     <tbody>
@@ -2253,11 +2261,12 @@ s2 |  1    2    1   0   1    0  | 90
       <tr><td>D</td><td>28</td></tr>
     </tbody>
   </table>
+	</div>
   <p>→ Pilih <strong>A</strong></p>
 
   <h5>Matrix Regret:</h5>
   <p>\( \text{regret}_{ij} = \max_j(x_j) - x_{ij} \)</p>
-
+	<div class="overflow-auto text-center">
   <table class="table table-bordered">
     <thead><tr><th>Proyek</th><th>Skenario 1</th><th>Skenario 2</th><th>Skenario 3</th><th>Regret Maksimum</th></tr></thead>
     <tbody>
@@ -2267,6 +2276,7 @@ s2 |  1    2    1   0   1    0  | 90
       <tr><td>D</td><td>114</td><td>0</td><td>0</td><td>114</td></tr>
     </tbody>
   </table>
+	</div>
   <p>→ Pilih <strong>B</strong></p>
 
   <h4>Kesimpulan:</h4>
@@ -2413,39 +2423,218 @@ function closeValidateUASps4b() {
 <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUAS" style="display: none">
 <div id="soal1uas" style='display:none;'>
-==================
+	<p>Jelaskan proyek yang paling bagus jika diketahui angka penyesalan seperti pada tabel.</p>
+		<div class="overflow-auto text-center">
+		<table class="table table-bordered">
+			<thead><tr><th>Proyek</th><th>Skenario 1</th><th>Skenario 2</th><th>Skenario 3</th><th>Regret Maksimum</th></tr></thead>
+			<tbody>
+				<tr><td>A</td><td>99</td><td>86</td><td>14</td><td>85</td></tr>
+				<tr><td>B</td><td>14</td><td>43</td><td>71</td><td><strong>57</strong></td></tr>
+				<tr><td>C</td><td>0</td><td>129</td><td>85</td><td>129</td></tr>
+				<tr><td>D</td><td>114</td><td>0</td><td>0</td><td>114</td></tr>
+			</tbody>
+		</table>
+		</div>
 </div>
 
 <div id="soal2uas" style='display:none;'>
-=================
+	<p>Jelaskan proyek yang paling bagus jika diketahui angka keuntungan seperti pada tabel.</p>
+	<div class="overflow-auto text-center">	
+	<table class="table table-bordered text-center">
+		<thead>
+			<tr>
+				<th rowspan="2">Proyek</th>
+				<th colspan="3">Untung</th>
+			</tr>
+			<tr>
+				<th>1</th>
+				<th>2</th>
+				<th>3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>A</td>
+				<td>43</td>
+				<td>71</td>
+				<td>57</td>
+			</tr>
+			<tr>
+				<td>B</td>
+				<td>128</td>
+				<td>114</td>
+				<td>0</td>
+			</tr>
+			<tr>
+				<td>C</td>
+				<td>142</td>
+				<td>28</td>
+				<td>-14</td>
+			</tr>
+			<tr>
+				<td>D</td>
+				<td>28</td>
+				<td>157</td>
+				<td>71</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 </div>
 
 <div id="soal3uas" style='display:none;'>
-===================
+	<p>Jelaskan proyek yang paling bagus jika angka biaya ditunjukkan pada tabel di bawah ini.</p>
+	<div class="overflow-auto text-center">
+		<table class="table table-bordered text-center">
+		<thead>
+			<tr>
+				<th rowspan="2">Proyek</th>
+				<th colspan="3">Biaya</th>
+			</tr>
+			<tr>
+				<th>Skenarion 1</th>
+				<th>Skenario 2</th>
+				<th>Skenarion 3</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>A</td>
+				<td>37</td>
+				<td>61</td>
+				<td>86</td>
+			</tr>
+			<tr>
+				<td>B</td>
+				<td>70</td>
+				<td>53</td>
+				<td>78</td>
+			</tr>
+			<tr>
+				<td>C</td>
+				<td>103</td>
+				<td>86</td>
+				<td>70</td>
+			</tr>
+		</tbody>
+	</table>
+	</div>
 </div>
 <!-- ======================= -->
 <div id="soal4uas" style='display:none;'>
-=================
+												<p>
+												Sebuah perusahaan memiliki sebuah mesin produksi yang dapat digunakan selama maksimal 5 tahun. Setiap tahun, biaya perawatan mesin cenderung meningkat karena umur mesin yang menua, sementara nilai jual kembali mesin menurun.</p>
+												<ul>
+												<li>Biaya pembelian mesin baru: \$2,000</li>
+												<li>Biaya perawatan tahunan (jika mesin tetap dipakai): <br>Tahun ke-1: \$200<br>Tahun ke-2: \$300<br>Tahun ke-3: \$450</li>
+												<li>Nilai jual kembali (jika mesin diganti di akhir tahun):<br>Setelah 1 tahun: \$1,200<br>Setelah 2 tahun: \$800<br>Setelah 3 tahun: \$400</li>
+												</ul>
+												<p>Tentukan strategi penggantian mesin yang meminimalkan total biaya selama periode 5 tahun ke depan.</p>
 </div>
 
 <div id="soal5uas" style='display:none;'>
-===================
+												<p>Carilah biaya minimum dari $A$ ke $B$.</p>
+												<div class="overflow-auto text-center">
+												<img src="//i.upmath.me/svgb/dZLBboMwDIbvPIUvk0DqUEJhnVTt0GraLrttt7aHABaNmgYU0q1dxbuvCdUI0B6iSPns_3dsr1MsuDxrvvuteKYPCptVnTGBLzScbTzvAd4VzyE-xt46V-xnpbc8223AJxMSQGGYP51EwdyEfrAURQ0LYDKHpbeWZY7ANPiPJKTJBOwVwHnRzB04tSxq0bKxSq-4NxrmfB6qSpyglKB4sdX2LS21LvcjDRIaCXpDnVoyNeIOu8R3RZFeGnVR1EORi-K23jcuBGRlrWtv4NC5Jz0V603D53HF1CHJ2PlKnozx0OhWA6wRaZPisRG5a3QlUfvDLzN3VIBHjUoycZmBylFdt-Ib1Ql6q6Ew00wWAv_3w5Xvih32tutXNJgWvZtFnSxq-4Iy7-30Hw" alt="">
+												</div>
 </div>
 
 <div id="soal6uas" style='display:none;'>
-=================
+												<p>Sebuah perusahaan memiliki 3 gudang dan 4 toko yang perlu memasok produk. Setiap gudang memiliki kapasitas terbatas, sementara setiap toko memiliki permintaan tertentu. Biaya pengiriman per unit dari gudang ke toko ditunjukkan dalam tabel biaya di bawah ini. Tujuan dari masalah ini adalah untuk <strong>meminimalkan biaya pengiriman total</strong>.</p>
+
+												<b>Data:</b>
+												<p><strong>Kapasitas Gudang:</strong></p>
+												<ul>
+													<li>Gudang 1: 40 unit</li>
+													<li>Gudang 2: 60 unit</li>
+													<li>Gudang 3: 50 unit</li>
+												</ul>
+
+												<p><strong>Kebutuhan Toko:</strong></p>
+												<ul>
+													<li>Toko A: 50 unit</li>
+													<li>Toko B: 60 unit</li>
+													<li>Toko C: 30 unit</li>
+													<li>Toko D: 10 unit</li>
+												</ul>
+
+												<b>Biaya Pengiriman (dalam Rp per unit)</b>
+												<table class="table table-bordered">
+													<thead>
+														<tr>
+															<th>Lokasi</th>
+															<th>Toko A</th>
+															<th>Toko B</th>
+															<th>Toko C</th>
+															<th>Toko D</th>
+														</tr>
+													</thead>
+													<tbody>
+														<tr>
+															<td>Gudang 1</td>
+															<td>4</td>
+															<td>6</td>
+															<td>8</td>
+															<td>10</td>
+														</tr>
+														<tr>
+															<td>Gudang 2</td>
+															<td>7</td>
+															<td>3</td>
+															<td>6</td>
+															<td>5</td>
+														</tr>
+														<tr>
+															<td>Gudang 3</td>
+															<td>5</td>
+															<td>4</td>
+															<td>7</td>
+															<td>9</td>
+														</tr>
+													</tbody>
+												</table>
 </div>
 <!-- ========================= -->
 <div id="soal7uas" style='display:none;'>
-=================
+												<p>Perusahaan ingin memproduksi tiga komponen A, B, dan C dengan biaya per unit masing-masing Rp5, Rp4, dan Rp6.</p>
+												<p>Kebutuhan minimum:</p>
+												<ul>
+													<li>Minimum 60 jam kerja: \( 3x + 2y + z \geq 60 \)</li>
+													<li>Minimum 90 unit produksi: \( x + 3y + 2z \geq 90 \)</li>
+													<li>Minimum 50 ruang produksi: \( 2x + y + 2z \geq 50 \)</li>
+												</ul>
+												<p><strong>Model:</strong></p>
+												<p>
+													\[ \min Z = 5x + 4y + 6z \]
+												</p>
 </div>
 
 <div id="soal8uas" style='display:none;'>
-===================
+												<p>Suatu perusahaan memproduksi barang X, Y, dan Z. Laba per unit: X = 30, Y = 20, Z = 40. </p>
+												<p>Kendala:</p>
+												<ul>
+													<li>Tenaga kerja: \( 2x + 3y + z \leq 180 \)</li>
+													<li>Bahan baku: \( x + y + 2z \leq 150 \)</li>
+													<li>Mesin: \( x + 2y + z \leq 170 \)</li>
+												</ul>
+												<p><strong>Model:</strong></p>
+												<p>
+													\[ \max Z = 30x + 20y + 40z \]
+												</p>
 </div>
 
 <div id="soal9uas" style='display:none;'>
-================
+												<p>Sebuah pabrik memproduksi tiga jenis makanan: A, B, dan C. Keuntungan per unit berturut-turut adalah Rp10, Rp15, dan Rp12.</p>
+												<p>Kendala:</p>
+												<ul>
+													<li>Bahan mentah: \( 2x + 3y + 1z \leq 100 \)</li>
+													<li>Waktu kerja: \( 4x + y + 2z \leq 120 \)</li>
+													<li>Ruang penyimpanan: \( x + y + z \leq 50 \)</li>
+												</ul>
+												<p><strong>Model:</strong></p>
+												<p>
+													\[ \max Z = 10x + 15y + 12z \]
+												</p>
 </div>
 
 <p class="h1 text-center">Soal UAS</p>
