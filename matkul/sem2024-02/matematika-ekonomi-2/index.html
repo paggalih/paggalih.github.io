@@ -2290,7 +2290,16 @@ function validateUASps4b() {
 	document.getElementById('timerUAS').style.display="block";
 
 	if (sekarang-mulaiUASps4b < 0){
-		alert("Belum waktunya");
+		// Find the distance between now and the count down date
+		let distance = mulaiUASps4b - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+		alert("Belum waktunya. Bisa dimulai dalam " + days + "hari " + hours + "jam "
+		+ minutes + "menit " + seconds + "detik "+" lagi.");
 	}
 	else {
 		if (sekarang-akhirUASps4b < 0) {
