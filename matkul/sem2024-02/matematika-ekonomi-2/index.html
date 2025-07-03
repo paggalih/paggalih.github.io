@@ -2268,6 +2268,155 @@ s2 |  1    2    1   0   1    0  | 90
     </div>
                 </div>
             </section>
+							<section id="p16">
+									<div class="container aos-init aos-animate" data-aos="fade-up">
+											<div class="section-title">
+													<h2>Pertemuan 16</h2>
+											</div>
+
+<p class="h1">Ketentuan UAS PS4B</p>
+<ol>
+	<li>UAS PS4B hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	<li>Soal UAS PS4B boleh dikerjakan dari 12:30-13:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	<li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+</ol>
+<button id="tombol_uas_ps4b" type="button" class="btn btn-primary" onclick="validateUASps4b()">Mulai UAS PS4B</button>
+<button type="button" class="btn btn-primary" onclick="closeValidateUASps4b()">Kirim Jawaban PS4B</button>
+<script>
+const mulaiUASps4b = new Date("July 3, 2025 04:30:00").getTime();
+const akhirUASps4b = new Date("July 3, 2025 13:30:00").getTime();
+function validateUASps4b() {
+	let sekarang = new Date().getTime();
+	document.getElementById('timerUAS').style.display="block";
+
+	if (sekarang-mulaiUASps4b < 0){
+		alert("Belum waktunya");
+	}
+	else {
+		if (sekarang-akhirUASps4b < 0) {
+			 let person = prompt("Masukkan Password", "isi di sini");
+			 if (person === "wahdah") {
+				document.getElementById("tombol_uas_ps4b").style.display="none";
+				document.getElementById("berhasilValidateUAS").style.display = "block";
+				let validNIM = false;
+				let nim;
+				while (!validNIM) {
+						nim = prompt("Masukkan NIM:");
+						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+						if (konfirmasi) {
+								validNIM = true;
+						} else {
+								alert("Silakan ulangi dan masukkan NIM yang benar.");
+						}
+				}
+				let b = (nim*5)% 6;
+				let c = [
+					['soal1uas', 'soal4uas', 'soal7uas'],
+					['soal1uas', 'soal5uas', 'soal9uas'],
+					['soal2uas', 'soal4uas', 'soal8uas'],
+					['soal2uas', 'soal6uas', 'soal9uas'],
+					['soal3uas', 'soal5uas', 'soal7uas'],
+					['soal3uas', 'soal6uas', 'soal8uas']
+				];
+				let d = c[b];
+				for (i = 1; i < 4; i++) {
+					let e = document.getElementById(d[i-1]);
+					document.getElementById('nomer'+i+'uas').appendChild(e);
+					e.style.display="block";
+					document.getElementById('nomer'+i+'uas').style.display="block";
+				}
+			 }
+			 else {
+				 alert("Maaf, password yang Anda masukkan salah.");
+			}
+		}
+		else{
+			alert("Sudah selesai");
+		}
+	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distance = akhirUASps4b - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
+		+ minutes + "menit " + seconds + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distance < 0) {
+			clearInterval(x);
+			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUAS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
+}
+
+function closeValidateUASps4b() {
+    setTimeout(function() {
+        window.open("https://forms.gle/ruiBaUFpxc5jJbTc9", "_blank");
+    }, 500);
+}
+
+</script>
+
+<h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+<div id="berhasilValidateUAS" style="display: none">
+<div id="soal1uas" style='display:none;'>
+
+</div>
+
+<div id="soal2uas" style='display:none;'>
+
+</div>
+
+<div id="soal3uas" style='display:none;'>
+
+</div>
+<!-- ======================= -->
+<div id="soal4uas" style='display:none;'>
+
+</div>
+
+<div id="soal5uas" style='display:none;'>
+
+</div>
+
+<div id="soal6uas" style='display:none;'>
+
+</div>
+<!-- ========================= -->
+<div id="soal7uas" style='display:none;'>
+
+</div>
+
+<div id="soal8uas" style='display:none;'>
+
+</div>
+
+<div id="soal9uas" style='display:none;'>
+
+</div>
+
+<p class="h1 text-center">Soal UAS</p>
+<ol id="soalUAS">
+	<li id='nomer1uas'><h2>Soal 1</h2></li>
+	<li id='nomer2uas'><h2>Soal 2</h2></li>
+	<li id='nomer3uas'><h2>Soal 3</h2></li>
+</ol>
+</div>	
+
+									</div>
+							</section>
             <section id="daftar_hadir">
                 <div class="container aos-init aos-animate" data-aos="fade-up">
                     <div class="section-title">
