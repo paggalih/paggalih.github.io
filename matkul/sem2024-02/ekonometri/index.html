@@ -1428,10 +1428,10 @@ Plotly.newPlot('myDiv', data, layout);
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUAS()">Mulai UAS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUAS()">Kirim Jawaban</button>
 <script>
-var mulaiUAS = new Date("June 27, 2025 18:59:00").getTime();
-var akhirUAS = new Date("June 27, 2025 20:00:00").getTime();
-var sekarang = new Date().getTime();
+const mulaiUAS = new Date("June 27, 2025 18:59:00").getTime();
+const akhirUAS = new Date("August 27, 2025 20:00:00").getTime();
 function validateUAS() {
+	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
 
 	if (sekarang-mulaiUAS<0){
@@ -1440,12 +1440,12 @@ function validateUAS() {
 	else {
 		if (sekarang-akhirUAS<0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "eko") {
+			 if (person === "mata") {
 				document.getElementById("tombol_mulai").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let nim = Number(prompt('Masukkan NIM',''));
-				var b = (nim*5)% 6;
-				var c = [
+				let b = (nim*5)% 6;
+				let c = [
 				['soal1'],
 				['soal2'],
 				['soal3'],
@@ -1453,9 +1453,9 @@ function validateUAS() {
 				['soal5'],
 				['soal6']
 				];
-				var d = c[b];
+				let d = c[b];
 				for (i = 1; i < 6; i++) {
-					var e = document.getElementById(d[i-1]);
+					let e = document.getElementById(d[i-1]);
 					document.getElementById('nomer'+i).appendChild(e);
 					e.style.display="block";
 					document.getElementById('nomer'+i).style.display="block";
@@ -1469,6 +1469,33 @@ function validateUAS() {
 			alert("Waktu habis.");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distance = akhirUAS - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
+		+ minutes + "menit " + seconds + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distance < 0) {
+			clearInterval(x);
+			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUAS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
 function closeValidateUAS() {
 	document.getElementById("berhasilValidateUAS").style.display = "none";
@@ -1476,33 +1503,7 @@ function closeValidateUAS() {
         window.location.href = "https://forms.gle/Q1wjWyqgN3kJKyP88";
     }, 500);
 }
-// Update the count down every 1 second
-var x = setInterval(function() {	
-	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	var distance = akhirUAS - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
-	+ minutes + "menit " + seconds + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distance < 0) {
-		clearInterval(x);
-		document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUAS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUAS" style="display: none">
