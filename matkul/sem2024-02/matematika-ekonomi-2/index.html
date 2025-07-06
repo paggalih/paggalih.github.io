@@ -2326,7 +2326,7 @@ s2 |  1    2    1   0   1    0  | 90
 <button type="button" class="btn btn-primary" onclick="closeValidateUASps4b()">Kirim Jawaban PS4B</button>
 <script>
 const mulaiUASps4b = new Date("July 3, 2025 12:30:00").getTime();
-const akhirUASps4b = new Date("July 3, 2025 13:30:00").getTime();
+const akhirUASps4b = new Date("August 3, 2025 13:30:00").getTime();
 function validateUASps4b() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -2346,7 +2346,7 @@ function validateUASps4b() {
 	else {
 		if (sekarang-akhirUASps4b < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "wahdah") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_ps4b").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let validNIM = false;
