@@ -1137,10 +1137,10 @@
 <button id="tombol_mulai" type="button" class="btn btn-primary" onclick="validateUTS()">Mulai UTS</button>
 <button type="button" class="btn btn-primary" onclick="closeValidateUTS()">Kirim Jawaban</button>
 <script>
-var mulaiUTS = new Date("May 8, 2025 12:59:00").getTime();
-var akhirUTS = new Date("May 8, 2025 14:30:00").getTime();
-var sekarang = new Date().getTime();
+const mulaiUTS = new Date("May 8, 2025 12:59:00").getTime();
+const akhirUTS = new Date("August 8, 2025 14:30:00").getTime();
 function validateUTS() {
+	let sekarang = new Date().getTime();
 	document.getElementById('timerUTS').style.display="block";
 
 	if (sekarang-mulaiUTS<0){
@@ -1178,6 +1178,32 @@ function validateUTS() {
 			alert("Sudah selesai. UTS hanya boleh dikerjakan sampai 8 Mei 2025 pukul 14.30");
 		}
 	}
+	// Update the count down every 1 second
+	let x = setInterval(function() {	
+
+		let sekarang = new Date().getTime();
+
+		// Find the distance between now and the count down date
+		let distance = akhirUTS - sekarang;
+			
+		// Time calculations for days, hours, minutes and seconds
+		let days = Math.floor(distance / (1000 * 60 * 60 * 24));
+		let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+		let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+		let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+			
+		// Output the result in an element with id="demo"
+		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
+		+ minutes + "menit " + seconds + "detik ";
+			
+		// If the count down is over, write some text 
+		if (distance < 0) {
+			clearInterval(x);
+			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+			document.getElementById("berhasilValidateUTS").style.display = "none";
+		}
+	}, 1000);
+	// Update the count down every 1 second
 }
 function closeValidateUTS() {
 	document.getElementById("berhasilValidateUTS").style.display = "none";
@@ -1185,33 +1211,7 @@ function closeValidateUTS() {
         window.location.href = "https://forms.gle/CNzhf9aZMD2Rff1w7";
     }, 500);
 }
-// Update the count down every 1 second
-var x = setInterval(function() {	
-	// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-	// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-	var sekarang = new Date().getTime();
 
-	// Find the distance between now and the count down date
-	var distance = akhirUTS - sekarang;
-		
-	// Time calculations for days, hours, minutes and seconds
-	var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-	var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-	var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-		
-	// Output the result in an element with id="demo"
-	document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + days + "hari " + hours + "jam "
-	+ minutes + "menit " + seconds + "detik ";
-		
-	// If the count down is over, write some text 
-	if (distance < 0) {
-		clearInterval(x);
-		document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-		document.getElementById("berhasilValidateUTS").style.display = "none";
-	}
-}, 1000);
-// Update the count down every 1 second
 </script>
 <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 <div id="berhasilValidateUTS" style="display: none">
@@ -2686,3 +2686,4 @@ function closeValidateUASps4b() {
 
     </body>
 </html>
+<!-- paggalih.github.io/matkul/sem2024-02/matematika-ekonomi-2 -->
