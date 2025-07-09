@@ -2625,11 +2625,11 @@ function closeValidateUASes4d() {
 	let sekarang = new Date().getTime();
 	if (sekarang - mulaiUASes4d > 1000*60*60*5){
 				alert("Terkunci");
-			 } else {
-				setTimeout(function() {
-					window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-				}, 500);
-			 }
+		} else {
+			setTimeout(function() {
+				window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
+			}, 500);
+		}
 }
 
 </script>
@@ -2724,13 +2724,12 @@ function validateUASes4e() {
 
 function closeValidateUASes4e() {
 	let sekarang = new Date().getTime();
-	if (sekarang - akhirUASes4e > 0){
-		alert("Ditutup");
-		}
-	else {
-    setTimeout(function() {
-        window.open("https://forms.gle/VqiBU76y5hnhUQ616", "_blank");
-    }, 500);
+	if (sekarang - mulaiUASes4e > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
+			setTimeout(function() {
+					window.open("https://forms.gle/VqiBU76y5hnhUQ616", "_blank");
+			}, 500);
 		}
 }
 
