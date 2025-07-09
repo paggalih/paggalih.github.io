@@ -2623,14 +2623,13 @@ function validateUASes4d() {
 
 function closeValidateUASes4d() {
 	let sekarang = new Date().getTime();
-	if (sekarang - akhirUASes4d > 0){
-		alert("Ditutup");
-	}
-	else {
-		setTimeout(function() {
-			window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-		}, 500);
-	}
+	if (sekarang - mulaiUASes4d > 1000*60*60*5){
+				alert("Terkunci");
+			 } else {
+				setTimeout(function() {
+					window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
+				}, 500);
+			 }
 }
 
 </script>
