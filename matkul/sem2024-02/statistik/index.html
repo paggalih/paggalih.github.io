@@ -2622,9 +2622,15 @@ function validateUASes4d() {
 }
 
 function closeValidateUASes4d() {
-    setTimeout(function() {
-        window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-    }, 500);
+	let sekarang = new Date().getTime();
+	if (sekarang - akhirUASes4d > 0){
+		alert("Ditutup");
+	}
+	else {
+		setTimeout(function() {
+			window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
+		}, 500);
+	}
 }
 
 </script>
@@ -2718,9 +2724,15 @@ function validateUASes4e() {
 }
 
 function closeValidateUASes4e() {
+	let sekarang = new Date().getTime();
+	if (sekarang - akhirUASes4e > 0){
+		alert("Ditutup");
+		}
+	else {
     setTimeout(function() {
         window.open("https://forms.gle/VqiBU76y5hnhUQ616", "_blank");
     }, 500);
+		}
 }
 
 </script>
