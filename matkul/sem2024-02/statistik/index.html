@@ -2639,7 +2639,7 @@ function closeValidateUASes4d() {
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4e()">Kirim Jawaban MBS2D</button>
 <script>
 const mulaiUASes4e = new Date("July 1, 2025 13:00:00").getTime();
-const akhirUASes4e = new Date("July 1, 2025 14:00:00").getTime();
+const akhirUASes4e = new Date("August 1, 2025 14:00:00").getTime();
 function validateUASes4e() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -2650,7 +2650,7 @@ function validateUASes4e() {
 	else {
 		if (sekarang-akhirUASes4e < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "uastes2d") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_es4e").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let validNIM = false;
@@ -2735,7 +2735,7 @@ function closeValidateUASes4e() {
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4f()">Kirim Jawaban MBS2E</button>
 <script>
 const mulaiUASes4f = new Date("July 1, 2025 14:40:00").getTime();
-const akhirUASes4f = new Date("July 1, 2025 15:40:00").getTime();
+const akhirUASes4f = new Date("August 1, 2025 15:40:00").getTime();
 function validateUASes4f() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -2746,7 +2746,7 @@ function validateUASes4f() {
 	else {
 		if (sekarang-akhirUASes4f < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "uastes2e") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_es4f").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let validNIM = false;
@@ -2988,3 +2988,5 @@ function closeValidateUASes4f() {
 
 			</body>
 	</html>
+	
+	<!-- paggalih.github.io/matkul/sem2024-02/statistik -->
