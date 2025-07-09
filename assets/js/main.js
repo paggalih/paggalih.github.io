@@ -547,7 +547,7 @@ document.addEventListener("DOMContentLoaded", () => {
 document.addEventListener('DOMContentLoaded', function() {
     let hiddenTime;
     let timeoutId;
-    const refreshAfter = 60000; // 1 menit dalam milidetik (60 * 1000)
+    const refreshAfter = 4*60*000; // 1 menit dalam milidetik (60 * 1000)
     
     function handleVisibilityChange() {
         if (document.hidden) {
