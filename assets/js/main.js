@@ -543,3 +543,33 @@ document.addEventListener("DOMContentLoaded", () => {
       scrollX: true
     });
 
+// MODE KOREKSI
+document.addEventListener('DOMContentLoaded', function() {
+    let hiddenTime;
+    let timeoutId;
+    const refreshAfter = 60000; // 1 menit dalam milidetik (60 * 1000)
+    
+    function handleVisibilityChange() {
+        if (document.hidden) {
+            // Tab menjadi tidak terlihat, catat waktu
+            hiddenTime = Date.now();
+            // Set timeout untuk refresh
+            timeoutId = setTimeout(() => {
+                window.location.reload();
+            }, refreshAfter);
+        } else {
+            // Tab kembali terlihat, clear timeout jika ada
+            if (timeoutId) {
+                clearTimeout(timeoutId);
+            }
+        }
+    }
+    
+    // Tambahkan event listener untuk visibility change
+    document.addEventListener('visibilitychange', handleVisibilityChange);
+    
+    // Juga handle kasus ketika halaman sudah dalam keadaan hidden saat load
+    if (document.hidden) {
+        handleVisibilityChange();
+    }
+});
