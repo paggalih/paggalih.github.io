@@ -2544,7 +2544,7 @@ graph TD
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban PWS2A</button>
 <script>
 const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
-const akhirUASes4d = new Date("July 1, 2025 11:20:00").getTime();
+const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
 function validateUASes4d() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -2823,9 +2823,14 @@ function validateUASes4f() {
 }
 
 function closeValidateUASes4f() {
-    setTimeout(function() {
-        window.open("https://forms.gle/EWxBwEXUVnpFGTa97", "_blank");
-    }, 500);
+	let sekarang = new Date().getTime();
+	if (sekarang - mulaiUASes4f > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
+			setTimeout(function() {
+					window.open("https://forms.gle/EWxBwEXUVnpFGTa97", "_blank");
+			}, 500);
+		}
 }
 
 </script>
