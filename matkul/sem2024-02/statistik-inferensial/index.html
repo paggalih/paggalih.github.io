@@ -1344,9 +1344,14 @@ function validateUTSes4d() {
 }
 
 function closeValidateUTSes4d() {
+	let sekarang = new Date().getTime();
+	if (sekarang - mulaiUASes4d > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
     }, 500);
+		}
 }
 
 </script>
@@ -1438,9 +1443,14 @@ function validateUTSes4e() {
 }
 
 function closeValidateUTSes4e() {
+	let sekarang = new Date().getTime();
+	if (sekarang - mulaiUASes4e > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
     setTimeout(function() {
         window.open("https://forms.gle/RiGcLSfnET8eqfkF6", "_blank");
     }, 500);
+		}
 }
 
 </script>
@@ -3072,7 +3082,7 @@ d = \frac{ \sum_{i=2}^n (e_i - e_{i-1})^2 }{ \sum_{i=1}^n e_i^2 }
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban ES4D</button>
 <script>
 const mulaiUASes4d = new Date("June 30, 2025 13:00:00").getTime();
-const akhirUASes4d = new Date("June 30, 2025 14:30:00").getTime();
+const akhirUASes4d = new Date("August 30, 2025 14:30:00").getTime();
 function validateUASes4d() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -3083,7 +3093,7 @@ function validateUASes4d() {
 	else {
 		if (sekarang-akhirUASes4d < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "uastes4d") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_es4d").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let validNIM = false;
@@ -3150,9 +3160,14 @@ function validateUASes4d() {
 }
 
 function closeValidateUASes4d() {
+	let sekarang = new Date().getTime();
+	if (sekarang - mulaiUASes4d > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
     setTimeout(function() {
         window.open("https://forms.gle/wVCjafCFktn7GQBt8", "_blank");
     }, 500);
+		}
 }
 
 </script>
@@ -3167,7 +3182,7 @@ function closeValidateUASes4d() {
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4e()">Kirim Jawaban ES4E</button>
 <script>
 const mulaiUASes4e = new Date("June 30, 2025 13:00:00").getTime();
-const akhirUASes4e = new Date("June 30, 2025 14:30:00").getTime();
+const akhirUASes4e = new Date("August 30, 2025 14:30:00").getTime();
 function validateUASes4e() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -3178,7 +3193,7 @@ function validateUASes4e() {
 	else {
 		if (sekarang-akhirUASes4e < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "uastes4e") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_es4e").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 				let validNIM = false;
@@ -3246,9 +3261,14 @@ function validateUASes4e() {
 }
 
 function closeValidateUASes4e() {
+	let sekarang = new Date().getTime();
+	if (sekarang - mulaiUASes4e > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
     setTimeout(function() {
         window.open("https://forms.gle/Q6fBTo27qUe5wUDq8", "_blank");
     }, 500);
+		}
 }
 
 </script>
@@ -3263,7 +3283,7 @@ function closeValidateUASes4e() {
 <button type="button" class="btn btn-primary" onclick="closeValidateUASes4f()">Kirim Jawaban ES4F</button>
 <script>
 const mulaiUASes4f = new Date("June 30, 2025 14:40:00").getTime();
-const akhirUASes4f = new Date("June 30, 2025 15:40:00").getTime();
+const akhirUASes4f = new Date("August 30, 2025 15:40:00").getTime();
 function validateUASes4f() {
 	let sekarang = new Date().getTime();
 	document.getElementById('timerUAS').style.display="block";
@@ -3274,7 +3294,7 @@ function validateUASes4f() {
 	else {
 		if (sekarang-akhirUASes4f < 0) {
 			 let person = prompt("Masukkan Password", "isi di sini");
-			 if (person === "uastes4f") {
+			 if (person === "mata") {
 				document.getElementById("tombol_uas_es4f").style.display="none";
 				document.getElementById("berhasilValidateUAS").style.display = "block";
 let validNIM = false;
@@ -3341,9 +3361,14 @@ while (!validNIM) {
 }
 
 function closeValidateUASes4f() {
+	let sekarang = new Date().getTime();
+	if (sekarang - mulaiUASes4f > 1000*60*60*5){
+				alert("Terkunci");
+		} else {
     setTimeout(function() {
         window.open("https://forms.gle/1V7C1pBokrgrPWP28", "_blank");
     }, 500);
+		}
 }
 
 </script>
@@ -3631,3 +3656,4 @@ Apakah ada pengaruh dari panjang jalan, hasil panen, dan inflasi terhadap pertum
 
     </body>
 </html>
+<!-- paggalih.github.io/matkul/sem2024-02/statistik-inferensial/ -->
