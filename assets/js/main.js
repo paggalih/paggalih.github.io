@@ -338,11 +338,11 @@ container.appendChild(socialLinks);
 
 // Create and append the flag counter link
 const flagCounterLink = document.createElement('a');
-flagCounterLink.href = 'https://info.flagcounter.com/rFMs';
+flagCounterLink.href = 'http://s01.flagcounter.com/more/rFMs';
 
 const flagCounterImg = document.createElement('img');
-flagCounterImg.src = 'https://s11.flagcounter.com/count2/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_10/viewers_0/labels_0/pageviews_0/flags_0/percent_0/';
-flagCounterImg.alt = 'Flag Counter';
+flagCounterImg.src = 'https://s01.flagcounter.com/count/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_3/labels_1/pageviews_1/flags_1/percent_0/';
+flagCounterImg.alt = 'Free counters!';
 flagCounterImg.border = '0';
 
 flagCounterLink.appendChild(flagCounterImg);
