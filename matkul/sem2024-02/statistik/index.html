@@ -171,10 +171,8 @@
         }
 
         .answer-btn:hover {
-            background-color: #45a049;
-        }
-    </style>
-			</head>
+     </style>
+		</head>
 			<body>
 					<!-- ======= Mobile nav toggle button ======= -->
 					<!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
@@ -1042,6 +1040,9 @@
             <div id="answerOptions"></div>
         </div>
     </div>
+
+    <!-- Bootstrap JS Bundle with Popper -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
     
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -1146,6 +1147,9 @@
             const answerOptions = document.getElementById('answerOptions');
             const closeBtn = document.querySelector('.close-game');
 
+            // Variabel untuk menyimpan kotak yang sedang aktif
+            let activeGridItem = null;
+
             // Buat kotak game
             for (let i = 0; i < 9; i++) {
                 const gridItem = document.createElement('div');
@@ -1159,14 +1163,15 @@
             document.querySelectorAll('.grid-item').forEach(item => {
                 item.addEventListener('click', function() {
                     if (!this.classList.contains('answered')) {
+                        activeGridItem = this; // Simpan referensi ke kotak yang diklik
                         const questionIndex = parseInt(this.dataset.index);
-                        showQuestion(questions[questionIndex], questionIndex);
+                        showQuestion(questions[questionIndex]);
                     }
                 });
             });
 
             // Fungsi untuk menampilkan pertanyaan
-            function showQuestion(question, index) {
+            function showQuestion(question) {
                 questionText.textContent = question.question;
                 answerOptions.innerHTML = '';
                 
@@ -1175,7 +1180,7 @@
                     button.className = 'answer-btn';
                     button.textContent = answer;
                     button.addEventListener('click', function() {
-                        checkAnswer(i === question.correct, index);
+                        checkAnswer(i === question.correct);
                     });
                     answerOptions.appendChild(button);
                 });
@@ -1184,26 +1189,27 @@
             }
 
             // Fungsi untuk mengecek jawaban
-            function checkAnswer(isCorrect, index) {
-                const gridItem = document.querySelector(`.grid-item[data-index="${index}"]`);
-                gridItem.classList.add('answered');
-                
-                if (isCorrect) {
-                    gridItem.style.backgroundColor = '#2196F3'; // Biru untuk jawaban benar
-                } else {
-                    gridItem.style.backgroundColor = '#f44336'; // Merah untuk jawaban salah
+            function checkAnswer(isCorrect) {
+                if (activeGridItem) {
+                    activeGridItem.classList.add('answered');
+                    
+                    if (isCorrect) {
+                        activeGridItem.style.backgroundColor = '#2196F3'; // Biru untuk jawaban benar
+                    } else {
+                        activeGridItem.style.backgroundColor = '#f44336'; // Merah untuk jawaban salah
+                    }
                 }
                 
                 modal.style.display = 'none';
+                activeGridItem = null;
             }
 
             // Tutup modal ketika klik close button
             closeBtn.addEventListener('click', function() {
-                const activeIndex = document.querySelector('.grid-item:not(.answered)')?.dataset.index;
-                if (activeIndex !== undefined) {
-                    const gridItem = document.querySelector(`.grid-item[data-index="${activeIndex}"]`);
-                    gridItem.classList.add('answered');
-                    gridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                if (activeGridItem) {
+                    activeGridItem.classList.add('answered');
+                    activeGridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                    activeGridItem = null;
                 }
                 modal.style.display = 'none';
             });
@@ -1211,11 +1217,10 @@
             // Tutup modal ketika klik di luar modal
             window.addEventListener('click', function(event) {
                 if (event.target === modal) {
-                    const activeIndex = document.querySelector('.grid-item:not(.answered)')?.dataset.index;
-                    if (activeIndex !== undefined) {
-                        const gridItem = document.querySelector(`.grid-item[data-index="${activeIndex}"]`);
-                        gridItem.classList.add('answered');
-                        gridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                    if (activeGridItem) {
+                        activeGridItem.classList.add('answered');
+                        activeGridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                        activeGridItem = null;
                     }
                     modal.style.display = 'none';
                 }
