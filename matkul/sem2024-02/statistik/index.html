@@ -78,6 +78,102 @@
 					background-color: #f7f8f6;
 				}
 					</style>
+    <style>
+        /* Gaya khusus untuk game */
+        .game-container {
+            max-width: 600px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #f8f9fa;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        .grid-item {
+            height: 100px;
+            background-color: #4CAF50;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .grid-item:hover {
+            background-color: #45a049;
+            transform: scale(1.03);
+        }
+
+        .grid-item.answered {
+            background-color: #9E9E9E;
+            cursor: not-allowed;
+        }
+
+        /* Modal khusus untuk game */
+        #questionModal {
+            display: none;
+            position: fixed;
+            z-index: 1050;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0,0,0,0.5);
+        }
+
+        .modal-content-game {
+            background-color: #fefefe;
+            margin: 15% auto;
+            padding: 20px;
+            border-radius: 8px;
+            width: 80%;
+            max-width: 600px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .close-game {
+            color: #aaa;
+            float: right;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .close-game:hover {
+            color: black;
+        }
+
+        #answerOptions {
+            margin-top: 20px;
+        }
+
+        .answer-btn {
+            display: block;
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        .answer-btn:hover {
+            background-color: #45a049;
+        }
+    </style>
 			</head>
 			<body>
 					<!-- ======= Mobile nav toggle button ======= -->
@@ -928,6 +1024,204 @@
   <p>\[ nCr = \frac{n!}{r!(n-r)!} \]</p>
   <p><em>Contoh:</em> 5 siswa memilih 2 untuk tim:</p>
   <p>\[ 5C2 = \frac{5!}{2!3!} = 10 \]</p>
+	
+    <div class="container mt-4">
+        <div class="game-container">
+            <h2 class="text-center">Game Statistik</h2>
+            <div class="grid-container" id="gameGrid">
+                <!-- Kotak-kotak game akan di-generate oleh JavaScript -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal/Pop-up untuk pertanyaan -->
+    <div id="questionModal" class="modal-game">
+        <div class="modal-content-game">
+            <span class="close-game">&times;</span>
+            <h3 id="questionText">Pertanyaan akan muncul di sini</h3>
+            <div id="answerOptions"></div>
+        </div>
+    </div>
+    
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Pertanyaan dan jawaban
+            const questions = [
+                {
+                    question: "Apa yang dimaksud dengan mean dalam statistik?",
+                    answers: [
+                        "Nilai tengah",
+                        "Nilai yang paling sering muncul",
+                        "Rata-rata",
+                        "Selisih nilai maks dan min"
+                    ],
+                    correct: 2
+                },
+                {
+                    question: "Apa rumus untuk menghitung varians sampel?",
+                    answers: [
+                        "Σ(x - μ)² / N",
+                        "Σ(x - x̄)² / (n-1)",
+                        "Σ(x - x̄) / n",
+                        "Σx² / n"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Apa yang diukur oleh standar deviasi?",
+                    answers: [
+                        "Pusat distribusi data",
+                        "Penyebaran data",
+                        "Kemiringan distribusi",
+                        "Puncak distribusi"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Distribusi normal memiliki sifat:",
+                    answers: [
+                        "Simetris",
+                        "Miring ke kanan",
+                        "Miring ke kiri",
+                        "Berbentuk U"
+                    ],
+                    correct: 0
+                },
+                {
+                    question: "Apa yang dimaksud dengan hipotesis nol?",
+                    answers: [
+                        "Hipotesis yang ingin dibuktikan",
+                        "Pernyataan default bahwa tidak ada efek",
+                        "Hipotesis alternatif",
+                        "Kesimpulan dari penelitian"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Jika p-value < α, apa keputusannya?",
+                    answers: [
+                        "Gagal tolak H0",
+                        "Tolak H0",
+                        "Terima H1",
+                        "Tidak bisa disimpulkan"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Apa yang dimaksud dengan interval kepercayaan 95%?",
+                    answers: [
+                        "95% data berada dalam interval",
+                        "95% probabilitas parameter populasi dalam interval",
+                        "95% sampel memiliki mean dalam interval",
+                        "Interval yang mengandung 95% nilai ekstrim"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Apa uji statistik untuk membandingkan dua mean?",
+                    answers: [
+                        "Uji chi-square",
+                        "Uji t",
+                        "Uji ANOVA",
+                        "Uji korelasi"
+                    ],
+                    correct: 1
+                },
+                {
+                    question: "Koefisien korelasi (r) mengukur:",
+                    answers: [
+                        "Hubungan sebab-akibat",
+                        "Kekuatan dan arah hubungan linear",
+                        "Perbedaan antara kelompok",
+                        "Varians gabungan"
+                    ],
+                    correct: 1
+                }
+            ];
+
+            // Elemen DOM
+            const gridContainer = document.getElementById('gameGrid');
+            const modal = document.getElementById('questionModal');
+            const questionText = document.getElementById('questionText');
+            const answerOptions = document.getElementById('answerOptions');
+            const closeBtn = document.querySelector('.close-game');
+
+            // Buat kotak game
+            for (let i = 0; i < 9; i++) {
+                const gridItem = document.createElement('div');
+                gridItem.className = 'grid-item';
+                gridItem.textContent = i + 1;
+                gridItem.dataset.index = i;
+                gridContainer.appendChild(gridItem);
+            }
+
+            // Tambahkan event listener untuk kotak game
+            document.querySelectorAll('.grid-item').forEach(item => {
+                item.addEventListener('click', function() {
+                    if (!this.classList.contains('answered')) {
+                        const questionIndex = parseInt(this.dataset.index);
+                        showQuestion(questions[questionIndex], questionIndex);
+                    }
+                });
+            });
+
+            // Fungsi untuk menampilkan pertanyaan
+            function showQuestion(question, index) {
+                questionText.textContent = question.question;
+                answerOptions.innerHTML = '';
+                
+                question.answers.forEach((answer, i) => {
+                    const button = document.createElement('button');
+                    button.className = 'answer-btn';
+                    button.textContent = answer;
+                    button.addEventListener('click', function() {
+                        checkAnswer(i === question.correct, index);
+                    });
+                    answerOptions.appendChild(button);
+                });
+                
+                modal.style.display = 'block';
+            }
+
+            // Fungsi untuk mengecek jawaban
+            function checkAnswer(isCorrect, index) {
+                const gridItem = document.querySelector(`.grid-item[data-index="${index}"]`);
+                gridItem.classList.add('answered');
+                
+                if (isCorrect) {
+                    gridItem.style.backgroundColor = '#2196F3'; // Biru untuk jawaban benar
+                } else {
+                    gridItem.style.backgroundColor = '#f44336'; // Merah untuk jawaban salah
+                }
+                
+                modal.style.display = 'none';
+            }
+
+            // Tutup modal ketika klik close button
+            closeBtn.addEventListener('click', function() {
+                const activeIndex = document.querySelector('.grid-item:not(.answered)')?.dataset.index;
+                if (activeIndex !== undefined) {
+                    const gridItem = document.querySelector(`.grid-item[data-index="${activeIndex}"]`);
+                    gridItem.classList.add('answered');
+                    gridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                }
+                modal.style.display = 'none';
+            });
+
+            // Tutup modal ketika klik di luar modal
+            window.addEventListener('click', function(event) {
+                if (event.target === modal) {
+                    const activeIndex = document.querySelector('.grid-item:not(.answered)')?.dataset.index;
+                    if (activeIndex !== undefined) {
+                        const gridItem = document.querySelector(`.grid-item[data-index="${activeIndex}"]`);
+                        gridItem.classList.add('answered');
+                        gridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                    }
+                    modal.style.display = 'none';
+                }
+            });
+        });
+    </script>
 
   <h2>9. Kesimpulan</h2>
   <ul>
