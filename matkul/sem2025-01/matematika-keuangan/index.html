@@ -355,6 +355,47 @@
 													<h2>Pertemuan 2</h2>
 											</div>
 
+<h3>	Konsep Dasar Bunga (Bunga Sederhana dan Bunga Majemuk) </h3>
+<p> Konsep bunga dapat dipandang sebagai imbalan yang dibayarkan dari peminjam ke pemilik aset. Ketika seseorang meminjam uang untuk usaha dan usahanya berhasil, maka ada aset yang bertambah dari hasil upaya pengelolaan uang yang dipinjam. Peminjam menyadari tanpa modal yang diberikan oleh pemilik aset maka usahanya pasti tidak berhasil. Sehingga atas jasa inilah peminjam memberikan imbalan kepada pemilik aset. Ini adalah nilai apresiasi uang.</p>
+<p> Konsep bunga juga dapat dipandang sebagai akibat dari depresiasi nilai mata uang. Misalkan pada saat ini harga kambing jantan umur 2 tahun adalah 3 juta, maka tiga tahun ke depan harganya tidak mungkin lagi 3 juta, pasti lebih dari itu. Sehingga ketika sekarang peminjam mendapatkan utang sebesar 3 juta, saat pengembalian hutang tersebut kepada pemilik aset 3 tahun yang akan datang, maka nilai 3 juta itu tidak lagi sama. Oleh karena hal itu bunga diberlakukan untuk menutup kekurangan nilai tersebut.</p>
+<p> Sekarang bagaimana kalau utang tersebut benar-benar hanya untuk mencukupi kebutuhan dasar hidup? Konsep ini biarkan dibahas dalam mata kuliah lain.</p>
+<h4> Bunga Sederhana</h4>
+<p> Bunga sederhana hanya diberlakukan dalam periode waktu yang sangat singkat. Semisal pinjam uang satu bulan diangsur satu kali dengan bunga 1%.</p>
+<h4> Bunga Majemuk</h4>
+<p> Bunga Majemuk digunakan untuk semua kasus selain bunga sederhana. Bunga ini digunakan dalam jangka waktu lama ataupun angsuran.</p>
+<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
+
+<div class="mermaid text-center">
+flowchart TD
+    A[Bunga] --> B[Bunga Sederhana]
+    A --> C[Bunga Majemuk]
+
+    B --> B1["Rumus: <br> $A = C+niC$  <br><br> Keterangan:<br>$A =$ Aset<br>$C =$ Capital<br>$i =$ Suku bunga per periode<br>$n =$ Waktu"]
+    
+    C --> C1["Rumus: <br> $A = C (1 + i)^n$ <br><br>Keterangan:<br>$A =$ Aset<br>$C =$ Capital<br>$i =$ Suku bunga per periode<br>$n =$ Waktu"]
+
+</div>
+<h4>Tugas Kelas</h4>
+
+  <p><b>1.</b> Modal \( \text{Rp }12{,}000{,}000\), bunga sederhana \( 8\%\) per tahun, waktu \(9\) bulan.  
+  Hitung total aset.</p>
+
+  <p><b>2.</b> Modal \(\text{Rp }5{,}000{,}000\) menjadi \( \text{Rp }5{,}900{,}000\) dalam \(n = 18\) bulan.  
+  Tentukan suku bunga.</p>
+
+  <p><b>3.</b> Pinjaman \(\text{Rp }20{,}000{,}000\), bunga sederhana \(i = 12\%\) per tahun, jumlah akhir \(\text{Rp }23{,}600{,}000\).  
+  Hitung lama waktu mendapatkannya.</p>
+
+  <p><b>4.</b> Tabungan \( \text{Rp }10{,}000{,}000\), bunga majemuk \(i = 10\%\) per tahun. Tentukan dana setelah waktu \(n = 3\) tahun. </p>
+
+  <p><b>5.</b> Dana \( \text{Rp }8{,}000{,}000\), bunga majemuk \(i = 12\%\) per bulan, \(n=4\).  Tentukan total dana.</p>
+
+
+
+
     <div class="container mt-5">
         <div class="accordion" id="accordionp2">
             
@@ -366,7 +407,23 @@
                 </h2>
                 <div id="collapsep2" class="accordion-collapse collapse" aria-labelledby="headingp2" data-bs-parent="#accordionp2">
                     <div class="accordion-body">
-												
+  <p><b>6.</b> Suku bunga nominal \(i = 9\%\), majemuk bulanan \(n = 12\).  
+  \[
+  \text{EAR} = \left(1+\frac{i}{n}\right)^{n} - 1
+  \]</p>
+
+  <p><b>7.</b> Opsi A: \(i_A = 10\%\) majemuk tahunan.  
+  Opsi B: \(i_B = 9.6\%\) majemuk bulanan.  
+  Modal \( \text{Rp }15{,}000{,}000\), waktu \(n = 2\) tahun. Bandingkan mana yang hasilnya lebih besar. 
+  \[ \text{Petunjuk: }
+  A_A = C(1+i_A)^n, \qquad 
+  A_B = C\left(1+\frac{i_B}{12}\right)^{12n}
+  \]</p>
+
+  <p><b>8.</b> Modal \( \text{Rp }25{,}000{,}000\), target \(\text{Rp }40{,}000{,}000\), bunga majemuk \(r = 7\%\) per tahun.  Berapa tahun target akan tercapai?
+  \[\text{Petunjuk: }
+  n = \frac{\ln(A/C)}{\ln(1+i)}
+  \]</p>
                     </div>
                 </div>
             </div>
@@ -1083,17 +1140,7 @@ function closeValidateUTSmbs2d() {
 											</div>
  
 
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true });
-</script>
 
-<div class="mermaid text-center">
-graph TD
-  A[Anggap populasi berdistribusi normal] --> B{Apakah simpangan baku diketahui?}
-  B -- Tidak --> C[Gunakan distribusi t]
-  B -- Ya --> D[Gunakan distribusi z]
-</div>
 
     <div class="container mt-5">
         <div class="accordion" id="accordionp11">
