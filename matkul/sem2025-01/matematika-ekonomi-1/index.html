@@ -347,18 +347,24 @@
 									<div class="container aos-init aos-animate" data-aos="fade-up">
 											<div class="section-title">
 													<h2>Pertemuan 2</h2>
-<h3>Persamaan Linier</h3>
-
 											</div>
+
+<h3>Persamaan Linier</h3>
 
 <div class="mermaid text-center">
 graph TB
-  A[mengenal garis <br> $y=mx+c$] --> B[mengenal gradien <br> $m$]
- A -.-> C[mengenal titik potong <br> $c$]
-  B --> D[menggambar garis]
-  C --> D[menggambar garis]
-  D --> E[memformulasikan garis]
-  E --> F[menentukan titik potong]
+  A([mengenal garis <br> $y=mx+c$]) 
+  B([mengenal gradien <br> $m$])
+  C([mengenal titik potong <br> $c$])
+  A --> KOMPONEN
+
+  subgraph KOMPONEN
+  B -.- C
+ end
+  KOMPONEN --> D([menggambar garis])
+
+  D --> E([memformulasikan garis])
+  E --> F([menentukan titik potong])
 </div>
 
 
