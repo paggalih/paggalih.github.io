@@ -269,87 +269,120 @@
 
 })()
 
-// Create the container div
-const container = document.createElement('div');
-container.className = 'container';
+        // Create the container div
+        const container = document.createElement('div');
+        container.className = 'container';
 
-// Create and append the h3 element
-const h3 = document.createElement('h3');
-h3.textContent = 'Galih Pradananta';
-container.appendChild(h3);
+        // Create and append the h3 element
+        const h3 = document.createElement('h3');
+        h3.textContent = 'Galih Pradananta';
+        container.appendChild(h3);
 
-// Create and append the paragraph element
-const paragraph = document.createElement('p');
-paragraph.textContent = 'You just have to live for this one minute.';
-container.appendChild(paragraph);
+        // Create and append the paragraph element
+        const paragraph = document.createElement('p');
+        paragraph.textContent = 'You just have to live for this one minute.';
+        container.appendChild(paragraph);
 
-// Create the social links div
-const socialLinks = document.createElement('div');
-socialLinks.className = 'social-links';
+        // Create the social links div
+        const socialLinks = document.createElement('div');
+        socialLinks.className = 'social-links';
 
-// Function to create a link with an icon and tooltip
-function createLink(href, className, iconClass, tooltipText) {
-  const link = document.createElement('a');
-  link.href = href;
-  // link.target = '_blank';
-  link.className = className;
-  
-  // Add tooltip attributes
-  link.setAttribute('data-toggle', 'tooltip');
-  link.setAttribute('data-placement', 'top');
-  link.setAttribute('title', tooltipText);
+        // Function to create a link with an icon and tooltip
+        function createLink(href, className, iconClass, tooltipText) {
+            const link = document.createElement('a');
+            link.href = href;
+            link.target = '_blank';
+            link.className = className;
+            
+            // Add tooltip attributes
+            link.setAttribute('data-bs-toggle', 'tooltip');
+            link.setAttribute('data-bs-placement', 'top');
+            link.setAttribute('title', tooltipText);
 
-  const icon = document.createElement('i');
-  icon.className = iconClass;
-  link.appendChild(icon);
+            const icon = document.createElement('i');
+            icon.className = iconClass;
+            link.appendChild(icon);
 
-  return link;
-}
+            return link;
+        }
 
-// Append social links with tooltips
-socialLinks.appendChild(createLink('https://paggalih.github.io', 'home', 'bx bx-home', 'Home'));
-socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook', 'Facebook'));
-socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt', 'Instagram'));
-socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube', 'YouTube'));
-socialLinks.appendChild(createLink('https://dosenuin.github.io', '', 'bi bi-at', 'Website'));
+        // Append social links with tooltips
+        socialLinks.appendChild(createLink('https://paggalih.github.io', 'home', 'bx bx-home', 'Home'));
+        socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook', 'Facebook'));
+        socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt', 'Instagram'));
+        socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube', 'YouTube'));
+        socialLinks.appendChild(createLink('https://dosenuin.github.io', '', 'bi bi-at', 'Website'));
 
-// Append Google Scholar link separately due to different structure
-const scholarLink = document.createElement('a');
-scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
-scholarLink.setAttribute('data-toggle', 'tooltip');
-scholarLink.setAttribute('data-placement', 'top');
-scholarLink.setAttribute('title', 'Google Scholar');
+        // Append Google Scholar link separately due to different structure
+        const scholarLink = document.createElement('a');
+        scholarLink.href = 'https://scholar.google.com/citations?user=02ef424AAAAJ&hl=en';
+        scholarLink.target = '_blank';
+        scholarLink.setAttribute('data-bs-toggle', 'tooltip');
+        scholarLink.setAttribute('data-bs-placement', 'top');
+        scholarLink.setAttribute('title', 'Google Scholar');
 
-const scholarIcon = document.createElement('span');
-scholarIcon.className = 'material-symbols-outlined';
-scholarIcon.style.fontSize = '18px';
-scholarIcon.textContent = 'school';
+        const scholarIcon = document.createElement('span');
+        scholarIcon.className = 'material-symbols-outlined';
+        scholarIcon.style.fontSize = '18px';
+        scholarIcon.textContent = 'school';
 
-scholarLink.appendChild(scholarIcon);
-socialLinks.appendChild(scholarLink);
+        scholarLink.appendChild(scholarIcon);
+        socialLinks.appendChild(scholarLink);
 
-// Initialize Bootstrap tooltips
-var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-toggle="tooltip"]'));
-tooltipTriggerList.map(function (tooltipTriggerEl) {
-  return new bootstrap.Tooltip(tooltipTriggerEl);
-});
+        container.appendChild(socialLinks);
 
-container.appendChild(socialLinks);
+        // Create and append the flag counter link
+        const flagCounterLink = document.createElement('a');
+        flagCounterLink.href = 'http://s01.flagcounter.com/more/rFMs';
+        flagCounterLink.target = '_blank';
+        flagCounterLink.className = 'flag-counter';
 
-// Create and append the flag counter link
-const flagCounterLink = document.createElement('a');
-flagCounterLink.href = 'http://s01.flagcounter.com/more/rFMs';
+        const flagCounterImg = document.createElement('img');
+        flagCounterImg.src = 'https://s01.flagcounter.com/count/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_3/labels_1/pageviews_1/flags_1/percent_0/';
+        flagCounterImg.alt = 'Free counters!';
+        flagCounterImg.border = '0';
 
-const flagCounterImg = document.createElement('img');
-flagCounterImg.src = 'https://s01.flagcounter.com/count/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_3/labels_1/pageviews_1/flags_1/percent_0/';
-flagCounterImg.alt = 'Free counters!';
-flagCounterImg.border = '0';
+        flagCounterLink.appendChild(flagCounterImg);
+        container.appendChild(flagCounterLink);
 
-flagCounterLink.appendChild(flagCounterImg);
-container.appendChild(flagCounterLink);
+        // Create credits section
+        const creditsSection = document.createElement('div');
+        creditsSection.className = 'credits';
+        
+        const creditsTitle = document.createElement('h5');
+        creditsTitle.textContent = 'My Best Regards';
+        creditsSection.appendChild(creditsTitle);
+        
+        const creditsList = document.createElement('ul');
+        
+        const creditItems = [
+            { name: 'Mermaid JS', url: 'https://mermaid.js.org' },
+            { name: 'UpMath', url: 'https://i.upmath.me' },
+            { name: 'Bootstrap', url: 'https://getbootstrap.com' },
+            { name: 'MathJax', url: 'https://www.mathjax.org' }
+        ];
+        
+        creditItems.forEach(item => {
+            const listItem = document.createElement('li');
+            const link = document.createElement('a');
+            link.href = item.url;
+            link.target = '_blank';
+            link.textContent = item.name;
+            listItem.appendChild(link);
+            creditsList.appendChild(listItem);
+        });
+        
+        creditsSection.appendChild(creditsList);
+        container.appendChild(creditsSection);
 
-// Append the container to the body or any specific element
-document.getElementById('footer').appendChild(container);
+        // Append the container to the footer
+        document.getElementById('footer').appendChild(container);
+
+        // Initialize Bootstrap tooltips
+        var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
+        var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
+            return new bootstrap.Tooltip(tooltipTriggerEl);
+        });
 
 // Function to load multiple stylesheets
 function loadStylesheets(urls) {
@@ -573,3 +606,4 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
