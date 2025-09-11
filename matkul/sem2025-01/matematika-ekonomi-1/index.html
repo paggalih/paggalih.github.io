@@ -45,6 +45,10 @@
 							};
 					</script>
 					<script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+					<script type="module">
+  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+  mermaid.initialize({ startOnLoad: true });
+</script>
 					<!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
 					<style>
 							@media (min-width: 991px) {
@@ -346,15 +350,12 @@
 											</div>
 
 <h3>Persamaan Linier</h3>
-<script type="module">
-  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-  mermaid.initialize({ startOnLoad: true });
-</script>
+
 
 <div class="mermaid text-center">
 graph TB
-  A[mengenal garis] --> B[mengenal gradien]
- A -.-> C[mengenal titik potong]
+  A[mengenal garis <br> $y=mx+c$] --> B[mengenal gradien <br> $m$]
+ A -.-> C[mengenal titik potong <br> $c$]
   B --> D[menggambar garis]
   C --> D[menggambar garis]
   D --> E[memformulasikan garis]
