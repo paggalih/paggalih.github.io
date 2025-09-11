@@ -1543,3 +1543,38 @@ section {
     vertical-align: middle;
   }
 	
+        .credits {
+            margin-top: 25px;
+            padding-top: 15px;
+            border-top: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .credits h5 {
+            margin-bottom: 15px;
+            color: #6ea8fe;
+        }
+        
+        .credits ul {
+            list-style: none;
+            padding: 0;
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+        }
+        
+        .credits li {
+            background: rgba(255,255,255,0.1);
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 0.9rem;
+        }
+        
+        .credits a {
+            color: #6ea8fe;
+            text-decoration: none;
+        }
+        
+        .credits a:hover {
+            text-decoration: underline;
+        }
