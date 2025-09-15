@@ -172,6 +172,75 @@
 
         .answer-btn:hover {
      </style>
+     <style>
+  :root {
+    --bg:#ffffff;
+    --card:#f9f9f9;
+    --fg:#222222;
+    --muted:#555555;
+    --border:#cccccc;
+  }
+  body {
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+  }
+  .container {
+    max-width:1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+  }
+  h1 { margin:0 0 4px; }
+  .muted { color:var(--muted); }
+  .card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px;
+    margin:16px 0;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+  }
+  .tabs {
+    display:flex;
+    gap:8px;
+  }
+  .tab {
+    padding:8px 12px;
+    border:1px solid var(--border);
+    border-bottom:none;
+    border-radius:10px 10px 0 0;
+    background:#eaeaea;
+    cursor:pointer;
+    color:var(--fg);
+  }
+  .tab.active {
+    background:var(--card);
+    font-weight:600;
+  }
+  table.dataTable thead th {
+    background:#f0f0f0;
+    color:#333333;
+  }
+  .actions {
+    display:flex;
+    gap:8px;
+    justify-content:flex-end;
+    margin-bottom:8px;
+  }
+  button {
+    background:#f0f0f0;
+    color:#222;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px 10px;
+    cursor:pointer;
+  }
+  button:hover {
+    background:#e0e0e0;
+  }
+</style>
+
 		</head>
 			<body>
 					<!-- ======= Mobile nav toggle button ======= -->
@@ -406,7 +475,193 @@
 											<div class="section-title">
 													<h2>Pertemuan 2</h2>
 											</div>
+  <div class="container">
+    <h1>Panel Ekonomi Syariah – Dua Kasus</h1>
+    <div class="muted">Periode 1995–2024 · Lokasi: Jakarta, Surabaya, Medan · Tabel interaktif + Unduh CSV (tanpa unggah ke server)</div>
 
+    <div class="tabs">
+      <div class="tab active" data-target="#wrap1">Kasus 1 – Financial Inclusion</div>
+      <div class="tab" data-target="#wrap2">Kasus 2 – Banking Assets</div>
+    </div>
+
+    <div id="wrap1" class="card">
+      <div class="actions"><button id="dl1">Unduh CSV (Kasus 1)</button></div>
+      <table id="tbl1" class="display nowrap" style="width:100%">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+
+    <div id="wrap2" class="card" style="display:none;">
+      <div class="actions"><button id="dl2">Unduh CSV (Kasus 2)</button></div>
+      <table id="tbl2" class="display nowrap" style="width:100%">
+        <thead></thead>
+        <tbody></tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- DATA & GENERATOR TERTANAM (tanpa file eksternal) -->
+  <script>
+    // Parameter panel
+    const YEARS = Array.from({length:30}, (_,i)=>1995+i); // 1995–2024
+    const LOCS  = ["Jakarta","Surabaya","Medan"];
+    const locFE = {Jakarta: 0.00, Surabaya: -0.20, Medan: -0.35}; // fixed effects ringan
+    const tOf   = y => (y - 1995) / (2024 - 1995); // skala tren 0..1
+
+    // Generator noise deterministik (biar konsisten setiap load) — tanpa RNG eksternal
+    function noise(seed){
+      // simple xorshift-like
+      let x = Math.imul(seed, 2654435761) >>> 0;
+      x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
+      // map ke ~N(0,1) kasar via Box-Muller deterministik pseudo
+      const u = ((x>>>1) % 10000 + 1) / 10001; // (0,1)
+      const v = ((x>>>9) % 10000 + 1) / 10001;
+      const z = Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+      return z;
+    }
+
+    // -------------------
+    // CASE 1 (Y = Islamic_Financial_Inclusion_Index)
+    // X1 = Sharia_Investment_Growth (%)
+    // X2 = Islamic_Banking_Assets_Growth (%)
+    // X3 = Halal_MSME_Share (%)
+    // -------------------
+    const CASE1 = [];
+    LOCS.forEach((loc, li)=>{
+      YEARS.forEach((yr, yi)=>{
+        const t = tOf(yr), fe = locFE[loc];
+        const seedBase = 1000 + li*100 + yi;
+
+        const Sharia_Investment_Growth = +(3 + 5*t + 1.2*noise(seedBase+11)).toFixed(2); // ~3→8
+        const Islamic_Banking_Assets_Growth = +(4 + 3*t + 1.0*noise(seedBase+22)).toFixed(2); // ~4→7
+        const Halal_MSME_Share = +(10 + 25*t + 5*fe + 2.5*noise(seedBase+33)).toFixed(2); // ~10→35, efek lokasi
+
+        // Y (dibatasi 0..100)
+        let y = 40
+          + 0.7*Halal_MSME_Share
+          + 0.9*Sharia_Investment_Growth
+          + 0.5*Islamic_Banking_Assets_Growth
+          + 5*fe
+          + 3.0*noise(seedBase+44);
+        y = Math.min(100, Math.max(0, y));
+        const Islamic_Financial_Inclusion_Index = +y.toFixed(2);
+
+        CASE1.push({
+          Location: loc,
+          Year: yr,
+          Sharia_Investment_Growth,
+          Islamic_Banking_Assets_Growth,
+          Halal_MSME_Share,
+          Islamic_Financial_Inclusion_Index
+        });
+      });
+    });
+
+    // -------------------
+    // CASE 2 (Y = Islamic_Banking_Assets_TrnIDR)
+    // X1 = PSF_Share (% bagi hasil)
+    // X2 = NPF_Rate (%)
+    // X3 = Digital_Adoption (%)
+    // -------------------
+    const CASE2 = [];
+    LOCS.forEach((loc, li)=>{
+      YEARS.forEach((yr, yi)=>{
+        const t = tOf(yr), fe = locFE[loc];
+        const seedBase = 2000 + li*100 + yi;
+
+        const PSF_Share = +(18 + 8*t + 3*fe + 1.5*noise(seedBase+55)).toFixed(2); // ~18→26
+        const NPF_Rate = +(4.5 - 1.5*t + 0.7*noise(seedBase+66)).toFixed(2); // ~4.5→3
+        const Digital_Adoption = +(12 + 60*t + 5*fe + 3.0*noise(seedBase+77)).toFixed(2); // ~12→72
+
+        let assets = 150
+          + 60*t                    // tren jangka panjang
+          + 3.0*PSF_Share
+          - 4.5*NPF_Rate
+          + 1.8*Digital_Adoption
+          + 12*fe
+          + 10.0*noise(seedBase+88);
+        assets = Math.max(50, assets); // lantai
+        const Islamic_Banking_Assets_TrnIDR = +assets.toFixed(2);
+
+        CASE2.push({
+          Location: loc,
+          Year: yr,
+          PSF_Share,
+          NPF_Rate,
+          Digital_Adoption,
+          Islamic_Banking_Assets_TrnIDR
+        });
+      });
+    });
+  </script>
+
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
+  <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
+  <script>
+    let dt1=null, dt2=null;
+
+    function setActiveTab(el){
+      document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+      el.classList.add('active');
+      const tgt = el.getAttribute('data-target');
+      document.querySelectorAll('#wrap1,#wrap2').forEach(x=>x.style.display='none');
+      document.querySelector(tgt).style.display='block';
+    }
+    document.querySelectorAll('.tab').forEach(tab=>{
+      tab.addEventListener('click',()=>setActiveTab(tab));
+    });
+
+    function buildTable($table, data){
+      if(!data || !data.length){
+        $table.find('thead').html('');
+        $table.find('tbody').html('<tr><td>Tidak ada data</td></tr>');
+        return null;
+      }
+      const cols = Object.keys(data[0]);
+      const thead = '<tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+      const rows = data.map(r=>'<tr>'+cols.map(c=>`<td>${r[c]}</td>`).join('')+'</tr>').join('');
+      $table.find('thead').html(thead);
+      $table.find('tbody').html(rows);
+      return $table.DataTable({ responsive:true, pageLength:10, scrollX:true });
+    }
+
+    function tableToCSV(dt){
+      const headers = dt.columns().header().toArray().map(h=>h.textContent);
+      const data = dt.rows({ search:'applied' }).data().toArray();
+      const csvRows = [headers.join(',')];
+      for(const row of data){
+        const escaped = row.map(v=>{
+          const s = String(v??'');
+          return s.includes(',')||s.includes('"')||s.includes('\n') ? '"'+s.replace(/"/g,'""')+'"' : s;
+        });
+        csvRows.push(escaped.join(','));
+      }
+      return csvRows.join('\n');
+    }
+
+    function triggerDownload(filename, content){
+      const blob = new Blob([content], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    $(document).ready(function(){
+      dt1 = buildTable($('#tbl1'), CASE1);
+      dt2 = buildTable($('#tbl2'), CASE2);
+
+      document.getElementById('dl1').addEventListener('click', ()=>{
+        if(!dt1){ alert('Tabel belum siap'); return; }
+        triggerDownload('Case1_FinancialInclusion.csv', tableToCSV(dt1));
+      });
+      document.getElementById('dl2').addEventListener('click', ()=>{
+        if(!dt2){ alert('Tabel belum siap'); return; }
+        triggerDownload('Case2_BankingAssets.csv', tableToCSV(dt2));
+      });
+    });
+  </script>
     <div class="container mt-5">
         <div class="accordion" id="accordionp2">
             
