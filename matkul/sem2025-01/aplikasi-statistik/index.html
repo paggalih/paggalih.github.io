@@ -641,39 +641,33 @@
   <div class="wrap">
 
     <nav class="toc">
-      <a href="#kasus1p2">1) </a>
-      <a href="#kasus2">2) Sumber Pendapatan UMKM – Pie</a>
-      <a href="#kasus3">3) Distribusi Laba UMKM – Histogram</a>
-      <a href="#kasus4">4) Modal Awal vs Laba – Scatter</a>
-      <a href="#kasus5">5) Mahasiswa per Konsentrasi – Bar Horizontal</a>
-      <a href="#kasus6">6) Distribusi Investasi Syariah – Pie</a>
+      <a href="#kasus1p3">1) Tingkat Pemahaman Nasabah Tentang Produk Sukuk </a>
+      <a href="#kasus2p3">2) Jumlah Hafalan Ayat Karyawan Bank Syariah </a>
+      <a href="#kasus3p3">3) Pilihan Akad Pembiayaan di BMT </a>
+      <a href="#kasus4p3">4) Rating Produk Makanan Halal Baru </a>
+      <a href="#kasus5p3">5) Pendapatan Usaha Mikro Binaan Bank Syariah </a>
+      <a href="#kasus6p3">6) Jumlah Donasi Zakat Infak Sedekah (ZIS) Harian</a>
     </nav>
 
     <!-- KASUS 1 -->
-    <section id="kasus1">
-      <div class="head">
-        <h2>1) Penjualan Produk Halal (Ritel Syariah) <span class="pill">Bar/Column</span></h2>
-        <div class="tools">
-          <button class="btn" onclick="copyTable('t1')">Salin Tabel</button>
-          <button class="btn" onclick="downloadCSV('t1','kasus1_penjualan_produk_halal.csv')">Unduh CSV</button>
+    <section id="kasus1p3">
+        <div class="case-study">
+            <h2>Tingkat Pemahaman Nasabah Tentang Produk Sukuk</h2>
+            <h3>Konteks:</h3>
+            <p>Sebuah perusahaan sekuritas syariah mengeluarkan produk Sukuk Ritel baru. Setelah sesi sosialisasi, perusahaan melakukan survei untuk mengukur tingkat pemahaman nasabah dengan skala: 1 (Sangat Tidak Paham), 2 (Kurang Paham), 3 (Cukup Paham), 4 (Paham), 5 (Sangat Paham).</p>
+            
+            <h3>Data Hasil Survei dari 11 Nasabah:</h3>
+            <p><code>4, 5, 3, 4, 4, 2, 5, 4, 3, 5, 4</code></p>
+            
+            <ol>
+                <li>Hitunglah <strong>Mean</strong>, <strong>Median</strong>, dan <strong>Mode</strong> dari data tingkat pemahaman tersebut.</li>
+                <li>Manakah ukuran yang paling tepat untuk digunakan dalam laporan evaluasi efektivitas sosialisasi produk? Jelaskan mengapa.</li>
+            </ol>
+            
         </div>
-      </div>
-      <table id="t1">
-        <thead>
-          <tr><th>Produk Halal</th><th>Januari</th><th>Februari</th><th>Maret</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Minuman</td><td>120</td><td>140</td><td>135</td></tr>
-          <tr><td>Makanan</td><td>200</td><td>210</td><td>220</td></tr>
-          <tr><td>Snack</td><td>90</td><td>100</td><td>110</td></tr>
-          <tr><td>Frozen Food</td><td>150</td><td>160</td><td>155</td></tr>
-        </tbody>
-      </table>
-      <details><summary>Langkah Excel</summary>
+        <details><summary>Langkah Excel</summary>
         <ol>
-          <li>Blok data → <strong>Insert &gt; Column/Bar &gt; Clustered Column</strong>.</li>
-          <li>Atur <em>Chart Title</em> &amp; <em>Data Labels</em> bila perlu.</li>
-          <li>Gunakan <em>Switch Row/Column</em> jika sumbu terbalik.</li>
+          <li>Blok data → <strong>Right click &gt; Quick analysis </strong>.</li>
         </ol>
       </details>
     </section>
