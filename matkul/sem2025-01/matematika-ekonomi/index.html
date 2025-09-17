@@ -389,7 +389,24 @@ graph TB
 											<div class="section-title">
 													<h2>Pertemuan 3</h2>
 											</div>
+<div class="mermaid text-center">
+graph TB
+  A("Persamaan Tak Linier")
+  B("Persamaan Kuadrat <br> $ax^2+bx+c$")
+  D("Persamaan Logaritma <br> $\log_a x$")
+  C("Persamaan Eksponen <br> $a^x$")
+  A-->B
+  A-->C 
+  A-->D
+  B-->komponen1
+  C --> a1("$a$")
+  D --> a2("$a$")
+  
+  subgraph komponen1
+  a("$a$") -.- b("$b$") -.- c("$c$")
+  end
 
+</div>
 
     <div class="container mt-5">
         <div class="accordion" id="accordionp3">
