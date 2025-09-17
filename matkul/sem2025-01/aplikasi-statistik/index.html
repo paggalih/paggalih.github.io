@@ -657,8 +657,13 @@
             <p>Sebuah perusahaan sekuritas syariah mengeluarkan produk Sukuk Ritel baru. Setelah sesi sosialisasi, perusahaan melakukan survei untuk mengukur tingkat pemahaman nasabah dengan skala: 1 (Sangat Tidak Paham), 2 (Kurang Paham), 3 (Cukup Paham), 4 (Paham), 5 (Sangat Paham).</p>
             
             <h3>Data Hasil Survei dari 11 Nasabah:</h3>
-            <p><code>4, 5, 3, 4, 4, 2, 5, 4, 3, 5, 4</code></p>
-            
+        <div class="tools">
+          <button class="btn" onclick="copyList('d1p3')">Salin Data</button>
+          <button class="btn" onclick="downloadListCSV('d1p3','kasus1.csv','Tingkat Pemahaman')">Unduh CSV</button>
+        </div>
+      </div>
+      <div id="d1p3" class="card">4, 5, 3, 4, 4, 2, 5, 4, 3, 5, 4</div>
+      
             <ol>
                 <li>Hitunglah <strong>Mean</strong>, <strong>Median</strong>, dan <strong>Mode</strong> dari data tingkat pemahaman tersebut.</li>
                 <li>Manakah ukuran yang paling tepat untuk digunakan dalam laporan evaluasi efektivitas sosialisasi produk? Jelaskan mengapa.</li>
@@ -673,194 +678,148 @@
     </section>
 
     <!-- KASUS 2 -->
-    <section id="kasus2">
-      <div class="head">
-        <h2>2) Komposisi Sumber Pendapatan UMKM Syariah <span class="pill">Pie</span></h2>
+    <section id="kasus2p3">
+        <div class="case-study">
+            <h2>Jumlah Hafalan Ayat Karyawan Bank Syariah</h2>
+            <h3>Konteks:</h3>
+            <p>Dalam rangka program peningkatan spiritualitas perusahaan, sebuah bank syariah mengadakan program "One Day One Ayat". Manajemen ingin melihat rata-rata jumlah hafalan ayat baru per minggu dari 10 karyawan di divisi <em>frontliner</em>.</p>
+            
+            <h3>Data Jumlah Hafalan Ayat Baru per Minggu:</h3>
         <div class="tools">
-          <button class="btn" onclick="copyTable('t2')">Salin Tabel</button>
-          <button class="btn" onclick="downloadCSV('t2','kasus2_sumber_pendapatan_umkm.csv')">Unduh CSV</button>
+          <button class="btn" onclick="copyList('d2p3')">Salin Data</button>
+          <button class="btn" onclick="downloadListCSV('d2p3','kasus2.csv','Hafalan Ayat')">Unduh CSV</button>
         </div>
       </div>
-      <table id="t2">
-        <thead>
-          <tr><th>Sumber Pendapatan</th><th>Jumlah (Rp Juta)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Penjualan Offline</td><td>250</td></tr>
-          <tr><td>Penjualan Online</td><td>200</td></tr>
-          <tr><td>Reseller</td><td>150</td></tr>
-          <tr><td>Jasa Kemitraan</td><td>100</td></tr>
-        </tbody>
-      </table>
+      <div id="d2p3" class="card">5, 6, 5, 7, 6, 5, 7, 5, 6, 5</div>
+ 
+            <ol>
+                <li>Hitunglah <strong>Mean</strong>, <strong>Median</strong>, dan <strong>Mode</strong> dari data hafalan.</li>
+                <li>Bandingkan ketiga hasil tersebut. Apa yang dapat Anda simpulkan tentang konsistensi partisipasi karyawan dalam program ini?</li>
+            </ol>
+            
+        </div>
       <details><summary>Langkah Excel</summary>
         <ol>
-          <li>Blok data → <strong>Insert &gt; Pie &gt; 2-D Pie</strong>.</li>
-          <li>Klik kanan seri → <em>Add Data Labels</em> &amp; ubah jadi <em>Percentage</em>.</li>
-          <li>Pastikan total data masuk akal (komposisi dari total).</li>
+          <li>Blok data → <strong>Right click &gt; Quick analysis </strong>.</li>
         </ol>
       </details>
     </section>
 
     <!-- KASUS 3 -->
-    <section id="kasus3">
-      <div class="head">
-        <h2>3) Distribusi Laba Bersih UMKM (per Bulan) <span class="pill">Histogram</span></h2>
+    <section id="kasus3p3">
+        <div class="case-study">
+            <h2>Pilihan Akad Pembiayaan di BMT</h2>
+            <h3>Konteks:</h3>
+            <p>Sebuah Baitul Maal wat Tamwil (BMT) ingin mengetahui akad pembiayaan apa yang paling diminati oleh anggotanya untuk modal usaha. Manajer BMT menganalisis data 20 transaksi pembiayaan terakhir.</p>
+            
+            <h3>Data Akad Pembiayaan yang Dipilih:</h3>
         <div class="tools">
-          <button class="btn" onclick="copyList('d3')">Salin Data</button>
-          <button class="btn" onclick="downloadListCSV('d3','kasus3_laba_umkm.csv','Laba (Rp Juta)')">Unduh CSV</button>
+          <button class="btn" onclick="copyList('d3p3')">Salin Data</button>
+          <button class="btn" onclick="downloadListCSV('d3p3','kasus3.csv','Pembiayaan Terpilih')">Unduh CSV</button>
         </div>
       </div>
-      <div id="d3" class="card">8, 10, 15, 12, 9, 14, 16, 11, 18, 20, 22, 13, 17, 19, 21</div>
-      <details><summary>Langkah Excel</summary>
+      <div id="d3p3" class="card">Murabahah, Mudharabah, Musyarakah, Murabahah, Murabahah, Ijarah, Mudharabah, Murabahah, Musyarakah, Murabahah, Ijarah, Mudharabah, Murabahah, Murabahah, Musyarakah, Murabahah, Mudharabah, Ijarah, Murabahah, Murabahah</div>
+      
+            <ol>
+                <li>Masukkan data jenis akad ke dalam Excel.</li>
+                <li>Dapatkah Anda menghitung Mean atau Median dari data ini? Mengapa tidak?</li>
+                <li>Ukuran manakah yang paling relevan untuk membantu BMT dalam merencanakan alokasi sumber daya dan pelatihan staf untuk produk pembiayaan di masa depan? Tentukan akad yang paling diminati.</li>
+            </ol>
+            
+        </div>
+        <details><summary>Langkah Excel</summary>
         <ol>
-          <li>Tempelkan angka di satu kolom.</li>
-          <li><strong>Insert &gt; Statistic Chart &gt; Histogram</strong>.</li>
-          <li>Atur <em>Bin Width</em> ≈ 5 (mis. 5–9, 10–14, 15–19, dst).</li>
+          <li>Blok data → <strong>Right click &gt; Quick analysis </strong>.</li>
+
         </ol>
       </details>
     </section>
 
     <!-- KASUS 4 -->
-    <section id="kasus4">
-      <div class="head">
-        <h2>4) Modal Awal vs Laba UMKM Halal <span class="pill">Scatter</span></h2>
+    <section id="kasus4p3">
+            <h2>Rating Produk Makanan Halal Baru</h2>
+            <h3>Konteks:</h3>
+            <p>Sebuah perusahaan makanan meluncurkan produk baru: "Rendang Vegan" yang menargetkan pasar Muslim modern dan vegetarian. Untuk memastikan produk diterima, perusahaan melakukan tes rasa kepada 12 calon konsumen. Responsnya ternyata terpolarisasi.</p>
+            
+            <h3>Data Rating Rasa (Skala 1-10):</h3>
         <div class="tools">
-          <button class="btn" onclick="copyTable('t4')">Salin Tabel</button>
-          <button class="btn" onclick="downloadCSV('t4','kasus4_modal_vs_laba.csv')">Unduh CSV</button>
+          <button class="btn" onclick="copyList('d4p3')">Salin Data</button>
+          <button class="btn" onclick="downloadListCSV('d4p3','kasus4.csv','Rating Rasa')">Unduh CSV</button>
         </div>
       </div>
-      <table id="t4">
-        <thead>
-          <tr><th>Modal Awal (Rp Juta)</th><th>Laba (Rp Juta)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>10</td><td>2</td></tr>
-          <tr><td>20</td><td>5</td></tr>
-          <tr><td>30</td><td>7</td></tr>
-          <tr><td>40</td><td>9</td></tr>
-          <tr><td>50</td><td>12</td></tr>
-          <tr><td>60</td><td>15</td></tr>
-          <tr><td>70</td><td>18</td></tr>
-        </tbody>
-      </table>
+      <div id="d4p3" class="card">2, 9, 10, 1, 3, 8, 9, 2, 10, 1, 9, 2</div>
+      
+            <h3>Tugas untuk Mahasiswa:</h3>
+            <ol>
+                <li>Hitunglah <strong>Mean</strong>, <strong>Median</strong>, dan <strong>Mode</strong> dari data rating.</li>
+                <li>Apakah Mean atau Median dapat menangkap dinamika pasar yang sebenarnya?</li>
+                <li>Ukuran manakah yang paling membantu manajer produk dalam merumuskan strategi pemasaran syariah selanjutnya?</li>
+            </ol>
       <details><summary>Langkah Excel</summary>
         <ol>
-          <li>Blok dua kolom (X=Modal, Y=Laba) → <strong>Insert &gt; Scatter</strong>.</li>
-          <li>Tambahkan <em>Trendline</em> untuk melihat kecenderungan.</li>
-          <li>Tampilkan persamaan garis untuk diskusi elastisitas sederhana.</li>
+          <li>Blok data → <strong>Right click &gt; Quick analysis </strong>.</li>
+
         </ol>
       </details>
     </section>
 
     <!-- KASUS 5 -->
-    <section id="kasus5">
-      <div class="head">
-        <h2>5) Jumlah Mahasiswa per Konsentrasi (MBS) <span class="pill">Bar Horizontal</span></h2>
+    <section id="kasus5p3">
+            <h2>Pendapatan Usaha Mikro Binaan Bank Syariah </h2>
+            <h3>Konteks:</h3>
+            <p>Sebuah Bank Wakaf Mikro memberikan pembiayaan kepada 10 pelaku usaha mikro di sebuah sentra kerajinan. Bank ingin menganalisis dampak pembiayaan tersebut terhadap pendapatan bulanan mereka. Namun, satu usaha (sebuah galeri seni Islami) mengalami lonjakan pendapatan yang sangat signifikan karena pesanan ekspor.</p>
+            
+            <h3>Data Pendapatan Bulanan (dalam Juta Rupiah):</h3>
         <div class="tools">
-          <button class="btn" onclick="copyTable('t5')">Salin Tabel</button>
-          <button class="btn" onclick="downloadCSV('t5','kasus5_mahasiswa_konsentrasi.csv')">Unduh CSV</button>
+          <button class="btn" onclick="copyList('d5p3')">Salin Data</button>
+          <button class="btn" onclick="downloadListCSV('d5p3','kasus5.csv','Pendapatan Bulanan')">Unduh CSV</button>
         </div>
       </div>
-      <table id="t5">
-        <thead>
-          <tr><th>Konsentrasi</th><th>Jumlah Mahasiswa</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Manajemen Keuangan</td><td>120</td></tr>
-          <tr><td>Manajemen SDM</td><td>95</td></tr>
-          <tr><td>Manajemen Pemasaran</td><td>110</td></tr>
-          <tr><td>Kewirausahaan</td><td>80</td></tr>
-        </tbody>
-      </table>
+      <div id="d5p3" class="card">3.5, 4, 3.8, 3, 4.2, 4.5, 3.5, 3, 4.1, 25</div>
+      
+            <h3>Tugas untuk Mahasiswa:</h3>
+            <ol>
+                <li>Hitunglah <strong>Mean</strong>, <strong>Median</strong>, dan <strong>Mode</strong> dari data pendapatan tersebut.</li>
+                <li>Bandingkan nilai Mean dan Median. Jika Anda adalah analis bank syariah yang bertugas melaporkan keberhasilan program pembinaan secara umum, manakah yang akan Anda gunakan untuk memberikan gambaran yang lebih jujur dan tidak berlebihan (<em>gharar</em>)?</li>
+            </ol>
       <details><summary>Langkah Excel</summary>
         <ol>
-          <li>Blok data → <strong>Insert &gt; Bar Chart (Horizontal)</strong>.</li>
-          <li>Urutkan dari terbesar ke terkecil untuk insight visual.</li>
-          <li>Tambahkan label data agar langsung terbaca.</li>
+          <li>Blok data → <strong>Right click &gt; Quick analysis </strong>.</li>
+
         </ol>
       </details>
     </section>
 
     <!-- KASUS 6 -->
-    <section id="kasus6">
-      <div class="head">
-        <h2>6) Distribusi Investasi Syariah <span class="pill">Pie</span></h2>
+    <section id="kasus6p3">
+           <h2>Jumlah Donasi Zakat Infak Sedekah (ZIS) Harian </h2>
+            <h3>Konteks:</h3>
+            <p>Sebuah Lembaga Amil Zakat (LAZ) "Berkah Umat" ingin mengevaluasi performa pengumpulan dana ZIS harian melalui platform digital mereka selama 15 hari terakhir di bulan Ramadhan. Data ini akan digunakan untuk laporan pertanggungjawaban kepada donatur (muzakki).</p>
+            
+            <h3>Data Donasi Harian (dalam Juta Rupiah):</h3>
         <div class="tools">
-          <button class="btn" onclick="copyTable('t6')">Salin Tabel</button>
-          <button class="btn" onclick="downloadCSV('t6','kasus6_distribusi_investasi_syariah.csv')">Unduh CSV</button>
+          <button class="btn" onclick="copyList('d6p3')">Salin Data</button>
+          <button class="btn" onclick="downloadListCSV('d6p3','kasus6.csv','Donasi')">Unduh CSV</button>
         </div>
       </div>
-      <table id="t6">
-        <thead>
-          <tr><th>Jenis Investasi Syariah</th><th>Persentase (%)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>Sukuk</td><td>35</td></tr>
-          <tr><td>Saham Syariah</td><td>30</td></tr>
-          <tr><td>Reksadana Syariah</td><td>20</td></tr>
-          <tr><td>Deposito Syariah</td><td>15</td></tr>
-        </tbody>
-      </table>
+      <div id="d6p3" class="card">15, 17, 14, 18, 16, 14.5, 15.5, 15, 19, 16.5, 14, 16, 17.5, 15.5, 16</div>
+      
+            <h3>Tugas untuk Mahasiswa:</h3>
+            <ol>
+                <li>Masukkan data donasi harian ke dalam satu kolom di Excel.</li>
+                <li>Hitunglah <strong>Mean</strong>, <strong>Median</strong>, dan <strong>Mode</strong> dari kumpulan data tersebut.</li>
+                <li>Menurut Anda, ukuran manakah yang paling baik untuk melaporkan "rata-rata" pengumpulan dana harian kepada para pemangku kepentingan (stakeholders)? Jelaskan mengapa.</li>
+            </ol>
+            
       <details><summary>Langkah Excel</summary>
         <ol>
-          <li>Blok kategori dan persentase → <strong>Insert &gt; Pie</strong>.</li>
-          <li>Gunakan <em>Data Callout</em> untuk menampilkan persentase + kategori.</li>
-          <li>Pastikan total ≈ 100% (boleh ada pembulatan).</li>
+          <li>Blok data → <strong>Right click &gt; Quick analysis </strong>.</li>
+
         </ol>
       </details>
     </section>
 
-    <!-- KASUS 7 -->
-    <section id="kasus7">
-      <div class="head">
-        <h2>7) Usia Nasabah Bank Syariah <span class="pill">Histogram</span></h2>
-        <div class="tools">
-          <button class="btn" onclick="copyList('d7')">Salin Data</button>
-          <button class="btn" onclick="downloadListCSV('d7','kasus7_usia_nasabah.csv','Usia')">Unduh CSV</button>
-        </div>
-      </div>
-      <div id="d7" class="card">20, 22, 23, 25, 27, 28, 30, 32, 33, 35, 37, 38, 40, 41, 45, 46, 48</div>
-      <details><summary>Langkah Excel</summary>
-        <ol>
-          <li>Tempelkan usia dalam satu kolom.</li>
-          <li><strong>Insert &gt; Statistic Chart &gt; Histogram</strong>.</li>
-          <li>Set <em>Bin Width</em> ≈ 5 tahun (20–24, 25–29, 30–34, dst).</li>
-        </ol>
-      </details>
-    </section>
-
-    <!-- KASUS 8 -->
-    <section id="kasus8">
-      <div class="head">
-        <h2>8) Harga Produk vs Jumlah Penjualan (Bisnis Syariah) <span class="pill">Scatter</span></h2>
-        <div class="tools">
-          <button class="btn" onclick="copyTable('t8')">Salin Tabel</button>
-          <button class="btn" onclick="downloadCSV('t8','kasus8_harga_vs_penjualan.csv')">Unduh CSV</button>
-        </div>
-      </div>
-      <table id="t8">
-        <thead>
-          <tr><th>Harga (Rp Ribu)</th><th>Penjualan (Unit)</th></tr>
-        </thead>
-        <tbody>
-          <tr><td>10</td><td>500</td></tr>
-          <tr><td>15</td><td>450</td></tr>
-          <tr><td>20</td><td>420</td></tr>
-          <tr><td>25</td><td>350</td></tr>
-          <tr><td>30</td><td>300</td></tr>
-          <tr><td>35</td><td>250</td></tr>
-          <tr><td>40</td><td>200</td></tr>
-        </tbody>
-      </table>
-      <details><summary>Langkah Excel</summary>
-        <ol>
-          <li>Blok dua kolom (X=Harga, Y=Penjualan) → <strong>Insert &gt; Scatter</strong>.</li>
-          <li>Tambahkan <em>Trendline</em> dan tampilkan persamaan.</li>
-          <li>Diskusikan hubungan negatif harga-penjualan (hukum permintaan).</li>
-        </ol>
-      </details>
-    </section>
-
+   
   </div>
     <div class="container mt-5">
         <div class="accordion" id="accordionp3">
