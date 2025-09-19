@@ -21,13 +21,11 @@
 					
 <!-- DataTables CSS & JS -->
 <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" />
-  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" />
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" >
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" >
 <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-
-
 
 	<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
 
@@ -599,9 +597,6 @@
     });
   </script>
 
-  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-  <script src="https://cdn.datatables.net/1.13.8/js/jquery.dataTables.min.js"></script>
-  <script src="https://cdn.datatables.net/responsive/2.5.0/js/dataTables.responsive.min.js"></script>
   <script>
     let dt1=null, dt2=null;
 
@@ -690,7 +685,53 @@
 													<h2>Pertemuan 3</h2>
 											</div>
 
+<a class="actions" href="matkul/sem2025-01/ekonometrika/Data_Regresi_UTS.csv"><button>Unduh CSV </button></a>
+<div class="overflow-auto" id="tabel-UTS"></div>
+<script>
+fetch('Data_Regresi_UTS.csv')
+  .then(res => res.text())
+  .then(csv => {
+    const rows = csv.trim().split('\n').map(row => row.split(','));
 
+    if (rows.length === 0) return;
+
+    // Ambil baris pertama sebagai header
+    const headers = rows[0];
+    const dataRows = rows.slice(1);
+
+    let html = `<table class="table table-striped text-center" id="datatable-UTS">`;
+
+    // Buat bagian thead
+    html += '<thead><tr>';
+    headers.forEach(header => {
+      html += `<th>${header}</th>`;
+    });
+    html += '</tr></thead>';
+
+    // Buat bagian tbody
+    html += '<tbody>';
+    dataRows.forEach(row => {
+      html += '<tr>';
+      row.forEach(cell => {
+        html += `<td>${cell}</td>`;
+      });
+      html += '</tr>';
+    });
+    html += '</tbody>';
+
+    html += '</table>';
+    document.getElementById("tabel-UTS").innerHTML = html;
+		
+    // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+    $(document).ready(function () {
+      $('#datatable-UTS').DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true
+      });
+    });
+		});
+</script>
     <div class="container mt-5">
         <div class="accordion" id="accordionp3">
             
