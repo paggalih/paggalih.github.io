@@ -45,6 +45,10 @@
       </script>
       <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
       <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+     <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+     </script>
       <style>
          @media (min-width: 991px) {
          #matkul_icon {
@@ -459,6 +463,13 @@
             <div class="container aos-init aos-animate" data-aos="fade-up">
                <div class="section-title">
                   <h2>Pertemuan 2</h2>
+               </div>
+
+               <div class="mermaid text-center">
+                  graph TD
+                  A[Anggap populasi berdistribusi normal] --> B{Apakah simpangan baku diketahui?}
+                  B -- Tidak --> C[Gunakan distribusi t]
+                  B -- Ya --> D[Gunakan distribusi z]
                </div>
                <div class="container">
                   <h3>Bab 2: Functional Forms of Regression Models</h3>
@@ -1407,16 +1418,7 @@
                <div class="section-title">
                   <h2>Pertemuan 11</h2>
                </div>
-               <script type="module">
-                  import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-                  mermaid.initialize({ startOnLoad: true });
-               </script>
-               <div class="mermaid text-center">
-                  graph TD
-                  A[Anggap populasi berdistribusi normal] --> B{Apakah simpangan baku diketahui?}
-                  B -- Tidak --> C[Gunakan distribusi t]
-                  B -- Ya --> D[Gunakan distribusi z]
-               </div>
+
                <div class="container mt-5">
                   <div class="accordion" id="accordionp11">
                      <div class="accordion-item">
