@@ -467,9 +467,13 @@
 
                <div class="mermaid text-center">
                   graph TD
-                  A[Anggap populasi berdistribusi normal] --> B{Apakah simpangan baku diketahui?}
-                  B -- Tidak --> C[Gunakan distribusi t]
-                  B -- Ya --> D[Gunakan distribusi z]
+                  A("Model Regresi Linier")
+                  B("$Y=B_1+B_2X_2+B_3X_3+\cdots +B_kX_k$")
+                  C("$ Y,X_2,X_3,cdots,X_k$")
+                  D("Skala Variabel")
+                  E("Tipe Data")
+                  
+                  A --> B
                </div>
                <div class="container">
                   <h3>Bab 2: Functional Forms of Regression Models</h3>
