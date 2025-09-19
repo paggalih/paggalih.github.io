@@ -469,11 +469,26 @@
                   graph TD
                   A("Model Regresi Linier")
                   B("$Y=B_1+B_2X_2+B_3X_3+\cdots +B_kX_k$")
-                  C("$ Y,X_2,X_3,cdots,X_k$")
+                  C("$ Y,X_2,X_3,\cdots,X_k$")
                   D("Skala Variabel")
+                  D1("Skala Rasio")
+                  D2("Skala Interval")
+                  D3("Skala Ordinal")
+                  D4("Skala Nominal")
                   E("Tipe Data")
+                  E1("Time Series")
+                  E2("Cross Section")
+                  E3("Panel")
                   
-                  A --> B
+                  A --> B --> C --> D 
+                  D --> D1
+                  D --> D2 
+                  D --> D3 
+                  D --> D4
+                  C --> E 
+                  E --> E1
+                  E --> E2 
+                  E --> E3
                </div>
                <div class="container">
                   <h3>Bab 2: Functional Forms of Regression Models</h3>
