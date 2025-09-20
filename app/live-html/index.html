@@ -18,7 +18,7 @@
             background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
             min-height: 100vh;
             padding: 20px;
-            overflow: hidden;
+            overflow: auto;
         }
         
         .container {
@@ -28,28 +28,24 @@
             border-radius: 12px;
             box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             overflow: hidden;
-            height: calc(100vh - 40px);
-            display: flex;
-            flex-direction: column;
         }
         
         header {
             background: linear-gradient(to right, #4CAF50, #2E8B57);
             color: white;
-            padding: 15px 25px;
+            padding: 25px;
             text-align: center;
             position: relative;
-            flex-shrink: 0;
         }
         
         h1 {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 32px;
+            margin-bottom: 10px;
             text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
         }
         
         .description {
-            font-size: 14px;
+            font-size: 16px;
             opacity: 0.9;
             max-width: 800px;
             margin: 0 auto;
@@ -58,25 +54,24 @@
         .controls {
             display: flex;
             justify-content: center;
-            gap: 10px;
-            padding: 12px;
+            gap: 15px;
+            padding: 15px;
             background-color: #f9f9f9;
             border-bottom: 1px solid #eee;
             flex-wrap: wrap;
-            flex-shrink: 0;
         }
         
         .btn {
-            padding: 8px 16px;
+            padding: 10px 20px;
             background-color: #4CAF50;
             color: white;
             border: none;
             border-radius: 6px;
             cursor: pointer;
-            font-size: 14px;
+            font-size: 15px;
             display: flex;
             align-items: center;
-            gap: 6px;
+            gap: 8px;
             transition: all 0.3s ease;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
@@ -87,11 +82,14 @@
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
         }
         
+        .btn i {
+            font-size: 16px;
+        }
+        
         .editor-container {
             display: flex;
             flex-direction: column;
-            flex-grow: 1;
-            overflow: hidden;
+            height: 70vh;
         }
         
         @media (min-width: 992px) {
@@ -102,11 +100,10 @@
         
         .code-panel, .preview-panel {
             flex: 1;
-            padding: 15px;
+            padding: 20px;
             border: 1px solid #e0e0e0;
             display: flex;
             flex-direction: column;
-            overflow: hidden;
         }
         
         .code-panel {
@@ -116,17 +113,17 @@
         
         .preview-panel {
             background-color: white;
+            overflow: auto;
         }
         
         .panel-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 12px;
-            padding-bottom: 8px;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
             color: white;
-            flex-shrink: 0;
         }
         
         .preview-panel .panel-header {
@@ -139,12 +136,11 @@
             display: flex;
             align-items: center;
             gap: 8px;
-            font-size: 16px;
         }
         
         textarea {
             width: 100%;
-            flex-grow: 1;
+            height: 100%;
             padding: 15px;
             border: 1px solid #444;
             border-radius: 6px;
@@ -157,7 +153,6 @@
             line-height: 1.5;
             tab-size: 4;
             -moz-tab-size: 4;
-            overflow: auto;
         }
         
         textarea:focus {
@@ -167,7 +162,7 @@
         
         #preview {
             width: 100%;
-            flex-grow: 1;
+            height: 100%;
             padding: 15px;
             border: 1px solid #ddd;
             border-radius: 6px;
@@ -180,31 +175,29 @@
         }
         
         .instructions {
-            padding: 15px;
+            padding: 20px;
             background-color: #f9f9f9;
             border-top: 1px solid #eee;
-            font-size: 13px;
-            flex-shrink: 0;
+            font-size: 14px;
         }
         
         .instructions h3 {
-            margin-bottom: 8px;
+            margin-bottom: 10px;
             color: #4CAF50;
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 16px;
+            gap: 10px;
         }
         
         .instructions ul {
             padding-left: 20px;
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 8px;
+            gap: 10px;
         }
         
         .instructions li {
-            margin-bottom: 6px;
+            margin-bottom: 8px;
             padding-left: 5px;
         }
         
@@ -212,12 +205,12 @@
             position: fixed;
             top: 0;
             left: 0;
-            width: 100vw;
-            height: 100vh;
+            width: 100%;
+            height: 100%;
             z-index: 1000;
             margin: 0;
             border-radius: 0;
-            padding: 0;
+            overflow: hidden;
         }
         
         .fullscreen-mode header,
@@ -238,14 +231,33 @@
         
         .fullscreen-btn {
             position: absolute;
-            top: 15px;
-            right: 15px;
+            top: 20px;
+            right: 20px;
             background: rgba(255, 255, 255, 0.2);
             border: 1px solid rgba(255, 255, 255, 0.4);
         }
         
         .fullscreen-btn:hover {
             background: rgba(255, 255, 255, 0.3);
+        }
+        
+        .escape-hint {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            z-index: 1001;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+        
+        .escape-hint.show {
+            opacity: 1;
         }
         
         /* Responsive adjustments */
@@ -263,26 +275,6 @@
             .instructions ul {
                 grid-template-columns: 1fr;
             }
-            
-            body {
-                padding: 10px;
-            }
-            
-            .container {
-                height: calc(100vh - 20px);
-            }
-        }
-        
-        @media (min-width: 1200px) {
-            .container {
-                max-width: 100%;
-                border-radius: 0;
-                height: 100vh;
-            }
-            
-            body {
-                padding: 0;
-            }
         }
     </style>
 </head>
@@ -292,22 +284,22 @@
             <h1>Live HTML Editor</h1>
             <p class="description">Edit kode HTML dan lihat perubahan secara real-time. Anda juga dapat mengedit langsung pada preview!</p>
             <button id="fullscreen-btn" class="btn fullscreen-btn">
-                ⛶ Fullscreen
+                <i>⛶</i> Fullscreen
             </button>
         </header>
         
         <div class="controls">
             <button id="clear-btn" class="btn">
-                🗑️ Bersihkan Kode
+                <i>🗑️</i> Bersihkan Kode
             </button>
             <button id="edit-toggle" class="btn">
-                ✏️ <span id="edit-status">Edit Preview</span>
+                <i>✏️</i> <span id="edit-status">Edit Preview</span>
             </button>
             <button id="format-btn" class="btn">
-                🔧 Format Kode
+                <i>🔧</i> Format Kode
             </button>
             <button id="example-btn" class="btn">
-                🌄 Contoh HTML
+                <i>🌄</i> Contoh HTML
             </button>
         </div>
         
@@ -315,7 +307,7 @@
             <div class="code-panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        📝 Kode HTML
+                        <i>📝</i> Kode HTML
                     </div>
                     <div class="code-stats">
                         <span id="line-count">0</span> baris
@@ -386,7 +378,7 @@
             <div class="preview-panel">
                 <div class="panel-header">
                     <div class="panel-title">
-                        👁️ Preview
+                        <i>👁️</i> Preview
                     </div>
                     <div class="preview-info">
                         Mode: <span id="preview-mode">View Only</span>
@@ -398,18 +390,21 @@
         
         <div class="instructions">
             <h3>
-                💡 Cara Penggunaan:
+                <i>💡</i> Cara Penggunaan:
             </h3>
             <ul>
                 <li>Edit kode HTML di panel kiri untuk melihat perubahan langsung di preview</li>
                 <li>Klik tombol "Edit Preview" untuk mengaktifkan editing langsung pada preview</li>
                 <li>Perubahan pada preview akan langsung tercermin pada kode HTML</li>
                 <li>Gunakan tombol "Fullscreen" untuk mode layar penuh</li>
+                <li>Tekan Escape untuk keluar dari mode fullscreen</li>
                 <li>Gunakan tombol "Bersihkan Kode" untuk menghapus semua kode</li>
                 <li>Tombol "Format Kode" akan merapikan indentasi kode HTML Anda</li>
             </ul>
         </div>
     </div>
+
+    <div class="escape-hint" id="escape-hint">Tekan Escape untuk keluar dari mode fullscreen</div>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -424,6 +419,7 @@
             const fullscreenBtn = document.getElementById('fullscreen-btn');
             const mainContainer = document.getElementById('main-container');
             const lineCount = document.getElementById('line-count');
+            const escapeHint = document.getElementById('escape-hint');
             
             let isEditingPreview = false;
             let isFullscreen = false;
@@ -461,11 +457,17 @@
                 
                 if (isFullscreen) {
                     mainContainer.classList.add('fullscreen-mode');
-                    fullscreenBtn.textContent = '❌ Keluar Fullscreen';
+                    fullscreenBtn.innerHTML = '<i>❌</i> Keluar Fullscreen';
                     document.body.style.overflow = 'hidden';
+                    
+                    // Tampilkan petunjuk escape
+                    escapeHint.classList.add('show');
+                    setTimeout(() => {
+                        escapeHint.classList.remove('show');
+                    }, 3000);
                 } else {
                     mainContainer.classList.remove('fullscreen-mode');
-                    fullscreenBtn.textContent = '⛶ Fullscreen';
+                    fullscreenBtn.innerHTML = '<i>⛶</i> Fullscreen';
                     document.body.style.overflow = 'auto';
                 }
             }
@@ -586,6 +588,13 @@
             
             // Event listener untuk tombol fullscreen
             fullscreenBtn.addEventListener('click', toggleFullscreen);
+            
+            // Event listener untuk tombol Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && isFullscreen) {
+                    toggleFullscreen();
+                }
+            });
             
             // Deteksi layar lebar dan otomatis masuk fullscreen
             function checkScreenSize() {
