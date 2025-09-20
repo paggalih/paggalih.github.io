@@ -360,7 +360,9 @@
             { name: 'Mermaid JS', url: 'https://mermaid.js.org' },
             { name: 'UpMath', url: 'https://i.upmath.me' },
             { name: 'Bootstrap', url: 'https://getbootstrap.com' },
-            { name: 'MathJax', url: 'https://www.mathjax.org' }
+            { name: 'MathJax', url: 'https://www.mathjax.org' },
+			{ name: 'ChatGPT', url: 'https://chatgpt.com' },
+			{ name: 'Deepseek', url: 'https://deepseek.com' },
         ];
         
         creditItems.forEach(item => {
@@ -607,3 +609,4 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
