@@ -1,6 +1,6 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
+
+
+
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Live HTML Editor</title>
@@ -312,8 +312,8 @@
             }
         }
     </style>
-</head>
-<body>
+
+
     <div class="container" id="main-container">
         <header>
             <h1>Live HTML Editor</h1>
@@ -330,9 +330,7 @@
             <button id="edit-toggle" class="btn">
                 <i>✏️</i> <span id="edit-status">Edit Preview</span>
             </button>
-            <button id="format-btn" class="btn">
-                <i>🔧</i> Format Kode
-            </button>
+
             <button id="example-btn" class="btn">
                 <i>🌄</i> Contoh HTML
             </button>
@@ -348,11 +346,11 @@
                         <span id="line-count">0</span> baris
                     </div>
                 </div>
-                <textarea id="html-code" placeholder="Ketik kode HTML di sini..."><!DOCTYPE html>
-<html>
-<head>
-    <title>Contoh Halaman</title>
-    <style>
+                <textarea id="html-code" placeholder="Ketik kode HTML di sini...">&lt;!DOCTYPE html&gt;
+&lt;html&gt;
+&lt;head&gt;
+    &lt;title&gt;Contoh Halaman&lt;/title&gt;
+    &lt;style&gt;
         body {
             font-family: Arial, sans-serif;
             margin: 40px;
@@ -385,29 +383,29 @@
             border-radius: 3px;
             font-family: monospace;
         }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Selamat Datang di HTML Editor</h1>
-        <p>Ini adalah contoh halaman HTML. Coba edit konten ini baik di editor kode maupun langsung pada preview.</p>
+    &lt;/style&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;div class="container"&gt;
+        &lt;h1&gt;Selamat Datang di HTML Editor&lt;/h1&gt;
+        &lt;p&gt;Ini adalah contoh halaman HTML. Coba edit konten ini baik di editor kode maupun langsung pada preview.&lt;/p&gt;
         
-        <div class="box">
-            <h2>Fitur Editor</h2>
-            <ul>
-                <li>Edit kode HTML dan lihat perubahan langsung</li>
-                <li>Edit langsung pada preview dan kode akan otomatis diperbarui</li>
-                <li>Mode fullscreen untuk layar lebar</li>
-                <li>Cocok untuk belajar HTML dan prototyping</li>
-            </ul>
-        </div>
+        &lt;div class="box"&gt;
+            &lt;h2&gt;Fitur Editor&lt;/h2&gt;
+            &lt;ul&gt;
+                &lt;li&gt;Edit kode HTML dan lihat perubahan langsung&lt;/li&gt;
+                &lt;li&gt;Edit langsung pada preview dan kode akan otomatis diperbarui&lt;/li&gt;
+                &lt;li&gt;Mode fullscreen untuk layar lebar&lt;/li&gt;
+                &lt;li&gt;Cocok untuk belajar HTML dan prototyping&lt;/li&gt;
+            &lt;/ul&gt;
+        &lt;/div&gt;
         
-        <p>Gunakan tag <code>&lt;h1&gt;</code> hingga <code>&lt;h6&gt;</code> untuk heading, <code>&lt;p&gt;</code> untuk paragraf, dan tag HTML lainnya.</p>
+        &lt;p&gt;Gunakan tag &lt;code&gt;&lt;h1&gt;&lt;/code&gt; hingga &lt;code&gt;&lt;h6&gt;&lt;/code&gt; untuk heading, &lt;code&gt;&lt;p&gt;&lt;/code&gt; untuk paragraf, dan tag HTML lainnya.&lt;/p&gt;
         
-        <p>Selamat mencoba!</p>
-    </div>
-</body>
-</html></textarea>
+        &lt;p&gt;Selamat mencoba!&lt;/p&gt;
+    &lt;/div&gt;
+&lt;/body&gt;
+&lt;/html&gt;</textarea>
             </div>
             
             <div class="preview-panel">
@@ -435,9 +433,7 @@
                 <li>Gunakan tombol "Fullscreen" untuk mode layar penuh</li>
                 <li>Gunakan tombol "Keluar" di pojok kanan atas preview untuk keluar fullscreen</li>
                 <li>Tekan Escape untuk keluar dari mode fullscreen</li>
-                <li>Gunakan tombol "Bersihkan Kode" untuk menghapus semua kode</li>
-                <li>Tombol "Format Kode" akan merapikan indentasi kode HTML Anda</li>
-            </ul>
+                <li>Gunakan tombol "Bersihkan Kode" untuk menghapus semua kode</li></ul>
         </div>
     </div>
 
@@ -480,14 +476,6 @@
                 lineCount.textContent = lines;
             }
             
-            // Fungsi untuk memformat kode
-            function formatCode() {
-                let code = htmlCode.value;
-                // Simple formatting - replace multiple spaces with indentation
-                code = code.replace(/ {4}/g, '\t');
-                htmlCode.value = code;
-                updatePreview();
-            }
             
             // Fungsi untuk toggle fullscreen
             function toggleFullscreen() {
@@ -654,5 +642,4 @@
             updateLineCount();
         });
     </script>
-</body>
-</html>
+
