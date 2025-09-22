@@ -357,8 +357,9 @@
         const creditsList = document.createElement('ul');
         
         const creditItems = [
-            { name: 'Mermaid JS', url: 'https://mermaid.js.org' },
-            { name: 'UpMath', url: 'https://i.upmath.me' },
+            { name: 'Mermaid.JS', url: 'https://mermaid.js.org' },
+			{ name: 'Chart.JS', url: 'https://www.chartjs.org/' },
+			{ name: 'UpMath', url: 'https://i.upmath.me' },
             { name: 'Bootstrap', url: 'https://getbootstrap.com' },
             { name: 'MathJax', url: 'https://www.mathjax.org' },
 			{ name: 'ChatGPT', url: 'https://chatgpt.com' },
@@ -609,5 +610,6 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
 
 
