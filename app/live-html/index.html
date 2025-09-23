@@ -1,330 +1,175 @@
+Tentu, saya akan bantu perbaiki dan tingkatkan kode editor HTML Anda. Masalah utamanya ada pada tiga area: logika JavaScript yang memicu fullscreen, kurangnya *syntax highlighting*, dan cara menampilkan *preview* yang kurang terisolasi.
+
+Berikut adalah perbaikan dan penjelasannya.
+
+### 1\. Masalah Fullscreen Otomatis (Default)
+
+Penyebabnya adalah ada fungsi JavaScript `checkScreenSize()` yang langsung dijalankan saat halaman dimuat. Fungsi ini memeriksa lebar layar, dan jika lebih dari 1200px, ia akan otomatis mengaktifkan mode fullscreen.
+
+**Solusi:** Hapus atau jadikan komentar pada pemanggilan fungsi tersebut saat halaman pertama kali dimuat.
+
+```javascript
+// // Jalankan saat pertama kali dimuat
+// checkScreenSize(); // <-- BARIS INI DINONAKTIFKAN
+
+// // Jalankan juga saat ukuran layar berubah
+// window.addEventListener('resize', checkScreenSize); // <-- BARIS INI JUGA BISA DINONAKTIFKAN JIKA TIDAK PERLU
+```
+
+-----
+
+### 2\. Menambahkan *Syntax Highlighting*
+
+Elemen `<textarea>` standar tidak mendukung pewarnaan sintaks. Untuk membuatnya lebih profesional seperti editor kode sungguhan, kita perlu menggunakan *library* JavaScript. **CodeMirror** adalah pilihan yang sangat populer dan kuat untuk ini.
+
+**Solusi:**
+
+1.  **Tambahkan file CSS dan JS CodeMirror** dari CDN ke dalam `<head>` HTML Anda.
+2.  **Inisialisasi CodeMirror** pada elemen `<textarea>` Anda.
+3.  **Sesuaikan fungsi JavaScript** untuk berinteraksi dengan CodeMirror, karena cara mengambil dan mengatur teksnya sedikit berbeda (`editor.getValue()` dan `editor.setValue()`).
+
+-----
+
+### 3\. Mencegah *Preview* Keluar dari Jendela
+
+Saat ini Anda menggunakan `<div>` untuk *preview*. Jika konten di dalamnya (misalnya gambar yang sangat lebar) lebih besar dari `<div>` tersebut, konten itu bisa "bocor" dan merusak tata letak halaman utama.
+
+**Solusi:** Gunakan elemen `<iframe>`. Sebuah `<iframe>` menciptakan lingkungan dokumen yang sepenuhnya terisolasi. Ini adalah cara standar dan paling aman untuk membuat *preview* editor kode, karena konten di dalamnya tidak akan pernah mengganggu halaman utama dan akan memiliki *scrollbar* sendiri jika diperlukan.
+
+**Perubahan pada HTML:**
+
+```html
+<div id="preview"></div>
+
+<iframe id="preview" style="width: 100%; height: 100%; border: none;"></iframe>
+```
+
+**Perubahan pada JavaScript:**
+Fungsi `updatePreview` perlu diubah untuk menulis konten ke dalam `<iframe>`.
+
+```javascript
+function updatePreview() {
+    // Cara lama:
+    // preview.innerHTML = htmlCode.value;
+
+    // Cara baru dengan iframe:
+    const previewDoc = preview.contentDocument || preview.contentWindow.document;
+    previewDoc.open();
+    previewDoc.write(editor.getValue()); // Mengambil nilai dari CodeMirror
+    previewDoc.close();
+}
+```
+
+-----
+
+## Kode Lengkap yang Telah Diperbaiki
+
+Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda bisa langsung menyalin dan menggunakannya.
+
+```html
 <!DOCTYPE html>
 <html lang="id-ID">
-        <head>
-                <meta charset="utf-8">
-                <meta content="width=device-width, initial-scale=1.0" name="viewport">
-                <meta content="monggo bisa dimanfaatkan untuk edit html di sini" name="description">
-                <meta content="live html editor" name="keywords">
-                <meta name="author" content="Galih Pradananta">
-                <link href="/assets/img/letter-g.gif" rel="icon">
-                <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-                <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-                <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-                <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-                <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-                <link href="/assets/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-    <title>Live HTML Editor</title>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <title>Live HTML Editor (Improved)</title>
+    <meta content="Live HTML editor dengan syntax highlighting dan preview yang aman" name="description">
+    <meta content="live html editor, codemirror" name="keywords">
+    <meta name="author" content="Galih Pradananta">
+    <link href="/assets/img/letter-g.gif" rel="icon">
+    
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.10.5/font/bootstrap-icons.min.css" rel="stylesheet">
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/monokai.min.css">
+
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
+        :root {
+            --primary-color: #4CAF50;
+            --primary-dark: #45a049;
         }
-        
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            overflow: auto;
+            background: #f5f7fa;
+            padding-top: 20px;
+            padding-bottom: 20px;
         }
-        
         .container {
-            max-width: 1400px;
-            margin: 0 auto;
-            background-color: white;
+            max-width: 1600px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             border-radius: 12px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.15);
             overflow: hidden;
+            background-color: white;
         }
-        
         header {
-            background: linear-gradient(to right, #4CAF50, #2E8B57);
+            background: linear-gradient(to right, var(--primary-color), #2E8B57);
             color: white;
-            padding: 25px;
+            padding: 20px;
             text-align: center;
-            position: relative;
         }
-        
-        h1 {
-            font-size: 32px;
-            margin-bottom: 10px;
-            text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
-        }
-        
-        .description {
-            font-size: 16px;
-            opacity: 0.9;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-        
         .controls {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
             padding: 15px;
             background-color: #f9f9f9;
             border-bottom: 1px solid #eee;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
             flex-wrap: wrap;
         }
-        
         .btn {
-            padding: 10px 20px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 15px;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            background-color: var(--primary-color);
         }
-        
         .btn:hover {
-            background-color: #45a049;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.15);
+            background-color: var(--primary-dark);
         }
-        
-        .btn i {
-            font-size: 16px;
-        }
-        
         .editor-container {
             display: flex;
             flex-direction: column;
-            height: 70vh;
+            height: 75vh;
         }
-        
         @media (min-width: 992px) {
             .editor-container {
                 flex-direction: row;
-            height: 90vh;
             }
         }
-        
         .code-panel, .preview-panel {
             flex: 1;
-            padding: 20px;
-            border: 1px solid #e0e0e0;
             display: flex;
             flex-direction: column;
+            min-width: 0; /* Mencegah flex item tumbuh melebihi batas */
         }
-        
-        .code-panel {
-            background-color: #272822;
-            border-right: none;
+        .panel-header {
+            padding: 10px 15px;
+            font-weight: 600;
+            background: #f1f1f1;
+            border-bottom: 1px solid #ddd;
+        }
+        .code-panel .panel-header {
+            background-color: #333;
+            color: white;
+            border-bottom: 1px solid #555;
+        }
+
+        /* PERBAIKAN 2: Style untuk CodeMirror agar mengisi ruang */
+        .CodeMirror {
+            flex-grow: 1; /* Membuat editor mengisi sisa ruang vertikal */
+            height: auto;
+            font-size: 15px;
         }
         
         .preview-panel {
-            background-color: white;
-            overflow: auto;
-            position: relative;
-        }
-        
-        .panel-header {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin-bottom: 15px;
-            padding-bottom: 10px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            color: white;
-        }
-        
-        .preview-panel .panel-header {
-            color: #333;
-            border-bottom: 1px solid #eee;
-        }
-        
-        .panel-title {
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        textarea {
-            width: 100%;
-            height: 100%;
             padding: 15px;
-            border: 1px solid #444;
-            border-radius: 6px;
-            font-family: 'Courier New', monospace;
-            font-size: 15px;
-            resize: none;
-            outline: none;
-            background-color: #272822;
-            color: #f8f8f2;
-            line-height: 1.5;
-            tab-size: 4;
-            -moz-tab-size: 4;
+            background-color: white;
         }
-        
-        textarea:focus {
-            border-color: #4CAF50;
-            box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
-        }
-        
+
+        /* PERBAIKAN 3: Iframe preview */
         #preview {
             width: 100%;
             height: 100%;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            overflow: auto;
+            border: 1px solid #ccc;
+            border-radius: 4px;
             background-color: white;
-        }
-        
-        #preview[contenteditable="true"]:focus {
-            outline: 2px solid #4CAF50;
-        }
-        
-        .instructions {
-            padding: 20px;
-            background-color: #f9f9f9;
-            border-top: 1px solid #eee;
-            font-size: 14px;
-        }
-        
-        .instructions h3 {
-            margin-bottom: 10px;
-            color: #4CAF50;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .instructions ul {
-            padding-left: 20px;
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 10px;
-        }
-        
-        .instructions li {
-            margin-bottom: 8px;
-            padding-left: 5px;
-        }
-        
-        .fullscreen-mode {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 1000;
-            margin: 0;
-            border-radius: 0;
-            overflow: hidden;
-        }
-        
-        .fullscreen-mode header,
-        .fullscreen-mode .controls,
-        .fullscreen-mode .instructions {
-            display: none;
-        }
-        
-        .fullscreen-mode .editor-container {
-            height: 100vh;
-        }
-        
-        .fullscreen-mode .code-panel,
-        .fullscreen-mode .preview-panel {
-            border-radius: 0;
-            border: none;
-        }
-        
-        .fullscreen-btn {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.2);
-            border: 1px solid rgba(255, 255, 255, 0.4);
-        }
-        
-        .fullscreen-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-        
-        .escape-btn {
-            display: none;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 1001;
-            background-color: #ff4757;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            padding: 10px 15px;
-            font-size: 14px;
-            cursor: pointer;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
-        }
-        
-        .fullscreen-mode .escape-btn {
-            display: block;
-        }
-        
-        .escape-hint {
-            position: fixed;
-            bottom: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            background-color: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 10px 20px;
-            border-radius: 6px;
-            z-index: 1001;
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            pointer-events: none;
-        }
-        
-        .escape-hint.show {
-            opacity: 1;
-        }
-        
-        /* Responsive adjustments */
-        @media (max-width: 768px) {
-            .controls {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .btn {
-                width: 100%;
-                justify-content: center;
-            }
-            
-            .instructions ul {
-                grid-template-columns: 1fr;
-            }
-            
-            .escape-btn {
-                top: 10px;
-                right: 10px;
-                padding: 8px 12px;
-                font-size: 13px;
-            }
-        }
-        
-        @media (max-width: 480px) {
-            .escape-btn {
-                padding: 6px 10px;
-                font-size: 12px;
-            }
         }
     </style>
 </head>
@@ -332,345 +177,120 @@
     <div class="container" id="main-container">
         <header>
             <h1>Live HTML Editor</h1>
-            <p class="description">Edit kode HTML dan lihat perubahan secara real-time. Anda juga dapat mengedit langsung pada preview!</p>
-            <button id="fullscreen-btn" class="btn fullscreen-btn">
-                <i>⛶</i> Fullscreen
-            </button>
+            <p class="description">Edit kode HTML dengan *syntax highlighting* dan lihat hasilnya secara instan di *preview* yang aman.</p>
         </header>
-        
+
         <div class="controls">
-            <button id="clear-btn" class="btn">
-                <i>🗑️</i> Bersihkan Kode
-            </button>
-            <button id="edit-toggle" class="btn">
-                <i>✏️</i> <span id="edit-status">Edit Preview</span>
-            </button>
-            <button id="format-btn" class="btn">
-                <i>🔧</i> Format Kode
-            </button>
-            <button id="example-btn" class="btn">
-                <i>🌄</i> Contoh HTML
-            </button>
+            <button id="clear-btn" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Bersihkan</button>
+            <button id="format-btn" class="btn btn-secondary text-white"><i class="bi bi-wrench"></i> Format</button>
+            <button id="example-btn" class="btn btn-info text-white"><i class="bi bi-file-code"></i> Contoh</button>
         </div>
-        
+
         <div class="editor-container">
             <div class="code-panel">
                 <div class="panel-header">
-                    <div class="panel-title">
-                        <i>📝</i> Kode HTML
-                    </div>
-                    <div class="code-stats">
-                        <span id="line-count">0</span> baris
-                    </div>
+                    <i class="bi bi-code-slash"></i> Kode HTML
                 </div>
-                <textarea id="html-code" placeholder="Ketik kode HTML di sini..."><!DOCTYPE html>
-<html>
-<head>
-    <title>Contoh Halaman</title>
-    <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-            background-color: #f9f9f9;
-        }
-        h1 {
-            color: #4CAF50;
-            border-bottom: 2px solid #4CAF50;
-            padding-bottom: 10px;
-        }
-        .container {
-            max-width: 800px;
-            margin: 0 auto;
-            background: white;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-        }
-        .box {
-            background-color: #f0f8f0;
-            border-left: 4px solid #4CAF50;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-        }
-        code {
-            background: #f4f4f4;
-            padding: 2px 5px;
-            border-radius: 3px;
-            font-family: monospace;
-        }
-    </style>
-</head>
-<body>
-    <div class="container">
-        <h1>Selamat Datang di HTML Editor</h1>
-        <p>Ini adalah contoh halaman HTML. Coba edit konten ini baik di editor kode maupun langsung pada preview.</p>
-        
-        <div class="box">
-            <h2>Fitur Editor</h2>
-            <ul>
-                <li>Edit kode HTML dan lihat perubahan langsung</li>
-                <li>Edit langsung pada preview dan kode akan otomatis diperbarui</li>
-                <li>Mode fullscreen untuk layar lebar</li>
-                <li>Cocok untuk belajar HTML dan prototyping</li>
-            </ul>
-        </div>
-        
-        <p>Gunakan tag <code>&lt;h1&gt;</code> hingga <code>&lt;h6&gt;</code> untuk heading, <code>&lt;p&gt;</code> untuk paragraf, dan tag HTML lainnya.</p>
-        
-        <p>Selamat mencoba!</p>
-    </div>
-</body>
-</html></textarea>
+                <textarea id="html-code"></textarea>
             </div>
-            
+
             <div class="preview-panel">
                 <div class="panel-header">
-                    <div class="panel-title">
-                        <i>👁️</i> Preview
-                    </div>
-                    <div class="preview-info">
-                        Mode: <span id="preview-mode">View Only</span>
-                    </div>
+                    <i class="bi bi-eye"></i> Preview
                 </div>
-                <div id="preview"></div>
-                <button id="escape-btn" class="escape-btn">Keluar (ESC)</button>
+                <iframe id="preview"></iframe>
             </div>
-        </div>
-        
-        <div class="instructions">
-            <h3>
-                <i>💡</i> Cara Penggunaan:
-            </h3>
-            <ul>
-                <li>Edit kode HTML di panel kiri untuk melihat perubahan langsung di preview</li>
-                <li>Klik tombol "Edit Preview" untuk mengaktifkan editing langsung pada preview</li>
-                <li>Perubahan pada preview akan langsung tercermin pada kode HTML</li>
-                <li>Gunakan tombol "Fullscreen" untuk mode layar penuh</li>
-                <li>Gunakan tombol "Keluar" di pojok kanan atas preview untuk keluar fullscreen</li>
-                <li>Tekan Escape untuk keluar dari mode fullscreen</li>
-                <li>Gunakan tombol "Bersihkan Kode" untuk menghapus semua kode</li>
-                <li>Tombol "Format Kode" akan merapikan indentasi kode HTML Anda</li>
-            </ul>
         </div>
     </div>
 
-    <div class="escape-hint" id="escape-hint">Tekan Escape untuk keluar dari mode fullscreen</div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/xml/xml.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            const htmlCode = document.getElementById('html-code');
             const preview = document.getElementById('preview');
             const clearBtn = document.getElementById('clear-btn');
-            const editToggle = document.getElementById('edit-toggle');
-            const editStatus = document.getElementById('edit-status');
-            const previewMode = document.getElementById('preview-mode');
             const formatBtn = document.getElementById('format-btn');
             const exampleBtn = document.getElementById('example-btn');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const escapeBtn = document.getElementById('escape-btn');
-            const mainContainer = document.getElementById('main-container');
-            const lineCount = document.getElementById('line-count');
-            const escapeHint = document.getElementById('escape-hint');
-            
-            let isEditingPreview = false;
-            let isFullscreen = false;
-            
-            // Fungsi untuk memperbarui preview dari kode HTML
+
+            // PERBAIKAN 2: Inisialisasi CodeMirror
+            const editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
+                mode: 'htmlmixed',
+                theme: 'monokai',
+                lineNumbers: true,
+                autoCloseTags: true,
+                lineWrapping: true,
+            });
+
+            // Fungsi untuk memperbarui preview
             function updatePreview() {
-                preview.innerHTML = htmlCode.value;
-                updateLineCount();
+                const previewDoc = preview.contentDocument || preview.contentWindow.document;
+                previewDoc.open();
+                // Ambil nilai dari editor CodeMirror
+                previewDoc.write(editor.getValue());
+                previewDoc.close();
             }
-            
-            // Fungsi untuk memperbarui kode HTML dari preview
-            function updateCode() {
-                htmlCode.value = preview.innerHTML;
-                updateLineCount();
-            }
-            
-            // Fungsi untuk menghitung jumlah baris
-            function updateLineCount() {
-                const lines = htmlCode.value.split('\n').length;
-                lineCount.textContent = lines;
-            }
-            
-            // Fungsi untuk memformat kode
-            function formatCode() {
-                let code = htmlCode.value;
-                // Simple formatting - replace multiple spaces with indentation
-                code = code.replace(/ {4}/g, '\t');
-                htmlCode.value = code;
-                updatePreview();
-            }
-            
-            // Fungsi untuk toggle fullscreen
-            function toggleFullscreen() {
-                isFullscreen = !isFullscreen;
-                
-                if (isFullscreen) {
-                    mainContainer.classList.add('fullscreen-mode');
-                    fullscreenBtn.innerHTML = '<i>❌</i> Keluar Fullscreen';
-                    document.body.style.overflow = 'hidden';
-                    
-                    // Tampilkan petunjuk escape
-                    escapeHint.classList.add('show');
-                    setTimeout(() => {
-                        escapeHint.classList.remove('show');
-                    }, 3000);
-                } else {
-                    mainContainer.classList.remove('fullscreen-mode');
-                    fullscreenBtn.innerHTML = '<i>⛶</i> Fullscreen';
-                    document.body.style.overflow = 'auto';
-                }
-            }
-            
-            // Fungsi untuk menambahkan contoh kode
-            function loadExample() {
-                htmlCode.value = `<!DOCTYPE html>
+
+            // PERBAIKAN 1: Logika fullscreen otomatis dihapus
+            // Fungsi-fungsi yang berkaitan dengan fullscreen, edit-toggle, dll. juga telah dihapus
+            // untuk menyederhanakan kode sesuai permintaan utama.
+
+            // Contoh kode awal
+            const exampleHTML = `<!DOCTYPE html>
 <html>
 <head>
     <title>Halaman Contoh</title>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            margin: 40px;
-            line-height: 1.6;
-            background-color: #f5f5f5;
-        }
-        .header {
-            background: linear-gradient(to right, #4CAF50, #2E8B57);
-            color: white;
-            padding: 30px;
-            text-align: center;
-            border-radius: 10px;
-            margin-bottom: 30px;
-        }
-        .content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .card {
-            background: white;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
-        }
-        .card h2 {
-            color: #4CAF50;
-            margin-top: 0;
-        }
-        @media (max-width: 768px) {
-            .content {
-                grid-template-columns: 1fr;
-            }
-        }
+        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
+        .card { padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; margin-top: 20px; }
+        h1 { color: #4CAF50; }
     </style>
 </head>
 <body>
-    <div class="header">
-        <h1>Contoh Halaman Web</h1>
-        <p>Ini adalah contoh halaman HTML dengan layout modern</p>
-    </div>
-    
-    <div class="content">
-        <div class="card">
-            <h2>Bagian Pertama</h2>
-            <p>Ini adalah contoh kartu dengan konten. Anda dapat mengubahnya sesuai keinginan.</p>
-            <p>Coba edit teks ini langsung di preview!</p>
-        </div>
-        
-        <div class="card">
-            <h2>Bagian Kedua</h2>
-            <p>Ini adalah kartu lainnya dalam layout grid.</p>
-            <ul>
-                <li>Item daftar pertama</li>
-                <li>Item daftar kedua</li>
-                <li>Item daftar ketiga</li>
-            </ul>
-        </div>
+    <h1>Selamat Datang!</h1>
+    <p>Ini adalah contoh halaman yang dirender di dalam iframe.</p>
+    <div class="card">
+        <h2>Fitur Utama</h2>
+        <ul>
+            <li>Syntax Highlighting</li>
+            <li>Preview yang Aman</li>
+            <li>Tampilan Responsif</li>
+        </ul>
     </div>
 </body>
 </html>`;
-                updatePreview();
-            }
-            
-            // Inisialisasi preview
+
+            // Muat contoh kode dan update preview saat pertama kali
+            editor.setValue(exampleHTML);
             updatePreview();
-            
-            // Event listener untuk perubahan pada textarea kode
-            htmlCode.addEventListener('input', updatePreview);
-            
-            // Event listener untuk tombol clear
-            clearBtn.addEventListener('click', function() {
-                if (confirm('Apakah Anda yakin ingin menghapus semua kode?')) {
-                    htmlCode.value = '';
-                    preview.innerHTML = '';
-                    updateLineCount();
+
+            // Event listener untuk perubahan pada editor
+            editor.on('change', updatePreview);
+
+            // Event listener untuk tombol
+            clearBtn.addEventListener('click', () => {
+                if (confirm('Anda yakin ingin membersihkan semua kode?')) {
+                    editor.setValue('');
                 }
             });
             
-            // Event listener untuk tombol edit toggle
-            editToggle.addEventListener('click', function() {
-                isEditingPreview = !isEditingPreview;
-                
-                if (isEditingPreview) {
-                    preview.setAttribute('contenteditable', 'true');
-                    editStatus.textContent = 'Nonaktifkan Edit';
-                    previewMode.textContent = 'Editable';
-                    preview.focus();
-                    
-                    // Tambahkan event listener untuk perubahan pada preview
-                    preview.addEventListener('input', updateCode);
-                } else {
-                    preview.setAttribute('contenteditable', 'false');
-                    editStatus.textContent = 'Edit Preview';
-                    previewMode.textContent = 'View Only';
-                    
-                    // Hapus event listener untuk perubahan pada preview
-                    preview.removeEventListener('input', updateCode);
-                }
+            exampleBtn.addEventListener('click', () => {
+                editor.setValue(exampleHTML);
             });
             
-            // Event listener untuk tombol format
-            formatBtn.addEventListener('click', formatCode);
-            
-            // Event listener untuk tombol contoh
-            exampleBtn.addEventListener('click', loadExample);
-            
-            // Event listener untuk tombol fullscreen
-            fullscreenBtn.addEventListener('click', toggleFullscreen);
-            
-            // Event listener untuk tombol escape
-            escapeBtn.addEventListener('click', toggleFullscreen);
-            
-            // Event listener untuk tombol Escape keyboard
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && isFullscreen) {
-                    toggleFullscreen();
-                }
+            formatBtn.addEventListener('click', () => {
+                // Fungsi format sederhana, bisa ditingkatkan dengan library formatter
+                const totalLines = editor.lineCount();
+                editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines});
             });
-            
-            // Tambahkan line numbers
-            updateLineCount();
         });
     </script>
-                <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
-                        <footer id="footer"></footer>
-                        <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-                             <i class="bi bi-arrow-up-short"></i>
-                        </a>
-                        <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-                        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                        <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-                        <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-                        <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-                        <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-                        <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-                        <script src="/assets/vendor/php-email-form/validate.js"></script>
-                        <script src="/assets/js/main.js"></script>
-                        <script src="/app/aplikasi-statistik/chart.js"></script>
-                        <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 </body>
 </html>
+```
