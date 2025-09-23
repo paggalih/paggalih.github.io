@@ -3,9 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Live HTML Editor (Full Feature + Inspector)</title>
-    <meta content="Live HTML editor dengan syntax highlighting, fullscreen, dan element inspector" name="description">
-    <meta content="live html editor, codemirror, element inspector" name="keywords">
+    <title>Live HTML Editor (Resizable Panels)</title>
+    <meta content="HTML editor dengan panel yang bisa di-resize" name="description">
     <meta name="author" content="Galih Pradananta">
     <link href="/assets/img/letter-g.gif" rel="icon">
     
@@ -14,142 +13,69 @@
     
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/theme/monokai.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/dialog/dialog.min.css">
 
     <style>
-        :root {
-            --primary-color: #4CAF50;
-            --primary-dark: #45a049;
-        }
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #f5f7fa;
-            padding: 20px 0;
-            margin: 0;
-        }
-        .container {
-            max-width: 1600px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            border-radius: 12px;
-            overflow: hidden;
-            background-color: white;
-            transition: all 0.3s ease;
-        }
-        header {
-            background: linear-gradient(to right, var(--primary-color), #2E8B57);
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: relative;
-        }
-        .controls {
-            padding: 15px;
-            background-color: #f9f9f9;
-            border-bottom: 1px solid #eee;
-            display: flex;
-            justify-content: center;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
+        :root { --primary-color: #4CAF50; --primary-dark: #45a049; }
+        body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; padding: 20px 0; margin: 0; }
+        .container { max-width: 1600px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; background-color: white; transition: all 0.3s ease; }
+        header { background: linear-gradient(to right, var(--primary-color), #2E8B57); color: white; padding: 20px; text-align: center; position: relative; }
+        .controls { padding: 15px; background-color: #f9f9f9; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .btn { background-color: var(--primary-color); }
         .btn:hover { background-color: var(--primary-dark); }
-        .editor-container {
-            display: flex;
-            flex-direction: column;
-            height: 75vh;
+        .editor-container { display: flex; flex-direction: row; height: 75vh; } /* Pastikan flex-direction: row */
+        .code-panel, .preview-panel { height: 100%; } /* Atur tinggi agar sesuai kontainer */
+        .panel-header { padding: 10px 15px; font-weight: 600; background: #f1f1f1; border-bottom: 1px solid #ddd; }
+        .code-panel .panel-header { background-color: #333; color: white; border-bottom: 1px solid #555; }
+        .CodeMirror { flex-grow: 1; height: auto; }
+        #preview { width: 100%; height: 100%; border: 1px solid #ccc; border-radius: 4px; background-color: white; }
+        
+        /* Styling untuk pembatas yang bisa digeser (Gutter) */
+        .gutter {
+            background-color: #eee;
+            background-repeat: no-repeat;
+            background-position: 50%;
         }
-        @media (min-width: 992px) {
-            .editor-container { flex-direction: row; }
+        .gutter.gutter-horizontal {
+            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxl7ACYGEQ2oAB40gUoAokYTBgYAY1gEGLpQyG4AAAAASUVORK5CYII=');
+            cursor: col-resize;
         }
-        .code-panel, .preview-panel {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            min-width: 0;
-            position: relative;
-        }
-        .panel-header {
-            padding: 10px 15px;
-            font-weight: 600;
-            background: #f1f1f1;
-            border-bottom: 1px solid #ddd;
-        }
-        .code-panel .panel-header {
-            background-color: #333;
-            color: white;
-            border-bottom: 1px solid #555;
-        }
-        .CodeMirror {
-            flex-grow: 1;
-            height: auto;
-            font-size: 15px;
-        }
-        #preview {
-            width: 100%;
-            height: 100%;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background-color: white;
-        }
-        .fullscreen-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-        }
-        .escape-btn {
-            display: none;
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            z-index: 1002;
-        }
-        body.fullscreen-active {
-            padding: 0;
-            overflow: hidden;
-        }
-        body.fullscreen-active .container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            max-width: 100%;
-            border-radius: 0;
-            z-index: 1000;
-        }
-        body.fullscreen-active header,
-        body.fullscreen-active .controls {
-            display: none;
-        }
-        body.fullscreen-active .editor-container {
-            height: 100vh;
-        }
-        body.fullscreen-active .escape-btn {
-            display: block;
-        }
+
+        .fullscreen-btn { position: absolute; top: 15px; right: 15px; }
+        .escape-btn { display: none; position: absolute; top: 15px; right: 15px; z-index: 1002; }
+        body.fullscreen-active { padding: 0; overflow: hidden; }
+        body.fullscreen-active .container { position: fixed; top: 0; left: 0; width: 100%; height: 100%; max-width: 100%; border-radius: 0; z-index: 1000; }
+        body.fullscreen-active header, body.fullscreen-active .controls { display: none; }
+        body.fullscreen-active .editor-container { height: 100vh; }
+        body.fullscreen-active .escape-btn { display: block; }
+        .CodeMirror-dialog { background: #333; color: white; }
+        .CodeMirror-dialog input { background: #555; color: white; border: 1px solid #777; }
     </style>
 </head>
 <body>
     <div class="container" id="main-container">
         <header>
             <h1>Live HTML Editor</h1>
-            <p class="description">Edit kode, lihat preview, dan gunakan mode fullscreen untuk pengalaman maksimal.</p>
+            <p class="description">Gunakan <b>Ctrl+S</b> atau <b>Ctrl+Enter</b> untuk menjalankan kode.</p>
             <button id="fullscreen-btn" class="btn btn-sm btn-outline-light text-white fullscreen-btn"><i class="bi bi-arrows-fullscreen"></i> Fullscreen</button>
         </header>
 
         <div class="controls">
+            <button id="refresh-btn" class="btn btn-success text-white"><i class="bi bi-play-fill"></i> <span>Run</span></button>
             <button id="clear-btn" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Bersihkan</button>
             <button id="edit-toggle-btn" class="btn btn-warning text-white"><i class="bi bi-pencil-square"></i> <span id="edit-status-text">Edit Preview</span></button>
-            <button id="inspect-btn" class="btn btn-primary text-white"><i class="bi bi-cursor-fill"></i> <span>Inspect Element</span></button>
+            <button id="inspect-btn" class="btn btn-primary text-white"><i class="bi bi-cursor-fill"></i> <span>Inspect</span></button>
+            <button id="find-btn" class="btn btn-info text-white"><i class="bi bi-search"></i> <span>Find</span></button>
             <button id="format-btn" class="btn btn-secondary text-white"><i class="bi bi-wrench"></i> Format</button>
-            <button id="example-btn" class="btn btn-info text-white"><i class="bi bi-file-code"></i> Contoh</button>
+            <button id="example-btn" class="btn text-white" style="background-color: #6f42c1;"><i class="bi bi-file-code"></i> Contoh</button>
         </div>
 
         <div class="editor-container">
-            <div class="code-panel">
+            <div id="code-panel" class="code-panel d-flex flex-column">
                 <div class="panel-header"><i class="bi bi-code-slash"></i> Kode HTML</div>
                 <textarea id="html-code"></textarea>
             </div>
-            <div class="preview-panel p-3">
+            <div id="preview-panel" class="preview-panel p-3">
                 <div class="panel-header mb-2"><i class="bi bi-eye"></i> Preview</div>
                 <iframe id="preview"></iframe>
                 <button id="escape-btn" class="btn btn-danger btn-sm escape-btn"><i class="bi bi-fullscreen-exit"></i> Keluar</button>
@@ -163,11 +89,46 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closetag.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/dialog/dialog.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/search/searchcursor.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/search/search.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // Elemen DOM
+            // ... (deklarasi elemen & fungsi sama seperti sebelumnya)
+            
+            const editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
+                mode: 'htmlmixed',
+                theme: 'monokai',
+                lineNumbers: true,
+                lineWrapping: true,
+                autoCloseTags: { whenClosing: true, whenOpening: true, indentTags: [] },
+                indentWithTabs: false,
+                indentUnit: 2,
+                extraKeys: {
+                    "Ctrl-S": function(instance) { updatePreview(); return false; },
+                    "Ctrl-Enter": function(instance) { updatePreview(); return false; }
+                }
+            });
+
+            // --- INISIALISASI SPLIT PANE (FITUR BARU) ---
+            Split(['#code-panel', '#preview-panel'], {
+                sizes: [50, 50],
+                minSize: 200,
+                gutterSize: 8,
+                onDrag: function() {
+                    editor.refresh();
+                }
+            });
+            
+            // Sisa kode JavaScript lainnya sama persis
+            // ...
             const preview = document.getElementById('preview');
+            const refreshBtn = document.getElementById('refresh-btn');
+            const findBtn = document.getElementById('find-btn');
+            const inspectBtn = document.getElementById('inspect-btn');
             const clearBtn = document.getElementById('clear-btn');
             const formatBtn = document.getElementById('format-btn');
             const exampleBtn = document.getElementById('example-btn');
@@ -175,22 +136,8 @@
             const editStatusText = document.getElementById('edit-status-text');
             const fullscreenBtn = document.getElementById('fullscreen-btn');
             const escapeBtn = document.getElementById('escape-btn');
-            const inspectBtn = document.getElementById('inspect-btn'); // Tombol inspeksi baru
+            let isEditingPreview = false, isInspecting = false, debounceTimer;
 
-            let isEditingPreview = false;
-            let isInspecting = false; // Status mode inspeksi
-            let debounceTimer;
-
-            // Inisialisasi CodeMirror
-            const editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
-                mode: 'htmlmixed',
-                theme: 'monokai',
-                lineNumbers: true,
-                lineWrapping: true,
-                autoCloseTags: true
-            });
-
-            // Fungsi untuk update preview dengan penanda baris
             function updatePreview() {
                 let sourceCode = editor.getValue();
                 const lines = sourceCode.split('\n');
@@ -200,22 +147,38 @@
                         return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
                     });
                 });
-
                 const instrumentedCode = instrumentedLines.join('\n');
                 const previewDoc = preview.contentDocument || preview.contentWindow.document;
                 previewDoc.open();
                 previewDoc.write(instrumentedCode);
                 previewDoc.close();
-
                 if (isEditingPreview) enablePreviewEditing();
-                // Jika mode inspeksi aktif, listener harus dipasang ulang
                 if (isInspecting) {
-                    preview.contentDocument.body.addEventListener('click', handlePreviewClick);
-                    preview.contentDocument.body.style.cursor = 'pointer';
+                    previewDoc.body.addEventListener('click', handlePreviewClick);
+                    previewDoc.body.style.cursor = 'pointer';
                 }
             }
             
-            // --- Logika Inspeksi Elemen (FITUR BARU) ---
+            refreshBtn.addEventListener('click', updatePreview);
+            
+            let scrollSyncTimer;
+            editor.on('cursorActivity', (instance) => {
+                clearTimeout(scrollSyncTimer);
+                scrollSyncTimer = setTimeout(() => {
+                    const line = instance.getCursor().line + 1;
+                    const previewDoc = preview.contentDocument;
+                    if (previewDoc) {
+                        const targetElement = previewDoc.querySelector(`[data-source-line="${line}"]`);
+                        if (targetElement) { targetElement.scrollIntoView({ behavior: 'smooth', block: 'center' }); }
+                    }
+                }, 200);
+            });
+
+            formatBtn.addEventListener('click', () => {
+                editor.setValue(html_beautify(editor.getValue(), { indent_size: 2, indent_char: ' ', max_preserve_newlines: 1 }));
+            });
+            findBtn.addEventListener('click', () => { editor.execCommand("find"); });
+
             const handlePreviewClick = (event) => {
                 event.preventDefault();
                 const target = event.target;
@@ -229,103 +192,48 @@
                     }
                 }
             };
-
             inspectBtn.addEventListener('click', () => {
                 isInspecting = !isInspecting;
                 const previewBody = preview.contentDocument.body;
                 if (isInspecting) {
-                    inspectBtn.classList.add('btn-success');
-                    inspectBtn.classList.remove('btn-primary');
+                    inspectBtn.classList.replace('btn-primary', 'btn-success');
                     inspectBtn.querySelector('span').textContent = 'Inspecting...';
                     previewBody.addEventListener('click', handlePreviewClick);
                     previewBody.style.cursor = 'pointer';
                 } else {
-                    inspectBtn.classList.remove('btn-success');
-                    inspectBtn.classList.add('btn-primary');
-                    inspectBtn.querySelector('span').textContent = 'Inspect Element';
+                    inspectBtn.classList.replace('btn-success', 'btn-primary');
+                    inspectBtn.querySelector('span').textContent = 'Inspect';
                     previewBody.removeEventListener('click', handlePreviewClick);
                     previewBody.style.cursor = 'default';
                 }
             });
 
-
-            // --- Logika Edit Preview Langsung ---
             const syncPreviewToEditor = () => {
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     const previewHTML = preview.contentDocument.body.innerHTML;
-                    const cursorPos = editor.getCursor();
-                    editor.setValue(previewHTML);
-                    editor.setCursor(cursorPos);
+                    const cursorPos = editor.getCursor(); editor.setValue(previewHTML); editor.setCursor(cursorPos);
                 }, 300);
             };
-            const enablePreviewEditing = () => {
-                preview.contentDocument.body.contentEditable = 'true';
-                preview.contentDocument.body.addEventListener('input', syncPreviewToEditor);
-            };
-            const disablePreviewEditing = () => {
-                preview.contentDocument.body.contentEditable = 'false';
-                preview.contentDocument.body.removeEventListener('input', syncPreviewToEditor);
-            };
+            const enablePreviewEditing = () => { preview.contentDocument.body.contentEditable = 'true'; preview.contentDocument.body.addEventListener('input', syncPreviewToEditor); };
+            const disablePreviewEditing = () => { preview.contentDocument.body.contentEditable = 'false'; preview.contentDocument.body.removeEventListener('input', syncPreviewToEditor); };
             editToggleBtn.addEventListener('click', () => {
                 isEditingPreview = !isEditingPreview;
-                if (isEditingPreview) {
-                    enablePreviewEditing();
-                    editStatusText.textContent = 'Nonaktifkan Edit';
-                    editToggleBtn.classList.replace('btn-warning', 'btn-success');
-                } else {
-                    disablePreviewEditing();
-                    editStatusText.textContent = 'Edit Preview';
-                    editToggleBtn.classList.replace('btn-success', 'btn-warning');
-                }
+                if (isEditingPreview) { enablePreviewEditing(); editStatusText.textContent = 'Nonaktifkan Edit'; editToggleBtn.classList.replace('btn-warning', 'btn-success'); } 
+                else { disablePreviewEditing(); editStatusText.textContent = 'Edit Preview'; editToggleBtn.classList.replace('btn-success', 'btn-warning'); }
             });
 
-
-            // --- Logika Fullscreen ---
-            function toggleFullscreen() {
-                document.body.classList.toggle('fullscreen-active');
-                editor.refresh();
-            }
+            function toggleFullscreen() { document.body.classList.toggle('fullscreen-active'); editor.refresh(); }
             fullscreenBtn.addEventListener('click', toggleFullscreen);
             escapeBtn.addEventListener('click', toggleFullscreen);
-            document.addEventListener('keydown', (e) => {
-                if (e.key === 'Escape' && document.body.classList.contains('fullscreen-active')) {
-                    toggleFullscreen();
-                }
-            });
-
-            // --- Inisialisasi dan Event Lainnya ---
-            const exampleHTML = `<!DOCTYPE html>
-<html>
-<head>
-    <title>Halaman Contoh</title>
-</head>
-<body>
-    <h1 style="color: #4CAF50;">Selamat Datang!</h1>
-    <p>Klik tombol <b>Inspect Element</b>, lalu klik teks ini.</p>
-    <div style="padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <h2>Fitur Lengkap</h2>
-        <ul>
-            <li>Syntax Highlighting</li>
-            <li>Auto-close Tags</li>
-            <li>Element Inspector</li>
-        </ul>
-    </div>
-</body>
-</html>`;
+            document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('fullscreen-active')) toggleFullscreen(); });
             
+            const exampleHTML = `<!DOCTYPE html><html><head><title>Test Resize</title></head><body><h1>Geser Pembatas!</h1><p>Anda sekarang bisa mengubah lebar panel editor dan preview.</p></body></html>`;
             editor.setValue(exampleHTML);
             setTimeout(updatePreview, 100);
-
-            editor.on('change', () => {
-                if (!isEditingPreview) updatePreview();
-            });
-
+            
             clearBtn.addEventListener('click', () => { if (confirm('Yakin?')) editor.setValue(''); });
-            exampleBtn.addEventListener('click', () => editor.setValue(exampleHTML));
-            formatBtn.addEventListener('click', () => {
-                editor.autoFormatRange({line: 0, ch: 0}, {line: editor.lineCount()});
-            });
+            exampleBtn.addEventListener('click', () => { editor.setValue(exampleHTML); updatePreview(); });
         });
     </script>
 </body>
