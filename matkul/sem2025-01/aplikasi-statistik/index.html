@@ -991,6 +991,128 @@
 	          <h2>Pertemuan 4</h2>
 	        </div>
 
+	        <div class="wrap">
+
+	          <nav class="toc">
+	            <a href="#kasus1p4">1) Risiko Portofolio </a>
+	            <a href="#kasus2p4">2) Pengendalian Kualitas </a>
+	            <a href="#kasus3p4">3) Kinerja Penjualan  </a>
+	            <a href="#kasus4p4">4) Analisis Stabilitas Pendapatan </a>
+	            <a href="#kasus5p4">5) Evaluasi Kinerja Karyawan  </a>
+	            <a href="#kasus6p4">6) Mendeteksi Anomali </a>
+	          </nav>
+
+	          <!-- KASUS 1 -->
+	          <section id="kasus1p4">
+	            <h2>Studi Kasus 1: Menganalisis Risiko Dua Portofolio Investasi Saham</h2>
+	            <h3>Konteks:</h3>
+	            <p>Seorang manajer investasi membandingkan kinerja dua portofolio saham, "Alpha Growth" dan "Beta Stable". Keduanya memiliki rata-rata imbal hasil yang hampir sama, namun klien ingin tahu portofolio mana yang risikonya lebih terkendali.</p>
+
+	            <h3>Data Imbal Hasil per Bulan (dalam % selama 10 bulan):</h3>
+	            <p><strong>Alpha Growth:</strong> <code>2.5, -1.0, 5.0, 8.0, -3.0, 4.5, 1.5, -2.0, 6.0, 0.5</code></p>
+	            <p><strong>Beta Stable:</strong> <code>2.0, 1.5, 3.0, 2.5, 1.0, 2.8, 3.2, 1.8, 2.2, 2.0</code></p>
+
+	            <h3>Tugas untuk Mahasiswa (Excel):</h3>
+	            <ol>
+	              <li>Untuk setiap portofolio, hitunglah <strong>Mean</strong> (<code>=AVERAGE()</code>) dan <strong>Standar Deviasi</strong> (<code>=STDEV.S()</code>).</li>
+	              <li>Bandingkan hasilnya. Portofolio mana yang memiliki imbal hasil lebih fluktuatif?</li>
+	              <li>Jika klien Anda memiliki profil risiko konservatif, portofolio mana yang akan Anda sarankan?</li>
+	            </ol>
+
+	          </section>
+
+	          <!-- KASUS 2 -->
+	          <section id="kasus2p4">
+	            <h2>Studi Kasus 2: Pengendalian Kualitas (Quality Control) di Lini Produksi</h2>
+	            <h3>Konteks:</h3>
+	            <p>Pabrik "Nutri Snack" memproduksi biskuit dengan berat bersih yang tertera di label sebesar 250 gram. Departemen QC mengambil sampel 12 kemasan dari lini produksi untuk memeriksa konsistensi mesin pengisi.</p>
+
+	            <h3>Data Berat Sampel (dalam gram):</h3>
+	            <p><code>252, 248, 250, 255, 245, 249, 253, 250, 247, 256, 246, 251</code></p>
+
+	            <h3>Tugas untuk Mahasiswa (Excel):</h3>
+	            <ol>
+	              <li>Hitung <strong>Mean</strong>, <strong>Median</strong>, <strong>Varians</strong> (<code>=VAR.S()</code>), dan <strong>Standar Deviasi</strong> (<code>=STDEV.S()</code>).</li>
+	              <li>Apakah rata-rata berat (mean) sudah mendekati target 250 gram?</li>
+	              <li>Apa arti dari nilai varians dan standar deviasi dalam konteks efisiensi produksi dan kepuasan pelanggan?</li>
+	            </ol>
+
+	          </section>
+
+	          <!-- KASUS 3 -->
+	          <section id="kasus3p4">
+	            <h2>Studi Kasus 3: Membandingkan Kinerja Penjualan Antar Cabang</h2>
+	            <h3>Konteks:</h3>
+	            <p>Sebuah jaringan ritel elektronik ingin membandingkan stabilitas penjualan antara cabang di pusat perbelanjaan besar (omzet tinggi) dan cabang di jalan utama kota (omzet lebih rendah). Tujuannya adalah mengetahui cabang mana yang pendapatannya lebih mudah diprediksi.</p>
+
+	            <h3>Data Omzet Bulanan (dalam Juta Rupiah):</h3>
+	            <p><strong>Cabang Mall:</strong> <code>850, 900, 720, 880, 840, 910</code></p>
+	            <p><strong>Cabang Jalan Utama:</strong> <code>140, 145, 138, 142, 139, 146</code></p>
+
+	            <h3>Tugas untuk Mahasiswa (Excel):</h3>
+	            <ol>
+	              <li>Untuk setiap cabang, hitung <strong>Mean</strong> dan <strong>Standar Deviasi</strong>.</li>
+	              <li>Hitung <strong>Koefisien Variasi</strong> (CV) untuk setiap cabang dengan rumus: <code>(Standar Deviasi / Mean)</code>.</li>
+	              <li>Berdasarkan CV, cabang manakah yang penjualannya relatif lebih stabil? Apa artinya ini bagi manajer regional?</li>
+	            </ol>
+
+	          </section>
+
+	          <!-- KASUS 4 -->
+	          <section id="kasus4p4">
+	            <h2>Studi Kasus 4: Analisis Stabilitas Pendapatan dari Aset Properti</h2>
+	            <h3>Konteks:</h3>
+	            <p>Sebuah perusahaan manajemen properti mengelola dua jenis aset sewa: ruko dengan kontrak sewa tahunan dan apartemen yang disewakan harian (seperti AirBnB). Perusahaan ingin mengetahui aset mana yang memberikan arus kas lebih konsisten.</p>
+
+	            <h3>Data Pendapatan Bulanan (dalam Juta Rupiah):</h3>
+	            <p><strong>Sewa Ruko (Tahunan):</strong> <code>50, 50, 50, 52, 50, 51</code></p>
+	            <p><strong>Sewa Apartemen (Harian):</strong> <code>35, 60, 25, 75, 40, 55</code></p>
+
+	            <h3>Tugas untuk Mahasiswa (Excel):</h3>
+	            <ol>
+	              <li>Hitung <strong>Mean</strong>, <strong>Standar Deviasi</strong>, dan <strong>Koefisien Variasi</strong> (CV) untuk kedua jenis aset.</li>
+	              <li>Aset mana yang memiliki pendapatan rata-rata lebih tinggi? Aset mana yang risikonya lebih tinggi?</li>
+	              <li>Bagaimana informasi ini membantu perusahaan dalam menyusun strategi portofolio aset mereka?</li>
+	            </ol>
+
+	          </section>
+
+	          <!-- KASUS 5 -->
+	          <section id="kasus5p4">
+	            <h2>Studi Kasus 5: Evaluasi Kinerja Karyawan Departemen Penjualan</h2>
+	            <h3>Konteks:</h3>
+	            <p>Manajer SDM ingin mengidentifikasi performa staf penjualan yang "luar biasa" atau yang "membutuhkan pengembangan" secara objektif, berdasarkan nilai penjualan yang mereka hasilkan bulan lalu.</p>
+
+	            <h3>Data Nilai Penjualan per Staf (dalam Juta Rupiah):</h3>
+	            <p><code>50, 55, 52, 48, 58, 51, 80, 45, 54, 53, 30, 49</code></p>
+
+	            <h3>Tugas untuk Mahasiswa (Excel):</h3>
+	            <ol>
+	              <li>Hitung <strong>Mean</strong> dan <strong>Standar Deviasi</strong> dari seluruh data penjualan.</li>
+	              <li>Untuk staf dengan penjualan 80 juta dan 30 juta, hitung <strong>Z-Score</strong> mereka. Rumus: <code>(Nilai Data - Mean) / Standar Deviasi</code>.</li>
+	              <li>Interpretasikan nilai Z-Score tersebut. Bagaimana manajer dapat menggunakan informasi ini untuk program bonus dan pelatihan?</li>
+	            </ol>
+	          </section>
+
+	          <!-- KASUS 6 -->
+	          <section id="kasus6p4">
+	            <h2>Studi Kasus 6: Mendeteksi Anomali dalam Laporan Pengeluaran</h2>
+	            <h3>Konteks:</h3>
+	            <p>Departemen keuangan sedang melakukan audit terhadap klaim biaya perjalanan dinas yang diajukan oleh para sales. Tujuannya adalah untuk secara cepat mengidentifikasi klaim yang nilainya tidak wajar (terlalu tinggi atau terlalu rendah) yang mungkin memerlukan verifikasi lebih lanjut.</p>
+
+	            <h3>Data Klaim Biaya Perjalanan (dalam Ratus Ribu Rupiah):</h3>
+	            <p><code>850, 900, 880, 920, 870, 1500, 910, 860, 890, 400</code></p>
+
+	            <h3>Tugas untuk Mahasiswa (Excel):</h3>
+	            <ol>
+	              <li>Hitung <strong>Mean</strong> dan <strong>Standar Deviasi</strong> dari data klaim.</li>
+	              <li>Hitung <strong>Z-Score</strong> untuk klaim senilai 1.500.000 (input 1500) dan 400.000 (input 400).</li>
+	              <li>Jika kebijakan perusahaan adalah memeriksa semua klaim dengan Z-Score di luar rentang -2 hingga +2, klaim mana yang harus ditandai untuk diperiksa?</li>
+	            </ol>
+
+	          </section>
+
+	        </div>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp4">
 
