@@ -1,22 +1,31 @@
 <!DOCTYPE html>
 <html lang="id-ID">
-        <head>
-                <meta charset="utf-8">
-                <meta content="width=device-width, initial-scale=1.0" name="viewport">
-                <meta content="monggo bisa dimanfaatkan untuk edit html di sini" name="description">
-                <meta content="live html editor" name="keywords">
-                <meta name="author" content="Galih Pradananta">
-                <link href="/assets/img/letter-g.gif" rel="icon">
-                <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-                <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-                <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-                <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-                <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-                <link href="/assets/css/style.css" rel="stylesheet">
-<link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-<script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-<script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
-<script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="monggo bisa dimanfaatkan untuk edit html di sini" name="description">
+    <meta content="live html editor" name="keywords">
+    <meta name="author" content="Galih Pradananta">
+    <link href="/assets/img/letter-g.gif" rel="icon">
+    <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+    <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+    <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+    <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+    <link href="/assets/css/style.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
+    
+    <!-- Tambahkan Prism.js untuk pewarnaan sintaks -->
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
+    <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+    
+    <!-- Tambahkan Prism.js untuk pewarnaan sintaks -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
     <title>Live HTML Editor</title>
     <style>
         * {
@@ -109,7 +118,7 @@
         @media (min-width: 992px) {
             .editor-container {
                 flex-direction: row;
-            height: 90vh;
+                height: 90vh;
             }
         }
         
@@ -124,6 +133,7 @@
         .code-panel {
             background-color: #272822;
             border-right: none;
+            position: relative;
         }
         
         .preview-panel {
@@ -154,7 +164,8 @@
             gap: 8px;
         }
         
-        textarea {
+        /* Ganti textarea dengan div yang dapat diedit */
+        #html-code {
             width: 100%;
             height: 100%;
             padding: 15px;
@@ -169,11 +180,48 @@
             line-height: 1.5;
             tab-size: 4;
             -moz-tab-size: 4;
+            overflow: auto;
+            white-space: pre;
         }
         
-        textarea:focus {
+        #html-code:focus {
             border-color: #4CAF50;
             box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.3);
+        }
+        
+        /* Style untuk kode HTML yang diwarnai */
+        .code-editor {
+            position: relative;
+            height: 100%;
+        }
+        
+        .line-numbers {
+            position: absolute;
+            left: 0;
+            top: 0;
+            width: 40px;
+            height: 100%;
+            padding: 15px 5px;
+            background-color: #1e1f1c;
+            color: #858585;
+            text-align: right;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            line-height: 1.5;
+            overflow: hidden;
+            border-right: 1px solid #444;
+            user-select: none;
+        }
+        
+        .code-content {
+            position: absolute;
+            left: 40px;
+            top: 0;
+            right: 0;
+            height: 100%;
+            padding: 15px;
+            overflow: auto;
+            outline: none;
         }
         
         #preview {
@@ -363,7 +411,9 @@
                         <span id="line-count">0</span> baris
                     </div>
                 </div>
-                <textarea id="html-code" placeholder="Ketik kode HTML di sini..."><!DOCTYPE html>
+                <div class="code-editor">
+                    <div class="line-numbers" id="line-numbers"></div>
+                    <div id="html-code" class="code-content" contenteditable="true" spellcheck="false"><!DOCTYPE html>
 <html>
 <head>
     <title>Contoh Halaman</title>
@@ -422,7 +472,8 @@
         <p>Selamat mencoba!</p>
     </div>
 </body>
-</html></textarea>
+</html></div>
+                </div>
             </div>
             
             <div class="preview-panel">
@@ -452,6 +503,7 @@
                 <li>Tekan Escape untuk keluar dari mode fullscreen</li>
                 <li>Gunakan tombol "Bersihkan Kode" untuk menghapus semua kode</li>
                 <li>Tombol "Format Kode" akan merapikan indentasi kode HTML Anda</li>
+                <li>Editor kode sekarang memiliki pewarnaan sintaks untuk HTML</li>
             </ul>
         </div>
     </div>
@@ -473,34 +525,50 @@
             const mainContainer = document.getElementById('main-container');
             const lineCount = document.getElementById('line-count');
             const escapeHint = document.getElementById('escape-hint');
+            const lineNumbers = document.getElementById('line-numbers');
             
             let isEditingPreview = false;
             let isFullscreen = false;
             
             // Fungsi untuk memperbarui preview dari kode HTML
             function updatePreview() {
-                preview.innerHTML = htmlCode.value;
+                preview.innerHTML = htmlCode.textContent;
                 updateLineCount();
+                highlightCode();
             }
             
             // Fungsi untuk memperbarui kode HTML dari preview
             function updateCode() {
-                htmlCode.value = preview.innerHTML;
+                htmlCode.textContent = preview.innerHTML;
                 updateLineCount();
+                highlightCode();
             }
             
-            // Fungsi untuk menghitung jumlah baris
+            // Fungsi untuk menghitung jumlah baris dan memperbarui nomor baris
             function updateLineCount() {
-                const lines = htmlCode.value.split('\n').length;
+                const lines = htmlCode.textContent.split('\n').length;
                 lineCount.textContent = lines;
+                
+                // Perbarui nomor baris
+                let numbersHtml = '';
+                for (let i = 1; i <= lines; i++) {
+                    numbersHtml += i + '<br>';
+                }
+                lineNumbers.innerHTML = numbersHtml;
+            }
+            
+            // Fungsi untuk menyorot kode
+            function highlightCode() {
+                // Gunakan Prism.js untuk menyorot kode
+                Prism.highlightElement(htmlCode);
             }
             
             // Fungsi untuk memformat kode
             function formatCode() {
-                let code = htmlCode.value;
+                let code = htmlCode.textContent;
                 // Simple formatting - replace multiple spaces with indentation
                 code = code.replace(/ {4}/g, '\t');
-                htmlCode.value = code;
+                htmlCode.textContent = code;
                 updatePreview();
             }
             
@@ -527,7 +595,7 @@
             
             // Fungsi untuk menambahkan contoh kode
             function loadExample() {
-                htmlCode.value = `<!DOCTYPE html>
+                htmlCode.textContent = `<!DOCTYPE html>
 <html>
 <head>
     <title>Halaman Contoh</title>
@@ -599,13 +667,13 @@
             // Inisialisasi preview
             updatePreview();
             
-            // Event listener untuk perubahan pada textarea kode
+            // Event listener untuk perubahan pada editor kode
             htmlCode.addEventListener('input', updatePreview);
             
             // Event listener untuk tombol clear
             clearBtn.addEventListener('click', function() {
                 if (confirm('Apakah Anda yakin ingin menghapus semua kode?')) {
-                    htmlCode.value = '';
+                    htmlCode.textContent = '';
                     preview.innerHTML = '';
                     updateLineCount();
                 }
@@ -656,21 +724,21 @@
             updateLineCount();
         });
     </script>
-                <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
-                        <footer id="footer"></footer>
-                        <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-                             <i class="bi bi-arrow-up-short"></i>
-                        </a>
-                        <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-                        <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-                        <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-                        <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-                        <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-                        <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-                        <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-                        <script src="/assets/vendor/php-email-form/validate.js"></script>
-                        <script src="/assets/js/main.js"></script>
-                        <script src="/app/aplikasi-statistik/chart.js"></script>
-                        <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+    <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
+    <footer id="footer"></footer>
+    <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+        <i class="bi bi-arrow-up-short"></i>
+    </a>
+    <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+    <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+    <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+    <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+    <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+    <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+    <script src="/assets/vendor/php-email-form/validate.js"></script>
+    <script src="/assets/js/main.js"></script>
+    <script src="/app/aplikasi-statistik/chart.js"></script>
+    <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 </body>
 </html>
