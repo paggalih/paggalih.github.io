@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Live HTML Editor (Full Feature)</title>
-    <meta content="Live HTML editor dengan syntax highlighting, fullscreen, dan edit preview" name="description">
-    <meta content="live html editor, codemirror, fullscreen, contenteditable" name="keywords">
+    <title>Live HTML Editor (Full Feature + Inspector)</title>
+    <meta content="Live HTML editor dengan syntax highlighting, fullscreen, dan element inspector" name="description">
+    <meta content="live html editor, codemirror, element inspector" name="keywords">
     <meta name="author" content="Galih Pradananta">
     <link href="/assets/img/letter-g.gif" rel="icon">
     
@@ -65,7 +65,7 @@
             display: flex;
             flex-direction: column;
             min-width: 0;
-            position: relative; /* Diperlukan untuk tombol escape */
+            position: relative;
         }
         .panel-header {
             padding: 10px 15px;
@@ -90,8 +90,6 @@
             border-radius: 4px;
             background-color: white;
         }
-
-        /* FITUR DIKEMBALIKAN: CSS untuk Fullscreen */
         .fullscreen-btn {
             position: absolute;
             top: 15px;
@@ -141,6 +139,7 @@
         <div class="controls">
             <button id="clear-btn" class="btn btn-danger text-white"><i class="bi bi-trash"></i> Bersihkan</button>
             <button id="edit-toggle-btn" class="btn btn-warning text-white"><i class="bi bi-pencil-square"></i> <span id="edit-status-text">Edit Preview</span></button>
+            <button id="inspect-btn" class="btn btn-primary text-white"><i class="bi bi-cursor-fill"></i> <span>Inspect Element</span></button>
             <button id="format-btn" class="btn btn-secondary text-white"><i class="bi bi-wrench"></i> Format</button>
             <button id="example-btn" class="btn btn-info text-white"><i class="bi bi-file-code"></i> Contoh</button>
         </div>
@@ -153,7 +152,7 @@
             <div class="preview-panel p-3">
                 <div class="panel-header mb-2"><i class="bi bi-eye"></i> Preview</div>
                 <iframe id="preview"></iframe>
-                 <button id="escape-btn" class="btn btn-danger btn-sm escape-btn"><i class="bi bi-fullscreen-exit"></i> Keluar</button>
+                <button id="escape-btn" class="btn btn-danger btn-sm escape-btn"><i class="bi bi-fullscreen-exit"></i> Keluar</button>
             </div>
         </div>
     </div>
@@ -176,8 +175,10 @@
             const editStatusText = document.getElementById('edit-status-text');
             const fullscreenBtn = document.getElementById('fullscreen-btn');
             const escapeBtn = document.getElementById('escape-btn');
+            const inspectBtn = document.getElementById('inspect-btn'); // Tombol inspeksi baru
 
             let isEditingPreview = false;
+            let isInspecting = false; // Status mode inspeksi
             let debounceTimer;
 
             // Inisialisasi CodeMirror
@@ -189,59 +190,101 @@
                 autoCloseTags: true
             });
 
-            // Fungsi untuk update preview
+            // Fungsi untuk update preview dengan penanda baris
             function updatePreview() {
+                let sourceCode = editor.getValue();
+                const lines = sourceCode.split('\n');
+                const instrumentedLines = lines.map((line, index) => {
+                    return line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
+                        if (attributes.includes('data-source-line')) return match;
+                        return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
+                    });
+                });
+
+                const instrumentedCode = instrumentedLines.join('\n');
                 const previewDoc = preview.contentDocument || preview.contentWindow.document;
                 previewDoc.open();
-                previewDoc.write(editor.getValue());
+                previewDoc.write(instrumentedCode);
                 previewDoc.close();
-                // Pastikan mode edit preview diaktifkan kembali jika sedang aktif
-                if (isEditingPreview) {
-                    enablePreviewEditing();
+
+                if (isEditingPreview) enablePreviewEditing();
+                // Jika mode inspeksi aktif, listener harus dipasang ulang
+                if (isInspecting) {
+                    preview.contentDocument.body.addEventListener('click', handlePreviewClick);
+                    preview.contentDocument.body.style.cursor = 'pointer';
                 }
             }
             
-            // --- Logika Edit Preview Langsung (DIKEMBALIKAN) ---
+            // --- Logika Inspeksi Elemen (FITUR BARU) ---
+            const handlePreviewClick = (event) => {
+                event.preventDefault();
+                const target = event.target;
+                const sourceElement = target.closest('[data-source-line]');
+                if (sourceElement) {
+                    const line = parseInt(sourceElement.getAttribute('data-source-line'), 10);
+                    if (!isNaN(line)) {
+                        editor.setCursor({ line: line - 1, ch: 0 });
+                        editor.scrollIntoView({ line: line - 1, ch: 0 }, 50);
+                        editor.focus();
+                    }
+                }
+            };
+
+            inspectBtn.addEventListener('click', () => {
+                isInspecting = !isInspecting;
+                const previewBody = preview.contentDocument.body;
+                if (isInspecting) {
+                    inspectBtn.classList.add('btn-success');
+                    inspectBtn.classList.remove('btn-primary');
+                    inspectBtn.querySelector('span').textContent = 'Inspecting...';
+                    previewBody.addEventListener('click', handlePreviewClick);
+                    previewBody.style.cursor = 'pointer';
+                } else {
+                    inspectBtn.classList.remove('btn-success');
+                    inspectBtn.classList.add('btn-primary');
+                    inspectBtn.querySelector('span').textContent = 'Inspect Element';
+                    previewBody.removeEventListener('click', handlePreviewClick);
+                    previewBody.style.cursor = 'default';
+                }
+            });
+
+
+            // --- Logika Edit Preview Langsung ---
             const syncPreviewToEditor = () => {
-                // Debounce untuk mencegah update berlebihan saat mengetik cepat
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     const previewHTML = preview.contentDocument.body.innerHTML;
-                    const cursorPos = editor.getCursor(); // Simpan posisi kursor
+                    const cursorPos = editor.getCursor();
                     editor.setValue(previewHTML);
-                    editor.setCursor(cursorPos); // Kembalikan posisi kursor
+                    editor.setCursor(cursorPos);
                 }, 300);
             };
-
             const enablePreviewEditing = () => {
                 preview.contentDocument.body.contentEditable = 'true';
                 preview.contentDocument.body.addEventListener('input', syncPreviewToEditor);
             };
-
             const disablePreviewEditing = () => {
                 preview.contentDocument.body.contentEditable = 'false';
                 preview.contentDocument.body.removeEventListener('input', syncPreviewToEditor);
             };
-
             editToggleBtn.addEventListener('click', () => {
                 isEditingPreview = !isEditingPreview;
                 if (isEditingPreview) {
                     enablePreviewEditing();
                     editStatusText.textContent = 'Nonaktifkan Edit';
-                    editToggleBtn.classList.remove('btn-warning');
-                    editToggleBtn.classList.add('btn-success');
+                    editToggleBtn.classList.replace('btn-warning', 'btn-success');
                 } else {
                     disablePreviewEditing();
                     editStatusText.textContent = 'Edit Preview';
-                    editToggleBtn.classList.remove('btn-success');
-                    editToggleBtn.classList.add('btn-warning');
+                    editToggleBtn.classList.replace('btn-success', 'btn-warning');
                 }
             });
 
-            // --- Logika Fullscreen (DIKEMBALIKAN) ---
+
+            // --- Logika Fullscreen ---
             function toggleFullscreen() {
                 document.body.classList.toggle('fullscreen-active');
-                editor.refresh(); // Refresh CodeMirror untuk menyesuaikan ukuran
+                editor.refresh();
             }
             fullscreenBtn.addEventListener('click', toggleFullscreen);
             escapeBtn.addEventListener('click', toggleFullscreen);
@@ -251,47 +294,34 @@
                 }
             });
 
-            // Inisialisasi dan Event Listeners lainnya
+            // --- Inisialisasi dan Event Lainnya ---
             const exampleHTML = `<!DOCTYPE html>
 <html>
 <head>
     <title>Halaman Contoh</title>
-    <style>
-        body { font-family: sans-serif; padding: 20px; line-height: 1.6; }
-        .card { padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1); border-radius: 8px; margin-top: 20px; }
-        h1 { color: #4CAF50; }
-    </style>
 </head>
 <body>
-    <h1>Selamat Datang!</h1>
-    <p>Coba edit teks ini langsung di area preview!</p>
-    <div class="card">
+    <h1 style="color: #4CAF50;">Selamat Datang!</h1>
+    <p>Klik tombol <b>Inspect Element</b>, lalu klik teks ini.</p>
+    <div style="padding: 15px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
         <h2>Fitur Lengkap</h2>
         <ul>
             <li>Syntax Highlighting</li>
             <li>Auto-close Tags</li>
-            <li>Mode Fullscreen</li>
+            <li>Element Inspector</li>
         </ul>
     </div>
 </body>
 </html>`;
             
             editor.setValue(exampleHTML);
-            // setTimeout untuk memastikan iframe siap sebelum ditulis pertama kali
             setTimeout(updatePreview, 100);
 
             editor.on('change', () => {
-                // Jangan update preview jika sedang edit di preview
-                if (!isEditingPreview) {
-                    updatePreview();
-                }
+                if (!isEditingPreview) updatePreview();
             });
 
-            clearBtn.addEventListener('click', () => {
-                if (confirm('Yakin ingin membersihkan kode?')) {
-                    editor.setValue('');
-                }
-            });
+            clearBtn.addEventListener('click', () => { if (confirm('Yakin?')) editor.setValue(''); });
             exampleBtn.addEventListener('click', () => editor.setValue(exampleHTML));
             formatBtn.addEventListener('click', () => {
                 editor.autoFormatRange({line: 0, ch: 0}, {line: editor.lineCount()});
