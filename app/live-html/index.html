@@ -1,80 +1,11 @@
-Tentu, saya akan bantu perbaiki dan tingkatkan kode editor HTML Anda. Masalah utamanya ada pada tiga area: logika JavaScript yang memicu fullscreen, kurangnya *syntax highlighting*, dan cara menampilkan *preview* yang kurang terisolasi.
-
-Berikut adalah perbaikan dan penjelasannya.
-
-### 1\. Masalah Fullscreen Otomatis (Default)
-
-Penyebabnya adalah ada fungsi JavaScript `checkScreenSize()` yang langsung dijalankan saat halaman dimuat. Fungsi ini memeriksa lebar layar, dan jika lebih dari 1200px, ia akan otomatis mengaktifkan mode fullscreen.
-
-**Solusi:** Hapus atau jadikan komentar pada pemanggilan fungsi tersebut saat halaman pertama kali dimuat.
-
-```javascript
-// // Jalankan saat pertama kali dimuat
-// checkScreenSize(); // <-- BARIS INI DINONAKTIFKAN
-
-// // Jalankan juga saat ukuran layar berubah
-// window.addEventListener('resize', checkScreenSize); // <-- BARIS INI JUGA BISA DINONAKTIFKAN JIKA TIDAK PERLU
-```
-
------
-
-### 2\. Menambahkan *Syntax Highlighting*
-
-Elemen `<textarea>` standar tidak mendukung pewarnaan sintaks. Untuk membuatnya lebih profesional seperti editor kode sungguhan, kita perlu menggunakan *library* JavaScript. **CodeMirror** adalah pilihan yang sangat populer dan kuat untuk ini.
-
-**Solusi:**
-
-1.  **Tambahkan file CSS dan JS CodeMirror** dari CDN ke dalam `<head>` HTML Anda.
-2.  **Inisialisasi CodeMirror** pada elemen `<textarea>` Anda.
-3.  **Sesuaikan fungsi JavaScript** untuk berinteraksi dengan CodeMirror, karena cara mengambil dan mengatur teksnya sedikit berbeda (`editor.getValue()` dan `editor.setValue()`).
-
------
-
-### 3\. Mencegah *Preview* Keluar dari Jendela
-
-Saat ini Anda menggunakan `<div>` untuk *preview*. Jika konten di dalamnya (misalnya gambar yang sangat lebar) lebih besar dari `<div>` tersebut, konten itu bisa "bocor" dan merusak tata letak halaman utama.
-
-**Solusi:** Gunakan elemen `<iframe>`. Sebuah `<iframe>` menciptakan lingkungan dokumen yang sepenuhnya terisolasi. Ini adalah cara standar dan paling aman untuk membuat *preview* editor kode, karena konten di dalamnya tidak akan pernah mengganggu halaman utama dan akan memiliki *scrollbar* sendiri jika diperlukan.
-
-**Perubahan pada HTML:**
-
-```html
-<div id="preview"></div>
-
-<iframe id="preview" style="width: 100%; height: 100%; border: none;"></iframe>
-```
-
-**Perubahan pada JavaScript:**
-Fungsi `updatePreview` perlu diubah untuk menulis konten ke dalam `<iframe>`.
-
-```javascript
-function updatePreview() {
-    // Cara lama:
-    // preview.innerHTML = htmlCode.value;
-
-    // Cara baru dengan iframe:
-    const previewDoc = preview.contentDocument || preview.contentWindow.document;
-    previewDoc.open();
-    previewDoc.write(editor.getValue()); // Mengambil nilai dari CodeMirror
-    previewDoc.close();
-}
-```
-
------
-
-## Kode Lengkap yang Telah Diperbaiki
-
-Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda bisa langsung menyalin dan menggunakannya.
-
-```html
 <!DOCTYPE html>
 <html lang="id-ID">
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Live HTML Editor (Improved)</title>
-    <meta content="Live HTML editor dengan syntax highlighting dan preview yang aman" name="description">
-    <meta content="live html editor, codemirror" name="keywords">
+    <title>Live HTML Editor (Auto-complete)</title>
+    <meta content="Live HTML editor dengan syntax highlighting dan auto-complete tag" name="description">
+    <meta content="live html editor, codemirror, autocomplete" name="keywords">
     <meta name="author" content="Galih Pradananta">
     <link href="/assets/img/letter-g.gif" rel="icon">
     
@@ -137,7 +68,7 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
             flex: 1;
             display: flex;
             flex-direction: column;
-            min-width: 0; /* Mencegah flex item tumbuh melebihi batas */
+            min-width: 0;
         }
         .panel-header {
             padding: 10px 15px;
@@ -150,20 +81,15 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
             color: white;
             border-bottom: 1px solid #555;
         }
-
-        /* PERBAIKAN 2: Style untuk CodeMirror agar mengisi ruang */
         .CodeMirror {
-            flex-grow: 1; /* Membuat editor mengisi sisa ruang vertikal */
+            flex-grow: 1;
             height: auto;
             font-size: 15px;
         }
-        
         .preview-panel {
             padding: 15px;
             background-color: white;
         }
-
-        /* PERBAIKAN 3: Iframe preview */
         #preview {
             width: 100%;
             height: 100%;
@@ -211,6 +137,8 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/javascript/javascript.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/css/css.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/htmlmixed/htmlmixed.min.js"></script>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/edit/closetag.min.js"></script>
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -219,27 +147,23 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
             const formatBtn = document.getElementById('format-btn');
             const exampleBtn = document.getElementById('example-btn');
 
-            // PERBAIKAN 2: Inisialisasi CodeMirror
+            // Inisialisasi CodeMirror
             const editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
                 mode: 'htmlmixed',
                 theme: 'monokai',
                 lineNumbers: true,
-                autoCloseTags: true,
                 lineWrapping: true,
+                // LANGKAH 2: Aktifkan opsi autoCloseTags
+                autoCloseTags: true
             });
 
             // Fungsi untuk memperbarui preview
             function updatePreview() {
                 const previewDoc = preview.contentDocument || preview.contentWindow.document;
                 previewDoc.open();
-                // Ambil nilai dari editor CodeMirror
                 previewDoc.write(editor.getValue());
                 previewDoc.close();
             }
-
-            // PERBAIKAN 1: Logika fullscreen otomatis dihapus
-            // Fungsi-fungsi yang berkaitan dengan fullscreen, edit-toggle, dll. juga telah dihapus
-            // untuk menyederhanakan kode sesuai permintaan utama.
 
             // Contoh kode awal
             const exampleHTML = `<!DOCTYPE html>
@@ -254,13 +178,13 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
 </head>
 <body>
     <h1>Selamat Datang!</h1>
-    <p>Ini adalah contoh halaman yang dirender di dalam iframe.</p>
+    <p>Coba ketik tag <div> di sini, tag penutupnya akan otomatis ditambahkan.</p>
     <div class="card">
         <h2>Fitur Utama</h2>
         <ul>
             <li>Syntax Highlighting</li>
             <li>Preview yang Aman</li>
-            <li>Tampilan Responsif</li>
+            <li>Auto-close Tags</li>
         </ul>
     </div>
 </body>
@@ -285,7 +209,6 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
             });
             
             formatBtn.addEventListener('click', () => {
-                // Fungsi format sederhana, bisa ditingkatkan dengan library formatter
                 const totalLines = editor.lineCount();
                 editor.autoFormatRange({line: 0, ch: 0}, {line: totalLines});
             });
@@ -293,4 +216,3 @@ Berikut adalah kode lengkap dengan semua perbaikan yang telah diterapkan. Anda b
     </script>
 </body>
 </html>
-```
