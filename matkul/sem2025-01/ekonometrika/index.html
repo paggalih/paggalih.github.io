@@ -691,7 +691,7 @@
                   <h2>Pertemuan 3</h2>
                </div>
                <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-log.csv"><button>Unduh CSV </button></a>
-               <div class="overflow-auto" id="tabel-UTS"></div>
+               <div class="overflow-auto" id="tabel-regresi-log"></div>
                <script>
                   fetch('regresi-log.csv')
                     .then(res => res.text())
@@ -704,7 +704,7 @@
                       const headers = rows[0];
                       const dataRows = rows.slice(1);
                   
-                      let html = `<table class="table table-striped text-center" id="datatable-UTS">`;
+                      let html = `<table class="table table-striped text-center" id="datatable-regresi-log">`;
                   
                       // Buat bagian thead
                       html += '<thead><tr>';
@@ -725,11 +725,11 @@
                       html += '</tbody>';
                   
                       html += '</table>';
-                      document.getElementById("tabel-UTS").innerHTML = html;
+                      document.getElementById("tabel-regresi-log").innerHTML = html;
                   		
                       // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
                       $(document).ready(function () {
-                        $('#datatable-UTS').DataTable({
+                        $('#datatable-regresi-log').DataTable({
                           paging: true,
                           searching: true,
                           scrollX: true
