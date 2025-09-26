@@ -1,1833 +1,1933 @@
 <!DOCTYPE html>
 <html lang="id-ID">
-   <head>
-      <meta charset="utf-8">
-      <meta content="width=device-width, initial-scale=1.0" name="viewport">
-      <title> Ekonometrika </title>
-      <meta content="Mata kuliah Ekonometrika program studi Ekonomi Syariah  semester 2025-ganjil" name="description">
-      <meta content="Ekonometrika" name="keywords">
-      <meta name="author" content="Galih Pradananta">
-      <!-- Favicons -->
-      <link href="/assets/img/letter-g.gif" rel="icon">
-      <!-- Vendor CSS Files -->
-      <!-- <link href="/assets/vendor/aos/aos.css" rel="stylesheet"> -->
-      <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-      <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-      <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-      <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-      <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
-      <!-- Template Main CSS File -->
-      <link href="/assets/css/style.css" rel="stylesheet">
-      <!-- DataTables CSS & JS -->
-      <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
-      <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css" >
-      <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css" >
-      <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
-      <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
-      <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-      <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin = "anonymous"></script>
-      <!-- =======================================================
+
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title> Ekonometrika </title>
+  <meta content="Mata kuliah Ekonometrika program studi Ekonomi Syariah  semester 2025-ganjil" name="description">
+  <meta content="Ekonometrika" name="keywords">
+  <meta name="author" content="Galih Pradananta">
+  <!-- Favicons -->
+  <link href="/assets/img/letter-g.gif" rel="icon">
+  <!-- Vendor CSS Files -->
+  <!-- <link href="/assets/vendor/aos/aos.css" rel="stylesheet"> -->
+  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <!-- Template Main CSS File -->
+  <link href="/assets/css/style.css" rel="stylesheet">
+  <!-- DataTables CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin="anonymous"></script>
+  <!-- =======================================================
          * Template Name: MyResume
          * Updated: Jun 13 2023 with Bootstrap v5.3.0
          * Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
          * Author: BootstrapMade.com
          * License: https://bootstrapmade.com/license/
          ======================================================== -->
-      <script>
-         MathJax = {
-         		tex: {
-         				inlineMath: [
-         						['$', '$'],
-         						['\\(', '\\)']
-         				]
-         		}
-         };
-      </script>
-      <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
-      <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
-     <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        mermaid.initialize({ startOnLoad: true });
-     </script>
-      <style>
-         @media (min-width: 991px) {
-         #matkul_icon {
-         z-index: 2000;
-         position: fixed;
-         right: 20px;
-         top: 20px;
-         background-color: #0563bb;
-         letter-spacing: 2px;
-         color: aliceblue;
-         padding: 2px 8px;
-         border-radius: 50px;
-         }
-         }
-         @media (max-width: 991px) {
-         #matkul_icon {
-         z-index: 2000;
-         position: fixed;
-         right: 60px;
-         bottom: 20px;
-         background-color: #0563bb;
-         letter-spacing: 2px;
-         color: aliceblue;
-         padding: 2px 8px;
-         border-radius: 50px;
-         }
-         }
-         .accordion-item {
-         background-color: #f7f8f6;
-         }
-      </style>
-      <style>
-         /* Gaya khusus untuk game */
-         .game-container {
-         max-width: 600px;
-         margin: 20px auto;
-         padding: 20px;
-         background-color: #f8f9fa;
-         border-radius: 8px;
-         box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-         }
-         .grid-container {
-         display: grid;
-         grid-template-columns: repeat(3, 1fr);
-         gap: 10px;
-         margin-top: 20px;
-         }
-         .grid-item {
-         height: 100px;
-         background-color: #4CAF50;
-         border-radius: 5px;
-         display: flex;
-         align-items: center;
-         justify-content: center;
-         color: white;
-         font-size: 24px;
-         font-weight: bold;
-         cursor: pointer;
-         transition: all 0.3s ease;
-         }
-         .grid-item:hover {
-         background-color: #45a049;
-         transform: scale(1.03);
-         }
-         .grid-item.answered {
-         background-color: #9E9E9E;
-         cursor: not-allowed;
-         }
-         /* Modal khusus untuk game */
-         #questionModal {
-         display: none;
-         position: fixed;
-         z-index: 1050;
-         left: 0;
-         top: 0;
-         width: 100%;
-         height: 100%;
-         background-color: rgba(0,0,0,0.5);
-         }
-         .modal-content-game {
-         background-color: #fefefe;
-         margin: 15% auto;
-         padding: 20px;
-         border-radius: 8px;
-         width: 80%;
-         max-width: 600px;
-         box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-         }
-         .close-game {
-         color: #aaa;
-         float: right;
-         font-size: 28px;
-         font-weight: bold;
-         cursor: pointer;
-         }
-         .close-game:hover {
-         color: black;
-         }
-         #answerOptions {
-         margin-top: 20px;
-         }
-         .answer-btn {
-         display: block;
-         width: 100%;
-         padding: 10px;
-         margin: 5px 0;
-         background-color: #4CAF50;
-         color: white;
-         border: none;
-         border-radius: 4px;
-         cursor: pointer;
-         }
-         .answer-btn:hover {
-      </style>
-      <style>
-         :root {
-         --bg:#ffffff;
-         --card:#f9f9f9;
-         --fg:#222222;
-         --muted:#555555;
-         --border:#cccccc;
-         }
-         body {
-         font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
-         margin:0;
-         background:var(--bg);
-         color:var(--fg);
-         }
-         .container {
-         max-width:1200px;
-         margin: 24px auto;
-         padding: 0 16px;
-         }
-         h1 { margin:0 0 4px; }
-         .muted { color:var(--muted); }
-         .card {
-         background:var(--card);
-         border:1px solid var(--border);
-         border-radius:16px;
-         padding:16px;
-         margin:16px 0;
-         box-shadow:0 4px 12px rgba(0,0,0,.08);
-         }
-         .tabs {
-         display:flex;
-         gap:8px;
-         }
-         .tab {
-         padding:8px 12px;
-         border:1px solid var(--border);
-         border-bottom:none;
-         border-radius:10px 10px 0 0;
-         background:#eaeaea;
-         cursor:pointer;
-         color:var(--fg);
-         }
-         .tab.active {
-         background:var(--card);
-         font-weight:600;
-         }
-         table.dataTable thead th {
-         background:#f0f0f0;
-         color:#333333;
-         }
-         .actions {
-         display:flex;
-         gap:8px;
-         justify-content:flex-end;
-         margin-bottom:8px;
-         }
-         button {
-         background:#f0f0f0;
-         color:#222;
-         border:1px solid var(--border);
-         border-radius:10px;
-         padding:8px 10px;
-         cursor:pointer;
-         }
-         button:hover {
-         background:#e0e0e0;
-         }
-      </style>
-   </head>
-   <body>
-      <!-- ======= Mobile nav toggle button ======= -->
-      <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
-      <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
-      <!-- ======= Header ======= -->
-      <header id="header" class="d-flex flex-column">
-         <nav id="navbar" class="navbar nav-menu">
-            <ul>
-               <li>
-                  <a href="/index.html" class="nav-link scrollto active">
-                  <i class="bx bx-home"></i>
-                  <span>Home</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p1" class="nav-link scrollto">
-                  <i class="bi bi-1-circle-fill"></i>
-                  <span>Pertemuan 1</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p2" class="nav-link scrollto">
-                  <i class="bi bi-2-circle-fill"></i>
-                  <span>Pertemuan 2</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p3" class="nav-link scrollto">
-                  <i class="bi bi-3-circle-fill"></i>
-                  <span>Pertemuan 3</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p4" class="nav-link scrollto">
-                  <i class="bi bi-4-circle-fill"></i>
-                  <span>Pertemuan 4</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p5" class="nav-link scrollto">
-                  <i class="bi bi-5-circle-fill"></i>
-                  <span>Pertemuan 5</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p6" class="nav-link scrollto">
-                  <i class="bi bi-6-circle-fill"></i>
-                  <span>Pertemuan 6</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p7" class="nav-link scrollto">
-                  <i class="bi bi-7-circle-fill"></i>
-                  <span>Pertemuan 7</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p8" class="nav-link scrollto">
-                  <i class="bi bi-8-circle-fill"></i>
-                  <span>Pertemuan 8</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p9" class="nav-link scrollto">
-                  <i class="bi bi-9-circle-fill"></i>
-                  <span>Pertemuan 9</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p10" class="nav-link scrollto">
-                  <i class="bi bi-0-circle"></i>
-                  <span>Pertemuan 10</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p11" class="nav-link scrollto">
-                  <i class="bi bi-1-circle"></i>
-                  <span>Pertemuan 11</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p12" class="nav-link scrollto">
-                  <i class="bi bi-2-circle"></i>
-                  <span>Pertemuan 12</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p13" class="nav-link scrollto">
-                  <i class="bi bi-3-circle"></i>
-                  <span>Pertemuan 13</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p14" class="nav-link scrollto">
-                  <i class="bi bi-4-circle"></i>
-                  <span>Pertemuan 14</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p15" class="nav-link scrollto">
-                  <i class="bi bi-5-circle"></i>
-                  <span>Pertemuan 15</span>
-                  </a>
-               </li>
-               <li>
-                  <a href="#p16" class="nav-link scrollto">
-                  <i class="bi bi-6-circle"></i>
-                  <span>Pertemuan 16</span>
-                  </a>
-               </li>
-            </ul>
-         </nav>
-         <!-- .nav-menu -->
-      </header>
-      <!-- End Header -->
-      <main id="main">
-         <a href="#footer" id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i> Ekonometrika <i class="bi bi-arrow-right-circle-fill"></i></a>
-         <section id="matkul">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2 class="fixed-top shadow-lg" id="post-title">Ekonometrika </h2>
-               </div>
-               <p id="tanggal" class="text-center">Terakhir diubah pada </p>
-            </div>
-         </section>
-         <section id="p1">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 1</h2>
-               </div>
-               <h3 class="text-center">RPS</h3>
-               <div class="text-center overflow-auto">
-                  <iframe src="RPS-Matematika-Keuangan.pdf" class="pdf-frame" allowfullscreen></iframe>
-               </div>
-               <table class="datatable table table-bordered table-striped">
-                  <thead>
-                     <tr>
-                        <th>Minggu</th>
-                        <th>Materi Pembelajaran</th>
-                        <th>Pustaka</th>
-                     </tr>
-                  </thead>
-                  <tbody>
-                     <tr>
-                        <td>1</td>
-                        <td>Pengantar Ekonometrika dan Model Regresi Linear</td>
-                        <td>Bab 1: The Linear Regression Model: An Overview</td>
-                     </tr>
-                     <tr>
-                        <td>2</td>
-                        <td>Bentuk Fungsional Model Regresi</td>
-                        <td>Bab 2: Functional Forms of Regression Models</td>
-                     </tr>
-                     <tr>
-                        <td>3</td>
-                        <td>Variabel Dummy dalam Regresi</td>
-                        <td>Bab 3: Qualitative Explanatory Variables Regression Models</td>
-                     </tr>
-                     <tr>
-                        <td>4</td>
-                        <td>Multikolinearitas dalam Model Regresi</td>
-                        <td>Bab 4: Regression Diagnostic I: Multicollinearity</td>
-                     </tr>
-                     <tr>
-                        <td>5</td>
-                        <td>Heteroskedastisitas dalam Regresi</td>
-                        <td>Bab 5: Regression Diagnostic II: Heteroscedasticity</td>
-                     </tr>
-                     <tr>
-                        <td>6</td>
-                        <td>Autokorelasi dalam Regresi</td>
-                        <td>Bab 6: Regression Diagnostic III: Autocorrelation</td>
-                     </tr>
-                     <tr>
-                        <td>7</td>
-                        <td>Kesalahan Spesifikasi Model Regresi</td>
-                        <td>Bab 7: Regression Diagnostic IV: Model Specification Errors</td>
-                     </tr>
-                     <tr>
-                        <td>8</td>
-                        <td><b>Ujian Tengah Semester (UTS)</b></td>
-                        <td>-</td>
-                     </tr>
-                     <tr>
-                        <td>9</td>
-                        <td>Model Logit dan Probit untuk Data Kategorikal</td>
-                        <td>Bab 8: The Logit and Probit Models</td>
-                     </tr>
-                     <tr>
-                        <td>10</td>
-                        <td>Model Multinomial dan Ordinal dalam Regresi</td>
-                        <td>Bab 9-10: Multinomial & Ordinal Regression Models</td>
-                     </tr>
-                     <tr>
-                        <td>11</td>
-                        <td>Model Data Terbatas dan Poisson Regression</td>
-                        <td>Bab 11-12: Limited Dependent Variable & Poisson Models</td>
-                     </tr>
-                     <tr>
-                        <td>12</td>
-                        <td>Analisis Deret Waktu</td>
-                        <td>Bab 13: Stationary and Nonstationary Time Series</td>
-                     </tr>
-                     <tr>
-                        <td>13</td>
-                        <td>Kointegrasi dan Model Koreksi Kesalahan (ECM)</td>
-                        <td>Bab 14: Cointegration and Error Correction Models</td>
-                     </tr>
-                     <tr>
-                        <td>14</td>
-                        <td>Model Volatilitas (ARCH dan GARCH)</td>
-                        <td>Bab 15: Asset Price Volatility: The ARCH and GARCH Models</td>
-                     </tr>
-                     <tr>
-                        <td>15</td>
-                        <td>Model Data Panel dan Survival Analysis</td>
-                        <td>Bab 17-18: Panel Data Regression & Survival Analysis</td>
-                     </tr>
-                     <tr>
-                        <td>16</td>
-                        <td><b>Ujian Akhir Semester (UAS)</b></td>
-                        <td>-</td>
-                     </tr>
-                  </tbody>
-               </table>
-            </div>
-         </section>
-         <section id="p2">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 2</h2>
-               </div>
+  <script>
+    MathJax = {
+    		tex: {
+    				inlineMath: [
+    						['$', '$'],
+    						['\\(', '\\)']
+    				]
+    		}
+    };
+  </script>
+  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
+  <style>
+    @media (min-width: 991px) {
+    #matkul_icon {
+    z-index: 2000;
+    position: fixed;
+    right: 20px;
+    top: 20px;
+    background-color: #0563bb;
+    letter-spacing: 2px;
+    color: aliceblue;
+    padding: 2px 8px;
+    border-radius: 50px;
+    }
+    }
+    @media (max-width: 991px) {
+    #matkul_icon {
+    z-index: 2000;
+    position: fixed;
+    right: 60px;
+    bottom: 20px;
+    background-color: #0563bb;
+    letter-spacing: 2px;
+    color: aliceblue;
+    padding: 2px 8px;
+    border-radius: 50px;
+    }
+    }
+    .accordion-item {
+    background-color: #f7f8f6;
+    }
+  </style>
+  <style>
+    /* Gaya khusus untuk game */
+    .game-container {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #f8f9fa;
+    border-radius: 8px;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    }
+    .grid-container {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 20px;
+    }
+    .grid-item {
+    height: 100px;
+    background-color: #4CAF50;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    font-size: 24px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    }
+    .grid-item:hover {
+    background-color: #45a049;
+    transform: scale(1.03);
+    }
+    .grid-item.answered {
+    background-color: #9E9E9E;
+    cursor: not-allowed;
+    }
+    /* Modal khusus untuk game */
+    #questionModal {
+    display: none;
+    position: fixed;
+    z-index: 1050;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.5);
+    }
+    .modal-content-game {
+    background-color: #fefefe;
+    margin: 15% auto;
+    padding: 20px;
+    border-radius: 8px;
+    width: 80%;
+    max-width: 600px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .close-game {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+    }
+    .close-game:hover {
+    color: black;
+    }
+    #answerOptions {
+    margin-top: 20px;
+    }
+    .answer-btn {
+    display: block;
+    width: 100%;
+    padding: 10px;
+    margin: 5px 0;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    }
+    .answer-btn:hover {
+  </style>
+  <style>
+    :root {
+    --bg:#ffffff;
+    --card:#f9f9f9;
+    --fg:#222222;
+    --muted:#555555;
+    --border:#cccccc;
+    }
+    body {
+    font-family: system-ui,-apple-system,Segoe UI,Roboto,Helvetica,Arial;
+    margin:0;
+    background:var(--bg);
+    color:var(--fg);
+    }
+    .container {
+    max-width:1200px;
+    margin: 24px auto;
+    padding: 0 16px;
+    }
+    h1 { margin:0 0 4px; }
+    .muted { color:var(--muted); }
+    .card {
+    background:var(--card);
+    border:1px solid var(--border);
+    border-radius:16px;
+    padding:16px;
+    margin:16px 0;
+    box-shadow:0 4px 12px rgba(0,0,0,.08);
+    }
+    .tabs {
+    display:flex;
+    gap:8px;
+    }
+    .tab {
+    padding:8px 12px;
+    border:1px solid var(--border);
+    border-bottom:none;
+    border-radius:10px 10px 0 0;
+    background:#eaeaea;
+    cursor:pointer;
+    color:var(--fg);
+    }
+    .tab.active {
+    background:var(--card);
+    font-weight:600;
+    }
+    table.dataTable thead th {
+    background:#f0f0f0;
+    color:#333333;
+    }
+    .actions {
+    display:flex;
+    gap:8px;
+    justify-content:flex-end;
+    margin-bottom:8px;
+    }
+    button {
+    background:#f0f0f0;
+    color:#222;
+    border:1px solid var(--border);
+    border-radius:10px;
+    padding:8px 10px;
+    cursor:pointer;
+    }
+    button:hover {
+    background:#e0e0e0;
+    }
+  </style>
+</head>
 
-               <div class="mermaid text-center">
-                  graph TD
-                  A("Model Regresi Linier")
-                  B("$Y=B_1+B_2X_2+B_3X_3+\cdots +B_kX_k$")
-                  C("$ Y,X_2,X_3,\cdots,X_k$")
-                  D("Skala Variabel")
-                  D1("Skala Rasio")
-                  D2("Skala Interval")
-                  D3("Skala Ordinal")
-                  D4("Skala Nominal")
-                  E("Tipe Data")
-                  E1("Time Series")
-                  E2("Cross Section")
-                  E3("Panel")
-                  
-                  A --> B --> C --> D 
-                  D --> D1
-                  D --> D2 
-                  D --> D3 
-                  D --> D4
-                  C --> E 
-                  E --> E1
-                  E --> E2 
-                  E --> E3
-               </div>
-               <div class="container">
-                  <h3>Bab 2: Functional Forms of Regression Models</h3>
-                  <div class="tabs">
-                     <div class="tab active" data-target="#wrap1">Kasus 1 – Financial Inclusion</div>
-                     <div class="tab" data-target="#wrap2">Kasus 2 – Banking Assets</div>
-                  </div>
-                  <div id="wrap1" class="card">
-                     <div class="actions"><button id="dl1">Unduh CSV</button></div>
-                     <table id="tbl1" class="display nowrap" style="width:100%">
-                        <thead></thead>
-                        <tbody></tbody>
-                     </table>
-                  </div>
-                  <div id="wrap2" class="card" style="display:none;">
-                     <div class="actions"><button id="dl2">Unduh CSV (Kasus 2)</button></div>
-                     <table id="tbl2" class="display nowrap" style="width:100%">
-                        <thead></thead>
-                        <tbody></tbody>
-                     </table>
-                  </div>
-               </div>
-               <!-- DATA & GENERATOR TERTANAM (tanpa file eksternal) -->
-               <script>
-                  // Parameter panel
-                  const YEARS = Array.from({length:30}, (_,i)=>1995+i); // 1995–2024
-                  const LOCS  = ["Jakarta","Surabaya","Medan"];
-                  const locFE = {Jakarta: 0.00, Surabaya: -0.20, Medan: -0.35}; // fixed effects ringan
-                  const tOf   = y => (y - 1995) / (2024 - 1995); // skala tren 0..1
-                  
-                  // Generator noise deterministik (biar konsisten setiap load) — tanpa RNG eksternal
-                  function noise(seed){
-                    // simple xorshift-like
-                    let x = Math.imul(seed, 2654435761) >>> 0;
-                    x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
-                    // map ke ~N(0,1) kasar via Box-Muller deterministik pseudo
-                    const u = ((x>>>1) % 10000 + 1) / 10001; // (0,1)
-                    const v = ((x>>>9) % 10000 + 1) / 10001;
-                    const z = Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
-                    return z;
-                  }
-                  
-                  // -------------------
-                  // CASE 1 (Y = Islamic_Financial_Inclusion_Index)
-                  // X1 = Sharia_Investment_Growth (%)
-                  // X2 = Islamic_Banking_Assets_Growth (%)
-                  // X3 = Halal_MSME_Share (%)
-                  // -------------------
-                  const CASE1 = [];
-                  LOCS.forEach((loc, li)=>{
-                    YEARS.forEach((yr, yi)=>{
-                      const t = tOf(yr), fe = locFE[loc];
-                      const seedBase = 1000 + li*100 + yi;
-                  
-                      const Sharia_Investment_Growth = +(3 + 5*t + 1.2*noise(seedBase+11)).toFixed(2); // ~3→8
-                      const Islamic_Banking_Assets_Growth = +(4 + 3*t + 1.0*noise(seedBase+22)).toFixed(2); // ~4→7
-                      const Halal_MSME_Share = +(10 + 25*t + 5*fe + 2.5*noise(seedBase+33)).toFixed(2); // ~10→35, efek lokasi
-                  
-                      // Y (dibatasi 0..100)
-                      let y = 40
-                        + 0.7*Halal_MSME_Share
-                        + 0.9*Sharia_Investment_Growth
-                        + 0.5*Islamic_Banking_Assets_Growth
-                        + 5*fe
-                        + 3.0*noise(seedBase+44);
-                      y = Math.min(100, Math.max(0, y));
-                      const Islamic_Financial_Inclusion_Index = +y.toFixed(2);
-                  
-                      CASE1.push({
-                        Location: loc,
-                        Year: yr,
-                        Sharia_Investment_Growth,
-                        Islamic_Banking_Assets_Growth,
-                        Halal_MSME_Share,
-                        Islamic_Financial_Inclusion_Index
-                      });
-                    });
-                  });
-                  
-                  // -------------------
-                  // CASE 2 (Y = Islamic_Banking_Assets_TrnIDR)
-                  // X1 = PSF_Share (% bagi hasil)
-                  // X2 = NPF_Rate (%)
-                  // X3 = Digital_Adoption (%)
-                  // -------------------
-                  const CASE2 = [];
-                  LOCS.forEach((loc, li)=>{
-                    YEARS.forEach((yr, yi)=>{
-                      const t = tOf(yr), fe = locFE[loc];
-                      const seedBase = 2000 + li*100 + yi;
-                  
-                      const PSF_Share = +(18 + 8*t + 3*fe + 1.5*noise(seedBase+55)).toFixed(2); // ~18→26
-                      const NPF_Rate = +(4.5 - 1.5*t + 0.7*noise(seedBase+66)).toFixed(2); // ~4.5→3
-                      const Digital_Adoption = +(12 + 60*t + 5*fe + 3.0*noise(seedBase+77)).toFixed(2); // ~12→72
-                  
-                      let assets = 150
-                        + 60*t                    // tren jangka panjang
-                        + 3.0*PSF_Share
-                        - 4.5*NPF_Rate
-                        + 1.8*Digital_Adoption
-                        + 12*fe
-                        + 10.0*noise(seedBase+88);
-                      assets = Math.max(50, assets); // lantai
-                      const Islamic_Banking_Assets_TrnIDR = +assets.toFixed(2);
-                  
-                      CASE2.push({
-                        Location: loc,
-                        Year: yr,
-                        PSF_Share,
-                        NPF_Rate,
-                        Digital_Adoption,
-                        Islamic_Banking_Assets_TrnIDR
-                      });
-                    });
-                  });
-               </script>
-               <script>
-                  let dt1=null, dt2=null;
-                  
-                  function setActiveTab(el){
-                    document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-                    el.classList.add('active');
-                    const tgt = el.getAttribute('data-target');
-                    document.querySelectorAll('#wrap1,#wrap2').forEach(x=>x.style.display='none');
-                    document.querySelector(tgt).style.display='block';
-                  }
-                  document.querySelectorAll('.tab').forEach(tab=>{
-                    tab.addEventListener('click',()=>setActiveTab(tab));
-                  });
-                  
-                  function buildTable($table, data){
-                    if(!data || !data.length){
-                      $table.find('thead').html('');
-                      $table.find('tbody').html('<tr><td>Tidak ada data</td></tr>');
-                      return null;
-                    }
-                    const cols = Object.keys(data[0]);
-                    const thead = '<tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>';
-                    const rows = data.map(r=>'<tr>'+cols.map(c=>`<td>${r[c]}</td>`).join('')+'</tr>').join('');
-                    $table.find('thead').html(thead);
-                    $table.find('tbody').html(rows);
-                    return $table.DataTable({ responsive:true, pageLength:10, scrollX:true });
-                  }
-                  
-                  function tableToCSV(dt){
-                    const headers = dt.columns().header().toArray().map(h=>h.textContent);
-                    const data = dt.rows({ search:'applied' }).data().toArray();
-                    const csvRows = [headers.join(',')];
-                    for(const row of data){
-                      const escaped = row.map(v=>{
-                        const s = String(v??'');
-                        return s.includes(',')||s.includes('"')||s.includes('\n') ? '"'+s.replace(/"/g,'""')+'"' : s;
-                      });
-                      csvRows.push(escaped.join(','));
-                    }
-                    return csvRows.join('\n');
-                  }
-                  
-                  function triggerDownload(filename, content){
-                    const blob = new Blob([content], {type:'text/csv;charset=utf-8;'});
-                    const url = URL.createObjectURL(blob);
-                    const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
-                    URL.revokeObjectURL(url);
-                  }
-                  
-                  $(document).ready(function(){
-                    dt1 = buildTable($('#tbl1'), CASE1);
-                    dt2 = buildTable($('#tbl2'), CASE2);
-                  
-                    document.getElementById('dl1').addEventListener('click', ()=>{
-                      if(!dt1){ alert('Tabel belum siap'); return; }
-                      triggerDownload('Case1_FinancialInclusion.csv', tableToCSV(dt1));
-                    });
-                    document.getElementById('dl2').addEventListener('click', ()=>{
-                      if(!dt2){ alert('Tabel belum siap'); return; }
-                      triggerDownload('Case2_BankingAssets.csv', tableToCSV(dt2));
-                    });
-                  });
-               </script>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp2">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp2">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep2" aria-expanded="true" aria-controls="collapsep2">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep2" class="accordion-collapse collapse" aria-labelledby="headingp2" data-bs-parent="#accordionp2">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-         <section id="p3">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 3</h2>
-               </div>
-               <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-log.csv"><button>Unduh CSV </button></a>
-               <div class="overflow-auto" id="tabel-regresi-log"></div>
-               <script>
-                  fetch('regresi-log.csv')
-                    .then(res => res.text())
-                    .then(csv => {
-                      const rows = csv.trim().split('\n').map(row => row.split(','));
-                  
-                      if (rows.length === 0) return;
-                  
-                      // Ambil baris pertama sebagai header
-                      const headers = rows[0];
-                      const dataRows = rows.slice(1);
-                  
-                      let html = `<table class="table table-striped text-center" id="datatable-regresi-log">`;
-                  
-                      // Buat bagian thead
-                      html += '<thead><tr>';
-                      headers.forEach(header => {
-                        html += `<th>${header}</th>`;
-                      });
-                      html += '</tr></thead>';
-                  
-                      // Buat bagian tbody
-                      html += '<tbody>';
-                      dataRows.forEach(row => {
-                        html += '<tr>';
-                        row.forEach(cell => {
-                          html += `<td>${cell}</td>`;
-                        });
-                        html += '</tr>';
-                      });
-                      html += '</tbody>';
-                  
-                      html += '</table>';
-                      document.getElementById("tabel-regresi-log").innerHTML = html;
-                  		
-                      // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
-                      $(document).ready(function () {
-                        $('#datatable-regresi-log').DataTable({
-                          paging: true,
-                          searching: true,
-                          scrollX: true
-                        });
-                      });
-                  		});
-               </script>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp3">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp3">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep3" aria-expanded="true" aria-controls="collapsep3">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep3" class="accordion-collapse collapse" aria-labelledby="headingp3" data-bs-parent="#accordionp3">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-         <section id="p4">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 4</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp4">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp4">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep4" aria-expanded="true" aria-controls="collapsep4">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep4" class="accordion-collapse collapse" aria-labelledby="headingp4" data-bs-parent="#accordionp4">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-         <section id="p5">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 5</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp5">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp5">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep5" aria-expanded="true" aria-controls="collapsep5">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep5" class="accordion-collapse collapse" aria-labelledby="headingp5" data-bs-parent="#accordionp5">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-         <section id="p6">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 6</h2>
-               </div>
-               <div class="container mt-4">
-                  <div class="game-container">
-                     <h2 class="text-center">Game Statistik</h2>
-                     <div class="grid-container" id="gameGrid">
-                        <!-- Kotak-kotak game akan di-generate oleh JavaScript -->
-                     </div>
-                  </div>
-               </div>
-               <!-- Modal/Pop-up untuk pertanyaan -->
-               <div id="questionModal" class="modal-game">
-                  <div class="modal-content-game">
-                     <span class="close-game">&times;</span>
-                     <h3 id="questionText">Pertanyaan akan muncul di sini</h3>
-                     <div id="answerOptions"></div>
-                  </div>
-               </div>
-               <!-- Bootstrap JS Bundle with Popper -->
-               <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
-               <script>
-                  document.addEventListener('DOMContentLoaded', function() {
-                      // Pertanyaan dan jawaban
-                      const questions = [
-                          {
-                              question: "Mana yang bukan merupakan pendekatan peluang?",
-                              answers: [
-                                  "Klasik",
-                                  "Empiris",
-                                  "Integratif",
-                                  "Subjektif"
-                              ],
-                              correct: 2
-                          },
-                          {
-                              question: "Apa itu eksperimen?",
-                              answers: [
-                                  "Salah satu kemungkinan hasil",
-                                  "Proses menghasilkan tertentu",
-                                  "Satu atau lebih hasil",
-                                  "Semuanya salah"
-                              ],
-                              correct: 1
-                          },
-                          {
-                              question: "Berapakah peluang muncul angka 1 pada dadu?",
-                              answers: [
-                                  "0",
-                                  "1/6",
-                                  "2/6",
-                                  "3/6"
-                              ],
-                              correct: 1
-                          },
-                          {
-                              question: "Berapakah peluang muncul angka pada pelemparan 1 koin?",
-                              answers: [
-                                  "1/2",
-                                  "1/3",
-                                  "1/4",
-                                  "1/5"
-                              ],
-                              correct: 0
-                          },
-                          {
-                              question: "Manakah yang merupakan bentuk peristiwa permutasi?",
-                              answers: [
-                                  "Mahasiswa dipilih 2 orang untuk makan-makan",
-                                  "Mahasiswa dipilih 3 orang untuk menjadi ketua, wakil, dan sekretaris",
-                                  "Ayam diambil 3 dari kandang untuk disembelih",
-                                  "Kelereng diambil dua dari toples"
-                              ],
-                              correct: 1
-                          },
-                          {
-                              question: "Manakah yang merupakan bentuk peristiwa kombinasi?",
-                              answers: [
-                                  "Dua orang mahasiswa dipilih untuk mewakili kelas dalam forum antar kelas",
-                                  "Dua orang mahasiswa dipilih secara bertahap satu persatu",
-                                  "Dua orang mahasiswa dipilih untuk menjadi ketua dan sekretaris",
-                                  "Semuanya salah"
-                              ],
-                              correct: 0
-                          },
-                          {
-                              question: "Mana kejadian yang terjadi lebih dahulu dalam P(A|B)?",
-                              answers: [
-                                  "A",
-                                  "B",
-                                  "A dan B bersamaan",
-                                  "Tidak bisa disimpulkan"
-                              ],
-                              correct: 1
-                          },
-                          {
-                              question: "Selamat anda beruntung",
-                              answers: [
-                                  "Yeay",
-                                  "Klik ini. Pasti benar.",
-                                  "Terima kasih",
-                                  "Bapak baik deh"
-                              ],
-                              correct: 1
-                          },
-                          {
-                              question: "Mana yang tidak ada pada bab ini?",
-                              answers: [
-                                  "Permutasi",
-                                  "Kombinasi",
-                                  "Teorema Bayes",
-                                  "Tabel Perkuliahan"
-                              ],
-                              correct: 3
-                          }
-                      ];
-                  
-                      // Elemen DOM
-                      const gridContainer = document.getElementById('gameGrid');
-                      const modal = document.getElementById('questionModal');
-                      const questionText = document.getElementById('questionText');
-                      const answerOptions = document.getElementById('answerOptions');
-                      const closeBtn = document.querySelector('.close-game');
-                  
-                      // Variabel untuk menyimpan kotak yang sedang aktif
-                      let activeGridItem = null;
-                  
-                      // Buat kotak game
-                      for (let i = 0; i < 9; i++) {
-                          const gridItem = document.createElement('div');
-                          gridItem.className = 'grid-item';
-                          gridItem.textContent = i + 1;
-                          gridItem.dataset.index = i;
-                          gridContainer.appendChild(gridItem);
-                      }
-                  
-                      // Tambahkan event listener untuk kotak game
-                      document.querySelectorAll('.grid-item').forEach(item => {
-                          item.addEventListener('click', function() {
-                              if (!this.classList.contains('answered')) {
-                                  activeGridItem = this; // Simpan referensi ke kotak yang diklik
-                                  const questionIndex = parseInt(this.dataset.index);
-                                  showQuestion(questions[questionIndex]);
-                              }
-                          });
-                      });
-                  
-                      // Fungsi untuk menampilkan pertanyaan
-                      function showQuestion(question) {
-                          questionText.textContent = question.question;
-                          answerOptions.innerHTML = '';
-                          
-                          question.answers.forEach((answer, i) => {
-                              const button = document.createElement('button');
-                              button.className = 'answer-btn';
-                              button.textContent = answer;
-                              button.addEventListener('click', function() {
-                                  checkAnswer(i === question.correct);
-                              });
-                              answerOptions.appendChild(button);
-                          });
-                          
-                          modal.style.display = 'block';
-                      }
-                  
-                      // Fungsi untuk mengecek jawaban
-                      function checkAnswer(isCorrect) {
-                          if (activeGridItem) {
-                              activeGridItem.classList.add('answered');
-                              
-                              if (isCorrect) {
-                                  activeGridItem.style.backgroundColor = '#2196F3'; // Biru untuk jawaban benar
-                              } else {
-                                  activeGridItem.style.backgroundColor = '#f44336'; // Merah untuk jawaban salah
-                              }
-                          }
-                          
-                          modal.style.display = 'none';
-                          activeGridItem = null;
-                      }
-                  
-                      // Tutup modal ketika klik close button
-                      closeBtn.addEventListener('click', function() {
-                          if (activeGridItem) {
-                              activeGridItem.classList.add('answered');
-                              activeGridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
-                              activeGridItem = null;
-                          }
-                          modal.style.display = 'none';
-                      });
-                  
-                      // Tutup modal ketika klik di luar modal
-                      window.addEventListener('click', function(event) {
-                          if (event.target === modal) {
-                              if (activeGridItem) {
-                                  activeGridItem.classList.add('answered');
-                                  activeGridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
-                                  activeGridItem = null;
-                              }
-                              modal.style.display = 'none';
-                          }
-                      });
-                  });
-               </script>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp6">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp6">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep6" aria-expanded="true" aria-controls="collapsep6">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep6" class="accordion-collapse collapse" aria-labelledby="headingp6" data-bs-parent="#accordionp6">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-         <section id="p7">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 7</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp7">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp7">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep7" aria-expanded="true" aria-controls="collapsep7">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep7" class="accordion-collapse collapse" aria-labelledby="headingp7" data-bs-parent="#accordionp7">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
-            </div>
-         </section>
-         <section id="p8">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-            <div class="section-title">
-               <h2>Pertemuan 8</h2>
-            </div>
-            <div class="container mt-5">
-            <div class="accordion" id="accordionp8">
-               <p class="h1">Ketentuan UTS</p>
-               <ol>
-                  <li>UTS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-                  <li>Soal UTS boleh dikerjakan dari 13:00-14:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
-                  <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
-               </ol>
-               <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
-               <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban</button>
-               <script>
-                  const mulaiUTSmbs2d = new Date("July 2, 2025 08:59:00").getTime();
-                  const akhirUTSmbs2d = new Date("August 13, 2025 14:30:00").getTime();
-                  function validateUTSmbs2d() {
-                  	let sekarang = new Date().getTime();
-                  	document.getElementById('timerUTS').style.display="block";
-                  
-                  	if (sekarang-mulaiUTSmbs2d<0){
-                  		// Find the distance between now and the count down date
-                  		let distancembs2d = mulaiUTSmbs2d - sekarang;
-                  			
-                  		// Time calculations for days, hours, minutes and seconds
-                  		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
-                  		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                  		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
-                  		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
-                  		alert("Belum waktunya. Bisa dimulai dalam " + daysmbs2d + "hari " + hoursmbs2d + "jam "
-                  		+ minutesmbs2d + "menit " + secondsmbs2d + "detik "+" lagi.");
-                  	}
-                  	else {
-                  		if (sekarang-akhirUTSmbs2d<0) {
-                  			 let person = prompt("Masukkan Password", "isi di sini");
-                  			 if (person === "mata") {
-                  				document.getElementById("tombol_mulai_mbs2d").style.display="none";
-                  				document.getElementById("berhasilValidateUTS").style.display = "block";
-                  				let validNIM = false;
-                  				let nim;
-                  				while (!validNIM) {
-                  						nim = prompt("Masukkan NIM:");
-                  						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-                  						if (konfirmasi) {
-                  								validNIM = true;
-                  						} else {
-                  								alert("Silakan ulangi dan masukkan NIM yang benar.");
-                  						}
-                  				}
-                  
-                  				let b = (nim*5)% 6;
-                  				let c = [
-                  					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
-                  					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
-                  					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
-                  					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
-                  					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
-                  					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
-                  				];
-                  				let d = c[b];
-                  				for (i = 1; i < 6; i++) {
-                  					let e = document.getElementById(d[i-1]);
-                  					document.getElementById('nomer'+i).appendChild(e);
-                  					e.style.display="block";
-                  					document.getElementById('nomer'+i).style.display="block";
-                  				}
-                  			 }
-                  			 else {
-                  				 alert("Maaf, password yang Anda masukkan salah.");
-                  			}
-                  		}
-                  		else{
-                  			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
-                  		}
-                  	}
-                  	// Update the count down every 1 second
-                  	let x = setInterval(function() {	
-                  		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
-                  		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
-                  		let sekarang = new Date().getTime();
-                  
-                  		// Find the distance between now and the count down date
-                  		let distancembs2d = akhirUTSmbs2d - sekarang;
-                  			
-                  		// Time calculations for days, hours, minutes and seconds
-                  		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
-                  		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                  		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
-                  		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
-                  			
-                  		// Output the result in an element with id="demo"
-                  		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
-                  		+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
-                  			
-                  		// If the count down is over, write some text 
-                  		if (distancembs2d < 0) {
-                  			clearInterval(x);
-                  			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
-                  			document.getElementById("berhasilValidateUTS").style.display = "none";
-                  		}
-                  	}, 1000);
-                  	// Update the count down every 1 second
-                  }
-                  
-                  function closeValidateUTSmbs2d() {
-                  	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
-                      setTimeout(function() {
-                          window.open("https://forms.gle/XfYVtAqC7c64f1Si9", "_blank");
-                      }, 500);
-                  }
-                  
-               </script>
-               <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
-               <div id="berhasilValidateUTS" style="display: none">
-                  <div id="soal1" style='display:none;'>
-                     <p>Sebuah pusat layanan pelanggan mencatat bahwa rata-rata 0.4% panggilan setiap hari mengalami kegagalan jaringan. Hari ini, tercatat 1.500 panggilan.</p>
-                     <p>Berapakah peluang bahwa <em>setidaknya tujuh</em> panggilan mengalami kegagalan jaringan?</p>
-                  </div>
-                  <div id="soal2" style='display:none;'>
-                     <p>Sebuah perusahaan memiliki 20 perangkat komputer, 8 di antaranya teridentifikasi rawan panas. Jika 6 perangkat dipilih secara acak untuk diuji, berapakah peluang bahwa tepat 3 dari perangkat tersebut bermasalah?</p>
-                  </div>
-                  <div id="soal3" style='display:none;'>
-                     <p>Seorang agen asuransi mampu menghubungi 5 klien per jam dan memiliki peluang sukses 40% untuk menjual polis pada setiap panggilan. Selama 3 jam berikutnya, tentukan:</p>
-                     <ol type="a">
-                        <li>Peluang untuk melakukan tepat <strong>dua</strong> penjualan.</li>
-                        <li>Rata-rata jumlah penjualan dalam periode 3 jam.</li>
-                     </ol>
-                  </div>
-                  <!-- ======================= -->
-                  <div id="soal4" style='display:none;'>
-                     <p>Sebuah perusahaan elektronik membeli kabel HDMI dari empat distributor berbeda:</p>
-                     <ul>
-                        <li>AlphaTech: 30% dari kabel, dengan 2% cacat</li>
-                        <li>BetaWire: 25% dari kabel, dengan 3.5% cacat</li>
-                        <li>GammaLink: 25% dari kabel, dengan 5% cacat</li>
-                        <li>DeltaConnect: 20% dari kabel, dengan 4% cacat</li>
-                     </ul>
-                     <ol type="a">
-                        <li>Berapa persentase kabel cacat secara keseluruhan?</li>
-                        <li>Jika satu kabel cacat ditemukan, berapa probabilitas kabel tersebut berasal dari <em>BetaWire</em>?</li>
-                     </ol>
-                  </div>
-                  <div id="soal5" style='display:none;'>
-                     <p>Setiap pembelian tiket masuk di wahana taman hiburan <strong>HappyLand</strong> disertai dengan kesempatan memenangkan hadiah berikut:</p>
-                     <ul>
-                        <li>Peluang memenangkan <strong>voucher makan siang</strong>: 0.12</li>
-                        <li>Peluang memenangkan <strong>tiket masuk gratis</strong>: 0.03</li>
-                     </ul>
-                     <p>Anda berencana berkunjung ke HappyLand besok.</p>
-                     <ol type="a">
-                        <li>Berapa probabilitas Anda akan memenangkan <em>setidaknya satu hadiah</em> (voucher atau tiket masuk)?</li>
-                        <li>Berapa probabilitas <em>tidak memenangkan hadiah</em>?</li>
-                        <li>Berapa probabilitas <em>memenangkan setidaknya satu hadiah dalam tiga kunjungan</em>?</li>
-                     </ol>
-                  </div>
-                  <!-- ========================= -->
-                  <div id="soal6" style='display:none;'>
-                     <p>Berikut ini adalah data waktu tempuh (dalam menit) mahasiswa menuju kampus berdasarkan moda transportasi:</p>
-                     <p><strong>Transportasi Umum:</strong> 18, 21, 23, 25, 27, 29, 30, 32, 33, 35</p>
-                     <p><strong>Kendaraan Pribadi:</strong> 24, 25, 26, 28, 29, 30, 31, 33, 34, 36</p>
-                     <ol type="a">
-                        <li>Hitung <em>median</em>, <em>kuartil pertama</em> (\( Q_1 \)), dan <em>kuartil ketiga</em> (\( Q_3 \)) untuk masing-masing kelompok.</li>
-                        <li>Gambarkan diagram boxplot berdasarkan informasi tersebut.</li>
-                     </ol>
-                  </div>
-                  <div id="soal7" style='display:none;'>
-                     <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
-                     <div class="text-center overflow-auto">
-                        <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
-                     </div>
-                     <ol type="a">
-                        <li>Perkirakan nilai <em>median</em>.</li>
-                        <li>Tentukan <em>rentang interkuartil</em> (\( \text{IQR} = Q_3 - Q_1 \)).</li>
-                        <li>Identifikasi pencilan dan perkirakan nilainya.</li>
-                     </ol>
-                  </div>
-                  <div id="soal8" style='display:none;'>
-                     <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
-                     <div class="text-center overflow-auto">
-                        <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
-                     </div>
-                     <ol type="a">
-                        <li>Perkirakan nilai <em>kuartil pertama</em> (\( Q_1 \)) dan <em>kuartil ketiga</em> (\( Q_3 \)).</li>
-                        <li>Di luar batas mana sebuah nilai dianggap sebagai <em>pencilan</em> (outlier)?</li>
-                        <li>Identifikasi pencilan dan perkirakan nilainya.</li>
-                        <li>Apakah distribusinya simetris, condong ke kanan (positif), atau condong ke kiri (negatif)? Jelaskan alasanmu.</li>
-                     </ol>
-                  </div>
-                  <!-- ====================== -->
-                  <div id="soal9" style='display:none;'>
-                     <p>Tabel di bawah ini menunjukkan distribusi frekuensi dari pengeluaran bulanan makanan (dalam \( \$ \)) untuk 60 rumah tangga di daerah urban:</p>
-                     <table class="table table-bordered text-center datatable">
-                        <thead class="table-light">
-                           <tr>
-                              <th>Pengeluaran (\$)</th>
-                              <th>Frekuensi</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>200 – 300</td>
-                              <td>6</td>
-                           </tr>
-                           <tr>
-                              <td>300 – 400</td>
-                              <td>9</td>
-                           </tr>
-                           <tr>
-                              <td>400 – 500</td>
-                              <td>15</td>
-                           </tr>
-                           <tr>
-                              <td>500 – 600</td>
-                              <td>20</td>
-                           </tr>
-                           <tr>
-                              <td>600 – 700</td>
-                              <td>7</td>
-                           </tr>
-                           <tr>
-                              <td>700 – 800</td>
-                              <td>3</td>
-                           </tr>
-                           <tr>
-                              <td><strong>Total</strong></td>
-                              <td><strong>60</strong></td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <ul>
-                        <li>Estimasi rata-rata pengeluaran.</li>
-                        <li>Estimasi simpangan baku.</li>
-                     </ul>
-                  </div>
-                  <div id="soal10" style='display:none;'>
-                     <p>Berikut ini adalah data usia dari 12 siswa yang mengikuti pelatihan statistika:</p>
-                     <p>24, 31, 27, 28, 35, 29, 32, 26, 30, 34, 28, 33</p>
-                     <ul>
-                        <li>Hitung jangkauan (range).</li>
-                        <li>Hitung simpangan baku (standar deviasi).</li>
-                     </ul>
-                  </div>
-                  <div id="soal11" style='display:none;'>
-                     <p>Sebuah laporan menyatakan bahwa jika Anda memiliki pengeluaran \$30.000 per tahun hari ini, dan tingkat inflasi berlangsung sebesar 4% per tahun, maka dalam 10 tahun Anda akan membutuhkan \$44.438 untuk mempertahankan daya beli yang sama. Jika tingkat inflasi menjadi 7%, maka Anda akan membutuhkan \$59.049.</p>
-                     <p>Konfirmasikan apakah pernyataan tersebut benar dengan menghitung laju rata-rata kenaikan geometrik untuk masing-masing tingkat inflasi.</p>
-                  </div>
-                  <!-- ========================= -->
-                  <div id="soal12" style='display:none;'>
-                     <p>Berikut adalah histogram frekuensi waktu belajar mingguan (dalam jam) dari mahasiswa tingkat akhir dalam mata kuliah skripsi:</p>
-                     <table class="table table-bordered text-center datatable">
-                        <thead class="table-light">
-                           <tr>
-                              <th>Interval Jam</th>
-                              <th>Frekuensi</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>0 – 5</td>
-                              <td>4</td>
-                           </tr>
-                           <tr>
-                              <td>5 – 10</td>
-                              <td>10</td>
-                           </tr>
-                           <tr>
-                              <td>10 – 15</td>
-                              <td>16</td>
-                           </tr>
-                           <tr>
-                              <td>15 – 20</td>
-                              <td>8</td>
-                           </tr>
-                           <tr>
-                              <td>20 – 25</td>
-                              <td>2</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                     <ol type="a">
-                        <li>Berapa jumlah total mahasiswa yang disurvei?</li>
-                        <li>Berapa lebar interval kelasnya?</li>
-                        <li>Berapa titik tengah kelas pertama?</li>
-                        <li>Berapa banyak mahasiswa yang belajar kurang dari 10 jam?</li>
-                     </ol>
-                  </div>
-                  <div id="soal13" style='display:none;'>
-                     <p>Berikut adalah jumlah menit keterlambatan karyawan tiba di kantor selama sebulan (dalam satuan menit), diambil dari 30 observasi:</p>
-                     <p>
-                        23, 15, 19, 21, 25, 18, 24, 17, 16, 22,<br>
-                        28, 30, 32, 35, 27, 26, 33, 29, 31, 36,<br>
-                        41, 38, 40, 39, 43, 45, 44, 37, 34, 42
-                     </p>
-                     <ol type="a">
-                        <li>Berapa jumlah kelas yang Anda rekomendasikan?</li>
-                        <li>Berapa ukuran interval kelas yang Anda sarankan?</li>
-                     </ol>
-                  </div>
-                  <div id="soal14" style='display:none;'>
-                     <p>Klasifikasikan variabel-variabel berikut ke dalam variabel diskrit atau kontinu.</p>
-                     <ul>
-                        <li>Umur</li>
-                        <li>Tipe Kelamin</li>
-                        <li>Jumlah Buku yang Dibaca</li>
-                        <li>Tinggi Badan</li>
-                        <li>Jenis Smartphone</li>
-                        <li>Nilai Matematika</li>
-                        <li>Tingkat Kepuasan Pelanggan</li>
-                        <li>Jumlah Anak</li>
-                        <li>Waktu Belajar per Minggu</li>
-                     </ul>
-                  </div>
-                  <div id="soal15" style='display:none;'>
-                     <p>Untuk setiap situasi berikut, tentukan apakah Anda akan mengumpulkan informasi dari <strong>sampel</strong> atau <strong>populasi</strong>. Jelaskan alasannya.</p>
-                     <ol>
-                        <li>Anda ingin mengetahui pendapat mahasiswa semester 1 di universitas Anda mengenai penggunaan AI dalam pembelajaran.</li>
-                        <li>Seorang manajer ingin mengevaluasi rata-rata waktu penyelesaian proyek pada seluruh divisi perusahaan dalam 5 tahun terakhir.</li>
-                        <li>Sebuah lembaga penelitian ingin memperkirakan tingkat kepuasan pengguna dari 1.000 pelanggan aplikasi mobile melalui survei.</li>
-                        <li>Seorang analis data ingin meneliti seluruh transaksi keuangan pemerintah provinsi dalam satu tahun anggaran.</li>
-                     </ol>
-                  </div>
-                  <p class="h1 text-center">Soal UTS</p>
-                  <ol id="soalUTS">
-                     <li id='nomer1'>
-                        <h2>Soal 1</h2>
-                     </li>
-                     <li id='nomer2'>
-                        <h2>Soal 2</h2>
-                     </li>
-                     <li id='nomer3'>
-                        <h2>Soal 3</h2>
-                     </li>
-                     <li id='nomer4'>
-                        <h2>Soal 4</h2>
-                     </li>
-                     <li id='nomer5'>
-                        <h2>Soal 5</h2>
-                     </li>
-                  </ol>
-               </div>
+<body>
+  <!-- ======= Mobile nav toggle button ======= -->
+  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+  <!-- ======= Header ======= -->
+  <header id="header" class="d-flex flex-column">
+    <nav id="navbar" class="navbar nav-menu">
+      <ul>
+        <li>
+          <a href="/index.html" class="nav-link scrollto active">
+            <i class="bx bx-home"></i>
+            <span>Home</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p1" class="nav-link scrollto">
+            <i class="bi bi-1-circle-fill"></i>
+            <span>Pertemuan 1</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p2" class="nav-link scrollto">
+            <i class="bi bi-2-circle-fill"></i>
+            <span>Pertemuan 2</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p3" class="nav-link scrollto">
+            <i class="bi bi-3-circle-fill"></i>
+            <span>Pertemuan 3</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p4" class="nav-link scrollto">
+            <i class="bi bi-4-circle-fill"></i>
+            <span>Pertemuan 4</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p5" class="nav-link scrollto">
+            <i class="bi bi-5-circle-fill"></i>
+            <span>Pertemuan 5</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p6" class="nav-link scrollto">
+            <i class="bi bi-6-circle-fill"></i>
+            <span>Pertemuan 6</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p7" class="nav-link scrollto">
+            <i class="bi bi-7-circle-fill"></i>
+            <span>Pertemuan 7</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p8" class="nav-link scrollto">
+            <i class="bi bi-8-circle-fill"></i>
+            <span>Pertemuan 8</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p9" class="nav-link scrollto">
+            <i class="bi bi-9-circle-fill"></i>
+            <span>Pertemuan 9</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p10" class="nav-link scrollto">
+            <i class="bi bi-0-circle"></i>
+            <span>Pertemuan 10</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p11" class="nav-link scrollto">
+            <i class="bi bi-1-circle"></i>
+            <span>Pertemuan 11</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p12" class="nav-link scrollto">
+            <i class="bi bi-2-circle"></i>
+            <span>Pertemuan 12</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p13" class="nav-link scrollto">
+            <i class="bi bi-3-circle"></i>
+            <span>Pertemuan 13</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p14" class="nav-link scrollto">
+            <i class="bi bi-4-circle"></i>
+            <span>Pertemuan 14</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p15" class="nav-link scrollto">
+            <i class="bi bi-5-circle"></i>
+            <span>Pertemuan 15</span>
+          </a>
+        </li>
+        <li>
+          <a href="#p16" class="nav-link scrollto">
+            <i class="bi bi-6-circle"></i>
+            <span>Pertemuan 16</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+    <!-- .nav-menu -->
+  </header>
+  <!-- End Header -->
+  <main id="main">
+    <a href="#footer" id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i> Ekonometrika <i class="bi bi-arrow-right-circle-fill"></i></a>
+    <section id="matkul">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2 class="fixed-top shadow-lg" id="post-title">Ekonometrika </h2>
+        </div>
+        <p id="tanggal" class="text-center">Terakhir diubah pada </p>
+      </div>
+    </section>
+    <section id="p1">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 1</h2>
+        </div>
+        <h3 class="text-center">RPS</h3>
+        <div class="text-center overflow-auto">
+          <iframe src="RPS-Matematika-Keuangan.pdf" class="pdf-frame" allowfullscreen></iframe>
+        </div>
+        <table class="datatable table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Minggu</th>
+              <th>Materi Pembelajaran</th>
+              <th>Pustaka</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td>Pengantar Ekonometrika dan Model Regresi Linear</td>
+              <td>Bab 1: The Linear Regression Model: An Overview</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td>Bentuk Fungsional Model Regresi</td>
+              <td>Bab 2: Functional Forms of Regression Models</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td>Variabel Dummy dalam Regresi</td>
+              <td>Bab 3: Qualitative Explanatory Variables Regression Models</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td>Multikolinearitas dalam Model Regresi</td>
+              <td>Bab 4: Regression Diagnostic I: Multicollinearity</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td>Heteroskedastisitas dalam Regresi</td>
+              <td>Bab 5: Regression Diagnostic II: Heteroscedasticity</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td>Autokorelasi dalam Regresi</td>
+              <td>Bab 6: Regression Diagnostic III: Autocorrelation</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td>Kesalahan Spesifikasi Model Regresi</td>
+              <td>Bab 7: Regression Diagnostic IV: Model Specification Errors</td>
+            </tr>
+            <tr>
+              <td>8</td>
+              <td><b>Ujian Tengah Semester (UTS)</b></td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td>9</td>
+              <td>Model Logit dan Probit untuk Data Kategorikal</td>
+              <td>Bab 8: The Logit and Probit Models</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>Model Multinomial dan Ordinal dalam Regresi</td>
+              <td>Bab 9-10: Multinomial & Ordinal Regression Models</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>Model Data Terbatas dan Poisson Regression</td>
+              <td>Bab 11-12: Limited Dependent Variable & Poisson Models</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>Analisis Deret Waktu</td>
+              <td>Bab 13: Stationary and Nonstationary Time Series</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>Kointegrasi dan Model Koreksi Kesalahan (ECM)</td>
+              <td>Bab 14: Cointegration and Error Correction Models</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>Model Volatilitas (ARCH dan GARCH)</td>
+              <td>Bab 15: Asset Price Volatility: The ARCH and GARCH Models</td>
+            </tr>
+            <tr>
+              <td>15</td>
+              <td>Model Data Panel dan Survival Analysis</td>
+              <td>Bab 17-18: Panel Data Regression & Survival Analysis</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td><b>Ujian Akhir Semester (UAS)</b></td>
+              <td>-</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+    <section id="p2">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 2</h2>
+        </div>
+
+        <div class="mermaid text-center">
+          graph TD
+          A("Model Regresi Linier")
+          B("$Y=B_1+B_2X_2+B_3X_3+\cdots +B_kX_k$")
+          C("$ Y,X_2,X_3,\cdots,X_k$")
+          D("Skala Variabel")
+          D1("Skala Rasio")
+          D2("Skala Interval")
+          D3("Skala Ordinal")
+          D4("Skala Nominal")
+          E("Tipe Data")
+          E1("Time Series")
+          E2("Cross Section")
+          E3("Panel")
+
+          A --> B --> C --> D
+          D --> D1
+          D --> D2
+          D --> D3
+          D --> D4
+          C --> E
+          E --> E1
+          E --> E2
+          E --> E3
+        </div>
+        <div class="container">
+          <h3>Bab 2: Functional Forms of Regression Models</h3>
+          <div class="tabs">
+            <div class="tab active" data-target="#wrap1">Kasus 1 – Financial Inclusion</div>
+            <div class="tab" data-target="#wrap2">Kasus 2 – Banking Assets</div>
+          </div>
+          <div id="wrap1" class="card">
+            <div class="actions"><button id="dl1">Unduh CSV</button></div>
+            <table id="tbl1" class="display nowrap" style="width:100%">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+          <div id="wrap2" class="card" style="display:none;">
+            <div class="actions"><button id="dl2">Unduh CSV (Kasus 2)</button></div>
+            <table id="tbl2" class="display nowrap" style="width:100%">
+              <thead></thead>
+              <tbody></tbody>
+            </table>
+          </div>
+        </div>
+        <!-- DATA & GENERATOR TERTANAM (tanpa file eksternal) -->
+        <script>
+          // Parameter panel
+          const YEARS = Array.from({length:30}, (_,i)=>1995+i); // 1995–2024
+          const LOCS  = ["Jakarta","Surabaya","Medan"];
+          const locFE = {Jakarta: 0.00, Surabaya: -0.20, Medan: -0.35}; // fixed effects ringan
+          const tOf   = y => (y - 1995) / (2024 - 1995); // skala tren 0..1
+          
+          // Generator noise deterministik (biar konsisten setiap load) — tanpa RNG eksternal
+          function noise(seed){
+            // simple xorshift-like
+            let x = Math.imul(seed, 2654435761) >>> 0;
+            x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
+            // map ke ~N(0,1) kasar via Box-Muller deterministik pseudo
+            const u = ((x>>>1) % 10000 + 1) / 10001; // (0,1)
+            const v = ((x>>>9) % 10000 + 1) / 10001;
+            const z = Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
+            return z;
+          }
+          
+          // -------------------
+          // CASE 1 (Y = Islamic_Financial_Inclusion_Index)
+          // X1 = Sharia_Investment_Growth (%)
+          // X2 = Islamic_Banking_Assets_Growth (%)
+          // X3 = Halal_MSME_Share (%)
+          // -------------------
+          const CASE1 = [];
+          LOCS.forEach((loc, li)=>{
+            YEARS.forEach((yr, yi)=>{
+              const t = tOf(yr), fe = locFE[loc];
+              const seedBase = 1000 + li*100 + yi;
+          
+              const Sharia_Investment_Growth = +(3 + 5*t + 1.2*noise(seedBase+11)).toFixed(2); // ~3→8
+              const Islamic_Banking_Assets_Growth = +(4 + 3*t + 1.0*noise(seedBase+22)).toFixed(2); // ~4→7
+              const Halal_MSME_Share = +(10 + 25*t + 5*fe + 2.5*noise(seedBase+33)).toFixed(2); // ~10→35, efek lokasi
+          
+              // Y (dibatasi 0..100)
+              let y = 40
+                + 0.7*Halal_MSME_Share
+                + 0.9*Sharia_Investment_Growth
+                + 0.5*Islamic_Banking_Assets_Growth
+                + 5*fe
+                + 3.0*noise(seedBase+44);
+              y = Math.min(100, Math.max(0, y));
+              const Islamic_Financial_Inclusion_Index = +y.toFixed(2);
+          
+              CASE1.push({
+                Location: loc,
+                Year: yr,
+                Sharia_Investment_Growth,
+                Islamic_Banking_Assets_Growth,
+                Halal_MSME_Share,
+                Islamic_Financial_Inclusion_Index
+              });
+            });
+          });
+          
+          // -------------------
+          // CASE 2 (Y = Islamic_Banking_Assets_TrnIDR)
+          // X1 = PSF_Share (% bagi hasil)
+          // X2 = NPF_Rate (%)
+          // X3 = Digital_Adoption (%)
+          // -------------------
+          const CASE2 = [];
+          LOCS.forEach((loc, li)=>{
+            YEARS.forEach((yr, yi)=>{
+              const t = tOf(yr), fe = locFE[loc];
+              const seedBase = 2000 + li*100 + yi;
+          
+              const PSF_Share = +(18 + 8*t + 3*fe + 1.5*noise(seedBase+55)).toFixed(2); // ~18→26
+              const NPF_Rate = +(4.5 - 1.5*t + 0.7*noise(seedBase+66)).toFixed(2); // ~4.5→3
+              const Digital_Adoption = +(12 + 60*t + 5*fe + 3.0*noise(seedBase+77)).toFixed(2); // ~12→72
+          
+              let assets = 150
+                + 60*t                    // tren jangka panjang
+                + 3.0*PSF_Share
+                - 4.5*NPF_Rate
+                + 1.8*Digital_Adoption
+                + 12*fe
+                + 10.0*noise(seedBase+88);
+              assets = Math.max(50, assets); // lantai
+              const Islamic_Banking_Assets_TrnIDR = +assets.toFixed(2);
+          
+              CASE2.push({
+                Location: loc,
+                Year: yr,
+                PSF_Share,
+                NPF_Rate,
+                Digital_Adoption,
+                Islamic_Banking_Assets_TrnIDR
+              });
+            });
+          });
+        </script>
+        <script>
+          let dt1=null, dt2=null;
+          
+          function setActiveTab(el){
+            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+            el.classList.add('active');
+            const tgt = el.getAttribute('data-target');
+            document.querySelectorAll('#wrap1,#wrap2').forEach(x=>x.style.display='none');
+            document.querySelector(tgt).style.display='block';
+          }
+          document.querySelectorAll('.tab').forEach(tab=>{
+            tab.addEventListener('click',()=>setActiveTab(tab));
+          });
+          
+          function buildTable($table, data){
+            if(!data || !data.length){
+              $table.find('thead').html('');
+              $table.find('tbody').html('<tr><td>Tidak ada data</td></tr>');
+              return null;
+            }
+            const cols = Object.keys(data[0]);
+            const thead = '<tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>';
+            const rows = data.map(r=>'<tr>'+cols.map(c=>`<td>${r[c]}</td>`).join('')+'</tr>').join('');
+            $table.find('thead').html(thead);
+            $table.find('tbody').html(rows);
+            return $table.DataTable({ responsive:true, pageLength:10, scrollX:true });
+          }
+          
+          function tableToCSV(dt){
+            const headers = dt.columns().header().toArray().map(h=>h.textContent);
+            const data = dt.rows({ search:'applied' }).data().toArray();
+            const csvRows = [headers.join(',')];
+            for(const row of data){
+              const escaped = row.map(v=>{
+                const s = String(v??'');
+                return s.includes(',')||s.includes('"')||s.includes('\n') ? '"'+s.replace(/"/g,'""')+'"' : s;
+              });
+              csvRows.push(escaped.join(','));
+            }
+            return csvRows.join('\n');
+          }
+          
+          function triggerDownload(filename, content){
+            const blob = new Blob([content], {type:'text/csv;charset=utf-8;'});
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
+            URL.revokeObjectURL(url);
+          }
+          
+          $(document).ready(function(){
+            dt1 = buildTable($('#tbl1'), CASE1);
+            dt2 = buildTable($('#tbl2'), CASE2);
+          
+            document.getElementById('dl1').addEventListener('click', ()=>{
+              if(!dt1){ alert('Tabel belum siap'); return; }
+              triggerDownload('Case1_FinancialInclusion.csv', tableToCSV(dt1));
+            });
+            document.getElementById('dl2').addEventListener('click', ()=>{
+              if(!dt2){ alert('Tabel belum siap'); return; }
+              triggerDownload('Case2_BankingAssets.csv', tableToCSV(dt2));
+            });
+          });
+        </script>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp2">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp2">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep2" aria-expanded="true" aria-controls="collapsep2">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep2" class="accordion-collapse collapse" aria-labelledby="headingp2" data-bs-parent="#accordionp2">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
           </div>
-         </section>
-         <section id="p9">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 9</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp9">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp9">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep9" aria-expanded="true" aria-controls="collapsep9">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep9" class="accordion-collapse collapse" aria-labelledby="headingp9" data-bs-parent="#accordionp9">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+        </div>
+      </div>
+    </section>
+    <section id="p3">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 3</h2>
+        </div>
+        <h3> Regresi Logaritma</h3>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-log.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-regresi-log"></div>
+        <script>
+          fetch('regresi-log.csv')
+            .then(res => res.text())
+            .then(csv => {
+              const rows = csv.trim().split('\n').map(row => row.split(','));
+          
+              if (rows.length === 0) return;
+          
+              // Ambil baris pertama sebagai header
+              const headers = rows[0];
+              const dataRows = rows.slice(1);
+          
+              let html = `<table class="table table-striped text-center" id="datatable-regresi-log">`;
+          
+              // Buat bagian thead
+              html += '<thead><tr>';
+              headers.forEach(header => {
+                html += `<th>${header}</th>`;
+              });
+              html += '</tr></thead>';
+          
+              // Buat bagian tbody
+              html += '<tbody>';
+              dataRows.forEach(row => {
+                html += '<tr>';
+                row.forEach(cell => {
+                  html += `<td>${cell}</td>`;
+                });
+                html += '</tr>';
+              });
+              html += '</tbody>';
+          
+              html += '</table>';
+              document.getElementById("tabel-regresi-log").innerHTML = html;
+          		
+              // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+              $(document).ready(function () {
+                $('#datatable-regresi-log').DataTable({
+                  paging: true,
+                  searching: true,
+                  scrollX: true
+                });
+              });
+          		});
+        </script>
+        <h3> Regresi Reciprocal</h3>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-reciprocal.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-regresi-reciprocal"></div>
+        <script>
+          fetch('regresi-reciprocal.csv')
+            .then(res => res.text())
+            .then(csv => {
+              const rows = csv.trim().split('\n').map(row => row.split(','));
+          
+              if (rows.length === 0) return;
+          
+              // Ambil baris pertama sebagai header
+              const headers = rows[0];
+              const dataRows = rows.slice(1);
+          
+              let html = `<table class="table table-striped text-center" id="datatable-regresi-reciprocal">`;
+          
+              // Buat bagian thead
+              html += '<thead><tr>';
+              headers.forEach(header => {
+                html += `<th>${header}</th>`;
+              });
+              html += '</tr></thead>';
+          
+              // Buat bagian tbody
+              html += '<tbody>';
+              dataRows.forEach(row => {
+                html += '<tr>';
+                row.forEach(cell => {
+                  html += `<td>${cell}</td>`;
+                });
+                html += '</tr>';
+              });
+              html += '</tbody>';
+          
+              html += '</table>';
+              document.getElementById("tabel-regresi-reciprocal").innerHTML = html;
+          		
+              // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+              $(document).ready(function () {
+                $('#datatable-regresi-reciprocal').DataTable({
+                  paging: true,
+                  searching: true,
+                  scrollX: true
+                });
+              });
+          		});
+        </script>
+        <h3> Regresi Polinom</h3>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-polinom.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-regresi-polinom"></div>
+        <script>
+          fetch('regresi-polinom.csv')
+            .then(res => res.text())
+            .then(csv => {
+              const rows = csv.trim().split('\n').map(row => row.split(','));
+          
+              if (rows.length === 0) return;
+          
+              // Ambil baris pertama sebagai header
+              const headers = rows[0];
+              const dataRows = rows.slice(1);
+          
+              let html = `<table class="table table-striped text-center" id="datatable-regresi-polinom">`;
+          
+              // Buat bagian thead
+              html += '<thead><tr>';
+              headers.forEach(header => {
+                html += `<th>${header}</th>`;
+              });
+              html += '</tr></thead>';
+          
+              // Buat bagian tbody
+              html += '<tbody>';
+              dataRows.forEach(row => {
+                html += '<tr>';
+                row.forEach(cell => {
+                  html += `<td>${cell}</td>`;
+                });
+                html += '</tr>';
+              });
+              html += '</tbody>';
+          
+              html += '</table>';
+              document.getElementById("tabel-regresi-polinom").innerHTML = html;
+          		
+              // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
+              $(document).ready(function () {
+                $('#datatable-regresi-polinom').DataTable({
+                  paging: true,
+                  searching: true,
+                  scrollX: true
+                });
+              });
+          		});
+        </script>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp3">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp3">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep3" aria-expanded="true" aria-controls="collapsep3">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep3" class="accordion-collapse collapse" aria-labelledby="headingp3" data-bs-parent="#accordionp3">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p10">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 10</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp10">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp10">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep10" aria-expanded="true" aria-controls="collapsep10">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p4">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 4</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp4">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp4">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep4" aria-expanded="true" aria-controls="collapsep4">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep4" class="accordion-collapse collapse" aria-labelledby="headingp4" data-bs-parent="#accordionp4">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p11">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 11</h2>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p5">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 5</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp5">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp5">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep5" aria-expanded="true" aria-controls="collapsep5">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep5" class="accordion-collapse collapse" aria-labelledby="headingp5" data-bs-parent="#accordionp5">
+                <div class="accordion-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p6">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 6</h2>
+        </div>
+        <div class="container mt-4">
+          <div class="game-container">
+            <h2 class="text-center">Game Statistik</h2>
+            <div class="grid-container" id="gameGrid">
+              <!-- Kotak-kotak game akan di-generate oleh JavaScript -->
+            </div>
+          </div>
+        </div>
+        <!-- Modal/Pop-up untuk pertanyaan -->
+        <div id="questionModal" class="modal-game">
+          <div class="modal-content-game">
+            <span class="close-game">&times;</span>
+            <h3 id="questionText">Pertanyaan akan muncul di sini</h3>
+            <div id="answerOptions"></div>
+          </div>
+        </div>
+        <!-- Bootstrap JS Bundle with Popper -->
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+              // Pertanyaan dan jawaban
+              const questions = [
+                  {
+                      question: "Mana yang bukan merupakan pendekatan peluang?",
+                      answers: [
+                          "Klasik",
+                          "Empiris",
+                          "Integratif",
+                          "Subjektif"
+                      ],
+                      correct: 2
+                  },
+                  {
+                      question: "Apa itu eksperimen?",
+                      answers: [
+                          "Salah satu kemungkinan hasil",
+                          "Proses menghasilkan tertentu",
+                          "Satu atau lebih hasil",
+                          "Semuanya salah"
+                      ],
+                      correct: 1
+                  },
+                  {
+                      question: "Berapakah peluang muncul angka 1 pada dadu?",
+                      answers: [
+                          "0",
+                          "1/6",
+                          "2/6",
+                          "3/6"
+                      ],
+                      correct: 1
+                  },
+                  {
+                      question: "Berapakah peluang muncul angka pada pelemparan 1 koin?",
+                      answers: [
+                          "1/2",
+                          "1/3",
+                          "1/4",
+                          "1/5"
+                      ],
+                      correct: 0
+                  },
+                  {
+                      question: "Manakah yang merupakan bentuk peristiwa permutasi?",
+                      answers: [
+                          "Mahasiswa dipilih 2 orang untuk makan-makan",
+                          "Mahasiswa dipilih 3 orang untuk menjadi ketua, wakil, dan sekretaris",
+                          "Ayam diambil 3 dari kandang untuk disembelih",
+                          "Kelereng diambil dua dari toples"
+                      ],
+                      correct: 1
+                  },
+                  {
+                      question: "Manakah yang merupakan bentuk peristiwa kombinasi?",
+                      answers: [
+                          "Dua orang mahasiswa dipilih untuk mewakili kelas dalam forum antar kelas",
+                          "Dua orang mahasiswa dipilih secara bertahap satu persatu",
+                          "Dua orang mahasiswa dipilih untuk menjadi ketua dan sekretaris",
+                          "Semuanya salah"
+                      ],
+                      correct: 0
+                  },
+                  {
+                      question: "Mana kejadian yang terjadi lebih dahulu dalam P(A|B)?",
+                      answers: [
+                          "A",
+                          "B",
+                          "A dan B bersamaan",
+                          "Tidak bisa disimpulkan"
+                      ],
+                      correct: 1
+                  },
+                  {
+                      question: "Selamat anda beruntung",
+                      answers: [
+                          "Yeay",
+                          "Klik ini. Pasti benar.",
+                          "Terima kasih",
+                          "Bapak baik deh"
+                      ],
+                      correct: 1
+                  },
+                  {
+                      question: "Mana yang tidak ada pada bab ini?",
+                      answers: [
+                          "Permutasi",
+                          "Kombinasi",
+                          "Teorema Bayes",
+                          "Tabel Perkuliahan"
+                      ],
+                      correct: 3
+                  }
+              ];
+          
+              // Elemen DOM
+              const gridContainer = document.getElementById('gameGrid');
+              const modal = document.getElementById('questionModal');
+              const questionText = document.getElementById('questionText');
+              const answerOptions = document.getElementById('answerOptions');
+              const closeBtn = document.querySelector('.close-game');
+          
+              // Variabel untuk menyimpan kotak yang sedang aktif
+              let activeGridItem = null;
+          
+              // Buat kotak game
+              for (let i = 0; i < 9; i++) {
+                  const gridItem = document.createElement('div');
+                  gridItem.className = 'grid-item';
+                  gridItem.textContent = i + 1;
+                  gridItem.dataset.index = i;
+                  gridContainer.appendChild(gridItem);
+              }
+          
+              // Tambahkan event listener untuk kotak game
+              document.querySelectorAll('.grid-item').forEach(item => {
+                  item.addEventListener('click', function() {
+                      if (!this.classList.contains('answered')) {
+                          activeGridItem = this; // Simpan referensi ke kotak yang diklik
+                          const questionIndex = parseInt(this.dataset.index);
+                          showQuestion(questions[questionIndex]);
+                      }
+                  });
+              });
+          
+              // Fungsi untuk menampilkan pertanyaan
+              function showQuestion(question) {
+                  questionText.textContent = question.question;
+                  answerOptions.innerHTML = '';
+                  
+                  question.answers.forEach((answer, i) => {
+                      const button = document.createElement('button');
+                      button.className = 'answer-btn';
+                      button.textContent = answer;
+                      button.addEventListener('click', function() {
+                          checkAnswer(i === question.correct);
+                      });
+                      answerOptions.appendChild(button);
+                  });
+                  
+                  modal.style.display = 'block';
+              }
+          
+              // Fungsi untuk mengecek jawaban
+              function checkAnswer(isCorrect) {
+                  if (activeGridItem) {
+                      activeGridItem.classList.add('answered');
+                      
+                      if (isCorrect) {
+                          activeGridItem.style.backgroundColor = '#2196F3'; // Biru untuk jawaban benar
+                      } else {
+                          activeGridItem.style.backgroundColor = '#f44336'; // Merah untuk jawaban salah
+                      }
+                  }
+                  
+                  modal.style.display = 'none';
+                  activeGridItem = null;
+              }
+          
+              // Tutup modal ketika klik close button
+              closeBtn.addEventListener('click', function() {
+                  if (activeGridItem) {
+                      activeGridItem.classList.add('answered');
+                      activeGridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                      activeGridItem = null;
+                  }
+                  modal.style.display = 'none';
+              });
+          
+              // Tutup modal ketika klik di luar modal
+              window.addEventListener('click', function(event) {
+                  if (event.target === modal) {
+                      if (activeGridItem) {
+                          activeGridItem.classList.add('answered');
+                          activeGridItem.style.backgroundColor = '#9E9E9E'; // Abu-abu jika ditutup tanpa jawaban
+                          activeGridItem = null;
+                      }
+                      modal.style.display = 'none';
+                  }
+              });
+          });
+        </script>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp6">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp6">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep6" aria-expanded="true" aria-controls="collapsep6">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep6" class="accordion-collapse collapse" aria-labelledby="headingp6" data-bs-parent="#accordionp6">
+                <div class="accordion-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p7">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 7</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp7">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp7">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep7" aria-expanded="true" aria-controls="collapsep7">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep7" class="accordion-collapse collapse" aria-labelledby="headingp7" data-bs-parent="#accordionp7">
+                <div class="accordion-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p8">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 8</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp8">
+            <p class="h1">Ketentuan UTS</p>
+            <ol>
+              <li>UTS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+              <li>Soal UTS boleh dikerjakan dari 13:00-14:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+            </ol>
+            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
+            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban</button>
+            <script>
+              const mulaiUTSmbs2d = new Date("July 2, 2025 08:59:00").getTime();
+              const akhirUTSmbs2d = new Date("August 13, 2025 14:30:00").getTime();
+              function validateUTSmbs2d() {
+              	let sekarang = new Date().getTime();
+              	document.getElementById('timerUTS').style.display="block";
+              
+              	if (sekarang-mulaiUTSmbs2d<0){
+              		// Find the distance between now and the count down date
+              		let distancembs2d = mulaiUTSmbs2d - sekarang;
+              			
+              		// Time calculations for days, hours, minutes and seconds
+              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+              		alert("Belum waktunya. Bisa dimulai dalam " + daysmbs2d + "hari " + hoursmbs2d + "jam "
+              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik "+" lagi.");
+              	}
+              	else {
+              		if (sekarang-akhirUTSmbs2d<0) {
+              			 let person = prompt("Masukkan Password", "isi di sini");
+              			 if (person === "mata") {
+              				document.getElementById("tombol_mulai_mbs2d").style.display="none";
+              				document.getElementById("berhasilValidateUTS").style.display = "block";
+              				let validNIM = false;
+              				let nim;
+              				while (!validNIM) {
+              						nim = prompt("Masukkan NIM:");
+              						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+              						if (konfirmasi) {
+              								validNIM = true;
+              						} else {
+              								alert("Silakan ulangi dan masukkan NIM yang benar.");
+              						}
+              				}
+              
+              				let b = (nim*5)% 6;
+              				let c = [
+              					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
+              					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
+              					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
+              					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
+              					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
+              					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
+              				];
+              				let d = c[b];
+              				for (i = 1; i < 6; i++) {
+              					let e = document.getElementById(d[i-1]);
+              					document.getElementById('nomer'+i).appendChild(e);
+              					e.style.display="block";
+              					document.getElementById('nomer'+i).style.display="block";
+              				}
+              			 }
+              			 else {
+              				 alert("Maaf, password yang Anda masukkan salah.");
+              			}
+              		}
+              		else{
+              			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
+              		}
+              	}
+              	// Update the count down every 1 second
+              	let x = setInterval(function() {	
+              		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+              		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+              		let sekarang = new Date().getTime();
+              
+              		// Find the distance between now and the count down date
+              		let distancembs2d = akhirUTSmbs2d - sekarang;
+              			
+              		// Time calculations for days, hours, minutes and seconds
+              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+              			
+              		// Output the result in an element with id="demo"
+              		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
+              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
+              			
+              		// If the count down is over, write some text 
+              		if (distancembs2d < 0) {
+              			clearInterval(x);
+              			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+              			document.getElementById("berhasilValidateUTS").style.display = "none";
+              		}
+              	}, 1000);
+              	// Update the count down every 1 second
+              }
+              
+              function closeValidateUTSmbs2d() {
+              	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
+                  setTimeout(function() {
+                      window.open("https://forms.gle/XfYVtAqC7c64f1Si9", "_blank");
+                  }, 500);
+              }
+              
+            </script>
+            <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+            <div id="berhasilValidateUTS" style="display: none">
+              <div id="soal1" style='display:none;'>
+                <p>Sebuah pusat layanan pelanggan mencatat bahwa rata-rata 0.4% panggilan setiap hari mengalami kegagalan jaringan. Hari ini, tercatat 1.500 panggilan.</p>
+                <p>Berapakah peluang bahwa <em>setidaknya tujuh</em> panggilan mengalami kegagalan jaringan?</p>
+              </div>
+              <div id="soal2" style='display:none;'>
+                <p>Sebuah perusahaan memiliki 20 perangkat komputer, 8 di antaranya teridentifikasi rawan panas. Jika 6 perangkat dipilih secara acak untuk diuji, berapakah peluang bahwa tepat 3 dari perangkat tersebut bermasalah?</p>
+              </div>
+              <div id="soal3" style='display:none;'>
+                <p>Seorang agen asuransi mampu menghubungi 5 klien per jam dan memiliki peluang sukses 40% untuk menjual polis pada setiap panggilan. Selama 3 jam berikutnya, tentukan:</p>
+                <ol type="a">
+                  <li>Peluang untuk melakukan tepat <strong>dua</strong> penjualan.</li>
+                  <li>Rata-rata jumlah penjualan dalam periode 3 jam.</li>
+                </ol>
+              </div>
+              <!-- ======================= -->
+              <div id="soal4" style='display:none;'>
+                <p>Sebuah perusahaan elektronik membeli kabel HDMI dari empat distributor berbeda:</p>
+                <ul>
+                  <li>AlphaTech: 30% dari kabel, dengan 2% cacat</li>
+                  <li>BetaWire: 25% dari kabel, dengan 3.5% cacat</li>
+                  <li>GammaLink: 25% dari kabel, dengan 5% cacat</li>
+                  <li>DeltaConnect: 20% dari kabel, dengan 4% cacat</li>
+                </ul>
+                <ol type="a">
+                  <li>Berapa persentase kabel cacat secara keseluruhan?</li>
+                  <li>Jika satu kabel cacat ditemukan, berapa probabilitas kabel tersebut berasal dari <em>BetaWire</em>?</li>
+                </ol>
+              </div>
+              <div id="soal5" style='display:none;'>
+                <p>Setiap pembelian tiket masuk di wahana taman hiburan <strong>HappyLand</strong> disertai dengan kesempatan memenangkan hadiah berikut:</p>
+                <ul>
+                  <li>Peluang memenangkan <strong>voucher makan siang</strong>: 0.12</li>
+                  <li>Peluang memenangkan <strong>tiket masuk gratis</strong>: 0.03</li>
+                </ul>
+                <p>Anda berencana berkunjung ke HappyLand besok.</p>
+                <ol type="a">
+                  <li>Berapa probabilitas Anda akan memenangkan <em>setidaknya satu hadiah</em> (voucher atau tiket masuk)?</li>
+                  <li>Berapa probabilitas <em>tidak memenangkan hadiah</em>?</li>
+                  <li>Berapa probabilitas <em>memenangkan setidaknya satu hadiah dalam tiga kunjungan</em>?</li>
+                </ol>
+              </div>
+              <!-- ========================= -->
+              <div id="soal6" style='display:none;'>
+                <p>Berikut ini adalah data waktu tempuh (dalam menit) mahasiswa menuju kampus berdasarkan moda transportasi:</p>
+                <p><strong>Transportasi Umum:</strong> 18, 21, 23, 25, 27, 29, 30, 32, 33, 35</p>
+                <p><strong>Kendaraan Pribadi:</strong> 24, 25, 26, 28, 29, 30, 31, 33, 34, 36</p>
+                <ol type="a">
+                  <li>Hitung <em>median</em>, <em>kuartil pertama</em> (\( Q_1 \)), dan <em>kuartil ketiga</em> (\( Q_3 \)) untuk masing-masing kelompok.</li>
+                  <li>Gambarkan diagram boxplot berdasarkan informasi tersebut.</li>
+                </ol>
+              </div>
+              <div id="soal7" style='display:none;'>
+                <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
+                <div class="text-center overflow-auto">
+                  <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
+                </div>
+                <ol type="a">
+                  <li>Perkirakan nilai <em>median</em>.</li>
+                  <li>Tentukan <em>rentang interkuartil</em> (\( \text{IQR} = Q_3 - Q_1 \)).</li>
+                  <li>Identifikasi pencilan dan perkirakan nilainya.</li>
+                </ol>
+              </div>
+              <div id="soal8" style='display:none;'>
+                <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
+                <div class="text-center overflow-auto">
+                  <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
+                </div>
+                <ol type="a">
+                  <li>Perkirakan nilai <em>kuartil pertama</em> (\( Q_1 \)) dan <em>kuartil ketiga</em> (\( Q_3 \)).</li>
+                  <li>Di luar batas mana sebuah nilai dianggap sebagai <em>pencilan</em> (outlier)?</li>
+                  <li>Identifikasi pencilan dan perkirakan nilainya.</li>
+                  <li>Apakah distribusinya simetris, condong ke kanan (positif), atau condong ke kiri (negatif)? Jelaskan alasanmu.</li>
+                </ol>
+              </div>
+              <!-- ====================== -->
+              <div id="soal9" style='display:none;'>
+                <p>Tabel di bawah ini menunjukkan distribusi frekuensi dari pengeluaran bulanan makanan (dalam \( \$ \)) untuk 60 rumah tangga di daerah urban:</p>
+                <table class="table table-bordered text-center datatable">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Pengeluaran (\$)</th>
+                      <th>Frekuensi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>200 – 300</td>
+                      <td>6</td>
+                    </tr>
+                    <tr>
+                      <td>300 – 400</td>
+                      <td>9</td>
+                    </tr>
+                    <tr>
+                      <td>400 – 500</td>
+                      <td>15</td>
+                    </tr>
+                    <tr>
+                      <td>500 – 600</td>
+                      <td>20</td>
+                    </tr>
+                    <tr>
+                      <td>600 – 700</td>
+                      <td>7</td>
+                    </tr>
+                    <tr>
+                      <td>700 – 800</td>
+                      <td>3</td>
+                    </tr>
+                    <tr>
+                      <td><strong>Total</strong></td>
+                      <td><strong>60</strong></td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ul>
+                  <li>Estimasi rata-rata pengeluaran.</li>
+                  <li>Estimasi simpangan baku.</li>
+                </ul>
+              </div>
+              <div id="soal10" style='display:none;'>
+                <p>Berikut ini adalah data usia dari 12 siswa yang mengikuti pelatihan statistika:</p>
+                <p>24, 31, 27, 28, 35, 29, 32, 26, 30, 34, 28, 33</p>
+                <ul>
+                  <li>Hitung jangkauan (range).</li>
+                  <li>Hitung simpangan baku (standar deviasi).</li>
+                </ul>
+              </div>
+              <div id="soal11" style='display:none;'>
+                <p>Sebuah laporan menyatakan bahwa jika Anda memiliki pengeluaran \$30.000 per tahun hari ini, dan tingkat inflasi berlangsung sebesar 4% per tahun, maka dalam 10 tahun Anda akan membutuhkan \$44.438 untuk mempertahankan daya beli yang sama. Jika tingkat inflasi menjadi 7%, maka Anda akan membutuhkan \$59.049.</p>
+                <p>Konfirmasikan apakah pernyataan tersebut benar dengan menghitung laju rata-rata kenaikan geometrik untuk masing-masing tingkat inflasi.</p>
+              </div>
+              <!-- ========================= -->
+              <div id="soal12" style='display:none;'>
+                <p>Berikut adalah histogram frekuensi waktu belajar mingguan (dalam jam) dari mahasiswa tingkat akhir dalam mata kuliah skripsi:</p>
+                <table class="table table-bordered text-center datatable">
+                  <thead class="table-light">
+                    <tr>
+                      <th>Interval Jam</th>
+                      <th>Frekuensi</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr>
+                      <td>0 – 5</td>
+                      <td>4</td>
+                    </tr>
+                    <tr>
+                      <td>5 – 10</td>
+                      <td>10</td>
+                    </tr>
+                    <tr>
+                      <td>10 – 15</td>
+                      <td>16</td>
+                    </tr>
+                    <tr>
+                      <td>15 – 20</td>
+                      <td>8</td>
+                    </tr>
+                    <tr>
+                      <td>20 – 25</td>
+                      <td>2</td>
+                    </tr>
+                  </tbody>
+                </table>
+                <ol type="a">
+                  <li>Berapa jumlah total mahasiswa yang disurvei?</li>
+                  <li>Berapa lebar interval kelasnya?</li>
+                  <li>Berapa titik tengah kelas pertama?</li>
+                  <li>Berapa banyak mahasiswa yang belajar kurang dari 10 jam?</li>
+                </ol>
+              </div>
+              <div id="soal13" style='display:none;'>
+                <p>Berikut adalah jumlah menit keterlambatan karyawan tiba di kantor selama sebulan (dalam satuan menit), diambil dari 30 observasi:</p>
+                <p>
+                  23, 15, 19, 21, 25, 18, 24, 17, 16, 22,<br>
+                  28, 30, 32, 35, 27, 26, 33, 29, 31, 36,<br>
+                  41, 38, 40, 39, 43, 45, 44, 37, 34, 42
+                </p>
+                <ol type="a">
+                  <li>Berapa jumlah kelas yang Anda rekomendasikan?</li>
+                  <li>Berapa ukuran interval kelas yang Anda sarankan?</li>
+                </ol>
+              </div>
+              <div id="soal14" style='display:none;'>
+                <p>Klasifikasikan variabel-variabel berikut ke dalam variabel diskrit atau kontinu.</p>
+                <ul>
+                  <li>Umur</li>
+                  <li>Tipe Kelamin</li>
+                  <li>Jumlah Buku yang Dibaca</li>
+                  <li>Tinggi Badan</li>
+                  <li>Jenis Smartphone</li>
+                  <li>Nilai Matematika</li>
+                  <li>Tingkat Kepuasan Pelanggan</li>
+                  <li>Jumlah Anak</li>
+                  <li>Waktu Belajar per Minggu</li>
+                </ul>
+              </div>
+              <div id="soal15" style='display:none;'>
+                <p>Untuk setiap situasi berikut, tentukan apakah Anda akan mengumpulkan informasi dari <strong>sampel</strong> atau <strong>populasi</strong>. Jelaskan alasannya.</p>
+                <ol>
+                  <li>Anda ingin mengetahui pendapat mahasiswa semester 1 di universitas Anda mengenai penggunaan AI dalam pembelajaran.</li>
+                  <li>Seorang manajer ingin mengevaluasi rata-rata waktu penyelesaian proyek pada seluruh divisi perusahaan dalam 5 tahun terakhir.</li>
+                  <li>Sebuah lembaga penelitian ingin memperkirakan tingkat kepuasan pengguna dari 1.000 pelanggan aplikasi mobile melalui survei.</li>
+                  <li>Seorang analis data ingin meneliti seluruh transaksi keuangan pemerintah provinsi dalam satu tahun anggaran.</li>
+                </ol>
+              </div>
+              <p class="h1 text-center">Soal UTS</p>
+              <ol id="soalUTS">
+                <li id='nomer1'>
+                  <h2>Soal 1</h2>
+                </li>
+                <li id='nomer2'>
+                  <h2>Soal 2</h2>
+                </li>
+                <li id='nomer3'>
+                  <h2>Soal 3</h2>
+                </li>
+                <li id='nomer4'>
+                  <h2>Soal 4</h2>
+                </li>
+                <li id='nomer5'>
+                  <h2>Soal 5</h2>
+                </li>
+              </ol>
+            </div>
+          </div>
+        </div>
+    </section>
+    <section id="p9">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 9</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp9">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp9">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep9" aria-expanded="true" aria-controls="collapsep9">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep9" class="accordion-collapse collapse" aria-labelledby="headingp9" data-bs-parent="#accordionp9">
+                <div class="accordion-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p10">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 10</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp10">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp10">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep10" aria-expanded="true" aria-controls="collapsep10">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
+                <div class="accordion-body">
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p11">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 11</h2>
+        </div>
 
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp11">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp11">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep11" aria-expanded="true" aria-controls="collapsep11">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep11" class="accordion-collapse collapse" aria-labelledby="headingp11" data-bs-parent="#accordionp11">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp11">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp11">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep11" aria-expanded="true" aria-controls="collapsep11">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep11" class="accordion-collapse collapse" aria-labelledby="headingp11" data-bs-parent="#accordionp11">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p12">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 12</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp12">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp12">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep12" aria-expanded="true" aria-controls="collapsep12">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep12" class="accordion-collapse collapse" aria-labelledby="headingp12" data-bs-parent="#accordionp12">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p12">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 12</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp12">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp12">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep12" aria-expanded="true" aria-controls="collapsep12">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep12" class="accordion-collapse collapse" aria-labelledby="headingp12" data-bs-parent="#accordionp12">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p13">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 13</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp13">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp13">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep13" aria-expanded="true" aria-controls="collapsep13">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep13" class="accordion-collapse collapse" aria-labelledby="headingp13" data-bs-parent="#accordionp13">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p13">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 13</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp13">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp13">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep13" aria-expanded="true" aria-controls="collapsep13">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep13" class="accordion-collapse collapse" aria-labelledby="headingp13" data-bs-parent="#accordionp13">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p14">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 14</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp14">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp14">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep14" aria-expanded="true" aria-controls="collapsep14">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep14" class="accordion-collapse collapse" aria-labelledby="headingp14" data-bs-parent="#accordionp14">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p14">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 14</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp14">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp14">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep14" aria-expanded="true" aria-controls="collapsep14">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep14" class="accordion-collapse collapse" aria-labelledby="headingp14" data-bs-parent="#accordionp14">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p15">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 15</h2>
-               </div>
-               <div class="container mt-5">
-                  <div class="accordion" id="accordionp15">
-                     <div class="accordion-item">
-                        <h2 class="accordion-header" id="headingp15">
-                           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep15" aria-expanded="true" aria-controls="collapsep15">
-                           Soal Latihan
-                           </button>
-                        </h2>
-                        <div id="collapsep15" class="accordion-collapse collapse" aria-labelledby="headingp15" data-bs-parent="#accordionp15">
-                           <div class="accordion-body">
-                           </div>
-                        </div>
-                     </div>
-                  </div>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p15">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 15</h2>
+        </div>
+        <div class="container mt-5">
+          <div class="accordion" id="accordionp15">
+            <div class="accordion-item">
+              <h2 class="accordion-header" id="headingp15">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep15" aria-expanded="true" aria-controls="collapsep15">
+                  Soal Latihan
+                </button>
+              </h2>
+              <div id="collapsep15" class="accordion-collapse collapse" aria-labelledby="headingp15" data-bs-parent="#accordionp15">
+                <div class="accordion-body">
+                </div>
+              </div>
             </div>
-         </section>
-         <section id="p16">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Pertemuan 16</h2>
-               </div>
-               <p class="h1">Ketentuan UAS</p>
-               <ol>
-                  <li>UAS hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-                  <li>Soal UAS boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
-                  <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
-               </ol>
-               <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button>
-               <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button>
-               <script>
-                  const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
-                  const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
-                  function validateUASes4d() {
-                  	let sekarang = new Date().getTime();
-                  	document.getElementById('timerUAS').style.display="block";
-                  
-                  	if (sekarang-mulaiUASes4d < 0){
-                  		alert("Belum waktunya");
-                  	}
-                  	else {
-                  		if (sekarang-akhirUASes4d < 0) {
-                  			 let person = prompt("Masukkan Password", "isi di sini");
-                  			 if (person === "mata") {
-                  				document.getElementById("tombol_uas_es4d").style.display="none";
-                  				document.getElementById("berhasilValidateUAS").style.display = "block";
-                  				let validNIM = false;
-                  				let nim;
-                  				while (!validNIM) {
-                  						nim = prompt("Masukkan NIM:");
-                  						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-                  						if (konfirmasi) {
-                  								validNIM = true;
-                  						} else {
-                  								alert("Silakan ulangi dan masukkan NIM yang benar.");
-                  						}
-                  				}
-                  				let b = (nim*5)% 6;
-                  				let c = [
-                  					['soal1uas', 'soal4uas', 'soal7uas'],
-                  					['soal1uas', 'soal5uas', 'soal9uas'],
-                  					['soal2uas', 'soal4uas', 'soal8uas'],
-                  					['soal2uas', 'soal6uas', 'soal9uas'],
-                  					['soal3uas', 'soal5uas', 'soal7uas'],
-                  					['soal3uas', 'soal6uas', 'soal8uas']
-                  				];
-                  				let d = c[b];
-                  				for (i = 1; i < 4; i++) {
-                  					let e = document.getElementById(d[i-1]);
-                  					document.getElementById('nomer'+i+'uas').appendChild(e);
-                  					e.style.display="block";
-                  					document.getElementById('nomer'+i+'uas').style.display="block";
-                  				}
-                  			 }
-                  			 else {
-                  				 alert("Maaf, password yang Anda masukkan salah.");
-                  			}
-                  		}
-                  		else{
-                  			alert("Sudah selesai");
-                  		}
-                  	}
-                  	// Update the count down every 1 second
-                  	let x = setInterval(function() {	
-                  		let sekarang = new Date().getTime();
-                  
-                  		// Find the distance between now and the count down date
-                  		let distanceUASes4d = akhirUASes4d - sekarang;
-                  			
-                  		// Time calculations for days, hours, minutes and seconds
-                  		let daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
-                  		let hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                  		let minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
-                  		let secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
-                  			
-                  		// Output the result in an element with id="demo"
-                  		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
-                  		+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
-                  			
-                  		// If the count down is over, write some text 
-                  		if (distanceUASes4d < 0) {
-                  			clearInterval(x);
-                  			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-                  			document.getElementById("berhasilValidateUAS").style.display = "none";
-                  		}
-                  	}, 1000);
-                  	// Update the count down every 1 second
-                  }
-                  
-                  function closeValidateUASes4d() {
-                  	let sekarang = new Date().getTime();
-                  	if (sekarang - mulaiUASes4d > 1000*60*60*5){
-                  				alert("Terkunci");
-                  		} else {
-                  			setTimeout(function() {
-                  				window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-                  			}, 500);
-                  		}
-                  }
-                  
-               </script>
-               <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
-               <div id="berhasilValidateUAS" style="display: none">
-                  <div id="soal1uas" style='display:none;'>
-                     <p>Berdasarkan studi, waktu rata-rata untuk menyiapkan, menyalin, dan mengirimkan formulir pajak 1040 secara elektronik adalah <strong>330 menit</strong>, dengan simpangan baku <strong>80 menit</strong>. Distribusi waktu ini mengikuti distribusi normal. Sebuah lembaga pengawas memilih sampel acak sebanyak <strong>40 wajib pajak</strong>.</p>
-                     <ol type="a">
-                        <li>Berapa <em>standard error</em> dari rata-rata sampel dalam kasus ini?</li>
-                        <li>Berapa probabilitas bahwa <em>rata-rata sampel</em> berada antara 320 dan 350 menit?</li>
-                     </ol>
-                  </div>
-                  <div id="soal2uas" style='display:none;'>
-                     <p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
-                     <ol type="a">
-                        <li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
-                        <li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
-                        <li>Bandingkan penyebaran (<em>dispersi</em>) dari populasi dengan penyebaran dari rata-rata sampel.</li>
-                     </ol>
-                  </div>
-                  <div id="soal3uas" style='display:none;'>
-                     <p>Seorang inspektur daging di Iowa ingin memperkirakan <strong>rata-rata berat bersih</strong> dari paket daging giling berlabel “3 pon.”</p>
-                     <p>Sampel sebanyak <strong>36 paket</strong> menunjukkan:</p>
-                     <ul>
-                        <li>Rata-rata sampel: \( \bar{x} = 3.01 \) pon</li>
-                        <li>Simpangan baku: \( s = 0.03 \) pon</li>
-                        <li>Ukuran sampel: \( n = 36 \)</li>
-                        <li>Tingkat kepercayaan: 95%</li>
-                     </ul>
-                     <ol type="a">
-                        <li>Berapa <em>estimasi titik</em> dari rata-rata populasi?</li>
-                        <li>Tentukan <em>interval kepercayaan 95%</em> untuk rata-rata populasi.</li>
-                     </ol>
-                  </div>
-                  <!-- ======================= -->
-                  <div id="soal4uas" style='display:none;'>
-                     <p>Jumlah air yang dikonsumsi setiap hari oleh orang dewasa sehat mengikuti distribusi normal dengan rata-rata \( \mu = 1.4 \) liter.</p>
-                     <p>Sebuah kampanye kesehatan mendorong konsumsi minimal $2.0$ liter per hari. Setelah kampanye, diambil sampel $10$ orang dewasa dengan konsumsi air (dalam liter):</p>
-                     <p>$1.5, 1.6,$ $1.5, 1.4,$ $1.9, 1.4,$ $1.3, 1.9,$ $1.8, 1.7$</p>
-                     <p>Pada tingkat signifikansi \( \alpha = 0.01 \), dapatkah kita menyimpulkan bahwa konsumsi air meningkat?</p>
-                     <p>Hitung dan interpretasikan nilai-\( p \).</p>
-                  </div>
-                  <div id="soal5uas" style='display:none;'>
-                     <p>Rata-rata pendapatan per orang di Amerika Serikat adalah \$60.000 dan distribusi pendapatan mengikuti distribusi normal.</p>
-                     <p>Sebuah sampel acak dari 10 penduduk Wilmington, Delaware memiliki rata-rata \$70.000 dan simpangan baku \$10.000.</p>
-                     <p>Pada tingkat signifikansi \( \alpha = 0.05 \), apakah ada cukup bukti bahwa penduduk Wilmington memiliki pendapatan <strong>lebih tinggi</strong> dari rata-rata nasional?</p>
-                  </div>
-                  <div id="soal6uas" style='display:none;'>
-                     <p>Manajemen <strong>GoGo Carts</strong> sedang mempertimbangkan metode baru untuk merakit kereta golf. Metode saat ini membutuhkan waktu rata-rata $42.3$ menit per unit. Dari sampel acak sebanyak $24$ unit menggunakan metode baru, rata-rata waktu perakitan adalah $40.6$ menit dan simpangan baku $2.7$ menit.</p>
-                     <p>Pada tingkat signifikansi \( \alpha = 0.10 \), apakah metode baru secara signifikan <strong>lebih cepat</strong>?</p>
-                  </div>
-                  <!-- ========================= -->
-                  <div id="soal7uas" style='display:none;'>
-                     <p>Lester Hollar mengevaluasi apakah program kebugaran dapat menurunkan jumlah ketidakhadiran karyawan.</p>
-                     <h4>Data Absensi (Jumlah Hari Tidak Masuk):</h4>
-                     <table class="table table-bordered text-center">
-                        <thead class="table-light">
-                           <tr>
-                              <th>Employee</th>
-                              <th>Sebelum</th>
-                              <th>Sesudah</th>
-                           </tr>
-                        </thead>
-                        <tbody>
-                           <tr>
-                              <td>Bauman</td>
-                              <td>6</td>
-                              <td>5</td>
-                           </tr>
-                           <tr>
-                              <td>Briggs</td>
-                              <td>6</td>
-                              <td>2</td>
-                           </tr>
-                           <tr>
-                              <td>Dottellis</td>
-                              <td>7</td>
-                              <td>1</td>
-                           </tr>
-                           <tr>
-                              <td>Lee</td>
-                              <td>7</td>
-                              <td>3</td>
-                           </tr>
-                           <tr>
-                              <td>Perrailt</td>
-                              <td>4</td>
-                              <td>3</td>
-                           </tr>
-                           <tr>
-                              <td>Rielly</td>
-                              <td>3</td>
-                              <td>6</td>
-                           </tr>
-                           <tr>
-                              <td>Steinmetz</td>
-                              <td>5</td>
-                              <td>5</td>
-                           </tr>
-                           <tr>
-                              <td>Stoltz</td>
-                              <td>6</td>
-                              <td>7</td>
-                           </tr>
-                        </tbody>
-                     </table>
-                  </div>
-                  <div id="soal8uas" style='display:none;'>
-                     <p>Grand Strand Family Medical Center menangani kasus darurat ringan di Myrtle Beach. Dua lokasi dibandingkan: <strong>Little River</strong> dan <strong>Murrells Inlet</strong>.</p>
-                     <h4>Data Waktu Tunggu (dalam menit):</h4>
-                     <div class="overflow-auto">
-                        <table class="table table-bordered text-center">
-                           <thead class="table-light">
-                              <tr>
-                                 <th>Little River</th>
-                                 <th>Murrells Inlet</th>
-                              </tr>
-                           </thead>
-                           <tbody>
-                              <tr>
-                                 <td>31, 28, 29, 22, 29, 18, 32, 25, 29, 26</td>
-                                 <td>22, 23, 26, 27, 26, 25, 30, 29, 23, 22</td>
-                              </tr>
-                           </tbody>
-                        </table>
-                     </div>
-                  </div>
-                  <div id="soal9uas" style='display:none;'>
-                     <p>Clark Heter adalah seorang insinyur industri di Lyons Products. Ia ingin mengetahui apakah jumlah unit yang diproduksi pada shift malam lebih banyak dibanding shift siang.</p>
-                     <ul>
-                        <li>Rata-rata shift siang: \( \bar{x}_1 = 345 \), \( n_1 = 54 \), \( \sigma_1 = 21 \)</li>
-                        <li>Rata-rata shift malam: \( \bar{x}_2 = 351 \), \( n_2 = 60 \), \( \sigma_2 = 28 \)</li>
-                        <li>Signifikansi: \( \alpha = 0.05 \)</li>
-                     </ul>
-                  </div>
-                  <p class="h1 text-center">Soal UAS</p>
-                  <ol id="soalUAS">
-                     <li id='nomer1uas'>
-                        <h2>Soal 1</h2>
-                     </li>
-                     <li id='nomer2uas'>
-                        <h2>Soal 2</h2>
-                     </li>
-                     <li id='nomer3uas'>
-                        <h2>Soal 3</h2>
-                     </li>
-                  </ol>
-               </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <section id="p16">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 16</h2>
+        </div>
+        <p class="h1">Ketentuan UAS</p>
+        <ol>
+          <li>UAS hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+          <li>Soal UAS boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+          <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+        </ol>
+        <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button>
+        <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button>
+        <script>
+          const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
+          const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
+          function validateUASes4d() {
+          	let sekarang = new Date().getTime();
+          	document.getElementById('timerUAS').style.display="block";
+          
+          	if (sekarang-mulaiUASes4d < 0){
+          		alert("Belum waktunya");
+          	}
+          	else {
+          		if (sekarang-akhirUASes4d < 0) {
+          			 let person = prompt("Masukkan Password", "isi di sini");
+          			 if (person === "mata") {
+          				document.getElementById("tombol_uas_es4d").style.display="none";
+          				document.getElementById("berhasilValidateUAS").style.display = "block";
+          				let validNIM = false;
+          				let nim;
+          				while (!validNIM) {
+          						nim = prompt("Masukkan NIM:");
+          						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+          						if (konfirmasi) {
+          								validNIM = true;
+          						} else {
+          								alert("Silakan ulangi dan masukkan NIM yang benar.");
+          						}
+          				}
+          				let b = (nim*5)% 6;
+          				let c = [
+          					['soal1uas', 'soal4uas', 'soal7uas'],
+          					['soal1uas', 'soal5uas', 'soal9uas'],
+          					['soal2uas', 'soal4uas', 'soal8uas'],
+          					['soal2uas', 'soal6uas', 'soal9uas'],
+          					['soal3uas', 'soal5uas', 'soal7uas'],
+          					['soal3uas', 'soal6uas', 'soal8uas']
+          				];
+          				let d = c[b];
+          				for (i = 1; i < 4; i++) {
+          					let e = document.getElementById(d[i-1]);
+          					document.getElementById('nomer'+i+'uas').appendChild(e);
+          					e.style.display="block";
+          					document.getElementById('nomer'+i+'uas').style.display="block";
+          				}
+          			 }
+          			 else {
+          				 alert("Maaf, password yang Anda masukkan salah.");
+          			}
+          		}
+          		else{
+          			alert("Sudah selesai");
+          		}
+          	}
+          	// Update the count down every 1 second
+          	let x = setInterval(function() {	
+          		let sekarang = new Date().getTime();
+          
+          		// Find the distance between now and the count down date
+          		let distanceUASes4d = akhirUASes4d - sekarang;
+          			
+          		// Time calculations for days, hours, minutes and seconds
+          		let daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
+          		let hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          		let minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
+          		let secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
+          			
+          		// Output the result in an element with id="demo"
+          		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
+          		+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
+          			
+          		// If the count down is over, write some text 
+          		if (distanceUASes4d < 0) {
+          			clearInterval(x);
+          			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+          			document.getElementById("berhasilValidateUAS").style.display = "none";
+          		}
+          	}, 1000);
+          	// Update the count down every 1 second
+          }
+          
+          function closeValidateUASes4d() {
+          	let sekarang = new Date().getTime();
+          	if (sekarang - mulaiUASes4d > 1000*60*60*5){
+          				alert("Terkunci");
+          		} else {
+          			setTimeout(function() {
+          				window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
+          			}, 500);
+          		}
+          }
+          
+        </script>
+        <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+        <div id="berhasilValidateUAS" style="display: none">
+          <div id="soal1uas" style='display:none;'>
+            <p>Berdasarkan studi, waktu rata-rata untuk menyiapkan, menyalin, dan mengirimkan formulir pajak 1040 secara elektronik adalah <strong>330 menit</strong>, dengan simpangan baku <strong>80 menit</strong>. Distribusi waktu ini mengikuti distribusi normal. Sebuah lembaga pengawas memilih sampel acak sebanyak <strong>40 wajib pajak</strong>.</p>
+            <ol type="a">
+              <li>Berapa <em>standard error</em> dari rata-rata sampel dalam kasus ini?</li>
+              <li>Berapa probabilitas bahwa <em>rata-rata sampel</em> berada antara 320 dan 350 menit?</li>
+            </ol>
+          </div>
+          <div id="soal2uas" style='display:none;'>
+            <p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
+            <ol type="a">
+              <li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
+              <li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
+              <li>Bandingkan penyebaran (<em>dispersi</em>) dari populasi dengan penyebaran dari rata-rata sampel.</li>
+            </ol>
+          </div>
+          <div id="soal3uas" style='display:none;'>
+            <p>Seorang inspektur daging di Iowa ingin memperkirakan <strong>rata-rata berat bersih</strong> dari paket daging giling berlabel “3 pon.”</p>
+            <p>Sampel sebanyak <strong>36 paket</strong> menunjukkan:</p>
+            <ul>
+              <li>Rata-rata sampel: \( \bar{x} = 3.01 \) pon</li>
+              <li>Simpangan baku: \( s = 0.03 \) pon</li>
+              <li>Ukuran sampel: \( n = 36 \)</li>
+              <li>Tingkat kepercayaan: 95%</li>
+            </ul>
+            <ol type="a">
+              <li>Berapa <em>estimasi titik</em> dari rata-rata populasi?</li>
+              <li>Tentukan <em>interval kepercayaan 95%</em> untuk rata-rata populasi.</li>
+            </ol>
+          </div>
+          <!-- ======================= -->
+          <div id="soal4uas" style='display:none;'>
+            <p>Jumlah air yang dikonsumsi setiap hari oleh orang dewasa sehat mengikuti distribusi normal dengan rata-rata \( \mu = 1.4 \) liter.</p>
+            <p>Sebuah kampanye kesehatan mendorong konsumsi minimal $2.0$ liter per hari. Setelah kampanye, diambil sampel $10$ orang dewasa dengan konsumsi air (dalam liter):</p>
+            <p>$1.5, 1.6,$ $1.5, 1.4,$ $1.9, 1.4,$ $1.3, 1.9,$ $1.8, 1.7$</p>
+            <p>Pada tingkat signifikansi \( \alpha = 0.01 \), dapatkah kita menyimpulkan bahwa konsumsi air meningkat?</p>
+            <p>Hitung dan interpretasikan nilai-\( p \).</p>
+          </div>
+          <div id="soal5uas" style='display:none;'>
+            <p>Rata-rata pendapatan per orang di Amerika Serikat adalah \$60.000 dan distribusi pendapatan mengikuti distribusi normal.</p>
+            <p>Sebuah sampel acak dari 10 penduduk Wilmington, Delaware memiliki rata-rata \$70.000 dan simpangan baku \$10.000.</p>
+            <p>Pada tingkat signifikansi \( \alpha = 0.05 \), apakah ada cukup bukti bahwa penduduk Wilmington memiliki pendapatan <strong>lebih tinggi</strong> dari rata-rata nasional?</p>
+          </div>
+          <div id="soal6uas" style='display:none;'>
+            <p>Manajemen <strong>GoGo Carts</strong> sedang mempertimbangkan metode baru untuk merakit kereta golf. Metode saat ini membutuhkan waktu rata-rata $42.3$ menit per unit. Dari sampel acak sebanyak $24$ unit menggunakan metode baru, rata-rata waktu perakitan adalah $40.6$ menit dan simpangan baku $2.7$ menit.</p>
+            <p>Pada tingkat signifikansi \( \alpha = 0.10 \), apakah metode baru secara signifikan <strong>lebih cepat</strong>?</p>
+          </div>
+          <!-- ========================= -->
+          <div id="soal7uas" style='display:none;'>
+            <p>Lester Hollar mengevaluasi apakah program kebugaran dapat menurunkan jumlah ketidakhadiran karyawan.</p>
+            <h4>Data Absensi (Jumlah Hari Tidak Masuk):</h4>
+            <table class="table table-bordered text-center">
+              <thead class="table-light">
+                <tr>
+                  <th>Employee</th>
+                  <th>Sebelum</th>
+                  <th>Sesudah</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>Bauman</td>
+                  <td>6</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>Briggs</td>
+                  <td>6</td>
+                  <td>2</td>
+                </tr>
+                <tr>
+                  <td>Dottellis</td>
+                  <td>7</td>
+                  <td>1</td>
+                </tr>
+                <tr>
+                  <td>Lee</td>
+                  <td>7</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>Perrailt</td>
+                  <td>4</td>
+                  <td>3</td>
+                </tr>
+                <tr>
+                  <td>Rielly</td>
+                  <td>3</td>
+                  <td>6</td>
+                </tr>
+                <tr>
+                  <td>Steinmetz</td>
+                  <td>5</td>
+                  <td>5</td>
+                </tr>
+                <tr>
+                  <td>Stoltz</td>
+                  <td>6</td>
+                  <td>7</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div id="soal8uas" style='display:none;'>
+            <p>Grand Strand Family Medical Center menangani kasus darurat ringan di Myrtle Beach. Dua lokasi dibandingkan: <strong>Little River</strong> dan <strong>Murrells Inlet</strong>.</p>
+            <h4>Data Waktu Tunggu (dalam menit):</h4>
+            <div class="overflow-auto">
+              <table class="table table-bordered text-center">
+                <thead class="table-light">
+                  <tr>
+                    <th>Little River</th>
+                    <th>Murrells Inlet</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td>31, 28, 29, 22, 29, 18, 32, 25, 29, 26</td>
+                    <td>22, 23, 26, 27, 26, 25, 30, 29, 23, 22</td>
+                  </tr>
+                </tbody>
+              </table>
             </div>
-         </section>
-         <section id="daftar_hadir">
-            <div class="container aos-init aos-animate" data-aos="fade-up">
-               <div class="section-title">
-                  <h2>Daftar Hadir dan Nilai</h2>
-               </div>
-               <p class="h3">Daftar Nilai ES5A</p>
-               <div class="overflow-auto">
-                  <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRHYePfT2xE7iOCFaTHy-Ho9l--BAMybeHFCJ78AbYpt7_DftoMdmT3uePiFXYfWkYH__1m2XGIeeTE/pubhtml?widget=true&amp;headers=false" width="100%" height="300"></iframe>
-               </div>
-            </div>
-         </section>
-         <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
-      </main>
-      <!-- ======= Footer ======= -->
-      <footer id="footer"></footer>
-      <!-- End Footer -->
-      <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
-      <i class="bi bi-arrow-up-short"></i>
-      </a>
-      <!-- Vendor JS Files -->
-      <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
-      <!-- <script src="/assets/vendor/aos/aos.js"></script> -->
-      <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-      <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-      <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-      <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-      <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-      <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-      <script src="/assets/vendor/php-email-form/validate.js"></script>
-      <!-- Template Main JS File -->
-      <script src="/assets/js/main.js"></script>
-      <!-- chart.js diagram -->
-      <script src="/app/aplikasi-statistik/chart.js"></script>
-      <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-   </body>
+          </div>
+          <div id="soal9uas" style='display:none;'>
+            <p>Clark Heter adalah seorang insinyur industri di Lyons Products. Ia ingin mengetahui apakah jumlah unit yang diproduksi pada shift malam lebih banyak dibanding shift siang.</p>
+            <ul>
+              <li>Rata-rata shift siang: \( \bar{x}_1 = 345 \), \( n_1 = 54 \), \( \sigma_1 = 21 \)</li>
+              <li>Rata-rata shift malam: \( \bar{x}_2 = 351 \), \( n_2 = 60 \), \( \sigma_2 = 28 \)</li>
+              <li>Signifikansi: \( \alpha = 0.05 \)</li>
+            </ul>
+          </div>
+          <p class="h1 text-center">Soal UAS</p>
+          <ol id="soalUAS">
+            <li id='nomer1uas'>
+              <h2>Soal 1</h2>
+            </li>
+            <li id='nomer2uas'>
+              <h2>Soal 2</h2>
+            </li>
+            <li id='nomer3uas'>
+              <h2>Soal 3</h2>
+            </li>
+          </ol>
+        </div>
+      </div>
+    </section>
+    <section id="daftar_hadir">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Daftar Hadir dan Nilai</h2>
+        </div>
+        <p class="h3">Daftar Nilai ES5A</p>
+        <div class="overflow-auto">
+          <iframe src="https://docs.google.com/spreadsheets/d/e/2PACX-1vRHYePfT2xE7iOCFaTHy-Ho9l--BAMybeHFCJ78AbYpt7_DftoMdmT3uePiFXYfWkYH__1m2XGIeeTE/pubhtml?widget=true&amp;headers=false" width="100%" height="300"></iframe>
+        </div>
+      </div>
+    </section>
+    <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
+  </main>
+  <!-- ======= Footer ======= -->
+  <footer id="footer"></footer>
+  <!-- End Footer -->
+  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+    <i class="bi bi-arrow-up-short"></i>
+  </a>
+  <!-- Vendor JS Files -->
+  <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <!-- <script src="/assets/vendor/aos/aos.js"></script> -->
+  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="/assets/vendor/php-email-form/validate.js"></script>
+  <!-- Template Main JS File -->
+  <script src="/assets/js/main.js"></script>
+  <!-- chart.js diagram -->
+  <script src="/app/aplikasi-statistik/chart.js"></script>
+  <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+</body>
+
 </html>
 <!-- paggalih.github.io/matkul/sem2024-02/statistik -->
