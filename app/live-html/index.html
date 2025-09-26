@@ -3,8 +3,8 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Live HTML Editor (Multi-Tab)</title>
-    <meta content="HTML editor dengan panel yang bisa di-resize dan fitur multi-tab" name="description">
+    <title>Live HTML Editor (Multi-Tab & Zoom)</title>
+    <meta content="HTML editor dengan panel yang bisa di-resize, multi-tab, dan zoom font" name="description">
     <meta name="author" content="Galih Pradananta & Gemini">
     <link href="/assets/img/letter-g.gif" rel="icon">
     
@@ -20,14 +20,13 @@
         body { font-family: 'Segoe UI', sans-serif; background: #f5f7fa; padding: 20px 0; margin: 0; }
         .container { max-width: 1600px; box-shadow: 0 5px 20px rgba(0,0,0,0.1); border-radius: 12px; overflow: hidden; background-color: white; transition: all 0.3s ease; }
         header { background: linear-gradient(to right, var(--primary-color), #2E8B57); color: white; padding: 20px; text-align: center; position: relative; }
-        .controls { padding: 15px; background-color: #f9f9f9; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
+        .controls { padding: 15px; background-color: #f9f9f9; border-bottom: 1px solid #eee; display: flex; justify-content: center; align-items: center; gap: 10px; flex-wrap: wrap; }
         .btn { background-color: var(--primary-color); }
         .btn:hover { background-color: var(--primary-dark); }
         .editor-container { display: flex; flex-direction: row; height: 75vh; }
         .code-panel, .preview-panel { height: 100%; }
         .panel-header { padding: 10px 15px; font-weight: 600; background: #f1f1f1; border-bottom: 1px solid #ddd; }
         
-        /* === PERUBAHAN CSS UNTUK TAB === */
         .code-panel .panel-header { background-color: #333; color: white; border-bottom: 1px solid #555; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; }
         .tab-bar { display: flex; align-items: center; height: 100%; overflow-x: auto; }
         .tab-item { background-color: #272822; color: #aaa; padding: 10px 15px; cursor: pointer; border-right: 1px solid #333; white-space: nowrap; }
@@ -36,9 +35,8 @@
         .close-tab:hover { color: #f92672; }
         #add-tab-btn { background: none; border: 1px solid #555; color: white; font-size: 1.2em; cursor: pointer; padding: 0 10px; margin-left: 5px; border-radius: 4px;}
         #add-tab-btn:hover { background-color: #555; }
-        /* === AKHIR PERUBAHAN CSS === */
         
-        .CodeMirror { flex-grow: 1; height: auto; }
+        .CodeMirror { flex-grow: 1; height: auto; font-size: 14px; } /* Atur font-size default */
         #preview { width: 100%; height: 100%; border: 1px solid #ccc; border-radius: 4px; background-color: white; }
         .gutter { background-color: #eee; background-repeat: no-repeat; background-position: 50%; }
         .gutter.gutter-horizontal { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxl7ACYGEQ2oAB40gUoAokYTBgYAY1gEGLpQyG4AAAAASUVORK5CYII='); cursor: col-resize; }
@@ -56,7 +54,7 @@
 <body>
     <div class="container" id="main-container">
         <header>
-            <h1>Live HTML Editor (Multi-Tab)</h1>
+            <h1>Live HTML Editor (Multi-Tab & Zoom)</h1>
             <p class="description">Gunakan <b>Ctrl+S</b> atau <b>Ctrl+Enter</b> untuk menjalankan kode.</p>
             <button id="fullscreen-btn" class="btn btn-sm btn-outline-light text-white fullscreen-btn"><i class="bi bi-arrows-fullscreen"></i> Fullscreen</button>
         </header>
@@ -69,7 +67,13 @@
             <button id="find-btn" class="btn btn-info text-white"><i class="bi bi-search"></i> <span>Find</span></button>
             <button id="format-btn" class="btn btn-secondary text-white"><i class="bi bi-wrench"></i> Format</button>
             <button id="example-btn" class="btn text-white" style="background-color: #6f42c1;"><i class="bi bi-file-code"></i> Contoh</button>
-        </div>
+            
+            <div class="ms-auto d-flex align-items-center">
+                <span class="me-2 text-muted">Font Size:</span>
+                <button id="zoom-out-btn" class="btn btn-light btn-sm" title="Perkecil Font"><i class="bi bi-zoom-out"></i></button>
+                <button id="zoom-in-btn" class="btn btn-light btn-sm ms-1" title="Perbesar Font"><i class="bi bi-zoom-in"></i></button>
+            </div>
+            </div>
 
         <div class="editor-container">
             <div id="code-panel" class="code-panel d-flex flex-column">
@@ -116,12 +120,10 @@
                 onDrag: () => editor.refresh()
             });
             
-            // --- PERUBAHAN JAVASCRIPT: LOGIKA UNTUK MANAJEMEN TAB ---
-            
+            // --- Logika Manajemen Tab (Sama seperti sebelumnya) ---
             const tabBar = document.getElementById('tab-bar');
             const addTabBtn = document.getElementById('add-tab-btn');
-            
-            let tabs = []; // Array untuk menyimpan data semua tab
+            let tabs = [];
             let activeTabId = null;
             let nextTabId = 1;
 
@@ -137,118 +139,106 @@
 <body>
     <h1>Selamat Datang!</h1>
     <p>Ini adalah konten dari Tab 1.</p>
-    <p>Anda bisa menambah tab baru dengan menekan tombol <b>+</b>.</p>
+    <p>Anda bisa mengubah ukuran font editor dengan tombol <b>Zoom</b>.</p>
 </body>
 </html>`;
-
-            // Fungsi untuk render ulang semua tab di UI
-            function renderTabs() {
-                tabBar.innerHTML = ''; // Kosongkan tab bar
+            
+            function renderTabs() { /* ... (fungsi renderTabs tidak berubah) ... */ 
+                tabBar.innerHTML = '';
                 tabs.forEach(tab => {
                     const tabElement = document.createElement('div');
                     tabElement.className = 'tab-item' + (tab.id === activeTabId ? ' active' : '');
                     tabElement.dataset.tabId = tab.id;
                     tabElement.textContent = tab.name;
-                    
                     const closeBtn = document.createElement('span');
                     closeBtn.className = 'close-tab';
                     closeBtn.innerHTML = '&times;';
                     closeBtn.title = 'Tutup file';
-                    closeBtn.onclick = (e) => {
-                        e.stopPropagation(); // Mencegah event klik tab tereksekusi
-                        closeTab(tab.id);
-                    };
-                    
+                    closeBtn.onclick = (e) => { e.stopPropagation(); closeTab(tab.id); };
                     tabElement.appendChild(closeBtn);
                     tabElement.onclick = () => switchTab(tab.id);
                     tabBar.appendChild(tabElement);
                 });
             }
-
-            // Fungsi untuk beralih tab
-            function switchTab(tabId) {
-                if (activeTabId === tabId) return; // Jangan lakukan apa-apa jika sudah aktif
-                
-                // Simpan konten editor saat ini ke tab yang aktif sebelumnya
+            function switchTab(tabId) { /* ... (fungsi switchTab tidak berubah) ... */ 
+                if (activeTabId === tabId) return;
                 const oldTab = tabs.find(t => t.id === activeTabId);
-                if (oldTab) {
-                    oldTab.content = editor.getValue();
-                }
-                
+                if (oldTab) { oldTab.content = editor.getValue(); }
                 activeTabId = tabId;
                 const newTab = tabs.find(t => t.id === activeTabId);
-                editor.setValue(newTab.content); // Muat konten tab baru ke editor
+                editor.setValue(newTab.content);
                 editor.focus();
-                
-                renderTabs(); // Render ulang UI untuk menyorot tab aktif
-                updatePreview(); // Perbarui preview
+                renderTabs();
+                updatePreview();
             }
-            
-            // Fungsi untuk menambah tab baru
-            function addTab(name = `untitled-${nextTabId}.html`, content = `<h1>Konten Baru</h1>`) {
+            function addTab(name = `untitled-${nextTabId}.html`, content = `<h1>Konten Baru</h1>`) { /* ... (fungsi addTab tidak berubah) ... */
                 const newTab = { id: nextTabId++, name, content };
                 tabs.push(newTab);
-                switchTab(newTab.id); // Langsung beralih ke tab baru
+                switchTab(newTab.id);
             }
-            
-            // Fungsi untuk menutup tab
-            function closeTab(tabId) {
+            function closeTab(tabId) { /* ... (fungsi closeTab tidak berubah) ... */
                 const tabIndex = tabs.findIndex(t => t.id === tabId);
                 if (tabIndex === -1) return;
-                
-                tabs.splice(tabIndex, 1); // Hapus tab dari array
-                
-                // Jika tab yang ditutup adalah tab aktif
+                tabs.splice(tabIndex, 1);
                 if (activeTabId === tabId) {
                     if (tabs.length > 0) {
-                        // Beralih ke tab sebelumnya, atau tab pertama jika tidak ada
                         const newActiveIndex = Math.max(0, tabIndex - 1);
                         switchTab(tabs[newActiveIndex].id);
                     } else {
-                        // Jika tidak ada tab tersisa, buat satu tab default
                         activeTabId = null;
                         editor.setValue('');
                         addTab('untitled-1.html', '');
                     }
                 }
-                
                 renderTabs();
             }
-            
             addTabBtn.addEventListener('click', () => addTab());
 
+            // --- PERUBAHAN JAVASCRIPT: LOGIKA UNTUK ZOOM FONT ---
+            const zoomInBtn = document.getElementById('zoom-in-btn');
+            const zoomOutBtn = document.getElementById('zoom-out-btn');
+            const editorWrapper = editor.getWrapperElement();
+            let currentFontSize = 14; // Ukuran font awal (dalam pixel)
+
+            function applyFontSize() {
+                editorWrapper.style.fontSize = currentFontSize + 'px';
+                editor.refresh(); // Penting: Refresh CodeMirror agar layout-nya menyesuaikan
+            }
+
+            zoomInBtn.addEventListener('click', () => {
+                currentFontSize += 1;
+                applyFontSize();
+            });
+
+            zoomOutBtn.addEventListener('click', () => {
+                // Beri batas minimal agar font tidak terlalu kecil
+                if (currentFontSize > 8) {
+                    currentFontSize -= 1;
+                    applyFontSize();
+                }
+            });
+
+            // Terapkan ukuran font awal saat halaman dimuat
+            applyFontSize();
             // --- AKHIR PERUBAHAN JAVASCRIPT ---
 
-            // Sisa kode JavaScript (sedikit dimodifikasi)
+            // Sisa kode JavaScript (tidak berubah)
             const preview = document.getElementById('preview');
             const refreshBtn = document.getElementById('refresh-btn');
-            const findBtn = document.getElementById('find-btn');
-            const inspectBtn = document.getElementById('inspect-btn');
-            const clearBtn = document.getElementById('clear-btn');
-            const formatBtn = document.getElementById('format-btn');
-            const exampleBtn = document.getElementById('example-btn');
-            const editToggleBtn = document.getElementById('edit-toggle-btn');
-            const editStatusText = document.getElementById('edit-status-text');
-            const fullscreenBtn = document.getElementById('fullscreen-btn');
-            const escapeBtn = document.getElementById('escape-btn');
+            // ... (deklarasi variabel lainnya)
+            const findBtn = document.getElementById('find-btn'), inspectBtn = document.getElementById('inspect-btn'), clearBtn = document.getElementById('clear-btn'), formatBtn = document.getElementById('format-btn'), exampleBtn = document.getElementById('example-btn'), editToggleBtn = document.getElementById('edit-toggle-btn'), editStatusText = document.getElementById('edit-status-text'), fullscreenBtn = document.getElementById('fullscreen-btn'), escapeBtn = document.getElementById('escape-btn');
             let isEditingPreview = false, isInspecting = false, debounceTimer;
 
-            // Modifikasi updatePreview untuk mengambil kode dari tab aktif
-            function updatePreview() {
+            function updatePreview() { /* ... (fungsi updatePreview tidak berubah) ... */ 
                 const activeTab = tabs.find(t => t.id === activeTabId);
-                if (!activeTab) return; // Jangan lakukan jika tidak ada tab aktif
-                
-                // Simpan perubahan terakhir dari editor ke state tab
+                if (!activeTab) return;
                 activeTab.content = editor.getValue();
-                
                 let sourceCode = activeTab.content;
                 const lines = sourceCode.split('\n');
-                const instrumentedLines = lines.map((line, index) => {
-                    return line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
-                        if (attributes.includes('data-source-line')) return match;
-                        return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
-                    });
-                });
+                const instrumentedLines = lines.map((line, index) => line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
+                    if (attributes.includes('data-source-line')) return match;
+                    return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
+                }));
                 const instrumentedCode = instrumentedLines.join('\n');
                 const previewDoc = preview.contentDocument || preview.contentWindow.document;
                 previewDoc.open();
@@ -260,11 +250,10 @@
                     previewDoc.body.style.cursor = 'pointer';
                 }
             }
-            
             refreshBtn.addEventListener('click', updatePreview);
             
             let scrollSyncTimer;
-            editor.on('cursorActivity', (instance) => {
+            editor.on('cursorActivity', (instance) => { /* ... (fungsi scrollSync tidak berubah) ... */
                 clearTimeout(scrollSyncTimer);
                 scrollSyncTimer = setTimeout(() => {
                     const line = instance.getCursor().line + 1;
@@ -276,12 +265,10 @@
                 }, 200);
             });
 
-            formatBtn.addEventListener('click', () => {
-                editor.setValue(html_beautify(editor.getValue(), { indent_size: 2, indent_char: ' ', max_preserve_newlines: 1 }));
-            });
+            formatBtn.addEventListener('click', () => { editor.setValue(html_beautify(editor.getValue(), { indent_size: 2, indent_char: ' ', max_preserve_newlines: 1 })); });
             findBtn.addEventListener('click', () => { editor.execCommand("find"); });
 
-            const handlePreviewClick = (event) => {
+            const handlePreviewClick = (event) => { /* ... (fungsi handlePreviewClick tidak berubah) ... */
                 event.preventDefault();
                 const target = event.target;
                 const sourceElement = target.closest('[data-source-line]');
@@ -294,7 +281,7 @@
                     }
                 }
             };
-            inspectBtn.addEventListener('click', () => {
+            inspectBtn.addEventListener('click', () => { /* ... (fungsi inspect tidak berubah) ... */
                 isInspecting = !isInspecting;
                 const previewBody = preview.contentDocument.body;
                 if (isInspecting) {
@@ -310,17 +297,17 @@
                 }
             });
 
-            const syncPreviewToEditor = () => {
+            const syncPreviewToEditor = () => { /* ... (fungsi syncPreviewToEditor tidak berubah) ... */
                 clearTimeout(debounceTimer);
                 debounceTimer = setTimeout(() => {
                     const previewHTML = preview.contentDocument.body.innerHTML;
                     const cursorPos = editor.getCursor(); editor.setValue(previewHTML); editor.setCursor(cursorPos);
-                    updatePreview(); // Sinkronkan kembali ke state tab
+                    updatePreview();
                 }, 300);
             };
             const enablePreviewEditing = () => { preview.contentDocument.body.contentEditable = 'true'; preview.contentDocument.body.addEventListener('input', syncPreviewToEditor); };
             const disablePreviewEditing = () => { preview.contentDocument.body.contentEditable = 'false'; preview.contentDocument.body.removeEventListener('input', syncPreviewToEditor); };
-            editToggleBtn.addEventListener('click', () => {
+            editToggleBtn.addEventListener('click', () => { /* ... (fungsi editToggle tidak berubah) ... */
                 isEditingPreview = !isEditingPreview;
                 if (isEditingPreview) { enablePreviewEditing(); editStatusText.textContent = 'Nonaktifkan Edit'; editToggleBtn.classList.replace('btn-warning', 'btn-success'); } 
                 else { disablePreviewEditing(); editStatusText.textContent = 'Edit Preview'; editToggleBtn.classList.replace('btn-success', 'btn-warning'); }
@@ -331,14 +318,9 @@
             escapeBtn.addEventListener('click', toggleFullscreen);
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('fullscreen-active')) toggleFullscreen(); });
             
-            // Modifikasi tombol clear dan example untuk bekerja pada tab aktif
             clearBtn.addEventListener('click', () => { if (confirm('Yakin membersihkan file ini?')) editor.setValue(''); updatePreview(); });
-            exampleBtn.addEventListener('click', () => { 
-                editor.setValue(exampleHTML); 
-                updatePreview(); 
-            });
+            exampleBtn.addEventListener('click', () => { editor.setValue(exampleHTML); updatePreview(); });
             
-            // Inisialisasi editor dengan tab pertama
             addTab('index.html', exampleHTML);
         });
     </script>
