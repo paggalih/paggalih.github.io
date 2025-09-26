@@ -836,56 +836,146 @@
               });
           		});
         </script>
-          <div class="head">
-<h2>Soal 1: Data Pendidikan vs. Pendapatan</h2>
-<p>Analisis hubungan antara tahun pendidikan (X) dan pendapatan tahunan dalam juta Rupiah (Y).</p>
+        <div class="head">
+          <h2>Soal 1: Data Pendidikan vs. Pendapatan</h2>
+          <p>Analisis hubungan antara tahun pendidikan (X) dan pendapatan tahunan dalam juta Rupiah (Y).</p>
 
-            <div class="tools">
-              <button class="btn" onclick="copyTable('t1p3')">Salin Tabel</button>
-              <button class="btn" onclick="downloadCSV('t1p3','tabel-1-p3.csv')">Unduh CSV</button>
-            </div>
+          <div class="tools">
+            <button class="btn" onclick="copyTable('t1p3')">Salin Tabel</button>
+            <button class="btn" onclick="downloadCSV('t1p3','tabel-1-p3.csv')">Unduh CSV</button>
           </div>
+        </div>
 
-<table id="t1p3">
-  <thead>
-    <tr>
-      <th>Tahun_Pendidikan</th>
-      <th>Pendapatan_Tahunan</th>
-    </tr>
-  </thead>
-  <tbody>
-    <tr><td>12</td><td>95.8</td></tr>
-    <tr><td>16</td><td>221.5</td></tr>
-    <tr><td>11</td><td>81.2</td></tr>
-    <tr><td>18</td><td>355.1</td></tr>
-    <tr><td>14</td><td>145.3</td></tr>
-    <tr><td>16</td><td>218.9</td></tr>
-    <tr><td>19</td><td>470.2</td></tr>
-    <tr><td>12</td><td>98.1</td></tr>
-    <tr><td>13</td><td>115.6</td></tr>
-    <tr><td>17</td><td>280.4</td></tr>
-    <tr><td>10</td><td>70.3</td></tr>
-    <tr><td>16</td><td>225.1</td></tr>
-    <tr><td>18</td><td>340.7</td></tr>
-    <tr><td>14</td><td>150.8</td></tr>
-    <tr><td>12</td><td>101.4</td></tr>
-    <tr><td>19</td><td>485.6</td></tr>
-    <tr><td>16</td><td>230.2</td></tr>
-    <tr><td>13</td><td>120.5</td></tr>
-    <tr><td>17</td><td>295.3</td></tr>
-    <tr><td>12</td><td>99.9</td></tr>
-    <tr><td>14</td><td>148.2</td></tr>
-    <tr><td>18</td><td>360.1</td></tr>
-    <tr><td>16</td><td>222.8</td></tr>
-    <tr><td>11</td><td>84.5</td></tr>
-    <tr><td>20</td><td>598.7</td></tr>
-    <tr><td>12</td><td>103.1</td></tr>
-    <tr><td>17</td><td>288.0</td></tr>
-    <tr><td>14</td><td>152.9</td></tr>
-    <tr><td>16</td><td>215.7</td></tr>
-    <tr><td>18</td><td>351.9</td></tr>
-  </tbody>
-</table>
+        <table id="t1p3" class="datatable table table-bordered table-striped">
+          <thead>
+            <tr>
+              <th>Tahun_Pendidikan</th>
+              <th>Pendapatan_Tahunan</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>12</td>
+              <td>95.8</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>221.5</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>81.2</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>355.1</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>145.3</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>218.9</td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <td>470.2</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>98.1</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>115.6</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>280.4</td>
+            </tr>
+            <tr>
+              <td>10</td>
+              <td>70.3</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>225.1</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>340.7</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>150.8</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>101.4</td>
+            </tr>
+            <tr>
+              <td>19</td>
+              <td>485.6</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>230.2</td>
+            </tr>
+            <tr>
+              <td>13</td>
+              <td>120.5</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>295.3</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>99.9</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>148.2</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>360.1</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>222.8</td>
+            </tr>
+            <tr>
+              <td>11</td>
+              <td>84.5</td>
+            </tr>
+            <tr>
+              <td>20</td>
+              <td>598.7</td>
+            </tr>
+            <tr>
+              <td>12</td>
+              <td>103.1</td>
+            </tr>
+            <tr>
+              <td>17</td>
+              <td>288.0</td>
+            </tr>
+            <tr>
+              <td>14</td>
+              <td>152.9</td>
+            </tr>
+            <tr>
+              <td>16</td>
+              <td>215.7</td>
+            </tr>
+            <tr>
+              <td>18</td>
+              <td>351.9</td>
+            </tr>
+          </tbody>
+        </table>
         <div class="container mt-5">
           <div class="accordion" id="accordionp3">
             <div class="accordion-item">
@@ -1977,44 +2067,44 @@
   <!-- chart.js diagram -->
   <script src="/app/aplikasi-statistik/chart.js"></script>
   <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
-	  <script>
-	    // Helper: table -> CSV string
-	    function tableToCSV(tableId){
-	      const rows = Array.from(document.querySelectorAll(`#${tableId} tr`));
-	      return rows.map(r => Array.from(r.children).map(c => '"'+(c.innerText||'').replaceAll('"','""')+'"').join(',')).join('\n');
-	    }
-	    function downloadCSV(tableId, filename){
-	      const csv = tableToCSV(tableId);
-	      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-	      const a = document.createElement('a');
-	      a.href = URL.createObjectURL(blob);
-	      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
-	    }
-	    function copyTable(tableId){
-	      const csv = tableToCSV(tableId);
-	      navigator.clipboard.writeText(csv).then(()=>alert('Tabel disalin sebagai CSV. Tempel langsung di Excel.'));
-	    }
-	    
-	    // Helper for list (comma-separated numbers)
-	    function listToCSV(listId, header){
-	      const raw = document.getElementById(listId).innerText.trim();
-	      const values = raw.split(/\s*,\s*/);
-	      const lines = [header];
-	      values.forEach(v=>lines.push(v));
-	      return lines.join('\n');
-	    }
-	    function downloadListCSV(listId, filename, header){
-	      const csv = listToCSV(listId, header||'Value');
-	      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
-	      const a = document.createElement('a');
-	      a.href = URL.createObjectURL(blob);
-	      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
-	    }
-	    function copyList(listId){
-	      const csv = listToCSV(listId, 'Value');
-	      navigator.clipboard.writeText(csv).then(()=>alert('Data disalin. Tempel di Excel (kolom tunggal).'));
-	    }
-	  </script>
+  <script>
+    // Helper: table -> CSV string
+    function tableToCSV(tableId){
+      const rows = Array.from(document.querySelectorAll(`#${tableId} tr`));
+      return rows.map(r => Array.from(r.children).map(c => '"'+(c.innerText||'').replaceAll('"','""')+'"').join(',')).join('\n');
+    }
+    function downloadCSV(tableId, filename){
+      const csv = tableToCSV(tableId);
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function copyTable(tableId){
+      const csv = tableToCSV(tableId);
+      navigator.clipboard.writeText(csv).then(()=>alert('Tabel disalin sebagai CSV. Tempel langsung di Excel.'));
+    }
+    
+    // Helper for list (comma-separated numbers)
+    function listToCSV(listId, header){
+      const raw = document.getElementById(listId).innerText.trim();
+      const values = raw.split(/\s*,\s*/);
+      const lines = [header];
+      values.forEach(v=>lines.push(v));
+      return lines.join('\n');
+    }
+    function downloadListCSV(listId, filename, header){
+      const csv = listToCSV(listId, header||'Value');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const a = document.createElement('a');
+      a.href = URL.createObjectURL(blob);
+      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+    }
+    function copyList(listId){
+      const csv = listToCSV(listId, 'Value');
+      navigator.clipboard.writeText(csv).then(()=>alert('Data disalin. Tempel di Excel (kolom tunggal).'));
+    }
+  </script>
 </body>
 
 </html>
