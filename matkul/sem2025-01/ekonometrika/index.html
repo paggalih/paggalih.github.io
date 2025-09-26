@@ -837,7 +837,8 @@
           		});
         </script>
         <div class="head">
-          <h2>Soal 1: Data Pendidikan vs. Pendapatan</h2>
+          <h3>Soal 1: Data Pendidikan vs. Pendapatan</h3>
+          <p>Seorang peneliti ekonomi ingin memodelkan hubungan antara tingkat pendidikan dan pendapatan tahunan. Data dari 30 responden telah dikumpulkan. Lakukan analisis regresi untuk mengetahui seberapa besar pengaruh setiap tambahan tahun pendidikan terhadap pendapatan. Model apa yang paling sesuai untuk menjelaskan fenomena ini, di mana setiap jenjang pendidikan memberikan dampak persentase, bukan nominal tetap?</p>
           <p>Analisis hubungan antara tahun pendidikan (X) dan pendapatan tahunan dalam juta Rupiah (Y).</p>
 
           <div class="tools">
@@ -976,6 +977,58 @@
             </tr>
           </tbody>
         </table>
+        <div class="head">
+        <h3>Soal 2: Data Usia vs. Kinerja Penjualan</h3>
+          <p> Sebuah perusahaan ingin memahami hubungan antara usia tenaga penjualnya dengan kinerja penjualan (dalam unit terjual per bulan). Hipotesisnya adalah kinerja akan meningkat seiring pengalaman (usia), mencapai puncaknya pada usia tertentu, dan kemudian menurun. Buatlah model regresi yang dapat menangkap pola "naik-lalu-turun" ini untuk menemukan usia puncak kinerja.</p>
+<p>Analisis hubungan antara usia tenaga penjual (X) dan unit terjual per bulan (Y).</p>
+
+          <div class="tools">
+            <button class="btn" onclick="copyTable('t2p3')">Salin Tabel</button>
+            <button class="btn" onclick="downloadCSV('t2p3','tabel-2-p3.csv')">Unduh CSV</button>
+          </div>
+        </div>
+
+<table  id="t2p3" class="datatable table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>Usia</th>
+      <th>Unit_Terjual</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr><td>23</td><td>52.1</td></tr>
+    <tr><td>25</td><td>58.8</td></tr>
+    <tr><td>28</td><td>66.9</td></tr>
+    <tr><td>30</td><td>71.5</td></tr>
+    <tr><td>32</td><td>75.1</td></tr>
+    <tr><td>34</td><td>77.8</td></tr>
+    <tr><td>36</td><td>79.9</td></tr>
+    <tr><td>38</td><td>81.2</td></tr>
+    <tr><td>40</td><td>82.0</td></tr>
+    <tr><td>41</td><td>81.9</td></tr>
+    <tr><td>42</td><td>81.5</td></tr>
+    <tr><td>43</td><td>80.8</td></tr>
+    <tr><td>44</td><td>79.9</td></tr>
+    <tr><td>45</td><td>78.5</td></tr>
+    <tr><td>46</td><td>77.1</td></tr>
+    <tr><td>47</td><td>75.4</td></tr>
+    <tr><td>48</td><td>73.6</td></tr>
+    <tr><td>49</td><td>71.5</td></tr>
+    <tr><td>50</td><td>69.1</td></tr>
+    <tr><td>51</td><td>66.5</td></tr>
+    <tr><td>52</td><td>63.8</td></tr>
+    <tr><td>53</td><td>60.9</td></tr>
+    <tr><td>54</td><td>57.8</td></tr>
+    <tr><td>55</td><td>54.5</td></tr>
+    <tr><td>56</td><td>51.1</td></tr>
+    <tr><td>57</td><td>47.5</td></tr>
+    <tr><td>58</td><td>43.8</td></tr>
+    <tr><td>59</td><td>39.9</td></tr>
+    <tr><td>60</td><td>35.9</td></tr>
+    <tr><td>61</td><td>31.7</td></tr>
+  </tbody>
+</table>
+
         <div class="container mt-5">
           <div class="accordion" id="accordionp3">
             <div class="accordion-item">
