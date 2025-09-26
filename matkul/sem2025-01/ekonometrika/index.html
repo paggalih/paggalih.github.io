@@ -690,10 +690,10 @@
                <div class="section-title">
                   <h2>Pertemuan 3</h2>
                </div>
-               <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/Data_Regresi_UTS.csv"><button>Unduh CSV </button></a>
+               <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-log.csv"><button>Unduh CSV </button></a>
                <div class="overflow-auto" id="tabel-UTS"></div>
                <script>
-                  fetch('Data_Regresi_UTS.csv')
+                  fetch('regresi-log.csv')
                     .then(res => res.text())
                     .then(csv => {
                       const rows = csv.trim().split('\n').map(row => row.split(','));
