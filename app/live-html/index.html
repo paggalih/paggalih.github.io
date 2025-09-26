@@ -3,9 +3,9 @@
 <head>
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
-    <title>Live HTML Editor (Resizable Panels)</title>
-    <meta content="HTML editor dengan panel yang bisa di-resize" name="description">
-    <meta name="author" content="Galih Pradananta">
+    <title>Live HTML Editor (Multi-Tab)</title>
+    <meta content="HTML editor dengan panel yang bisa di-resize dan fitur multi-tab" name="description">
+    <meta name="author" content="Galih Pradananta & Gemini">
     <link href="/assets/img/letter-g.gif" rel="icon">
     
     <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/css/bootstrap.min.css" rel="stylesheet">
@@ -23,24 +23,25 @@
         .controls { padding: 15px; background-color: #f9f9f9; border-bottom: 1px solid #eee; display: flex; justify-content: center; gap: 10px; flex-wrap: wrap; }
         .btn { background-color: var(--primary-color); }
         .btn:hover { background-color: var(--primary-dark); }
-        .editor-container { display: flex; flex-direction: row; height: 75vh; } /* Pastikan flex-direction: row */
-        .code-panel, .preview-panel { height: 100%; } /* Atur tinggi agar sesuai kontainer */
+        .editor-container { display: flex; flex-direction: row; height: 75vh; }
+        .code-panel, .preview-panel { height: 100%; }
         .panel-header { padding: 10px 15px; font-weight: 600; background: #f1f1f1; border-bottom: 1px solid #ddd; }
-        .code-panel .panel-header { background-color: #333; color: white; border-bottom: 1px solid #555; }
+        
+        /* === PERUBAHAN CSS UNTUK TAB === */
+        .code-panel .panel-header { background-color: #333; color: white; border-bottom: 1px solid #555; display: flex; align-items: center; justify-content: space-between; padding: 0 15px; }
+        .tab-bar { display: flex; align-items: center; height: 100%; overflow-x: auto; }
+        .tab-item { background-color: #272822; color: #aaa; padding: 10px 15px; cursor: pointer; border-right: 1px solid #333; white-space: nowrap; }
+        .tab-item.active { background-color: #49483e; color: white; }
+        .close-tab { margin-left: 10px; font-weight: bold; cursor: pointer; }
+        .close-tab:hover { color: #f92672; }
+        #add-tab-btn { background: none; border: 1px solid #555; color: white; font-size: 1.2em; cursor: pointer; padding: 0 10px; margin-left: 5px; border-radius: 4px;}
+        #add-tab-btn:hover { background-color: #555; }
+        /* === AKHIR PERUBAHAN CSS === */
+        
         .CodeMirror { flex-grow: 1; height: auto; }
         #preview { width: 100%; height: 100%; border: 1px solid #ccc; border-radius: 4px; background-color: white; }
-        
-        /* Styling untuk pembatas yang bisa digeser (Gutter) */
-        .gutter {
-            background-color: #eee;
-            background-repeat: no-repeat;
-            background-position: 50%;
-        }
-        .gutter.gutter-horizontal {
-            background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxl7ACYGEQ2oAB40gUoAokYTBgYAY1gEGLpQyG4AAAAASUVORK5CYII=');
-            cursor: col-resize;
-        }
-
+        .gutter { background-color: #eee; background-repeat: no-repeat; background-position: 50%; }
+        .gutter.gutter-horizontal { background-image: url('data:image/png;base64,iVBORw0KGgoAAAANSUEUgAAAAUAAAAeCAYAAADkftS9AAAAIklEQVQoU2M4c+bMfxl7ACYGEQ2oAB40gUoAokYTBgYAY1gEGLpQyG4AAAAASUVORK5CYII='); cursor: col-resize; }
         .fullscreen-btn { position: absolute; top: 15px; right: 15px; }
         .escape-btn { display: none; position: absolute; top: 15px; right: 15px; z-index: 1002; }
         body.fullscreen-active { padding: 0; overflow: hidden; }
@@ -55,7 +56,7 @@
 <body>
     <div class="container" id="main-container">
         <header>
-            <h1>Live HTML Editor</h1>
+            <h1>Live HTML Editor (Multi-Tab)</h1>
             <p class="description">Gunakan <b>Ctrl+S</b> atau <b>Ctrl+Enter</b> untuk menjalankan kode.</p>
             <button id="fullscreen-btn" class="btn btn-sm btn-outline-light text-white fullscreen-btn"><i class="bi bi-arrows-fullscreen"></i> Fullscreen</button>
         </header>
@@ -72,7 +73,10 @@
 
         <div class="editor-container">
             <div id="code-panel" class="code-panel d-flex flex-column">
-                <div class="panel-header"><i class="bi bi-code-slash"></i> Kode HTML</div>
+                <div class="panel-header">
+                    <div id="tab-bar" class="tab-bar"></div>
+                    <button id="add-tab-btn" title="Tambah File Baru">+</button>
+                </div>
                 <textarea id="html-code"></textarea>
             </div>
             <div id="preview-panel" class="preview-panel p-3">
@@ -97,34 +101,125 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function() {
-            // ... (deklarasi elemen & fungsi sama seperti sebelumnya)
-            
             const editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
-                mode: 'htmlmixed',
-                theme: 'monokai',
-                lineNumbers: true,
-                lineWrapping: true,
+                mode: 'htmlmixed', theme: 'monokai', lineNumbers: true, lineWrapping: true,
                 autoCloseTags: { whenClosing: true, whenOpening: true, indentTags: [] },
-                indentWithTabs: false,
-                indentUnit: 2,
+                indentWithTabs: false, indentUnit: 2,
                 extraKeys: {
                     "Ctrl-S": function(instance) { updatePreview(); return false; },
                     "Ctrl-Enter": function(instance) { updatePreview(); return false; }
                 }
             });
 
-            // --- INISIALISASI SPLIT PANE (FITUR BARU) ---
             Split(['#code-panel', '#preview-panel'], {
-                sizes: [50, 50],
-                minSize: 200,
-                gutterSize: 8,
-                onDrag: function() {
-                    editor.refresh();
-                }
+                sizes: [50, 50], minSize: 200, gutterSize: 8,
+                onDrag: () => editor.refresh()
             });
             
-            // Sisa kode JavaScript lainnya sama persis
-            // ...
+            // --- PERUBAHAN JAVASCRIPT: LOGIKA UNTUK MANAJEMEN TAB ---
+            
+            const tabBar = document.getElementById('tab-bar');
+            const addTabBtn = document.getElementById('add-tab-btn');
+            
+            let tabs = []; // Array untuk menyimpan data semua tab
+            let activeTabId = null;
+            let nextTabId = 1;
+
+            const exampleHTML = `<!DOCTYPE html>
+<html>
+<head>
+    <title>Contoh Halaman</title>
+    <style>
+        body { font-family: sans-serif; text-align: center; padding-top: 50px; }
+        h1 { color: #4CAF50; }
+    </style>
+</head>
+<body>
+    <h1>Selamat Datang!</h1>
+    <p>Ini adalah konten dari Tab 1.</p>
+    <p>Anda bisa menambah tab baru dengan menekan tombol <b>+</b>.</p>
+</body>
+</html>`;
+
+            // Fungsi untuk render ulang semua tab di UI
+            function renderTabs() {
+                tabBar.innerHTML = ''; // Kosongkan tab bar
+                tabs.forEach(tab => {
+                    const tabElement = document.createElement('div');
+                    tabElement.className = 'tab-item' + (tab.id === activeTabId ? ' active' : '');
+                    tabElement.dataset.tabId = tab.id;
+                    tabElement.textContent = tab.name;
+                    
+                    const closeBtn = document.createElement('span');
+                    closeBtn.className = 'close-tab';
+                    closeBtn.innerHTML = '&times;';
+                    closeBtn.title = 'Tutup file';
+                    closeBtn.onclick = (e) => {
+                        e.stopPropagation(); // Mencegah event klik tab tereksekusi
+                        closeTab(tab.id);
+                    };
+                    
+                    tabElement.appendChild(closeBtn);
+                    tabElement.onclick = () => switchTab(tab.id);
+                    tabBar.appendChild(tabElement);
+                });
+            }
+
+            // Fungsi untuk beralih tab
+            function switchTab(tabId) {
+                if (activeTabId === tabId) return; // Jangan lakukan apa-apa jika sudah aktif
+                
+                // Simpan konten editor saat ini ke tab yang aktif sebelumnya
+                const oldTab = tabs.find(t => t.id === activeTabId);
+                if (oldTab) {
+                    oldTab.content = editor.getValue();
+                }
+                
+                activeTabId = tabId;
+                const newTab = tabs.find(t => t.id === activeTabId);
+                editor.setValue(newTab.content); // Muat konten tab baru ke editor
+                editor.focus();
+                
+                renderTabs(); // Render ulang UI untuk menyorot tab aktif
+                updatePreview(); // Perbarui preview
+            }
+            
+            // Fungsi untuk menambah tab baru
+            function addTab(name = `untitled-${nextTabId}.html`, content = `<h1>Konten Baru</h1>`) {
+                const newTab = { id: nextTabId++, name, content };
+                tabs.push(newTab);
+                switchTab(newTab.id); // Langsung beralih ke tab baru
+            }
+            
+            // Fungsi untuk menutup tab
+            function closeTab(tabId) {
+                const tabIndex = tabs.findIndex(t => t.id === tabId);
+                if (tabIndex === -1) return;
+                
+                tabs.splice(tabIndex, 1); // Hapus tab dari array
+                
+                // Jika tab yang ditutup adalah tab aktif
+                if (activeTabId === tabId) {
+                    if (tabs.length > 0) {
+                        // Beralih ke tab sebelumnya, atau tab pertama jika tidak ada
+                        const newActiveIndex = Math.max(0, tabIndex - 1);
+                        switchTab(tabs[newActiveIndex].id);
+                    } else {
+                        // Jika tidak ada tab tersisa, buat satu tab default
+                        activeTabId = null;
+                        editor.setValue('');
+                        addTab('untitled-1.html', '');
+                    }
+                }
+                
+                renderTabs();
+            }
+            
+            addTabBtn.addEventListener('click', () => addTab());
+
+            // --- AKHIR PERUBAHAN JAVASCRIPT ---
+
+            // Sisa kode JavaScript (sedikit dimodifikasi)
             const preview = document.getElementById('preview');
             const refreshBtn = document.getElementById('refresh-btn');
             const findBtn = document.getElementById('find-btn');
@@ -138,8 +233,15 @@
             const escapeBtn = document.getElementById('escape-btn');
             let isEditingPreview = false, isInspecting = false, debounceTimer;
 
+            // Modifikasi updatePreview untuk mengambil kode dari tab aktif
             function updatePreview() {
-                let sourceCode = editor.getValue();
+                const activeTab = tabs.find(t => t.id === activeTabId);
+                if (!activeTab) return; // Jangan lakukan jika tidak ada tab aktif
+                
+                // Simpan perubahan terakhir dari editor ke state tab
+                activeTab.content = editor.getValue();
+                
+                let sourceCode = activeTab.content;
                 const lines = sourceCode.split('\n');
                 const instrumentedLines = lines.map((line, index) => {
                     return line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
@@ -213,6 +315,7 @@
                 debounceTimer = setTimeout(() => {
                     const previewHTML = preview.contentDocument.body.innerHTML;
                     const cursorPos = editor.getCursor(); editor.setValue(previewHTML); editor.setCursor(cursorPos);
+                    updatePreview(); // Sinkronkan kembali ke state tab
                 }, 300);
             };
             const enablePreviewEditing = () => { preview.contentDocument.body.contentEditable = 'true'; preview.contentDocument.body.addEventListener('input', syncPreviewToEditor); };
@@ -228,12 +331,15 @@
             escapeBtn.addEventListener('click', toggleFullscreen);
             document.addEventListener('keydown', (e) => { if (e.key === 'Escape' && document.body.classList.contains('fullscreen-active')) toggleFullscreen(); });
             
-            const exampleHTML = `<!DOCTYPE html><html><head><title>Test Resize</title></head><body><h1>Geser Pembatas!</h1><p>Anda sekarang bisa mengubah lebar panel editor dan preview.</p></body></html>`;
-            editor.setValue(exampleHTML);
-            setTimeout(updatePreview, 100);
+            // Modifikasi tombol clear dan example untuk bekerja pada tab aktif
+            clearBtn.addEventListener('click', () => { if (confirm('Yakin membersihkan file ini?')) editor.setValue(''); updatePreview(); });
+            exampleBtn.addEventListener('click', () => { 
+                editor.setValue(exampleHTML); 
+                updatePreview(); 
+            });
             
-            clearBtn.addEventListener('click', () => { if (confirm('Yakin?')) editor.setValue(''); });
-            exampleBtn.addEventListener('click', () => { editor.setValue(exampleHTML); updatePreview(); });
+            // Inisialisasi editor dengan tab pertama
+            addTab('index.html', exampleHTML);
         });
     </script>
 </body>
