@@ -362,6 +362,9 @@
 			{ name: 'UpMath', url: 'https://i.upmath.me' },
             { name: 'Bootstrap', url: 'https://getbootstrap.com' },
             { name: 'MathJax', url: 'https://www.mathjax.org' },
+			{ name: 'CodeMirror', url: 'https://codemirror.net/' },
+			{ name: 'SplitJS', url: 'https://split.js.org/' },
+			{ name: 'Gemini', url: 'https://gemini.google.com' },
 			{ name: 'ChatGPT', url: 'https://chatgpt.com' },
 			{ name: 'Deepseek', url: 'https://deepseek.com' },
         ];
@@ -610,6 +613,7 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
 
 
 
