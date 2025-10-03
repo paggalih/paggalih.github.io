@@ -580,7 +580,9 @@ document.addEventListener("DOMContentLoaded", () => {
     $('.datatable').DataTable({
       paging: true,
       searching: true,
-      scrollX: true
+      scrollX: true,
+	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+
     });
 
 // MODE KOREKSI
@@ -613,6 +615,7 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
 
 
 
