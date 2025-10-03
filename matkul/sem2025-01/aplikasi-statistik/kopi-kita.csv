@@ -1,51 +1,51 @@
-No. Cabang,ID Cabang,Lokasi
-1,KC-001,Jakarta Pusat
-2,KC-002,Bandung
-3,KC-003,Surabaya
-4,KC-004,Yogyakarta
-5,KC-005,Medan
-6,KC-006,Semarang
-7,KC-007,Makassar
-8,KC-008,Denpasar
-9,KC-009,Palembang
-10,KC-010,Bogor
-11,KC-011,Tangerang
-12,KC-012,Bekasi
-13,KC-013,Malang
-14,KC-014,Solo
-15,KC-015,Depok
-16,KC-016,Pekanbaru
-17,KC-017,Batam
-18,KC-018,Padang
-19,KC-019,Bandar Lampung
-20,KC-020,Manado
-21,KC-021,Pontianak
-22,KC-022,Banjarmasin
-23,KC-023,Balikpapan
-24,KC-024,Samarinda
-25,KC-025,Cirebon
-26,KC-026,Jember
-27,KC-027,Kudus
-28,KC-028,Purwokerto
-29,KC-029,Tasikmalaya
-30,KC-030,Serang
-31,KC-031,Cilegon
-32,KC-032,Karawang
-33,KC-033,Cimahi
-34,KC-034,Salatiga
-35,KC-035,Magelang
-36,KC-036,Madiun
-37,KC-037,Kediri
-38,KC-038,Probolinggo
-39,KC-039,Pasuruan
-40,KC-040,Batu
-41,KC-041,Blitar
-42,KC-042,Mojokerto
-43,KC-043,Pekalongan
-44,KC-044,Tegal
-45,KC-045,Sukabumi
-46,KC-046,Cianjur
-47,KC-047,Garut
-48,KC-048,Sumedang
-49,KC-049,Subang
-50,KC-050,Purwakarta
+No.,NIK,Nama Karyawan,Departemen
+1,MJ-001,Budi Santoso,Perakitan A
+2,MJ-002,Siti Aminah,Pengepakan
+3,MJ-003,Agus Wijaya,Perakitan B
+4,MJ-004,Dewi Lestari,Gudang
+5,MJ-005,Eko Prasetyo,Kontrol Kualitas
+6,MJ-006,Fitriani,Logistik
+7,MJ-007,Gunawan,Perakitan A
+8,MJ-008,Herlina,Pengepakan
+9,MJ-009,Indra Maulana,Perakitan B
+10,MJ-010,Joko Susilo,Gudang
+11,MJ-011,Kartika Sari,Kontrol Kualitas
+12,MJ-012,Lia Anggraini,Logistik
+13,MJ-013,Muhammad Yusuf,Perakitan A
+14,MJ-014,Nurul Hidayah,Pengepakan
+15,MJ-015,Oscar Gunawan,Perakitan B
+16,MJ-016,Putri Wulandari,Gudang
+17,MJ-017,Qomarudin,Kontrol Kualitas
+18,MJ-018,Rina Marlina,Logistik
+19,MJ-019,Slamet Riyadi,Perakitan A
+20,MJ-020,Tri Utami,Pengepakan
+21,MJ-021,Umar Abdullah,Perakitan B
+22,MJ-022,Vina Febrianti,Gudang
+23,MJ-023,Wahyu Nugroho,Kontrol Kualitas
+24,MJ-024,Xavier Nainggolan,Logistik
+25,MJ-025,Yuniarti,Perakitan A
+26,MJ-026,Zainal Abidin,Pengepakan
+27,MJ-027,Ahmad Fauzi,Perakitan B
+28,MJ-028,Bayu Setiawan,Gudang
+29,MJ-029,Cici Paramita,Kontrol Kualitas
+30,MJ-030,Dian Permata,Logistik
+31,MJ-031,Endang Susanti,Perakitan A
+32,MJ-032,Fajar Nugraha,Pengepakan
+33,MJ-033,Gita Amelia,Perakitan B
+34,MJ-034,Hadi Purnomo,Gudang
+35,MJ-035,Ika Wahyuni,Kontrol Kualitas
+36,MJ-036,Jamaludin,Logistik
+37,MJ-037,Kiki Lestari,Perakitan A
+38,MJ-038,Linda Wati,Pengepakan
+39,MJ-039,Maman Suryaman,Perakitan B
+40,MJ-040,Nina Kartika,Gudang
+41,MJ-041,Opik Hidayat,Kontrol Kualitas
+42,MJ-042,Ratna Juwita,Logistik
+43,MJ-043,Sari Puspita,Perakitan A
+44,MJ-044,Teguh Santoso,Pengepakan
+45,MJ-045,Umi Kulsum,Perakitan B
+46,MJ-046,Vino Bastian,Gudang
+47,MJ-047,Wawan Kurniawan,Kontrol Kualitas
+48,MJ-048,Yanti,Logistik
+49,MJ-049,Zulfikar,Perakitan A
+50,MJ-050,Amelia Putri,Pengepakan
