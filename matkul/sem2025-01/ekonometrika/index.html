@@ -26,8 +26,7 @@
   <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
   <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
   <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin="anonymous"></script>
   <!-- =======================================================
          * Template Name: MyResume
          * Updated: Jun 13 2023 with Bootstrap v5.3.0
@@ -1307,6 +1306,7 @@
         <h3> Regresi Dummy</h3>
         <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-dummy-1.csv"><button>Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-latihan-dummy-1"></div>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 <script>
     fetch('latihan-dummy-1.csv')
@@ -1322,7 +1322,7 @@
 
                     if (dataRows.length === 0) return;
 
-                    let html = `<table class="table table-striped text-center" id="datatable-regresi-log">`;
+                    let html = `<table class="table table-striped text-center" id="datatable-latihan-dummy-1">`;
 
                     // Buat bagian thead dari header yang didapat
                     html += '<thead><tr>';
@@ -1350,7 +1350,7 @@
 
                     // Inisialisasi DataTable setelah tabel selesai dibuat dan dimasukkan ke DOM
                     $(document).ready(function () {
-                        $('#datatable-regresi-log').DataTable({
+                        $('#datatable-latihan-dummy-1').DataTable({
                             paging: true,
                             searching: true,
                             scrollX: true
