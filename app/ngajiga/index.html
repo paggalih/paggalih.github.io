@@ -1,338 +1,370 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
-    <meta charset="UTF--8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Game Belajar Membaca Hijaiyah</title>
-    <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Game Belajar Membaca Hijaiyah</title>
+  <link href="https://fonts.googleapis.com/css2?family=Scheherazade+New:wght@400;700&family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+        --primary-color: #006400; /* Dark Green */
+        --secondary-color: #FFC107; /* Amber */
+        --light-color: #F8F9FA; /* Light Gray */
+        --dark-color: #343A40; /* Dark Gray */
+        --correct-color: #28A745; /* Green */
+        --incorrect-color: #DC3545; /* Red */
+    }
     
-    <style>
-        :root {
-            --primary-color: #006400; /* Dark Green */
-            --secondary-color: #FFC107; /* Amber */
-            --light-color: #F8F9FA; /* Light Gray */
-            --dark-color: #343A40; /* Dark Gray */
-            --correct-color: #28A745; /* Green */
-            --incorrect-color: #DC3545; /* Red */
-        }
+    body {
+        font-family: 'Poppins', sans-serif;
+        background-color: var(--light-color);
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+        margin: 0;
+        padding: 1rem;
+        box-sizing: border-box;
+        direction: rtl; 
+    }
+    
+    .game-container {
+        background-color: white;
+        padding: 2rem;
+        border-radius: 15px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+        width: 100%;
+        max-width: 550px;
+        text-align: center;
+    }
+    
+    header h1 {
+        color: var(--primary-color);
+        margin-bottom: 0.5rem;
+    }
+    
+    .info-panel {
+        display: flex;
+        justify-content: space-around;
+        font-size: 1.1rem;
+        font-weight: 600;
+        color: var(--dark-color);
+        margin-bottom: 1.5rem;
+        border-top: 1px solid #dee2e6;
+        border-bottom: 1px solid #dee2e6;
+        padding: 10px 0;
+    }
+    
+    .question-display {
+        font-family: 'Scheherazade New', serif;
+        font-size: 8rem;
+        font-weight: 700;
+        color: var(--dark-color);
+        line-height: 1.2;
+        margin-bottom: 1.5rem;
+        padding: 1rem;
+        background-color: #f8f9fa;
+        border-radius: 10px;
+    }
+    
+    .options-container {
+        display: grid;
+        /* Default 2 kolom */
+        grid-template-columns: 1fr 1fr; 
+        gap: 15px;
+        margin-top: 20px;
+        direction: ltr; 
+    }
+    
+    /* --- PERUBAHAN CSS: Style khusus untuk 3 pilihan --- */
+    .options-container.three-options {
+        grid-template-columns: 1fr 1fr 1fr;
+    }
+    
+    .option-btn {
+        font-family: 'Poppins', sans-serif; 
+        font-size: 1.5rem;
+        font-weight: 600;
+        padding: 20px 10px;
+        border: 2px solid var(--primary-color);
+        border-radius: 10px;
+        background-color: white;
+        color: var(--primary-color);
+        cursor: pointer;
+        transition: background-color 0.3s, transform 0.2s;
+        text-transform: none;
+    }
+    
+    /* --- PERUBAHAN CSS: Font lebih kecil untuk 3 pilihan agar muat --- */
+    .options-container.three-options .option-btn {
+        font-size: 1.3rem;
+        padding: 15px 5px;
+    }
+    
+    
+    .option-btn:hover:not(:disabled) {
+        background-color: #e9f5e9;
+        transform: translateY(-3px);
+    }
+    
+    .option-btn:disabled { cursor: not-allowed; }
+    
+    .feedback {
+        font-size: 1.5rem;
+        font-weight: 600;
+        height: 30px;
+        margin-top: 1rem;
+        direction: ltr;
+    }
+    
+    .correct { color: var(--correct-color); }
+    .incorrect { color: var(--incorrect-color); }
+    
+    #next-btn {
+        font-family: 'Poppins', sans-serif;
+        font-size: 1.2rem;
+        padding: 10px 30px;
+        margin-top: 20px;
+        border: none;
+        border-radius: 10px;
+        background-color: var(--secondary-color);
+        color: var(--dark-color);
+        font-weight: 600;
+        cursor: pointer;
+        transition: background-color 0.3s;
+        direction: ltr;
+    }
+    
+    #next-btn:hover { background-color: #ffb300; }
+    .hidden { display: none; }
+  </style>
+</head>
 
-        body {
-            font-family: 'Poppins', sans-serif;
-            background-color: var(--light-color);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 1rem;
-            box-sizing: border-box;
-            direction: rtl; 
-        }
+<body>
+  <div class="game-container">
+    <header>
+      <h1>Ayo Membaca Hijaiyah!</h1>
+      <div class="info-panel">
+        <div id="level-info">Level: 1</div>
+        <div id="score-info">Skor: 0</div>
+      </div>
+    </header>
 
-        .game-container {
-            background-color: white;
-            padding: 2rem;
-            border-radius: 15px;
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
-            width: 100%;
-            max-width: 550px;
-            text-align: center;
-        }
+    <main>
+      <div class="question-display" id="question-display"></div>
+      <div class="feedback" id="feedback"></div>
+      <div class="options-container" id="options-container"></div>
+      <button id="next-btn" class="hidden">Lanjut!</button>
+    </main>
+  </div>
 
-        header h1 {
-            color: var(--primary-color);
-            margin-bottom: 0.5rem;
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const hijaiyahLetters = [
+            { base: 'ا', fathah: 'a', kasrah: 'i', dammah: 'u' }, { base: 'ب', fathah: 'ba', kasrah: 'bi', dammah: 'bu' },
+            { base: 'ت', fathah: 'ta', kasrah: 'ti', dammah: 'tu' }, { base: 'ث', fathah: 'tsa', kasrah: 'tsi', dammah: 'tsu' },
+            { base: 'ج', fathah: 'ja', kasrah: 'ji', dammah: 'ju' }, { base: 'ح', fathah: 'ha', kasrah: 'hi', dammah: 'hu' },
+            { base: 'خ', fathah: 'kha', kasrah: 'khi', dammah: 'khu' }, { base: 'د', fathah: 'da', kasrah: 'di', dammah: 'du' },
+            { base: 'ذ', fathah: 'dza', kasrah: 'dzi', dammah: 'dzu' }, { base: 'ر', fathah: 'ra', kasrah: 'ri', dammah: 'ru' },
+            { base: 'ز', fathah: 'za', kasrah: 'zi', dammah: 'zu' }, { base: 'س', fathah: 'sa', kasrah: 'si', dammah: 'su' },
+            { base: 'ش', fathah: 'sya', kasrah: 'syi', dammah: 'syu' }, { base: 'ص', fathah: 'sha', kasrah: 'shi', dammah: 'shu' },
+            { base: 'ض', fathah: 'dha', kasrah: 'dhi', dammah: 'dhu' }, { base: 'ط', fathah: 'tha', kasrah: 'thi', dammah: 'thu' },
+            { base: 'ظ', fathah: 'zha', kasrah: 'zhi', dammah: 'zhu' }, { base: 'ع', fathah: '`a', kasrah: '`i', dammah: '`u' },
+            { base: 'غ', fathah: 'gha', kasrah: 'ghi', dammah: 'ghu' }, { base: 'ف', fathah: 'fa', kasrah: 'fi', dammah: 'fu' },
+            { base: 'ق', fathah: 'qa', kasrah: 'qi', dammah: 'qu' }, { base: 'ك', fathah: 'ka', kasrah: 'ki', dammah: 'ku' },
+            { base: 'ل', fathah: 'la', kasrah: 'li', dammah: 'lu' }, { base: 'م', fathah: 'ma', kasrah: 'mi', dammah: 'mu' },
+            { base: 'ن', fathah: 'na', kasrah: 'ni', dammah: 'nu' }, { base: 'ه', fathah: 'ha', kasrah: 'hi', dammah: 'hu' },
+            { base: 'و', fathah: 'wa', kasrah: 'wi', dammah: 'wu' }, { base: 'ي', fathah: 'ya', kasrah: 'yi', dammah: 'yu' }
+        ];
+    
+        const harakat = { fathah: '\u064E', kasrah: '\u0650', dammah: '\u064F' };
+        const harakatTypes = ['fathah', 'kasrah', 'dammah'];
+    
+        // --- PERUBAHAN 1: Menambah level baru "Mengenal Harakat" ---
+        const levels = [
+            { name: "Mengenal Fathah", letterCount: 1, type: 'specific_harakat', harakat: 'fathah' },
+            { name: "Mengenal Harakat", letterCount: 1, type: 'focus_harakat' }, // Level baru
+            { name: "Satu Huruf (Campur)", letterCount: 1, type: 'random' },
+            { name: "Dua Huruf", letterCount: 2, type: 'random' },
+            { name: "Tiga Huruf", letterCount: 3, type: 'random' }
+        ];
+    
+        const levelInfo = document.getElementById('level-info');
+        const scoreInfo = document.getElementById('score-info');
+        const questionDisplay = document.getElementById('question-display');
+        const optionsContainer = document.getElementById('options-container');
+        const feedback = document.getElementById('feedback');
+        const nextBtn = document.getElementById('next-btn');
+    
+        let currentLevelIndex = 0;
+        let score = 0;
+        let questionsPerLevel = 10;
+        let questionCount = 0;
+        let correctAnswer = '';
+    
+        function startGame() {
+            currentLevelIndex = 0;
+            score = 0;
+            updateScore();
+            loadLevel();
         }
-
-        .info-panel {
-            display: flex;
-            justify-content: space-around;
-            font-size: 1.1rem;
-            font-weight: 600;
-            color: var(--dark-color);
-            margin-bottom: 1.5rem;
-            border-top: 1px solid #dee2e6;
-            border-bottom: 1px solid #dee2e6;
-            padding: 10px 0;
+    
+        function loadLevel() {
+            questionCount = 0;
+            levelInfo.textContent = `Level ${currentLevelIndex + 1}: ${levels[currentLevelIndex].name}`;
+            loadQuestion();
         }
-
-        .question-display {
-            font-family: 'Scheherazade New', serif;
-            font-size: 8rem; /* Ukuran font disesuaikan agar muat lebih banyak huruf */
-            font-weight: 700;
-            color: var(--dark-color);
-            line-height: 1.2;
-            margin-bottom: 1.5rem;
-            padding: 1rem;
-            background-color: #f8f9fa;
-            border-radius: 10px;
+    
+        function loadQuestion() {
+            if (questionCount >= questionsPerLevel) {
+                goToNextLevel();
+                return;
+            }
+            resetUI();
+            
+            let questionArap = '';
+            let questionLatin = '';
+            
+            const currentLevel = levels[currentLevelIndex];
+            let questionLetterObj; // Simpan objek huruf untuk generate options
+    
+            if (currentLevel.type === 'specific_harakat') {
+                questionLetterObj = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
+                questionArap = questionLetterObj.base + harakat[currentLevel.harakat];
+                questionLatin = questionLetterObj[currentLevel.harakat];
+            } else if (currentLevel.type === 'focus_harakat') {
+                questionLetterObj = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
+                const randomHarakat = harakatTypes[Math.floor(Math.random() * harakatTypes.length)];
+                questionArap = questionLetterObj.base + harakat[randomHarakat];
+                questionLatin = questionLetterObj[randomHarakat];
+            } else { // type 'random'
+                for(let i = 0; i < currentLevel.letterCount; i++) {
+                    const randomLetterObj = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
+                    const randomHarakat = harakatTypes[Math.floor(Math.random() * harakatTypes.length)];
+                    questionArap += randomLetterObj.base + harakat[randomHarakat];
+                    questionLatin += randomLetterObj[randomHarakat];
+                }
+            }
+    
+            questionDisplay.textContent = questionArap;
+            correctAnswer = questionLatin;
+    
+            const options = generateOptions(correctAnswer, questionLetterObj);
+            displayOptions(options);
+    
+            questionCount++;
         }
         
-        .options-container {
-            display: grid;
-            grid-template-columns: 1fr 1fr; /* Diubah menjadi 2 kolom agar lebih rapi */
-            gap: 15px;
-            margin-top: 20px;
-            direction: ltr; 
-        }
-
-        .option-btn {
-            font-family: 'Poppins', sans-serif; 
-            font-size: 1.5rem;
-            font-weight: 600;
-            padding: 20px 10px;
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            background-color: white;
-            color: var(--primary-color);
-            cursor: pointer;
-            transition: background-color 0.3s, transform 0.2s;
-            text-transform: none; /* Dihilangkan capitalize */
-        }
-
-        .option-btn:hover:not(:disabled) {
-            background-color: #e9f5e9;
-            transform: translateY(-3px);
-        }
-
-        .option-btn:disabled { cursor: not-allowed; }
-
-        .feedback {
-            font-size: 1.5rem;
-            font-weight: 600;
-            height: 30px;
-            margin-top: 1rem;
-            direction: ltr;
-        }
-
-        .correct { color: var(--correct-color); }
-        .incorrect { color: var(--incorrect-color); }
-
-        #next-btn {
-            font-family: 'Poppins', sans-serif;
-            font-size: 1.2rem;
-            padding: 10px 30px;
-            margin-top: 20px;
-            border: none;
-            border-radius: 10px;
-            background-color: var(--secondary-color);
-            color: var(--dark-color);
-            font-weight: 600;
-            cursor: pointer;
-            transition: background-color 0.3s;
-            direction: ltr;
-        }
-
-        #next-btn:hover { background-color: #ffb300; }
-        .hidden { display: none; }
-    </style>
-</head>
-<body>
-    <div class="game-container">
-        <header>
-            <h1>Ayo Membaca Hijaiyah!</h1>
-            <div class="info-panel">
-                <div id="level-info">Level: 1</div>
-                <div id="score-info">Skor: 0</div>
-            </div>
-        </header>
-
-        <main>
-            <div class="question-display" id="question-display"></div>
-            <div class="feedback" id="feedback"></div>
-            <div class="options-container" id="options-container"></div>
-            <button id="next-btn" class="hidden">Lanjut!</button>
-        </main>
-    </div>
-
-    <script>
-        document.addEventListener('DOMContentLoaded', () => {
-            const hijaiyahLetters = [
-                { base: 'ا', fathah: 'a', kasrah: 'i', dammah: 'u' }, { base: 'ب', fathah: 'ba', kasrah: 'bi', dammah: 'bu' },
-                { base: 'ت', fathah: 'ta', kasrah: 'ti', dammah: 'tu' }, { base: 'ث', fathah: 'tsa', kasrah: 'tsi', dammah: 'tsu' },
-                { base: 'ج', fathah: 'ja', kasrah: 'ji', dammah: 'ju' }, { base: 'ح', fathah: 'ha', kasrah: 'hi', dammah: 'hu' },
-                { base: 'خ', fathah: 'kha', kasrah: 'khi', dammah: 'khu' }, { base: 'د', fathah: 'da', kasrah: 'di', dammah: 'du' },
-                { base: 'ذ', fathah: 'dza', kasrah: 'dzi', dammah: 'dzu' }, { base: 'ر', fathah: 'ra', kasrah: 'ri', dammah: 'ru' },
-                { base: 'ز', fathah: 'za', kasrah: 'zi', dammah: 'zu' }, { base: 'س', fathah: 'sa', kasrah: 'si', dammah: 'su' },
-                { base: 'ش', fathah: 'sya', kasrah: 'syi', dammah: 'syu' }, { base: 'ص', fathah: 'sha', kasrah: 'shi', dammah: 'shu' },
-                { base: 'ض', fathah: 'dha', kasrah: 'dhi', dammah: 'dhu' }, { base: 'ط', fathah: 'tha', kasrah: 'thi', dammah: 'thu' },
-                { base: 'ظ', fathah: 'zha', kasrah: 'zhi', dammah: 'zhu' }, { base: 'ع', fathah: '`a', kasrah: '`i', dammah: '`u' },
-                { base: 'غ', fathah: 'gha', kasrah: 'ghi', dammah: 'ghu' }, { base: 'ف', fathah: 'fa', kasrah: 'fi', dammah: 'fu' },
-                { base: 'ق', fathah: 'qa', kasrah: 'qi', dammah: 'qu' }, { base: 'ك', fathah: 'ka', kasrah: 'ki', dammah: 'ku' },
-                { base: 'ل', fathah: 'la', kasrah: 'li', dammah: 'lu' }, { base: 'م', fathah: 'ma', kasrah: 'mi', dammah: 'mu' },
-                { base: 'ن', fathah: 'na', kasrah: 'ni', dammah: 'nu' }, { base: 'ه', fathah: 'ha', kasrah: 'hi', dammah: 'hu' },
-                { base: 'و', fathah: 'wa', kasrah: 'wi', dammah: 'wu' }, { base: 'ي', fathah: 'ya', kasrah: 'yi', dammah: 'yu' }
-            ];
-
-            const harakat = { fathah: '\u064E', kasrah: '\u0650', dammah: '\u064F' };
-            const harakatTypes = ['fathah', 'kasrah', 'dammah'];
-
-            // STRUKTUR LEVEL BARU
-            const levels = [
-                { name: "Satu Huruf", letterCount: 1 },
-                { name: "Dua Huruf", letterCount: 2 },
-                { name: "Tiga Huruf", letterCount: 3 }
-            ];
-
-            const levelInfo = document.getElementById('level-info');
-            const scoreInfo = document.getElementById('score-info');
-            const questionDisplay = document.getElementById('question-display');
-            const optionsContainer = document.getElementById('options-container');
-            const feedback = document.getElementById('feedback');
-            const nextBtn = document.getElementById('next-btn');
-
-            let currentLevelIndex = 0;
-            let score = 0;
-            let questionsPerLevel = 10;
-            let questionCount = 0;
-            let correctAnswer = '';
-
-            function startGame() {
-                currentLevelIndex = 0;
-                score = 0;
-                updateScore();
-                loadLevel();
-            }
-
-            function loadLevel() {
-                questionCount = 0;
-                levelInfo.textContent = `Level ${currentLevelIndex + 1}: ${levels[currentLevelIndex].name}`;
-                loadQuestion();
-            }
-
-            function loadQuestion() {
-                if (questionCount >= questionsPerLevel) {
-                    goToNextLevel();
-                    return;
-                }
-                resetUI();
-                
-                let questionArap = '';
-                let questionLatin = '';
-                let letterComponents = []; // Untuk membuat pilihan jawaban salah
-
-                const letterCount = levels[currentLevelIndex].letterCount;
-
-                for(let i = 0; i < letterCount; i++) {
-                    const randomLetterObj = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
-                    const randomHarakatType = harakatTypes[Math.floor(Math.random() * 3)];
-                    
-                    questionArap += randomLetterObj.base + harakat[randomHarakatType];
-                    questionLatin += randomLetterObj[randomHarakatType];
-                    letterComponents.push(randomLetterObj);
-                }
-
-                questionDisplay.textContent = questionArap;
-                correctAnswer = questionLatin;
-
-                const options = generateOptions(letterComponents, correctAnswer);
-                displayOptions(options);
-
-                questionCount++;
-            }
-            
-            function generateOptions(components, correct) {
-                let options = [correct];
-                
-                // Membuat pilihan jawaban pengecoh yang mirip
+        // --- PERUBAHAN 2: Logika generateOptions diubah untuk menangani level baru ---
+        function generateOptions(correct, questionLetter) {
+            let options;
+            const currentLevel = levels[currentLevelIndex];
+    
+            if (currentLevel.type === 'focus_harakat') {
+                // Pilihan jawaban: huruf yang sama dengan 3 harakat berbeda
+                options = [
+                    questionLetter.fathah,
+                    questionLetter.kasrah,
+                    questionLetter.dammah
+                ];
+                // Atur grid menjadi 3 kolom
+                optionsContainer.classList.add('three-options');
+            } else {
+                // Logika untuk level lainnya (4 pilihan)
+                options = [correct];
                 while(options.length < 4) {
                     let wrongOption = '';
-                    if (components.length === 1) { // Level 1
-                        wrongOption = components[0][harakatTypes.find(h => components[0][h] !== correct)];
-                    } else { // Level 2 & 3
-                        // Ubah vokal terakhir
-                        let root = correct.slice(0, -1);
-                        let lastVowel = correct.slice(-1);
-                        let wrongVowel = ['a', 'i', 'u'].find(v => v !== lastVowel);
-                        wrongOption = root + wrongVowel;
+                    const letterCount = currentLevel.letterCount;
+                    const allowedHarakats = currentLevel.harakat ? [currentLevel.harakat] : harakatTypes;
+    
+                    for (let i = 0; i < letterCount; i++) {
+                        const randomLetterObj = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
+                        const randomHarakatType = allowedHarakats[Math.floor(Math.random() * allowedHarakats.length)];
+                        wrongOption += randomLetterObj[randomHarakatType];
                     }
-                    
-                    // Jika opsi salah sudah ada, buat yang benar-benar acak
-                    if (options.includes(wrongOption)) {
-                        let randomLetter = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
-                         wrongOption = randomLetter[harakatTypes[Math.floor(Math.random() * 3)]];
-                         if (components.length > 1) {
-                             let randomLetter2 = hijaiyahLetters[Math.floor(Math.random() * hijaiyahLetters.length)];
-                             wrongOption += randomLetter2[harakatTypes[Math.floor(Math.random() * 3)]];
-                         }
-                    }
-
+    
                     if (!options.includes(wrongOption)) {
                         options.push(wrongOption);
                     }
                 }
-                
-                return options.sort(() => Math.random() - 0.5);
             }
-
-            function displayOptions(optionsArray) {
-                optionsArray.forEach(option => {
-                    const button = document.createElement('button');
-                    button.className = 'option-btn';
-                    button.textContent = option;
-                    button.addEventListener('click', () => checkAnswer(option, button));
-                    optionsContainer.appendChild(button);
+            
+            return options.sort(() => Math.random() - 0.5); // Acak urutan pilihan
+        }
+    
+        function displayOptions(optionsArray) {
+            optionsArray.forEach(option => {
+                const button = document.createElement('button');
+                button.className = 'option-btn';
+                button.textContent = option;
+                button.addEventListener('click', () => checkAnswer(option, button));
+                optionsContainer.appendChild(button);
+            });
+        }
+    
+        function resetUI() {
+            feedback.textContent = '';
+            feedback.className = 'feedback';
+            optionsContainer.innerHTML = '';
+            // Hapus class three-options agar kembali ke default 2 kolom
+            optionsContainer.classList.remove('three-options');
+            nextBtn.classList.add('hidden');
+        }
+    
+        function checkAnswer(selected, button) {
+            Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
+    
+            if (selected === correctAnswer) {
+                feedback.textContent = 'Benar! Masya Allah!';
+                feedback.classList.add('correct');
+                button.style.backgroundColor = 'var(--correct-color)';
+                button.style.color = 'white';
+                score += 10;
+                updateScore();
+            } else {
+                feedback.textContent = `Tepatnya: ${correctAnswer}`;
+                feedback.classList.add('incorrect');
+                button.style.backgroundColor = 'var(--incorrect-color)';
+                button.style.color = 'white';
+                Array.from(optionsContainer.children).forEach(btn => {
+                    if (btn.textContent === correctAnswer) {
+                        btn.style.backgroundColor = 'var(--correct-color)';
+                        btn.style.color = 'white';
+                    }
                 });
             }
-
-            function resetUI() {
-                feedback.textContent = '';
-                feedback.className = 'feedback';
-                optionsContainer.innerHTML = '';
-                nextBtn.classList.add('hidden');
+            nextBtn.classList.remove('hidden');
+        }
+    
+        function updateScore() {
+            scoreInfo.textContent = `Skor: ${score}`;
+        }
+        
+        function goToNextLevel() {
+            currentLevelIndex++;
+            if (currentLevelIndex >= levels.length) {
+                endGame();
+            } else {
+                alert(`Hebat! Sekarang lanjut ke Level ${currentLevelIndex + 1}: ${levels[currentLevelIndex].name}!`);
+                loadLevel();
             }
-
-            function checkAnswer(selected, button) {
-                Array.from(optionsContainer.children).forEach(btn => btn.disabled = true);
-
-                if (selected === correctAnswer) {
-                    feedback.textContent = 'Benar! Masya Allah!';
-                    feedback.classList.add('correct');
-                    button.style.backgroundColor = 'var(--correct-color)';
-                    button.style.color = 'white';
-                    score += 10;
-                    updateScore();
-                } else {
-                    feedback.textContent = `Tepatnya: ${correctAnswer}`;
-                    feedback.classList.add('incorrect');
-                    button.style.backgroundColor = 'var(--incorrect-color)';
-                    button.style.color = 'white';
-                    Array.from(optionsContainer.children).forEach(btn => {
-                        if (btn.textContent === correctAnswer) {
-                            btn.style.backgroundColor = 'var(--correct-color)';
-                            btn.style.color = 'white';
-                        }
-                    });
-                }
-                nextBtn.classList.remove('hidden');
-            }
-
-            function updateScore() {
-                scoreInfo.textContent = `Skor: ${score}`;
-            }
-            
-            function goToNextLevel() {
-                currentLevelIndex++;
-                if (currentLevelIndex >= levels.length) {
-                    endGame();
-                } else {
-                    alert(`Hebat! Sekarang lanjut ke Level ${currentLevelIndex + 1}: ${levels[currentLevelIndex].name}!`);
-                    loadLevel();
-                }
-            }
-
-            function endGame() {
-                questionDisplay.textContent = '🏆';
-                optionsContainer.innerHTML = `<h2 style="direction: ltr;">Semua level selesai! Skor akhirmu: ${score}</h2>`;
-                feedback.textContent = 'Luar Biasa!';
-                nextBtn.textContent = 'Main Lagi';
-                nextBtn.classList.remove('hidden');
-                nextBtn.onclick = () => window.location.reload();
-            }
-            
-            nextBtn.addEventListener('click', loadQuestion);
-            startGame();
-        });
-    </script>
+        }
+    
+        function endGame() {
+            questionDisplay.textContent = '🏆';
+            optionsContainer.innerHTML = `<h2 style="direction: ltr;">Semua level selesai! Skor akhirmu: ${score}</h2>`;
+            feedback.textContent = 'Luar Biasa!';
+            nextBtn.textContent = 'Main Lagi';
+            nextBtn.classList.remove('hidden');
+            nextBtn.onclick = () => window.location.reload();
+        }
+        
+        nextBtn.addEventListener('click', loadQuestion);
+        startGame();
+    });
+  </script>
 </body>
+
 </html>
