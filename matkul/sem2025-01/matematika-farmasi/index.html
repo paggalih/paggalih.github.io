@@ -174,8 +174,25 @@
 	        border-radius: 4px;
 	        cursor: pointer;
 	    }
-	    
-	    .answer-btn:hover {
+.trigger {
+  background-color: #e7f3fe; /* Warna latar biru muda yang lembut */
+  border-left: 5px solid #0563bb; /* Garis tebal di kiri dengan warna utama situs */
+  padding: 20px 25px; /* Jarak di dalam kotak (vertikal & horizontal) */
+  margin: 25px 0; /* Jarak di luar kotak (atas-bawah & kiri-kanan) */
+  border-radius: 8px; /* Sudut yang sedikit membulat */
+  font-size: 1.1rem; /* Ukuran font sedikit lebih besar dari teks biasa */
+  line-height: 1.6; /* Spasi antar baris agar mudah dibaca */
+  position: relative; /* Diperlukan untuk penempatan elemen lain di dalamnya */
+  box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Bayangan halus untuk efek 3D */
+}
+
+/* Menambahkan ikon '💡' sebelum teks untuk memperjelas fungsinya sebagai pemicu ide */
+.trigger::before {
+  content: '💡'; /* Anda bisa ganti dengan emoji lain seperti '👉' atau 'ℹ️' */
+  margin-right: 15px; /* Jarak antara ikon dan teks */
+  font-size: 1.5rem; /* Ukuran ikon */
+  vertical-align: middle; /* Menyelaraskan ikon dengan teks secara vertikal */
+}
 	  </style>
 	</head>
 
