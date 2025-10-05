@@ -525,13 +525,18 @@
 	          graph TB
 	          a(" fungsi kontinu")
 	          a1(" limit fungsi ada<br>$\lim_{x\to c}f(x)$")
+              a11("limit polinomial")
+              a12("limit rasional")
+              a13("limit takhingga")
 	          a2(" nilai fungsi ada<br>$f(c)$")
 	          b("nilainya sama<br>$\lim_{x\to c}f(x) = f(c)$")
 
 	          a --> a1
 	          a --> a2
-	          a1 --> b
-	          a2 --> b
+	          a1 -.- b -.- a2
+              a1 --> a11
+              a1 --> a12
+              a1 --> a13
 	        </div>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp3">
