@@ -406,7 +406,7 @@
 	              </tr>
 	            </tbody>
 	          </table>
-              <div class="trigger">Mari kita melihat perbandingan uang saku sehari-hari dengan umur kita.</div>
+	          <div class="trigger">Mari kita melihat perbandingan uang saku sehari-hari dengan umur kita.</div>
 	          <div class="mermaid text-center">
 	            graph TB
 	            a(" matematika")
@@ -437,7 +437,7 @@
 	        </div>
 
 	        <div class="trigger"> Mari kita melihat saat pandemi covid kemarin. Setiap orang yang terinfeksi akan menularkan ke orang-orang di sekitarnya.</div>
-            <div class="mermaid text-center">
+	        <div class="mermaid text-center">
 	          graph TB
 	          a(" relasi")
 	          a1(" fungsi")
@@ -525,18 +525,18 @@
 	          graph TB
 	          a(" fungsi kontinu")
 	          a1(" limit fungsi ada<br>$\lim_{x\to c}f(x)$")
-              a11("limit polinomial")
-              a12("limit rasional")
-              a13("limit takhingga")
+	          a11("limit polinomial")
+	          a12("limit rasional")
+	          a13("limit takhingga")
 	          a2(" nilai fungsi ada<br>$f(c)$")
 	          b("nilainya sama<br>$\lim_{x\to c}f(x) = f(c)$")
 
 	          a --> a1
 	          a --> a2
 	          a1 -.- b -.- a2
-              a1 --> a11
-              a1 --> a12
-              a1 --> a13
+	          a1 --> a11
+	          a1 --> a12
+	          a1 --> a13
 	        </div>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp3">
@@ -547,110 +547,108 @@
 	                  Soal Latihan
 	                </button>
 	              </h2>
-
-    <div class="question">
-      <p>1. Konsentrasi sebuah obat dalam plasma darah (dalam mg/L) setelah \(t\) jam disuntikkan dimodelkan oleh fungsi
-        \( C(t) = \frac{120t}{t^2 + 2} \).
-        Ahli farmasi ingin mengetahui konsentrasi obat dalam jangka waktu yang sangat lama. Berapakah nilai
-        \( \lim_{t \to \infty} C(t) \)?
-      </p>
-      <div class="options">
-        <div class="option">
-          <b>0 mg/L</b>
-        </div>
-        <div class="option">
-          <b>120 mg/L</b>
-        </div>
-        <div class="option">
-          <b>60 mg/L</b>
-        </div>
-        <div class="option">
-          <b>Tak hingga</b>
-        </div>
-      </div>
-    </div>
-
-    <div class="question">
-      <p>2. Sebuah tablet obat lepas lambat dirancang untuk melepaskan zat aktif dengan laju (mg/jam) yang dijelaskan oleh fungsi:
-        $$ R(t) = \begin{cases} 4 - \frac{1}{4}t^2 & \text{jika } 0 \le t < 2 \\ t + k & \text{jika } t \ge 2 \end{cases} $$ Agar laju pelepasan obat berjalan mulus, fungsi \(R(t)\) harus kontinu di \(t=2\). Berapa nilai konstanta \(k\)? </p>
-          <div class="options">
-            <div class="option">
-              <b>3</b>
-            </div>
-            <div class="option">
-              <b>2</b>
-            </div>
-            <div class="option">
-              <b>1</b>
-            </div>
-            <div class="option">
-              <b>0</b>
-            </div>
-          </div>
-    </div>
-
-    <div class="question">
-      <p>3. Efek terapeutik sebuah obat (E) bergantung pada dosisnya (d) dalam mg. Hubungannya dimodelkan sebagai berikut:
-        $$ E(d) = \begin{cases} 0 & \text{jika } d < 10 \\ 5d - 40 & \text{jika } d \ge 10 \end{cases} $$ Apa jenis diskontinuitas yang terjadi pada \(d=10\) mg dan apa artinya secara farmasetik? </p>
-          <div class="options">
-            <div class="option">
-              <b>Diskontinuitas lompat (jump), artinya efek obat muncul signifikan segera setelah dosis mencapai 10 mg.</b>
-            </div>
-            <div class="option">
-              <b>Kontinu, artinya efek obat meningkat mulus dari 0 mg.</b>
-            </div>
-            <div class="option">
-              <b>Diskontinuitas yang dapat dihapus (removable), artinya ada lubang kecil pada grafik.</b>
-            </div>
-            <div class="option">
-              <b>Diskontinuitas tak hingga (infinite), artinya efek obat menjadi tak terbatas.</b>
-            </div>
-          </div>
-    </div>
-
-    <div class="question">
-      <p>4. Proses pembuatan sebuah eksipien (zat tambahan) untuk tablet sangat sensitif terhadap suhu. Tingkat kelarutan (S) sebagai fungsi suhu (T, dalam °C) didefinisikan oleh:
-        $$ S(T) = \frac{T^2 - 8T + 15}{T-5} $$
-        Di titik suhu manakah fungsi ini mengalami diskontinuitas, dan apa yang seharusnya menjadi nilai kelarutan di titik itu agar prosesnya kontinu?
-      </p>
-      <div class="options">
-        <div class="option">
-          <b>Diskontinu di T=3, nilai seharusnya 0.</b>
-        </div>
-        <div class="option">
-          <b>Diskontinu di T=5, nilai seharusnya 2.</b>
-        </div>
-        <div class="option">
-          <b>Diskontinu di T=5, nilai seharusnya tidak ada.</b>
-        </div>
-        <div class="option">
-          <b>Kontinu di semua titik.</b>
-        </div>
-      </div>
-    </div>
-
-    <div class="question">
-      <p>5. Stabilitas pH sebuah larutan obat buffer penting. Fungsi \(f(x)\) merepresentasikan perubahan pH setelah penambahan \(x\) mL asam. Jika
-        \( \lim_{x \to 2^-} f(x) = 4.5 \) dan
-        \( \lim_{x \to 2^+} f(x) = 4.5 \), tetapi \(f(2)\) tidak terdefinisi karena kesalahan pengukuran sesaat. Apa interpretasi farmasetik yang paling tepat?</p>
-      <div class="options">
-        <div class="option">
-          <b>Sistem buffer gagal total pada penambahan tepat 2 mL asam.</b>
-        </div>
-        <div class="option">
-          <b>Larutan stabil. pH yang diharapkan pada 2 mL adalah 4.5, meskipun ada anomali pengukuran.</b>
-        </div>
-        <div class="option">
-          <b>pH larutan melompat dari satu nilai ke nilai lain pada 2 mL.</b>
-        </div>
-        <div class="option">
-          <b>pH menjadi tak terbatas, menunjukkan reaksi yang tidak terkendali.</b>
-        </div>
-      </div>
-    </div>
 	              <div id="collapsep3" class="accordion-collapse collapse" aria-labelledby="headingp3" data-bs-parent="#accordionp3">
 	                <div class="accordion-body">
+	              <div class="question">
+	                <p>1. Konsentrasi sebuah obat dalam plasma darah (dalam mg/L) setelah \(t\) jam disuntikkan dimodelkan oleh fungsi
+	                  \( C(t) = \frac{120t}{t^2 + 2} \).
+	                  Ahli farmasi ingin mengetahui konsentrasi obat dalam jangka waktu yang sangat lama. Berapakah nilai
+	                  \( \lim_{t \to \infty} C(t) \)?
+	                </p>
+	                <ol type="a">
+	                  <li class="option">
+	                    <b>0 mg/L</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>120 mg/L</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>60 mg/L</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>Tak hingga</b>
+	                  </li>
+	                </ol>
+	              </div>
 
+	              <div class="question">
+	                <p>2. Sebuah tablet obat lepas lambat dirancang untuk melepaskan zat aktif dengan laju (mg/jam) yang dijelaskan oleh fungsi:
+	                  $$ R(t) = \begin{cases} 4 - \frac{1}{4}t^2 & \text{jika } 0 \le t < 2 \\ t + k & \text{jika } t \ge 2 \end{cases} $$ Agar laju pelepasan obat berjalan mulus, fungsi \(R(t)\) harus kontinu di \(t=2\). Berapa nilai konstanta \(k\)? </p>
+	                    <ol type="a">
+	                      <li class="option">
+	                        <b>3</b>
+	                      </li>
+	                      <li class="option">
+	                        <b>2</b>
+	                      </li>
+	                      <li class="option">
+	                        <b>1</b>
+	                      </li>
+	                      <li class="option">
+	                        <b>0</b>
+	                      </li>
+	                    </ol>
+	              </div>
+
+	              <div class="question">
+	                <p>3. Efek terapeutik sebuah obat (E) bergantung pada dosisnya (d) dalam mg. Hubungannya dimodelkan sebagai berikut:
+	                  $$ E(d) = \begin{cases} 0 & \text{jika } d < 10 \\ 5d - 40 & \text{jika } d \ge 10 \end{cases} $$ Apa jenis diskontinuitas yang terjadi pada \(d=10\) mg dan apa artinya secara farmasetik? </p>
+	                    <ol type="a">
+	                      <li class="option">
+	                        <b>Diskontinuitas lompat (jump), artinya efek obat muncul signifikan segera setelah dosis mencapai 10 mg.</b>
+	                      </li>
+	                      <li class="option">
+	                        <b>Kontinu, artinya efek obat meningkat mulus dari 0 mg.</b>
+	                      </li>
+	                      <li class="option">
+	                        <b>Diskontinuitas yang dapat dihapus (removable), artinya ada lubang kecil pada grafik.</b>
+	                      </li>
+	                      <li class="option">
+	                        <b>Diskontinuitas tak hingga (infinite), artinya efek obat menjadi tak terbatas.</b>
+	                      </li>
+	                    </ol>
+	              </div>
+
+	              <div class="question">
+	                <p>4. Proses pembuatan sebuah eksipien (zat tambahan) untuk tablet sangat sensitif terhadap suhu. Tingkat kelarutan (S) sebagai fungsi suhu (T, dalam °C) didefinisikan oleh:
+	                  $$ S(T) = \frac{T^2 - 8T + 15}{T-5} $$
+	                  Di titik suhu manakah fungsi ini mengalami diskontinuitas, dan apa yang seharusnya menjadi nilai kelarutan di titik itu agar prosesnya kontinu?
+	                </p>
+	                <ol type="a">
+	                  <li class="option">
+	                    <b>Diskontinu di T=3, nilai seharusnya 0.</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>Diskontinu di T=5, nilai seharusnya 2.</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>Diskontinu di T=5, nilai seharusnya tidak ada.</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>Kontinu di semua titik.</b>
+	                  </li>
+	                </ol>
+	              </div>
+
+	              <div class="question">
+	                <p>5. Stabilitas pH sebuah larutan obat buffer penting. Fungsi \(f(x)\) merepresentasikan perubahan pH setelah penambahan \(x\) mL asam. Jika
+	                  \( \lim_{x \to 2^-} f(x) = 4.5 \) dan
+	                  \( \lim_{x \to 2^+} f(x) = 4.5 \), tetapi \(f(2)\) tidak terdefinisi karena kesalahan pengukuran sesaat. Apa interpretasi farmasetik yang paling tepat?</p>
+	                <ol type="a">
+	                  <li class="option">
+	                    <b>Sistem buffer gagal total pada penambahan tepat 2 mL asam.</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>Larutan stabil. pH yang diharapkan pada 2 mL adalah 4.5, meskipun ada anomali pengukuran.</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>pH larutan melompat dari satu nilai ke nilai lain pada 2 mL.</b>
+	                  </li>
+	                  <li class="option">
+	                    <b>pH menjadi tak terbatas, menunjukkan reaksi yang tidak terkendali.</b>
+	                  </li>
+	                </ol>
+	              </div>
 	                </div>
 	              </div>
 	            </div>
