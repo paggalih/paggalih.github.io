@@ -605,7 +605,75 @@
 	        <h3>
 	          Volum Benda Putar dengan Integral </h3>
 	        <p> Pelajari mengenai materi hari ini lalu kerjakan soal-soal di bawah ini beserta tata caranya. Salah satu sumber yang dapat digunakan adalah <a href="https://dosenuin.github.io/matematika-kalkulus">website dosenuin.github.io</a>.</p>
-            
+
+<div class="container">
+
+    <h2>Latihan Soal Dosen: Menghitung Volume dengan Integral</h2>
+
+    <p>Hari ini kita akan masuk ke salah satu aplikasi integral yang paling menarik, yaitu menghitung volume benda putar dan benda dengan penampang tertentu. Konsep dasarnya adalah "menjumlahkan irisan-irisan tak terhingga tipisnya" untuk membentuk sebuah volume utuh.</p>
+
+    <p>Agar pemahaman kalian terasah dengan baik, saya sudah siapkan beberapa soal yang disusun dari tingkat paling dasar hingga yang paling menantang. Kerjakan secara berurutan. Jangan melompat! Setiap soal akan membangun fondasi untuk soal berikutnya.</p>
+    
+    <p>Mari kita mulai!</p>
+
+    <hr>
+
+    <h3>Level 1:</h3>
+    <p>Ini adalah konsep paling fundamental. Bayangkan kita memutar sebuah kurva mengelilingi sumbu-x, lalu kita potong-potong menjadi cakram-cakram tipis. Volume totalnya adalah jumlahan volume semua cakram tersebut.</p>
+    <p><strong>Soal 1:</strong></p>
+    <p>Tentukan volume benda putar yang terbentuk apabila daerah yang dibatasi oleh kurva $y = x + 1$, sumbu-x, garis $x=0$, dan garis $x=2$ diputar 360° mengelilingi <strong>sumbu-x</strong>.</p>
+    <p><strong>Petunjuk:</strong></p>
+    <ul>
+        <li>Gambarkan dulu daerahnya.</li>
+        <li>Gunakan rumus dasar volume benda putar metode cakram: $V = \pi \int_{a}^{b} [f(x)]^2 \,dx$.</li>
+    </ul>
+
+    <hr>
+
+    <h3>Level 2:</h3>
+    <p>Bagaimana jika daerah yang diputar memiliki "lubang" di tengahnya? Seperti donat. Di sini kita menggunakan metode cincin (washer), yaitu dengan mengurangi volume benda luar dengan volume lubangnya.</p>
+    <p><strong>Soal 2:</strong></p>
+    <p>Hitunglah volume benda putar yang terjadi jika daerah yang dibatasi oleh kurva $y = \sqrt{x}$ dan kurva $y = x^2$ diputar 360° mengelilingi <strong>sumbu-x</strong>.</p>
+    <p><strong>Petunjuk:</strong></p>
+    <ul>
+        <li>Cari titik potong kedua kurva untuk menentukan batas integral.</li>
+        <li>Identifikasi mana kurva yang menjadi jari-jari luar ($R(x)$) dan mana yang menjadi jari-jari dalam ($r(x)$).</li>
+        <li>Gunakan rumus metode cincin: $V = \pi \int_{a}^{b} ([R(x)]^2 - [r(x)]^2) \,dx$.</li>
+    </ul>
+
+    <hr>
+
+    <h3>Level 3:</h3>
+    <p>Sekarang, sumbu putarnya tidak lagi sumbu-x atau sumbu-y. Kalian harus memodifikasi cara mendefinisikan jari-jari putaran. Ini menguji pemahaman konsep, bukan sekadar hafalan rumus.</p>
+    <p><strong>Soal 3:</strong></p>
+    <p>Ambil daerah yang sama dari Soal 2 (dibatasi oleh $y = \sqrt{x}$ dan $y = x^2$). Sekarang, putar daerah tersebut 360° mengelilingi garis <strong>y = -1</strong>. Tentukan volumenya.</p>
+    <p><strong>Petunjuk:</strong></p>
+    <ul>
+        <li>Jarak dari sumbu putar baru ($y=-1$) ke kurva luar adalah jari-jari luar ($R(x)$) yang baru.</li>
+        <li>Jarak dari sumbu putar baru ($y=-1$) ke kurva dalam adalah jari-jari dalam ($r(x)$) yang baru.</li>
+        <li>Pikirkan: $R(x) = \text{kurva atas} - (-1)$ dan $r(x) = \text{kurva bawah} - (-1)$.</li>
+        <li>Masukkan jari-jari yang sudah dimodifikasi ini ke dalam rumus metode cincin.</li>
+    </ul>
+
+    <hr>
+
+    <h3>Level 4: </h3>
+    <p>Soal terakhir ini sedikit berbeda. Kita tidak memutar daerah, melainkan membangun sebuah benda 3D di atas sebuah alas 2D. Bentuk "irisan" atau penampang melintangnya sudah ditentukan. Ini adalah puncak pemahaman konsep integral sebagai penjumlahan.</p>
+    <p><strong>Soal 4:</strong></p>
+    <p>Alas sebuah benda pejal adalah daerah di kuadran pertama yang dibatasi oleh kurva $y = 4 - x^2$ dan sumbu-x serta sumbu-y. Setiap penampang melintang yang <strong>tegak lurus dengan sumbu-x</strong> berbentuk <strong>setengah lingkaran</strong>. Tentukan volume benda pejal tersebut.</p>
+    <p><strong>Petunjuk:</strong></p>
+    <ul>
+        <li>Gambarkan alasnya terlebih dahulu untuk menentukan batas integral.</li>
+        <li>Sisi dari penampang (diameter setengah lingkaran) membentang dari sumbu-x ke kurva $y=4-x^2$. Jadi, panjang diameternya adalah $s(x) = 4 - x^2$.</li>
+        <li>Rumus luas setengah lingkaran adalah $A = \frac{1}{2}\pi r^2$. Ingat, jari-jarinya adalah setengah dari diameter. Jadi, $A(x) = \frac{1}{2}\pi \left(\frac{s(x)}{2}\right)^2$.</li>
+        <li>Volume totalnya adalah integral dari luas penampang ini: $V = \int_{a}^{b} A(x) \,dx$.</li>
+    </ul>
+
+    <hr>
+    
+    <p>Selamat mengerjakan! Semangat! 🔥</p>
+
+</div>
 	        <div class="container mt-4">
 	          <div class="game-container">
 	            <h2 class="text-center">Game Statistik</h2>
