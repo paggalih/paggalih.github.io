@@ -229,27 +229,39 @@
             const findBtn = document.getElementById('find-btn'), inspectBtn = document.getElementById('inspect-btn'), clearBtn = document.getElementById('clear-btn'), formatBtn = document.getElementById('format-btn'), exampleBtn = document.getElementById('example-btn'), editToggleBtn = document.getElementById('edit-toggle-btn'), editStatusText = document.getElementById('edit-status-text'), fullscreenBtn = document.getElementById('fullscreen-btn'), escapeBtn = document.getElementById('escape-btn');
             let isEditingPreview = false, isInspecting = false, debounceTimer;
 
-            function updatePreview() { /* ... (fungsi updatePreview tidak berubah) ... */ 
-                const activeTab = tabs.find(t => t.id === activeTabId);
-                if (!activeTab) return;
-                activeTab.content = editor.getValue();
-                let sourceCode = activeTab.content;
-                const lines = sourceCode.split('\n');
-                const instrumentedLines = lines.map((line, index) => line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
-                    if (attributes.includes('data-source-line')) return match;
-                    return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
-                }));
-                const instrumentedCode = instrumentedLines.join('\n');
-                const previewDoc = preview.contentDocument || preview.contentWindow.document;
-                previewDoc.open();
-                previewDoc.write(instrumentedCode);
-                previewDoc.close();
-                if (isEditingPreview) enablePreviewEditing();
-                if (isInspecting) {
-                    previewDoc.body.addEventListener('click', handlePreviewClick);
-                    previewDoc.body.style.cursor = 'pointer';
-                }
-            }
+// VERSI BARU DAN LEBIH BAIK
+function updatePreview() {
+    const activeTab = tabs.find(t => t.id === activeTabId);
+    if (!activeTab) return;
+
+    // Simpan konten terbaru dari editor ke tab aktif
+    activeTab.content = editor.getValue();
+    let sourceCode = activeTab.content;
+
+    // (Logika instrumentasi untuk inspect elemen tidak berubah)
+    const lines = sourceCode.split('\n');
+    const instrumentedLines = lines.map((line, index) => line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
+        if (attributes.includes('data-source-line')) return match;
+        return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
+    }));
+    const instrumentedCode = instrumentedLines.join('\n');
+
+    // === INILAH PERUBAHAN UTAMANYA ===
+    // Gunakan srcdoc untuk memuat ulang iframe dengan lingkungan yang bersih
+    preview.srcdoc = instrumentedCode;
+    // ===================================
+
+    // Karena iframe akan dimuat ulang, kita perlu menunggu sebentar
+    // sebelum mengaktifkan kembali fitur inspect dan edit preview.
+    preview.onload = () => {
+        const previewDoc = preview.contentDocument || preview.contentWindow.document;
+        if (isEditingPreview) enablePreviewEditing();
+        if (isInspecting) {
+            previewDoc.body.addEventListener('click', handlePreviewClick);
+            previewDoc.body.style.cursor = 'pointer';
+        }
+    };
+}
             refreshBtn.addEventListener('click', updatePreview);
             
             let scrollSyncTimer;
