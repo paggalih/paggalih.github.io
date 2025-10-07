@@ -862,10 +862,19 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 5</h2>
 	        </div>
-	        <h3> Anuitas (Immediate Annuity dan Annuity-Due) </h3>
-	        <h4>Immediate Annuity</h4>
-	        <h4>Annuity-Due</h4>
+            <div class="trigger">Di saat kita ngekos ada dua kemungkinan bayar di depan atau bayar di belakang.</div>
+	        <div class="mermaid text-center">
+	          flowchart TD
+              a("anuitas<br>annuity")
+              a1(("anuitas biasa<br>immediate annuity<br>$ PV = P \cdot \frac{1 - (1 + i)^{-n}}{i} $"))
+              a2(("anuitas di muka<br>annuity-due<br>$ PV_{due} = \left( P \cdot \frac{1 - (1 + i)^{-n}}{i} \right) \cdot (1+i) $"))
+              a3("anuitas ditunda<br>deferred annuity<br>$ PV_{deferred} = \frac{P}{i} \left[ (1+i)^{-m} - (1+i)^{-(m+n)} \right] $")
+              
+              a-->a1
+              a-->a2
+              a-->a3
 
+	        </div>
 	      </div>
 	      <div class="container mt-5">
 	        <div class="accordion" id="accordionp5">
