@@ -25,8 +25,10 @@
 	  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-
-	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin="anonymous"></script>
+	  <script type="module">
+	    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+	    mermaid.initialize({ startOnLoad: true });
+	  </script>
 
 	  <!-- =======================================================
 		* Template Name: MyResume
@@ -600,7 +602,10 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 6</h2>
 	        </div>
-
+	        <h3>
+	          Volum Benda Putar dengan Integral </h3>
+	        <p> Pelajari mengenai materi hari ini lalu kerjakan soal-soal di bawah ini beserta tata caranya. Salah satu sumber yang dapat digunakan adalah <a href="https://dosenuin.github.io/matematika-kalkulus">website dosenuin.github.io</a>.</p>
+            
 	        <div class="container mt-4">
 	          <div class="game-container">
 	            <h2 class="text-center">Game Statistik</h2>
@@ -1261,18 +1266,6 @@
 	      <div class="container aos-init aos-animate" data-aos="fade-up">
 	        <div class="section-title">
 	          <h2>Pertemuan 11</h2>
-	        </div>
-
-	        <script type="module">
-	          import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-	          mermaid.initialize({ startOnLoad: true });
-	        </script>
-
-	        <div class="mermaid text-center">
-	          graph TD
-	          A[Anggap populasi berdistribusi normal] --> B{Apakah simpangan baku diketahui?}
-	          B -- Tidak --> C[Gunakan distribusi t]
-	          B -- Ya --> D[Gunakan distribusi z]
 	        </div>
 
 	        <div class="container mt-5">
