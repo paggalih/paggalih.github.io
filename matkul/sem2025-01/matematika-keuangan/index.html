@@ -1047,9 +1047,9 @@
 	        <div class="mermaid text-center">
 	          flowchart TD
               a("anuitas<br>annuity")
-              a1("anuitas biasa<br>immediate annuity")
-              a2("anuitas di muka<br>annuity-due")
-              a3(("anuitas ditunda<br>deferred annuity"))
+              a1("anuitas biasa<br>immediate annuity<br>$ PV = P \cdot \frac{1 - (1 + i)^{-n}}{i} $")
+              a2("anuitas di muka<br>annuity-due<br>$ PV_{due} = \left( P \cdot \frac{1 - (1 + i)^{-n}}{i} \right) \cdot (1+i) $")
+              a3(("anuitas ditunda<br>deferred annuity<br>$ PV_{deferred} = \frac{P}{i} \left[ (1+i)^{-m} - (1+i)^{-(m+n)} \right] $"))
               
               a-->a1
               a-->a2
