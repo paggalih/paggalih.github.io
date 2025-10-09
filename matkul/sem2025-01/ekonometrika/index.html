@@ -746,8 +746,8 @@
                   paging: true,
                   searching: true,
                   scrollX: true,
-	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-
+          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
                 });
               });
           		});
@@ -796,8 +796,8 @@
                   paging: true,
                   searching: true,
                   scrollX: true,
-	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-
+          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
                 });
               });
           		});
@@ -846,7 +846,7 @@
                   paging: true,
                   searching: true,
                   scrollX: true,
-	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
                 });
               });
           		});
@@ -1400,8 +1400,8 @@
                                   paging: true,
                                   searching: true,
                                   scrollX: true,
-	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-
+          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
                               });
                           });
                       }
@@ -1450,8 +1450,8 @@
                                   paging: true,
                                   searching: true,
                                   scrollX: true,
-	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-
+          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
                               });
                           });
                       }
@@ -1500,8 +1500,8 @@
                                   paging: true,
                                   searching: true,
                                   scrollX: true,
-	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-
+          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
                               });
                           });
                       }
@@ -1530,6 +1530,82 @@
         <div class="section-title">
           <h2>Pertemuan 5</h2>
         </div>
+        <div class="trigger">
+<h3>Apa Itu Heteroskedastisitas? Sebuah Analogi Sederhana</h3>
+
+<p>Bayangkan Anda seorang pelatih anjing yang sedang mengajari anjing dari berbagai ras untuk menangkap bola.</p>
+
+    <p>Homoskedastisitas (Kondisi Ideal): Jika Anda melempar bola dengan kekuatan yang sama setiap saat, semua anjing (baik Chihuahua, Beagle, maupun Golden Retriever) akan berlari dan menangkapnya dengan tingkat kesalahan (error) yang kira-kira sama. Jarak bola jatuh dari mulut mereka konsisten. Ini seperti homoskedastisitas, di mana varians dari error regresi Anda konstan di seluruh level variabel independen. Prediksi Anda sama baiknya untuk nilai kecil maupun besar.</p>
+
+    <p>Heteroskedastisitas (Masalah Muncul): Sekarang, bayangkan Anda meningkatkan kekuatan lemparan. Untuk anjing kecil seperti Chihuahua, kesalahan tangkapannya mungkin tetap kecil. Tapi untuk anjing besar seperti Golden Retriever, kesalahan tangkapannya menjadi sangat bervariasi; kadang tepat di mulut, kadang meleset jauh. Semakin kuat lemparan Anda (variabel independen), semakin tidak terduga dan semakin lebar sebaran kesalahannya (error). Inilah heteroskedastisitas. Varians dari error regresi Anda berubah seiring perubahan nilai variabel independen. Akibatnya, prediksi model Anda menjadi kurang bisa diandalkan pada level tertentu.</p>
+
+<p>Singkatnya, heteroskedastisitas adalah kondisi di mana sebaran (varians) dari residual atau error dalam model regresi tidak konstan. Ini melanggar salah satu asumsi penting dari regresi Ordinary Least Squares (OLS), yang dapat membuat hasil uji signifikansi (uji-t dan uji-F) menjadi tidak valid.</p>
+        </div>
+        <div class="mermaid text-center">
+flowchart TD
+ subgraph Deteksi["Deteksi"]
+    direction LR
+        D1("Uji Glejser")
+        D2("Uji Park")
+        D3("Uji White")
+  end
+    A["Mulai: Model Regresi Awal"] --> B("Estimasi Model OLS")
+    B --> C("Dapatkan Residual")
+    C --> D{"Uji Heteroskedastisitas"} & D1 & D2 & D3
+    D -- Ada Heteroskedastisitas --> E["Pilih Metode Penanganan"]
+    D -- Tidak Ada Heteroskedastisitas --> F["Selesai: Model Valid"]
+    E --> G("Metode 1: Gunakan White's Robust Standard Errors" ) & H["Metode 2: Transformasi Variabel - Log, Box-Cox"]
+    G --> I["Estimasi Ulang Model dengan Robust SE"]
+    H --> J["Estimasi Ulang Model dengan Variabel Transformasi"]
+    I --> K["Selesai: Uji Signifikansi Valid"]
+    J --> K
+
+
+
+          </div>
+  <h3>Langkah 1: Estimasi Model Regresi Awal (OLS)</h3>
+  <div class="step">
+    <p>Pertama, estimasi model regresi linear Anda. Asumsikan model Anda adalah:</p>
+    <p>
+      $Y=β0​+β1​X1​+β2​X2​+β3​X3​+ϵ$
+
+    </p>
+    <p>Di EViews, buka window <b>Quick > Estimate Equation</b>. Masukkan persamaan Anda, contohnya: <code>y c x1 x2 x3</code>. Biarkan metodenya <b>LS - Least Squares (NLS and ARMA)</b>. Klik OK.</p>
+  </div>
+
+  <h3>Langkah 2: Lakukan Uji Heteroskedastisitas</h3>
+  <div class="step">
+    <p>Setelah jendela hasil regresi (Equation) muncul, lakukan langkah berikut:</p>
+    <ol>
+      <li>Klik <b>View > Residual Diagnostics > Heteroskedasticity Tests</b>.</li>
+      <li>Pilih salah satu metode uji yang umum digunakan, misalnya <b>White</b>.</li>
+      <li>Pada dialog selanjutnya, Anda bisa memilih untuk menyertakan <i>cross terms</i> atau tidak. Opsi default (tanpa <i>cross terms</i>) sudah cukup untuk permulaan. Klik OK.</li>
+    </ol>
+  </div>
+
+  <h3>Langkah 3: Interpretasi Hasil Uji</h3>
+  <div class="step">
+    <p>Anda akan melihat output "Heteroskedasticity Test: White". Perhatikan nilai <b>Prob. Chi-Square(k)</b> (dimana k adalah jumlah derajat kebebasan).</p>
+    <ul>
+      <li><b>Jika Prob. > 0.05</b>: Gagal menolak hipotesis nol. Artinya, <b>tidak ada</b> masalah heteroskedastisitas.</li>
+      <li><b>Jika Prob. < 0.05</b>: Menolak hipotesis nol. Artinya, <b>terdapat</b> masalah heteroskedastisitas yang signifikan dalam model Anda.</li>
+    </ul>
+  </div>
+
+  <h3>Langkah 4: Penanganan Heteroskedastisitas (Jika Terdeteksi)</h3>
+  <div class="step">
+    <p>Jika uji menunjukkan adanya heteroskedastisitas, solusi paling praktis dan umum adalah menggunakan <b>Robust Standard Errors (White)</b>.</p>
+    <ol>
+      <li>Kembali ke jendela estimasi awal (<b>Quick > Estimate Equation</b>) atau klik <b>Estimate</b> di jendela output regresi Anda.</li>
+      <li>Masukkan lagi persamaan Anda: <code>y c x1 x2 x3</code>.</li>
+      <li>Klik pada tab <b>Options</b>.</li>
+      <li>Pada bagian <i>Coefficient covariance matrix</i>, pilih <b>White</b> dari dropdown menu.</li>
+      <li>Klik OK.</li>
+    </ol>
+    <p>Hasil regresi yang baru akan menampilkan nilai koefisien yang sama, tetapi <i>standard error</i>, <i>t-statistic</i>, dan <i>p-value</i> akan disesuaikan (robust), membuat inferensi statistik Anda menjadi valid kembali.</p>
+    <h3>Selanjutnya silahkan berlatih dan mengerjakan tiga kasus di bawah ini.</h3>
+    
+  </div>
         <div class="container mt-5">
           <div class="accordion" id="accordionp5">
             <div class="accordion-item">
