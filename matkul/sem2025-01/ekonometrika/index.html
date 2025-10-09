@@ -1560,8 +1560,6 @@ flowchart TD
     I --> K["Selesai: Uji Signifikansi Valid"]
     J --> K
 
-
-
           </div>
   <h3>Langkah 1: Estimasi Model Regresi Awal (OLS)</h3>
   <div class="step">
@@ -1604,8 +1602,192 @@ flowchart TD
     </ol>
     <p>Hasil regresi yang baru akan menampilkan nilai koefisien yang sama, tetapi <i>standard error</i>, <i>t-statistic</i>, dan <i>p-value</i> akan disesuaikan (robust), membuat inferensi statistik Anda menjadi valid kembali.</p>
     <h3>Selanjutnya silahkan berlatih dan mengerjakan tiga kasus di bawah ini.</h3>
-    
-  </div>
+<h4>Kasus 1: Pengaruh Iklan, Sales, dan Diskon terhadap Penjualan</h4>
+
+    <p>Sebuah perusahaan ingin mengetahui bagaimana pengeluaran iklan (dalam jutaan rupiah), jumlah tenaga penjualan, dan rata-rata diskon (%) mempengaruhi total penjualan (dalam ribuan unit). Diduga, pada tingkat iklan yang sangat tinggi, variabilitas penjualan menjadi lebih besar.</p>
+
+   <p> Variabel:
+
+        Y: Penjualan
+
+        X1: Iklan
+
+        X2: Salesperson
+
+        X3: Diskon</p>
+
+<h5>Data CSV (Kasus 1):</h5>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-1.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-hetero-1"></div>
+        <script>
+          fetch('hetero-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-hetero-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-hetero-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-hetero-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+<h4>Kasus 2: Dampak Edukasi, Pengalaman, dan Usia terhadap Pendapatan</h4>
+
+    <p>Seorang ekonom menganalisis bagaimana lama pendidikan (dalam tahun), pengalaman kerja (dalam tahun), dan usia mempengaruhi pendapatan tahunan (dalam puluhan juta rupiah). Hipotesisnya adalah variabilitas pendapatan jauh lebih tinggi bagi individu dengan tingkat pendidikan dan pengalaman yang sangat tinggi.</p>
+
+    <p>Variabel:
+
+        Y: Pendapatan
+
+        X1: Pendidikan
+
+        X2: Pengalaman
+
+        X3: Usia</p>
+
+<h5>Data CSV (Kasus 2):</h5>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-2.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-hetero-2"></div>
+        <script>
+          fetch('hetero-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-hetero-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-hetero-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-hetero-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+<h4>Kasus 3: Analisis Faktor yang Mempengaruhi Harga Rumah</h4>
+
+    <p>Seorang analis real estat memodelkan harga rumah (dalam ratusan juta rupiah) berdasarkan luas bangunan (m²), jumlah kamar tidur, dan skor kelayakan lokasi (1-10). Ada asumsi bahwa variasi harga jauh lebih besar untuk rumah yang sangat luas di lokasi premium.</p>
+
+    <p>Variabel:
+
+        Y: Harga
+
+        X1: Luas
+
+        X2: Kamar
+
+        X3: Lokasi</p>
+
+<h5>Data CSV (Kasus 3):</h5>
+       <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-3.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-hetero-3"></div>
+        <script>
+          fetch('hetero-3.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-hetero-3">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-hetero-3").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-hetero-3').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
         <div class="container mt-5">
           <div class="accordion" id="accordionp5">
             <div class="accordion-item">
