@@ -693,13 +693,16 @@
                             html += '</table>';
                             document.getElementById("tabel-trainer-olimpiade").innerHTML = html;
             
-                            $(document).ready(function () {
-                                $('#datatable-trainer-olimpiade').DataTable({
-                                    paging: true,
-                                    searching: true,
-                                    scrollX: true          
-                                });
-                            });
+$(document).ready(function () {
+    $('#datatable-trainer-olimpiade').DataTable({
+        paging: true,
+        searching: true,
+        scrollX: true,
+        pageLength: 5,
+        columnDefs: [
+            { className: "text-center", targets: "_all" } ]
+    });
+});
                         }
                     });
                 });
