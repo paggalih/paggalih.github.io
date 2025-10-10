@@ -629,6 +629,53 @@
                 <li>Linear Algebra, Bandung Institute of Technology, Indonesia</li>
               </ul>
             </div>
+            <h3 class="resume-title">Trainer Experience</h3>
+        <div class="overflow-auto" id="tabel-trainer-olimpiade"></div>
+          <script>
+            fetch('trainer-olimpiade.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-trainer-olimpiade">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-trainer-olimpiade").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-trainer-olimpiade').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true          
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
           </div>
         </div>
       </div>
