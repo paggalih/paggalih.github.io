@@ -581,6 +581,7 @@ document.addEventListener("DOMContentLoaded", () => {
       paging: true,
       searching: true,
       scrollX: true,
+        pageLength: 5,
 	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
 
     });
@@ -615,6 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
 
 
 
