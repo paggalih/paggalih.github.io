@@ -1598,3 +1598,5 @@ section {
 	      font-size: 1.5rem; /* Ukuran ikon */
 	      vertical-align: middle; /* Menyelaraskan ikon dengan teks secara vertikal */
 	    }
+
+		.dt-length {display:none;}
