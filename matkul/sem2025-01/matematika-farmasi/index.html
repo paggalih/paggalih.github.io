@@ -668,7 +668,6 @@
               subgraph "GRUP"
               a("fungsi eksponen")
               b("fungsi logaritma")
-              a-.-|vs|b
               end
               a1("$y=a^x$")
               b1("$y=log_a(x)$")
@@ -678,6 +677,8 @@
               b11("Konsentrasi Obat <br>Skala pH & pKa")
               a1-->a11
               b1-->b11
+                       graph LR     a-.-|vs|b
+
             </div>
 
 	        <div class="container mt-5">
@@ -691,7 +692,48 @@
 	              </h2>
 	              <div id="collapsep4" class="accordion-collapse collapse" aria-labelledby="headingp4" data-bs-parent="#accordionp4">
 	                <div class="accordion-body">
+<div class="container">
+    <h2>Latihan Soal: Fungsi Eksponen dan Logaritma dalam Farmasi</h2>
 
+    <h3>Tingkat 1: Mudah (Aplikasi Langsung)</h3>
+
+    <div class="soal">
+        <p><strong>Soal 1:</strong> Parasetamol memiliki waktu paruh sekitar 3 jam. Jika seorang pasien mengonsumsi dosis 500 mg, berapa sisa konsentrasi obat di dalam tubuhnya setelah 9 jam?</p>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 2:</strong> Ibuprofen memiliki waktu paruh kira-kira 2 jam. Jika seseorang meminum dosis 400 mg pada pukul 8 pagi, berapakah sisa dosis dalam tubuhnya pada pukul 2 siang di hari yang sama?</p>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 3:</strong> Sebuah obat radiofarmaka untuk pencitraan memiliki waktu paruh 6 jam. Jika dosis awal yang disuntikkan adalah 120 mCi (millicurie), berapa sisa aktivitas radioaktif setelah satu hari penuh (24 jam)?</p>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 4:</strong> Amoksisilin memiliki waktu paruh sekitar 1.5 jam. Seorang anak diberikan sirup dengan dosis 250 mg. Berapa sisa obat dalam tubuhnya setelah 4.5 jam?</p>
+    </div>
+    
+    <hr>
+
+    <h3>Tingkat 2: Menengah (Mencari Variabel Tidak Dikenal)</h3>
+
+    <div class="soal">
+        <p><strong>Soal 1:</strong> Seorang pasien diberikan antibiotik dengan dosis awal 400 mg. Konstanta laju eliminasi ($k$) obat ini adalah 0.8 per jam. Konsentrasi efektif minimum (KEM) agar antibiotik ini bekerja adalah 100 mg. Berapa lama antibiotik tersebut akan tetap efektif di tubuh pasien? Gunakan rumus: $C(t) = C_0 \cdot k^t$.</p>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 2:</strong> Kadar kafein dalam darah meluruh dengan konstanta laju eliminasi ($k$) sekitar 0.87 per jam. Jika setelah 5 jam, kadar kafein yang tersisa di tubuh seseorang adalah 50 mg, berapakah perkiraan dosis kafein awal yang ia konsumsi? Bulatkan jawaban ke bilangan bulat terdekat.</p>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 3:</strong> Sebuah obat A memiliki waktu paruh 4 jam. Jika konsentrasi obat dalam plasma tidak boleh turun di bawah 25 mg/L untuk tetap terapeutik, dan dosis awal menghasilkan konsentrasi puncak 200 mg/L, berapa lama (dalam jam) pasien harus menerima dosis berikutnya?</p>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 4:</strong> Suatu kultur bakteri di laboratorium tumbuh secara eksponensial. Jumlah awal bakteri adalah 1.000 sel. Diketahui konstanta laju pertumbuhan ($k$) adalah 1.4 per jam. Berapa waktu yang dibutuhkan (dalam jam) agar jumlah bakteri mencapai 5.000 sel? Gunakan rumus pertumbuhan: $N(t) = N_0 \cdot k^t$.</p>
+    </div>
+
+</div>
 	                </div>
 	              </div>
 	            </div>
