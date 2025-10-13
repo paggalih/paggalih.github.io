@@ -1433,13 +1433,13 @@
             <div class="trigger">
             <p> Bayangkan kamu diminta investasi 100 juta, lalu akan dikembalikan 30 juta di tahun pertama, 40 juta di tahun kedua, dan 50 juta di tahun ketiga.</p>
             </div>
-            <div class="mermadi text-center">
+            <div class="mermaid text-center">
             graph TD
-              a("penilaian investasi")-->a1("NPV<br>Net Present Value")
-              a-->a2("IRR<br> Internal Rate of Return")
-              a11{"NPV > 0"}-->|IYA|a111("UNTUNG")
+              a("penilaian investasi")-->a1("NPV<br>Net Present Value")-->a11{"NPV > 0"}-->|IYA|a111("UNTUNG")
+              a-->a2("IRR<br> Internal Rate of Return")-->a21{"IRR > bunga sekarang"}-->|IYA|a211("UNTUNG")
+              
               a11-->|TIDAK|a112("RUGI")
-              a21{"IRR > bunga sekarang"}-->|IYA|a211("UNTUNG")
+              
               a21-->|TIDAK|a212("RUGI")
 
             </div>
