@@ -25,7 +25,7 @@
 	  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
 
 	  <!-- =======================================================
 		* Template Name: MyResume
@@ -1403,115 +1403,86 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 7</h2>
 	        </div>
-            <div class="trigger">
-            <p>Distribusi Diskrit: Ini seperti menghitung jumlah kursi di sebuah ruangan. Anda bisa dapat 10 kursi, 11 kursi, tapi tidak mungkin ada 10,5 kursi. Datanya adalah bilangan bulat yang dapat dihitung. </p>
-<p> Distribusi Kontinu: Ini seperti mengukur tinggi badan seseorang. Tingginya bisa 170 cm, 170,1 cm, 170,15 cm, dan seterusnya. Datanya bisa mengambil nilai apapun dalam suatu rentang. </p>
-            </div>
+	        <div class="trigger">
+	          <p>Distribusi Diskrit: Ini seperti menghitung jumlah kursi di sebuah ruangan. Anda bisa dapat 10 kursi, 11 kursi, tapi tidak mungkin ada 10,5 kursi. Datanya adalah bilangan bulat yang dapat dihitung. </p>
+	          <p> Distribusi Kontinu: Ini seperti mengukur tinggi badan seseorang. Tingginya bisa 170 cm, 170,1 cm, 170,15 cm, dan seterusnya. Datanya bisa mengambil nilai apapun dalam suatu rentang. </p>
+	        </div>
+	        <div class="mermaid text-center">
+	          graph TD
+	          A[Mulai dengan Data] --> B{Identifikasi Tipe Variabel}
+	          B --> C[Diskrit = Bisa dihitung]
+	          B --> D[Kontinu = Bisa diukur]
+
+	          C --> E{Hanya ada 2 hasil?}
+	          E -->|Ya| F[Gunakan Distribusi Binomial]
+	          E --> |Tidak| G{Menghitung kejadian per interval?}
+	          G --> |Ya| H[Gunakan Distribusi Poisson]
+
+	          D --> J{Ukuran Sampel Besar >30 ?}
+	          J --> |Ya| K[Gunakan Distribusi Normal]
+	          J --> |Tidak| L[Gunakan Distribusi t]
+
+	          F --> Z[Analisis dan Kesimpulan]
+	          H --> Z
+	          K --> Z
+	          L --> Z
+	        </div>
+            <h4>Distribusi Binomial</h4>
+            <p>Bayangkan Anda sedang menendang penalti sebanyak 10 kali. Setiap tendangan hanya punya dua kemungkinan hasil: Gol (sukses) atau Gagal. Distribusi Binomial membantu kita menghitung probabilitas mendapatkan jumlah gol tertentu (misalnya, tepat 7 gol) dari 10 tendangan tersebut, dengan asumsi peluang gol di setiap tendangan selalu sama.</p>
             <div class="mermaid text-center">
-            graph TD
-    A[Mulai dengan Data] --> B{Identifikasi Tipe Variabel}
-    B --> C[Diskrit = Bisa dihitung]
-    B --> D[Kontinu = Bisa diukur]
+graph TD
+    A[Mulai: Punya Masalah Binomial] --> B{Identifikasi Parameter};
+    B --> C["n: Jumlah Percobaan<br/>(cth: 10 tendangan)"];
+    B --> D["p: Peluang Sukses<br/>(cth: 0.8 atau 80% gol)"];
+    B --> E["k: Jumlah Sukses yang Diinginkan<br/>(cth: tepat 7 gol)"];
+    C  --> F[Hitung Probabilitas di Excel];
+    D --> F[Hitung Probabilitas di Excel];
+    E --> F[Hitung Probabilitas di Excel];
 
-    C --> E{Hanya ada 2 hasil?}
-    E -->|Ya| F[Gunakan Distribusi Binomial]
-    E --> |Tidak| G{Menghitung kejadian per interval?}
-    G --> |Ya| H[Gunakan Distribusi Poisson]
-
-    D --> J{Ukuran Sampel Besar >30 ?}
-    J --> |Ya| K[Gunakan Distribusi Normal]
-    J --> |Tidak| L[Gunakan Distribusi t]
-
-    F --> Z[Analisis dan Kesimpulan]
-    H --> Z
-    K --> Z
-    L --> Z
+    F --> G["Gunakan Fungsi: =BINOM.DIST(k, n, p, FALSE)"];
+    G --> H[Hasil: Probabilitas mendapatkan k sukses];
             </div>
-<div style="font-family: Arial, sans-serif; border: 1px solid #ccc; padding: 16px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
+            <h4>Distribusi Poisson</h4>
+            <p>Bayangkan Anda bekerja di sebuah kafe dan menghitung berapa banyak pelanggan yang datang dalam satu jam. Rata-rata, ada 10 pelanggan per jam. Distribusi Poisson membantu Anda menghitung probabilitas jumlah pelanggan yang berbeda dari rata-rata, misalnya, kemungkinan hanya 5 pelanggan yang datang dalam satu jam, atau kemungkinan ada 15 pelanggan yang datang. Fokusnya adalah pada frekuensi kejadian dalam interval waktu atau ruang tertentu.</p>
+            <div class="mermaid text-center">
+graph TD
+    A[Mulai: Punya Masalah Poisson] --> B{Identifikasi Parameter};
+    B --> C["λ (lambda): Rata-rata kejadian per interval<br/>(cth: 10 pelanggan/jam)"];
+    B --> D["k: Jumlah kejadian yang diamati<br/>(cth: 5 pelanggan)"];
+    C & D --> E[Hitung Probabilitas di Excel];
+    E --> F["Gunakan Fungsi: =POISSON.DIST(k, λ, FALSE)"];
+    F --> G[Hasil: Probabilitas terjadi k kejadian];
+            </div>
+            <h4>Distribusi Normal</h4>
+            <p>Bayangkan nilai ujian di sebuah kelas besar. Sebagian besar siswa akan mendapat nilai di sekitar rata-rata (misalnya 75). Sangat sedikit siswa yang mendapat nilai sempurna (100) dan sangat sedikit pula yang mendapat nilai sangat rendah (misalnya 30). Jika digambarkan, sebaran nilai ini akan membentuk kurva lonceng yang simetris. Inilah distribusi normal.</p>
+            <div class="mermaid text-center">
+graph TD
+    A[Mulai: Data kontinu] --> B{Hitung Parameter Sampel};
+    B --> C["μ: Rata-rata (Mean)"];
+    B --> D[σ: Standar Deviasi];
+    C--> E{Standarisasi ke Z-score};
+     D --> E{Standarisasi ke Z-score};
 
-<h4>Panduan Analisis Distribusi di Excel</h4>
-<ol>
-<li><strong>Input Data Anda</strong>: Masukkan data mentah ke dalam kolom Excel.</li>
-<li>
-<strong>Distribusi Binomial</strong>: Gunakan fungsi <code>BINOM.DIST</code>.
-<ul>
-<li><strong>Fungsi</strong>: <code>=BINOM.DIST(jumlah_sukses, jumlah_percobaan, probabilitas_sukses, kumulatif)</code></li>
-<li><strong>Contoh</strong>: Peluang mendapat tepat 8 kepala dari 10 lemparan koin: <code>=BINOM.DIST(8, 10, 0.5, FALSE)</code></li>
-</ul>
-</li>
-<li>
-<strong>Distribusi Poisson</strong>: Gunakan fungsi <code>POISSON.DIST</code>.
-<ul>
-<li><strong>Fungsi</strong>: <code>=POISSON.DIST(jumlah_kejadian, rata_rata, kumulatif)</code></li>
-<li><strong>Contoh</strong>: Rata-rata 5 email per jam. Peluang menerima tepat 3 email: <code>=POISSON.DIST(3, 5, FALSE)</code></li>
-</ul>
-</li>
-<li>
-<strong>Distribusi Normal</strong>: Gunakan fungsi <code>NORM.DIST</code>.
-<ul>
-<li><strong>Fungsi</strong>: <code>=NORM.DIST(nilai, rata_rata, st_deviasi, kumulatif)</code></li>
-<li><strong>Contoh</strong>: IQ berdistribusi normal (rata-rata=100, st.dev=15). Peluang seseorang memiliki IQ di bawah 120: <code>=NORM.DIST(120, 100, 15, TRUE)</code></li>
-</ul>
-</li>
-<li>
-<strong>Distribusi t</strong>: Gunakan fungsi <code>T.DIST</code>.
-<ul>
-<li><strong>Fungsi</strong>: <code>=T.DIST.2T(nilai_t, derajat_kebebasan)</code> untuk uji dua-arah.</li>
-<li><strong>Contoh</strong>: Dari sampel 20 data, didapat t-statistik 2.1. Nilai p-value dua-arahnya: <code>=T.DIST.2T(2.1, 19)</code></li>
-</ul>
-</li>
-</ol>
-</div>
-          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/aplikasi-statistik/kelulusan-ujian.csv"><button>Unduh CSV </button></a>
-          <div class="overflow-auto" id="tabel-kelulusan-ujian"></div>
-          <script>
-            fetch('kelulusan-ujian.csv')
-                .then(res => res.text())
-                .then(csvText => {
-                    Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true, 
-                        complete: function (results) {
-                            const headers = results.meta.fields;
-                            const dataRows = results.data;  
-                            if (dataRows.length === 0) return;
+    E --> F[Hitung Peluang di Excel];
+    F --> G["Gunakan Fungsi: =NORM.DIST(x, μ, σ, TRUE)"];
+    G --> H["Hasil: Probabilitas kumulatif P(X ≤ x)"];
+            </div>
+            <h4>Distribusi t</h4>
+            <p>Distribusi t adalah "sepupu" dari distribusi normal yang lebih berhati-hati. Bayangkan Anda ingin tahu rasa sup dalam panci besar (populasi), tapi Anda hanya boleh mencicipi satu sendok kecil (sampel kecil, misal n &lt; 30). Karena sampel Anda kecil, Anda kurang yakin apakah rasa satu sendok itu benar-benar mewakili seluruh panci. Distribusi t memperhitungkan ketidakpastian ini dengan memiliki "ekor" kurva yang lebih tebal, artinya ia memberikan kemungkinan lebih pada nilai-nilai ekstrem. Semakin besar sampel Anda (semakin banyak sendok yang Anda cicipi), distribusi t akan semakin mirip dengan distribusi normal.</p>
+              <div class="mermaid text-center">
+            graph TD
+    A["Mulai: Sampel data kecil (n &lt; 30)"] --> B{"Rumuskan Hipotesis Nol (H₀)"};
+    B --> C["Hitung Rata-rata (x̄) & Stdev Sampel (s)"];
+    C --> D{Hitung t-statistik};
+    D --> E[Bandingkan dengan Nilai Kritis t atau Hitung p-value];
+    E --> F{Buat Keputusan Statistik};
+    F --> G[Tolak H₀ atau Gagal Tolak H₀];
+            </div>
+            <h3>Latihan</h3>
+            <p>Sebuah pabrik mengklaim bahwa produk cacat mereka tidak lebih dari 5%. Seorang quality control mengambil 50 sampel secara acak untuk diuji. Data berikut adalah hasilnya (1 = Cacat, 0 = Baik).</p>
+            <p>Pertanyaan: Dengan data di bawah dan tingkat kepercayaan 95%, apakah klaim pabrik (bahwa produk cacat ≤ 5%) dapat dipercaya?</p>
+            <code> DATA "0","0","0","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0","1","0","0","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0"</code>
             
-                            let html = `<table class="table table-striped text-center" id="datatable-kelulusan-ujian">`;
-            
-                            html += '<thead><tr>';
-                            headers.forEach(header => {
-                                html += `<th>${header}</th>`;
-                            });
-                            html += '</tr></thead>';
-            
-                            html += '<tbody>';
-                            dataRows.forEach(row => {
-                                html += '<tr>';
-                                headers.forEach(header => {
-                                    const cell = row[header];
-                                    html += `<td>${cell}</td>`;
-                                });
-                                html += '</tr>';
-                            });
-                            html += '</tbody>';
-            
-                            html += '</table>';
-                            document.getElementById("tabel-kelulusan-ujian").innerHTML = html;
-            
-                            $(document).ready(function () {
-                                $('#datatable-kelulusan-ujian').DataTable({
-                                    paging: true,
-                                    searching: true,
-                                    scrollX: true,
-                                          pageLength: 5,
-                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-            
-                                });
-                            });
-                        }
-                    });
-                });
-          </script>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp7">
 
