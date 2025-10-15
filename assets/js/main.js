@@ -617,8 +617,110 @@ document.addEventListener('DOMContentLoaded', function() {
     }
 });
 
+document.addEventListener('DOMContentLoaded', function () {
+    // Temukan semua elemen mermaid di halaman
+    const mermaidElements = document.querySelectorAll('.mermaid');
 
+    // Terapkan fungsionalitas zoom ke setiap elemen
+    mermaidElements.forEach(mermaidEl => {
+        // --- 1. Terapkan gaya yang diperlukan ke div mermaid ---
+        mermaidEl.style.position = 'relative'; // Diperlukan agar tombol bisa diposisikan
+        mermaidEl.style.overflow = 'hidden';   // Sembunyikan bagian diagram yang di-zoom
+        mermaidEl.style.cursor = 'grab';       // Ubah kursor untuk menandakan bisa digeser
 
+        // Variabel untuk menyimpan state zoom dan posisi
+        let scale = 1;
+        let panning = false;
+        let pointX = 0;
+        let pointY = 0;
+        let start = { x: 0, y: 0 };
 
+        function setTransform() {
+            // Kita menargetkan elemen SVG di dalam div mermaid untuk transformasi
+            const svg = mermaidEl.querySelector('svg');
+            if (svg) {
+                svg.style.transformOrigin = '0 0';
+                svg.style.transform = `translate(${pointX}px, ${pointY}px) scale(${scale})`;
+            }
+        }
 
+        // --- 2. Buat dan tambahkan tombol ---
+        const controlsContainer = document.createElement('div');
+        controlsContainer.className = 'mermaid-zoom-controls';
 
+        const zoomInButton = document.createElement('button');
+        zoomInButton.className = 'mermaid-zoom-btn';
+        zoomInButton.innerText = '+';
+
+        const resetButton = document.createElement('button');
+        resetButton.className = 'mermaid-zoom-btn';
+        resetButton.innerText = '⟲'; // Simbol reset
+
+        controlsContainer.appendChild(zoomInButton);
+        controlsContainer.appendChild(resetButton);
+        mermaidEl.appendChild(controlsContainer);
+
+        // --- 3. Tambahkan event listener untuk tombol ---
+        zoomInButton.addEventListener('click', (e) => {
+            e.stopPropagation(); // Hentikan event agar tidak memicu panning
+            scale *= 1.2;
+            setTransform();
+        });
+
+        resetButton.addEventListener('click', (e) => {
+            e.stopPropagation();
+            scale = 1;
+            pointX = 0;
+            pointY = 0;
+            setTransform();
+        });
+        
+        // --- 4. Tambahkan event listener untuk Panning (Geser) ---
+        mermaidEl.addEventListener('mousedown', (e) => {
+            e.preventDefault();
+            start = { x: e.clientX - pointX, y: e.clientY - pointY };
+            panning = true;
+            mermaidEl.style.cursor = 'grabbing';
+        });
+
+        mermaidEl.addEventListener('mouseup', () => {
+            panning = false;
+            mermaidEl.style.cursor = 'grab';
+        });
+        
+        mermaidEl.addEventListener('mouseleave', () => {
+            panning = false;
+            mermaidEl.style.cursor = 'grab';
+        });
+
+        mermaidEl.addEventListener('mousemove', (e) => {
+            if (!panning) return;
+            e.preventDefault();
+            pointX = (e.clientX - start.x);
+            pointY = (e.clientY - start.y);
+            setTransform();
+        });
+        
+        // --- 5. Tambahkan event listener untuk Zoom Scroll Mouse ---
+        mermaidEl.addEventListener('wheel', (e) => {
+            e.preventDefault();
+            const delta = e.deltaY > 0 ? -1 : 1;
+            const zoomSpeed = 0.2;
+            const newScale = scale + delta * zoomSpeed;
+
+            // Batasi zoom agar tidak terlalu kecil atau besar
+            if (newScale > 0.5 && newScale < 5) {
+                const svgRect = mermaidEl.querySelector('svg').getBoundingClientRect();
+                const xs = (e.clientX - svgRect.left - pointX) / scale;
+                const ys = (e.clientY - svgRect.top - pointY) / scale;
+                
+                scale = newScale;
+                
+                pointX = e.clientX - svgRect.left - xs * scale;
+                pointY = e.clientY - svgRect.top - ys * scale;
+                
+                setTransform();
+            }
+        });
+    });
+});
