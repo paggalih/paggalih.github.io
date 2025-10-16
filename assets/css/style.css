@@ -1584,13 +1584,25 @@ section {
 	      box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Bayangan halus untuk efek 3D */
 	    }
 	    
-	    /* Menambahkan ikon '💡' sebelum teks untuk memperjelas fungsinya sebagai pemicu ide */
-	    .trigger::before {
-	      content: '💡'; /* Anda bisa ganti dengan emoji lain seperti '👉' atau 'ℹ️' */
-	      margin-right: 15px; /* Jarak antara ikon dan teks */
-	      font-size: 1.5rem; /* Ukuran ikon */
-	      vertical-align: middle; /* Menyelaraskan ikon dengan teks secara vertikal */
-	    }
+.trigger::before {
+  content: '💡'; 
+  font-size: 1.5rem; 
+
+  /* --- Bagian Kunci untuk Posisi Menyembul --- */
+
+  /* 1. Angkat emoji dari alur dokumen */
+  position: absolute;
+
+  /* 2. Posisikan tepi KANAN emoji di tepi KIRI kotak .trigger */
+  right: 100%; 
+
+  /* 3. Beri jarak 10px antara emoji dan kotak */
+  margin-right: 10px; 
+
+  /* 4. Atur posisi vertikal agar persis di tengah */
+  top: 0%;
+  transform: translateY(-0%);
+}
 
 		.dt-length {display:none;}
 
