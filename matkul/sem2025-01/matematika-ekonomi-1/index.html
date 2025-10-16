@@ -838,15 +838,16 @@
 	        </div>
 	        <div class="mermaid text-center">
 
-              graph TD
-              a("Anuitas dan NPV")-->a1("Anuitas<br>Cicilan<br>Pembayaran")
-              a-->a2("NPV<br>Net Present Value")
-              a1-->a11("Anuitas Biasa")-->a111("Langganan Netflix")
-              a1-->a12("Anuitas Jatuh Tempo")-->a121("Kontrak Rumah")
-              a1-->a13("Anuitas Ditunda")-->a121("Dana Pensiun")
-              a2-->a21("PV=Present Value")
-              a2-->a22("FV=Future Value")
-              a21-->a211("Menilai Investasi")
+	          graph TD
+	          a("Anuitas dan NPV")-->a1("Anuitas<br>Cicilan<br>Pembayaran")
+	          a-->a2("NPV<br>Net Present Value")
+	          a1-->a11("Anuitas Biasa")-->a111("Langganan Netflix")
+	          a1-->a12("Anuitas Jatuh Tempo")-->a121("Kontrak Rumah")
+	          a1-->a13("Anuitas Ditunda")-->a131("Dana Pensiun")
+	          a2-->a21("PV<br>Present Value")
+	          a2-->a22("FV<br>Future Value")
+	          a21-->a211("Menilai Investasi")
+              a22-->a211
 	        </div>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp7">
