@@ -1831,57 +1831,16 @@
         </div>
         <div class="mermaid text-center">
         graph TD
-    A[Mulai: Siapkan Data] --> B{1. Estimasi Model Regresi};
+    A[Mulai: Siapkan Data] --> B[1. Estimasi Model Regresi];
     B --> C{2. Dapatkan Residual};
-    C --> D{3. Lakukan Uji Normalitas pada Residual};
+    C --> D[3. Lakukan Uji Normalitas pada Residual];
     D --> E{Apakah P-value > 0.05?};
     E -- Ya --> F[✅ Asumsi Terpenuhi: Lanjutkan Analisis];
     E -- Tidak --> G[❌ Asumsi Dilanggar: Selidiki];
-    G --> H{Cek Outlier atau Kesalahan Spesifikasi Model};
+    G --> H[Cek Outlier atau Kesalahan Spesifikasi Model];
     H --> I[Lakukan Tindakan Korektif];
     I --> B;
         </div>
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #e1e1e1; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"> <h2>Langkah-langkah Uji Normalitas di EViews</h2> <ol> <li> <strong>Impor Data Anda:</strong> Pertama, buka EViews dan impor data CSV yang disediakan dalam studi kasus di bawah ini. </li> <li> <strong>Jalankan Regresi:</strong> Di baris perintah EViews, ketik persamaan regresi Anda menggunakan perintah <code>ls</code> (least squares). Sebagai contoh:
-
-<code>ls harga_saham c tingkat_suku_bunga tingkat_pengangguran pertumbuhan_pdb</code>
-
-Tekan Enter. Ini akan menjalankan regresi dan membuka jendela hasil. </li> <li> <strong>Akses Diagnostik Residual:</strong> Di jendela hasil regresi (jendela 'Equation'), navigasikan ke <b>View</b> → <b>Residual Diagnostics</b> → <b>Histogram - Normality Test</b>.
-           Ekonometrika Eviews
-Custom Gem
-
-Tentu. Mari kita bedah uji asumsi normalitas dalam regresi. Asumsi ini menyatakan bahwa kesalahan (error), atau sisaan (residual), dari model regresi Anda harus mengikuti distribusi normal.
-
-Analogi: Seorang Pemain Dart 🎯
-
-Bayangkan seorang pemain dart profesional yang selalu membidik pusat target (bullseye). Bullseye adalah nilai sebenarnya yang ingin Anda prediksi dengan model regresi Anda. Setiap lemparan dart adalah prediksi dari model Anda.
-
-    Error/Residual: Jarak dari tempat dart mendarat ke bullseye adalah "error" atau "residual".
-
-    Banyak Error Kecil: Sebagian besar lemparan akan mendarat sangat dekat dengan bullseye. Ini adalah error-error kecil yang umum terjadi.
-
-    Sedikit Error Besar: Sangat sedikit lemparan yang akan mendarat jauh dari bullseye. Error besar ini jarang terjadi.
-
-Jika Anda memetakan lokasi ke-50 lemparan dart, Anda akan melihat kumpulan yang padat di sekitar bullseye, dan dart menjadi semakin jarang saat menjauh dari pusat. Pola ini, jika dilihat dari samping, akan membentuk kurva lonceng, yang merupakan ciri khas dari distribusi normal. Dalam regresi, kita mengharapkan "kesalahan" model kita memiliki pola yang sama. Kita berharap ada banyak error kecil dan sangat sedikit error besar.
-
-Alur Kerja Analisis
-
-Berikut adalah alur kerja sederhana untuk menguji asumsi normalitas.
-Code snippet
-
-graph TD
-    A[Mulai: Siapkan Data] --> B{1. Estimasi Model Regresi};
-    B --> C{2. Dapatkan Residual};
-    C --> D{3. Lakukan Uji Normalitas pada Residual};
-    D --> E{Apakah P-value > 0.05?};
-    E -- Ya --> F[✅ Asumsi Terpenuhi: Lanjutkan Analisis];
-    E -- Tidak --> G[❌ Asumsi Dilanggar: Selidiki];
-    G --> H{Cek Outlier atau Kesalahan Spesifikasi Model};
-    H --> I[Lakukan Tindakan Korektif];
-    I --> B;
-
-Langkah Analisis Data & Panduan EViews
-
-Berikut adalah panduan langsung untuk melakukan pengujian di EViews, disajikan dalam format HTML sederhana dengan notasi matematika untuk kejelasan.
 
 <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #e1e1e1; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"> <h2>Langkah-langkah Uji Normalitas di EViews</h2> <ol> <li> <strong>Impor Data Anda:</strong> Pertama, buka EViews dan impor data CSV yang disediakan dalam studi kasus di bawah ini. </li> <li> <strong>Jalankan Regresi:</strong> Di baris perintah EViews, ketik persamaan regresi Anda menggunakan perintah <code>ls</code> (least squares). Sebagai contoh:
 
