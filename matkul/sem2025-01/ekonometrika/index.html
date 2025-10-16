@@ -746,7 +746,7 @@
                   paging: true,
                   searching: true,
                   scrollX: true,
-        pageLength: 5,
+                  pageLength: 5,
           	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
           
                 });
@@ -797,7 +797,7 @@
                   paging: true,
                   searching: true,
                   scrollX: true,
-        pageLength: 5,
+                  pageLength: 5,
           	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
           
                 });
@@ -1538,294 +1538,558 @@
           <h2>Pertemuan 5</h2>
         </div>
         <div class="trigger">
-<h3>Apa Itu Heteroskedastisitas? Sebuah Analogi Sederhana</h3>
+          <h3>Apa Itu Heteroskedastisitas? Sebuah Analogi Sederhana</h3>
 
-<p>Bayangkan Anda seorang pelatih anjing yang sedang mengajari anjing dari berbagai ras untuk menangkap bola.</p>
+          <p>Bayangkan Anda seorang pelatih anjing yang sedang mengajari anjing dari berbagai ras untuk menangkap bola.</p>
 
-    <p>Homoskedastisitas (Kondisi Ideal): Jika Anda melempar bola dengan kekuatan yang sama setiap saat, semua anjing (baik Chihuahua, Beagle, maupun Golden Retriever) akan berlari dan menangkapnya dengan tingkat kesalahan (error) yang kira-kira sama. Jarak bola jatuh dari mulut mereka konsisten. Ini seperti homoskedastisitas, di mana varians dari error regresi Anda konstan di seluruh level variabel independen. Prediksi Anda sama baiknya untuk nilai kecil maupun besar.</p>
+          <p>Homoskedastisitas (Kondisi Ideal): Jika Anda melempar bola dengan kekuatan yang sama setiap saat, semua anjing (baik Chihuahua, Beagle, maupun Golden Retriever) akan berlari dan menangkapnya dengan tingkat kesalahan (error) yang kira-kira sama. Jarak bola jatuh dari mulut mereka konsisten. Ini seperti homoskedastisitas, di mana varians dari error regresi Anda konstan di seluruh level variabel independen. Prediksi Anda sama baiknya untuk nilai kecil maupun besar.</p>
 
-    <p>Heteroskedastisitas (Masalah Muncul): Sekarang, bayangkan Anda meningkatkan kekuatan lemparan. Untuk anjing kecil seperti Chihuahua, kesalahan tangkapannya mungkin tetap kecil. Tapi untuk anjing besar seperti Golden Retriever, kesalahan tangkapannya menjadi sangat bervariasi; kadang tepat di mulut, kadang meleset jauh. Semakin kuat lemparan Anda (variabel independen), semakin tidak terduga dan semakin lebar sebaran kesalahannya (error). Inilah heteroskedastisitas. Varians dari error regresi Anda berubah seiring perubahan nilai variabel independen. Akibatnya, prediksi model Anda menjadi kurang bisa diandalkan pada level tertentu.</p>
+          <p>Heteroskedastisitas (Masalah Muncul): Sekarang, bayangkan Anda meningkatkan kekuatan lemparan. Untuk anjing kecil seperti Chihuahua, kesalahan tangkapannya mungkin tetap kecil. Tapi untuk anjing besar seperti Golden Retriever, kesalahan tangkapannya menjadi sangat bervariasi; kadang tepat di mulut, kadang meleset jauh. Semakin kuat lemparan Anda (variabel independen), semakin tidak terduga dan semakin lebar sebaran kesalahannya (error). Inilah heteroskedastisitas. Varians dari error regresi Anda berubah seiring perubahan nilai variabel independen. Akibatnya, prediksi model Anda menjadi kurang bisa diandalkan pada level tertentu.</p>
 
-<p>Singkatnya, heteroskedastisitas adalah kondisi di mana sebaran (varians) dari residual atau error dalam model regresi tidak konstan. Ini melanggar salah satu asumsi penting dari regresi Ordinary Least Squares (OLS), yang dapat membuat hasil uji signifikansi (uji-t dan uji-F) menjadi tidak valid.</p>
+          <p>Singkatnya, heteroskedastisitas adalah kondisi di mana sebaran (varians) dari residual atau error dalam model regresi tidak konstan. Ini melanggar salah satu asumsi penting dari regresi Ordinary Least Squares (OLS), yang dapat membuat hasil uji signifikansi (uji-t dan uji-F) menjadi tidak valid.</p>
         </div>
         <div class="mermaid text-center">
-flowchart TD
- subgraph Deteksi["Deteksi"]
-    direction LR
-        D1("Uji Glejser")
-        D2("Uji Park")
-        D3("Uji White")
-  end
-    A["Mulai: Model Regresi Awal"] --> B("Estimasi Model OLS")
-    B --> C("Dapatkan Residual")
-    C --> D{"Uji Heteroskedastisitas"} & D1 & D2 & D3
-    D -- Ada Heteroskedastisitas --> E["Pilih Metode Penanganan"]
-    D -- Tidak Ada Heteroskedastisitas --> F["Selesai: Model Valid"]
-    E --> G("Metode 1: Gunakan White's Robust Standard Errors" ) & H["Metode 2: Transformasi Variabel - Log, Box-Cox"]
-    G --> I["Estimasi Ulang Model dengan Robust SE"]
-    H --> J["Estimasi Ulang Model dengan Variabel Transformasi"]
-    I --> K["Selesai: Uji Signifikansi Valid"]
-    J --> K
+          flowchart TD
+          subgraph Deteksi["Deteksi"]
+          direction LR
+          D1("Uji Glejser")
+          D2("Uji Park")
+          D3("Uji White")
+          end
+          A["Mulai: Model Regresi Awal"] --> B("Estimasi Model OLS")
+          B --> C("Dapatkan Residual")
+          C --> D{"Uji Heteroskedastisitas"} & D1 & D2 & D3
+          D -- Ada Heteroskedastisitas --> E["Pilih Metode Penanganan"]
+          D -- Tidak Ada Heteroskedastisitas --> F["Selesai: Model Valid"]
+          E --> G("Metode 1: Gunakan White's Robust Standard Errors" ) & H["Metode 2: Transformasi Variabel - Log, Box-Cox"]
+          G --> I["Estimasi Ulang Model dengan Robust SE"]
+          H --> J["Estimasi Ulang Model dengan Variabel Transformasi"]
+          I --> K["Selesai: Uji Signifikansi Valid"]
+          J --> K
 
-          </div>
-  <h3>Langkah 1: Estimasi Model Regresi Awal (OLS)</h3>
-  <div class="step">
-    <p>Pertama, estimasi model regresi linear Anda. Asumsikan model Anda adalah:</p>
-    <p>
-      $Y=β0​+β1​X1​+β2​X2​+β3​X3​+ϵ$
+        </div>
+        <h3>Langkah 1: Estimasi Model Regresi Awal (OLS)</h3>
+        <div class="step">
+          <p>Pertama, estimasi model regresi linear Anda. Asumsikan model Anda adalah:</p>
+          <p>
+            $Y=β0​+β1​X1​+β2​X2​+β3​X3​+ϵ$
 
-    </p>
-    <p>Di EViews, buka window <b>Quick > Estimate Equation</b>. Masukkan persamaan Anda, contohnya: <code>y c x1 x2 x3</code>. Biarkan metodenya <b>LS - Least Squares (NLS and ARMA)</b>. Klik OK.</p>
-  </div>
+          </p>
+          <p>Di EViews, buka window <b>Quick > Estimate Equation</b>. Masukkan persamaan Anda, contohnya: <code>y c x1 x2 x3</code>. Biarkan metodenya <b>LS - Least Squares (NLS and ARMA)</b>. Klik OK.</p>
+        </div>
 
-  <h3>Langkah 2: Lakukan Uji Heteroskedastisitas</h3>
-  <div class="step">
-    <p>Setelah jendela hasil regresi (Equation) muncul, lakukan langkah berikut:</p>
-    <ol>
-      <li>Klik <b>View > Residual Diagnostics > Heteroskedasticity Tests</b>.</li>
-      <li>Pilih salah satu metode uji yang umum digunakan, misalnya <b>White</b>.</li>
-      <li>Pada dialog selanjutnya, Anda bisa memilih untuk menyertakan <i>cross terms</i> atau tidak. Opsi default (tanpa <i>cross terms</i>) sudah cukup untuk permulaan. Klik OK.</li>
-    </ol>
-  </div>
+        <h3>Langkah 2: Lakukan Uji Heteroskedastisitas</h3>
+        <div class="step">
+          <p>Setelah jendela hasil regresi (Equation) muncul, lakukan langkah berikut:</p>
+          <ol>
+            <li>Klik <b>View > Residual Diagnostics > Heteroskedasticity Tests</b>.</li>
+            <li>Pilih salah satu metode uji yang umum digunakan, misalnya <b>White</b>.</li>
+            <li>Pada dialog selanjutnya, Anda bisa memilih untuk menyertakan <i>cross terms</i> atau tidak. Opsi default (tanpa <i>cross terms</i>) sudah cukup untuk permulaan. Klik OK.</li>
+          </ol>
+        </div>
 
-  <h3>Langkah 3: Interpretasi Hasil Uji</h3>
-  <div class="step">
-    <p>Anda akan melihat output "Heteroskedasticity Test: White". Perhatikan nilai <b>Prob. Chi-Square(k)</b> (dimana k adalah jumlah derajat kebebasan).</p>
-    <ul>
-      <li><b>Jika Prob. > 0.05</b>: Gagal menolak hipotesis nol. Artinya, <b>tidak ada</b> masalah heteroskedastisitas.</li>
-      <li><b>Jika Prob. < 0.05</b>: Menolak hipotesis nol. Artinya, <b>terdapat</b> masalah heteroskedastisitas yang signifikan dalam model Anda.</li>
-    </ul>
-  </div>
+        <h3>Langkah 3: Interpretasi Hasil Uji</h3>
+        <div class="step">
+          <p>Anda akan melihat output "Heteroskedasticity Test: White". Perhatikan nilai <b>Prob. Chi-Square(k)</b> (dimana k adalah jumlah derajat kebebasan).</p>
+          <ul>
+            <li><b>Jika Prob. > 0.05</b>: Gagal menolak hipotesis nol. Artinya, <b>tidak ada</b> masalah heteroskedastisitas.</li>
+            <li><b>Jika Prob. < 0.05</b>: Menolak hipotesis nol. Artinya, <b>terdapat</b> masalah heteroskedastisitas yang signifikan dalam model Anda.</li>
+          </ul>
+        </div>
 
-  <h3>Langkah 4: Penanganan Heteroskedastisitas (Jika Terdeteksi)</h3>
-  <div class="step">
-    <p>Jika uji menunjukkan adanya heteroskedastisitas, solusi paling praktis dan umum adalah menggunakan <b>Robust Standard Errors (White)</b>.</p>
-    <ol>
-      <li>Kembali ke jendela estimasi awal (<b>Quick > Estimate Equation</b>) atau klik <b>Estimate</b> di jendela output regresi Anda.</li>
-      <li>Masukkan lagi persamaan Anda: <code>y c x1 x2 x3</code>.</li>
-      <li>Klik pada tab <b>Options</b>.</li>
-      <li>Pada bagian <i>Coefficient covariance matrix</i>, pilih <b>White</b> dari dropdown menu.</li>
-      <li>Klik OK.</li>
-    </ol>
-    <p>Hasil regresi yang baru akan menampilkan nilai koefisien yang sama, tetapi <i>standard error</i>, <i>t-statistic</i>, dan <i>p-value</i> akan disesuaikan (robust), membuat inferensi statistik Anda menjadi valid kembali.</p>
-    <h3>Selanjutnya silahkan berlatih dan mengerjakan tiga kasus di bawah ini.</h3>
-<h4>Kasus 1: Pengaruh Iklan, Sales, dan Diskon terhadap Penjualan</h4>
+        <h3>Langkah 4: Penanganan Heteroskedastisitas (Jika Terdeteksi)</h3>
+        <div class="step">
+          <p>Jika uji menunjukkan adanya heteroskedastisitas, solusi paling praktis dan umum adalah menggunakan <b>Robust Standard Errors (White)</b>.</p>
+          <ol>
+            <li>Kembali ke jendela estimasi awal (<b>Quick > Estimate Equation</b>) atau klik <b>Estimate</b> di jendela output regresi Anda.</li>
+            <li>Masukkan lagi persamaan Anda: <code>y c x1 x2 x3</code>.</li>
+            <li>Klik pada tab <b>Options</b>.</li>
+            <li>Pada bagian <i>Coefficient covariance matrix</i>, pilih <b>White</b> dari dropdown menu.</li>
+            <li>Klik OK.</li>
+          </ol>
+          <p>Hasil regresi yang baru akan menampilkan nilai koefisien yang sama, tetapi <i>standard error</i>, <i>t-statistic</i>, dan <i>p-value</i> akan disesuaikan (robust), membuat inferensi statistik Anda menjadi valid kembali.</p>
+          <h3>Selanjutnya silahkan berlatih dan mengerjakan tiga kasus di bawah ini.</h3>
+          <h4>Kasus 1: Pengaruh Iklan, Sales, dan Diskon terhadap Penjualan</h4>
 
-    <p>Sebuah perusahaan ingin mengetahui bagaimana pengeluaran iklan (dalam jutaan rupiah), jumlah tenaga penjualan, dan rata-rata diskon (%) mempengaruhi total penjualan (dalam ribuan unit). Diduga, pada tingkat iklan yang sangat tinggi, variabilitas penjualan menjadi lebih besar.</p>
+          <p>Sebuah perusahaan ingin mengetahui bagaimana pengeluaran iklan (dalam jutaan rupiah), jumlah tenaga penjualan, dan rata-rata diskon (%) mempengaruhi total penjualan (dalam ribuan unit). Diduga, pada tingkat iklan yang sangat tinggi, variabilitas penjualan menjadi lebih besar.</p>
 
-   <p> Variabel:
+          <p> Variabel:
 
-        Y: Penjualan
+            Y: Penjualan
 
-        X1: Iklan
+            X1: Iklan
 
-        X2: Salesperson
+            X2: Salesperson
 
-        X3: Diskon</p>
+            X3: Diskon</p>
 
-<h5>Data CSV (Kasus 1):</h5>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-1.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-hetero-1"></div>
-        <script>
-          fetch('hetero-1.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-hetero-1">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-hetero-1").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-hetero-1').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                                          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          <h5>Data CSV (Kasus 1):</h5>
+          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-1.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-hetero-1"></div>
+          <script>
+            fetch('hetero-1.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-hetero-1">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-hetero-1").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-hetero-1').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          <h4>Kasus 2: Dampak Edukasi, Pengalaman, dan Usia terhadap Pendapatan</h4>
 
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-<h4>Kasus 2: Dampak Edukasi, Pengalaman, dan Usia terhadap Pendapatan</h4>
+          <p>Seorang ekonom menganalisis bagaimana lama pendidikan (dalam tahun), pengalaman kerja (dalam tahun), dan usia mempengaruhi pendapatan tahunan (dalam puluhan juta rupiah). Hipotesisnya adalah variabilitas pendapatan jauh lebih tinggi bagi individu dengan tingkat pendidikan dan pengalaman yang sangat tinggi.</p>
 
-    <p>Seorang ekonom menganalisis bagaimana lama pendidikan (dalam tahun), pengalaman kerja (dalam tahun), dan usia mempengaruhi pendapatan tahunan (dalam puluhan juta rupiah). Hipotesisnya adalah variabilitas pendapatan jauh lebih tinggi bagi individu dengan tingkat pendidikan dan pengalaman yang sangat tinggi.</p>
+          <p>Variabel:
 
-    <p>Variabel:
+            Y: Pendapatan
 
-        Y: Pendapatan
+            X1: Pendidikan
 
-        X1: Pendidikan
+            X2: Pengalaman
 
-        X2: Pengalaman
+            X3: Usia</p>
 
-        X3: Usia</p>
+          <h5>Data CSV (Kasus 2):</h5>
+          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-2.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-hetero-2"></div>
+          <script>
+            fetch('hetero-2.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-hetero-2">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-hetero-2").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-hetero-2').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          <h4>Kasus 3: Analisis Faktor yang Mempengaruhi Harga Rumah</h4>
 
-<h5>Data CSV (Kasus 2):</h5>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-2.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-hetero-2"></div>
-        <script>
-          fetch('hetero-2.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-hetero-2">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-hetero-2").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-hetero-2').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                                          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          <p>Seorang analis real estat memodelkan harga rumah (dalam ratusan juta rupiah) berdasarkan luas bangunan (m²), jumlah kamar tidur, dan skor kelayakan lokasi (1-10). Ada asumsi bahwa variasi harga jauh lebih besar untuk rumah yang sangat luas di lokasi premium.</p>
 
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-<h4>Kasus 3: Analisis Faktor yang Mempengaruhi Harga Rumah</h4>
+          <p>Variabel:
 
-    <p>Seorang analis real estat memodelkan harga rumah (dalam ratusan juta rupiah) berdasarkan luas bangunan (m²), jumlah kamar tidur, dan skor kelayakan lokasi (1-10). Ada asumsi bahwa variasi harga jauh lebih besar untuk rumah yang sangat luas di lokasi premium.</p>
+            Y: Harga
 
-    <p>Variabel:
+            X1: Luas
 
-        Y: Harga
+            X2: Kamar
 
-        X1: Luas
+            X3: Lokasi</p>
 
-        X2: Kamar
-
-        X3: Lokasi</p>
-
-<h5>Data CSV (Kasus 3):</h5>
-       <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-3.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-hetero-3"></div>
-        <script>
-          fetch('hetero-3.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-hetero-3">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-hetero-3").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-hetero-3').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp5">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp5">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep5" aria-expanded="true" aria-controls="collapsep5">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep5" class="accordion-collapse collapse" aria-labelledby="headingp5" data-bs-parent="#accordionp5">
-                <div class="accordion-body">
+          <h5>Data CSV (Kasus 3):</h5>
+          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/hetero-3.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-hetero-3"></div>
+          <script>
+            fetch('hetero-3.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-hetero-3">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-hetero-3").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-hetero-3').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          <div class="container mt-5">
+            <div class="accordion" id="accordionp5">
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingp5">
+                  <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep5" aria-expanded="true" aria-controls="collapsep5">
+                    Soal Latihan
+                  </button>
+                </h2>
+                <div id="collapsep5" class="accordion-collapse collapse" aria-labelledby="headingp5" data-bs-parent="#accordionp5">
+                  <div class="accordion-body">
+                  </div>
                 </div>
               </div>
             </div>
           </div>
         </div>
-      </div>
     </section>
     <section id="p6">
       <div class="container aos-init aos-animate" data-aos="fade-up">
         <div class="section-title">
           <h2>Pertemuan 6</h2>
         </div>
+        <div class="trigger">
+        Error harus berdistribusi normal dengan rata-rata 0 untuk memastikan bahwa kesalahan-kesalahan kecil diperbolehkan dengan jumlah yang banyak di sekitar 0 tetapi kesalahan besar peluangnya dibuat sangat kecil.
+        </div>
+        <div class="mermaid text-center">
+        graph TD
+    A[Mulai: Siapkan Data] --> B{1. Estimasi Model Regresi};
+    B --> C{2. Dapatkan Residual};
+    C --> D{3. Lakukan Uji Normalitas pada Residual};
+    D --> E{Apakah P-value > 0.05?};
+    E -- Ya --> F[✅ Asumsi Terpenuhi: Lanjutkan Analisis];
+    E -- Tidak --> G[❌ Asumsi Dilanggar: Selidiki];
+    G --> H{Cek Outlier atau Kesalahan Spesifikasi Model};
+    H --> I[Lakukan Tindakan Korektif];
+    I --> B;
+        </div>
+        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #e1e1e1; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"> <h2>Langkah-langkah Uji Normalitas di EViews</h2> <ol> <li> <strong>Impor Data Anda:</strong> Pertama, buka EViews dan impor data CSV yang disediakan dalam studi kasus di bawah ini. </li> <li> <strong>Jalankan Regresi:</strong> Di baris perintah EViews, ketik persamaan regresi Anda menggunakan perintah <code>ls</code> (least squares). Sebagai contoh:
+
+<code>ls harga_saham c tingkat_suku_bunga tingkat_pengangguran pertumbuhan_pdb</code>
+
+Tekan Enter. Ini akan menjalankan regresi dan membuka jendela hasil. </li> <li> <strong>Akses Diagnostik Residual:</strong> Di jendela hasil regresi (jendela 'Equation'), navigasikan ke <b>View</b> → <b>Residual Diagnostics</b> → <b>Histogram - Normality Test</b>.
+           Ekonometrika Eviews
+Custom Gem
+
+Tentu. Mari kita bedah uji asumsi normalitas dalam regresi. Asumsi ini menyatakan bahwa kesalahan (error), atau sisaan (residual), dari model regresi Anda harus mengikuti distribusi normal.
+
+Analogi: Seorang Pemain Dart 🎯
+
+Bayangkan seorang pemain dart profesional yang selalu membidik pusat target (bullseye). Bullseye adalah nilai sebenarnya yang ingin Anda prediksi dengan model regresi Anda. Setiap lemparan dart adalah prediksi dari model Anda.
+
+    Error/Residual: Jarak dari tempat dart mendarat ke bullseye adalah "error" atau "residual".
+
+    Banyak Error Kecil: Sebagian besar lemparan akan mendarat sangat dekat dengan bullseye. Ini adalah error-error kecil yang umum terjadi.
+
+    Sedikit Error Besar: Sangat sedikit lemparan yang akan mendarat jauh dari bullseye. Error besar ini jarang terjadi.
+
+Jika Anda memetakan lokasi ke-50 lemparan dart, Anda akan melihat kumpulan yang padat di sekitar bullseye, dan dart menjadi semakin jarang saat menjauh dari pusat. Pola ini, jika dilihat dari samping, akan membentuk kurva lonceng, yang merupakan ciri khas dari distribusi normal. Dalam regresi, kita mengharapkan "kesalahan" model kita memiliki pola yang sama. Kita berharap ada banyak error kecil dan sangat sedikit error besar.
+
+Alur Kerja Analisis
+
+Berikut adalah alur kerja sederhana untuk menguji asumsi normalitas.
+Code snippet
+
+graph TD
+    A[Mulai: Siapkan Data] --> B{1. Estimasi Model Regresi};
+    B --> C{2. Dapatkan Residual};
+    C --> D{3. Lakukan Uji Normalitas pada Residual};
+    D --> E{Apakah P-value > 0.05?};
+    E -- Ya --> F[✅ Asumsi Terpenuhi: Lanjutkan Analisis];
+    E -- Tidak --> G[❌ Asumsi Dilanggar: Selidiki];
+    G --> H{Cek Outlier atau Kesalahan Spesifikasi Model};
+    H --> I[Lakukan Tindakan Korektif];
+    I --> B;
+
+Langkah Analisis Data & Panduan EViews
+
+Berikut adalah panduan langsung untuk melakukan pengujian di EViews, disajikan dalam format HTML sederhana dengan notasi matematika untuk kejelasan.
+
+<div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #e1e1e1; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);"> <h2>Langkah-langkah Uji Normalitas di EViews</h2> <ol> <li> <strong>Impor Data Anda:</strong> Pertama, buka EViews dan impor data CSV yang disediakan dalam studi kasus di bawah ini. </li> <li> <strong>Jalankan Regresi:</strong> Di baris perintah EViews, ketik persamaan regresi Anda menggunakan perintah <code>ls</code> (least squares). Sebagai contoh:
+
+<code>ls harga_saham c tingkat_suku_bunga tingkat_pengangguran pertumbuhan_pdb</code>
+
+Tekan Enter. Ini akan menjalankan regresi dan membuka jendela hasil. </li> <li> <strong>Akses Diagnostik Residual:</strong> Di jendela hasil regresi (jendela 'Equation'), navigasikan ke <b>View</b> → <b>Residual Diagnostics</b> → <b>Histogram - Normality Test</b>.
+
+    </li>
+    <li>
+        <strong>Interpretasikan Hasil:</strong> EViews akan menampilkan histogram dari residual beserta kotak statistik. Cari dua nilai kunci:
+        <ul>
+            <li><strong>Jarque-Bera:</strong> Ini adalah statistik uji.</li>
+            <li><strong>Probability:</strong> Ini adalah p-value yang terkait dengan statistik Jarque-Bera.</li>
+        </ul>
+        <p>Uji hipotesisnya disusun sebagai berikut:</p>
+        <p style="text-align: center;">$$H_0: \text{Residual terdistribusi secara normal.}$$</p>
+        <p style="text-align: center;">$$H_1: \text{Residual tidak terdistribusi secara normal.}$$</p>
+        <p><strong>Aturan Keputusan:</strong></p>
+        <ul>
+            <li>Jika <strong>Probability > 0.05</strong>, Anda tidak menolak hipotesis nol ($H_0$). Ini berarti residual terdistribusi normal, dan asumsi terpenuhi. </li>
+            <li>Jika <strong>Probability ≤ 0.05</strong>, Anda menolak hipotesis nol ($H_0$). Ini menunjukkan residual tidak terdistribusi normal, dan asumsi dilanggar. </li>
+        </ul>
+    </li>
+</ol>
+          </div>
+<hr>
+          <h4>Kasus 1: Faktor-faktor yang Mempengaruhi Harga Saham Perusahaan</h4>
+          <p>Kasus ini menguji bagaimana faktor makroekonomi memengaruhi harga saham suatu perusahaan.
+
+    <br>Y (Harga_Saham): Harga penutupan saham.
+
+    <br>X1 (Tingkat_Suku_Bunga): Tingkat suku bunga bank sentral yang berlaku (%).
+
+    <br>X2 (Tingkat_Pengangguran): Tingkat pengangguran nasional (%).
+
+    <br>X3 (Pertumbuhan_PDB): Tingkat pertumbuhan PDB kuartalan (%).</p>
+          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-normalitas-1.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-latihan-normalitas-1"></div>
+          <script>
+            fetch('latihan-normalitas-1.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-latihan-normalitas-1">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-latihan-normalitas-1").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-latihan-normalitas-1').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          <hr>
+          <h4>Kasus 2: Determinan Hasil Panen</h4>
+          <p>Kasus ini menyelidiki faktor-faktor yang mempengaruhi hasil panen tanaman tertentu.
+
+    <br>Y (Hasil_Panen): Hasil panen dalam ton per hektar.
+
+    <br>X1 (Curah_Hujan): Total curah hujan selama musim tanam (dalam mm).
+
+    <br>X2 (Pupuk): Jumlah pupuk yang digunakan (dalam kg per hektar).
+
+   <br> X3 (Sinar_Matahari): Rata-rata jam sinar matahari harian.</p>
+          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-normalitas-2.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-latihan-normalitas-2"></div>
+          <script>
+            fetch('latihan-normalitas-2.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-latihan-normalitas-2">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-latihan-normalitas-2").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-latihan-normalitas-2').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          <hr>
+          <h4>Kasus 3: Memprediksi Harga Rumah</h4>
+          <P>Kasus ini memodelkan harga rumah berdasarkan karakteristik fisiknya.
+
+    <br>Y (Harga): Harga jual rumah (dalam jutaan rupiah, disimulasikan sebagai ratusan ribu dolar).
+
+    <br>X1 (Luas_Bangunan): Luas rumah dalam meter persegi (disimulasikan sebagai sq. feet).
+
+   <br> X2 (Jumlah_Kamar): Jumlah kamar tidur.
+
+   <br> X3 (Usia_Rumah): Usia rumah dalam tahun.</P>
+          <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-normalitas-3.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-latihan-normalitas-3"></div>
+          <script>
+            fetch('latihan-normalitas-3.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-latihan-normalitas-3">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-latihan-normalitas-3").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-latihan-normalitas-3').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
         <div class="container mt-4">
           <div class="game-container">
             <h2 class="text-center">Game Statistik</h2>
