@@ -647,34 +647,16 @@ Jumlah mililiter susu (s)</p>
               <p>Dalam ekonomi, "Kopi Kebahagiaan" bisa berupa Laba Perusahaan, Kepuasan Konsumen (Utilitas), atau Jumlah Produksi. Sedangkan "gula" dan "susu" bisa berupa biaya iklan, harga barang, jumlah tenaga kerja, atau modal.</p>
             </div>
             <div class="mermaid text-center">
-mindmap
-  root((Turunan Parsial dalam Ekonomi))
-    Leibniz
-      "∂f/∂x"
-      "∂z/∂y"
-    Lagrange
-      "f_x"
-      "f_y"
-
-    Aplikasi Utama di Ekonomi
-      Teori Konsumen
-        Utilitas Marjinal (MU)
-          "Tambahan kepuasan dari konsumsi 1 unit barang tambahan"
-          "Jika U adalah fungsi dari x dan y"
-          "Maka MU_x adalah ∂U/∂x"
-        
-      Teori Produksi
-        Produk Marjinal (MP)
-          "Tambahan output dari 1 unit input tambahan tenaga kerja/modal"
-          "Jika Q adalah fungsi dari L dan K"
-          "Maka MP_L adalah ∂Q/∂L"
-        
-      Optimisasi
-        Maksimalisasi Laba dan Minimalisasi Biaya
-          "Mencari titik laba maksimum atau biaya minimum"
-          "Syarat: Turunan parsial dari semua variabel harus sama dengan 0"
-          "Contoh: ∂π/∂Q_1 sama dengan 0"
-          "Contoh: ∂π/∂Q_2 sama dengan 0"
+graph TD
+  a(("Turunan Parsial"))
+    a1("Leibniz<br>$∂f/∂x$<br>$∂z/∂y$")
+     a2("Lagrange<br>$f_x$<br>$f_y$")
+              a-->a1-->a2
+              a-->a2-->a1
+a-->a11("Teori Konsumen")-->a111("Fungsi Utilitas")
+a-->a21("Teori Produksi")-->a211("Fungsi Cobb-Douglas")
+       
+ 
 
             </div>
 
