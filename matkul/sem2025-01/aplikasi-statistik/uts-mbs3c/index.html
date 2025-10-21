@@ -331,59 +331,56 @@ Kasus: Dua mesin di pabrik sama-sama memproduksi baut dengan target panjang 5 cm
 
     Pertanyaan: Mesin mana yang lebih presisi (memiliki standar deviasi lebih kecil), meskipun mungkin rata-ratanya sama?
 	                </p>
-	                <code>
-"Mesin A (cm)","Mesin B (cm)"
-5.01,5.10
-4.99,4.90
-5.00,5.05
-5.02,5.15
-4.98,4.85
-5.01,5.08
-4.99,4.92
-5.00,5.03
-5.01,5.12
-4.99,4.88
-5.00,5.00
-5.02,5.18
-4.98,4.82
-5.01,5.07
-4.99,4.93
-5.00,5.01
-5.01,5.11
-4.99,4.89
-5.00,5.04
-5.02,5.16
-4.98,4.84
-5.01,5.09
-4.99,4.91
-5.00,5.02
-5.01,5.13
-4.99,4.87
-5.00,5.06
-5.02,5.17
-4.98,4.83
-5.01,5.08
-4.99,4.92
-5.00,5.03
-5.01,5.12
-4.99,4.88
-5.00,5.00
-5.02,5.18
-4.98,4.82
-5.01,5.07
-4.99,4.93
-5.00,5.01
-5.01,5.11
-4.99,4.89
-5.00,5.04
-5.02,5.16
-4.98,4.84
-5.01,5.09
-4.99,4.91
-5.00,5.02
-5.01,5.13
-4.99,4.87
-	                </code>
+          <a class="actions" href="uts-2d.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-uts-2d"></div>
+          <script>
+            fetch('uts-2d.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-uts-2d">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-uts-2d").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-uts-2d').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
 	              </div>
 	              <div id="soal2e" style='display:none;'>
 	                <p>
@@ -393,59 +390,56 @@ Kasus: Seorang investor membandingkan return saham bulanan (dalam %) dari dua pe
 
     Pertanyaan: Saham mana yang memberikan return rata-rata lebih tinggi? Saham mana yang lebih berisiko (memiliki standar deviasi lebih tinggi)?
 	                </p>
-	                <code>
-"Saham X (%)","Saham Y (%)"
-1.2,-0.5
--0.8,2.5
-2.5,1.0
-0.5,0.8
--1.5,3.0
-3.0,-1.0
-1.8,1.5
--0.2,0.2
-2.1,-0.8
-0.9,2.2
--1.1,3.5
-3.2,-1.2
-1.5,1.8
--0.5,0.5
-2.8,-0.1
-1.1,2.0
--0.9,3.1
-2.2,0.9
-0.8,-0.3
--1.2,2.8
-3.5,-1.5
-1.3,1.3
--0.6,0.7
-2.0,1.1
-0.6,2.4
--1.0,3.3
-2.9,-0.9
-1.6,1.6
--0.3,0.4
-2.4,1.2
-1.0,-0.2
--1.4,2.9
-3.1,-1.1
-1.9,1.9
--0.1,0.1
-2.3,1.4
-0.7,2.1
--1.3,3.2
-2.6,-0.7
-1.4,1.7
--0.4,0.6
-2.7,1.3
-0.4,2.3
--1.6,3.4
-3.3,-1.3
-1.7,1.4
--0.7,0.8
-2.0,1.0
-0.3,2.6
--1.8,3.6
-	                </code>
+          <a class="actions" href="uts-2e.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-uts-2e"></div>
+          <script>
+            fetch('uts-2e.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-uts-2e">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-uts-2e").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-uts-2e').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
 	              </div>
 	              <div id="soal2f" style='display:none;'>
 	                <p>
@@ -455,59 +449,56 @@ Kasus: Seorang ahli agronomi mengukur tinggi tanaman jagung (dalam cm) dari dua 
 
     Pertanyaan: Varietas mana yang rata-rata lebih tinggi? Varietas mana yang pertumbuhannya lebih seragam?
 	                </p>
-	                <code>
-"Varietas A (cm)","Varietas B (cm)"
-155,160
-158,159
-153,162
-160,158
-156,161
-157,160
-154,163
-159,157
-155,161
-158,159
-152,164
-161,156
-157,160
-156,161
-153,162
-160,158
-155,160
-158,159
-154,163
-159,157
-156,161
-157,160
-152,164
-161,156
-155,160
-158,159
-153,162
-160,158
-156,161
-157,160
-154,163
-159,157
-155,161
-158,159
-152,164
-161,156
-157,160
-156,161
-153,162
-160,158
-155,160
-158,159
-154,163
-159,157
-156,161
-157,160
-152,164
-161,156
-155,160
-158,159
-	                </code>
+          <a class="actions" href="uts-2f.csv"><button>Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-uts-2f"></div>
+          <script>
+            fetch('uts-2f.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-uts-2f">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-uts-2f").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-uts-2f').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
 	              </div>
 	              <div id="soal3a" style='display:none;'>
 	                <p>
