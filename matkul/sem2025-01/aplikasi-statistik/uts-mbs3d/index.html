@@ -1,1 +1,662 @@
-dasda
+	<!DOCTYPE html>
+	<html lang="id-ID">
+
+	<head>
+	  <meta charset="utf-8">
+	  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+	  <title>Aplikasi Statistik </title>
+	  <meta content="Mata kuliah Aplikasi Statistik program studi Manajemen Bisnis Syariah semester 2025-ganjil" name="description">
+	  <meta content="Aplikasi Statistik" name="keywords">
+	  <meta name="author" content="Galih Pradananta">
+	  <!-- Favicons -->
+	  <link href="/assets/img/letter-g.gif" rel="icon">
+	  <!-- Vendor CSS Files -->
+	  <!-- <link href="/assets/vendor/aos/aos.css" rel="stylesheet"> -->
+	  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+	  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+	  <!-- Template Main CSS File -->
+	  <link href="/assets/css/style.css" rel="stylesheet">
+
+	  <!-- DataTables CSS & JS -->
+	  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
+	  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
+	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+	  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+
+	  <!-- =======================================================
+		* Template Name: MyResume
+		* Updated: Jun 13 2023 with Bootstrap v5.3.0
+		* Template URL: https://bootstrapmade.com/free-html-bootstrap-template-my-resume/
+		* Author: BootstrapMade.com
+		* License: https://bootstrapmade.com/license/
+		======================================================== -->
+	  <script>
+	    MathJax = {
+	    		tex: {
+	    				inlineMath: [
+	    						['$', '$'],
+	    						['\\(', '\\)']
+	    				]
+	    		}
+	    };
+	  </script>
+	  <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js"></script>
+	  <!-- <link rel="stylesheet" type="text/css" href="https://cdn.rawgit.com/dreampulse/computer-modern-web-font/master/fonts.css"> -->
+	  <style>
+	    @media (min-width: 991px) {
+	    				#matkul_icon {
+	    					z-index: 2000;
+	    					position: fixed;
+	    					right: 20px;
+	    					top: 20px;
+	    					background-color: #0563bb;
+	    					letter-spacing: 2px;
+	    					color: aliceblue;
+	    					padding: 2px 8px;
+	    					border-radius: 50px;
+	    				}
+	    				}
+	    @media (max-width: 991px) {
+	    				#matkul_icon {
+	    					z-index: 2000;
+	    					position: fixed;
+	    					right: 60px;
+	    					bottom: 20px;
+	    					background-color: #0563bb;
+	    					letter-spacing: 2px;
+	    					color: aliceblue;
+	    					padding: 2px 8px;
+	    					border-radius: 50px;
+	    				}
+	    				}
+	    				
+	    				.accordion-item {
+	    					background-color: #f7f8f6;
+	    				}
+	  </style>
+
+	</head>
+
+	<body>
+	  <!-- ======= Mobile nav toggle button ======= -->
+	  <!-- <button type="button" class="mobile-nav-toggle d-xl-none"><i class="bi bi-list mobile-nav-toggle"></i></button> -->
+	  <i class="bi bi-list mobile-nav-toggle d-lg-none"></i>
+
+	  <main id="main">
+	    <a href="#footer" id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i>Aplikasi Statistik <i class="bi bi-arrow-right-circle-fill"></i></a>
+
+	    <section id="p8">
+	      <div class="container aos-init aos-animate" data-aos="fade-up">
+	        <div class="section-title">
+	          <h2>Pertemuan 8</h2>
+	        </div>
+
+	        <div class="container mt-5">
+	          <div class="accordion" id="accordionp8">
+
+	            <p class="h1">Ketentuan UTS</p>
+	            <ol>
+	              <li>UTS hanya boleh dikerjakan selama 1 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	              <li>Soal UTS boleh dikerjakan dari 14:50-15:50 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+	            </ol>
+	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
+	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban</button>
+	            <script>
+	              const mulaiUTSmbs2d = new Date("July 22, 2025 14:50:00").getTime();
+	              const akhirUTSmbs2d = new Date("October 22, 2025 15:50:00").getTime();
+	              function validateUTSmbs2d() {
+	              	let sekarang = new Date().getTime();
+	              	document.getElementById('timerUTS').style.display="block";
+	              
+	              	if (sekarang-mulaiUTSmbs2d<0){
+	              		// Find the distance between now and the count down date
+	              		let distancembs2d = mulaiUTSmbs2d - sekarang;
+	              			
+	              		// Time calculations for days, hours, minutes and seconds
+	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+	              		alert("Belum waktunya. Bisa dimulai dalam " + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik "+" lagi.");
+	              	}
+	              	else {
+	              		if (sekarang-akhirUTSmbs2d<0) {
+	              			 let person = prompt("Masukkan Password", "isi di sini");
+	              			 if (person === "elang") {
+	              				document.getElementById("tombol_mulai_mbs2d").style.display="none";
+	              				document.getElementById("berhasilValidateUTS").style.display = "block";
+	              				let validNIM = false;
+	              				let nim;
+	              				while (!validNIM) {
+	              						nim = prompt("Masukkan NIM:");
+	              						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+	              						if (konfirmasi) {
+	              								validNIM = true;
+	              						} else {
+	              								alert("Silakan ulangi dan masukkan NIM yang benar.");
+	              						}
+	              				}
+	              
+	              				let b = (nim*5)% 6;
+	              				let c = [
+	              					['soal1a', 'soal2a', 'soal3a'],
+	              					['soal1b', 'soal2b', 'soal3b'],
+	              					['soal1c', 'soal2c', 'soal3c'],
+	              					['soal1d', 'soal2d', 'soal3d'],
+	              					['soal1e', 'soal2e', 'soal3e'],
+	              					['soal1f', 'soal2f', 'soal3f']
+	              				];
+	              				let d = c[b];
+	              				for (i = 1; i < 4; i++) {
+	              					let e = document.getElementById(d[i-1]);
+	              					document.getElementById('nomer'+i).appendChild(e);
+	              					e.style.display="block";
+	              					document.getElementById('nomer'+i).style.display="block";
+	              				}
+	              			 }
+	              			 else {
+	              				 alert("Maaf, password yang Anda masukkan salah.");
+	              			}
+	              		}
+	              		else{
+	              			alert("Sudah selesai. UTS hanya boleh dikerjakan sampai pukul 14.10");
+	              		}
+	              	}
+	              	// Update the count down every 1 second
+	              	let x = setInterval(function() {	
+	              		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	              		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	              		let sekarang = new Date().getTime();
+	              
+	              		// Find the distance between now and the count down date
+	              		let distancembs2d = akhirUTSmbs2d - sekarang;
+	              			
+	              		// Time calculations for days, hours, minutes and seconds
+	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+	              			
+	              		// Output the result in an element with id="demo"
+	              		document.getElementById("timerUTS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
+	              			
+	              		// If the count down is over, write some text 
+	              		if (distancembs2d < 0) {
+	              			clearInterval(x);
+	              			document.getElementById("timerUTS").innerHTML = "WAKTU HABIS";
+	              			document.getElementById("berhasilValidateUTS").style.display = "none";
+	              		}
+	              	}, 1000);
+	              	// Update the count down every 1 second
+	              }
+	              
+	              function closeValidateUTSmbs2d() {
+	              	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
+	                  setTimeout(function() {
+	                      window.open("https://forms.gle/JYVBKVVeReMhCHRX7", "_blank");
+	                  }, 500);
+	              }
+	              
+	            </script>
+	            <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+	            <div id="berhasilValidateUTS" style="display: none">
+	              <div id="soal1a" style='display:none;'>
+	                <p>Kasus: Sebuah kedai kopi ingin mengetahui minuman favorit pelanggan selama sebulan terakhir.
+
+	                  Arahan: Buatlah grafik batang untuk membandingkan jumlah penjualan setiap jenis minuman dan pie chart untuk melihat persentase kontribusinya.
+
+	                  Pertanyaan: Minuman apa yang paling laku? Berapa persen kontribusi penjualan Americano terhadap total?
+	                </p>
+	                <code>
+	                  "Minuman"
+	                  "Latte","Americano","Cappuccino","Mocha","Latte","Americano","Latte","Latte","Cappuccino","Mocha","Americano","Latte","Mocha","Latte","Americano","Cappuccino","Latte","Americano","Americano","Mocha","Cappuccino","Latte","Latte","Americano","Mocha","Cappuccino","Latte","Americano","Latte","Mocha","Americano","Latte","Cappuccino","Americano","Americano","Mocha","Latte","Latte","Cappuccino","Latte","Mocha","Americano","Latte","Cappuccino","Mocha","Americano","Latte","Americano","Latte","Cappuccino"
+	                </code>
+	              </div>
+	              <div id="soal1b" style='display:none;'>
+	                <p>
+Kasus: Manajer HR ingin menganalisis tingkat pendidikan karyawan di perusahaannya.
+
+    Arahan: Sajikan data tingkat pendidikan karyawan dalam bentuk grafik batang dan diagram lingkaran.
+
+    Pertanyaan: Tingkat pendidikan mana yang mendominasi di perusahaan? Berapa proporsi karyawan dengan gelar Sarjana (S1)?
+	                </p>
+	                <code>
+"Pendidikan"
+"S1","SMA","S2","S1","SMA","S1","S1","D3","S1","SMA","S2","S1","SMA","S1","D3","S1","S1","SMA","S1","S1","S2","SMA","S1","D3","S1","SMA","S1","S1","SMA","S2","S1","SMA","S1","D3","S1","SMA","S1","SMA","S1","S1","D3","S1","S2","SMA","S1","SMA","S1","S1","D3","S1"
+	                </code>
+	              </div>
+	              <div id="soal1c" style='display:none;'>
+	                <p>
+Kasus: Sebuah survei online menanyakan platform media sosial yang paling sering digunakan oleh responden.
+
+    Arahan: Visualisasikan hasil survei menggunakan bar chart untuk perbandingan dan pie chart untuk melihat pangsa pasar.
+
+    Pertanyaan: Platform apa yang paling populer? Berapa persentase pengguna yang memilih Instagram?
+	                </p>
+	                <code>
+"Platform"
+"Instagram","TikTok","Facebook","Instagram","TikTok","X","Instagram","Facebook","TikTok","Instagram","X","TikTok","Instagram","Facebook","Instagram","TikTok","X","Facebook","Instagram","TikTok","Instagram","Facebook","TikTok","X","Instagram","TikTok","Facebook","Instagram","TikTok","Instagram","X","Facebook","TikTok","Instagram","TikTok","Facebook","Instagram","X","TikTok","Instagram","Facebook","TikTok","Instagram","X","Facebook","TikTok","Instagram","Facebook","TikTok","Instagram"
+	                </code>
+	              </div>
+	              <div id="soal1d" style='display:none;'>
+	                <p>
+Kasus: Seorang guru ingin melihat sebaran nilai ujian matematika dari 50 siswa.
+
+    Arahan: Buatlah histogram dari nilai ujian siswa untuk melihat distribusi nilainya.
+
+    Pertanyaan: Apakah sebagian besar siswa mendapat nilai tinggi, rendah, atau sedang? Apakah ada pencilan (nilai yang sangat ekstrem)?
+	                </p>
+	                <code>
+"Nilai"
+78,85,62,91,75,88,69,72,95,81,65,77,89,93,70,82,79,68,86,74,90,71,83,67,92,76,84,66,94,80,73,87,64,96,60,98,55,99,58,97,63,59,100,61,57,56,54,53,52,51
+	                </code>
+	              </div>
+	              <div id="soal1e" style='display:none;'>
+	                <p>
+Kasus: Manajer gym ingin menganalisis usia para anggotanya untuk merancang program latihan yang sesuai.
+
+    Arahan: Buat histogram dari data usia anggota gym.
+
+    Pertanyaan: Pada rentang usia berapakah konsentrasi anggota gym paling tinggi?
+	                </p>
+	                <code>
+"Usia"
+25,31,22,45,28,35,19,29,38,41,24,33,27,50,21,30,42,26,37,23,48,32,20,39,44,36,28,47,34,22,40,29,43,31,25,46,27,38,24,35,49,26,32,21,37,41,23,30,33,39
+	                </code>
+	              </div>
+	              <div id="soal1f" style='display:none;'>
+	                <p>
+Kasus: Sebuah kafe mencatat waktu (dalam menit) yang dihabiskan pelanggan dari saat memesan hingga meninggalkan kafe.
+
+    Arahan: Analisis distribusi waktu yang dihabiskan pelanggan menggunakan histogram.
+
+    Pertanyaan: Berapa lama durasi kunjungan yang paling umum? Apakah ada pelanggan yang tinggal sangat lama?
+	                </p>
+	                <code>
+"Waktu (Menit)"
+45,62,30,75,55,68,25,48,90,58,35,71,60,82,40,65,52,78,33,85,47,63,28,70,50,95,42,59,38,72,53,67,31,80,44,61,22,88,49,56,37,73,29,77,41,66,36,81,46,54
+	                </code>
+	              </div>
+	              <div id="soal2a" style='display:none;'>
+	                <p>
+Kasus: Sebuah perusahaan e-commerce menganalisis nilai transaksi (dalam ribu Rupiah) dari 50 pembelian terakhir.
+
+    Arahan: Hitung mean, median, dan mode dari data nilai transaksi.
+
+    Pertanyaan: Berapa rata-rata nilai transaksi? Berapa nilai transaksi yang menjadi titik tengah? Apakah ada nilai transaksi yang paling sering terjadi? Bandingkan ketiganya, apa artinya?
+	                </p>
+	                <code>
+"Nilai Transaksi (Ribu Rp)"
+150,200,120,500,80,150,300,250,180,150,90,450,220,100,150,75,320,280,160,150,550,110,190,210,150,400,130,170,240,150,600,95,350,260,150,85,480,230,140,150,70,380,270,150,105,520,290,150,115,310
+	                </code>
+	              </div>
+	              <div id="soal2b" style='display:none;'>
+	                <p>
+Kasus: Seorang pelatih lari mencatat waktu tempuh (dalam menit) dari 50 pelari dalam lomba 5K.
+
+    Arahan: Tentukan mean, median, dan mode dari catatan waktu tersebut.
+
+    Pertanyaan: Berapa rata-rata waktu tempuh semua pelari? Berapa waktu tengahnya? Adakah waktu tempuh yang paling umum dicapai?
+	                </p>
+	                <code>
+"Waktu Tempuh (Menit)"
+25.5,28.2,30.1,24.8,29.5,27.3,26.8,31.0,25.5,33.2,26.1,28.9,27.5,29.8,25.5,30.5,24.2,32.1,28.6,27.9,26.5,29.2,25.5,30.8,28.0,27.1,31.5,26.3,29.0,25.5,34.0,24.5,31.8,28.3,27.6,26.9,29.6,25.5,30.3,28.8,24.0,32.5,27.8,26.6,29.3,25.5,30.0,28.1,27.2,31.2
+	                </code>
+	              </div>
+	              <div id="soal2c" style='display:none;'>
+	                <p>
+Kasus: Departemen quality control di sebuah pabrik botol mengukur volume isi (dalam ml) dari 50 sampel botol minuman.
+
+    Arahan: Hitung ukuran pemusatan (mean, median, mode) dari volume isi botol.
+
+    Pertanyaan: Apakah rata-rata volume pengisian sesuai dengan standar (misal, 500 ml)? Berapa nilai median dan modusnya?
+	                </p>
+	                <code>
+"Volume (ml)"
+499.5,500.1,498.8,501.2,500.0,499.7,500.3,500.0,499.1,500.8,500.0,499.9,500.5,498.5,501.0,500.0,499.3,500.6,500.2,499.0,501.5,500.0,499.8,500.4,498.9,500.0,500.7,499.6,500.0,499.2,501.3,498.7,500.9,500.0,499.4,500.0,501.1,498.6,500.0,499.5,500.1,501.4,499.0,500.0,498.4,500.8,499.7,500.3,500.0,501.2
+	                </code>
+	              </div>
+	              <div id="soal2d" style='display:none;'>
+	                <p>
+Kasus: Dua mesin di pabrik sama-sama memproduksi baut dengan target panjang 5 cm. Diambil 50 sampel dari masing-masing mesin.
+
+    Arahan: Hitung mean dan standar deviasi panjang baut dari kedua mesin.
+
+    Pertanyaan: Mesin mana yang lebih presisi (memiliki standar deviasi lebih kecil), meskipun mungkin rata-ratanya sama?
+	                </p>
+          <a class="actions" href="uts-2d.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-uts-2d"></div>
+          <script>
+            fetch('uts-2d.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-uts-2d">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-uts-2d").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-uts-2d').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+	              </div>
+	              <div id="soal2e" style='display:none;'>
+	                <p>
+Kasus: Seorang investor membandingkan return saham bulanan (dalam %) dari dua perusahaan teknologi selama 50 bulan terakhir.
+
+    Arahan: Hitung rata-rata return dan standar deviasi untuk kedua saham.
+
+    Pertanyaan: Saham mana yang memberikan return rata-rata lebih tinggi? Saham mana yang lebih berisiko (memiliki standar deviasi lebih tinggi)?
+	                </p>
+          <a class="actions" href="uts-2e.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-uts-2e"></div>
+          <script>
+            fetch('uts-2e.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-uts-2e">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-uts-2e").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-uts-2e').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+	              </div>
+	              <div id="soal2f" style='display:none;'>
+	                <p>
+Kasus: Seorang ahli agronomi mengukur tinggi tanaman jagung (dalam cm) dari dua varietas berbeda yang diberi pupuk yang sama.
+
+    Arahan: Bandingkan rata-rata tinggi dan variabilitas (standar deviasi) dari kedua varietas.
+
+    Pertanyaan: Varietas mana yang rata-rata lebih tinggi? Varietas mana yang pertumbuhannya lebih seragam?
+	                </p>
+          <a class="actions" href="uts-2f.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-uts-2f"></div>
+          <script>
+            fetch('uts-2f.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-uts-2f">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-uts-2f").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-uts-2f').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+	              </div>
+	              <div id="soal3a" style='display:none;'>
+	                <p>
+Kasus (Binomial): Sebuah perusahaan mengklaim 90% produknya lolos quality control (QC). Jika seorang inspektur mengambil 20 sampel secara acak, berapa peluangnya?
+
+    Arahan: Gunakan fungsi BINOM.DIST untuk menghitung probabilitas.
+
+    Pertanyaan: Berapa peluang tepat 18 produk lolos QC? Berapa peluang paling banyak 2 produk gagal (artinya 18, 19, atau 20 produk lolos)?
+	                </p>
+	                <code>
+"Status QC"
+1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1
+	                </code>
+	              </div>
+	              <div id="soal3b" style='display:none;'>
+	                <p>
+Kasus (Poisson): Sebuah call center rata-rata menerima 10 panggilan per jam. Manajer ingin mengetahui probabilitas jumlah panggilan di jam sibuk berikutnya.
+
+    Arahan: Gunakan POISSON.DIST untuk membuat distribusi probabilitas jumlah panggilan.
+
+    Pertanyaan: Berapa peluang di jam berikutnya hanya menerima tepat 5 panggilan? Berapa peluang menerima lebih dari 15 panggilan?
+	                </p>
+	                <code>
+"Jumlah Panggilan"
+10,12,8,9,11,10,13,7,10,11,9,12,10,8,14,10,11,9,12,10,10,13,8,9,11,12,7,10,11,9,14,8,10,12,9,11,10,13,7,10,11,9,12,10,8,14,10,11,9,12
+	                </code>
+	              </div>
+	              <div id="soal3c" style='display:none;'>
+	                <p>
+Kasus (Binomial): Dalam sebuah kuis pilihan ganda dengan 15 soal (4 pilihan jawaban), seorang siswa menjawab sepenuhnya secara acak.
+
+    Arahan: Hitung probabilitas jumlah jawaban benar menggunakan BINOM.DIST (peluang sukses per soal adalah 0.25).
+
+    Pertanyaan: Berapa peluang siswa tersebut tidak menjawab benar sama sekali (0 benar)? Berapa peluang ia lulus jika syarat lulus adalah minimal 8 jawaban benar?
+	                </p>
+	                <code>
+"Jawaban Benar"
+3,4,2,5,3,4,1,6,3,4,2,5,4,3,2,5,3,4,2,6,3,4,1,5,3,4,2,5,4,3,2,5,3,4,1,6,3,4,2,5,4,3,2,5,3,4,1,6,3,4
+	                </code>
+	              </div>
+	              <div id="soal3d" style='display:none;'>
+	                <p>
+Kasus (Normal): IQ siswa di sebuah sekolah diketahui berdistribusi normal dengan rata-rata 100 dan standar deviasi 15.
+
+    Arahan: Gunakan NORM.DIST untuk menghitung probabilitas.
+
+    Pertanyaan: Berapa persentase siswa yang memiliki IQ di bawah 85 (dianggap butuh perhatian khusus)? Berapa persentase siswa yang tergolong jenius (IQ di atas 130)?
+	                </p>
+	                <code>
+"Skor IQ"
+105,95,115,100,85,120,98,102,110,90,130,75,108,92,112,96,104,118,88,125,101,99,111,103,89,122,97,106,114,93,128,80,109,91,116,94,107,119,87,124,100,105,95,115,85,120,98,102,110,90
+	                </code>
+	              </div>
+	              <div id="soal3e" style='display:none;'>
+	                <p>
+Kasus (Normal): Berat bersih sebungkus keripik kentang berdistribusi normal dengan mean 250 gram dan standar deviasi 5 gram.
+
+    Arahan: Hitung probabilitas berat keripik menggunakan fungsi distribusi normal.
+
+    Pertanyaan: Berapa peluang membeli sebungkus keripik yang beratnya kurang dari 240 gram (dianggap merugikan konsumen)? Berapa peluang beratnya antara 245 dan 255 gram?
+	                </p>
+	                <code>
+"Berat (gram)"
+252,248,255,250,245,258,249,251,254,247,260,243,253,246,256,248,252,257,244,259,250,251,254,249,246,257,248,253,255,245,261,242,254,247,258,246,251,256,244,259,250,252,248,255,245,258,249,251,254,247
+	                </code>
+	              </div>
+	              <div id="soal3f" style='display:none;'>
+	                <p>
+Kasus (Distribusi t): Seorang peneliti menguji efektivitas suplemen baru pada 20 atlet (sampel kecil). Ia mengukur peningkatan kekuatan (dalam kg) setelah sebulan. Data peningkatannya ada di bawah ini.
+
+    Arahan: Karena sampel kecil (n=20 < 30) dan standar deviasi populasi tidak diketahui, analisis inferensial (seperti uji hipotesis) akan menggunakan distribusi t. Hitung mean dan stdev sampel terlebih dahulu.
+
+    Pertanyaan: Dengan rata-rata dan standar deviasi dari sampel ini, bagaimana kita bisa membangun selang kepercayaan untuk rata-rata peningkatan kekuatan populasi? (Ini adalah langkah lanjutan, tetapi dasarnya adalah penggunaan distribusi-t).
+	                </p>
+	                <code>
+"Peningkatan (kg)"
+5.2,4.8,6.1,5.5,4.9,5.8,6.3,5.1,4.7,5.9,6.5,5.3,4.6,5.7,6.0,5.4,4.9,5.6,6.2,5.0,5.1,4.8,6.2,5.6,4.7,5.9,6.4,5.2,4.5,5.8,6.6,5.4,4.4,5.5,6.1,5.3,4.8,5.7,6.3,4.9,5.0,5.2,4.6,5.9,6.0,5.1,4.7,5.8,6.5,5.3
+	                </code>
+	              </div>
+                  
+	              <p class="h1 text-center">Soal UTS</p>
+	              <ol id="soalUTS">
+	                <li id='nomer1'>
+	                  <h2>Soal 1</h2>
+	                </li>
+	                <li id='nomer2'>
+	                  <h2>Soal 2</h2>
+	                </li>
+	                <li id='nomer3'>
+	                  <h2>Soal 3</h2>
+	                </li>
+	              </ol>
+	            </div>
+	          </div>
+	    </section>
+
+	  </main>
+	  <!-- ======= Footer ======= -->
+	  <footer id="footer"></footer>
+	  <!-- End Footer -->
+	  <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
+	    <i class="bi bi-arrow-up-short"></i>
+	  </a>
+	  <!-- Vendor JS Files -->
+	  <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	  <!-- <script src="/assets/vendor/aos/aos.js"></script> -->
+	  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	  <script src="/assets/vendor/typed.js/typed.umd.js"></script>
+	  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	  <script src="/assets/vendor/php-email-form/validate.js"></script>
+	  <!-- Template Main JS File -->
+	  <script src="/assets/js/main.js"></script>
+	  <!-- chart.js diagram -->
+	  <script src="/app/aplikasi-statistik/chart.js"></script>
+	  <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+	  <script>
+	    // Helper: table -> CSV string
+	    function tableToCSV(tableId){
+	      const rows = Array.from(document.querySelectorAll(`#${tableId} tr`));
+	      return rows.map(r => Array.from(r.children).map(c => '"'+(c.innerText||'').replaceAll('"','""')+'"').join(',')).join('\n');
+	    }
+	    function downloadCSV(tableId, filename){
+	      const csv = tableToCSV(tableId);
+	      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+	      const a = document.createElement('a');
+	      a.href = URL.createObjectURL(blob);
+	      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+	    }
+	    function copyTable(tableId){
+	      const csv = tableToCSV(tableId);
+	      navigator.clipboard.writeText(csv).then(()=>alert('Tabel disalin sebagai CSV. Tempel langsung di Excel.'));
+	    }
+	    
+	    // Helper for list (comma-separated numbers)
+	    function listToCSV(listId, header){
+	      const raw = document.getElementById(listId).innerText.trim();
+	      const values = raw.split(/\s*,\s*/);
+	      const lines = [header];
+	      values.forEach(v=>lines.push(v));
+	      return lines.join('\n');
+	    }
+	    function downloadListCSV(listId, filename, header){
+	      const csv = listToCSV(listId, header||'Value');
+	      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+	      const a = document.createElement('a');
+	      a.href = URL.createObjectURL(blob);
+	      a.download = filename; a.click(); URL.revokeObjectURL(a.href);
+	    }
+	    function copyList(listId){
+	      const csv = listToCSV(listId, 'Value');
+	      navigator.clipboard.writeText(csv).then(()=>alert('Data disalin. Tempel di Excel (kolom tunggal).'));
+	    }
+	  </script>
+	</body>
+
+	</html>
+
+	<!-- paggalih.github.io/matkul/sem2024-02/statistik -->
