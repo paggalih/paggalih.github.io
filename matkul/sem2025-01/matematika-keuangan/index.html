@@ -9,25 +9,26 @@
 	  <meta content="matematika keuangan" name="keywords">
 	  <meta name="author" content="Galih Pradananta">
 	  <!-- Favicons -->
-	  <link href="/assets/img/letter-g.gif" rel="icon">
+	  <link href="https://paggalih.github.io/assets/img/letter-g.gif" rel="icon">
 	  <!-- Vendor CSS Files -->
 	  <!-- <link href="/assets/vendor/aos/aos.css" rel="stylesheet"> -->
-	  <link href="/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-	  <link href="/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
-	  <link href="/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
-	  <link href="/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
-	  <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+	  <link href="https://paggalih.github.io/assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	  <link href="https://paggalih.github.io/assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+	  <link href="https://paggalih.github.io/assets/vendor/boxicons/css/boxicons.min.css" rel="stylesheet">
+	  <link href="https://paggalih.github.io/assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+	  <link href="https://paggalih.github.io/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
 	  <!-- Template Main CSS File -->
-	  <link href="/assets/css/style.css" rel="stylesheet">
+	  <link href="https://paggalih.github.io/assets/css/style.css" rel="stylesheet">
 
 	  <!-- DataTables CSS & JS -->
 	  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
 	  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
-
-	  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin="anonymous"></script>
-
+	  <script type="module">
+	    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+	    mermaid.initialize({ startOnLoad: true });
+	  </script>
 	  <!-- =======================================================
 		* Template Name: MyResume
 		* Updated: Jun 13 2023 with Bootstrap v5.3.0
@@ -473,10 +474,6 @@
 	        <p> Bunga sederhana hanya diberlakukan dalam periode waktu yang sangat singkat. Semisal pinjam uang satu bulan diangsur satu kali dengan bunga 1%.</p>
 	        <h4> Bunga Majemuk</h4>
 	        <p> Bunga Majemuk digunakan untuk semua kasus selain bunga sederhana. Bunga ini digunakan dalam jangka waktu lama ataupun angsuran.</p>
-	        <script type="module">
-	          import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-	          mermaid.initialize({ startOnLoad: true });
-	        </script>
 
 	        <div class="mermaid text-center">
 	          flowchart TD
@@ -1430,19 +1427,19 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 7</h2>
 	        </div>
-            <div class="trigger">
-            <p> Bayangkan kamu diminta investasi 100 juta, lalu akan dikembalikan 30 juta di tahun pertama, 40 juta di tahun kedua, dan 50 juta di tahun ketiga.</p>
-            </div>
-            <div class="mermaid text-center">
-            graph TD
-              a("penilaian investasi")-->a1("NPV<br>Net Present Value")-->a11{"NPV > 0"}-->|IYA|a111("UNTUNG")
-              a-->a2("IRR<br> Internal Rate of Return")-->a21{"IRR > bunga sekarang"}-->|IYA|a211("UNTUNG")
-              
-              a11-->|TIDAK|a112("RUGI")
-              
-              a21-->|TIDAK|a212("RUGI")
+	        <div class="trigger">
+	          <p> Bayangkan kamu diminta investasi 100 juta, lalu akan dikembalikan 30 juta di tahun pertama, 40 juta di tahun kedua, dan 50 juta di tahun ketiga.</p>
+	        </div>
+	        <div class="mermaid text-center">
+	          graph TD
+	          a("penilaian investasi")-->a1("NPV<br>Net Present Value")-->a11{"NPV > 0"}-->|IYA|a111("UNTUNG")
+	          a-->a2("IRR<br> Internal Rate of Return")-->a21{"IRR > bunga sekarang"}-->|IYA|a211("UNTUNG")
 
-            </div>
+	          a11-->|TIDAK|a112("RUGI")
+
+	          a21-->|TIDAK|a212("RUGI")
+
+	        </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp7">
@@ -1455,26 +1452,36 @@
 	              </h2>
 	              <div id="collapsep7" class="accordion-collapse collapse" aria-labelledby="headingp7" data-bs-parent="#accordionp7">
 	                <div class="accordion-body">
-                      <ol>
-                      	<li> <p> Jika sebuah proyek memiliki NPV sebesar Rp50 juta, apa artinya?</p></li>
-                        <li> <p>Jika IRR sebuah proyek adalah 15% dan biaya modal perusahaan adalah 12%, maka proyek tersebut sebaiknya ditolak.</p></li>
-                        <li> <p>Sebuah proyek membutuhkan investasi awal Rp200 juta dan akan menghasilkan arus kas masuk sebesar Rp250 juta satu tahun dari sekarang. Jika tingkat diskonto yang relevan adalah 10%, berapakah NPV proyek tersebut? Apakah proyek ini layak?</p></li>
-                        <li> <p>Menghitung NPV: PT Maju Jaya sedang mempertimbangkan untuk membeli mesin baru seharga Rp150 juta. Mesin ini diharapkan dapat menghasilkan arus kas masuk bersih sebesar Rp60 juta per tahun selama 3 tahun. Jika biaya modal perusahaan adalah 12%, hitunglah NPV dari investasi mesin tersebut. Berikan rekomendasi Anda (terima atau tolak).</p></li>
-                        <li><p>Membandingkan Proyek: Anda memiliki dua proposal proyek yang bersifat mutually exclusive (hanya bisa pilih satu) dengan biaya modal 10%.
+	                  <ol>
+	                    <li>
+	                      <p> Jika sebuah proyek memiliki NPV sebesar Rp50 juta, apa artinya?</p>
+	                    </li>
+	                    <li>
+	                      <p>Jika IRR sebuah proyek adalah 15% dan biaya modal perusahaan adalah 12%, maka proyek tersebut sebaiknya ditolak.</p>
+	                    </li>
+	                    <li>
+	                      <p>Sebuah proyek membutuhkan investasi awal Rp200 juta dan akan menghasilkan arus kas masuk sebesar Rp250 juta satu tahun dari sekarang. Jika tingkat diskonto yang relevan adalah 10%, berapakah NPV proyek tersebut? Apakah proyek ini layak?</p>
+	                    </li>
+	                    <li>
+	                      <p>Menghitung NPV: PT Maju Jaya sedang mempertimbangkan untuk membeli mesin baru seharga Rp150 juta. Mesin ini diharapkan dapat menghasilkan arus kas masuk bersih sebesar Rp60 juta per tahun selama 3 tahun. Jika biaya modal perusahaan adalah 12%, hitunglah NPV dari investasi mesin tersebut. Berikan rekomendasi Anda (terima atau tolak).</p>
+	                    </li>
+	                    <li>
+	                      <p>Membandingkan Proyek: Anda memiliki dua proposal proyek yang bersifat mutually exclusive (hanya bisa pilih satu) dengan biaya modal 10%.
 
-    Proyek A: Investasi awal Rp500 juta, menghasilkan arus kas Rp300 juta/tahun selama 2 tahun.
+	                        Proyek A: Investasi awal Rp500 juta, menghasilkan arus kas Rp300 juta/tahun selama 2 tahun.
 
-    Proyek B: Investasi awal Rp500 juta, menghasilkan arus kas Rp200 juta/tahun selama 4 tahun.
+	                        Proyek B: Investasi awal Rp500 juta, menghasilkan arus kas Rp200 juta/tahun selama 4 tahun.
 
-Hitung NPV untuk kedua proyek. Proyek manakah yang seharusnya Anda pilih?</p></li>
-                        <li> <p> Estimasi IRR: Sebuah proyek investasi senilai Rp350 juta diperkirakan akan menghasilkan arus kas masuk sebesar Rp250 juta di Tahun 1 dan Rp250 juta di Tahun 2.<br>
-a. Coba hitung NPV proyek ini dengan discount rate 15%.<br>
-b. Coba hitung NPV proyek ini dengan discount rate 25%.<br>
-c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Contoh: Antara 15% dan 25%). Jelaskan mengapa.</p></li>
-                        <i></i>
-                      </ol>
-                      
-                      
+	                        Hitung NPV untuk kedua proyek. Proyek manakah yang seharusnya Anda pilih?</p>
+	                    </li>
+	                    <li>
+	                      <p> Estimasi IRR: Sebuah proyek investasi senilai Rp350 juta diperkirakan akan menghasilkan arus kas masuk sebesar Rp250 juta di Tahun 1 dan Rp250 juta di Tahun 2.<br>
+	                        a. Coba hitung NPV proyek ini dengan discount rate 15%.<br>
+	                        b. Coba hitung NPV proyek ini dengan discount rate 25%.<br>
+	                        c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Contoh: Antara 15% dan 25%). Jelaskan mengapa.</p>
+	                    </li>
+	                    <i></i>
+	                  </ol>
 
 	                </div>
 	              </div>
@@ -1501,7 +1508,7 @@ c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Co
 	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()" style="display:none;">Kirim Jawaban</button>
 	            <script>
-	              const mulaiUTSmbs2d = new Date("July 2, 2025 13:20:00").getTime();
+	              const mulaiUTSmbs2d = new Date("October 21, 2025 13:20:00").getTime();
 	              const akhirUTSmbs2d = new Date("October 21, 2025 14:20:00").getTime();
 	              function validateUTSmbs2d() {
 	              	let sekarang = new Date().getTime();
@@ -1633,45 +1640,45 @@ c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Co
 	              </div>
 	              <div id="soal3a" style='display:none;'>
 	                <p>Sebuah laptop seharga <b>Rp 15.000.000</b> dibeli secara kredit selama <b>3 tahun</b> dengan bunga <b>18% per tahun</b> (1,5% per bulan). Jika cicilan pertama dibayar satu bulan setelah pembelian, berapakah besar cicilan yang harus dibayar setiap bulan?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal3b" style='display:none;'>
 	                <p>Sebuah kamera seharga <b>Rp 25.000.000</b> dibeli secara kredit selama <b>4 tahun</b> dengan bunga <b>12% per tahun</b> (1% per bulan). Jika cicilan pertama dibayar satu bulan setelah pembelian, berapakah besar cicilan yang harus dibayar setiap bulan?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal3c" style='display:none;'>
 	                <p>Sebuah ponsel seharga <b>Rp 12.000.000</b> dibeli secara kredit selama <b>1,5 tahun</b> dengan bunga <b>30% per tahun</b> (2,5% per bulan). Jika cicilan pertama dibayar satu bulan setelah pembelian, berapakah besar cicilan yang harus dibayar setiap bulan?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal3d" style='display:none;'>
 	                <p>Sebuah televisi seharga <b>Rp 10.000.000</b> dibeli secara kredit selama <b>2,5 tahun</b> dengan bunga <b>21% per tahun</b> (1,75% per bulan). Jika cicilan pertama dibayar satu bulan setelah pembelian, berapakah besar cicilan yang harus dibayar setiap bulan?
-                    </p>
-	              </div> 
+	                </p>
+	              </div>
 	              <div id="soal3e" style='display:none;'>
 	                <p>Sebuah sepeda listrik seharga <b>Rp 8.000.000</b> dibeli secara kredit selama <b>1 tahun</b> dengan bunga <b>24% per tahun</b> (2% per bulan). Jika cicilan pertama dibayar satu bulan setelah pembelian, berapakah besar cicilan yang harus dibayar setiap bulan?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal4a" style='display:none;'>
 	                <p>Anda menyetorkan <b>Rp 150.000.000</b> hari ini ke program pensiun. Program tersebut akan membayar dana tahunan selama <b>15 tahun</b>, setelah masa tunggu <b>12 tahun</b>. Jika bunga <b>7% per tahun</b>, berapakah besar pembayaran tahunan yang akan Anda terima?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal4b" style='display:none;'>
 	                <p>Anda menyetorkan <b>Rp 200.000.000</b> hari ini ke program pensiun. Program tersebut akan membayar dana tahunan selama <b>25 tahun</b>, setelah masa tunggu <b>8 tahun</b>. Jika bunga <b>6% per tahun</b>, berapakah besar pembayaran tahunan yang akan Anda terima?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal4c" style='display:none;'>
 	                <p>Anda menyetorkan <b>Rp 80.000.000</b> hari ini ke program pensiun. Program tersebut akan membayar dana tahunan selama <b>10 tahun</b>, setelah masa tunggu <b>15 tahun</b>. Jika bunga <b>9% per tahun</b>, berapakah besar pembayaran tahunan yang akan Anda terima?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal4d" style='display:none;'>
 	                <p>Anda menyetorkan <b>Rp 125.000.000</b> hari ini ke program pensiun. Program tersebut akan membayar dana tahunan selama <b>18 tahun</b>, setelah masa tunggu <b>5 tahun</b>. Jika bunga <b>10% per tahun</b>, berapakah besar pembayaran tahunan yang akan Anda terima?
-                    </p>
+	                </p>
 	              </div>
 	              <div id="soal4e" style='display:none;'>
 	                <p>Anda menyetorkan <b>Rp 300.000.000</b> hari ini ke program pensiun. Program tersebut akan membayar dana tahunan selama <b>30 tahun</b>, setelah masa tunggu <b>10 tahun</b>. Jika bunga <b>5% per tahun</b>, berapakah besar pembayaran tahunan yang akan Anda terima?
-                    </p>
+	                </p>
 	              </div>
-                  
+
 	              <p class="h1 text-center">Soal UTS</p>
 	              <ol id="soalUTS">
 	                <li id='nomer1'>
@@ -2150,20 +2157,20 @@ c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Co
 	    <i class="bi bi-arrow-up-short"></i>
 	  </a>
 	  <!-- Vendor JS Files -->
-	  <script src="/assets/vendor/purecounter/purecounter_vanilla.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/purecounter/purecounter_vanilla.js"></script>
 	  <!-- <script src="/assets/vendor/aos/aos.js"></script> -->
-	  <script src="/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-	  <script src="/assets/vendor/glightbox/js/glightbox.min.js"></script>
-	  <script src="/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
-	  <script src="/assets/vendor/swiper/swiper-bundle.min.js"></script>
-	  <script src="/assets/vendor/typed.js/typed.umd.js"></script>
-	  <script src="/assets/vendor/waypoints/noframework.waypoints.js"></script>
-	  <script src="/assets/vendor/php-email-form/validate.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/glightbox/js/glightbox.min.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/swiper/swiper-bundle.min.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/typed.js/typed.umd.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/waypoints/noframework.waypoints.js"></script>
+	  <script src="https://paggalih.github.io/assets/vendor/php-email-form/validate.js"></script>
 	  <!-- Template Main JS File -->
-	  <script src="/assets/js/main.js"></script>
+	  <script src="https://paggalih.github.io/assets/js/main.js"></script>
 	  <!-- chart.js diagram -->
-	  <script src="/app/aplikasi-statistik/chart.js"></script>
-	  <script src="/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
+	  <script src="https://paggalih.github.io/app/aplikasi-statistik/chart.js"></script>
+	  <script src="https://paggalih.github.io/app/aplikasi-statistik/chartjs-chart-boxplot.js"></script>
 
 	</body>
 
