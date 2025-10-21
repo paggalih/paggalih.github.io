@@ -100,15 +100,15 @@
 
 	            <p class="h1">Ketentuan UTS</p>
 	            <ol>
-	              <li>UTS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-	              <li>Soal UTS boleh dikerjakan dari 13:00-14:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	              <li>UTS hanya boleh dikerjakan selama 1 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
+	              <li>Soal UTS boleh dikerjakan dari 13:10-14:10 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
 	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 	            </ol>
 	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban</button>
 	            <script>
-	              const mulaiUTSmbs2d = new Date("July 2, 2025 08:59:00").getTime();
-	              const akhirUTSmbs2d = new Date("August 13, 2025 14:30:00").getTime();
+	              const mulaiUTSmbs2d = new Date("July 22, 2025 13:10:00").getTime();
+	              const akhirUTSmbs2d = new Date("October 22, 2025 14:10:00").getTime();
 	              function validateUTSmbs2d() {
 	              	let sekarang = new Date().getTime();
 	              	document.getElementById('timerUTS').style.display="block";
@@ -145,15 +145,15 @@
 	              
 	              				let b = (nim*5)% 6;
 	              				let c = [
-	              					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
-	              					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
-	              					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
-	              					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
-	              					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
-	              					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
+	              					['soal1a', 'soal2a', 'soal3a'],
+	              					['soal1b', 'soal2b', 'soal3b'],
+	              					['soal1c', 'soal2c', 'soal3c'],
+	              					['soal1d', 'soal2d', 'soal3d'],
+	              					['soal1e', 'soal2e', 'soal3e'],
+	              					['soal1f', 'soal2f', 'soal3f']
 	              				];
 	              				let d = c[b];
-	              				for (i = 1; i < 6; i++) {
+	              				for (i = 1; i < 4; i++) {
 	              					let e = document.getElementById(d[i-1]);
 	              					document.getElementById('nomer'+i).appendChild(e);
 	              					e.style.display="block";
@@ -165,7 +165,7 @@
 	              			}
 	              		}
 	              		else{
-	              			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
+	              			alert("Sudah selesai. UTS hanya boleh dikerjakan sampai pukul 14.10");
 	              		}
 	              	}
 	              	// Update the count down every 1 second
@@ -207,223 +207,387 @@
 	            </script>
 	            <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 	            <div id="berhasilValidateUTS" style="display: none">
-	              <div id="soal1" style='display:none;'>
-	                <p>Sebuah pusat layanan pelanggan mencatat bahwa rata-rata 0.4% panggilan setiap hari mengalami kegagalan jaringan. Hari ini, tercatat 1.500 panggilan.</p>
-	                <p>Berapakah peluang bahwa <em>setidaknya tujuh</em> panggilan mengalami kegagalan jaringan?</p>
-	              </div>
+	              <div id="soal1a" style='display:none;'>
+	                <p>Kasus: Sebuah kedai kopi ingin mengetahui minuman favorit pelanggan selama sebulan terakhir.
 
-	              <div id="soal2" style='display:none;'>
-	                <p>Sebuah perusahaan memiliki 20 perangkat komputer, 8 di antaranya teridentifikasi rawan panas. Jika 6 perangkat dipilih secara acak untuk diuji, berapakah peluang bahwa tepat 3 dari perangkat tersebut bermasalah?</p>
-	              </div>
+	                  Arahan: Buatlah grafik batang untuk membandingkan jumlah penjualan setiap jenis minuman dan pie chart untuk melihat persentase kontribusinya.
 
-	              <div id="soal3" style='display:none;'>
-	                <p>Seorang agen asuransi mampu menghubungi 5 klien per jam dan memiliki peluang sukses 40% untuk menjual polis pada setiap panggilan. Selama 3 jam berikutnya, tentukan:</p>
-	                <ol type="a">
-	                  <li>Peluang untuk melakukan tepat <strong>dua</strong> penjualan.</li>
-	                  <li>Rata-rata jumlah penjualan dalam periode 3 jam.</li>
-	                </ol>
-	              </div>
-	              <!-- ======================= -->
-	              <div id="soal4" style='display:none;'>
-	                <p>Sebuah perusahaan elektronik membeli kabel HDMI dari empat distributor berbeda:</p>
-	                <ul>
-	                  <li>AlphaTech: 30% dari kabel, dengan 2% cacat</li>
-	                  <li>BetaWire: 25% dari kabel, dengan 3.5% cacat</li>
-	                  <li>GammaLink: 25% dari kabel, dengan 5% cacat</li>
-	                  <li>DeltaConnect: 20% dari kabel, dengan 4% cacat</li>
-	                </ul>
-	                <ol type="a">
-	                  <li>Berapa persentase kabel cacat secara keseluruhan?</li>
-	                  <li>Jika satu kabel cacat ditemukan, berapa probabilitas kabel tersebut berasal dari <em>BetaWire</em>?</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal5" style='display:none;'>
-	                <p>Setiap pembelian tiket masuk di wahana taman hiburan <strong>HappyLand</strong> disertai dengan kesempatan memenangkan hadiah berikut:</p>
-	                <ul>
-	                  <li>Peluang memenangkan <strong>voucher makan siang</strong>: 0.12</li>
-	                  <li>Peluang memenangkan <strong>tiket masuk gratis</strong>: 0.03</li>
-	                </ul>
-	                <p>Anda berencana berkunjung ke HappyLand besok.</p>
-	                <ol type="a">
-	                  <li>Berapa probabilitas Anda akan memenangkan <em>setidaknya satu hadiah</em> (voucher atau tiket masuk)?</li>
-	                  <li>Berapa probabilitas <em>tidak memenangkan hadiah</em>?</li>
-	                  <li>Berapa probabilitas <em>memenangkan setidaknya satu hadiah dalam tiga kunjungan</em>?</li>
-	                </ol>
-	              </div>
-	              <!-- ========================= -->
-	              <div id="soal6" style='display:none;'>
-	                <p>Berikut ini adalah data waktu tempuh (dalam menit) mahasiswa menuju kampus berdasarkan moda transportasi:</p>
-	                <p><strong>Transportasi Umum:</strong> 18, 21, 23, 25, 27, 29, 30, 32, 33, 35</p>
-	                <p><strong>Kendaraan Pribadi:</strong> 24, 25, 26, 28, 29, 30, 31, 33, 34, 36</p>
-	                <ol type="a">
-	                  <li>Hitung <em>median</em>, <em>kuartil pertama</em> (\( Q_1 \)), dan <em>kuartil ketiga</em> (\( Q_3 \)) untuk masing-masing kelompok.</li>
-	                  <li>Gambarkan diagram boxplot berdasarkan informasi tersebut.</li>
-	                </ol>
-	              </div>
-	              <div id="soal7" style='display:none;'>
-	                <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
-	                <div class="text-center overflow-auto">
-	                  <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
-	                </div>
-	                <ol type="a">
-	                  <li>Perkirakan nilai <em>median</em>.</li>
-	                  <li>Tentukan <em>rentang interkuartil</em> (\( \text{IQR} = Q_3 - Q_1 \)).</li>
-	                  <li>Identifikasi pencilan dan perkirakan nilainya.</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal8" style='display:none;'>
-	                <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
-	                <div class="text-center overflow-auto">
-	                  <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
-	                </div>
-	                <ol type="a">
-	                  <li>Perkirakan nilai <em>kuartil pertama</em> (\( Q_1 \)) dan <em>kuartil ketiga</em> (\( Q_3 \)).</li>
-	                  <li>Di luar batas mana sebuah nilai dianggap sebagai <em>pencilan</em> (outlier)?</li>
-	                  <li>Identifikasi pencilan dan perkirakan nilainya.</li>
-	                  <li>Apakah distribusinya simetris, condong ke kanan (positif), atau condong ke kiri (negatif)? Jelaskan alasanmu.</li>
-	                </ol>
-	              </div>
-	              <!-- ====================== -->
-	              <div id="soal9" style='display:none;'>
-	                <p>Tabel di bawah ini menunjukkan distribusi frekuensi dari pengeluaran bulanan makanan (dalam \( \$ \)) untuk 60 rumah tangga di daerah urban:</p>
-
-	                <table class="table table-bordered text-center datatable">
-	                  <thead class="table-light">
-	                    <tr>
-	                      <th>Pengeluaran (\$)</th>
-	                      <th>Frekuensi</th>
-	                    </tr>
-	                  </thead>
-	                  <tbody>
-	                    <tr>
-	                      <td>200 – 300</td>
-	                      <td>6</td>
-	                    </tr>
-	                    <tr>
-	                      <td>300 – 400</td>
-	                      <td>9</td>
-	                    </tr>
-	                    <tr>
-	                      <td>400 – 500</td>
-	                      <td>15</td>
-	                    </tr>
-	                    <tr>
-	                      <td>500 – 600</td>
-	                      <td>20</td>
-	                    </tr>
-	                    <tr>
-	                      <td>600 – 700</td>
-	                      <td>7</td>
-	                    </tr>
-	                    <tr>
-	                      <td>700 – 800</td>
-	                      <td>3</td>
-	                    </tr>
-	                    <tr>
-	                      <td><strong>Total</strong></td>
-	                      <td><strong>60</strong></td>
-	                    </tr>
-	                  </tbody>
-	                </table>
-	                <ul>
-	                  <li>Estimasi rata-rata pengeluaran.</li>
-	                  <li>Estimasi simpangan baku.</li>
-	                </ul>
-	              </div>
-
-	              <div id="soal10" style='display:none;'>
-	                <p>Berikut ini adalah data usia dari 12 siswa yang mengikuti pelatihan statistika:</p>
-	                <p>24, 31, 27, 28, 35, 29, 32, 26, 30, 34, 28, 33</p>
-	                <ul>
-	                  <li>Hitung jangkauan (range).</li>
-	                  <li>Hitung simpangan baku (standar deviasi).</li>
-	                </ul>
-	              </div>
-
-	              <div id="soal11" style='display:none;'>
-	                <p>Sebuah laporan menyatakan bahwa jika Anda memiliki pengeluaran \$30.000 per tahun hari ini, dan tingkat inflasi berlangsung sebesar 4% per tahun, maka dalam 10 tahun Anda akan membutuhkan \$44.438 untuk mempertahankan daya beli yang sama. Jika tingkat inflasi menjadi 7%, maka Anda akan membutuhkan \$59.049.</p>
-	                <p>Konfirmasikan apakah pernyataan tersebut benar dengan menghitung laju rata-rata kenaikan geometrik untuk masing-masing tingkat inflasi.</p>
-	              </div>
-	              <!-- ========================= -->
-	              <div id="soal12" style='display:none;'>
-	                <p>Berikut adalah histogram frekuensi waktu belajar mingguan (dalam jam) dari mahasiswa tingkat akhir dalam mata kuliah skripsi:</p>
-	                <table class="table table-bordered text-center datatable">
-	                  <thead class="table-light">
-	                    <tr>
-	                      <th>Interval Jam</th>
-	                      <th>Frekuensi</th>
-	                    </tr>
-	                  </thead>
-	                  <tbody>
-	                    <tr>
-	                      <td>0 – 5</td>
-	                      <td>4</td>
-	                    </tr>
-	                    <tr>
-	                      <td>5 – 10</td>
-	                      <td>10</td>
-	                    </tr>
-	                    <tr>
-	                      <td>10 – 15</td>
-	                      <td>16</td>
-	                    </tr>
-	                    <tr>
-	                      <td>15 – 20</td>
-	                      <td>8</td>
-	                    </tr>
-	                    <tr>
-	                      <td>20 – 25</td>
-	                      <td>2</td>
-	                    </tr>
-	                  </tbody>
-	                </table>
-	                <ol type="a">
-	                  <li>Berapa jumlah total mahasiswa yang disurvei?</li>
-	                  <li>Berapa lebar interval kelasnya?</li>
-	                  <li>Berapa titik tengah kelas pertama?</li>
-	                  <li>Berapa banyak mahasiswa yang belajar kurang dari 10 jam?</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal13" style='display:none;'>
-	                <p>Berikut adalah jumlah menit keterlambatan karyawan tiba di kantor selama sebulan (dalam satuan menit), diambil dari 30 observasi:</p>
-	                <p>
-	                  23, 15, 19, 21, 25, 18, 24, 17, 16, 22,<br>
-	                  28, 30, 32, 35, 27, 26, 33, 29, 31, 36,<br>
-	                  41, 38, 40, 39, 43, 45, 44, 37, 34, 42
+	                  Pertanyaan: Minuman apa yang paling laku? Berapa persen kontribusi penjualan Americano terhadap total?
 	                </p>
-	                <ol type="a">
-	                  <li>Berapa jumlah kelas yang Anda rekomendasikan?</li>
-	                  <li>Berapa ukuran interval kelas yang Anda sarankan?</li>
-	                </ol>
+	                <code>
+	                  "Minuman"
+	                  "Latte","Americano","Cappuccino","Mocha","Latte","Americano","Latte","Latte","Cappuccino","Mocha","Americano","Latte","Mocha","Latte","Americano","Cappuccino","Latte","Americano","Americano","Mocha","Cappuccino","Latte","Latte","Americano","Mocha","Cappuccino","Latte","Americano","Latte","Mocha","Americano","Latte","Cappuccino","Americano","Americano","Mocha","Latte","Latte","Cappuccino","Latte","Mocha","Americano","Latte","Cappuccino","Mocha","Americano","Latte","Americano","Latte","Cappuccino"
+	                </code>
 	              </div>
+	              <div id="soal1b" style='display:none;'>
+	                <p>
+Kasus: Manajer HR ingin menganalisis tingkat pendidikan karyawan di perusahaannya.
 
-	              <div id="soal14" style='display:none;'>
-	                <p>Klasifikasikan variabel-variabel berikut ke dalam variabel diskrit atau kontinu.</p>
-	                <ul>
-	                  <li>Umur</li>
-	                  <li>Tipe Kelamin</li>
-	                  <li>Jumlah Buku yang Dibaca</li>
-	                  <li>Tinggi Badan</li>
-	                  <li>Jenis Smartphone</li>
-	                  <li>Nilai Matematika</li>
-	                  <li>Tingkat Kepuasan Pelanggan</li>
-	                  <li>Jumlah Anak</li>
-	                  <li>Waktu Belajar per Minggu</li>
-	                </ul>
-	              </div>
-	              <div id="soal15" style='display:none;'>
-	                <p>Untuk setiap situasi berikut, tentukan apakah Anda akan mengumpulkan informasi dari <strong>sampel</strong> atau <strong>populasi</strong>. Jelaskan alasannya.</p>
-	                <ol>
-	                  <li>Anda ingin mengetahui pendapat mahasiswa semester 1 di universitas Anda mengenai penggunaan AI dalam pembelajaran.</li>
-	                  <li>Seorang manajer ingin mengevaluasi rata-rata waktu penyelesaian proyek pada seluruh divisi perusahaan dalam 5 tahun terakhir.</li>
-	                  <li>Sebuah lembaga penelitian ingin memperkirakan tingkat kepuasan pengguna dari 1.000 pelanggan aplikasi mobile melalui survei.</li>
-	                  <li>Seorang analis data ingin meneliti seluruh transaksi keuangan pemerintah provinsi dalam satu tahun anggaran.</li>
-	                </ol>
-	              </div>
+    Arahan: Sajikan data tingkat pendidikan karyawan dalam bentuk grafik batang dan diagram lingkaran.
 
+    Pertanyaan: Tingkat pendidikan mana yang mendominasi di perusahaan? Berapa proporsi karyawan dengan gelar Sarjana (S1)?
+	                </p>
+	                <code>
+"Pendidikan"
+"S1","SMA","S2","S1","SMA","S1","S1","D3","S1","SMA","S2","S1","SMA","S1","D3","S1","S1","SMA","S1","S1","S2","SMA","S1","D3","S1","SMA","S1","S1","SMA","S2","S1","SMA","S1","D3","S1","SMA","S1","SMA","S1","S1","D3","S1","S2","SMA","S1","SMA","S1","S1","D3","S1"
+	                </code>
+	              </div>
+	              <div id="soal1c" style='display:none;'>
+	                <p>
+Kasus: Sebuah survei online menanyakan platform media sosial yang paling sering digunakan oleh responden.
+
+    Arahan: Visualisasikan hasil survei menggunakan bar chart untuk perbandingan dan pie chart untuk melihat pangsa pasar.
+
+    Pertanyaan: Platform apa yang paling populer? Berapa persentase pengguna yang memilih Instagram?
+	                </p>
+	                <code>
+"Platform"
+"Instagram","TikTok","Facebook","Instagram","TikTok","X","Instagram","Facebook","TikTok","Instagram","X","TikTok","Instagram","Facebook","Instagram","TikTok","X","Facebook","Instagram","TikTok","Instagram","Facebook","TikTok","X","Instagram","TikTok","Facebook","Instagram","TikTok","Instagram","X","Facebook","TikTok","Instagram","TikTok","Facebook","Instagram","X","TikTok","Instagram","Facebook","TikTok","Instagram","X","Facebook","TikTok","Instagram","Facebook","TikTok","Instagram"
+	                </code>
+	              </div>
+	              <div id="soal1d" style='display:none;'>
+	                <p>
+Kasus: Seorang guru ingin melihat sebaran nilai ujian matematika dari 50 siswa.
+
+    Arahan: Buatlah histogram dari nilai ujian siswa untuk melihat distribusi nilainya.
+
+    Pertanyaan: Apakah sebagian besar siswa mendapat nilai tinggi, rendah, atau sedang? Apakah ada pencilan (nilai yang sangat ekstrem)?
+	                </p>
+	                <code>
+"Nilai"
+78,85,62,91,75,88,69,72,95,81,65,77,89,93,70,82,79,68,86,74,90,71,83,67,92,76,84,66,94,80,73,87,64,96,60,98,55,99,58,97,63,59,100,61,57,56,54,53,52,51
+	                </code>
+	              </div>
+	              <div id="soal1e" style='display:none;'>
+	                <p>
+Kasus: Manajer gym ingin menganalisis usia para anggotanya untuk merancang program latihan yang sesuai.
+
+    Arahan: Buat histogram dari data usia anggota gym.
+
+    Pertanyaan: Pada rentang usia berapakah konsentrasi anggota gym paling tinggi?
+	                </p>
+	                <code>
+"Usia"
+25,31,22,45,28,35,19,29,38,41,24,33,27,50,21,30,42,26,37,23,48,32,20,39,44,36,28,47,34,22,40,29,43,31,25,46,27,38,24,35,49,26,32,21,37,41,23,30,33,39
+	                </code>
+	              </div>
+	              <div id="soal1f" style='display:none;'>
+	                <p>
+Kasus: Sebuah kafe mencatat waktu (dalam menit) yang dihabiskan pelanggan dari saat memesan hingga meninggalkan kafe.
+
+    Arahan: Analisis distribusi waktu yang dihabiskan pelanggan menggunakan histogram.
+
+    Pertanyaan: Berapa lama durasi kunjungan yang paling umum? Apakah ada pelanggan yang tinggal sangat lama?
+	                </p>
+	                <code>
+"Waktu (Menit)"
+45,62,30,75,55,68,25,48,90,58,35,71,60,82,40,65,52,78,33,85,47,63,28,70,50,95,42,59,38,72,53,67,31,80,44,61,22,88,49,56,37,73,29,77,41,66,36,81,46,54
+	                </code>
+	              </div>
+	              <div id="soal2a" style='display:none;'>
+	                <p>
+Kasus: Sebuah perusahaan e-commerce menganalisis nilai transaksi (dalam ribu Rupiah) dari 50 pembelian terakhir.
+
+    Arahan: Hitung mean, median, dan mode dari data nilai transaksi.
+
+    Pertanyaan: Berapa rata-rata nilai transaksi? Berapa nilai transaksi yang menjadi titik tengah? Apakah ada nilai transaksi yang paling sering terjadi? Bandingkan ketiganya, apa artinya?
+	                </p>
+	                <code>
+"Nilai Transaksi (Ribu Rp)"
+150,200,120,500,80,150,300,250,180,150,90,450,220,100,150,75,320,280,160,150,550,110,190,210,150,400,130,170,240,150,600,95,350,260,150,85,480,230,140,150,70,380,270,150,105,520,290,150,115,310
+	                </code>
+	              </div>
+	              <div id="soal2b" style='display:none;'>
+	                <p>
+Kasus: Seorang pelatih lari mencatat waktu tempuh (dalam menit) dari 50 pelari dalam lomba 5K.
+
+    Arahan: Tentukan mean, median, dan mode dari catatan waktu tersebut.
+
+    Pertanyaan: Berapa rata-rata waktu tempuh semua pelari? Berapa waktu tengahnya? Adakah waktu tempuh yang paling umum dicapai?
+	                </p>
+	                <code>
+"Waktu Tempuh (Menit)"
+25.5,28.2,30.1,24.8,29.5,27.3,26.8,31.0,25.5,33.2,26.1,28.9,27.5,29.8,25.5,30.5,24.2,32.1,28.6,27.9,26.5,29.2,25.5,30.8,28.0,27.1,31.5,26.3,29.0,25.5,34.0,24.5,31.8,28.3,27.6,26.9,29.6,25.5,30.3,28.8,24.0,32.5,27.8,26.6,29.3,25.5,30.0,28.1,27.2,31.2
+	                </code>
+	              </div>
+	              <div id="soal2c" style='display:none;'>
+	                <p>
+Kasus: Departemen quality control di sebuah pabrik botol mengukur volume isi (dalam ml) dari 50 sampel botol minuman.
+
+    Arahan: Hitung ukuran pemusatan (mean, median, mode) dari volume isi botol.
+
+    Pertanyaan: Apakah rata-rata volume pengisian sesuai dengan standar (misal, 500 ml)? Berapa nilai median dan modusnya?
+	                </p>
+	                <code>
+"Volume (ml)"
+499.5,500.1,498.8,501.2,500.0,499.7,500.3,500.0,499.1,500.8,500.0,499.9,500.5,498.5,501.0,500.0,499.3,500.6,500.2,499.0,501.5,500.0,499.8,500.4,498.9,500.0,500.7,499.6,500.0,499.2,501.3,498.7,500.9,500.0,499.4,500.0,501.1,498.6,500.0,499.5,500.1,501.4,499.0,500.0,498.4,500.8,499.7,500.3,500.0,501.2
+	                </code>
+	              </div>
+	              <div id="soal2d" style='display:none;'>
+	                <p>
+Kasus: Dua mesin di pabrik sama-sama memproduksi baut dengan target panjang 5 cm. Diambil 50 sampel dari masing-masing mesin.
+
+    Arahan: Hitung mean dan standar deviasi panjang baut dari kedua mesin.
+
+    Pertanyaan: Mesin mana yang lebih presisi (memiliki standar deviasi lebih kecil), meskipun mungkin rata-ratanya sama?
+	                </p>
+	                <code>
+"Mesin A (cm)","Mesin B (cm)"
+5.01,5.10
+4.99,4.90
+5.00,5.05
+5.02,5.15
+4.98,4.85
+5.01,5.08
+4.99,4.92
+5.00,5.03
+5.01,5.12
+4.99,4.88
+5.00,5.00
+5.02,5.18
+4.98,4.82
+5.01,5.07
+4.99,4.93
+5.00,5.01
+5.01,5.11
+4.99,4.89
+5.00,5.04
+5.02,5.16
+4.98,4.84
+5.01,5.09
+4.99,4.91
+5.00,5.02
+5.01,5.13
+4.99,4.87
+5.00,5.06
+5.02,5.17
+4.98,4.83
+5.01,5.08
+4.99,4.92
+5.00,5.03
+5.01,5.12
+4.99,4.88
+5.00,5.00
+5.02,5.18
+4.98,4.82
+5.01,5.07
+4.99,4.93
+5.00,5.01
+5.01,5.11
+4.99,4.89
+5.00,5.04
+5.02,5.16
+4.98,4.84
+5.01,5.09
+4.99,4.91
+5.00,5.02
+5.01,5.13
+4.99,4.87
+	                </code>
+	              </div>
+	              <div id="soal2e" style='display:none;'>
+	                <p>
+Kasus: Seorang investor membandingkan return saham bulanan (dalam %) dari dua perusahaan teknologi selama 50 bulan terakhir.
+
+    Arahan: Hitung rata-rata return dan standar deviasi untuk kedua saham.
+
+    Pertanyaan: Saham mana yang memberikan return rata-rata lebih tinggi? Saham mana yang lebih berisiko (memiliki standar deviasi lebih tinggi)?
+	                </p>
+	                <code>
+"Saham X (%)","Saham Y (%)"
+1.2,-0.5
+-0.8,2.5
+2.5,1.0
+0.5,0.8
+-1.5,3.0
+3.0,-1.0
+1.8,1.5
+-0.2,0.2
+2.1,-0.8
+0.9,2.2
+-1.1,3.5
+3.2,-1.2
+1.5,1.8
+-0.5,0.5
+2.8,-0.1
+1.1,2.0
+-0.9,3.1
+2.2,0.9
+0.8,-0.3
+-1.2,2.8
+3.5,-1.5
+1.3,1.3
+-0.6,0.7
+2.0,1.1
+0.6,2.4
+-1.0,3.3
+2.9,-0.9
+1.6,1.6
+-0.3,0.4
+2.4,1.2
+1.0,-0.2
+-1.4,2.9
+3.1,-1.1
+1.9,1.9
+-0.1,0.1
+2.3,1.4
+0.7,2.1
+-1.3,3.2
+2.6,-0.7
+1.4,1.7
+-0.4,0.6
+2.7,1.3
+0.4,2.3
+-1.6,3.4
+3.3,-1.3
+1.7,1.4
+-0.7,0.8
+2.0,1.0
+0.3,2.6
+-1.8,3.6
+	                </code>
+	              </div>
+	              <div id="soal2f" style='display:none;'>
+	                <p>
+Kasus: Seorang ahli agronomi mengukur tinggi tanaman jagung (dalam cm) dari dua varietas berbeda yang diberi pupuk yang sama.
+
+    Arahan: Bandingkan rata-rata tinggi dan variabilitas (standar deviasi) dari kedua varietas.
+
+    Pertanyaan: Varietas mana yang rata-rata lebih tinggi? Varietas mana yang pertumbuhannya lebih seragam?
+	                </p>
+	                <code>
+"Varietas A (cm)","Varietas B (cm)"
+155,160
+158,159
+153,162
+160,158
+156,161
+157,160
+154,163
+159,157
+155,161
+158,159
+152,164
+161,156
+157,160
+156,161
+153,162
+160,158
+155,160
+158,159
+154,163
+159,157
+156,161
+157,160
+152,164
+161,156
+155,160
+158,159
+153,162
+160,158
+156,161
+157,160
+154,163
+159,157
+155,161
+158,159
+152,164
+161,156
+157,160
+156,161
+153,162
+160,158
+155,160
+158,159
+154,163
+159,157
+156,161
+157,160
+152,164
+161,156
+155,160
+158,159
+	                </code>
+	              </div>
+	              <div id="soal3a" style='display:none;'>
+	                <p>
+Kasus (Binomial): Sebuah perusahaan mengklaim 90% produknya lolos quality control (QC). Jika seorang inspektur mengambil 20 sampel secara acak, berapa peluangnya?
+
+    Arahan: Gunakan fungsi BINOM.DIST untuk menghitung probabilitas.
+
+    Pertanyaan: Berapa peluang tepat 18 produk lolos QC? Berapa peluang paling banyak 2 produk gagal (artinya 18, 19, atau 20 produk lolos)?
+	                </p>
+	                <code>
+"Status QC"
+1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1
+	                </code>
+	              </div>
+	              <div id="soal3b" style='display:none;'>
+	                <p>
+Kasus (Poisson): Sebuah call center rata-rata menerima 10 panggilan per jam. Manajer ingin mengetahui probabilitas jumlah panggilan di jam sibuk berikutnya.
+
+    Arahan: Gunakan POISSON.DIST untuk membuat distribusi probabilitas jumlah panggilan.
+
+    Pertanyaan: Berapa peluang di jam berikutnya hanya menerima tepat 5 panggilan? Berapa peluang menerima lebih dari 15 panggilan?
+	                </p>
+	                <code>
+"Jumlah Panggilan"
+10,12,8,9,11,10,13,7,10,11,9,12,10,8,14,10,11,9,12,10,10,13,8,9,11,12,7,10,11,9,14,8,10,12,9,11,10,13,7,10,11,9,12,10,8,14,10,11,9,12
+	                </code>
+	              </div>
+	              <div id="soal3c" style='display:none;'>
+	                <p>
+Kasus (Binomial): Dalam sebuah kuis pilihan ganda dengan 15 soal (4 pilihan jawaban), seorang siswa menjawab sepenuhnya secara acak.
+
+    Arahan: Hitung probabilitas jumlah jawaban benar menggunakan BINOM.DIST (peluang sukses per soal adalah 0.25).
+
+    Pertanyaan: Berapa peluang siswa tersebut tidak menjawab benar sama sekali (0 benar)? Berapa peluang ia lulus jika syarat lulus adalah minimal 8 jawaban benar?
+	                </p>
+	                <code>
+"Jawaban Benar"
+3,4,2,5,3,4,1,6,3,4,2,5,4,3,2,5,3,4,2,6,3,4,1,5,3,4,2,5,4,3,2,5,3,4,1,6,3,4,2,5,4,3,2,5,3,4,1,6,3,4
+	                </code>
+	              </div>
+	              <div id="soal3d" style='display:none;'>
+	                <p>
+Kasus (Normal): IQ siswa di sebuah sekolah diketahui berdistribusi normal dengan rata-rata 100 dan standar deviasi 15.
+
+    Arahan: Gunakan NORM.DIST untuk menghitung probabilitas.
+
+    Pertanyaan: Berapa persentase siswa yang memiliki IQ di bawah 85 (dianggap butuh perhatian khusus)? Berapa persentase siswa yang tergolong jenius (IQ di atas 130)?
+	                </p>
+	                <code>
+"Skor IQ"
+105,95,115,100,85,120,98,102,110,90,130,75,108,92,112,96,104,118,88,125,101,99,111,103,89,122,97,106,114,93,128,80,109,91,116,94,107,119,87,124,100,105,95,115,85,120,98,102,110,90
+	                </code>
+	              </div>
+	              <div id="soal3e" style='display:none;'>
+	                <p>
+Kasus (Normal): Berat bersih sebungkus keripik kentang berdistribusi normal dengan mean 250 gram dan standar deviasi 5 gram.
+
+    Arahan: Hitung probabilitas berat keripik menggunakan fungsi distribusi normal.
+
+    Pertanyaan: Berapa peluang membeli sebungkus keripik yang beratnya kurang dari 240 gram (dianggap merugikan konsumen)? Berapa peluang beratnya antara 245 dan 255 gram?
+	                </p>
+	                <code>
+"Berat (gram)"
+252,248,255,250,245,258,249,251,254,247,260,243,253,246,256,248,252,257,244,259,250,251,254,249,246,257,248,253,255,245,261,242,254,247,258,246,251,256,244,259,250,252,248,255,245,258,249,251,254,247
+	                </code>
+	              </div>
+	              <div id="soal3f" style='display:none;'>
+	                <p>
+Kasus (Distribusi t): Seorang peneliti menguji efektivitas suplemen baru pada 20 atlet (sampel kecil). Ia mengukur peningkatan kekuatan (dalam kg) setelah sebulan. Data peningkatannya ada di bawah ini.
+
+    Arahan: Karena sampel kecil (n=20 < 30) dan standar deviasi populasi tidak diketahui, analisis inferensial (seperti uji hipotesis) akan menggunakan distribusi t. Hitung mean dan stdev sampel terlebih dahulu.
+
+    Pertanyaan: Dengan rata-rata dan standar deviasi dari sampel ini, bagaimana kita bisa membangun selang kepercayaan untuk rata-rata peningkatan kekuatan populasi? (Ini adalah langkah lanjutan, tetapi dasarnya adalah penggunaan distribusi-t).
+	                </p>
+	                <code>
+"Peningkatan (kg)"
+5.2,4.8,6.1,5.5,4.9,5.8,6.3,5.1,4.7,5.9,6.5,5.3,4.6,5.7,6.0,5.4,4.9,5.6,6.2,5.0,5.1,4.8,6.2,5.6,4.7,5.9,6.4,5.2,4.5,5.8,6.6,5.4,4.4,5.5,6.1,5.3,4.8,5.7,6.3,4.9,5.0,5.2,4.6,5.9,6.0,5.1,4.7,5.8,6.5,5.3
+	                </code>
+	              </div>
+                  
 	              <p class="h1 text-center">Soal UTS</p>
 	              <ol id="soalUTS">
 	                <li id='nomer1'>
@@ -434,12 +598,6 @@
 	                </li>
 	                <li id='nomer3'>
 	                  <h2>Soal 3</h2>
-	                </li>
-	                <li id='nomer4'>
-	                  <h2>Soal 4</h2>
-	                </li>
-	                <li id='nomer5'>
-	                  <h2>Soal 5</h2>
 	                </li>
 	              </ol>
 	            </div>
