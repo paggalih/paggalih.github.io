@@ -1501,8 +1501,8 @@ c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Co
 	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()" style="display:none;">Kirim Jawaban</button>
 	            <script>
-	              const mulaiUTSmbs2d = new Date("July 2, 2025 08:59:00").getTime();
-	              const akhirUTSmbs2d = new Date("October 21, 2026 14:20:00").getTime();
+	              const mulaiUTSmbs2d = new Date("July 2, 2025 13:20:00").getTime();
+	              const akhirUTSmbs2d = new Date("October 21, 2025 14:20:00").getTime();
 	              function validateUTSmbs2d() {
 	              	let sekarang = new Date().getTime();
 	              	document.getElementById('timerUTS').style.display="block";
@@ -1522,7 +1522,7 @@ c. Berdasarkan hasil (a) dan (b), di manakah perkiraan letak IRR proyek ini? (Co
 	              	else {
 	              		if (sekarang-akhirUTSmbs2d<0) {
 	              			 let person = prompt("Masukkan Password", "isi di sini");
-	              			 if (person === "mata") {
+	              			 if (person === "mks") {
 	              				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 	              				document.getElementById("berhasilValidateUTS").style.display = "block";
 	              				let validNIM = false;
