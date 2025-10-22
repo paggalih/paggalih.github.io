@@ -961,14 +961,14 @@
 	            <p class="h1">Ketentuan UTS</p>
 	            <ol>
 	              <li>UTS hanya boleh dikerjakan selama 1.5 jam.</li>
-	              <li>Soal UTS boleh dikerjakan dari 13:20-14:50.</li>
+	              <li>Soal UTS boleh dikerjakan dari 13:10-14:40.</li>
 	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 	            </ol>
 	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()" style="display:none;">Kirim Jawaban</button>
 	            <script>
-	              const mulaiUTSmbs2d = new Date("July 23, 2025 13:20:00").getTime();
-	              const akhirUTSmbs2d = new Date("October 23, 2025 14:50:00").getTime();
+	              const mulaiUTSmbs2d = new Date("July 23, 2025 13:10:00").getTime();
+	              const akhirUTSmbs2d = new Date("October 23, 2025 14:40:00").getTime();
 	              function validateUTSmbs2d() {
 	              	let sekarang = new Date().getTime();
 	              	document.getElementById('timerUTS').style.display="block";
@@ -1005,12 +1005,12 @@
 	              
 	              				let b = (nim*5)% 6;
 	              				let c = [
-	              	['soal3', 'soal4', 'soal8', 'soal12', 'soal10','soal6a'],
-	              	['soal3', 'soal4', 'soal8', 'soal12', 'soal10','soal6a'],
-	              	['soal3', 'soal4', 'soal8', 'soal12', 'soal10','soal6a'],
-	              	['soal3', 'soal4', 'soal8', 'soal12', 'soal10','soal6a'],
-	              	['soal3', 'soal4', 'soal8', 'soal12', 'soal10','soal6a'],
-	              	['soal3', 'soal4', 'soal8', 'soal12', 'soal10','soal6a']
+	              	['soal1a', 'soal2a', 'soal3a', 'soal4a', 'soal5a'],
+	              	['soal1b', 'soal2b', 'soal3b', 'soal4b', 'soal5b'],
+	              	['soal1c', 'soal2c', 'soal3c', 'soal4c', 'soal5c'],
+	              	['soal1d', 'soal2d', 'soal3d', 'soal4d', 'soal5d'],
+	              	['soal1e', 'soal2e', 'soal3e', 'soal4e', 'soal5e'],
+	              	['soal1a', 'soal2b', 'soal3c', 'soal4d', 'soal5e']
 	              				];
 	              				let d = c[b];
 	              				for (i = 1; i < 6; i++) {
@@ -1025,7 +1025,7 @@
 	              			}
 	              		}
 	              		else{
-	              			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
+	              			alert("Sudah selesai. UTS hanya boleh dikerjakan sampai pukul 14.40");
 	              		}
 	              	}
 	              	// Update the count down every 1 second
@@ -1068,9 +1068,301 @@
 	            <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 	            <div id="berhasilValidateUTS" style="display: none">
 	              <div id="soal1a" style='display:none;'>
-
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -3Q_D + 60$$
+            $$P = Q_S + 20$$
+            dimana P, $Q_D$, dan $Q_S$ masing-masing menunjukkan harga, kuantitas permintaan, dan kuantitas penawaran.
+            <br>
+            <b>(a)</b> Tentukan harga dan kuantitas keseimbangan.
+            <br>
+            <b>(b)</b> Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah memutuskan untuk mengenakan pajak tetap sebesar Rp 4 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal1b" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -Q_D + 100$$
+            $$P = \frac{1}{3}Q_S + 20$$
+            <b>(a)</b> Tentukan harga dan kuantitas keseimbangan.
+            <br>
+            <b>(b)</b> Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 8 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal1c" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -4Q_D + 120$$
+            $$P = Q_S + 30$$
+            <b>(a)</b> Tentukan harga dan kuantitas keseimbangan.
+            <br>
+            <b>(b)</b> Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 10 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal1d" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -2Q_D + 80$$
+            $$P = 2Q_S + 10$$
+            <b>(a)</b> Tentukan harga dan kuantitas keseimbangan.
+            <br>
+            <b>(b)</b> Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 6 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal1e" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -\frac{1}{2}Q_D + 75$$
+            $$P = Q_S + 15$$
+            <b>(a)</b> Tentukan harga dan kuantitas keseimbangan.
+            <br>
+            <b>(b)</b> Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 9 untuk setiap barang.
+        </p>
 	              </div>
 
+	              <div id="soal2a" style='display:none;'>
+<p>
+            Diketahui fungsi permintaan dan penawaran untuk dua barang adalah:
+            $$Q_{D1} = 50 - P_1 - P_2$$
+            $$Q_{D2} = 60 - P_1 - P_2$$
+            $$Q_{S1} = 22 + P_1$$
+            $$Q_{S2} = 16 + 2P_2$$
+            Tentukan harga dan kuantitas keseimbangan serta jenis hubungan antara kedua barang tersebut.
+        </p>
+	              </div>
+	              <div id="soal2b" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran untuk dua komoditas adalah sebagai berikut:
+            $$Q_{D1} = 40 - 3P_1 + P_2$$
+            $$Q_{D2} = 50 + 2P_1 - P_2$$
+            $$Q_{S1} = 19 + 2P_1$$
+            $$Q_{S2} = 35 + 2P_2$$
+            Tentukan harga dan kuantitas keseimbangan untuk model ini. Apakah kedua barang tersebut substitusi atau komplementer?
+        </p>
+	              </div>
+	              <div id="soal2c" style='display:none;'>
+<p>
+            Diketahui fungsi permintaan dan penawaran untuk dua barang adalah:
+            $$Q_{D1} = 100 - 2P_1 - 2P_2$$
+            $$Q_{D2} = 90 - P_1 - 3P_2$$
+            $$Q_{S1} = 10 + P_1$$
+            $$Q_{S2} = 10 + P_2$$
+            Tentukan harga dan kuantitas keseimbangan serta jenis hubungan antara kedua barang tersebut.
+        </p>
+	              </div>
+	              <div id="soal2d" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran untuk dua komoditas adalah sebagai berikut:
+            $$Q_{D1} = 30 - 3P_1 + 2P_2$$
+            $$Q_{D2} = 20 + P_1 - 2P_2$$
+            $$Q_{S1} = 6 + P_1$$
+            $$Q_{S2} = 6 + P_2$$
+            Tentukan harga dan kuantitas keseimbangan untuk model ini. Apakah kedua barang tersebut substitusi atau komplementer?
+        </p>
+	              </div>
+	              <div id="soal2e" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran untuk dua komoditas yang saling berhubungan diberikan oleh persamaan berikut:
+            $$Q_{D1} = 30 - 2P_1 - P_2$$
+            $$Q_{D2} = 40 - P_1 - P_2$$
+            $$Q_{S1} = 5 + P_1$$
+            $$Q_{S2} = 15 + P_2$$
+            dimana $Q_D$, $Q_S$, dan $P$ masing-masing menunjukkan kuantitas permintaan, kuantitas penawaran, dan harga untuk barang ke-$i$. Tentukan harga dan kuantitas keseimbangan untuk model dua komoditas ini. Apakah kedua barang tersebut merupakan barang substitusi atau komplementer?
+        </p>
+	              </div>
+
+	              <div id="soal3a" style='display:none;'>
+<p>Seorang produsen game monopoli menemukan bahwa fungsi permintaan (demand) untuk produknya adalah $P = 500 - 3Q$. Sementara itu, fungsi biaya total (TC) untuk memproduksi game tersebut adalah $TC = 2Q^2 + 50Q + 1500$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Tentukan fungsi Profit ($\pi$) sebagai fungsi dari Q.</li>
+                <li>Berapa jumlah game (Q) yang harus diproduksi dan dijual untuk mencapai profit maksimum?</li>
+                <li>Berapa profit maksimum yang bisa didapat?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal3b" style='display:none;'>
+<p>Sebuah perusahaan percetakan buku yang bersifat monopoli memiliki fungsi permintaan $P = 300 - Q$. Fungsi biaya total (TC) untuk produksi adalah $TC = Q^2 + 20Q + 500$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Tentukan fungsi Profit ($\pi$) sebagai fungsi dari Q.</li>
+                <li>Berapa jumlah buku (Q) yang harus diproduksi dan dijual untuk mencapai profit maksimum?</li>
+                <li>Berapa profit maksimum yang bisa didapat?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal3c" style='display:none;'>
+<p>Produsen tunggal alat olahraga menetapkan fungsi permintaan pasar $P = 600 - 4Q$. Biaya total (TC) yang dikeluarkan adalah $TC = Q^2 + 60Q + 2000$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Tentukan fungsi Profit ($\pi$) sebagai fungsi dari Q.</li>
+                <li>Berapa kuantitas (Q) untuk mencapai profit maksimum?</li>
+                <li>Berapa profit maksimum yang bisa didapat?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal3d" style='display:none;'>
+<p>Sebuah perusahaan farmasi monopoli memiliki fungsi permintaan untuk obat barunya sebesar $P = 800 - 5Q$. Fungsi biaya total (TC) untuk produksi adalah $TC = 3Q^2 + 20Q + 3000$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Tentukan fungsi Profit ($\pi$) sebagai fungsi dari Q.</li>
+                <li>Berapa jumlah obat (Q) yang harus diproduksi untuk profit maksimum?</li>
+                <li>Berapa profit maksimum yang bisa didapat?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal3e" style='display:none;'>
+<p>Sebuah penyedia layanan internet monopoli menghadapi fungsi permintaan $P = 900 - 2Q$. Adapun fungsi biaya total (TC) yang dimiliki adalah $TC = Q^2 + 100Q + 5000$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Tentukan fungsi Profit ($\pi$) sebagai fungsi dari Q.</li>
+                <li>Berapa jumlah pelanggan (Q) agar perusahaan mencapai profit maksimum?</li>
+                <li>Berapa profit maksimum yang bisa didapat?</li>
+            </ol></p>
+	              </div>
+
+                  <div id="soal4a" style='display:none;'>
+<p>
+            Anda akan menerima warisan sebesar $Rp\ 8.500.000$ pada <strong>4 tahun</strong> mendatang. Jika tingkat bunga deposito bank saat ini adalah $4\%$ per tahun, berapakah nilai sekarang (Present Value) dari warisan tersebut?
+        </p>
+	              </div>
+	              <div id="soal4b" style='display:none;'>
+<p>
+            Sebuah investasi menjanjikan pengembalian dana sebesar $Rp\ 100.000.000$ dalam waktu <strong>5 tahun</strong>. Jika tingkat diskonto (discount rate) yang digunakan adalah $10\%$ per tahun, berapakah nilai sekarang (Present Value) dari investasi tersebut?
+        </p>
+	              </div>
+	              <div id="soal4c" style='display:none;'>
+<p>
+            Berapakah nilai sekarang (Present Value) dari uang sejumlah $Rp\ 25.000.000$ yang akan Anda terima tepat <strong>1 tahun</strong> dari sekarang, jika tingkat suku bunga yang relevan adalah $6.5\%$ per tahun?
+        </p>
+	              </div>
+	              <div id="soal4d" style='display:none;'>
+<p>
+            Hitunglah nilai sekarang (Present Value) dari dana sebesar $Rp\ 50.000.000$ yang akan diterima pada akhir <strong>tahun ke-3</strong>, dengan asumsi tingkat suku bunga yang berlaku adalah $8\%$ per tahun.
+        </p>
+	              </div>
+	              <div id="soal4e" style='display:none;'>
+<p>
+            Berapakah nilai sekarang (Present Value) dari uang sejumlah $Rp\ 15.000.000$ yang akan Anda terima tepat <strong>2 tahun</strong> dari sekarang, jika tingkat suku bunga yang relevan adalah $5\%$ per tahun?
+        </p>
+	              </div>
+                  
+                  <div id="soal5a" style='display:none;'>
+<p>
+            Anda memiliki modal sebesar $Rp\ 300.000.000$ dan sedang mempertimbangkan untuk membeli salah satu dari dua waralaba kuliner. Keduanya diprediksi akan bertahan selama 5 tahun. Tingkat keuntungan yang Anda harapkan (discount rate) adalah $10\%$ per tahun.
+        </p>
+        <p><strong>A. Opsi A: Waralaba "Kedai Roti Pelangi"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 300.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih (setiap akhir tahun):
+                <ul>
+                    <li>Tahun 1: $Rp\ 90.000.000$</li>
+                    <li>Tahun 2: $Rp\ 95.000.000$</li>
+                    <li>Tahun 3: $Rp\ 100.000.000$</li>
+                    <li>Tahun 4: $Rp\ 85.000.000$</li>
+                    <li>Tahun 5: $Rp\ 80.000.000$</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>B. Opsi B: Waralaba "Es Krim Ceria"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 300.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih: Proyeksi dari waralaba ini lebih stabil, yaitu sebesar $Rp\ 92.000.000$ setiap akhir tahun selama 5 tahun.</li>
+        </ul>
+        <p><strong>Pertanyaan:</strong> Berdasarkan perhitungan NPV, waralaba manakah yang sebaiknya Anda pilih?</p>
+	              </div>
+	              <div id="soal5b" style='display:none;'>
+<p>
+            Seorang investor hendak mengalokasikan dana sebesar $Rp\ 500.000.000$ untuk bisnis kebugaran. Ada dua pilihan yang sedang dipertimbangkan untuk dijalankan selama 5 tahun dengan ekspektasi imbal hasil (discount rate) sebesar $15\%$ per tahun.
+        </p>
+        <p><strong>A. Opsi A: Waralaba "Gym Sehat Bugar"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 500.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih (setiap akhir tahun):
+                <ul>
+                    <li>Tahun 1: $Rp\ 150.000.000$</li>
+                    <li>Tahun 2: $Rp\ 160.000.000$</li>
+                    <li>Tahun 3: $Rp\ 170.000.000$</li>
+                    <li>Tahun 4: $Rp\ 140.000.000$</li>
+                    <li>Tahun 5: $Rp\ 130.000.000$</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>B. Opsi B: Waralaba "Studio Yoga Tenang"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 500.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih: Proyeksi arus kas stabil sebesar $Rp\ 155.000.000$ setiap akhir tahun selama 5 tahun.</li>
+        </ul>
+        <p><strong>Pertanyaan:</strong> Berdasarkan perhitungan NPV, waralaba manakah yang lebih menguntungkan?</p>
+	              </div>
+	              <div id="soal5c" style='display:none;'>
+<p>
+            Anda memiliki modal awal $Rp\ 180.000.000$ dan ingin membuka usaha jasa. Terdapat dua proposal bisnis yang sama-sama berdurasi 5 tahun. Tingkat diskonto yang relevan adalah $8\%$ per tahun.
+        </p>
+        <p><strong>A. Opsi A: Usaha "Cucian Mobil Kilat"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 180.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih (setiap akhir tahun):
+                <ul>
+                    <li>Tahun 1: $Rp\ 50.000.000$</li>
+                    <li>Tahun 2: $Rp\ 55.000.000$</li>
+                    <li>Tahun 3: $Rp\ 60.000.000$</li>
+                    <li>Tahun 4: $Rp\ 45.000.000$</li>
+                    <li>Tahun 5: $Rp\ 40.000.000$</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>B. Opsi B: Usaha "Kafe Kucing Gemas"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 180.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih: Arus kas diproyeksikan konstan sebesar $Rp\ 51.000.000$ setiap akhir tahun selama 5 tahun.</li>
+        </ul>
+        <p><strong>Pertanyaan:</strong> Dengan metode NPV, usaha manakah yang harus dipilih?</p>
+	              </div>
+	              <div id="soal5d" style='display:none;'>
+<p>
+            Sebuah perusahaan hiburan keluarga ingin melakukan ekspansi dengan dana $Rp\ 750.000.000$. Proyek akan berjalan selama 5 tahun dengan discount rate $14\%$ per tahun.
+        </p>
+        <p><strong>A. Opsi A: "Taman Bermain Anak Ceria"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 750.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih (setiap akhir tahun):
+                <ul>
+                    <li>Tahun 1: $Rp\ 250.000.000$</li>
+                    <li>Tahun 2: $Rp\ 260.000.000$</li>
+                    <li>Tahun 3: $Rp\ 270.000.000$</li>
+                    <li>Tahun 4: $Rp\ 240.000.000$</li>
+                    <li>Tahun 5: $Rp\ 220.000.000$</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>B. Opsi B: "Restoran Keluarga Lezat"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 750.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih: Arus kas tahunan yang stabil sebesar $Rp\ 255.000.000$ selama 5 tahun.</li>
+        </ul>
+        <p><strong>Pertanyaan:</strong> Manakah dari kedua proyek tersebut yang memberikan nilai tambah terbesar berdasarkan NPV?</p>
+	              </div>
+	              <div id="soal5e" style='display:none;'>
+<p>
+            Seorang pengusaha kuliner memiliki modal $Rp\ 400.000.000$ untuk diinvestasikan pada salah satu dari dua konsep F&B. Umur proyek adalah 5 tahun dan tingkat keuntungan yang diharapkan adalah $11\%$ per tahun.
+        </p>
+        <p><strong>A. Opsi A: "Toko Roti Artisan"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 400.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih (setiap akhir tahun):
+                <ul>
+                    <li>Tahun 1: $Rp\ 110.000.000$</li>
+                    <li>Tahun 2: $Rp\ 120.000.000$</li>
+                    <li>Tahun 3: $Rp\ 130.000.000$</li>
+                    <li>Tahun 4: $Rp\ 100.000.000$</li>
+                    <li>Tahun 5: $Rp\ 90.000.000$</li>
+                </ul>
+            </li>
+        </ul>
+        <p><strong>B. Opsi B: "Gerai Jus Buah Segar"</strong></p>
+        <ul>
+            <li>Biaya Investasi Awal: $Rp\ 400.000.000$</li>
+            <li>Prediksi Arus Kas Masuk Bersih: Proyeksi stabil sebesar $Rp\ 115.000.000$ setiap akhir tahun selama 5 tahun.</li>
+        </ul>
+        <p><strong>Pertanyaan:</strong> Berdasarkan kriteria NPV, investasi manakah yang lebih layak untuk dijalankan?</p>
+	              </div>
 
 	              <p class="h1 text-center">Soal UTS</p>
 	              <ol id="soalUTS">
@@ -1088,9 +1380,6 @@
 	                </li>
 	                <li id='nomer5'>
 	                  <h2>Soal 5</h2>
-	                </li>
-	                <li id='nomer6'>
-	                  <h2>Soal 6</h2>
 	                </li>
 	              </ol>
 	            </div>
