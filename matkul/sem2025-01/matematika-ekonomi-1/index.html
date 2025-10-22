@@ -967,7 +967,7 @@
 	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()" style="display:none;">Kirim Jawaban</button>
 	            <script>
-	              const mulaiUTSmbs2d = new Date("July 23, 2025 13:10:00").getTime();
+	              const mulaiUTSmbs2d = new Date("October 23, 2025 13:10:00").getTime();
 	              const akhirUTSmbs2d = new Date("October 23, 2025 14:40:00").getTime();
 	              function validateUTSmbs2d() {
 	              	let sekarang = new Date().getTime();
@@ -988,7 +988,7 @@
 	              	else {
 	              		if (sekarang-akhirUTSmbs2d<0) {
 	              			 let person = prompt("Masukkan Password", "isi di sini");
-	              			 if (person === "mata") {
+	              			 if (person === "ps") {
 	              				document.getElementById("tombol_mulai_mbs2d").style.display="none";
 	              				document.getElementById("berhasilValidateUTS").style.display = "block";
 	              				let validNIM = false;
