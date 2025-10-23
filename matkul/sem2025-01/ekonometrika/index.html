@@ -2418,41 +2418,372 @@
             <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
             <div id="berhasilValidateUTS" style="display: none">
               <div id="soala" style='display:none;'>
-
+<p>Seorang peneliti di bidang ekonomi pembangunan tertarik untuk menganalisis faktor-faktor yang memengaruhi Tingkat Pertumbuhan Ekonomi (Y) di 50 negara berkembang. Peneliti tersebut mengumpulkan data mengenai Tingkat Investasi (X1) sebagai persentase dari PDB, Tingkat Inflasi (X2) dalam persen, dan Tingkat Keterbukaan Perdagangan (X3) sebagai persentase dari PDB.</p>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-1.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-1"></div>
+        <script>
+          fetch('uts-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+                <ol>
+                <li>Berdasarkan data yang ada, tentukan bentuk fungsional regresi yang paling sesuai (polinomial, reciprocal, atau logaritma) untuk memodelkan hubungan ini.</li>
+                  <li>Lakukan estimasi regresi berganda.</li>
+                  <li>Uji keberadaan multikolinearitas.</li>
+                  <li>Uji keberadaan heteroskedastisitas.</li>
+                  <li>Interpretasikan hasilnya.</li>
+                </ol>
               </div>
               <div id="soalb" style='display:none;'>
-
+                <p>Seorang analis keuangan ingin meneliti faktor-faktor yang memengaruhi Harga Saham (Y) sebuah perusahaan teknologi. Data dikumpulkan dari 50 perusahaan, meliputi Pendapatan per Saham (X1), Rasio Utang terhadap Ekuitas (X2), dan Belanja Iklan (X3).</p>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-2.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-2"></div>
+        <script>
+          fetch('uts-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+                <ol>
+                <li>Berdasarkan data yang ada, tentukan bentuk fungsional regresi yang paling sesuai (polinomial, reciprocal, atau logaritma) untuk memodelkan hubungan ini.</li>
+                  <li>Lakukan estimasi regresi berganda.</li>
+                  <li>Uji keberadaan multikolinearitas.</li>
+                  <li>Uji keberadaan heteroskedastisitas.</li>
+                  <li>Interpretasikan hasilnya.</li>
+                </ol>
               </div>
               <div id="soalc" style='display:none;'>
-
+<p>Seorang peneliti pertanian menganalisis Produktivitas Padi (Y) per hektar di 50 wilayah berbeda. Faktor yang diduga berpengaruh adalah Jumlah Pupuk (X1) yang digunakan, Tingkat Curah Hujan (X2), dan Jumlah Jam Sinar Matahari (X3).</p>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-3.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-3"></div>
+        <script>
+          fetch('uts-3.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-3">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-3").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-3').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+                <ol>
+                <li>Berdasarkan data yang ada, tentukan bentuk fungsional regresi yang paling sesuai (polinomial, reciprocal, atau logaritma) untuk memodelkan hubungan ini.</li>
+                  <li>Lakukan estimasi regresi berganda.</li>
+                  <li>Uji keberadaan multikolinearitas.</li>
+                  <li>Uji keberadaan heteroskedastisitas.</li>
+                  <li>Interpretasikan hasilnya.</li>
+                </ol>
               </div>
               <div id="soald" style='display:none;'>
-
+<p>Seorang ekonom kesehatan meneliti Angka Harapan Hidup (Y) di 50 negara. Variabel yang diteliti adalah Pengeluaran Kesehatan per Kapita (X1), Tingkat Imunisasi Anak (X2), dan Tingkat Konsumsi Kalori Harian (X3).</p>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-4.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-4"></div>
+        <script>
+          fetch('uts-4.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-4">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-4").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-4').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+                <ol>
+                <li>Berdasarkan data yang ada, tentukan bentuk fungsional regresi yang paling sesuai (polinomial, reciprocal, atau logaritma) untuk memodelkan hubungan ini.</li>
+                  <li>Lakukan estimasi regresi berganda.</li>
+                  <li>Uji keberadaan multikolinearitas.</li>
+                  <li>Uji keberadaan heteroskedastisitas.</li>
+                  <li>Interpretasikan hasilnya.</li>
+                </ol>
               </div>
               <div id="soale" style='display:none;'>
-
+<p>Seorang sosiolog ingin memahami faktor-faktor yang memengaruhi Tingkat Kriminalitas (Y) per 100.000 penduduk di 50 kota. Variabel independennya adalah Tingkat Pengangguran (X1), Rata-rata Tingkat Pendidikan (X2) dalam tahun, dan Kepadatan Penduduk (X3).</p>
+        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-5.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-5"></div>
+        <script>
+          fetch('uts-5.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-5">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-5").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-5').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+                <ol>
+                <li>Berdasarkan data yang ada, tentukan bentuk fungsional regresi yang paling sesuai (polinomial, reciprocal, atau logaritma) untuk memodelkan hubungan ini.</li>
+                  <li>Lakukan estimasi regresi berganda.</li>
+                  <li>Uji keberadaan multikolinearitas.</li>
+                  <li>Uji keberadaan heteroskedastisitas.</li>
+                  <li>Interpretasikan hasilnya.</li>
+                </ol>
               </div>
               <div id="soalf" style='display:none;'>
-
+<p>Seorang manajer pemasaran ingin memahami faktor-faktor yang memengaruhi Jumlah Penjualan Unit (Y) (dalam ribuan) untuk sebuah produk elektronik. Data dikumpulkan dari 50 periode penjualan yang berbeda, mencakup Biaya Iklan (X1) (dalam ribuan dolar), Harga Produk (X2) (dalam dolar), dan Harga Produk Kompetitor (X3) (dalam dolar).</p>
+       <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-6.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-6"></div>
+        <script>
+          fetch('uts-6.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-6">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-6").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-6').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+                <ol>
+                <li>Berdasarkan data yang ada, tentukan bentuk fungsional regresi yang paling sesuai (polinomial, reciprocal, atau logaritma) untuk memodelkan hubungan ini.</li>
+                  <li>Lakukan estimasi regresi berganda.</li>
+                  <li>Uji keberadaan multikolinearitas.</li>
+                  <li>Uji keberadaan heteroskedastisitas.</li>
+                  <li>Interpretasikan hasilnya.</li>
+                </ol>
               </div>
-              
+
               <p class="h1 text-center">Soal UTS</p>
               <ol id="soalUTS">
                 <li id='nomer1'>
                   <h2>Soal 1</h2>
                 </li>
-                <li id='nomer2'>
-                  <h2>Soal 2</h2>
-                </li>
-                <li id='nomer3'>
-                  <h2>Soal 3</h2>
-                </li>
-                <li id='nomer4'>
-                  <h2>Soal 4</h2>
-                </li>
-                <li id='nomer5'>
-                  <h2>Soal 5</h2>
-                </li>
+
               </ol>
             </div>
           </div>
