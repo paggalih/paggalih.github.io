@@ -132,17 +132,17 @@
   </header>
   <!-- End Header -->
   <main id="main">
-    <div id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i>Workshop Eviews<i class="bi bi-arrow-right-circle-fill"></i></div>
+    <div id="matkul_icon" class="fw-bold fst-italic"><i class="bi bi-arrow-left-circle-fill"></i>Rubik Potik<i class="bi bi-arrow-right-circle-fill"></i></div>
     <section id="matkul">
       <div class="container aos-init aos-animate" data-aos="fade-up">
         <div class="section-title">
-          <h2 class="fixed-top shadow-lg" id="post-title">Workshop Eviews</h2>
+          <h2 class="fixed-top shadow-lg" id="post-title">Rubik Potik<br>Teknik Transformasi Data dan Penanganan Outlier pada Penelitian Kuantitatif</h2>
         </div>
         <p id="tanggal" class="text-center">Terakhir diubah pada </p>
       </div>
 
       <div class="pdf-container text-center">
-        <iframe src="Analisis Regresi.pdf" class="pdf-frame" width="600" height="400" allowfullscreen></iframe>
+<!--         <iframe src="Analisis Regresi.pdf" class="pdf-frame" width="600" height="400" allowfullscreen></iframe> -->
       </div>
 
     </section>
@@ -171,159 +171,14 @@
     <section id="p2">
       <div class="container aos-init aos-animate" data-aos="fade-up">
 
-        <h2>Bagian 2: Regresi Linier Berganda pada Data Time Series</h2>
-        <h3>2.1. Menjalankan Regresi</h3>
-        <ol>
-          <li>Pastikan data time series sudah diimpor dengan benar.</li>
-          <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
-          <li>Masukkan persamaan regresi, misalnya:</li>
-          <pre>GDP c EduExp HealthExp Unemployment</pre>
-          <li>Pilih metode <strong>Ordinary Least Squares (OLS)</strong> dan klik <strong>OK</strong>.</li>
-        </ol>
       </div>
     </section>
-    <section id="p3">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
 
-        <h2>Bagian 3: Regresi Linier Berganda pada Data Cross-Section</h2>
-        <h3>3.1. Menjalankan Regresi</h3>
-        <ol>
-          <li>Pilih <strong>Quick → Estimate Equation</strong>.</li>
-          <li>Masukkan model regresi, misalnya:</li>
-          <pre>HDI c DemocracyIndex GDPperCapita LiteracyRate</pre>
-          <li>Pilih metode <strong>OLS</strong> dan klik <strong>OK</strong>.</li>
-        </ol>
-      </div>
-    </section>
-    <section id="p4">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-
-        <h2>Bagian 4: Regresi Linier Berganda pada Data Panel</h2>
-        <h3>4.1. Menjalankan Regresi Panel</h3>
-        <ol>
-          <li>Pastikan data sudah diatur sebagai Panel Data: Klik <strong>Structure/Resize</strong>, pilih <strong>Panel Data</strong>.</li>
-          <li>Klik <strong>Quick → Estimate Equation</strong>.</li>
-          <li>Masukkan model regresi, misalnya:</li>
-          <pre>GDP c EnvRegulation CO2Emission ForeignInvestment</pre>
-          <li>Pilih metode <strong>Pooled OLS, Fixed Effects (FE), atau Random Effects (RE)</strong>.</li>
-        </ol>
-      </div>
-    </section>
-    <section id="p5">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-
-        <h2>Bagian 5: Studi Kasus SDGs dengan Regresi Linier Berganda</h2>
-        <h3>5.1. Time Series: Dampak Investasi Pendidikan terhadap Pertumbuhan Ekonomi</h3>
-        <pre>PDB_t = β0 + β1 EduExp_t + β2 HealthExp_t + β3 Unemployment_t + ε_t</pre>
-
-        <h3>5.2. Cross-Section: Hubungan antara Indeks Demokrasi dan Kesejahteraan</h3>
-        <pre>HDI_i = β0 + β1 DemocracyIndex_i + β2 GDPperCapita_i + β3 LiteracyRate_i + ε_i</pre>
-
-        <h3>5.3. Panel Data: Dampak Kebijakan Lingkungan terhadap PDB</h3>
-        <pre>GDP_it = β0 + β1 EnvRegulation_it + β2 CO2Emission_it + β3 ForeignInvestment_it + ε_it</pre>
-      </div>
-    </section>
-    <section id="p6">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-
-        <h2>Bagian 6: Uji Pemilihan Model</h2>
-        <h3>1.1. Uji Chow</h3>
-        <p>Uji Chow digunakan untuk menentukan apakah model Fixed Effect lebih baik dibandingkan Pooled OLS.</p>
-        <ol>
-          <li>Buka hasil regresi Pooled OLS.</li>
-          <li>Pilih <strong>View → Fixed/Random Effects Testing → Redundant Fixed Effects</strong>.</li>
-          <li>Jika p-value &lt; 0.05, gunakan Fixed Effect; jika tidak, gunakan Pooled OLS.</li>
-        </ol>
-
-        <h3>1.2. Uji Hausman</h3>
-        <p>Uji Hausman digunakan untuk menentukan apakah model Fixed Effect lebih baik dibandingkan Random Effect.</p>
-        <ol>
-          <li>Buka hasil regresi Random Effect.</li>
-          <li>Pilih <strong>View → Fixed/Random Effects Testing → Hausman Test</strong>.</li>
-          <li>Jika p-value &lt; 0.05, gunakan Fixed Effect; jika tidak, gunakan Random Effect.</li>
-        </ol>
-
-        <h3>1.3. Uji Lagrange Multiplier (LM)</h3>
-        <p>Uji LM digunakan untuk menentukan apakah model Random Effect lebih baik dibandingkan Pooled OLS.</p>
-        <ol>
-          <li>Pilih <strong>View → Fixed/Random Effects Testing → Breusch-Pagan LM Test</strong>.</li>
-          <li>Jika p-value &lt; 0.05, gunakan Random Effect; jika tidak, gunakan Pooled OLS.</li>
-        </ol>
-        <ul>
-          <li>Jika uji Chow signifikan → gunakan Fixed Effect.</li>
-          <li>Jika uji Hausman signifikan → gunakan Fixed Effect.</li>
-          <li>Jika uji LM signifikan → gunakan Random Effect.</li>
-          <li>Jika semua tidak signifikan → gunakan Pooled OLS.</li>
-        </ul>
-      </div>
-    </section>
-    <section id="p7">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-
-        <h2>Bagian 7: Uji Asumsi Klasik</h2>
-        <h3>2.1. Uji Normalitas</h3>
-        <p>Uji normalitas dilakukan untuk mengecek apakah residual regresi berdistribusi normal.</p>
-        <ol>
-          <li>Pilih <strong>View → Residual Diagnostics → Histogram-Normality Test</strong>.</li>
-          <li>Periksa nilai Jarque-Bera.</li>
-          <li>Jika p-value > 0.05, residual berdistribusi normal.</li>
-        </ol>
-
-        <h3>2.2. Uji Heteroskedastisitas</h3>
-        <p>Uji ini digunakan untuk melihat apakah varians residual konstan atau tidak.</p>
-        <ol>
-          <li>Pilih <strong>View → Residual Diagnostics → Heteroskedasticity Test</strong>.</li>
-          <li>Pilih metode White atau Breusch-Pagan.</li>
-          <li>Jika p-value &lt; 0.05, ada heteroskedastisitas.</li>
-        </ol>
-
-        <h3>2.3. Uji Multikolinearitas</h3>
-        <p>Uji ini digunakan untuk mengecek apakah ada hubungan tinggi antara variabel independen.</p>
-        <ol>
-          <li>Pilih <strong>View → Coefficient Diagnostics → Variance Inflation Factors</strong>.</li>
-          <li>Jika VIF > 10, ada multikolinearitas tinggi.</li>
-        </ol>
-
-        <h3>2.4. Uji Autokorelasi</h3>
-        <p>Uji ini digunakan untuk mengecek apakah terdapat korelasi dalam residual regresi.</p>
-        Berikut adalah tabel nilai kritis Durbin-Watson untuk berbagai ukuran sampel dan jumlah variabel independen:
-        <div class="row text-center">
-          <div class="col-lg-8 col-sm-12">
-            <img src="https://real-statistics.com/wp-content/uploads/2020/04/durbin-watson-.05B.png" class="img-fluid" alt="tabel Durbin Watson">
-          </div>
-        </div>
-        <p>Interpretasi:</p>
-        <ul>
-          <li>Jika dW &lt; dL → Autokorelasi positif.</li>
-          <li>Jika dW &gt; dU → Tidak ada autokorelasi.</li>
-          <li>Jika dL ≤ dW ≤ dU → Tidak dapat disimpulkan.</li>
-          <li>Jika 4 - dW mendekati 2 → Tidak ada autokorelasi negatif.</li>
-        </ul>
-      </div>
-    </section>
-    <section id="p8">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-
-        <h2>Lampiran: Sumber Data dari World Bank</h2>
-        <ul>
-          <li><a href="https://data.worldbank.org/indicator/SE.XPD.TOTL.GD.ZS">Pengeluaran Pendidikan (% PDB)</a></li>
-          <li><a href="https://data.worldbank.org/indicator/SH.XPD.GHED.GD.ZS">Pengeluaran Kesehatan (% PDB)</a></li>
-          <li><a href="https://data.worldbank.org/indicator/SL.UEM.TOTL.ZS">Tingkat Pengangguran</a></li>
-          <li><a href="https://data.worldbank.org/indicator/NY.GDP.PCAP.CD">PDB per Kapita (US$ saat ini)</a></li>
-          <li><a href="https://data.worldbank.org/indicator/SE.ADT.LITR.ZS">Tingkat Melek Huruf Dewasa (% usia 15 tahun ke atas)</a></li>
-          <li><a href="https://data.worldbank.org/indicator/EN.ATM.CO2E.PC">Emisi CO2 (metrik ton per kapita)</a></li>
-          <li><a href="https://data.worldbank.org/indicator/BX.KLT.DINV.CD.WD">Investasi Asing Langsung, arus masuk bersih (US$ saat ini)</a></li>
-          <li><a href="https://data.worldbank.org/indicator/IQ.CPA.BREG.XQ">CPIA Business Regulatory Environment Rating</a></li>
-
-        </ul>
-      </div>
-    </section>
     <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
   </main>
   <!-- ======= Footer ======= -->
   <footer id="footer"></footer>
   <!-- End Footer -->
-  <div id="preloader"></div>
   <a href="#" class="back-to-top d-flex align-items-center justify-content-center">
     <i class="bi bi-arrow-up-short"></i>
   </a>
