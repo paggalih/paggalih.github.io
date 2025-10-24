@@ -101,6 +101,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/dialog/dialog.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/search/searchcursor.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/search/search.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/addon/comment/comment.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/js-beautify/1.14.7/beautify-html.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 
@@ -112,7 +113,9 @@
                 indentWithTabs: false, indentUnit: 2,
                 extraKeys: {
                     "Ctrl-S": function(instance) { updatePreview(); return false; },
-                    "Ctrl-Enter": function(instance) { updatePreview(); return false; }
+                    "Ctrl-Enter": function(instance) { updatePreview(); return false; },
+                    // ✨ PERUBAHAN 2: Menambahkan shortcut Ctrl+/ untuk toggle comment
+                    "Ctrl-/": "toggleComment"
                 }
             });
 
@@ -195,15 +198,15 @@
             }
             addTabBtn.addEventListener('click', () => addTab());
 
-            // --- PERUBAHAN JAVASCRIPT: LOGIKA UNTUK ZOOM FONT ---
+            // --- Logika untuk Zoom Font ---
             const zoomInBtn = document.getElementById('zoom-in-btn');
             const zoomOutBtn = document.getElementById('zoom-out-btn');
             const editorWrapper = editor.getWrapperElement();
-            let currentFontSize = 14; // Ukuran font awal (dalam pixel)
+            let currentFontSize = 14; 
 
             function applyFontSize() {
                 editorWrapper.style.fontSize = currentFontSize + 'px';
-                editor.refresh(); // Penting: Refresh CodeMirror agar layout-nya menyesuaikan
+                editor.refresh(); 
             }
 
             zoomInBtn.addEventListener('click', () => {
@@ -212,57 +215,45 @@
             });
 
             zoomOutBtn.addEventListener('click', () => {
-                // Beri batas minimal agar font tidak terlalu kecil
                 if (currentFontSize > 8) {
                     currentFontSize -= 1;
                     applyFontSize();
                 }
             });
 
-            // Terapkan ukuran font awal saat halaman dimuat
             applyFontSize();
-            // --- AKHIR PERUBAHAN JAVASCRIPT ---
 
             // Sisa kode JavaScript (tidak berubah)
             const preview = document.getElementById('preview');
             const refreshBtn = document.getElementById('refresh-btn');
-            // ... (deklarasi variabel lainnya)
             const findBtn = document.getElementById('find-btn'), inspectBtn = document.getElementById('inspect-btn'), clearBtn = document.getElementById('clear-btn'), formatBtn = document.getElementById('format-btn'), exampleBtn = document.getElementById('example-btn'), editToggleBtn = document.getElementById('edit-toggle-btn'), editStatusText = document.getElementById('edit-status-text'), fullscreenBtn = document.getElementById('fullscreen-btn'), escapeBtn = document.getElementById('escape-btn');
             let isEditingPreview = false, isInspecting = false, debounceTimer;
 
-// VERSI BARU DAN LEBIH BAIK
-function updatePreview() {
-    const activeTab = tabs.find(t => t.id === activeTabId);
-    if (!activeTab) return;
+            function updatePreview() {
+                const activeTab = tabs.find(t => t.id === activeTabId);
+                if (!activeTab) return;
 
-    // Simpan konten terbaru dari editor ke tab aktif
-    activeTab.content = editor.getValue();
-    let sourceCode = activeTab.content;
+                activeTab.content = editor.getValue();
+                let sourceCode = activeTab.content;
 
-    // (Logika instrumentasi untuk inspect elemen tidak berubah)
-    const lines = sourceCode.split('\n');
-    const instrumentedLines = lines.map((line, index) => line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
-        if (attributes.includes('data-source-line')) return match;
-        return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
-    }));
-    const instrumentedCode = instrumentedLines.join('\n');
+                const lines = sourceCode.split('\n');
+                const instrumentedLines = lines.map((line, index) => line.replace(/<([a-zA-Z0-9]+)([^>]*?)>/g, (match, tagName, attributes) => {
+                    if (attributes.includes('data-source-line')) return match;
+                    return `<${tagName} data-source-line="${index + 1}"${attributes}>`;
+                }));
+                const instrumentedCode = instrumentedLines.join('\n');
 
-    // === INILAH PERUBAHAN UTAMANYA ===
-    // Gunakan srcdoc untuk memuat ulang iframe dengan lingkungan yang bersih
-    preview.srcdoc = instrumentedCode;
-    // ===================================
+                preview.srcdoc = instrumentedCode;
 
-    // Karena iframe akan dimuat ulang, kita perlu menunggu sebentar
-    // sebelum mengaktifkan kembali fitur inspect dan edit preview.
-    preview.onload = () => {
-        const previewDoc = preview.contentDocument || preview.contentWindow.document;
-        if (isEditingPreview) enablePreviewEditing();
-        if (isInspecting) {
-            previewDoc.body.addEventListener('click', handlePreviewClick);
-            previewDoc.body.style.cursor = 'pointer';
-        }
-    };
-}
+                preview.onload = () => {
+                    const previewDoc = preview.contentDocument || preview.contentWindow.document;
+                    if (isEditingPreview) enablePreviewEditing();
+                    if (isInspecting) {
+                        previewDoc.body.addEventListener('click', handlePreviewClick);
+                        previewDoc.body.style.cursor = 'pointer';
+                    }
+                };
+            }
             refreshBtn.addEventListener('click', updatePreview);
             
             let scrollSyncTimer;
