@@ -875,8 +875,187 @@ X3: bmi (Body Mass Index pasien)</p>
         <p>$$\begin{align*}Z&=\dfrac{X-\bar{X}}{s} \end{align*}$$</p>
         <h3>Dihapus <code>trimming</code></h3>
         <p>Kapan dilakukan? Hanya jika kita punya alasan yang sangat kuat untuk percaya bahwa data tersebut adalah anomali yang tidak akan pernah terjadi lagi atau tidak mewakili populasi yang kita teliti (misalnya, data dari responden yang jelas-jelas tidak serius mengisi kuesioner).</p>
+        <p>Bayangkan Anda seorang koki yang sedang membuat sepanci besar sup. Tanpa sengaja, sebutir cabai yang luar biasa pedas jatuh ke dalamnya. Jika Anda menyajikan sup itu, satu orang yang tidak beruntung akan mendapatkan cabai itu dan merusak seluruh pengalaman makan mereka. Rasa sup secara keseluruhan menjadi tidak representatif.</p>
+        <p>Trimming adalah tindakan sederhana: Anda mengambil sendok, mencari dan mengangkat cabai pedas itu keluar dari panci, lalu membuangnya.</p>
+        <div class="mermaid text-center">
+graph TD
+   B{Identifikasi Outlier};
+    B -- Menggunakan --> B1[Box Plot];
+    B -- Menggunakan --> B2[Z-Score];
+    B1 & B2 --> C{Ditemukan Outlier?};
+    C -- Ya --> D[Verifikasi Outlier];
+    D --> E{Apakah ini kesalahan input data?};
+    E -- Ya --> F[Perbaiki Data & Analisis Ulang];
+    E -- Tidak, data valid tapi ekstrem --> G[Terapkan Trimming: Hapus Observasi Outlier];
+    G --> H[Buat Dataset Baru Tanpa Outlier];
+    H --> I[Lakukan Analisis Statistik Ulang pada Data Baru];
+    C -- Tidak --> I;
+    I --> J[Bandingkan Hasil Model Sebelum vs Sesudah Trimming];
+    J --> K[Selesai: Interpretasi Hasil Akhir];
+    F --> K;
+        </div>
+<div class="container">
+        <strong>Menyelamatkan Model Anda: Cara Melakukan Trimming Outlier di EViews</strong>
+        <p>Setelah mengidentifikasi outlier yang 'merusak' model Anda, langkah selanjutnya adalah menanganinya. Salah satu metode paling langsung adalah Trimming atau membuang data tersebut. Berikut caranya di EViews.</p>
+
+        <div class="step">
+            <p class="fst-italic">Langkah 1: Identifikasi Nomor Observasi Outlier</p>
+            <p>Pertama, Anda harus tahu persis observasi ke berapa yang merupakan outlier. Mari kita asumsikan setelah investigasi, kita menemukan bahwa observasi <b>nomor 47</b> adalah outlier yang jelas.</p>
+        </div>
+
+        <div class="step">
+            <p class="fst-italic">Langkah 2: Estimasi Model Awal (Sebelum Trimming)</p>
+            <p>Lakukan regresi Anda pada seluruh data terlebih dahulu untuk dijadikan pembanding. Misalnya, modelnya adalah <code>PENJUALAN C IKLAN SALES DISKON</code>. Simpan hasilnya.</p>
+            <code>ls penjualan c iklan sales diskon</code>
+            <p>Perhatikan baik-baik nilai koefisien, R-squared, dan probabilitas F-statistiknya.</p>
+        </div>
+
+        <div class="step">
+            <p class="fst-italic">Langkah 3: Terapkan Trimming dengan Mengatur Sampel</p>
+            <p>Ini adalah langkah kuncinya. Kita akan memberitahu EViews untuk mengabaikan observasi nomor 47. Cara termudah adalah menggunakan perintah <code>smpl</code> (sample) di command window.</p>
+            <p>Ketik perintah berikut untuk membuat sampel yang mengecualikan observasi 47:</p>
+            <code>smpl if @obs <> 47</code>
+            <p>Perintah ini berarti: "Gunakan sampel jika nomor observasi (@obs) tidak sama dengan (<>) 47". EViews sekarang akan mengabaikan baris ke-47 dalam semua analisis berikutnya sampai Anda mereset sampel.</p>
+            <p>Untuk mengembalikan ke sampel penuh, Anda bisa mengetik: <code>smpl @all</code></p>
+        </div>
         
-        <h3>Diubah <code>winsorizing</code></h3>
+        <div class="step">
+            <p class="fst-italic">Langkah 4: Estimasi Ulang Model (Setelah Trimming)</p>
+            <p>Dengan sampel yang sudah di-trim, jalankan kembali perintah regresi yang sama persis seperti di Langkah 2.</p>
+            <code>ls penjualan c iklan sales diskon</code>
+            <p>EViews akan menjalankan regresi pada data yang sama, tetapi tanpa menyertakan observasi ke-47.</p>
+        </div>
+
+        <div class="step">
+            <p class="step-title">Langkah 5: Bandingkan Hasilnya</p>
+            <p>Sekarang, bandingkan output regresi dari Langkah 2 dan Langkah 4. Perhatikan perubahannya:</p>
+            <ul>
+                <li><b>Koefisien (C):</b> Apakah ada perubahan signifikan pada nilai koefisien variabel independen Anda?</li>
+                <li><b>R-squared & Adj. R-squared:</b> Seringkali, nilai ini meningkat setelah outlier dibuang, menunjukkan model lebih cocok dengan sisa data.</li>
+                <li><b>Signifikansi Variabel (P-value):</b> Variabel yang tadinya tidak signifikan bisa jadi signifikan (atau sebaliknya) setelah outlier dihilangkan.</li>
+            </ul>
+        </div>
+        
+        <div class="warning">
+            <p><b>Penting:</b> Selalu berikan justifikasi yang kuat di laporan atau skripsi Anda mengapa Anda melakukan trimming. Jelaskan sifat outlier tersebut dan mengapa ia layak untuk dikeluarkan dari analisis. Trimming tanpa alasan yang jelas dapat dianggap sebagai manipulasi data.</p>
+        </div>
+    </div> 
+          <strong>Kasus 1</strong>
+          <p>Sebuah perusahaan HR ingin memodelkan kinerja karyawan (skala 1-100) berdasarkan pengalaman kerja (tahun), skor pelatihan internal (1-100), dan jumlah proyek yang ditangani. Ditemukan satu karyawan baru dengan pengalaman dan skor pelatihan rendah namun memiliki skor kinerja maksimal, yang diduga kuat adalah kesalahan input data (misal, seharusnya 79 ditulis 97).<br>
+Variabel Dependen: kinerja
+<br>
+Variabel Independen: pengalaman, skor_pelatihan, jumlah_proyek
+          </p>
+ <a class="actions" href="trimming-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-trimming-1"></div>
+        <script>
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/trimming-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-trimming-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-trimming-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-trimming-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+          <strong>Kasus 2</strong>
+          <p>Seorang analis otomotif ingin memprediksi konsumsi bahan bakar (km/liter) berdasarkan berat mobil (kg), tenaga mesin (HP), dan kapasitas mesin (cc). Satu mobil dalam dataset tercatat sangat irit padahal merupakan mobil terberat dengan tenaga terbesar, ini kemungkinan besar adalah outlier.
+<br>Variabel Dependen: konsumsi_bbm
+<br>
+Variabel Independen: berat, tenaga, kapasitas_mesin
+<br>
+Outlier: Observasi ke-38
+</p>
+ <a class="actions" href="trimming-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-trimming-2"></div>
+        <script>
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/trimming-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-trimming-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-trimming-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-trimming-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+          
+          <h3>Diubah <code>winsorizing</code></h3>
         <p>Bayangkan kamu adalah seorang guru yang sedang menghitung nilai rata-rata kelas. Di kelasmu, ada satu murid yang jenius luar biasa dengan nilai 100 sempurna, dan satu murid yang kebetulan sangat tidak beruntung saat ujian dan mendapat nilai 10. Dua nilai ekstrem ini bisa "menarik" nilai rata-rata kelas menjadi tidak representatif.</p>
         <p>Membuang nilai mereka (menghapus data) rasanya tidak adil. Nah, Winsorizing adalah jalan tengah yang cerdas. Kamu memutuskan untuk "menjinakkan" nilai ekstrem tersebut. Caranya: kamu lihat nilai tertinggi kedua, misalnya 95, dan nilai terendah kedua, misalnya 50. Kamu lalu mengubah nilai si jenius dari 100 menjadi 95, dan nilai murid yang kurang beruntung dari 10 menjadi 50.</p>
         <p>Dalam statistik, Winsorizing melakukan hal yang sama: mengganti nilai-nilai paling ekstrem (misalnya, 1% teratas dan 1% terbawah) dengan nilai "paling pinggir" yang masih dianggap wajar (nilai pada persentil ke-99 dan persentil ke-1). Ini adalah cara ampuh untuk menangani outlier tanpa harus menghapus data pengamatan.</p>
