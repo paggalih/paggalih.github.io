@@ -18,7 +18,6 @@
   <link href="/assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
   <!-- Template Main CSS File -->
   <link href="/assets/css/style.css" rel="stylesheet">
-  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-8834880890697987" crossorigin="anonymous"></script>
 
   <!-- =======================================================
   * Template Name: MyResume
@@ -27,6 +26,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+  	  <script type="module">
+	    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+	    mermaid.initialize({ startOnLoad: true });
+	  </script>
   <script>
     MathJax = {
         tex: {
@@ -150,6 +153,32 @@
       <div class="container aos-init aos-animate" data-aos="fade-up">
 
         <h2>Teknik Transformasi Data dan Penanganan Outlier pada Penelitian Kuantitatif</h2>
+        <div class="mermaid text-center">
+graph TD
+    A[Mulai: Kumpulkan Data Mentah] --> B{Identifikasi Variabel};
+    B --> C[Visualisasi Data: Histogram & Scatter Plot];
+    C --> D{Cek Asumsi Klasik};
+    D -- Asumsi Normalitas Terpenuhi? --> E{Tidak};
+    D -- Asumsi Homoskedastisitas Terpenuhi? --> E;
+    D -- Asumsi Linearitas Terpenuhi? --> E;
+    E --> F[Pilih Teknik Transformasi: Log, Sqrt, Box-Cox];
+    F --> G[Terapkan Transformasi pada Variabel];
+    D -- Semua Asumsi OK --> H{Deteksi Outlier};
+    G --> H;
+    H -- Ada Outlier? --> I{Ya};
+    H -- Tidak Ada Outlier --> J[Lanjutkan ke Analisis Model Regresi];
+    I --> K{Analisis Penyebab Outlier};
+    K -- Kesalahan Input? --> L[Perbaiki/Hapus Data];
+    K -- Data Ekstrem Valid? --> M[Winsorizing atau Pertahankan dengan Catatan];
+    L --> J;
+    M --> J;
+    J --> N[Interpretasi Hasil dan Kesimpulan];
+    N --> O[Selesai];
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style O fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#ccf,stroke:#333,stroke-width:2px
+        </div>
         <p>Regresi linier berganda merupakan metode statistik yang digunakan untuk menganalisis hubungan antara satu variabel dependen dengan dua atau lebih variabel independen. EViews adalah perangkat lunak yang sering digunakan untuk analisis ekonometrika, termasuk regresi linier berganda dengan berbagai jenis data: time series, cross-section, dan panel.</p>
 
         <h2>Bagian 1: Import Data ke EViews</h2>
