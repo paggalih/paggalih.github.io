@@ -192,6 +192,56 @@
         <img src="//i.upmath.me/svgb/hVNBTsMwELznFXsoUiMlVptQAULigMSpICH1SHpw4hUYN3blxIVS8Xe8TtNSEdRTvPbMemfGKUp8lXrXSvW1llXrLH5HF7BwdelgbowVUvM2KoTlHy_pXQLtm6zUEsbpTTKJIU1hHBbaCHwpcWU-lrAbfY6-b6PI95kymDu74fCEukL9CnNpJYwflLEgJChfxR727HTFFagALdFywem4kY3HcM01CE_2HyTilvtGNdZcv9NKYejDoiIMYVEkwEuzwSXw1g86Y7MEMnYVw-73FH7CTtUG7fYo6zqBCZvGwBhURrfWrBq_e5V4KbMYuBbUkfrNAmacXh6LX4Sc9aCOkrPM13tK3t1xSw5lvUMLWWNrpSffo26dgkcThiV_OkSDsi5JcYP12lkdPFIoHO-cWgcX9Zb3VpQrhydeTHoj-ssGTEiAaGRFRhoGzJjSfr5X1hck7EAIyvI_2Yckj-FTeTZ9ei9nwqc-_6U_FD7hh9PPh_T20QW5x1xJ8GD2J8H3D4fQ1wdzCtTi5Jf7AQ" alt="upmath">
         </div>
         <h3>Transformasi Logaritma <code>(log(X))</code></h3>
+ <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-6.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-uts-6"></div>
+        <script>
+          fetch('uts-6.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-uts-6">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-uts-6").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-uts-6').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
         <h3>Transformasi Akar <code>(sqrt(X))</code></h3>
         <h3>Transformasi Kuadrat <code>(X^2)</code></h3>
         <h3>Transformasi Invers <code>(1/X)</code></h3>
@@ -220,7 +270,9 @@
         <h3>Dihapus <code>trimming</code></h3>
         <p>Kapan dilakukan? Hanya jika kita punya alasan yang sangat kuat untuk percaya bahwa data tersebut adalah anomali yang tidak akan pernah terjadi lagi atau tidak mewakili populasi yang kita teliti (misalnya, data dari responden yang jelas-jelas tidak serius mengisi kuesioner).</p>
         <h3>Diubah <code>winsorizing</code></h3>
-        <p>Bayangkan ada anak yang lari terlalu kencang di depan barisan. Daripada menyuruhnya keluar barisan (membuang), kita menyuruhnya untuk mundur dan berdiri persis di belakang anak paling depan yang larinya normal. Datanya masih ada, tapi nilainya tidak ekstrem lagi.</p>
+        <p>Bayangkan kamu adalah seorang guru yang sedang menghitung nilai rata-rata kelas. Di kelasmu, ada satu murid yang jenius luar biasa dengan nilai 100 sempurna, dan satu murid yang kebetulan sangat tidak beruntung saat ujian dan mendapat nilai 10. Dua nilai ekstrem ini bisa "menarik" nilai rata-rata kelas menjadi tidak representatif.</p>
+        <p>Membuang nilai mereka (menghapus data) rasanya tidak adil. Nah, Winsorizing adalah jalan tengah yang cerdas. Kamu memutuskan untuk "menjinakkan" nilai ekstrem tersebut. Caranya: kamu lihat nilai tertinggi kedua, misalnya 95, dan nilai terendah kedua, misalnya 50. Kamu lalu mengubah nilai si jenius dari 100 menjadi 95, dan nilai murid yang kurang beruntung dari 10 menjadi 50.</p>
+        <p>Dalam statistik, Winsorizing melakukan hal yang sama: mengganti nilai-nilai paling ekstrem (misalnya, 1% teratas dan 1% terbawah) dengan nilai "paling pinggir" yang masih dianggap wajar (nilai pada persentil ke-99 dan persentil ke-1). Ini adalah cara ampuh untuk menangani outlier tanpa harus menghapus data pengamatan.</p>
         <h3>Dipertahankan </h3>
         <p>Kapan dilakukan? Jika outlier tersebut adalah data yang sah dan sangat penting untuk penelitian kita. Contohnya dalam studi tentang kebencanaan, data gempa bumi terkuat (yang pasti jadi outlier) adalah informasi paling krusial dan tidak boleh dibuang. Dalam kasus ini, kita mungkin beralih menggunakan metode statistik yang lebih kebal terhadap outlier (statistik robust).</p>
 
