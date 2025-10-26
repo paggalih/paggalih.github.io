@@ -192,7 +192,7 @@
         <img src="//i.upmath.me/svgb/hVNBTsMwELznFXsoUiMlVptQAULigMSpICH1SHpw4hUYN3blxIVS8Xe8TtNSEdRTvPbMemfGKUp8lXrXSvW1llXrLH5HF7BwdelgbowVUvM2KoTlHy_pXQLtm6zUEsbpTTKJIU1hHBbaCHwpcWU-lrAbfY6-b6PI95kymDu74fCEukL9CnNpJYwflLEgJChfxR727HTFFagALdFywem4kY3HcM01CE_2HyTilvtGNdZcv9NKYejDoiIMYVEkwEuzwSXw1g86Y7MEMnYVw-73FH7CTtUG7fYo6zqBCZvGwBhURrfWrBq_e5V4KbMYuBbUkfrNAmacXh6LX4Sc9aCOkrPM13tK3t1xSw5lvUMLWWNrpSffo26dgkcThiV_OkSDsi5JcYP12lkdPFIoHO-cWgcX9Zb3VpQrhydeTHoj-ssGTEiAaGRFRhoGzJjSfr5X1hck7EAIyvI_2Yckj-FTeTZ9ei9nwqc-_6U_FD7hh9PPh_T20QW5x1xJ8GD2J8H3D4fQ1wdzCtTi5Jf7AQ" alt="upmath">
         </div>
         <h3>Transformasi Logaritma <code>(log(X))</code></h3>
- <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-6.csv"><button>Unduh CSV </button></a>
+ <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-6.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-uts-6"></div>
         <script>
           fetch('uts-6.csv')
@@ -269,11 +269,128 @@
         <p>$$\begin{align*}Z&=\dfrac{X-\bar{X}}{s} \end{align*}$$</p>
         <h3>Dihapus <code>trimming</code></h3>
         <p>Kapan dilakukan? Hanya jika kita punya alasan yang sangat kuat untuk percaya bahwa data tersebut adalah anomali yang tidak akan pernah terjadi lagi atau tidak mewakili populasi yang kita teliti (misalnya, data dari responden yang jelas-jelas tidak serius mengisi kuesioner).</p>
+        
         <h3>Diubah <code>winsorizing</code></h3>
         <p>Bayangkan kamu adalah seorang guru yang sedang menghitung nilai rata-rata kelas. Di kelasmu, ada satu murid yang jenius luar biasa dengan nilai 100 sempurna, dan satu murid yang kebetulan sangat tidak beruntung saat ujian dan mendapat nilai 10. Dua nilai ekstrem ini bisa "menarik" nilai rata-rata kelas menjadi tidak representatif.</p>
         <p>Membuang nilai mereka (menghapus data) rasanya tidak adil. Nah, Winsorizing adalah jalan tengah yang cerdas. Kamu memutuskan untuk "menjinakkan" nilai ekstrem tersebut. Caranya: kamu lihat nilai tertinggi kedua, misalnya 95, dan nilai terendah kedua, misalnya 50. Kamu lalu mengubah nilai si jenius dari 100 menjadi 95, dan nilai murid yang kurang beruntung dari 10 menjadi 50.</p>
         <p>Dalam statistik, Winsorizing melakukan hal yang sama: mengganti nilai-nilai paling ekstrem (misalnya, 1% teratas dan 1% terbawah) dengan nilai "paling pinggir" yang masih dianggap wajar (nilai pada persentil ke-99 dan persentil ke-1). Ini adalah cara ampuh untuk menangani outlier tanpa harus menghapus data pengamatan.</p>
-        <h3>Dipertahankan </h3>
+        <div class="mermaid text-center">
+graph TD
+    B{Identifikasi Kehadiran Outlier <br> Box Plot <br> Z-Score};
+    B --> |Tidak ada Outlier Signifikan| C[Lanjutkan ke Analisis Regresi];
+    B --> |Ada Outlier| D[Tentukan Level Persentil Winsorizing <br> 1% dan 99% <br> atau <br> 5% dan 95%];
+    D --> E[Terapkan Transformasi Winsorizing pada Variabel dengan Outlier];
+    E --> F[Buat Variabel Baru e.g., Y_winsorized ];
+    F --> G[Gunakan Variabel Baru dalam Analisis Regresi];
+    C --> Z[Interpretasi Hasil dan Selesai];
+    G --> Z;
+
+    style Z fill:#f9f,stroke:#333,stroke-width:2px
+        </div>
+<strong>Cara Melakukan Winsorizing di EViews untuk Mengatasi Outlier</strong>
+    <p>Outlier dapat merusak model analisis kita. Winsorizing adalah teknik elegan untuk menanganinya tanpa menghapus data. Mari kita lakukan di EViews, misalnya pada variabel bernama <code>GAJI</code>.</p>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 1: Identifikasi Outlier</p>
+        <p>Pertama, pastikan memang ada outlier. Cara termudah adalah dengan melihat box plot. Buka variabel <code>GAJI</code>, lalu klik <b>View > Graph > Boxplot</b>.</p>
+        <p></p>
+        <p>Jika kamu melihat titik-titik data yang berada jauh di luar "kumis" (whisker) box plot, itu adalah outlier yang perlu ditangani.</p>
+    </div>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 2: Tentukan Batas Atas dan Bawah</p>
+        <p>Kita akan melakukan Winsorizing pada level 5% (mengganti 5% data terbawah dan 5% data teratas). Untuk itu, kita perlu tahu berapa nilai data pada persentil ke-5 dan ke-95.</p>
+        <p>Buka <b>Command Window</b> dan ketikkan perintah berikut satu per satu:</p>
+        <div class="command-box">
+            <code>scalar p5 = @quantile(GAJI, 0.05)</code><br>
+            <code>scalar p95 = @quantile(GAJI, 0.95)</code>
+        </div>
+        <p>Perintah ini akan menyimpan nilai persentil ke-5 ke dalam objek bernama <code>p5</code> dan nilai persentil ke-95 ke dalam <code>p95</code>.</p>
+    </div>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 3: Buat Variabel Baru dan Terapkan Winsorizing</p>
+        <p>Sekarang, kita buat salinan variabel <code>GAJI</code> dan terapkan perubahannya. Kita akan menamainya <code>GAJI_W</code>.</p>
+        <p>Ketik perintah berikut di Command Window:</p>
+        <div class="command-box">
+            ' Buat salinan variabel asli<br>
+            <code>series GAJI_W = GAJI</code><br><br>
+            ' Ganti nilai di bawah p5 dengan nilai p5<br>
+            <code>GAJI_W = @recode(GAJI < p5, p5, GAJI_W)</code><br><br>
+            ' Ganti nilai di atas p95 dengan nilai p95<br>
+            <code>GAJI_W = @recode(GAJI > p95, p95, GAJI_W)</code>
+        </div>
+        <p>Sekarang kamu memiliki variabel baru, <code>GAJI_W</code>, yang nilai-nilai ekstremnya sudah "dijinakkan". Variabel inilah yang siap kamu gunakan dalam model regresi atau analisis lainnya.</p>
+    </div>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 4: Verifikasi Hasil</p>
+        <p>Untuk memastikan prosesnya berhasil, buat box plot untuk variabel baru <code>GAJI_W</code>. Seharusnya, kamu akan melihat bahwa outlier yang tadinya ada sekarang sudah "masuk" ke dalam rentang data utama.</p>
+        <p></p>
+    </div>
+      <strong>Kasus 1</strong>
+      <p>Seorang analis keuangan ingin memodelkan faktor penentu gaji CEO. Data gaji CEO terkenal memiliki outlier ekstrem (misalnya, gaji CEO teknologi yang nilainya ratusan kali lipat dari rata-rata).</p>
+      <p>Variabel:
+<br>
+Y: gaji_ceo (Gaji tahunan dalam ribuan USD) -> Variabel yang akan di-winsorize
+<br>
+X1: aset (Total aset perusahaan dalam miliar USD)
+<br>
+X2: roe (Return on Equity dalam persen)
+<br>
+X3: umur_ceo (Usia CEO dalam tahun)</p>
+ <a class="actions" href="winsorizing-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-winsorizing-1"></div>
+        <script>
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/winsorizing-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-winsorizing-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-winsorizing-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-winsorizing-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+      
+      <h3>Dipertahankan </h3>
         <p>Kapan dilakukan? Jika outlier tersebut adalah data yang sah dan sangat penting untuk penelitian kita. Contohnya dalam studi tentang kebencanaan, data gempa bumi terkuat (yang pasti jadi outlier) adalah informasi paling krusial dan tidak boleh dibuang. Dalam kasus ini, kita mungkin beralih menggunakan metode statistik yang lebih kebal terhadap outlier (statistik robust).</p>
 
       </div>
