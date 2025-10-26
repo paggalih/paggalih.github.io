@@ -389,6 +389,67 @@ X3: umur_ceo (Usia CEO dalam tahun)</p>
                   });
               });
         </script>
+      <strong>Kasus 2</strong>
+      <p>Dinas pariwisata ingin mengetahui faktor apa yang mempengaruhi pengeluaran wisatawan di sebuah destinasi. Ada beberapa wisatawan "sultan" yang pengeluarannya sangat jomplang, sehingga menjadi outlier.</p>
+      <p>Variabel:
+<br>
+Y: pengeluaran (Total pengeluaran selama liburan dalam USD) -> Variabel yang akan di-winsorize
+<br>
+X1: lama_inap (Lama menginap dalam hari)
+<br>
+X2: pendapatan (Pendapatan tahunan wisatawan dalam ribuan USD)
+<br>
+X3: jarak_asal (Jarak negara asal ke destinasi dalam ribuan km)</p>
+ <a class="actions" href="winsorizing-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-winsorizing-2"></div>
+        <script>
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/winsorizing-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-winsorizing-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-winsorizing-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-winsorizing-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
       
       <h3>Dipertahankan </h3>
         <p>Kapan dilakukan? Jika outlier tersebut adalah data yang sah dan sangat penting untuk penelitian kita. Contohnya dalam studi tentang kebencanaan, data gempa bumi terkuat (yang pasti jadi outlier) adalah informasi paling krusial dan tidak boleh dibuang. Dalam kasus ini, kita mungkin beralih menggunakan metode statistik yang lebih kebal terhadap outlier (statistik robust).</p>
