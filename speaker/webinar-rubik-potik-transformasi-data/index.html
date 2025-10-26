@@ -191,10 +191,81 @@
         <h3>Transformasi Logaritma <code>(log(X))</code></h3>
         <p>Bayangkan kamu sedang melihat peta dunia. Jarak antara Jakarta dan Bandung (sekitar 150 km) terlihat jelas. Tapi, jarak antara Jakarta dan New York (sekitar 16.000 km) sangatlah besar sehingga membuat jarak Jakarta-Bandung tadi jadi terlihat seperti setitik saja. Skalanya jadi tidak proporsional.</p>
         <p>Transformasi logaritma bekerja seperti mengubah peta duniamu menjadi "peta skala logaritmik". Pada peta baru ini, perbedaan antara 100 km dan 1.000 km akan terlihat sama besarnya dengan perbedaan antara 1.000 km dan 10.000 km. Ia "menekan" nilai-nilai yang sangat besar agar tidak terlalu mendominasi, sehingga hubungan antar data bisa terlihat lebih jelas dan proporsional.</p>
- <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-6.csv"><button class="btn btn-primary">Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-uts-6"></div>
+        <div class="mermaid text-center">
+graph TD
+     B{Cek Asumsi <br> Sifat Data};
+    B -- Scatter plot menunjukkan <br> hubungan melengkung? --> C[Pertimbangkan Log];
+    B -- Histogram residual <br> miring ke kanan? --> C;
+    B -- Uji heteroskedastisitas menunjukkan masalah? --> C;
+    B -->|Tidak ada masalah| H[Gunakan Model Regresi Linear Biasa];
+    C --> D{Pilih Bentuk Model Log};
+    D -- Y di-log, X tidak --> E[Model Log-Lin: Y berubah %];
+    D -- Y tidak, X di-log --> F[Model Lin-Log: X berubah %];
+    D -- Y dan X di-log --> G[Model Log-Log: Elastisitas];
+    E --> I[Jalankan Analisis Regresi dengan Variabel Baru];
+    F --> I;
+    G --> I;
+    I --> Z[Interpretasi Hasil <br> Selesai];
+    H --> Z;
+
+        </div>
+<strong>Panduan Praktis Transformasi Log (Logarithm) di EViews</strong>
+    <p>Transformasi log adalah salah satu "jurus" paling ampuh dalam ekonometrika untuk memperbaiki asumsi model dan mengubah interpretasi. Berikut cara melakukannya di EViews.</p>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 1: Membuat Variabel Logaritma</p>
+        <p>Cara termudah adalah dengan membuat variabel baru yang merupakan hasil log dari variabel asli. Kita akan menggunakan logaritma natural (<code>log</code> di EViews).</p>
+        <p>Buka Command Window atau klik <b>Genr</b> (Generate) di menu workfile. Misalkan kita ingin mentransformasi variabel <code>PENDAPATAN</code> dan <code>PENGELUARAN</code>.</p>
+        <div class="command-box">
+            <code>series log_pendapatan = log(PENDAPATAN)</code><br>
+            <code>series log_pengeluaran = log(PENGELUARAN)</code>
+        </div>
+        <p>Sekarang, di workfile kamu akan muncul dua variabel baru: <code>log_pendapatan</code> dan <code>log_pengeluaran</code>.</p>
+    </div>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 2: Menjalankan Regresi dengan Variabel Log</p>
+        <p>Kamu bisa langsung menggunakan variabel baru ini dalam estimasi persamaan. Buka <b>Quick > Estimate Equation</b>.</p>
+        <p>Ada beberapa kemungkinan model:</p>
+        <ul>
+            <li><b>Model Log-Log (Elastisitas):</b> Pengaruh X terhadap Y dalam bentuk persentase.
+                <br><code>log_pengeluaran C log_pendapatan X2 X3</code> atau bisa juga ditulis langsung <code>log(pengeluaran) C log(pendapatan) X2 X3</code></li>
+            <li><b>Model Log-Lin:</b> Perubahan 1 unit X menyebabkan perubahan Y sebesar sekian persen.
+                <br><code>log(pengeluaran) C pendapatan X2 X3</code></li>
+            <li><b>Model Lin-Log:</b> Perubahan 1% pada X menyebabkan perubahan Y sebesar (koefisien/100) unit.
+                <br><code>pengeluaran C log(pendapatan) X2 X3</code></li>
+        </ul>
+        <p>EViews akan otomatis menghitung log saat estimasi jika kamu menuliskannya langsung di dalam jendela persamaan.</p>
+        <p></p>
+    </div>
+
+    <div class="step">
+        <p class="fst-italic">Langkah 3: Interpretasi Koefisien</p>
+        <p>Ini adalah bagian terpenting. Mari kita lihat contoh untuk <b>model Log-Log</b>: <code>log(Y) C log(X1)</code>.</p>
+        <p>Jika hasil regresinya menunjukkan koefisien <code>log(X1)</code> adalah <b>0.8</b>, maka interpretasinya adalah:</p>
+        <p><em>"Setiap kenaikan <b>1%</b> pada variabel X1, akan meningkatkan variabel Y sebesar <b>0.8%</b>, ceteris paribus."</em></p>
+        <p>Ini adalah konsep elastisitas yang sangat umum dalam ilmu ekonomi.</p>
+    </div>
+
+    <div class="step">
+        <p class="fst-italic">Peringatan Penting!</p>
+        <p>Logaritma hanya bisa diterapkan pada <b>data yang bernilai positif</b>. Jika datamu memiliki nilai 0 atau negatif, kamu tidak bisa langsung menggunakan fungsi <code>log()</code>. Solusinya adalah dengan menambahkan konstanta kecil (misal, <code>log(Y+1)</code>), namun ini dapat sedikit mengubah interpretasi.</p>
+    </div>
+        <strong>Kasus 1</strong>
+        <p>Sebuah maskapai penerbangan ingin memahami faktor-faktor yang mempengaruhi jumlah tiket yang terjual. Hubungan antara harga dan jumlah permintaan biasanya bersifat elastis.</p>
+        <p>Variabel:
+<br>
+Y: jumlah_tiket (Jumlah tiket terjual di suatu rute per bulan)
+<br>
+X1: harga_rata2 (Harga rata-rata tiket di rute tersebut dalam ribuan Rupiah)
+<br>
+X2: pendapatan_regional (PDB regional di daerah tujuan dalam triliun Rupiah)
+<br>
+X3: iklan_online (Biaya iklan online untuk rute tersebut dalam jutaan Rupiah)</p>
+ <a class="actions" href="logaritma-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-logaritma-1"></div>
         <script>
-          fetch('uts-6.csv')
+          fetch('logaritma-1.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -205,7 +276,7 @@
                           const dataRows = results.data;  
                           if (dataRows.length === 0) return;
           
-                          let html = `<table class="table table-striped text-center" id="datatable-uts-6">`;
+                          let html = `<table class="table table-striped text-center" id="datatable-logaritma-1">`;
           
                           html += '<thead><tr>';
                           headers.forEach(header => {
@@ -225,10 +296,10 @@
                           html += '</tbody>';
           
                           html += '</table>';
-                          document.getElementById("tabel-uts-6").innerHTML = html;
+                          document.getElementById("tabel-logaritma-1").innerHTML = html;
           
                           $(document).ready(function () {
-                              $('#datatable-uts-6').DataTable({
+                              $('#datatable-logaritma-1').DataTable({
                                   paging: true,
                                   searching: true,
                                   scrollX: true,
