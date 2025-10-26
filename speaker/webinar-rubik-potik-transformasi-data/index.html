@@ -26,6 +26,14 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
+    <!-- DataTables CSS & JS -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.3.1/css/dataTables.bootstrap5.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/1.13.8/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.5.0/css/responsive.dataTables.min.css">
+  <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
+  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
   <script type="module">
     import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
     mermaid.initialize({ startOnLoad: true });
@@ -242,7 +250,7 @@ X3: iklan_online (Biaya iklan online untuk rute tersebut dalam jutaan Rupiah)</p
  <a class="actions" href="logaritma-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-logaritma-1"></div>
         <script>
-          fetch('logaritma-1.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/logaritma-1.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -303,7 +311,7 @@ X3: listrik (Konsumsi listrik dalam kWh)</p>
  <a class="actions" href="logaritma-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-logaritma-2"></div>
         <script>
-          fetch('logaritma-2.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/logaritma-2.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -407,7 +415,7 @@ X3: jam_shift (Jam kerja shift ke-, misal 1, 2, atau 3)</p>
  <a class="actions" href="akar-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-akar-1"></div>
         <script>
-          fetch('akar-1.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/akar-1.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -468,7 +476,7 @@ X3: is_weekend (Dummy variable, 1 jika akhir pekan, 0 jika hari kerja)</p>
  <a class="actions" href="akar-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-akar-2"></div>
         <script>
-          fetch('akar-2.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/akar-2.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -571,7 +579,7 @@ X3: skor_kinerja (Skor penilaian kinerja tahunan dari 1-100)</p>
  <a class="actions" href="kuadrat-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-kuadrat-1"></div>
         <script>
-          fetch('kuadrat-1.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/kuadrat-1.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -632,7 +640,7 @@ X3: kualitas_tanah (Skor kualitas tanah dari 1-10)</p>
  <a class="actions" href="kuadrat-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-kuadrat-2"></div>
         <script>
-          fetch('kuadrat-2.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/kuadrat-2.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -733,7 +741,7 @@ X3: lama_langganan (Sudah berapa tahun menjadi pelanggan)</p>
  <a class="actions" href="inverse-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-inverse-1"></div>
         <script>
-          fetch('inverse-1.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/inverse-1.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -794,7 +802,7 @@ X3: bmi (Body Mass Index pasien)</p>
  <a class="actions" href="inverse-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-inverse-2"></div>
         <script>
-          fetch('inverse-2.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/inverse-2.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -940,7 +948,7 @@ X3: umur_ceo (Usia CEO dalam tahun)</p>
  <a class="actions" href="winsorizing-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-winsorizing-1"></div>
         <script>
-          fetch('winsorizing-1.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/winsorizing-1.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
@@ -1001,7 +1009,7 @@ X3: jarak_asal (Jarak negara asal ke destinasi dalam ribuan km)</p>
  <a class="actions" href="winsorizing-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-winsorizing-2"></div>
         <script>
-          fetch('winsorizing-2.csv')
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/winsorizing-2.csv')
               .then(res => res.text())
               .then(csvText => {
                   Papa.parse(csvText, {
