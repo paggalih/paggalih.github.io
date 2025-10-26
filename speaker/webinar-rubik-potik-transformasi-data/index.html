@@ -26,10 +26,10 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-  	  <script type="module">
-	    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-	    mermaid.initialize({ startOnLoad: true });
-	  </script>
+  <script type="module">
+    import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+    mermaid.initialize({ startOnLoad: true });
+  </script>
   <script>
     MathJax = {
         tex: {
@@ -145,7 +145,7 @@
       </div>
 
       <div class="pdf-container text-center">
-<!--         <iframe src="Analisis Regresi.pdf" class="pdf-frame" width="600" height="400" allowfullscreen></iframe> -->
+        <!--         <iframe src="Analisis Regresi.pdf" class="pdf-frame" width="600" height="400" allowfullscreen></iframe> -->
       </div>
 
     </section>
@@ -154,49 +154,73 @@
 
         <h2>Teknik Transformasi Data dan Penanganan Outlier pada Penelitian Kuantitatif</h2>
         <div class="mermaid text-center">
-graph TD
-    A[Mulai: Kumpulkan Data Mentah] --> B{Identifikasi Variabel};
-    B --> C[Visualisasi Data: Histogram & Scatter Plot];
-    C --> D{Cek Asumsi Klasik};
-    D -- Asumsi Normalitas Terpenuhi? --> E{Tidak};
-    D -- Asumsi Homoskedastisitas Terpenuhi? --> E;
-    D -- Asumsi Linearitas Terpenuhi? --> E;
-    E --> F[Pilih Teknik Transformasi: Log, Sqrt, Box-Cox];
-    F --> G[Terapkan Transformasi pada Variabel];
-    D -- Semua Asumsi OK --> H{Deteksi Outlier};
-    G --> H;
-    H -- Ada Outlier? --> I{Ya};
-    H -- Tidak Ada Outlier --> J[Lanjutkan ke Analisis Model Regresi];
-    I --> K{Analisis Penyebab Outlier};
-    K -- Kesalahan Input? --> L[Perbaiki/Hapus Data];
-    K -- Data Ekstrem Valid? --> M[Winsorizing atau Pertahankan dengan Catatan];
-    L --> J;
-    M --> J;
-    J --> N[Interpretasi Hasil dan Kesimpulan];
-    N --> O[Selesai];
+          graph TD
+           C[Visualisasi Data: Histogram & Scatter Plot];
+          C --> D{Cek Asumsi Klasik};
+          D -- Asumsi Terpenuhi? --> E{Tidak};
+          E --> F[Pilih Teknik Transformasi: <br> Logaritma <br> Akar <br> Kuadrat <br> Reciprocal];
+          F --> G[Terapkan Transformasi pada Variabel];
+          D -- Semua Asumsi OK --> H{Deteksi Outlier <br> Box Plot <br> Z-Score};
+          G --> H;
+          H -- Ada Outlier? --> I{Ya};
+          H -- Tidak Ada Outlier --> J[Lanjutkan ke Analisis Model Regresi];
+          I --> K{Analisis Penyebab Outlier};
+          K -- Kesalahan Input? --> L[Perbaiki/Hapus Data];
+          K -- Data Ekstrem Valid? --> M[Winsorizing atau Pertahankan dengan Catatan];
+          L --> J;
+          M --> J;
+          J --> N[Interpretasi Hasil dan Kesimpulan];
+          N --> O[Selesai];
 
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style O fill:#f9f,stroke:#333,stroke-width:2px
-    style J fill:#ccf,stroke:#333,stroke-width:2px
+          style O fill:#f9f,stroke:#333,stroke-width:2px
+          style J fill:#ccf,stroke:#333,stroke-width:2px
         </div>
         <p>Secara singkat, transformasi data adalah proses mengubah skala data asli Anda (misalnya, dari data biasa menjadi bentuk logaritma) agar memenuhi asumsi statistik tertentu, seperti asumsi normalitas. Sementara itu, penanganan outlier adalah cara untuk mengidentifikasi dan menangani data yang "aneh" atau sangat berbeda dari sisa data lainnya, karena outlier dapat mengganggu hasil analisis Anda.
 
-Keduanya sangat penting dalam penelitian kuantitatif untuk memastikan hasil analisis statistik Anda akurat dan dapat diandalkan.</p>
+          Keduanya sangat penting dalam penelitian kuantitatif untuk memastikan hasil analisis statistik Anda akurat dan dapat diandalkan.</p>
 
-        <h2>Bagian 1: Import Data ke EViews</h2>
-        <h3>1.1. Mengimpor Data dari Excel</h3>
-        <ol>
-          <li>Buka EViews, lalu pilih <strong>File → Open → Foreign Data as Workfile</strong>.</li>
-          <li>Pilih file <strong>Excel (CSV/XLSX)</strong> yang sudah diunduh dari World Bank.</li>
-          <li>Pilih sheet yang berisi data.</li>
-          <li>Atur struktur data:</li>
-          <ul>
-            <li><strong>Time Series:</strong> Pilih tahun sebagai indeks waktu.</li>
-            <li><strong>Cross-Section:</strong> Pilih satu kolom sebagai identifier (misalnya nama negara).</li>
-            <li><strong>Panel Data:</strong> Pilih dua kolom, satu untuk identifier (misalnya negara), satu lagi untuk tahun.</li>
-          </ul>
-          <li>Klik <strong>OK</strong> dan simpan workfile.</li>
-        </ol>
+        <h2>Bagian 1: Transformasi Data</h2>
+        <p>Bayangkan Anda seorang koki. Sebelum memasak, Anda pasti memastikan semua bahan dalam kondisi terbaik, kan? Sayuran dicuci, daging dipotong dengan benar. Nah, dalam statistik, data adalah bahan masakan kita. Terkadang, kita perlu "membersihkan" atau "menyiapkan" data agar "masakan" (hasil analisis) kita lezat dan akurat.
+
+          Salah satu persiapan terpenting adalah memastikan data kita terdistribusi normal.</p>
+        <p>Banyak tes statistik yang canggih (seperti uji-t atau ANOVA) punya asumsi bahwa data Anda harus "berbentuk lonceng" seperti ini. Jika data Anda "miring" (lebih banyak data menumpuk di satu sisi), maka hasil tes statistik Anda bisa jadi salah atau tidak bisa dipercaya.</p>
+        <p>Mencoba menggunakan statistik canggih pada data yang tidak normal itu seperti mencoba memasukkan kunci yang salah ke dalam gembok. Mungkin bisa dipaksa masuk, tapi gemboknya tidak akan terbuka, atau malah jadi rusak.</p>
+        <p>Ada sekumpulan data nilai ujian. Kebanyakan siswa mendapat nilai rendah, menumpuk di sisi kiri. Hanya segelintir siswa yang nilainya super tinggi, membuat distribusi jadi panjang ke kanan.</p>
+        <h3>Pengecekan Data</h3>
+        <h4><code>Plot Data</code></h4>
+        <h3>Transformasi Logaritma <code>(log(X))</code></h3>
+        <h3>Transformasi Akar <code>(sqrt(X))</code></h3>
+        <h3>Transformasi Kuadrat <code>(X^2)</code></h3>
+        <h3>Transformasi Invers <code>(1/X)</code></h3>
+        <h2>Bagian 2: Menangani Pencilan Data </h2>
+        <p>Bayangkan kita mengukur pendapatan bulanan 5 orang teman di sebuah grup:
+
+          Rp 5.000.000
+
+          Rp 6.000.000
+
+          Rp 5.500.000
+
+          Rp 6.500.000
+
+          Rp 100.000.000
+
+          Data (Rp 100 juta) itu adalah outlier. Nilainya sangat "melompat" jauh dibandingkan yang lain.
+
+          Sama seperti data yang miring, outlier ini juga bisa mengacaukan "rasa" masakan kita karena ia bisa menarik nilai rata-rata secara ekstrem.</p>
+        <h3>Kriteria </h3>
+        <h4><code>Box Plot</code></h4>
+        <p>$$\begin{align*}\text{batas outlier atas}&=Q_3+1.5IQR\\
+\text{batas outlier bawah}&=Q1-1.5IQR \end{align*}$$</p>
+        <h4><code>Z-Score</code></h4>
+        <p>$$\begin{align*}Z&=\dfrac{X-\bar{X}}{s} \end{align*}$$</p>
+        <h3>Dihapus <code>trimming</code></h3>
+        <p>Kapan dilakukan? Hanya jika kita punya alasan yang sangat kuat untuk percaya bahwa data tersebut adalah anomali yang tidak akan pernah terjadi lagi atau tidak mewakili populasi yang kita teliti (misalnya, data dari responden yang jelas-jelas tidak serius mengisi kuesioner).</p>
+        <h3>Diubah <code>winsorizing</code></h3>
+        <p>Bayangkan ada anak yang lari terlalu kencang di depan barisan. Daripada menyuruhnya keluar barisan (membuang), kita menyuruhnya untuk mundur dan berdiri persis di belakang anak paling depan yang larinya normal. Datanya masih ada, tapi nilainya tidak ekstrem lagi.</p>
+        <h3>Dipertahankan </h3>
+        <p>Kapan dilakukan? Jika outlier tersebut adalah data yang sah dan sangat penting untuk penelitian kita. Contohnya dalam studi tentang kebencanaan, data gempa bumi terkuat (yang pasti jadi outlier) adalah informasi paling krusial dan tidak boleh dibuang. Dalam kasus ini, kita mungkin beralih menggunakan metode statistik yang lebih kebal terhadap outlier (statistik robust).</p>
+
       </div>
     </section>
     <section id="p2">
