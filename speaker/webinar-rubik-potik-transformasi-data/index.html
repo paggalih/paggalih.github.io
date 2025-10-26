@@ -687,22 +687,161 @@ X3: kualitas_tanah (Skor kualitas tanah dari 1-10)</p>
         graph TD
     A[Mulai: Data asli] --> B{Cek Pola Hubungan Data};
     B -- Buat Scatter Plot antara Y dan X --> B;
-    B -->|Pola lurus atau melengkung biasa| C[Gunakan model lain (Linear, Kuadrat, Log)];
-    B -->|Pola melengkung terbalik (efek menurun drastis)| D[Pertimbangkan Transformasi Resiprokal];
+    B -->|Pola lurus atau melengkung biasa| C[Gunakan model lain Linear, Kuadrat, Log];
+    B -->|Pola melengkung terbalik efek menurun drastis| D[Pertimbangkan Transformasi Resiprokal];
     D --> E[Buat Variabel Baru];
     E -- X_reciprocal = 1/X --> E;
     E --> F[Gunakan Variabel Baru dalam Model Regresi];
-    F -- Model: Y = b0 + b1*(1/X) --> F;
+    F -- Model: Y = b0 + b1*1/X --> F;
     F --> G{Analisis Hasil};
     G -- Apakah koefisien 1/X signifikan? --> H[Jika ya, model resiprokal cocok];
     G -- Apakah koefisien 1/X tidak signifikan? --> I[Coba model lain yang lebih sesuai];
     C --> Z[Interpretasi Hasil & Selesai];
     H --> Z;
     I --> Z;
-
-    style A fill:#f9f,stroke:#333,stroke-width:2px
-    style Z fill:#f9f,stroke:#333,stroke-width:2px
         </div>
+<strong>Modeling Efek Jenuh dengan Transformasi Resiprokal (1/X) di EViews</strong>
+    <p>Ada kalanya pengaruh suatu variabel tidak konstan, melainkan sangat kuat di awal lalu melemah hingga mencapai titik jenuh. Hubungan ini bisa dimodelkan secara elegan menggunakan transformasi resiprokal. Mari kita lihat caranya di EViews.</p>
+
+    <div class="step">
+        <p class="fst-italic"> Membuat Variabel Resiprokal</p>
+        <p>Proses ini sangat sederhana. Misalkan kita punya variabel <code>JARAK</code> dan kita ingin melihat efek kebalikannya.</p>
+        <p>Buka <b>Command Window</b> atau klik <b>Genr</b>, lalu ketik perintah untuk membuat variabel baru, misalnya <code>inv_jarak</code> (inverse/kebalikan dari jarak).</p>
+        <div class="command-box">
+            ' Buat variabel kebalikan dari JARAK<br>
+            <code>series inv_jarak = 1/JARAK</code>
+        </div>
+        <p>Variabel baru <code>inv_jarak</code> kini siap digunakan dalam analisis.</p>
+    </div>
+
+     <div class="step">
+        <p class="fst-italic">Peringatan Penting</p>
+        <p>Transformasi ini tidak bisa digunakan jika variabel X memiliki nilai <b>nol (0)</b>, karena 1 dibagi 0 tidak terdefinisi. Jika ada nilai nol, kamu perlu menambahkan konstanta yang sangat kecil pada X sebelum melakukan transformasi (misal, <code>1/(X+0.001)</code>).</p>
+    </div>
+        <strong>Kasus 1</strong>
+        <p>Seorang manajer ritel ingin mengetahui bagaimana jarak tempat tinggal pelanggan dari toko mempengaruhi frekuensi belanja mereka. Logikanya, pelanggan yang sangat dekat akan sangat sering berbelanja, namun setelah jarak tertentu, penurunan frekuensi belanja menjadi tidak terlalu drastis.</p>
+<p>
+Variabel:
+<br>
+Y: frekuensi_belanja (Jumlah kunjungan ke toko per bulan)
+<br>
+X1: jarak (Jarak rumah pelanggan ke toko dalam km) -> Variabel yang akan ditransformasi
+<br>
+X2: pendapatan (Pendapatan bulanan pelanggan dalam jutaan Rupiah)
+<br>
+X3: lama_langganan (Sudah berapa tahun menjadi pelanggan)</p>
+ <a class="actions" href="inverse-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-inverse-1"></div>
+        <script>
+          fetch('inverse-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-inverse-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-inverse-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-inverse-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+        <strong> Kasus 2</strong>
+        <p>Sebuah perusahaan farmasi menguji efektivitas obat penurun tekanan darah. Pada dosis rendah, kenaikan dosis sangat meningkatkan efektivitas. Namun, setelah mencapai tingkat tertentu, penambahan dosis tidak lagi memberikan manfaat tambahan yang signifikan (efek jenuh/plateau).</p>
+        <p>Variabel:
+<br>
+Y: penurunan_tensi (Penurunan tekanan darah sistolik dalam mmHg)
+<br>
+X1: dosis (Dosis obat dalam mg) -> Variabel yang akan ditransformasi
+<br>
+X2: usia_pasien (Usia pasien dalam tahun)
+<br>
+X3: bmi (Body Mass Index pasien)</p>
+ <a class="actions" href="inverse-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-inverse-2"></div>
+        <script>
+          fetch('inverse-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-inverse-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-inverse-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-inverse-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+        
         
         <h2>Bagian 2: Menangani Pencilan Data </h2>
         <p>Bayangkan kita mengukur pendapatan bulanan 5 orang teman di sebuah grup:
