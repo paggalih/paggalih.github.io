@@ -169,10 +169,7 @@
           K -- Data Ekstrem Valid? --> M[Winsorizing atau Pertahankan dengan Catatan];
           L --> J;
           M --> J;
-          J --> N[Interpretasi Hasil dan Kesimpulan];
-          N --> O[Selesai];
 
-          style O fill:#f9f,stroke:#333,stroke-width:2px
           style J fill:#ccf,stroke:#333,stroke-width:2px
         </div>
         <p>Secara singkat, transformasi data adalah proses mengubah skala data asli Anda (misalnya, dari data biasa menjadi bentuk logaritma) agar memenuhi asumsi statistik tertentu, seperti asumsi normalitas. Sementara itu, penanganan outlier adalah cara untuk mengidentifikasi dan menangani data yang "aneh" atau sangat berbeda dari sisa data lainnya, karena outlier dapat mengganggu hasil analisis Anda.
@@ -192,6 +189,8 @@
         <img src="//i.upmath.me/svgb/hVNBTsMwELznFXsoUiMlVptQAULigMSpICH1SHpw4hUYN3blxIVS8Xe8TtNSEdRTvPbMemfGKUp8lXrXSvW1llXrLH5HF7BwdelgbowVUvM2KoTlHy_pXQLtm6zUEsbpTTKJIU1hHBbaCHwpcWU-lrAbfY6-b6PI95kymDu74fCEukL9CnNpJYwflLEgJChfxR727HTFFagALdFywem4kY3HcM01CE_2HyTilvtGNdZcv9NKYejDoiIMYVEkwEuzwSXw1g86Y7MEMnYVw-73FH7CTtUG7fYo6zqBCZvGwBhURrfWrBq_e5V4KbMYuBbUkfrNAmacXh6LX4Sc9aCOkrPM13tK3t1xSw5lvUMLWWNrpSffo26dgkcThiV_OkSDsi5JcYP12lkdPFIoHO-cWgcX9Zb3VpQrhydeTHoj-ssGTEiAaGRFRhoGzJjSfr5X1hck7EAIyvI_2Yckj-FTeTZ9ei9nwqc-_6U_FD7hh9PPh_T20QW5x1xJ8GD2J8H3D4fQ1wdzCtTi5Jf7AQ" alt="upmath">
         </div>
         <h3>Transformasi Logaritma <code>(log(X))</code></h3>
+        <p>Bayangkan kamu sedang melihat peta dunia. Jarak antara Jakarta dan Bandung (sekitar 150 km) terlihat jelas. Tapi, jarak antara Jakarta dan New York (sekitar 16.000 km) sangatlah besar sehingga membuat jarak Jakarta-Bandung tadi jadi terlihat seperti setitik saja. Skalanya jadi tidak proporsional.</p>
+        <p>Transformasi logaritma bekerja seperti mengubah peta duniamu menjadi "peta skala logaritmik". Pada peta baru ini, perbedaan antara 100 km dan 1.000 km akan terlihat sama besarnya dengan perbedaan antara 1.000 km dan 10.000 km. Ia "menekan" nilai-nilai yang sangat besar agar tidak terlalu mendominasi, sehingga hubungan antar data bisa terlihat lebih jelas dan proporsional.</p>
  <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/uts-6.csv"><button class="btn btn-primary">Unduh CSV </button></a>
         <div class="overflow-auto" id="tabel-uts-6"></div>
         <script>
