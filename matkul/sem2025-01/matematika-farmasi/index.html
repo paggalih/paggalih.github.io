@@ -745,30 +745,30 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 5</h2>
 	        </div>
-            <div class="trigger">
-            <p>Mengapa harus minum obat 3 kali sehari? Kenapa ada obat yang cuma harus diminum 1 kali sehari?</p>
-            </div>
-            <div class="mermaid text-center">
-              graph TD
-            a(("Turunan"));
-                  subgraph "Tipe Turunan"
-              a11("Turunan pangkat");
-              a12("Turunan eksponen");
-              end;
-              
-              a-->a11;
-              a-->a12;
+	        <div class="trigger">
+	          <p>Mengapa harus minum obat 3 kali sehari? Kenapa ada obat yang cuma harus diminum 1 kali sehari?</p>
+	        </div>
+	        <div class="mermaid text-center">
+	          graph TD
+	          a(("Turunan"));
+	          subgraph "Tipe Turunan"
+	          a11("Turunan pangkat");
+	          a12("Turunan eksponen");
+	          end;
 
-              subgraph "Aturan Turunan"
-              a21("Aturan perkalian");
-              a22("Aturan pembagian");
-              a23("Aturan rantai");
-              end;
-              
-              a11-->a21;
-              a11-->a22;
-              a11-->a23;
-            </div>
+	          a-->a11;
+	          a-->a12;
+
+	          subgraph "Aturan Turunan"
+	          a21("Aturan perkalian");
+	          a22("Aturan pembagian");
+	          a23("Aturan rantai");
+	          end;
+
+	          a11-->a21;
+	          a11-->a22;
+	          a11-->a23;
+	        </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp5">
@@ -781,12 +781,12 @@
 	              </h2>
 	              <div id="collapsep5" class="accordion-collapse collapse" aria-labelledby="headingp5" data-bs-parent="#accordionp5">
 	                <div class="accordion-body">
-<ol>
-                      <li>Jika jumlah zat aktif obat yang terbentuk (dalam mg) setiap menit mengikuti fungsi $M(t)=3t^2+5t,$ dimana $t$ adalah waktu dalam menit. Berapakah laju pembentukan obat pada saat $t=10$ menit.</li>
-  <li>Konsentrasi obat dalam darah $(C)$ seiring waktu $(t)$ diberikan oleh persamaan $C(t)=10t.$ Apakah laju perubahan konsentrasinya konstan atau berubah-ubah?</li>
-  <li>Sebuah obat dieliminasi dari tubuh mengikuti model orde satu, dimana konsentrasinya $C(t)$ setiap jam diberikan oleh fungsi $C(t)=50e^{-0.2t}.$ Tentukan laju eliminasi obat pada jam ke-5.</li>
-  <li>Laju disolusi sebuah tablet (dalam mg/menit) dipengaruhi oleh luas ppermukaan $(A)$ dan konsentrasi larutan $C$ dengan model sederhana $L(C)=\dfrac{100C}{2+C}.$ Tentukan laju perubahan disolusi terhadap konsentrasi.</li>
-                      </ol>
+	                  <ol>
+	                    <li>Jika jumlah zat aktif obat yang terbentuk (dalam mg) setiap menit mengikuti fungsi $M(t)=3t^2+5t,$ dimana $t$ adalah waktu dalam menit. Berapakah laju pembentukan obat pada saat $t=10$ menit.</li>
+	                    <li>Konsentrasi obat dalam darah $(C)$ seiring waktu $(t)$ diberikan oleh persamaan $C(t)=10t.$ Apakah laju perubahan konsentrasinya konstan atau berubah-ubah?</li>
+	                    <li>Sebuah obat dieliminasi dari tubuh mengikuti model orde satu, dimana konsentrasinya $C(t)$ setiap jam diberikan oleh fungsi $C(t)=50e^{-0.2t}.$ Tentukan laju eliminasi obat pada jam ke-5.</li>
+	                    <li>Laju disolusi sebuah tablet (dalam mg/menit) dipengaruhi oleh luas ppermukaan $(A)$ dan konsentrasi larutan $C$ dengan model sederhana $L(C)=\dfrac{100C}{2+C}.$ Tentukan laju perubahan disolusi terhadap konsentrasi.</li>
+	                  </ol>
 	                </div>
 	              </div>
 	            </div>
@@ -799,6 +799,41 @@
 	      <div class="container aos-init aos-animate" data-aos="fade-up">
 	        <div class="section-title">
 	          <h2>Pertemuan 6</h2>
+	        </div>
+	        <div class="mermaid text-center">
+	          graph TD
+	          C[Hitung Turunan Pertama <br> Contoh: C'];
+	          C --> D[Atur Turunan Pertama = 0 <br> C' = 0];
+	          D --> E[Selesaikan Persamaan untuk Mendapatkan Titik Kritis <br> Contoh: Dapatkan nilai t];
+	          E --> F{Lakukan Uji Turunan Kedua untuk Konfirmasi};
+	          F --> G[Jika C'' <0 maka Maksimum ];
+	          F --> H[Jika C'' >0 maka Minimum ];
+	          G --> I[Substitusikan nilai t ke Fungsi Awal C <br> untuk Mendapatkan Nilai Maksimum];
+	          H --> J[Substitusikan nilai t ke Fungsi Awal C<br> untuk Mendapatkan Nilai Minimum];
+	          I --> K[Selesai];
+	          J --> K[Selesai];
+	        </div>
+	        <div class="container">
+	          <p>Kerjakan soal-soal berikut untuk mengasah pemahaman Anda mengenai aplikasi turunan.</p>
+
+	          <hr>
+
+	          <div class="soal">
+	            <p><strong>Soal 1:</strong> Reaksi pembentukan suatu senyawa obat dinyatakan dalam fungsi $R(t) = -2t^2 + 12t + 5$, di mana $R$ adalah jumlah senyawa (dalam mg) dan $t$ adalah waktu (dalam jam). Kapan jumlah senyawa yang terbentuk mencapai maksimum dan berapakah jumlahnya?</p>
+	          </div>
+
+	          <hr>
+
+	          <div class="soal">
+	            <p><strong>Soal 2:</strong> Konsentrasi obat dalam aliran darah pasien setelah penyuntikan diberikan oleh fungsi $C(t) = \frac{100t}{t^2 + 25}$, di mana $C$ adalah konsentrasi (dalam mcg/mL) dan $t$ adalah waktu (dalam jam) setelah penyuntikan. Kapan konsentrasi obat mencapai puncaknya (Cmax)?</p>
+	          </div>
+
+	          <hr>
+
+	          <div class="soal">
+	            <p><strong>Soal 3:</strong> Sebuah perusahaan farmasi ingin membuat sebuah wadah obat berbentuk silinder (tabung) tanpa tutup untuk menampung volume $500\pi$ cm³. Biaya bahan untuk alasnya adalah Rp 300/cm² dan biaya bahan untuk sisi sampingnya adalah Rp 100/cm². Tentukan jari-jari ($r$) dan tinggi ($h$) wadah agar biaya produksinya minimum.</p>
+	          </div>
+
 	        </div>
 
 	        <div class="container mt-4">
