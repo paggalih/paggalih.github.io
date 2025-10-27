@@ -106,7 +106,12 @@
             <span>Bagian 2</span>
           </a>
         </li>
-
+        <li>
+          <a href="#p3" class="nav-link scrollto">
+            <i class="bi bi-2-circle-fill"></i>
+            <span>Bagian 3</span>
+          </a>
+        </li>
       </ul>
     </nav>
     <!-- .nav-menu -->
@@ -127,7 +132,6 @@
       </div>
 
     </section>
-    <section >
       <div class="container aos-init aos-animate" data-aos="fade-up">
 
         <h2>Teknik Transformasi Data dan Penanganan Outlier pada Penelitian Kuantitatif</h2>
@@ -1213,12 +1217,67 @@ X3: jarak_asal (Jarak negara asal ke destinasi dalam ribuan km)</p>
       <h3>Dipertahankan </h3>
         <p>Kapan dilakukan? Jika outlier tersebut adalah data yang sah dan sangat penting untuk penelitian kita. Contohnya dalam studi tentang kebencanaan, data gempa bumi terkuat (yang pasti jadi outlier) adalah informasi paling krusial dan tidak boleh dibuang. Dalam kasus ini, kita mungkin beralih menggunakan metode statistik yang lebih kebal terhadap outlier (statistik robust).</p>
 
-      </div>
-    </section>
-    <section id="p2">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-
-      </div>
+        <h2 id="p3">Bagian 3: Tantanngan</h2>
+          <p>Seorang manajer HR ingin memahami faktor-faktor yang memengaruhi produktivitas karyawan (diukur dari jumlah tugas yang diselesaikan per minggu). Ia menduga bahwa pengalaman kerja memiliki efek non-linear (produktivitas meningkat pesat di awal, lalu melambat setelah sangat senior), sementara jam pelatihan dan skor kepuasan kerja berpengaruh secara linear.</p>
+          <p>Y: Produktivitas (Jumlah tugas/minggu)
+<br>
+X1: Pengalaman_Kerja (Tahun, diduga non-linear)
+<br>
+X2: Jam_Pelatihan (Total jam dalam setahun terakhir)
+<br>
+X3: Kepuasan_Kerja (Skor survei 1-100)</p>
+ <a class="actions" href="tantangan-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-tantangan-1"></div>
+        <script>
+          fetch('https://paggalih.github.io/speaker/webinar-rubik-potik-transformasi-data/tantangan-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-tantangan-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
+                          });
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-tantangan-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-tantangan-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+      
+  </div>
     </section>
 
     <div id="folder-list" class="row justify-content-center gap-1">Loading...</div>
