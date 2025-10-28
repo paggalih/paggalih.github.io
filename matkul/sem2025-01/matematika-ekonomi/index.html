@@ -921,15 +921,15 @@
 
 	            <p class="h1">Ketentuan UTS</p>
 	            <ol>
-	              <li>UTS hanya boleh dikerjakan selama 2 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-	              <li>Soal UTS boleh dikerjakan dari 13:00-14:30 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
+	              <li>UTS hanya boleh dikerjakan selama 75 menit.</li>
+	              <li>Soal UTS boleh dikerjakan dari 08:50-10:05.</li>
 	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 	            </ol>
 	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
-	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban</button>
+	            <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()" style="display:none;">Kirim Jawaban</button>
 	            <script>
-	              const mulaiUTSmbs2d = new Date("July 2, 2025 08:59:00").getTime();
-	              const akhirUTSmbs2d = new Date("August 13, 2025 14:30:00").getTime();
+	              const mulaiUTSmbs2d = new Date("October 2, 2025 08:50:00").getTime();
+	              const akhirUTSmbs2d = new Date("October 29, 2025 10:05:00").getTime();
 	              function validateUTSmbs2d() {
 	              	let sekarang = new Date().getTime();
 	              	document.getElementById('timerUTS').style.display="block";
@@ -966,12 +966,12 @@
 	              
 	              				let b = (nim*5)% 6;
 	              				let c = [
-	              					['soal3', 'soal4', 'soal8', 'soal12', 'soal10'],
-	              					['soal1', 'soal5', 'soal7', 'soal13', 'soal11'],
-	              					['soal2', 'soal4', 'soal6', 'soal12', 'soal9'],
-	              					['soal3', 'soal5', 'soal8', 'soal13', 'soal15'],
-	              					['soal1', 'soal4', 'soal7', 'soal12', 'soal14'],
-	              					['soal2', 'soal5', 'soal6', 'soal13', 'soal10']
+	              ['soal1a', 'soal2a', 'soal3a', 'soal4a', 'soal5a'],
+	              ['soal1b', 'soal2b', 'soal3b', 'soal4b', 'soal5b'],
+	              ['soal1c', 'soal2c', 'soal3c', 'soal4c', 'soal5c'],
+	              ['soal1d', 'soal2d', 'soal3d', 'soal4d', 'soal5d'],
+	              ['soal1e', 'soal2e', 'soal3e', 'soal4e', 'soal5e'],
+	              ['soal1a', 'soal2b', 'soal3c', 'soal4d', 'soal5e'],
 	              				];
 	              				let d = c[b];
 	              				for (i = 1; i < 6; i++) {
@@ -986,7 +986,7 @@
 	              			}
 	              		}
 	              		else{
-	              			alert("Sudah selesai. UTS MBS2D hanya boleh dikerjakan sampai 13 Mei 2025 pukul 14.30");
+	              			alert("Sudah selesai. UTS hanya boleh dikerjakan sampai pukul 10:05");
 	              		}
 	              	}
 	              	// Update the count down every 1 second
@@ -1028,222 +1028,141 @@
 	            </script>
 	            <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
 	            <div id="berhasilValidateUTS" style="display: none">
-	              <div id="soal1" style='display:none;'>
-	                <p>Sebuah pusat layanan pelanggan mencatat bahwa rata-rata 0.4% panggilan setiap hari mengalami kegagalan jaringan. Hari ini, tercatat 1.500 panggilan.</p>
-	                <p>Berapakah peluang bahwa <em>setidaknya tujuh</em> panggilan mengalami kegagalan jaringan?</p>
+	              <div id="soal1a" style='display:none;'>
+<p>Seorang produsen game monopoli menemukan bahwa fungsi permintaan (demand) untuk produknya adalah $P = 500 - 3Q$. Sementara itu, fungsi biaya total (TC) untuk memproduksi game tersebut adalah $TC = 2Q^2 + 50Q + 1500$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Berapa jumlah game (Q) yang harus diproduksi dan dijual untuk mencapai profit maksimum?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal1b" style='display:none;'>
+<p>Sebuah perusahaan percetakan buku yang bersifat monopoli memiliki fungsi permintaan $P = 300 - Q$. Fungsi biaya total (TC) untuk produksi adalah $TC = Q^2 + 20Q + 500$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Berapa jumlah buku (Q) yang harus diproduksi dan dijual untuk mencapai profit maksimum?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal1c" style='display:none;'>
+<p>Produsen tunggal alat olahraga menetapkan fungsi permintaan pasar $P = 600 - 4Q$. Biaya total (TC) yang dikeluarkan adalah $TC = Q^2 + 60Q + 2000$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Berapa kuantitas (Q) untuk mencapai profit maksimum?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal1d" style='display:none;'>
+<p>Sebuah perusahaan farmasi monopoli memiliki fungsi permintaan untuk obat barunya sebesar $P = 800 - 5Q$. Fungsi biaya total (TC) untuk produksi adalah $TC = 3Q^2 + 20Q + 3000$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Berapa jumlah obat (Q) yang harus diproduksi untuk profit maksimum?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal1e" style='display:none;'>
+<p>Sebuah penyedia layanan internet monopoli menghadapi fungsi permintaan $P = 900 - 2Q$. Adapun fungsi biaya total (TC) yang dimiliki adalah $TC = Q^2 + 100Q + 5000$. (Satuan dalam ribuan rupiah).
+            <br><strong>Pertanyaan:</strong>
+            <ol type="a">
+                <li>Berapa jumlah pelanggan (Q) agar perusahaan mencapai profit maksimum?</li>
+            </ol></p>
+	              </div>
+	              <div id="soal2a" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran untuk dua komoditas yang saling berhubungan diberikan oleh persamaan berikut:
+            $$Q_{D1} = 30 - 2P_1 - P_2$$
+            $$Q_{D2} = 40 - P_1 - P_2$$
+            $$Q_{S1} = 5 + P_1$$
+            $$Q_{S2} = 15 + P_2$$
+            dimana $Q_D$, $Q_S$, dan $P$ masing-masing menunjukkan kuantitas permintaan, kuantitas penawaran, dan harga untuk barang ke-$i$. Tentukan harga dan kuantitas keseimbangan untuk model dua komoditas ini. Apakah kedua barang tersebut merupakan barang substitusi atau komplementer?
+        </p>
+	              </div>
+	              <div id="soal2b" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran untuk dua komoditas adalah sebagai berikut:
+            $$Q_{D1} = 30 - 3P_1 + 2P_2$$
+            $$Q_{D2} = 20 + P_1 - 2P_2$$
+            $$Q_{S1} = 6 + P_1$$
+            $$Q_{S2} = 6 + P_2$$
+            Tentukan harga dan kuantitas keseimbangan untuk model ini. Apakah kedua barang tersebut substitusi atau komplementer?
+        </p>
+	              </div>
+	              <div id="soal2c" style='display:none;'>
+<p>
+            Diketahui fungsi permintaan dan penawaran untuk dua barang adalah:
+            $$Q_{D1} = 100 - 2P_1 - 2P_2$$
+            $$Q_{D2} = 90 - P_1 - 3P_2$$
+            $$Q_{S1} = 10 + P_1$$
+            $$Q_{S2} = 10 + P_2$$
+            Tentukan harga dan kuantitas keseimbangan serta jenis hubungan antara kedua barang tersebut.
+        </p>
+	              </div>
+	              <div id="soal2d" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran untuk dua komoditas adalah sebagai berikut:
+            $$Q_{D1} = 40 - 3P_1 + P_2$$
+            $$Q_{D2} = 50 + 2P_1 - P_2$$
+            $$Q_{S1} = 19 + 2P_1$$
+            $$Q_{S2} = 35 + 2P_2$$
+            Tentukan harga dan kuantitas keseimbangan untuk model ini. Apakah kedua barang tersebut substitusi atau komplementer?
+        </p>
+	              </div>
+	              <div id="soal2e" style='display:none;'>
+<p>
+            Diketahui fungsi permintaan dan penawaran untuk dua barang adalah:
+            $$Q_{D1} = 50 - P_1 - P_2$$
+            $$Q_{D2} = 60 - P_1 - P_2$$
+            $$Q_{S1} = 22 + P_1$$
+            $$Q_{S2} = 16 + 2P_2$$
+            Tentukan harga dan kuantitas keseimbangan serta jenis hubungan antara kedua barang tersebut.
+        </p>
+	              </div>
+	              <div id="soal3a" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -3Q_D + 60$$
+            $$P = Q_S + 20$$
+            dimana P, $Q_D$, dan $Q_S$ masing-masing menunjukkan harga, kuantitas permintaan, dan kuantitas penawaran.
+            <br>
+Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah memutuskan untuk mengenakan pajak tetap sebesar Rp 4 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal3b" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -Q_D + 100$$
+            $$P = \frac{1}{3}Q_S + 20$$
+            <br>
+ Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 8 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal3c" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -4Q_D + 120$$
+            $$P = Q_S + 30$$
+            <br>
+ Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 10 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal3d" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -2Q_D + 80$$
+            $$P = 2Q_S + 10$$
+            <br>
+Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 6 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal3e" style='display:none;'>
+<p>
+            Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+            $$P = -\frac{1}{2}Q_D + 75$$
+            $$P = Q_S + 15$$
+            <br>
+ Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 9 untuk setiap barang.
+        </p>
+	              </div>
+	              <div id="soal4a" style='display:none;'>
+
 	              </div>
 
-	              <div id="soal2" style='display:none;'>
-	                <p>Sebuah perusahaan memiliki 20 perangkat komputer, 8 di antaranya teridentifikasi rawan panas. Jika 6 perangkat dipilih secara acak untuk diuji, berapakah peluang bahwa tepat 3 dari perangkat tersebut bermasalah?</p>
-	              </div>
-
-	              <div id="soal3" style='display:none;'>
-	                <p>Seorang agen asuransi mampu menghubungi 5 klien per jam dan memiliki peluang sukses 40% untuk menjual polis pada setiap panggilan. Selama 3 jam berikutnya, tentukan:</p>
-	                <ol type="a">
-	                  <li>Peluang untuk melakukan tepat <strong>dua</strong> penjualan.</li>
-	                  <li>Rata-rata jumlah penjualan dalam periode 3 jam.</li>
-	                </ol>
-	              </div>
-	              <!-- ======================= -->
-	              <div id="soal4" style='display:none;'>
-	                <p>Sebuah perusahaan elektronik membeli kabel HDMI dari empat distributor berbeda:</p>
-	                <ul>
-	                  <li>AlphaTech: 30% dari kabel, dengan 2% cacat</li>
-	                  <li>BetaWire: 25% dari kabel, dengan 3.5% cacat</li>
-	                  <li>GammaLink: 25% dari kabel, dengan 5% cacat</li>
-	                  <li>DeltaConnect: 20% dari kabel, dengan 4% cacat</li>
-	                </ul>
-	                <ol type="a">
-	                  <li>Berapa persentase kabel cacat secara keseluruhan?</li>
-	                  <li>Jika satu kabel cacat ditemukan, berapa probabilitas kabel tersebut berasal dari <em>BetaWire</em>?</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal5" style='display:none;'>
-	                <p>Setiap pembelian tiket masuk di wahana taman hiburan <strong>HappyLand</strong> disertai dengan kesempatan memenangkan hadiah berikut:</p>
-	                <ul>
-	                  <li>Peluang memenangkan <strong>voucher makan siang</strong>: 0.12</li>
-	                  <li>Peluang memenangkan <strong>tiket masuk gratis</strong>: 0.03</li>
-	                </ul>
-	                <p>Anda berencana berkunjung ke HappyLand besok.</p>
-	                <ol type="a">
-	                  <li>Berapa probabilitas Anda akan memenangkan <em>setidaknya satu hadiah</em> (voucher atau tiket masuk)?</li>
-	                  <li>Berapa probabilitas <em>tidak memenangkan hadiah</em>?</li>
-	                  <li>Berapa probabilitas <em>memenangkan setidaknya satu hadiah dalam tiga kunjungan</em>?</li>
-	                </ol>
-	              </div>
-	              <!-- ========================= -->
-	              <div id="soal6" style='display:none;'>
-	                <p>Berikut ini adalah data waktu tempuh (dalam menit) mahasiswa menuju kampus berdasarkan moda transportasi:</p>
-	                <p><strong>Transportasi Umum:</strong> 18, 21, 23, 25, 27, 29, 30, 32, 33, 35</p>
-	                <p><strong>Kendaraan Pribadi:</strong> 24, 25, 26, 28, 29, 30, 31, 33, 34, 36</p>
-	                <ol type="a">
-	                  <li>Hitung <em>median</em>, <em>kuartil pertama</em> (\( Q_1 \)), dan <em>kuartil ketiga</em> (\( Q_3 \)) untuk masing-masing kelompok.</li>
-	                  <li>Gambarkan diagram boxplot berdasarkan informasi tersebut.</li>
-	                </ol>
-	              </div>
-	              <div id="soal7" style='display:none;'>
-	                <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
-	                <div class="text-center overflow-auto">
-	                  <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
-	                </div>
-	                <ol type="a">
-	                  <li>Perkirakan nilai <em>median</em>.</li>
-	                  <li>Tentukan <em>rentang interkuartil</em> (\( \text{IQR} = Q_3 - Q_1 \)).</li>
-	                  <li>Identifikasi pencilan dan perkirakan nilainya.</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal8" style='display:none;'>
-	                <p>Diagram boxplot berikut menunjukkan biaya langganan internet per bulan (dalam ribu rupiah) untuk mahasiswa universitas swasta di Indonesia.</p>
-	                <div class="text-center overflow-auto">
-	                  <img src="//i.upmath.me/svgb/hZRBT8JAEIXv_orxYALJtum2AiUEE7xzMDF6sByWdoRNy5aUVRuJ_93ZLVskuvE223zv7ZvXptkaN1IdtSw_9zLXbw1-XQHcwKKVBxqyohEfL8HdCgYRi4ZBAAOe0ACzK4s9yrw8gFAFVGKNlZW81g2KfAtZC1LBkbOYhWHIeGycT5YwyFoWhXwIxpLmwBxOps9beSixOd-vt3QNg53YoNKCQSEOWyxMpnDETh7cjjOSL-lWXcMD_1_fq9Ne_ZAY8VK0XZb7urU7yaqyVmaYbxpEdT2OyImezdeVyMtVF4ESDaHBXAu1qdDeQE9Oiy2xkEJBJRVeZiNxwsBqTRqaf6iesNEyF5XVUdkadrSh6Xwn2l8-phJymnRO9sTDxBXzC08v8PQC7zqwu9Ny3HSVyyY3a8V77eItlKq10LJW9oWpusAXsa7fcWWi0mcT2L2OPIq-Zn8R3BGxj4gdkfiIxBG3PuLWESMfMXLE2EeMHTHxERNHpD4idcTUR0x_NOar7Nyqv9a-V-4tlvfN8q7aDFVx8TP4Bg">
-	                </div>
-	                <ol type="a">
-	                  <li>Perkirakan nilai <em>kuartil pertama</em> (\( Q_1 \)) dan <em>kuartil ketiga</em> (\( Q_3 \)).</li>
-	                  <li>Di luar batas mana sebuah nilai dianggap sebagai <em>pencilan</em> (outlier)?</li>
-	                  <li>Identifikasi pencilan dan perkirakan nilainya.</li>
-	                  <li>Apakah distribusinya simetris, condong ke kanan (positif), atau condong ke kiri (negatif)? Jelaskan alasanmu.</li>
-	                </ol>
-	              </div>
-	              <!-- ====================== -->
-	              <div id="soal9" style='display:none;'>
-	                <p>Tabel di bawah ini menunjukkan distribusi frekuensi dari pengeluaran bulanan makanan (dalam \( \$ \)) untuk 60 rumah tangga di daerah urban:</p>
-
-	                <table class="table table-bordered text-center datatable">
-	                  <thead class="table-light">
-	                    <tr>
-	                      <th>Pengeluaran (\$)</th>
-	                      <th>Frekuensi</th>
-	                    </tr>
-	                  </thead>
-	                  <tbody>
-	                    <tr>
-	                      <td>200 – 300</td>
-	                      <td>6</td>
-	                    </tr>
-	                    <tr>
-	                      <td>300 – 400</td>
-	                      <td>9</td>
-	                    </tr>
-	                    <tr>
-	                      <td>400 – 500</td>
-	                      <td>15</td>
-	                    </tr>
-	                    <tr>
-	                      <td>500 – 600</td>
-	                      <td>20</td>
-	                    </tr>
-	                    <tr>
-	                      <td>600 – 700</td>
-	                      <td>7</td>
-	                    </tr>
-	                    <tr>
-	                      <td>700 – 800</td>
-	                      <td>3</td>
-	                    </tr>
-	                    <tr>
-	                      <td><strong>Total</strong></td>
-	                      <td><strong>60</strong></td>
-	                    </tr>
-	                  </tbody>
-	                </table>
-	                <ul>
-	                  <li>Estimasi rata-rata pengeluaran.</li>
-	                  <li>Estimasi simpangan baku.</li>
-	                </ul>
-	              </div>
-
-	              <div id="soal10" style='display:none;'>
-	                <p>Berikut ini adalah data usia dari 12 siswa yang mengikuti pelatihan statistika:</p>
-	                <p>24, 31, 27, 28, 35, 29, 32, 26, 30, 34, 28, 33</p>
-	                <ul>
-	                  <li>Hitung jangkauan (range).</li>
-	                  <li>Hitung simpangan baku (standar deviasi).</li>
-	                </ul>
-	              </div>
-
-	              <div id="soal11" style='display:none;'>
-	                <p>Sebuah laporan menyatakan bahwa jika Anda memiliki pengeluaran \$30.000 per tahun hari ini, dan tingkat inflasi berlangsung sebesar 4% per tahun, maka dalam 10 tahun Anda akan membutuhkan \$44.438 untuk mempertahankan daya beli yang sama. Jika tingkat inflasi menjadi 7%, maka Anda akan membutuhkan \$59.049.</p>
-	                <p>Konfirmasikan apakah pernyataan tersebut benar dengan menghitung laju rata-rata kenaikan geometrik untuk masing-masing tingkat inflasi.</p>
-	              </div>
-	              <!-- ========================= -->
-	              <div id="soal12" style='display:none;'>
-	                <p>Berikut adalah histogram frekuensi waktu belajar mingguan (dalam jam) dari mahasiswa tingkat akhir dalam mata kuliah skripsi:</p>
-	                <table class="table table-bordered text-center datatable">
-	                  <thead class="table-light">
-	                    <tr>
-	                      <th>Interval Jam</th>
-	                      <th>Frekuensi</th>
-	                    </tr>
-	                  </thead>
-	                  <tbody>
-	                    <tr>
-	                      <td>0 – 5</td>
-	                      <td>4</td>
-	                    </tr>
-	                    <tr>
-	                      <td>5 – 10</td>
-	                      <td>10</td>
-	                    </tr>
-	                    <tr>
-	                      <td>10 – 15</td>
-	                      <td>16</td>
-	                    </tr>
-	                    <tr>
-	                      <td>15 – 20</td>
-	                      <td>8</td>
-	                    </tr>
-	                    <tr>
-	                      <td>20 – 25</td>
-	                      <td>2</td>
-	                    </tr>
-	                  </tbody>
-	                </table>
-	                <ol type="a">
-	                  <li>Berapa jumlah total mahasiswa yang disurvei?</li>
-	                  <li>Berapa lebar interval kelasnya?</li>
-	                  <li>Berapa titik tengah kelas pertama?</li>
-	                  <li>Berapa banyak mahasiswa yang belajar kurang dari 10 jam?</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal13" style='display:none;'>
-	                <p>Berikut adalah jumlah menit keterlambatan karyawan tiba di kantor selama sebulan (dalam satuan menit), diambil dari 30 observasi:</p>
-	                <p>
-	                  23, 15, 19, 21, 25, 18, 24, 17, 16, 22,<br>
-	                  28, 30, 32, 35, 27, 26, 33, 29, 31, 36,<br>
-	                  41, 38, 40, 39, 43, 45, 44, 37, 34, 42
-	                </p>
-	                <ol type="a">
-	                  <li>Berapa jumlah kelas yang Anda rekomendasikan?</li>
-	                  <li>Berapa ukuran interval kelas yang Anda sarankan?</li>
-	                </ol>
-	              </div>
-
-	              <div id="soal14" style='display:none;'>
-	                <p>Klasifikasikan variabel-variabel berikut ke dalam variabel diskrit atau kontinu.</p>
-	                <ul>
-	                  <li>Umur</li>
-	                  <li>Tipe Kelamin</li>
-	                  <li>Jumlah Buku yang Dibaca</li>
-	                  <li>Tinggi Badan</li>
-	                  <li>Jenis Smartphone</li>
-	                  <li>Nilai Matematika</li>
-	                  <li>Tingkat Kepuasan Pelanggan</li>
-	                  <li>Jumlah Anak</li>
-	                  <li>Waktu Belajar per Minggu</li>
-	                </ul>
-	              </div>
-	              <div id="soal15" style='display:none;'>
-	                <p>Untuk setiap situasi berikut, tentukan apakah Anda akan mengumpulkan informasi dari <strong>sampel</strong> atau <strong>populasi</strong>. Jelaskan alasannya.</p>
-	                <ol>
-	                  <li>Anda ingin mengetahui pendapat mahasiswa semester 1 di universitas Anda mengenai penggunaan AI dalam pembelajaran.</li>
-	                  <li>Seorang manajer ingin mengevaluasi rata-rata waktu penyelesaian proyek pada seluruh divisi perusahaan dalam 5 tahun terakhir.</li>
-	                  <li>Sebuah lembaga penelitian ingin memperkirakan tingkat kepuasan pengguna dari 1.000 pelanggan aplikasi mobile melalui survei.</li>
-	                  <li>Seorang analis data ingin meneliti seluruh transaksi keuangan pemerintah provinsi dalam satu tahun anggaran.</li>
-	                </ol>
-	              </div>
 
 	              <p class="h1 text-center">Soal UTS</p>
 	              <ol id="soalUTS">
