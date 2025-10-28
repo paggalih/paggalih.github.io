@@ -1537,7 +1537,118 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 9</h2>
 	        </div>
+            <div class="mermaid text-center">
+graph TD
+    A[ Mulai: Tentukan Pertanyaan Penelitian] --> B["Formulasikan Hipotesis Nol (H₀) & Alternatif (Hₐ)"];
+    B --> C["Tentukan Tingkat Signifikansi (α), cth: 5%"];
+    C -- Kumpulkan Data Sampel --> E["Pilih Uji Statistik yang Sesuai<br> (cth: Uji-t atau Uji-z)"];
+    E --> F["Hitung Nilai Statistik Uji & p-value"];
+    F --> G{Bandingkan p-value dengan α};
+    G -- p-value ≤ α --> H[<font color=red><b>Tolak H₀</b></font>✅<br>Ada cukup bukti untuk mendukung Hₐ];
+    G -- p-value > α --> I[<font color=green><b>Gagal Tolak H₀</b></font>❌<br>Tidak cukup bukti untuk mendukung Hₐ];
+    H --> J[Tarik Kesimpulan Kontekstual];
+    I --> J;
+    J --> K[Selesai];
+            </div>
+<div class="container">
+    <h2>Langkah-Langkah Uji Hipotesis Satu Sampel (Uji-t) di Microsoft Excel</h2>
+    <p>Uji hipotesis satu sampel digunakan untuk membandingkan rata-rata sampel dengan nilai rata-rata hipotesis (populasi). Berikut cara melakukannya di Excel.</p>
 
+    <div class="step">
+        <h3>Langkah 1: Siapkan Data Anda</h3>
+        <p>Masukkan data sampel Anda ke dalam satu kolom di Excel. Misalnya, di kolom A dari sel A1 hingga A50.</p>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 2: Hitung Statistik Deskriptif</h3>
+        <p>Kita memerlukan beberapa nilai kunci dari data sampel kita. Gunakan fungsi Excel berikut di sel yang kosong:</p>
+        <ul>
+            <li><b>Rata-rata Sampel (x̄):</b> <code>=AVERAGE(A1:A50)</code></li>
+            <li><b>Standar Deviasi Sampel (s):</b> <code>=STDEV.S(A1:A50)</code></li>
+            <li><b>Ukuran Sampel (n):</b> <code>=COUNT(A1:A50)</code></li>
+        </ul>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 3: Hitung Statistik Uji (t-statistic)</h3>
+        <p>Rumus untuk t-statistik adalah: <code>(Rata-rata Sampel - Rata-rata Hipotesis) / (Standar Deviasi Sampel / AKAR(Ukuran Sampel))</code>.</p>
+        <p>Misalkan rata-rata hipotesis Anda (μ₀) adalah 100 dan Anda telah menempatkan nilai statistik deskriptif di sel C1, C2, dan C3. Rumusnya di Excel adalah:</p>
+        <code>=(C1 - 100) / (C2 / SQRT(C3))</code>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 4: Hitung p-value</h3>
+        <p>P-value membantu kita memutuskan apakah akan menolak hipotesis nol. Gunakan fungsi <code>T.DIST.2T</code> untuk uji dua arah (two-tailed test).</p>
+        <p>Jika nilai t-statistik Anda ada di sel C5, rumusnya adalah:</p>
+        <code>=T.DIST.2T(ABS(C5), C3-1)</code>
+        <p><b>Catatan:</b> <code>C3-1</code> adalah derajat kebebasan (degrees of freedom).</p>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 5: Buat Keputusan</h3>
+        <p class="highlight">Bandingkan p-value (hasil dari Langkah 4) dengan tingkat signifikansi Anda (α), yang biasanya 0.05 (5%).</p>
+        <ul>
+            <li>Jika <b>p-value ≤ α</b>, Anda menolak hipotesis nol. Artinya, ada perbedaan yang signifikan secara statistik.</li>
+            <li>Jika <b>p-value > α</b>, Anda gagal menolak hipotesis nol. Artinya, tidak ada cukup bukti untuk menyatakan ada perbedaan.</li>
+        </ul>
+    </div>
+</div>
+            <h3>Kasus 1: Efisiensi Produksi Mesin Kopi</h3>
+            <p>Sebuah perusahaan mengklaim mesin kopi model baru mereka dapat menyeduh kopi dalam waktu rata-rata 120 detik. Sebuah coffee shop membeli 50 unit mesin ini dan ingin menguji apakah klaim tersebut benar.</p>
+            <p>Lakukan uji hipotesis untuk menentukan apakah ada perbedaan signifikan antara waktu seduh rata-rata sampel dengan klaim perusahaan.</p>
+            <p>Hipotesis
+            <ul>
+            	<li>$H_o$: Rata-rata waktu seduh ($\mu$) $=$ 120 detik.</li>
+            	<li>$H_a$: Rata-rata waktu seduh ($\mu$) $\ne$ 120 detik.</li>
+            </ul>
+            </p>
+          <p>Pada tingkat signifikansi 5%, apakah data dari coffee shop tersebut memberikan cukup bukti untuk meragukan klaim perusahaan bahwa rata-rata waktu seduh adalah 120 detik?</p>
+          <code>DATA "122.5","118.9","120.1","124.8","117.5","121.3","119.8","123.6","125.1","116.4","122.8","119.2","120.5","126.2","118.1","121.9","119.5","124.1","117.0","123.0","120.8","122.1","118.6","124.5","119.9","121.7","118.3","123.9","120.3","125.7","117.8","122.4","119.1","120.9","126.0","118.5","121.5","119.6","124.3","117.2","123.3","120.7","122.2","118.8","124.9","119.4","121.1","118.0","123.7","120.2"</code>
+          <h3>Kasus 2: Rata-rata Pengeluaran Belanja Online</h3>
+          <p>Sebuah laporan riset pasar nasional tahun lalu menyatakan bahwa rata-rata pengeluaran sekali belanja online oleh konsumen di Indonesia adalah Rp 250.000. Seorang analis e-commerce ingin mengetahui apakah rata-rata tersebut masih berlaku untuk tahun ini.</p>
+          <p>Analisis data pengeluaran dari 50 transaksi terbaru untuk menguji apakah rata-rata pengeluaran tahun ini berbeda secara signifikan dari Rp 250.000.</p>
+          <p>Hipotesis
+            <ul>
+            	<li>$H_o$: Rata-rata pengeluaran ($\mu$) $=$ 250000.</li>
+            	<li>$H_a$: Rata-rata pengeluaran ($\mu$) $\ne$ 250000.</li>
+            </ul>
+          </p>
+      <p>Dengan tingkat kepercayaan 95% (alpha = 0.05), apakah ada bukti yang cukup untuk menyimpulkan bahwa rata-rata pengeluaran belanja online telah berubah dari Rp 250.000?</p>
+      <code>DATA "260500","245200","255100","275800","230000","265300","248900","271600","280100","225400","268800","247200","258500","285200","239100","263900","249500","278100","232000","270000","259800","266100","243600","279500","251900","262700","241300","273900","255300","282700","237800","267400","246100","259900","284000","242500","261500","249600","277300","234200","273300","258700","267200","244800","279900","249400","261100","238000","274700","255200"</code>
+      <h3>Kasus 3: Kadar Kolesterol Pasien </h3>
+      <p>Departemen Kesehatan menyatakan bahwa rata-rata kadar kolesterol total untuk orang dewasa yang sehat adalah di bawah 200 mg/dL. Sebuah klinik ingin mengevaluasi apakah rata-rata kadar kolesterol pasien mereka yang mengikuti program diet baru lebih tinggi dari batas sehat ini.</p>
+      <p>Lakukan uji hipotesis satu arah (one-tailed) untuk menentukan apakah rata-rata kadar kolesterol 50 pasien secara signifikan lebih tinggi dari 200 mg/dL.</p>
+          <p>Hipotesis
+            <ul>
+            	<li>$H_o$: Rata-rata kadar kolesterol ($\mu$) $\le$ 250000.</li>
+            	<li>$H_a$: Rata-rata kadar kolesterol ($\mu$) $>$ 250000.</li>
+            </ul>
+          </p>
+      <p>Apakah data dari 50 pasien memberikan bukti statistik yang cukup pada tingkat signifikansi 1% (alpha = 0.01) untuk menyimpulkan bahwa program diet tersebut belum berhasil menurunkan kadar kolesterol rata-rata pasien di bawah ambang batas sehat?</p>
+      <code> DATA "205.1","198.7","201.3","208.8","196.5","203.2","199.8","206.4","210.2","194.3","204.7","199.1","202.5","211.9","197.6","204.1","200.5","209.3","195.9","205.8","202.1","203.9","198.2","208.1","200.9","203.6","197.4","207.2","201.8","210.7","196.8","204.5","198.9","202.9","211.2","197.1","203.4","200.1","209.7","195.5","206.1","202.3","204.4","198.5","209.9","199.5","203.0","196.2","207.5","201.5"</code>
+      <h3>Kasus 4: Durasi Panggilan Layanan Pelanggan </h3>
+      <p>Sebuah perusahaan telekomunikasi menetapkan standar bahwa rata-rata durasi panggilan ke layanan pelanggan tidak boleh melebihi 300 detik (5 menit) untuk menjaga efisiensi. Setelah menerapkan sistem antrean baru, manajemen ingin memverifikasi apakah standar tersebut masih terpenuhi.</p>
+      <p>Lakukan uji hipotesis satu arah untuk menentukan apakah rata-rata durasi panggilan dari 50 rekaman terakhir secara signifikan lebih lama dari 300 detik.</p>
+          <p>Hipotesis
+            <ul>
+            	<li>$H_o$: Rata-rata durasi panggilan ($\mu$) $\le$ 300 detik.</li>
+            	<li>$H_a$: Rata-rata durasi panggilan ($\mu$) $>$ 300 detik.</li>
+            </ul>
+          </p>
+<p>
+Dengan tingkat signifikansi 5%, apakah ada cukup bukti untuk menyimpulkan bahwa sistem antrean baru gagal menjaga rata-rata durasi panggilan di bawah target 300 detik?</p>
+<code> DATA "308","295","315","320","288","305","310","299","325","280","303","312","318","292","309","297","322","314","301","285","311","306","294","319","302","328","290","307","316","298","321","289","313","304","296","324","291","317","300","287","323","293","308","310","326","286","309","315","299","320"</code>
+<h3>Kasus 5: Pendapatan Harian Pengemudi Ojek Online </h3>
+<p>Asosiasi pengemudi ojek online mengklaim bahwa pendapatan harian rata-rata anggotanya di kota besar adalah Rp 175.000. Seorang peneliti ekonomi ingin menguji kebenaran klaim ini dengan mengambil sampel acak dari pengemudi.</p>
+<p>Analisis data pendapatan harian dari 50 pengemudi untuk menguji apakah rata-rata pendapatan mereka berbeda secara signifikan dari klaim asosiasi sebesar Rp 175.000.</p>
+          <p>Hipotesis
+            <ul>
+            	<li>$H_o$: Rata-rata pendapatan harian ($\mu$) $=$ 175.000.</li>
+            	<li>$H_a$: Rata-rata pendapatan harian ($\mu$) $\ne$ 175.000.</li>
+            </ul>
+          </p>
+<p>Berdasarkan data sampel, apakah ada bukti yang cukup pada tingkat signifikansi 5% untuk menolak klaim asosiasi bahwa rata-rata pendapatan harian pengemudi adalah Rp 175.000?</p>
+<code>DATA "178000","165000","182000","170000","190000","160000","175000","185000","155000","172000","188000","163000","179000","168000","195000","158000","176000","181000","169000","174000","183000","166000","171000","186000","162000","177000","192000","159000","180000","167000","184000","173000","161000","189000","157000","178000","187000","164000","179000","170000","193000","156000","181000","172000","168000","185000","160000","175000","191000","169000"</code>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp9">
 
