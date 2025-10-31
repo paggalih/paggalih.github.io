@@ -2804,9 +2804,7 @@
           E --> F[Estimasi Model];
           F --> G{Evaluasi Model};
           G -- Koefisien Signifikan? --> H["Uji Kelayakan Model (Goodness of Fit)"];
-          G -- Koefisien Tidak Signifikan? --> D;
           H -- Model Layak? --> I["Interpretasi Hasil: Odds Ratio (Logit) / Marginal Effects"];
-          H -- Model Tidak Layak? --> D;
           I --> J["Tarik Kesimpulan & Selesai"];
         </div>
 
