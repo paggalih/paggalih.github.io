@@ -1066,6 +1066,80 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 7</h2>
 	        </div>
+            <div class="trigger">
+            Turunan = Laju <br> Integral = Akumulasi/ Luas
+            </div>
+            <div class="mermaid text-center">
+graph TD
+    A[Konsep Integral dalam Farmasi] --> B{Apa itu Integral?};
+    B --> C["1. Anti-Turunan (Integral Tak Tentu)"];
+    B --> D["2. Penjumlahan Total / Luas (Integral Tentu)"];
+
+    C --> E["Menemukan Fungsi Asli $F(x)$ <br> dari Laju Perubahannya $f(x)$"];
+    E --> F["Contoh: <br> Tahu laju eliminasi $C'(t) = -kC$ <br> Cari fungsi konsentrasi $C(t)$"];
+    F --> G[Aplikasi: Pemodelan Farmakokinetik];
+
+    D --> H["Menghitung Nilai Total dalam Interval $[a, b]$ <br> $\int_{a}^{b} f(x) dx$"];
+    H --> I["Aplikasi Utama: <b>AUC (Area Under the Curve)</b>"];
+    I --> J[Menghitung Total Paparan Obat];
+    J --> K[Menentukan Bioavailabilitas & Ekuivalensi Dosis];
+
+    G --> L[Penentuan Regimen Dosis];
+    K --> L;
+
+    subgraph Legenda
+        M[Warna Kuning: Konsep Dasar]
+        N[Warna Hijau: Aplikasi Farmasi]
+    end
+
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style B fill:#f9f,stroke:#333,stroke-width:2px
+    style C fill:#ffo,stroke:#333,stroke-width:2px
+    style D fill:#ffo,stroke:#333,stroke-width:2px
+    style E fill:#ffo,stroke:#333,stroke-width:2px
+    style H fill:#ffo,stroke:#333,stroke-width:2px
+
+    style F fill:#9f9,stroke:#333,stroke-width:2px
+    style G fill:#9f9,stroke:#333,stroke-width:2px
+    style I fill:#9f9,stroke:#333,stroke-width:2px
+    style J fill:#9f9,stroke:#333,stroke-width:2px
+    style K fill:#9f9,stroke:#333,stroke-width:2px
+    style L fill:#9f9,stroke:#333,stroke-width:2px
+            </div>
+<h2>Bagian 1: Integral Tak Tentu</h2>
+    <p>Tentukan anti-turunan (integral tak tentu) dari fungsi-fungsi berikut.</p>
+
+    <h3>Soal 1: Polinomial Dasar</h3>
+    <p>Tentukan hasil dari:</p>
+    $$\int (12x^3 - 6x^2 + 8x - 5) dx$$
+
+    <h3>Soal 2: Polinomial dengan Akar (Pangkat Pecahan)</h3>
+    <p>Tentukan hasil dari:</p>
+    $$\int (4x\sqrt{x} + \frac{1}{x^3}) dx$$
+
+    <h3>Soal 3: Eksponensial Dasar</h3>
+    <p>Tentukan hasil dari:</p>
+    $$\int (5e^x + 3^x) dx$$
+
+    <h3>Soal 4: Eksponensial (Substitusi Sederhana)</h3>
+    <p>Tentukan hasil dari:</p>
+    $$\int 8x e^{x^2} dx$$
+
+    <hr>
+
+    <h2>Bagian 2: Integral Tentu</h2>
+    <p>Hitunglah nilai pasti dari integral-integral berikut.</p>
+
+    <h3>Soal 5: Polinomial (Area Sederhana)</h3>
+    <p>Hitunglah nilai dari:</p>
+    $$\int_{0}^{2} (3x^2 - 4x + 2) dx$$
+
+    <h3>Soal 6: Eksponensial (Area)</h3>
+    <p>Hitunglah nilai dari:</p>
+    $$\int_{0}^{\ln(3)} 2e^{2x} dx$$
+
+    <h3>Soal 7: Polinomial (Area di antara Dua Kurva)</h3>
+    <p>Hitunglah luas daerah yang dibatasi oleh kurva $y = x^2$ dan $y = x + 6$.</p>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp7">
@@ -1447,6 +1521,40 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 9</h2>
 	        </div>
+<h2>Latihan Soal: Integral dalam Matematika Farmasi</h2>
+
+<p>Kerjakan soal-soal berikut untuk menguji pemahaman Anda tentang aplikasi integral dalam farmakokinetika.</p>
+
+<hr>
+
+<h3>Soal 1:</h3>
+<p>
+  Laju absorpsi (penyerapan) suatu obat ke dalam aliran darah dimodelkan oleh fungsi $A'(t) = 15 - 3t$, di mana $t$ adalah waktu dalam jam dan $A(t)$ adalah jumlah obat yang terabsorpsi (dalam mg).
+  <br><br>
+  Tentukan fungsi $A(t)$ yang menunjukkan total obat yang terabsorpsi pada waktu $t$, jika diketahui pada saat awal ($t=0$), belum ada obat yang terabsorpsi ($A(0) = 0$).
+</p>
+
+<hr>
+
+<h3>Soal 2: </h3>
+<p>
+  Setelah pemberian obat melalui injeksi IV bolus, konsentrasi obat dalam plasma (dalam mg/L) menurun mengikuti fungsi:
+  $$ C(t) = 50e^{-0.25t} $$
+  di mana $t$ adalah waktu dalam jam.
+  <br><br>
+  Hitunglah total paparan obat (AUC) dari $t=0$ hingga $t=8$ jam! (Satuan AUC adalah mg·h/L).
+</p>
+
+<hr>
+
+<h3>Soal 3:</h3>
+<p>
+  Dalam farmakokinetika orde pertama, total paparan obat seumur hidup (dari $t=0$ sampai $t=\infty$) adalah parameter penting.
+  <br><br>
+  Menggunakan fungsi konsentrasi dari Soal 2, $C(t) = 50e^{-0.25t}$, hitunglah total AUC dari $t=0$ hingga $t=\infty$.
+  <br>
+  (Petunjuk: Ini adalah integral tak wajar: $AUC = \int_{0}^{\infty} C(t) dt$)
+</p>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp9">
