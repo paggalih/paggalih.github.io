@@ -1775,6 +1775,28 @@ graph TD
 	        <div class="section-title">
 	          <h2>Pertemuan 10</h2>
 	        </div>
+            <div class="trigger">
+            Berapa harga yang wajar untuk sebuah janji pembayaran di masa depan?
+            </div>
+            <div class="mermaid text-center">
+flowchart TD
+              subgraph input
+     C["1. Nilai Par (F)"];
+     D["2. Kupon Periodik (C)"];
+     E["3. Jumlah Periode (n)"];
+     F["4. Tingkat Diskonto / YTM (i)"];
+              end
+              
+    subgraph perhitungan
+        G["Hitung PV dari Kupon (Anuitas) <br> $PV_{Kupon} = C \times \left[ \frac{1 - (1+i)^{-n}}{i} \right]$"];
+        H["Hitung PV dari Nilai Par (Lump Sum) <br> $PV_{Par} = F \times (1+i)^{-n}$"];
+    end
+              
+    input --> perhitungan
+    
+    perhitungan --> J["Harga Valuasi (P) = $PV_{Kupon} + PV_{Par}$"];
+    J --> K(Selesai);
+                                             </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
