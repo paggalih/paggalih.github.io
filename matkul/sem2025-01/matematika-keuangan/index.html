@@ -1798,6 +1798,107 @@ flowchart TD
     J --> K(Selesai);
                                              </div>
 
+        <div class="soal">
+            <h3>Soal 1: Mudah (Harga Par)</h3>
+            <p>
+                Sebuah obligasi memiliki Nilai Par Rp 1.000.000. Obligasi ini memberikan kupon tahunan sebesar 10% dan akan jatuh tempo dalam 5 tahun. Jika <em>required rate of return</em> (YTM) yang relevan adalah 10% per tahun, berapa harga wajar obligasi tersebut saat ini?
+            </p>
+        </div>
+
+        <div class="soal">
+            <h3>Soal 2: Sedang (Harga Diskon)</h3>
+            <p>
+                Data obligasi sama dengan soal 1: Nilai Par Rp 1.000.000, kupon tahunan 10%, dan jatuh tempo 5 tahun. Namun, karena kondisi pasar, YTM yang diminta investor naik menjadi 12% per tahun. Berapa harga wajar obligasi tersebut?
+            </p>
+        </div>
+
+        <div class="soal">
+            <h3>Soal 3: Sulit (Pembayaran Semi-Annual / Setengah Tahunan)</h3>
+            <p>
+                Sebuah obligasi dengan Nilai Par Rp 1.000.000, jatuh tempo 5 tahun, menawarkan kupon 10% per tahun. Namun, kupon dibayarkan <strong>setengah tahunan</strong> (semi-annually). Jika YTM yang berlaku adalah 8% per tahun (juga dikutip secara tahunan), berapa harga wajar obligasi ini?
+            </p>
+        </div>
+            
+            <div class="trigger">
+            Di Indonesia terdapat dua macam sukuk ritel (SR) dan sukuk tabungan (ST). Sukuk untuk syariah dan obligasi untuk konvensional.
+              <ol>
+              	<li>Skenario A: Obligasi (Pinjaman Konvensional)
+                	<ul>
+                   <li>Anda meminjamkan uang Rp 1 Miliar ke pengelola RS.</li>
+                      <li>RS berjanji: "Saya akan bayar bunga 8% (Rp 80 juta) setiap tahun selama 10 tahun, dan mengembalikan Rp 1 Miliar Anda di akhir."</li>
+                      <ii>Anda adalah kreditur (pemberi utang). Anda tidak peduli RS itu untung atau rugi, yang penting bunga dan pokok kembali.</ii>
+                  </ul>
+                </li>
+                <li>Skenario B: Sukuk Ijarah (Sewa-Menyewa Aset)
+                	<ul>
+                  	<li>Anda membeli gedung RS (aset) seharga Rp 1 Miliar.</li>
+                      <li>Anda lalu menyewakan gedung itu kembali ke pengelola RS.</li>
+                      <li>Pengelola RS berjanji: "Saya akan bayar uang sewa (Ujrah) Rp 80 juta setiap tahun selama 10 tahun. Di akhir tahun ke-10, saya akan membeli kembali gedung itu dari Anda seharga Rp 1 Miliar."</li>
+                      <li>Anda adalah pemilik aset. Anda mendapatkan penghasilan dari sewa, bukan bunga.</li>
+                  </ul>
+                </li>
+              </ol>
+            </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A(Mulai: Valuasi Sukuk) --> B(Identifikasi Arus Kas Sukuk);
+              B --> input;
+              subgraph input
+    C["1. Imbalan/Ujrah (C) per periode"];
+    D["2. Nilai Par/Pokok (F) saat jatuh tempo"];
+    E["3. Jumlah Periode (n)"];
+              end
+    
+    A --> F("Identifikasi Tingkat Diskonto Pasar (i)");
+    F --> G["1. Tingkat Imbal Hasil Riil (Real Rate)"];
+    F --> H("Premi Inflasi (IP)");
+    F --> I[2. Premi Risiko Lainnya];
+    
+    G & H & I --> J{"Hitung Tingkat Diskonto Nominal (i)"};
+    
+    subgraph perhitungan
+        L["Hitung PV dari Imbalan (Anuitas) <br> $PV_{Imbalan} = C \times \left[ \frac{1 - (1+i)^{-n}}{i} \right]$"];
+        M["Hitung PV dari Nilai Par (Lump Sum) <br> $PV_{Par} = F \times (1+i)^{-n}$"];
+    end
+              input --> perhitungan;
+    
+    perhitungan --> N{Jumlahkan};
+    
+    N --> O("Hasil: Harga Wajar Sukuk (P)");
+            </div>
+
+        <div class="soal">
+            <h3>Soal 1: Mudah (Valuasi NPV Sukuk Dasar)</h3>
+            <p>
+                Pemerintah Indonesia menerbitkan Sukuk Negara Ritel (SR) seri SR0XX. Sukuk ini (berakad Ijarah) memiliki Nilai Par Rp 1.000.000, memberikan imbalan (kupon) tetap 6% per tahun, dan akan jatuh tempo dalam 5 tahun.
+            </p>
+            <p>
+                Jika investor (Anda) mengharapkan imbal hasil (yield/discount rate) sebesar 7% dari investasi serupa, berapa harga wajar (NPV) yang bersedia Anda bayar untuk sukuk tersebut hari ini?
+            </p>
+        </div>
+
+        <div class="soal">
+            <h3>Soal 2: Sedang (Memasukkan Unsur Inflasi)</h3>
+            <p>
+                Melanjutkan Soal 1 (Sukuk dengan kupon 6%, 5 tahun, Par 1 Juta). Saat ini, tingkat imbal hasil bebas risiko (misal, dari Bank Indonesia) adalah 3% (ini adalah real rate). Namun, Bank Indonesia baru saja mengumumkan bahwa perkiraan inflasi (Inflation Premium) untuk 5 tahun ke depan naik menjadi 4% per tahun.
+            </p>
+            <p>
+                Berapa tingkat diskonto nominal yang wajar, dan berapa harga wajar (NPV) sukuk tersebut setelah berita inflasi ini keluar?
+            </p>
+        </div>
+
+        <div class="soal">
+            <h3>Soal 3: Sulit (NPV Proyek vs. NPV Valuasi Sukuk)</h3>
+            <p>
+                PT Proyek Syariah ingin membangun jalan tol. Biaya investasi awal (C0) adalah Rp 10 Triliun. Proyek ini diperkirakan menghasilkan arus kas riil (sudah disesuaikan inflasi) sebesar Rp 800 Miliar setiap tahun selamanya (perpetuitas). Tingkat diskonto riil yang relevan adalah 7%.
+            </p>
+            <ol>
+                <li>(NPV Proyek): Apakah proyek ini layak (NPV > 0)?</li>
+                <li>(NPV Valuasi): Untuk mendanai ini, perusahaan menerbitkan Sukuk Ijarah 10 tahun senilai Rp 10 Triliun dengan kupon nominal 9%. Jika perkiraan inflasi adalah 3%, berapa harga wajar (NPV) sukuk tersebut di pasar?</li>
+            </ol>
+        </div>
+        </div>
+            
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
 
