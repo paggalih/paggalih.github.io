@@ -1673,7 +1673,256 @@ Dengan tingkat signifikansi 5%, apakah ada cukup bukti untuk menyimpulkan bahwa 
 	        <div class="section-title">
 	          <h2>Pertemuan 10</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A[Mulai] --> B{"Tentukan Hipotesis $H_0$ & $H_a$"};
+    B --> C{Apakah data berpasangan?};
+    C -- "Ya (Mis: Sebelum vs Sesudah)" --> D[Gunakan Paired t-test];
+    C -- "Tidak (Mis: Grup A vs Grup B)" --> E[Gunakan Independent t-test];
+    E --> F{Asumsi Varian Sama?};
+    F -- "(Cek dg F-test/Levene's)" --> G[Ya: t-test Equal Variances];
+    F -- "(Cek dg F-test/Levene's)" --> H["Tidak: t-test Unequal Variances (Welch's)"];
+    D --> I{"Hitung t-statistik & p-value"};
+    G --> I;
+    H --> I;
+    I --> J{"Bandingkan p-value dengan $\alpha$ (cth: 0.05)"};
+    J -- "p-value < $\alpha$" --> K["Tolak $H_0$"];
+    J -- "p-value >= $\alpha$" --> L[Gagal Tolak $H_0$];
+    K --> M[Kesimpulan: Ada perbedaan signifikan];
+    L --> N[Kesimpulan: Tidak cukup bukti adanya perbedaan];
+    M --> Z[Selesai];
+    N --> Z;
+            </div>
+<h2>Langkah Analisis Uji t Dua Sampel di Excel</h2>
+    
+    <p>Uji t (t-test) adalah alat fundamental untuk menguji hipotesis ketika kita ingin membandingkan rata-rata dari dua kelompok. Hipotesis nol ($H_0$) kita biasanya menyatakan tidak ada perbedaan antara dua rata-rata populasi ($\mu_1 = \mu_2$).</p>
 
+    <p>Kita akan menggunakan <strong>Data Analysis ToolPak</strong> di Excel. Pastikan sudah aktif (<code>File > Options > Add-ins</code>).</p>
+
+    <h3>Langkah 1: Uji Kesamaan Varian (F-Test)</h3>
+    <p>Sebelum melakukan uji t independen, kita perlu tahu apakah varian (sebaran data) kedua kelompok itu sama atau berbeda. Ini akan menentukan jenis uji t yang kita gunakan.</p>
+    <ol>
+        <li>Buka tab <code>Data</code> lalu klik <code>Data Analysis</code>.</li>
+        <li>Pilih <code>F-Test Two-Sample for Variances</code> dan klik OK.</li>
+        <li>Masukkan rentang data <strong>Grup 1</strong> (misal: <code>A2:A51</code>) ke <code>Variable 1 Range</code>.</li>
+        <li>Masukkan rentang data <strong>Grup 2</strong> (misal: <code>B2:B51</code>) ke <code>Variable 2 Range</code>.</li>
+        <li>Pastikan <code>Alpha</code> diatur ke <code>0.05</code>.</li>
+        <li>Pilih lokasi output dan klik OK.</li>
+        <li>Lihat hasilnya. Fokus pada nilai <code>P(F<=f) one-tail</code>.</li>
+    </ol>
+    <blockquote>
+        <strong>Aturan Keputusan:</strong>
+        <ul>
+            <li>Jika <strong>P (F-test) > 0.05</strong>: Varian dianggap SAMA. Kita akan gunakan "Equal Variances t-test".</li>
+            <li>Jika <strong>P (F-test) &le; 0.05</strong>: Varian BEDA. Kita akan gunakan "Unequal Variances t-test" (Welch's Test).</li>
+        </ul>
+    </blockquote>
+
+    <h3>Langkah 2: Melakukan Uji t (t-Test)</h3>
+    <p>Sekarang lakukan uji t berdasarkan hasil Langkah 1.</p>
+    <ol>
+        <li>Buka <code>Data > Data Analysis</code> lagi.</li>
+        <li>Pilih opsi yang sesuai:
+            <ul>
+                <li><code>t-Test: Two-Sample Assuming Equal Variances</code> (jika P F-test > 0.05)</li>
+                <li><code>t-Test: Two-Sample Assuming Unequal Variances</code> (jika P F-test &le; 0.05)</li>
+            </ul>
+        </li>
+        <li>Masukkan rentang <code>Variable 1</code> (Grup 1) dan <code>Variable 2</code> (Grup 2).</li>
+        <li>Isi <code>Hypothesized Mean Difference</code> dengan angka <code>0</code>. (Ini adalah $H_0: \mu_1 - \mu_2 = 0$).</li>
+        <li>Centang <code>Labels</code> jika Anda menyertakan header.</li>
+        <li>Pilih lokasi output dan klik OK.</li>
+    </ol>
+
+    <h3>Langkah 3: Interpretasi Output</h3>
+    <p>Anda akan mendapatkan tabel output. Fokus pada baris p-value:</p>
+
+    <table class="output-table">
+        <tr>
+            <td>...</td>
+            <td>...</td>
+        </tr>
+        <tr>
+            <td class="highlight">P(T<=t) two-tail</td>
+            <td class="highlight">0.0123</td>
+        </tr>
+        <tr>
+            <td>t Critical two-tail</td>
+            <td>1.9844</td>
+        </tr>
+    </table>
+
+    <ul>
+        <li><strong>P(T<=t) two-tail:</strong> Ini adalah p-value untuk uji dua arah. Gunakan ini jika $H_a$ Anda adalah $\mu_1 \neq \mu_2$ (hanya ingin tahu apakah "berbeda").</li>
+        <li><strong>P(T<=t) one-tail:</strong> Ini p-value untuk uji satu arah. Gunakan ini jika $H_a$ Anda adalah $\mu_1 > \mu_2$ atau $\mu_1 < \mu_2$.</li>
+    </ul>
+
+    <p><strong>Kesimpulan:</strong> Jika <strong>p-value < 0.05</strong> (Alpha Anda), maka Anda <strong>menolak $H_0$</strong>. Ini berarti "Ada cukup bukti statistik untuk menyatakan bahwa rata-rata kedua kelompok berbeda secara signifikan."</p>
+      <h4>Kasus 1: Independent t-test (Ekonomi Pemasaran)</h4>
+          <p>Sebuah perusahaan e-commerce ingin tahu apakah ada perbedaan rata-rata nilai belanja (Average Order Value/AOV) antara pelanggan yang datang dari Iklan Facebook (Grup A) dan Iklan Google (Grup B).</p>
+          <p>Lakukan uji t dua sampel independen untuk membandingkan AOV kedua grup.</p>
+          <p> Apakah rata-rata AOV pelanggan dari Iklan Facebook berbeda (lebih tinggi atau lebih rendah) secara signifikan dibandingkan Iklan Google? (Uji dua arah / two-tail).</p>
+        <a class="actions" href="t-tes-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-t-tes-1"></div>
+          <script>
+            fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-1.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-t-tes-1">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-t-tes-1").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-t-tes-1').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+
+          <h4>Kasus 2: Paired t-test (Ekonomi SDM)</h4>
+          <p> Sebuah perusahaan memberikan pelatihan manajemen waktu kepada 50 salesmannya. Perusahaan mencatat jumlah deals yang berhasil ditutup dalam sebulan sebelum pelatihan dan sesudah pelatihan.</p>
+          <p>Lakukan uji t dua sampel berpasangan (paired t-test) untuk data ini.</p>
+          <p>Apakah pelatihan manajemen waktu secara signifikan meningkatkan jumlah deals yang ditutup? (Uji satu arah / one-tail: Sesudah > Sebelum).</p>
+        <a class="actions" href="t-tes-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-t-tes-2"></div>
+          <script>
+            fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-2.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-t-tes-2">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-t-tes-2").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-t-tes-2').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          
+          <h4>Kasus 3: Independent t-test (Ekonomi Regional)</h4>
+          <p>Seorang peneliti ekonomi ingin membandingkan rata-rata pengeluaran bulanan (dalam juta Rupiah) untuk kebutuhan pokok antara rumah tangga di Wilayah Urban (Grup 1) dan Wilayah Rural (Grup 2).</p>
+          <p> Lakukan uji t dua sampel independen. Perhatikan: data ini mungkin memiliki varian yang berbeda (heteroskedastisitas).</p>
+          <p> Apakah rata-rata pengeluaran bulanan di Wilayah Urban berbeda secara signifikan dengan Wilayah Rural? (Uji dua arah / two-tail).</p>
+        <a class="actions" href="t-tes-3.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+          <div class="overflow-auto" id="tabel-t-tes-3"></div>
+          <script>
+            fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-3.csv')
+                .then(res => res.text())
+                .then(csvText => {
+                    Papa.parse(csvText, {
+                        header: true,
+                        skipEmptyLines: true, 
+                        complete: function (results) {
+                            const headers = results.meta.fields;
+                            const dataRows = results.data;  
+                            if (dataRows.length === 0) return;
+            
+                            let html = `<table class="table table-striped text-center" id="datatable-t-tes-3">`;
+            
+                            html += '<thead><tr>';
+                            headers.forEach(header => {
+                                html += `<th>${header}</th>`;
+                            });
+                            html += '</tr></thead>';
+            
+                            html += '<tbody>';
+                            dataRows.forEach(row => {
+                                html += '<tr>';
+                                headers.forEach(header => {
+                                    const cell = row[header];
+                                    html += `<td>${cell}</td>`;
+                                });
+                                html += '</tr>';
+                            });
+                            html += '</tbody>';
+            
+                            html += '</table>';
+                            document.getElementById("tabel-t-tes-3").innerHTML = html;
+            
+                            $(document).ready(function () {
+                                $('#datatable-t-tes-3').DataTable({
+                                    paging: true,
+                                    searching: true,
+                                    scrollX: true,
+                                          pageLength: 5,
+                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+            
+                                });
+                            });
+                        }
+                    });
+                });
+          </script>
+          
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
 
