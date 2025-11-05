@@ -1201,6 +1201,69 @@ graph TD
 	        <div class="section-title">
 	          <h2>Pertemuan 10</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    C{"Apakah $f(x) = x^n$? (Aturan Pangkat)"};
+    C -- Ya --> D["Gunakan: $\frac{x^{n+1}}{n+1} + C$"];
+    C -- Tidak --> E{"Apakah $f(x) = e^x$? (Eksponen Alami)"};
+    
+    E -- Ya --> F["Gunakan: $e^x + C$"];
+    E -- Tidak --> G{"Apakah $f(x) = a^x$? (Basis Lain)"};
+    
+    G -- Ya --> H["Gunakan: $\frac{a^x}{\ln(a)} + C$"];
+    G -- Tidak --> I{"Apakah bentuknya $e^{u}$ atau $a^{u}$? <br> (cth: $\int e^{kx} dx$ atau $\int x \cdot e^{x^2} dx$)"};
+    
+    I -- Ya --> J["Gunakan Teknik Substitusi <br> (Misal: $u = kx$ atau $u = x^2$)"];
+    J --> K["Selesaikan $\int e^u du$ atau $\int a^u du$"];
+    I -- Tidak --> L{"Apakah bentuknya $x \cdot e^x$ atau $x^2 \cdot a^x$? <br> (Perkalian fungsi)"};
+    
+    L -- Ya --> M["Gunakan Integral Parsial <br> ($\int u dv = uv - \int v du$)"];
+    L -- Tidak --> N["Coba teknik lain / Selesai"];
+    
+    D --> Z[Selesai];
+    F --> Z;
+    H --> Z;
+    K --> Z;
+    M --> Z;
+    N --> Z;
+            </div>
+<h2>Latihan Soal: Eksponen dalam Kalkulus Integral</h2>
+    <hr>
+    <div class="soal">
+        <strong>1. $\int x^5 dx$</strong>
+    </div>
+
+    <div class="soal">
+        <strong>2. $\int e^x dx$</strong>
+    </div>
+
+    <div class="soal">
+        <strong>3. $\int 7^x dx$</strong>
+    </div>
+
+    <hr>
+    <div class="soal">
+        <strong>4. $\int e^{4x} dx$</strong>
+    </div>
+
+    <div class="soal">
+        <strong>5. $\int 2x \cdot e^{x^2} dx$</strong>
+    </div>
+
+    <div class="soal">
+        <strong>6. $\displaystyle\int \frac{1}{e^{3x}} dx$</strong>
+    </div>
+
+    <hr>
+
+
+    <div class="soal">
+        <strong>7. $\displaystyle\int_0^1 x e^x dx$</strong>
+    </div>
+
+    <div class="soal">
+        <strong>8. $\displaystyle\int \frac{e^{1/x}}{x^2} dx$</strong>
+    </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
