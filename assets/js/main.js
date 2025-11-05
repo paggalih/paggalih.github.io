@@ -311,8 +311,11 @@
         socialLinks.appendChild(createLink('https://www.facebook.com/paggalih', 'facebook', 'bx bxl-facebook', 'Facebook'));
         socialLinks.appendChild(createLink('https://www.instagram.com/paggalih/', 'instagram-alt', 'bx bxl-instagram-alt', 'Instagram'));
         socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube', 'YouTube'));
-        socialLinks.appendChild(createLink('https://www.tiktok.com/@galihagpradananta', 'tiktok', 'bx bxl-tiktok', 'Tiktok'));
         socialLinks.appendChild(createLink('https://dosenuin.github.io', '', 'bi bi-at', 'Website'));
+        socialLinks.appendChild(createLink('https://orcid.org/0000-0002-0082-4654', '', 'bi bi-battery-charging', 'OrcID'));
+        socialLinks.appendChild(createLink('https://www.scopus.com/authid/detail.uri?authorId=57222808932', 'Scopus'));
+        socialLinks.appendChild(createLink('https://sinta.kemdiktisaintek.go.id/authors/profile/6762635', '', 'bi bi-battery-charging', 'SINTA'));
+
 
         // Append Google Scholar link separately due to different structure
         const scholarLink = document.createElement('a');
@@ -616,3 +619,4 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
