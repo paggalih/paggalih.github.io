@@ -313,7 +313,7 @@
         socialLinks.appendChild(createLink('https://www.youtube.com/channel/UCG43eEqx6Rk-Q6AeLlip1MA', 'youtube', 'bx bxl-youtube', 'YouTube'));
         socialLinks.appendChild(createLink('https://dosenuin.github.io', '', 'bi bi-at', 'Website'));
         socialLinks.appendChild(createLink('https://orcid.org/0000-0002-0082-4654', '', 'bi bi-battery-charging', 'OrcID'));
-        socialLinks.appendChild(createLink('https://www.scopus.com/authid/detail.uri?authorId=57222808932', 'Scopus'));
+        socialLinks.appendChild(createLink('https://www.scopus.com/authid/detail.uri?authorId=57222808932', '', 'bi bi-battery-charging','Scopus'));
         socialLinks.appendChild(createLink('https://sinta.kemdiktisaintek.go.id/authors/profile/6762635', '', 'bi bi-battery-charging', 'SINTA'));
 
 
@@ -619,4 +619,5 @@ document.addEventListener('DOMContentLoaded', function() {
         handleVisibilityChange();
     }
 });
+
 
