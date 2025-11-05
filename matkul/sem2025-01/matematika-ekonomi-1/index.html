@@ -1415,6 +1415,28 @@
 	        <div class="section-title">
 	          <h2>Pertemuan 10</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    subgraph konsep
+        A[Konsep Turunan Matematika] -->|Diterapkan ke| B(Ekonomi);
+        B --> C{Konsep MARJINAL};
+        C --> D["Perubahan 'Total' akibat 1 unit tambahan 'Input'"];
+    end
+
+    subgraph aplikasi
+        E(Fungsi Total) --> F(Turunan Pertama);
+        TC(Fungsi Total Biaya / TC) --> |dTC/dQ| MC(Biaya Marjinal / MC);
+        TR(Fungsi Total Penerimaan / TR) --> |dTR/dQ| MR(Penerimaan Marjinal / MR);
+        TU(Fungsi Total Utilitas / TU) --> |dTU/dQ| MU(Utilitas Marjinal / MU);
+        TP(Fungsi Total Produksi / TP) --> |dTP/dL| MP(Produk Marjinal / MP);
+    end
+
+    subgraph optimisasi
+        G[Profit Maksimum?] --> H{Syarat: MR = MC};
+        I[Biaya Minimum?] --> J{Syarat: Turunan Pertama = 0};
+    end
+              konsep --> aplikasi --> optimisasi
+            </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
