@@ -3090,6 +3090,69 @@ KEPERCAYAAN_KEAMANAN: Skor kepercayaan terhadap keamanan digital (skala 1-10).
         <div class="section-title">
           <h2>Pertemuan 10</h2>
         </div>
+        <div class="mermaid text-center">
+flowchart TD
+    A[Mulai: Kumpulkan Data] --> B{"Cek Variabel Dependen (Y)"};
+    B --> C{"Y Kontinu? (Mis: Rupiah, KG)"};
+    C -- Ya --> D[Gunakan OLS / Regresi Linear];
+    C -- Tidak --> E{Y Kategorikal?};
+    E -- Ya --> F{Berapa Kategori?};
+    F -- "2 Kategori (Mis: Ya/Tidak)" --> G[Gunakan Binary Logit / Probit];
+    F -- 3+ Kategori --> H{Apakah Kategori Punya Urutan?};
+    H -- Ya (Mis: Jelek, Cukup, Bagus) --> I["Gunakan Model ORDINAL (Ordered Logit/Probit)"];
+    H -- "Tidak (Mis: Mobil, Motor, Bus)" --> J["Gunakan Model MULTINOMIAL (MNL)"];
+    I --> K["Estimasi & Uji (Cek Parallel Lines Test)"];
+    J --> K_MNL["Estimasi & Uji (Cek IIA Test)"];
+    K --> L["Interpretasi (Odds Ratio / Marginal Effects)"];
+    K_MNL --> L;
+    L --> M[Selesai: Kesimpulan];
+        </div>
+<h1>Membedah Model Multinomial dan Ordinal Logit</h1>
+    
+    <p>Dalam ekonometrika, kita sering berhadapan dengan variabel dependen (Y) yang bukan angka kontinu. Ketika Y adalah sebuah <strong>pilihan</strong> dari beberapa kategori, kita tidak bisa menggunakan OLS biasa. Di sinilah Model Multinomial dan Ordinal berperan.</p>
+
+    <h2>1. Model Multinomial Logit (MNL)</h2>
+    <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>tidak berperingkat</strong> (unordered).</p>
+    <p><strong>Contoh:</strong> Pilihan moda transportasi (Mobil, Motor, Bus), pilihan karier (Swasta, PNS, Wirausaha).</p>
+    <p>Model ini menghitung probabilitas individu <em>i</em> memilih alternatif <em>j</em>, berdasarkan serangkaian variabel independen $X_i$. Model ini mengasumsikan satu kategori sebagai "base" (referensi).</p>
+    <p>Probabilitas pilihan <em>j</em> adalah:</p>
+    <div class="equation">
+    $$ P(Y_i=j | X_i) = \frac{e^{\beta_j'X_i}}{\sum_{k=1}^J e^{\beta_k'X_i}} $$
+    </div>
+    <p>Dimana $J$ adalah jumlah total kategori.</p>
+
+    <h2>2. Model Ordinal Logit (OL)</h2>
+    <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>berperingkat</strong> (ordered).</p>
+    <p><strong>Contoh:</strong> Rating kepuasan (Buruk, Cukup, Baik), Peringkat kredit (C, B, A, AA).</p>
+    <p>Model ini bekerja dengan mengestimasi sebuah variabel laten (tidak teramati), $Y^*$, yang bergantung pada $X_i$.</p>
+    <div class="equation">
+    $$ Y_i^* = \beta'X_i + \epsilon_i $$
+    </div>
+    <p>Kita tidak mengamati $Y^*$, tapi kita mengamati $Y$ (kategori) melalui "cut-points" atau thresholds ($\mu$):</p>
+    <ul>
+        <li>$Y_i = 1$ (Mis: Buruk) jika $Y_i^* \le \mu_1$</li>
+        <li>$Y_i = 2$ (Mis: Cukup) jika $\mu_1 < Y_i^* \le \mu_2$</li>
+        <li>$Y_i = 3$ (Mis: Baik) jika $Y_i^* > \mu_2$</li>
+    </ul>
+    <p>Model Ordinal Logit mengestimasi koefisien $\beta$ dan titik potong $\mu$ secara bersamaan.</p>
+
+    <h2>Langkah-Langkah Analisis Umum</h2>
+    <ol>
+        <li><strong>Identifikasi Y:</strong> Tentukan apakah Y Anda kategorikal.</li>
+        <li><strong>Cek Urutan:</strong> Apakah kategorinya berperingkat (Ordinal) atau hanya pilihan (Multinomial)?</li>
+        <li><strong>Spesifikasi Model:</strong> Tentukan variabel independen (X) yang relevan.</li>
+        <li><strong>Estimasi Model:</strong> Gunakan Eviews atau software statistik lain (Metode: ORDERED untuk Ordinal, LOGIT/MNL untuk Multinomial).</li>
+        <li><strong>Interpretasi:</strong>
+            <div class="highlight">
+            <strong>Peringatan:</strong> Koefisien $\beta$ dalam model Logit (MNL/Ordinal) <strong>TIDAK</strong> dapat diinterpretasikan secara langsung sebagai "jika X naik 1 unit, Y naik $\beta$ unit".
+            </div>
+            <p>Interpretasi harus melalui:</p>
+            <ul>
+                <li><strong>Odds Ratios (OR):</strong> $OR = e^\beta$. (Seberapa besar perubahan <em>odds</em> jika X naik 1 unit).</li>
+                <li><strong>Marginal Effects (ME):</strong> (Seberapa besar perubahan <em>probabilitas</em> jika X naik 1 unit). Ini adalah cara interpretasi yang paling intuitif.</li>
+            </ul>
+        </li>
+    </ol>
         <div class="container mt-5">
           <div class="accordion" id="accordionp10">
             <div class="accordion-item">
