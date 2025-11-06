@@ -3092,7 +3092,7 @@ KEPERCAYAAN_KEAMANAN: Skor kepercayaan terhadap keamanan digital (skala 1-10).
         </div>
         <div class="mermaid text-center">
 flowchart TD
-    A[Mulai: Kumpulkan Data] --> B{"Cek Variabel Dependen (Y)"};
+    B{"Cek Variabel Dependen (Y)"};
     B --> C{"Y Kontinu? (Mis: Rupiah, KG)"};
     C -- Ya --> D[Gunakan OLS / Regresi Linear];
     C -- Tidak --> E{Y Kategorikal?};
@@ -3101,11 +3101,6 @@ flowchart TD
     F -- 3+ Kategori --> H{Apakah Kategori Punya Urutan?};
     H -- Ya (Mis: Jelek, Cukup, Bagus) --> I["Gunakan Model ORDINAL (Ordered Logit/Probit)"];
     H -- "Tidak (Mis: Mobil, Motor, Bus)" --> J["Gunakan Model MULTINOMIAL (MNL)"];
-    I --> K["Estimasi & Uji (Cek Parallel Lines Test)"];
-    J --> K_MNL["Estimasi & Uji (Cek IIA Test)"];
-    K --> L["Interpretasi (Odds Ratio / Marginal Effects)"];
-    K_MNL --> L;
-    L --> M[Selesai: Kesimpulan];
         </div>
 <h1>Membedah Model Multinomial dan Ordinal Logit</h1>
     
