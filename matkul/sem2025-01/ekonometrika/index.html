@@ -3153,6 +3153,183 @@ flowchart TD
             </ul>
         </li>
     </ol>
+        <h4>Kasus 1: Model Ordinal (Kepuasan Layanan Bank)</h4>
+        <p>Y (Dependen): Kepuasan (1 = Sangat Tidak Puas, 2 = Netral, 3 = Puas)
+<br>
+X1 (Independen): Kecepatan (Waktu tunggu dalam menit)
+<br>
+X2 (Independen): Staf_Ramah (Skor 1-10)
+<br>
+X3 (Independen): Digital_App (1 = Sering Pakai, 0 = Jarang/Tidak)</p>
+        <a class="actions" href="multi-ordinal-1.csv"><button>Unduh CSV </button></a>
+                <div class="overflow-auto" id="tabel-multi-ordinal-1"></div>
+                <script>
+                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-1.csv')
+                      .then(res => res.text())
+                      .then(csvText => {
+                          Papa.parse(csvText, {
+                              header: true,
+                              skipEmptyLines: true, 
+                              complete: function (results) {
+                                  const headers = results.meta.fields;
+                                  const dataRows = results.data;  
+                                  if (dataRows.length === 0) return;
+                  
+                                  let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-1">`;
+                  
+                                  html += '<thead><tr>';
+                                  headers.forEach(header => {
+                                      html += `<th>${header}</th>`;
+                                  });
+                                  html += '</tr></thead>';
+                  
+                                  html += '<tbody>';
+                                  dataRows.forEach(row => {
+                                      html += '<tr>';
+                                      headers.forEach(header => {
+                                          const cell = row[header];
+                                          html += `<td>${cell}</td>`;
+                                      });
+                                      html += '</tr>';
+                                  });
+                                  html += '</tbody>';
+                  
+                                  html += '</table>';
+                                  document.getElementById("tabel-multi-ordinal-1").innerHTML = html;
+                  
+                                  $(document).ready(function () {
+                                      $('#datatable-multi-ordinal-1').DataTable({
+                                          paging: true,
+                                          searching: true,
+                                          scrollX: true,
+                                                pageLength: 5,
+                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+                  
+                                      });
+                                  });
+                              }
+                          });
+                      });
+                </script>
+        
+        <h4>Kasus 2: Model Multinomial (Pilihan Transportasi Kerja)</h4>
+        <p>Y (Dependen): Transport (Mobil, Motor, Umum) -> Harus dalam format Teks/Alpha di Eviews
+<br>
+X1 (Independen): Waktu_Tempuh (Menit)
+<br>
+X2 (Independen): Biaya (Ribu Rupiah per hari)
+<br>
+X3 (Independen): Jarak_KM (Jarak rumah ke kantor)</p>
+       <a class="actions" href="multi-ordinal-2.csv"><button>Unduh CSV </button></a>
+                <div class="overflow-auto" id="tabel-multi-ordinal-2"></div>
+                <script>
+                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-2.csv')
+                      .then(res => res.text())
+                      .then(csvText => {
+                          Papa.parse(csvText, {
+                              header: true,
+                              skipEmptyLines: true, 
+                              complete: function (results) {
+                                  const headers = results.meta.fields;
+                                  const dataRows = results.data;  
+                                  if (dataRows.length === 0) return;
+                  
+                                  let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-2">`;
+                  
+                                  html += '<thead><tr>';
+                                  headers.forEach(header => {
+                                      html += `<th>${header}</th>`;
+                                  });
+                                  html += '</tr></thead>';
+                  
+                                  html += '<tbody>';
+                                  dataRows.forEach(row => {
+                                      html += '<tr>';
+                                      headers.forEach(header => {
+                                          const cell = row[header];
+                                          html += `<td>${cell}</td>`;
+                                      });
+                                      html += '</tr>';
+                                  });
+                                  html += '</tbody>';
+                  
+                                  html += '</table>';
+                                  document.getElementById("tabel-multi-ordinal-2").innerHTML = html;
+                  
+                                  $(document).ready(function () {
+                                      $('#datatable-multi-ordinal-2').DataTable({
+                                          paging: true,
+                                          searching: true,
+                                          scrollX: true,
+                                                pageLength: 5,
+                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+                  
+                                      });
+                                  });
+                              }
+                          });
+                      });
+                </script>
+        
+        <h4>Kasus 3: Model Ordinal (Rating Risiko Kredit UMKM)</h4>
+        <p>Y (Dependen): Rating (1=Tinggi, 2=Sedang, 3=Rendah)
+<br>
+X1 (Independen): DER (Debt to Equity Ratio)
+<br>
+X2 (Independen): Laba_Bersih (Juta Rupiah)
+<br>
+X3 (Independen): Lama_Usaha (Tahun)</p>
+       <a class="actions" href="multi-ordinal-3.csv"><button>Unduh CSV </button></a>
+                <div class="overflow-auto" id="tabel-multi-ordinal-3"></div>
+                <script>
+                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-3.csv')
+                      .then(res => res.text())
+                      .then(csvText => {
+                          Papa.parse(csvText, {
+                              header: true,
+                              skipEmptyLines: true, 
+                              complete: function (results) {
+                                  const headers = results.meta.fields;
+                                  const dataRows = results.data;  
+                                  if (dataRows.length === 0) return;
+                  
+                                  let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-3">`;
+                  
+                                  html += '<thead><tr>';
+                                  headers.forEach(header => {
+                                      html += `<th>${header}</th>`;
+                                  });
+                                  html += '</tr></thead>';
+                  
+                                  html += '<tbody>';
+                                  dataRows.forEach(row => {
+                                      html += '<tr>';
+                                      headers.forEach(header => {
+                                          const cell = row[header];
+                                          html += `<td>${cell}</td>`;
+                                      });
+                                      html += '</tr>';
+                                  });
+                                  html += '</tbody>';
+                  
+                                  html += '</table>';
+                                  document.getElementById("tabel-multi-ordinal-3").innerHTML = html;
+                  
+                                  $(document).ready(function () {
+                                      $('#datatable-multi-ordinal-3').DataTable({
+                                          paging: true,
+                                          searching: true,
+                                          scrollX: true,
+                                                pageLength: 5,
+                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+                  
+                                      });
+                                  });
+                              }
+                          });
+                      });
+                </script>
+        
         <div class="container mt-5">
           <div class="accordion" id="accordionp10">
             <div class="accordion-item">
