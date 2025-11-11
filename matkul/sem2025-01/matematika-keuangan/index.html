@@ -1924,7 +1924,51 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 11</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+     B{"Identifikasi Variabel: <br> C (Nilai Tebus) <br> F (Nilai Nominal) <br> g (Rate Kupon per periode) <br> i (Rate Yield per periode) <br> n (Jumlah Periode)"};
+    B --> C["Hitung K (Nilai Tunai C): <br> $K = C * (1+i)^{-n}$"];
+    C --> D["Hitung g (Tingkat Kupon Modifikasi): <br> $g = (F * r) / C$"];
+    D --> E{Apakah g = i ?};
+    E -- Ya --> F["Harga P = C <br> (Harga Par/Sesuai Nilai Tebus)"];
+    E -- Tidak --> G["Hitung Harga (P) <br> $P = K + (g/i) * (C - K)$"];
+    F --> H(Selesai);
+    G --> H;
+            </div>
+<h2>🧠 Latihan Soal Valuasi (Rumus Makeham)</h2>
 
+<p>Berikut adalah latihan soal untuk menguji pemahaman Anda, lengkap dengan jawaban yang menggunakan format MathJax.</p>
+
+<hr>
+
+<h3>Soal 1: </h3>
+<p>Sebuah obligasi dengan nilai nominal (F) dan nilai tebus (C) sebesar Rp 1.000.000 jatuh tempo dalam 10 semester. Obligasi ini memberikan kupon 5% per semester. Seorang investor ingin membeli obligasi ini dengan tingkat yield 5% per semester. Berapa harga wajar (P) obligasi tersebut?</p>
+<hr>
+
+<h3>Soal 2: </h3>
+<p>Sebuah obligasi ($F = 1.000.000$, $C = 1.000.000$) jatuh tempo 10 semester lagi. Kupon dibayar 4% per semester. Investor mengharapkan yield 5% per semester. Berapa harga (P) obligasi ini?</p>
+
+<p><i>(Logika: Karena kupon (4%) < yield (5%), investor membayar lebih murah dari nilai nominalnya. Ini disebut harga diskon).</i></p>
+
+<hr>
+
+<h3>Soal 3: </h3>
+<p>Sebuah obligasi dengan nilai nominal $F = 1.000.000$ akan ditebus pada harga $C = 1.100.000$ (tebus 110%) dalam 20 semester. Kupon dibayar sebesar 5% <i>dari nilai nominal</i> per semester. Investor mensyaratkan yield 4% per semester.</p>
+<p>Gunakan Rumus Makeham untuk:
+<br>a) Menentukan nilai $K$ (Nilai Tunai Pelunasan)
+<br>b) Menentukan total harga $P$
+<br>c) Menganalisis berapa "bonus" yang dibayar investor untuk kupon (Komponen $P-K$)
+</p>
+<p><i>(Logika: Karena $g$ (0,04545) > $i$ (0,04), investor bersedia membayar "bonus" (Premi) sebesar Rp 679.516,3 di atas harga pokoknya untuk mendapatkan kupon yang lebih tinggi dari yield yang diharapkannya).</i></p>
+            
+<h3>Soal 4:</h3>
+            <p>Sebuah obligasi (Nilai Nominal $F = 1.000.000$) akan jatuh tempo 10 tahun lagi (dibayar per semester, jadi $n=20$ semester). Obligasi ini akan ditebus pada nilai nominalnya ($C = 1.000.000$).Jadwal kuponnya adalah "Step-Up" sebagai berikut: <br>Tahun 1-5 (Semester 1-10): Kupon 3% per semester.<br>Tahun 6-10 (Semester 11-20): Kupon 5% per semester.<br>Seorang investor ingin membeli obligasi ini dan mengharapkan yield sebesar 4% per semester ($i = 0,04$).Berapa harga wajar ($P$) yang harus dibayar investor tersebut?</p>
+            <h3>Soal 5:</h3>
+            <p>Sebuah obligasi (Nilai Nominal $F = 2.000.000$) akan jatuh tempo 10 tahun lagi (dibayar per semester, jadi $n=20$ semester). Obligasi ini akan ditebus pada nilai nominalnya ($C = 2.000.000$).Jadwal kuponnya adalah "Step-Up" sebagai berikut: <br>Tahun 1-5 (Semester 1-10): Kupon 2% per semester.<br>Tahun 6-10 (Semester 11-20): Kupon 4% per semester.<br>Seorang investor ingin membeli obligasi ini dan mengharapkan yield sebesar 3% per semester ($i = 0,03$).Berapa harga wajar ($P$) yang harus dibayar investor tersebut?</p>
+          <h3>Soal 6:</h3>
+          <p>Sebuah obligasi (Nilai Nominal $F = 5.000.000$) akan jatuh tempo 10 tahun lagi (dibayar per semester, jadi $n=20$ semester). Obligasi ini akan ditebus pada nilai nominalnya ($C = 5.000.000$).Jadwal kuponnya adalah "Step-Up" sebagai berikut: <br>Tahun 1-5 (Semester 1-10): Kupon 4% per semester.<br>Tahun 6-10 (Semester 11-20): Kupon 6% per semester.<br>Seorang investor ingin membeli obligasi ini dan mengharapkan yield sebesar 5% per semester ($i = 0,05$).Berapa harga wajar ($P$) yang harus dibayar investor tersebut?</p>
+            
+            
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp11">
 
