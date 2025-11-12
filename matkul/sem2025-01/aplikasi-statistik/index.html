@@ -26,6 +26,10 @@
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.js"></script>
 	  <script src="https://cdn.datatables.net/2.3.1/js/dataTables.bootstrap5.js"></script>
 	  <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+	        <script type="module">
+	          import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+	          mermaid.initialize({ startOnLoad: true });
+	        </script>
 
 	  <!-- =======================================================
 		* Template Name: MyResume
@@ -1480,26 +1484,26 @@
 	        <p><b>Soal 1: </b>Sebuah pabrik mengklaim bahwa produk cacat mereka tidak lebih dari 5%. Seorang quality control mengambil 50 sampel secara acak untuk diuji. Data berikut adalah hasilnya (1 = Cacat, 0 = Baik).</p>
 	        <p>Pertanyaan: Dengan data di bawah dan tingkat kepercayaan 95%, apakah klaim pabrik (bahwa produk cacat ≤ 5%) dapat dipercaya?</p>
 	        <code> DATA "0","0","0","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0","1","0","0","0","0","0","0","1","0","0","0","0","0","0","0","0","0","0"</code>
-            <hr>
-            <p><b>Soal 2: </b>Sebuah server website dirancang untuk menangani rata-rata 8 permintaan per menit. Administrator sistem memantau jumlah permintaan yang masuk selama 50 menit untuk memeriksa apakah beban server masih sesuai dengan kapasitas desainnya.</p>
-            <p>Pertanyaan: Hitung rata-rata jumlah permintaan per menit dari data sampel. Berapa probabilitas terjadi permintaan sebanyak 12 kali dalam satu menit jika kita asumsikan rata-rata dari sampel adalah parameter populasi?</p>
-            <code>DATA "8","9","7","6","10","8","5","7","9","11","6","8","10","7","8","9","6","5","8","7","10","9","8","11","6","7","8","9","10","5","8","7","9","6","10","8","11","7","8","9","5","6","8","10","7","9","8","6","7","8"</code>
-            <hr>
-            <p><b>Soal 3: </b>Sebuah mesin diatur untuk mengisi botol minuman dengan volume tepat 600 ml. Karena ukuran sampelnya 50 (dianggap cukup besar, bisa dekati normal, namun uji-t lebih robas), kita akan gunakan t-test untuk presisi. Data berikut adalah hasil pengukuran volume dari 50 botol.</p>
-            <p>Pertanyaan: Apakah mesin tersebut masih terkalibrasi dengan benar pada 600 ml? Lakukan uji hipotesis (t-test) untuk membandingkan rata-rata sampel dengan target 600 ml.</p>
-            <code>DATA "600.5","599.8","601.2","598.9","600.3","600.8","599.1","601.5","599.6","600.1","602.1","598.5","600.0","599.3","601.8","600.6","599.7","600.9","598.8","601.3","600.2","599.4","601.0","600.4","599.9","601.1","598.7","600.7","599.2","601.6","599.5","600.0","601.9","598.6","600.3","601.4","599.0","600.8","599.8","601.2","600.1","599.6","601.7","598.4","600.5","599.3","601.1","600.2","599.1","600.9"</code>
-            <hr>
-            <p><b>Soal 4: </b>Sebuah tim marketing digital ingin menguji desain email baru. Secara historis, tingkat klik (CTR) untuk kampanye mereka adalah 12%. Mereka mengirimkan email dengan desain baru ke 50 pelanggan yang dipilih secara acak. Hasilnya dicatat sebagai berikut (1 = Klik, 0 = Tidak Klik).</p>
-            <p>Pertanyaan: Berdasarkan sampel ini, hitunglah proporsi klik yang didapat. Apakah ada cukup bukti untuk mengatakan bahwa desain email baru secara signifikan lebih baik daripada tingkat klik historis sebesar 12%?</p>
-            <code>DATA "0","1","0","0","0","1","0","0","0","0","1","0","0","0","0","0","1","0","0","1","0","0","0","0","0","1","1","0","0","0","0","0","0","1","0","0","0","0","0","0","0","1","0","0","0","0","1","0","0","0"</code>
-            <hr>
-            <p><b>Soal 5: </b>Sebuah pabrik keramik memproduksi piring. Rata-rata, ditemukan 3 piring dengan cacat minor (retak kecil, noda glasir) dalam setiap batch produksi yang berisi 100 piring. Manajer produksi mencatat jumlah piring cacat dari 50 batch produksi terakhir untuk memantau konsistensi kualitas.</p>
-            <p>Pertanyaan: Hitung rata-rata jumlah piring cacat per batch dari data sampel. Dengan asumsi rata-rata historis adalah 3, berapakah probabilitas teoretis untuk menemukan batch yang memiliki tepat 5 piring cacat?</p>
-            <code>DATA "3","2","4","1","3","3","0","2","4","5","3","2","1","3","4","2","3","3","5","1","2","4","3","2","3","1","4","2","3","3","0","5","2","3","4","1","3","2","2","3","4","3","1","2","3","5","4","2","3","3"</code>
-            <hr>
-            <p><b>Soal 6: </b>Sebuah perusahaan makanan mengklaim bahwa setiap kotak sereal memiliki berat bersih 500 gram. Untuk memastikan kualitas, sebuah tim pengawas mengambil sampel 50 kotak sereal dari lini produksi dan menimbangnya secara akurat.</p>
-            <p>Pertanyaan: Apakah rata-rata berat bersih dari sampel secara signifikan berbeda dari klaim perusahaan sebesar 500 gram? Lakukan uji hipotesis (t-test dua arah) untuk memverifikasi klaim tersebut.</p>
-            <code>DATA "501.2","499.5","498.8","500.7","502.1","499.0","500.3","498.5","501.0","500.5","499.9","501.8","498.2","500.1","500.9","499.3","498.7","501.5","500.0","499.6","502.0","498.9","500.4","501.3","499.1","500.6","498.4","501.1","499.7","500.8","498.1","501.6","499.2","500.2","501.4","498.6","500.7","499.8","501.9","499.4","500.3","498.0","501.2","500.1","499.5","501.7","498.3","500.9","499.0","501.0"</code>
+	        <hr>
+	        <p><b>Soal 2: </b>Sebuah server website dirancang untuk menangani rata-rata 8 permintaan per menit. Administrator sistem memantau jumlah permintaan yang masuk selama 50 menit untuk memeriksa apakah beban server masih sesuai dengan kapasitas desainnya.</p>
+	        <p>Pertanyaan: Hitung rata-rata jumlah permintaan per menit dari data sampel. Berapa probabilitas terjadi permintaan sebanyak 12 kali dalam satu menit jika kita asumsikan rata-rata dari sampel adalah parameter populasi?</p>
+	        <code>DATA "8","9","7","6","10","8","5","7","9","11","6","8","10","7","8","9","6","5","8","7","10","9","8","11","6","7","8","9","10","5","8","7","9","6","10","8","11","7","8","9","5","6","8","10","7","9","8","6","7","8"</code>
+	        <hr>
+	        <p><b>Soal 3: </b>Sebuah mesin diatur untuk mengisi botol minuman dengan volume tepat 600 ml. Karena ukuran sampelnya 50 (dianggap cukup besar, bisa dekati normal, namun uji-t lebih robas), kita akan gunakan t-test untuk presisi. Data berikut adalah hasil pengukuran volume dari 50 botol.</p>
+	        <p>Pertanyaan: Apakah mesin tersebut masih terkalibrasi dengan benar pada 600 ml? Lakukan uji hipotesis (t-test) untuk membandingkan rata-rata sampel dengan target 600 ml.</p>
+	        <code>DATA "600.5","599.8","601.2","598.9","600.3","600.8","599.1","601.5","599.6","600.1","602.1","598.5","600.0","599.3","601.8","600.6","599.7","600.9","598.8","601.3","600.2","599.4","601.0","600.4","599.9","601.1","598.7","600.7","599.2","601.6","599.5","600.0","601.9","598.6","600.3","601.4","599.0","600.8","599.8","601.2","600.1","599.6","601.7","598.4","600.5","599.3","601.1","600.2","599.1","600.9"</code>
+	        <hr>
+	        <p><b>Soal 4: </b>Sebuah tim marketing digital ingin menguji desain email baru. Secara historis, tingkat klik (CTR) untuk kampanye mereka adalah 12%. Mereka mengirimkan email dengan desain baru ke 50 pelanggan yang dipilih secara acak. Hasilnya dicatat sebagai berikut (1 = Klik, 0 = Tidak Klik).</p>
+	        <p>Pertanyaan: Berdasarkan sampel ini, hitunglah proporsi klik yang didapat. Apakah ada cukup bukti untuk mengatakan bahwa desain email baru secara signifikan lebih baik daripada tingkat klik historis sebesar 12%?</p>
+	        <code>DATA "0","1","0","0","0","1","0","0","0","0","1","0","0","0","0","0","1","0","0","1","0","0","0","0","0","1","1","0","0","0","0","0","0","1","0","0","0","0","0","0","0","1","0","0","0","0","1","0","0","0"</code>
+	        <hr>
+	        <p><b>Soal 5: </b>Sebuah pabrik keramik memproduksi piring. Rata-rata, ditemukan 3 piring dengan cacat minor (retak kecil, noda glasir) dalam setiap batch produksi yang berisi 100 piring. Manajer produksi mencatat jumlah piring cacat dari 50 batch produksi terakhir untuk memantau konsistensi kualitas.</p>
+	        <p>Pertanyaan: Hitung rata-rata jumlah piring cacat per batch dari data sampel. Dengan asumsi rata-rata historis adalah 3, berapakah probabilitas teoretis untuk menemukan batch yang memiliki tepat 5 piring cacat?</p>
+	        <code>DATA "3","2","4","1","3","3","0","2","4","5","3","2","1","3","4","2","3","3","5","1","2","4","3","2","3","1","4","2","3","3","0","5","2","3","4","1","3","2","2","3","4","3","1","2","3","5","4","2","3","3"</code>
+	        <hr>
+	        <p><b>Soal 6: </b>Sebuah perusahaan makanan mengklaim bahwa setiap kotak sereal memiliki berat bersih 500 gram. Untuk memastikan kualitas, sebuah tim pengawas mengambil sampel 50 kotak sereal dari lini produksi dan menimbangnya secara akurat.</p>
+	        <p>Pertanyaan: Apakah rata-rata berat bersih dari sampel secara signifikan berbeda dari klaim perusahaan sebesar 500 gram? Lakukan uji hipotesis (t-test dua arah) untuk memverifikasi klaim tersebut.</p>
+	        <code>DATA "501.2","499.5","498.8","500.7","502.1","499.0","500.3","498.5","501.0","500.5","499.9","501.8","498.2","500.1","500.9","499.3","498.7","501.5","500.0","499.6","502.0","498.9","500.4","501.3","499.1","500.6","498.4","501.1","499.7","500.8","498.1","501.6","499.2","500.2","501.4","498.6","500.7","499.8","501.9","499.4","500.3","498.0","501.2","500.1","499.5","501.7","498.3","500.9","499.0","501.0"</code>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp7">
@@ -1527,128 +1531,128 @@
 	        </div>
 
 	        <div class="container mt-5 text-center">
-				<p><a href="uts-mbs3c"><button class="btn btn-primary">UTS Kelas MBS 3C</button></a></p>
-                <p><a href="uts-mbs3d"><button class="btn btn-primary">UTS Kelas MBS 3D</button></a></p>                
-	          </div>
-            </div>
+	          <p><a href="uts-mbs3c"><button class="btn btn-primary">UTS Kelas MBS 3C</button></a></p>
+	          <p><a href="uts-mbs3d"><button class="btn btn-primary">UTS Kelas MBS 3D</button></a></p>
+	        </div>
+	      </div>
 	    </section>
 	    <section id="p9">
 	      <div class="container aos-init aos-animate" data-aos="fade-up">
 	        <div class="section-title">
 	          <h2>Pertemuan 9</h2>
 	        </div>
-            <div class="mermaid text-center">
-graph TD
-    A[ Mulai: Tentukan Pertanyaan Penelitian] --> B["Formulasikan Hipotesis Nol (H₀) & Alternatif (Hₐ)"];
-    B --> C["Tentukan Tingkat Signifikansi (α), cth: 5%"];
-    C -- Kumpulkan Data Sampel --> E["Pilih Uji Statistik yang Sesuai<br> (cth: Uji-t atau Uji-z)"];
-    E --> F["Hitung Nilai Statistik Uji & p-value"];
-    F --> G{Bandingkan p-value dengan α};
-    G -- p-value ≤ α --> H[<font color=red><b>Tolak H₀</b></font>✅<br>Ada cukup bukti untuk mendukung Hₐ];
-    G -- p-value > α --> I[<font color=green><b>Gagal Tolak H₀</b></font>❌<br>Tidak cukup bukti untuk mendukung Hₐ];
-    H --> J[Tarik Kesimpulan Kontekstual];
-    I --> J;
-    J --> K[Selesai];
-            </div>
-<div class="container">
-    <h2>Langkah-Langkah Uji Hipotesis Satu Sampel (Uji-t) di Microsoft Excel</h2>
-    <p>Uji hipotesis satu sampel digunakan untuk membandingkan rata-rata sampel dengan nilai rata-rata hipotesis (populasi). Berikut cara melakukannya di Excel.</p>
+	        <div class="mermaid text-center">
+	          graph TD
+	          A[ Mulai: Tentukan Pertanyaan Penelitian] --> B["Formulasikan Hipotesis Nol (H₀) & Alternatif (Hₐ)"];
+	          B --> C["Tentukan Tingkat Signifikansi (α), cth: 5%"];
+	          C -- Kumpulkan Data Sampel --> E["Pilih Uji Statistik yang Sesuai<br> (cth: Uji-t atau Uji-z)"];
+	          E --> F["Hitung Nilai Statistik Uji & p-value"];
+	          F --> G{Bandingkan p-value dengan α};
+	          G -- p-value ≤ α --> H[<font color=red><b>Tolak H₀</b></font>✅<br>Ada cukup bukti untuk mendukung Hₐ];
+	          G -- p-value > α --> I[<font color=green><b>Gagal Tolak H₀</b></font>❌<br>Tidak cukup bukti untuk mendukung Hₐ];
+	          H --> J[Tarik Kesimpulan Kontekstual];
+	          I --> J;
+	          J --> K[Selesai];
+	        </div>
+	        <div class="container">
+	          <h2>Langkah-Langkah Uji Hipotesis Satu Sampel (Uji-t) di Microsoft Excel</h2>
+	          <p>Uji hipotesis satu sampel digunakan untuk membandingkan rata-rata sampel dengan nilai rata-rata hipotesis (populasi). Berikut cara melakukannya di Excel.</p>
 
-    <div class="step">
-        <h3>Langkah 1: Siapkan Data Anda</h3>
-        <p>Masukkan data sampel Anda ke dalam satu kolom di Excel. Misalnya, di kolom A dari sel A1 hingga A50.</p>
-    </div>
+	          <div class="step">
+	            <h3>Langkah 1: Siapkan Data Anda</h3>
+	            <p>Masukkan data sampel Anda ke dalam satu kolom di Excel. Misalnya, di kolom A dari sel A1 hingga A50.</p>
+	          </div>
 
-    <div class="step">
-        <h3>Langkah 2: Hitung Statistik Deskriptif</h3>
-        <p>Kita memerlukan beberapa nilai kunci dari data sampel kita. Gunakan fungsi Excel berikut di sel yang kosong:</p>
-        <ul>
-            <li><b>Rata-rata Sampel (x̄):</b> <code>=AVERAGE(A1:A50)</code></li>
-            <li><b>Standar Deviasi Sampel (s):</b> <code>=STDEV.S(A1:A50)</code></li>
-            <li><b>Ukuran Sampel (n):</b> <code>=COUNT(A1:A50)</code></li>
-        </ul>
-    </div>
+	          <div class="step">
+	            <h3>Langkah 2: Hitung Statistik Deskriptif</h3>
+	            <p>Kita memerlukan beberapa nilai kunci dari data sampel kita. Gunakan fungsi Excel berikut di sel yang kosong:</p>
+	            <ul>
+	              <li><b>Rata-rata Sampel (x̄):</b> <code>=AVERAGE(A1:A50)</code></li>
+	              <li><b>Standar Deviasi Sampel (s):</b> <code>=STDEV.S(A1:A50)</code></li>
+	              <li><b>Ukuran Sampel (n):</b> <code>=COUNT(A1:A50)</code></li>
+	            </ul>
+	          </div>
 
-    <div class="step">
-        <h3>Langkah 3: Hitung Statistik Uji (t-statistic)</h3>
-        <p>Rumus untuk t-statistik adalah: <code>(Rata-rata Sampel - Rata-rata Hipotesis) / (Standar Deviasi Sampel / AKAR(Ukuran Sampel))</code>.</p>
-        <p>Misalkan rata-rata hipotesis Anda (μ₀) adalah 100 dan Anda telah menempatkan nilai statistik deskriptif di sel C1, C2, dan C3. Rumusnya di Excel adalah:</p>
-        <code>=(C1 - 100) / (C2 / SQRT(C3))</code>
-    </div>
+	          <div class="step">
+	            <h3>Langkah 3: Hitung Statistik Uji (t-statistic)</h3>
+	            <p>Rumus untuk t-statistik adalah: <code>(Rata-rata Sampel - Rata-rata Hipotesis) / (Standar Deviasi Sampel / AKAR(Ukuran Sampel))</code>.</p>
+	            <p>Misalkan rata-rata hipotesis Anda (μ₀) adalah 100 dan Anda telah menempatkan nilai statistik deskriptif di sel C1, C2, dan C3. Rumusnya di Excel adalah:</p>
+	            <code>=(C1 - 100) / (C2 / SQRT(C3))</code>
+	          </div>
 
-    <div class="step">
-        <h3>Langkah 4: Hitung p-value</h3>
-        <p>P-value membantu kita memutuskan apakah akan menolak hipotesis nol. Gunakan fungsi <code>T.DIST.2T</code> untuk uji dua arah (two-tailed test).</p>
-        <p>Jika nilai t-statistik Anda ada di sel C5, rumusnya adalah:</p>
-        <code>=T.DIST.2T(ABS(C5), C3-1)</code>
-        <p><b>Catatan:</b> <code>C3-1</code> adalah derajat kebebasan (degrees of freedom).</p>
-    </div>
+	          <div class="step">
+	            <h3>Langkah 4: Hitung p-value</h3>
+	            <p>P-value membantu kita memutuskan apakah akan menolak hipotesis nol. Gunakan fungsi <code>T.DIST.2T</code> untuk uji dua arah (two-tailed test).</p>
+	            <p>Jika nilai t-statistik Anda ada di sel C5, rumusnya adalah:</p>
+	            <code>=T.DIST.2T(ABS(C5), C3-1)</code>
+	            <p><b>Catatan:</b> <code>C3-1</code> adalah derajat kebebasan (degrees of freedom).</p>
+	          </div>
 
-    <div class="step">
-        <h3>Langkah 5: Buat Keputusan</h3>
-        <p class="highlight">Bandingkan p-value (hasil dari Langkah 4) dengan tingkat signifikansi Anda (α), yang biasanya 0.05 (5%).</p>
-        <ul>
-            <li>Jika <b>p-value ≤ α</b>, Anda menolak hipotesis nol. Artinya, ada perbedaan yang signifikan secara statistik.</li>
-            <li>Jika <b>p-value > α</b>, Anda gagal menolak hipotesis nol. Artinya, tidak ada cukup bukti untuk menyatakan ada perbedaan.</li>
-        </ul>
-    </div>
-</div>
-            <h3>Kasus 1: Efisiensi Produksi Mesin Kopi</h3>
-            <p>Sebuah perusahaan mengklaim mesin kopi model baru mereka dapat menyeduh kopi dalam waktu rata-rata 120 detik. Sebuah coffee shop membeli 50 unit mesin ini dan ingin menguji apakah klaim tersebut benar.</p>
-            <p>Lakukan uji hipotesis untuk menentukan apakah ada perbedaan signifikan antara waktu seduh rata-rata sampel dengan klaim perusahaan.</p>
-            <p>Hipotesis
-            <ul>
-            	<li>$H_o$: Rata-rata waktu seduh ($\mu$) $=$ 120 detik.</li>
-            	<li>$H_a$: Rata-rata waktu seduh ($\mu$) $\ne$ 120 detik.</li>
-            </ul>
-            </p>
-          <p>Pada tingkat signifikansi 5%, apakah data dari coffee shop tersebut memberikan cukup bukti untuk meragukan klaim perusahaan bahwa rata-rata waktu seduh adalah 120 detik?</p>
-          <code>DATA "122.5","118.9","120.1","124.8","117.5","121.3","119.8","123.6","125.1","116.4","122.8","119.2","120.5","126.2","118.1","121.9","119.5","124.1","117.0","123.0","120.8","122.1","118.6","124.5","119.9","121.7","118.3","123.9","120.3","125.7","117.8","122.4","119.1","120.9","126.0","118.5","121.5","119.6","124.3","117.2","123.3","120.7","122.2","118.8","124.9","119.4","121.1","118.0","123.7","120.2"</code>
-          <h3>Kasus 2: Rata-rata Pengeluaran Belanja Online</h3>
-          <p>Sebuah laporan riset pasar nasional tahun lalu menyatakan bahwa rata-rata pengeluaran sekali belanja online oleh konsumen di Indonesia adalah Rp 250.000. Seorang analis e-commerce ingin mengetahui apakah rata-rata tersebut masih berlaku untuk tahun ini.</p>
-          <p>Analisis data pengeluaran dari 50 transaksi terbaru untuk menguji apakah rata-rata pengeluaran tahun ini berbeda secara signifikan dari Rp 250.000.</p>
-          <p>Hipotesis
-            <ul>
-            	<li>$H_o$: Rata-rata pengeluaran ($\mu$) $=$ 250000.</li>
-            	<li>$H_a$: Rata-rata pengeluaran ($\mu$) $\ne$ 250000.</li>
-            </ul>
-          </p>
-      <p>Dengan tingkat kepercayaan 95% (alpha = 0.05), apakah ada bukti yang cukup untuk menyimpulkan bahwa rata-rata pengeluaran belanja online telah berubah dari Rp 250.000?</p>
-      <code>DATA "260500","245200","255100","275800","230000","265300","248900","271600","280100","225400","268800","247200","258500","285200","239100","263900","249500","278100","232000","270000","259800","266100","243600","279500","251900","262700","241300","273900","255300","282700","237800","267400","246100","259900","284000","242500","261500","249600","277300","234200","273300","258700","267200","244800","279900","249400","261100","238000","274700","255200"</code>
-      <h3>Kasus 3: Kadar Kolesterol Pasien </h3>
-      <p>Departemen Kesehatan menyatakan bahwa rata-rata kadar kolesterol total untuk orang dewasa yang sehat adalah di bawah 200 mg/dL. Sebuah klinik ingin mengevaluasi apakah rata-rata kadar kolesterol pasien mereka yang mengikuti program diet baru lebih tinggi dari batas sehat ini.</p>
-      <p>Lakukan uji hipotesis satu arah (one-tailed) untuk menentukan apakah rata-rata kadar kolesterol 50 pasien secara signifikan lebih tinggi dari 200 mg/dL.</p>
-          <p>Hipotesis
-            <ul>
-            	<li>$H_o$: Rata-rata kadar kolesterol ($\mu$) $\le$ 250000.</li>
-            	<li>$H_a$: Rata-rata kadar kolesterol ($\mu$) $>$ 250000.</li>
-            </ul>
-          </p>
-      <p>Apakah data dari 50 pasien memberikan bukti statistik yang cukup pada tingkat signifikansi 1% (alpha = 0.01) untuk menyimpulkan bahwa program diet tersebut belum berhasil menurunkan kadar kolesterol rata-rata pasien di bawah ambang batas sehat?</p>
-      <code> DATA "205.1","198.7","201.3","208.8","196.5","203.2","199.8","206.4","210.2","194.3","204.7","199.1","202.5","211.9","197.6","204.1","200.5","209.3","195.9","205.8","202.1","203.9","198.2","208.1","200.9","203.6","197.4","207.2","201.8","210.7","196.8","204.5","198.9","202.9","211.2","197.1","203.4","200.1","209.7","195.5","206.1","202.3","204.4","198.5","209.9","199.5","203.0","196.2","207.5","201.5"</code>
-      <h3>Kasus 4: Durasi Panggilan Layanan Pelanggan </h3>
-      <p>Sebuah perusahaan telekomunikasi menetapkan standar bahwa rata-rata durasi panggilan ke layanan pelanggan tidak boleh melebihi 300 detik (5 menit) untuk menjaga efisiensi. Setelah menerapkan sistem antrean baru, manajemen ingin memverifikasi apakah standar tersebut masih terpenuhi.</p>
-      <p>Lakukan uji hipotesis satu arah untuk menentukan apakah rata-rata durasi panggilan dari 50 rekaman terakhir secara signifikan lebih lama dari 300 detik.</p>
-          <p>Hipotesis
-            <ul>
-            	<li>$H_o$: Rata-rata durasi panggilan ($\mu$) $\le$ 300 detik.</li>
-            	<li>$H_a$: Rata-rata durasi panggilan ($\mu$) $>$ 300 detik.</li>
-            </ul>
-          </p>
-<p>
-Dengan tingkat signifikansi 5%, apakah ada cukup bukti untuk menyimpulkan bahwa sistem antrean baru gagal menjaga rata-rata durasi panggilan di bawah target 300 detik?</p>
-<code> DATA "308","295","315","320","288","305","310","299","325","280","303","312","318","292","309","297","322","314","301","285","311","306","294","319","302","328","290","307","316","298","321","289","313","304","296","324","291","317","300","287","323","293","308","310","326","286","309","315","299","320"</code>
-<h3>Kasus 5: Pendapatan Harian Pengemudi Ojek Online </h3>
-<p>Asosiasi pengemudi ojek online mengklaim bahwa pendapatan harian rata-rata anggotanya di kota besar adalah Rp 175.000. Seorang peneliti ekonomi ingin menguji kebenaran klaim ini dengan mengambil sampel acak dari pengemudi.</p>
-<p>Analisis data pendapatan harian dari 50 pengemudi untuk menguji apakah rata-rata pendapatan mereka berbeda secara signifikan dari klaim asosiasi sebesar Rp 175.000.</p>
-          <p>Hipotesis
-            <ul>
-            	<li>$H_o$: Rata-rata pendapatan harian ($\mu$) $=$ 175.000.</li>
-            	<li>$H_a$: Rata-rata pendapatan harian ($\mu$) $\ne$ 175.000.</li>
-            </ul>
-          </p>
-<p>Berdasarkan data sampel, apakah ada bukti yang cukup pada tingkat signifikansi 5% untuk menolak klaim asosiasi bahwa rata-rata pendapatan harian pengemudi adalah Rp 175.000?</p>
-<code>DATA "178000","165000","182000","170000","190000","160000","175000","185000","155000","172000","188000","163000","179000","168000","195000","158000","176000","181000","169000","174000","183000","166000","171000","186000","162000","177000","192000","159000","180000","167000","184000","173000","161000","189000","157000","178000","187000","164000","179000","170000","193000","156000","181000","172000","168000","185000","160000","175000","191000","169000"</code>
+	          <div class="step">
+	            <h3>Langkah 5: Buat Keputusan</h3>
+	            <p class="highlight">Bandingkan p-value (hasil dari Langkah 4) dengan tingkat signifikansi Anda (α), yang biasanya 0.05 (5%).</p>
+	            <ul>
+	              <li>Jika <b>p-value ≤ α</b>, Anda menolak hipotesis nol. Artinya, ada perbedaan yang signifikan secara statistik.</li>
+	              <li>Jika <b>p-value > α</b>, Anda gagal menolak hipotesis nol. Artinya, tidak ada cukup bukti untuk menyatakan ada perbedaan.</li>
+	            </ul>
+	          </div>
+	        </div>
+	        <h3>Kasus 1: Efisiensi Produksi Mesin Kopi</h3>
+	        <p>Sebuah perusahaan mengklaim mesin kopi model baru mereka dapat menyeduh kopi dalam waktu rata-rata 120 detik. Sebuah coffee shop membeli 50 unit mesin ini dan ingin menguji apakah klaim tersebut benar.</p>
+	        <p>Lakukan uji hipotesis untuk menentukan apakah ada perbedaan signifikan antara waktu seduh rata-rata sampel dengan klaim perusahaan.</p>
+	        <p>Hipotesis
+	        <ul>
+	          <li>$H_o$: Rata-rata waktu seduh ($\mu$) $=$ 120 detik.</li>
+	          <li>$H_a$: Rata-rata waktu seduh ($\mu$) $\ne$ 120 detik.</li>
+	        </ul>
+	        </p>
+	        <p>Pada tingkat signifikansi 5%, apakah data dari coffee shop tersebut memberikan cukup bukti untuk meragukan klaim perusahaan bahwa rata-rata waktu seduh adalah 120 detik?</p>
+	        <code>DATA "122.5","118.9","120.1","124.8","117.5","121.3","119.8","123.6","125.1","116.4","122.8","119.2","120.5","126.2","118.1","121.9","119.5","124.1","117.0","123.0","120.8","122.1","118.6","124.5","119.9","121.7","118.3","123.9","120.3","125.7","117.8","122.4","119.1","120.9","126.0","118.5","121.5","119.6","124.3","117.2","123.3","120.7","122.2","118.8","124.9","119.4","121.1","118.0","123.7","120.2"</code>
+	        <h3>Kasus 2: Rata-rata Pengeluaran Belanja Online</h3>
+	        <p>Sebuah laporan riset pasar nasional tahun lalu menyatakan bahwa rata-rata pengeluaran sekali belanja online oleh konsumen di Indonesia adalah Rp 250.000. Seorang analis e-commerce ingin mengetahui apakah rata-rata tersebut masih berlaku untuk tahun ini.</p>
+	        <p>Analisis data pengeluaran dari 50 transaksi terbaru untuk menguji apakah rata-rata pengeluaran tahun ini berbeda secara signifikan dari Rp 250.000.</p>
+	        <p>Hipotesis
+	        <ul>
+	          <li>$H_o$: Rata-rata pengeluaran ($\mu$) $=$ 250000.</li>
+	          <li>$H_a$: Rata-rata pengeluaran ($\mu$) $\ne$ 250000.</li>
+	        </ul>
+	        </p>
+	        <p>Dengan tingkat kepercayaan 95% (alpha = 0.05), apakah ada bukti yang cukup untuk menyimpulkan bahwa rata-rata pengeluaran belanja online telah berubah dari Rp 250.000?</p>
+	        <code>DATA "260500","245200","255100","275800","230000","265300","248900","271600","280100","225400","268800","247200","258500","285200","239100","263900","249500","278100","232000","270000","259800","266100","243600","279500","251900","262700","241300","273900","255300","282700","237800","267400","246100","259900","284000","242500","261500","249600","277300","234200","273300","258700","267200","244800","279900","249400","261100","238000","274700","255200"</code>
+	        <h3>Kasus 3: Kadar Kolesterol Pasien </h3>
+	        <p>Departemen Kesehatan menyatakan bahwa rata-rata kadar kolesterol total untuk orang dewasa yang sehat adalah di bawah 200 mg/dL. Sebuah klinik ingin mengevaluasi apakah rata-rata kadar kolesterol pasien mereka yang mengikuti program diet baru lebih tinggi dari batas sehat ini.</p>
+	        <p>Lakukan uji hipotesis satu arah (one-tailed) untuk menentukan apakah rata-rata kadar kolesterol 50 pasien secara signifikan lebih tinggi dari 200 mg/dL.</p>
+	        <p>Hipotesis
+	        <ul>
+	          <li>$H_o$: Rata-rata kadar kolesterol ($\mu$) $\le$ 250000.</li>
+	          <li>$H_a$: Rata-rata kadar kolesterol ($\mu$) $>$ 250000.</li>
+	        </ul>
+	        </p>
+	        <p>Apakah data dari 50 pasien memberikan bukti statistik yang cukup pada tingkat signifikansi 1% (alpha = 0.01) untuk menyimpulkan bahwa program diet tersebut belum berhasil menurunkan kadar kolesterol rata-rata pasien di bawah ambang batas sehat?</p>
+	        <code> DATA "205.1","198.7","201.3","208.8","196.5","203.2","199.8","206.4","210.2","194.3","204.7","199.1","202.5","211.9","197.6","204.1","200.5","209.3","195.9","205.8","202.1","203.9","198.2","208.1","200.9","203.6","197.4","207.2","201.8","210.7","196.8","204.5","198.9","202.9","211.2","197.1","203.4","200.1","209.7","195.5","206.1","202.3","204.4","198.5","209.9","199.5","203.0","196.2","207.5","201.5"</code>
+	        <h3>Kasus 4: Durasi Panggilan Layanan Pelanggan </h3>
+	        <p>Sebuah perusahaan telekomunikasi menetapkan standar bahwa rata-rata durasi panggilan ke layanan pelanggan tidak boleh melebihi 300 detik (5 menit) untuk menjaga efisiensi. Setelah menerapkan sistem antrean baru, manajemen ingin memverifikasi apakah standar tersebut masih terpenuhi.</p>
+	        <p>Lakukan uji hipotesis satu arah untuk menentukan apakah rata-rata durasi panggilan dari 50 rekaman terakhir secara signifikan lebih lama dari 300 detik.</p>
+	        <p>Hipotesis
+	        <ul>
+	          <li>$H_o$: Rata-rata durasi panggilan ($\mu$) $\le$ 300 detik.</li>
+	          <li>$H_a$: Rata-rata durasi panggilan ($\mu$) $>$ 300 detik.</li>
+	        </ul>
+	        </p>
+	        <p>
+	          Dengan tingkat signifikansi 5%, apakah ada cukup bukti untuk menyimpulkan bahwa sistem antrean baru gagal menjaga rata-rata durasi panggilan di bawah target 300 detik?</p>
+	        <code> DATA "308","295","315","320","288","305","310","299","325","280","303","312","318","292","309","297","322","314","301","285","311","306","294","319","302","328","290","307","316","298","321","289","313","304","296","324","291","317","300","287","323","293","308","310","326","286","309","315","299","320"</code>
+	        <h3>Kasus 5: Pendapatan Harian Pengemudi Ojek Online </h3>
+	        <p>Asosiasi pengemudi ojek online mengklaim bahwa pendapatan harian rata-rata anggotanya di kota besar adalah Rp 175.000. Seorang peneliti ekonomi ingin menguji kebenaran klaim ini dengan mengambil sampel acak dari pengemudi.</p>
+	        <p>Analisis data pendapatan harian dari 50 pengemudi untuk menguji apakah rata-rata pendapatan mereka berbeda secara signifikan dari klaim asosiasi sebesar Rp 175.000.</p>
+	        <p>Hipotesis
+	        <ul>
+	          <li>$H_o$: Rata-rata pendapatan harian ($\mu$) $=$ 175.000.</li>
+	          <li>$H_a$: Rata-rata pendapatan harian ($\mu$) $\ne$ 175.000.</li>
+	        </ul>
+	        </p>
+	        <p>Berdasarkan data sampel, apakah ada bukti yang cukup pada tingkat signifikansi 5% untuk menolak klaim asosiasi bahwa rata-rata pendapatan harian pengemudi adalah Rp 175.000?</p>
+	        <code>DATA "178000","165000","182000","170000","190000","160000","175000","185000","155000","172000","188000","163000","179000","168000","195000","158000","176000","181000","169000","174000","183000","166000","171000","186000","162000","177000","192000","159000","180000","167000","184000","173000","161000","189000","157000","178000","187000","164000","179000","170000","193000","156000","181000","172000","168000","185000","160000","175000","191000","169000"</code>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp9">
 
@@ -1673,256 +1677,256 @@ Dengan tingkat signifikansi 5%, apakah ada cukup bukti untuk menyimpulkan bahwa 
 	        <div class="section-title">
 	          <h2>Pertemuan 10</h2>
 	        </div>
-            <div class="mermaid text-center">
-flowchart TD
-    A[Mulai] --> B{"Tentukan Hipotesis $H_0$ & $H_a$"};
-    B --> C{Apakah data berpasangan?};
-    C -- "Ya (Mis: Sebelum vs Sesudah)" --> D[Gunakan Paired t-test];
-    C -- "Tidak (Mis: Grup A vs Grup B)" --> E[Gunakan Independent t-test];
-    E --> F{Asumsi Varian Sama?};
-    F -- "(Cek dg F-test/Levene's)" --> G[Ya: t-test Equal Variances];
-    F -- "(Cek dg F-test/Levene's)" --> H["Tidak: t-test Unequal Variances (Welch's)"];
-    D --> I{"Hitung t-statistik & p-value"};
-    G --> I;
-    H --> I;
-    I --> J{"Bandingkan p-value dengan $\alpha$ (cth: 0.05)"};
-    J -- "p-value < $\alpha$" --> K["Tolak $H_0$"];
-    J -- "p-value >= $\alpha$" --> L[Gagal Tolak $H_0$];
-    K --> M[Kesimpulan: Ada perbedaan signifikan];
-    L --> N[Kesimpulan: Tidak cukup bukti adanya perbedaan];
-    M --> Z[Selesai];
-    N --> Z;
-            </div>
-<h2>Langkah Analisis Uji t Dua Sampel di Excel</h2>
-    
-    <p>Uji t (t-test) adalah alat fundamental untuk menguji hipotesis ketika kita ingin membandingkan rata-rata dari dua kelompok. Hipotesis nol ($H_0$) kita biasanya menyatakan tidak ada perbedaan antara dua rata-rata populasi ($\mu_1 = \mu_2$).</p>
+	        <div class="mermaid text-center">
+	          flowchart TD
+	          A[Mulai] --> B{"Tentukan Hipotesis $H_0$ & $H_a$"};
+	          B --> C{Apakah data berpasangan?};
+	          C -- "Ya (Mis: Sebelum vs Sesudah)" --> D[Gunakan Paired t-test];
+	          C -- "Tidak (Mis: Grup A vs Grup B)" --> E[Gunakan Independent t-test];
+	          E --> F{Asumsi Varian Sama?};
+	          F -- "(Cek dg F-test/Levene's)" --> G[Ya: t-test Equal Variances];
+	          F -- "(Cek dg F-test/Levene's)" --> H["Tidak: t-test Unequal Variances (Welch's)"];
+	          D --> I{"Hitung t-statistik & p-value"};
+	          G --> I;
+	          H --> I;
+	          I --> J{"Bandingkan p-value dengan $\alpha$ (cth: 0.05)"};
+	          J -- "p-value < $\alpha$" --> K["Tolak $H_0$"];
+	            J -- "p-value >= $\alpha$" --> L[Gagal Tolak $H_0$];
+	            K --> M[Kesimpulan: Ada perbedaan signifikan];
+	            L --> N[Kesimpulan: Tidak cukup bukti adanya perbedaan];
+	            M --> Z[Selesai];
+	            N --> Z;
+	        </div>
+	        <h2>Langkah Analisis Uji t Dua Sampel di Excel</h2>
 
-    <p>Kita akan menggunakan <strong>Data Analysis ToolPak</strong> di Excel. Pastikan sudah aktif (<code>File > Options > Add-ins</code>).</p>
+	        <p>Uji t (t-test) adalah alat fundamental untuk menguji hipotesis ketika kita ingin membandingkan rata-rata dari dua kelompok. Hipotesis nol ($H_0$) kita biasanya menyatakan tidak ada perbedaan antara dua rata-rata populasi ($\mu_1 = \mu_2$).</p>
 
-    <h3>Langkah 1: Uji Kesamaan Varian (F-Test)</h3>
-    <p>Sebelum melakukan uji t independen, kita perlu tahu apakah varian (sebaran data) kedua kelompok itu sama atau berbeda. Ini akan menentukan jenis uji t yang kita gunakan.</p>
-    <ol>
-        <li>Buka tab <code>Data</code> lalu klik <code>Data Analysis</code>.</li>
-        <li>Pilih <code>F-Test Two-Sample for Variances</code> dan klik OK.</li>
-        <li>Masukkan rentang data <strong>Grup 1</strong> (misal: <code>A2:A51</code>) ke <code>Variable 1 Range</code>.</li>
-        <li>Masukkan rentang data <strong>Grup 2</strong> (misal: <code>B2:B51</code>) ke <code>Variable 2 Range</code>.</li>
-        <li>Pastikan <code>Alpha</code> diatur ke <code>0.05</code>.</li>
-        <li>Pilih lokasi output dan klik OK.</li>
-        <li>Lihat hasilnya. Fokus pada nilai <code>P(F<=f) one-tail</code>.</li>
-    </ol>
-    <blockquote>
-        <strong>Aturan Keputusan:</strong>
-        <ul>
-            <li>Jika <strong>P (F-test) > 0.05</strong>: Varian dianggap SAMA. Kita akan gunakan "Equal Variances t-test".</li>
-            <li>Jika <strong>P (F-test) &le; 0.05</strong>: Varian BEDA. Kita akan gunakan "Unequal Variances t-test" (Welch's Test).</li>
-        </ul>
-    </blockquote>
+	        <p>Kita akan menggunakan <strong>Data Analysis ToolPak</strong> di Excel. Pastikan sudah aktif (<code>File > Options > Add-ins</code>).</p>
 
-    <h3>Langkah 2: Melakukan Uji t (t-Test)</h3>
-    <p>Sekarang lakukan uji t berdasarkan hasil Langkah 1.</p>
-    <ol>
-        <li>Buka <code>Data > Data Analysis</code> lagi.</li>
-        <li>Pilih opsi yang sesuai:
-            <ul>
-                <li><code>t-Test: Two-Sample Assuming Equal Variances</code> (jika P F-test > 0.05)</li>
-                <li><code>t-Test: Two-Sample Assuming Unequal Variances</code> (jika P F-test &le; 0.05)</li>
-            </ul>
-        </li>
-        <li>Masukkan rentang <code>Variable 1</code> (Grup 1) dan <code>Variable 2</code> (Grup 2).</li>
-        <li>Isi <code>Hypothesized Mean Difference</code> dengan angka <code>0</code>. (Ini adalah $H_0: \mu_1 - \mu_2 = 0$).</li>
-        <li>Centang <code>Labels</code> jika Anda menyertakan header.</li>
-        <li>Pilih lokasi output dan klik OK.</li>
-    </ol>
+	        <h3>Langkah 1: Uji Kesamaan Varian (F-Test)</h3>
+	        <p>Sebelum melakukan uji t independen, kita perlu tahu apakah varian (sebaran data) kedua kelompok itu sama atau berbeda. Ini akan menentukan jenis uji t yang kita gunakan.</p>
+	        <ol>
+	          <li>Buka tab <code>Data</code> lalu klik <code>Data Analysis</code>.</li>
+	          <li>Pilih <code>F-Test Two-Sample for Variances</code> dan klik OK.</li>
+	          <li>Masukkan rentang data <strong>Grup 1</strong> (misal: <code>A2:A51</code>) ke <code>Variable 1 Range</code>.</li>
+	          <li>Masukkan rentang data <strong>Grup 2</strong> (misal: <code>B2:B51</code>) ke <code>Variable 2 Range</code>.</li>
+	          <li>Pastikan <code>Alpha</code> diatur ke <code>0.05</code>.</li>
+	          <li>Pilih lokasi output dan klik OK.</li>
+	          <li>Lihat hasilnya. Fokus pada nilai <code>P(F<=f) one-tail</code>.</li>
+	        </ol>
+	        <blockquote>
+	          <strong>Aturan Keputusan:</strong>
+	          <ul>
+	            <li>Jika <strong>P (F-test) > 0.05</strong>: Varian dianggap SAMA. Kita akan gunakan "Equal Variances t-test".</li>
+	            <li>Jika <strong>P (F-test) &le; 0.05</strong>: Varian BEDA. Kita akan gunakan "Unequal Variances t-test" (Welch's Test).</li>
+	          </ul>
+	        </blockquote>
 
-    <h3>Langkah 3: Interpretasi Output</h3>
-    <p>Anda akan mendapatkan tabel output. Fokus pada baris p-value:</p>
+	        <h3>Langkah 2: Melakukan Uji t (t-Test)</h3>
+	        <p>Sekarang lakukan uji t berdasarkan hasil Langkah 1.</p>
+	        <ol>
+	          <li>Buka <code>Data > Data Analysis</code> lagi.</li>
+	          <li>Pilih opsi yang sesuai:
+	            <ul>
+	              <li><code>t-Test: Two-Sample Assuming Equal Variances</code> (jika P F-test > 0.05)</li>
+	              <li><code>t-Test: Two-Sample Assuming Unequal Variances</code> (jika P F-test &le; 0.05)</li>
+	            </ul>
+	          </li>
+	          <li>Masukkan rentang <code>Variable 1</code> (Grup 1) dan <code>Variable 2</code> (Grup 2).</li>
+	          <li>Isi <code>Hypothesized Mean Difference</code> dengan angka <code>0</code>. (Ini adalah $H_0: \mu_1 - \mu_2 = 0$).</li>
+	          <li>Centang <code>Labels</code> jika Anda menyertakan header.</li>
+	          <li>Pilih lokasi output dan klik OK.</li>
+	        </ol>
 
-    <table class="output-table">
-        <tr>
-            <td>...</td>
-            <td>...</td>
-        </tr>
-        <tr>
-            <td class="highlight">P(T<=t) two-tail</td>
-            <td class="highlight">0.0123</td>
-        </tr>
-        <tr>
-            <td>t Critical two-tail</td>
-            <td>1.9844</td>
-        </tr>
-    </table>
+	        <h3>Langkah 3: Interpretasi Output</h3>
+	        <p>Anda akan mendapatkan tabel output. Fokus pada baris p-value:</p>
 
-    <ul>
-        <li><strong>P(T<=t) two-tail:</strong> Ini adalah p-value untuk uji dua arah. Gunakan ini jika $H_a$ Anda adalah $\mu_1 \neq \mu_2$ (hanya ingin tahu apakah "berbeda").</li>
-        <li><strong>P(T<=t) one-tail:</strong> Ini p-value untuk uji satu arah. Gunakan ini jika $H_a$ Anda adalah $\mu_1 > \mu_2$ atau $\mu_1 < \mu_2$.</li>
-    </ul>
+	        <table class="output-table">
+	          <tr>
+	            <td>...</td>
+	            <td>...</td>
+	          </tr>
+	          <tr>
+	            <td class="highlight">P(T<=t) two-tail</td>
+	            <td class="highlight">0.0123</td>
+	          </tr>
+	          <tr>
+	            <td>t Critical two-tail</td>
+	            <td>1.9844</td>
+	          </tr>
+	        </table>
 
-    <p><strong>Kesimpulan:</strong> Jika <strong>p-value < 0.05</strong> (Alpha Anda), maka Anda <strong>menolak $H_0$</strong>. Ini berarti "Ada cukup bukti statistik untuk menyatakan bahwa rata-rata kedua kelompok berbeda secara signifikan."</p>
-      <h4>Kasus 1: Independent t-test (Ekonomi Pemasaran)</h4>
-          <p>Sebuah perusahaan e-commerce ingin tahu apakah ada perbedaan rata-rata nilai belanja (Average Order Value/AOV) antara pelanggan yang datang dari Iklan Facebook (Grup A) dan Iklan Google (Grup B).</p>
-          <p>Lakukan uji t dua sampel independen untuk membandingkan AOV kedua grup.</p>
-          <p> Apakah rata-rata AOV pelanggan dari Iklan Facebook berbeda (lebih tinggi atau lebih rendah) secara signifikan dibandingkan Iklan Google? (Uji dua arah / two-tail).</p>
-        <a class="actions" href="t-tes-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
-          <div class="overflow-auto" id="tabel-t-tes-1"></div>
-          <script>
-            fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-1.csv')
-                .then(res => res.text())
-                .then(csvText => {
-                    Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true, 
-                        complete: function (results) {
-                            const headers = results.meta.fields;
-                            const dataRows = results.data;  
-                            if (dataRows.length === 0) return;
-            
-                            let html = `<table class="table table-striped text-center" id="datatable-t-tes-1">`;
-            
-                            html += '<thead><tr>';
-                            headers.forEach(header => {
-                                html += `<th>${header}</th>`;
-                            });
-                            html += '</tr></thead>';
-            
-                            html += '<tbody>';
-                            dataRows.forEach(row => {
-                                html += '<tr>';
-                                headers.forEach(header => {
-                                    const cell = row[header];
-                                    html += `<td>${cell}</td>`;
-                                });
-                                html += '</tr>';
-                            });
-                            html += '</tbody>';
-            
-                            html += '</table>';
-                            document.getElementById("tabel-t-tes-1").innerHTML = html;
-            
-                            $(document).ready(function () {
-                                $('#datatable-t-tes-1').DataTable({
-                                    paging: true,
-                                    searching: true,
-                                    scrollX: true,
-                                          pageLength: 5,
-                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-            
-                                });
-                            });
-                        }
-                    });
-                });
-          </script>
+	        <ul>
+	          <li><strong>P(T<=t) two-tail:</strong> Ini adalah p-value untuk uji dua arah. Gunakan ini jika $H_a$ Anda adalah $\mu_1 \neq \mu_2$ (hanya ingin tahu apakah "berbeda").</li>
+	          <li><strong>P(T<=t) one-tail:</strong> Ini p-value untuk uji satu arah. Gunakan ini jika $H_a$ Anda adalah $\mu_1 > \mu_2$ atau $\mu_1 < \mu_2$.</li>
+	        </ul>
 
-          <h4>Kasus 2: Paired t-test (Ekonomi SDM)</h4>
-          <p> Sebuah perusahaan memberikan pelatihan manajemen waktu kepada 50 salesmannya. Perusahaan mencatat jumlah deals yang berhasil ditutup dalam sebulan sebelum pelatihan dan sesudah pelatihan.</p>
-          <p>Lakukan uji t dua sampel berpasangan (paired t-test) untuk data ini.</p>
-          <p>Apakah pelatihan manajemen waktu secara signifikan meningkatkan jumlah deals yang ditutup? (Uji satu arah / one-tail: Sesudah > Sebelum).</p>
-        <a class="actions" href="t-tes-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
-          <div class="overflow-auto" id="tabel-t-tes-2"></div>
-          <script>
-            fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-2.csv')
-                .then(res => res.text())
-                .then(csvText => {
-                    Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true, 
-                        complete: function (results) {
-                            const headers = results.meta.fields;
-                            const dataRows = results.data;  
-                            if (dataRows.length === 0) return;
-            
-                            let html = `<table class="table table-striped text-center" id="datatable-t-tes-2">`;
-            
-                            html += '<thead><tr>';
-                            headers.forEach(header => {
-                                html += `<th>${header}</th>`;
-                            });
-                            html += '</tr></thead>';
-            
-                            html += '<tbody>';
-                            dataRows.forEach(row => {
-                                html += '<tr>';
-                                headers.forEach(header => {
-                                    const cell = row[header];
-                                    html += `<td>${cell}</td>`;
-                                });
-                                html += '</tr>';
-                            });
-                            html += '</tbody>';
-            
-                            html += '</table>';
-                            document.getElementById("tabel-t-tes-2").innerHTML = html;
-            
-                            $(document).ready(function () {
-                                $('#datatable-t-tes-2').DataTable({
-                                    paging: true,
-                                    searching: true,
-                                    scrollX: true,
-                                          pageLength: 5,
-                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-            
-                                });
-                            });
-                        }
-                    });
-                });
-          </script>
-          
-          <h4>Kasus 3: Independent t-test (Ekonomi Regional)</h4>
-          <p>Seorang peneliti ekonomi ingin membandingkan rata-rata pengeluaran bulanan (dalam juta Rupiah) untuk kebutuhan pokok antara rumah tangga di Wilayah Urban (Grup 1) dan Wilayah Rural (Grup 2).</p>
-          <p> Lakukan uji t dua sampel independen. Perhatikan: data ini mungkin memiliki varian yang berbeda (heteroskedastisitas).</p>
-          <p> Apakah rata-rata pengeluaran bulanan di Wilayah Urban berbeda secara signifikan dengan Wilayah Rural? (Uji dua arah / two-tail).</p>
-        <a class="actions" href="t-tes-3.csv"><button class="btn btn-primary">Unduh CSV </button></a>
-          <div class="overflow-auto" id="tabel-t-tes-3"></div>
-          <script>
-            fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-3.csv')
-                .then(res => res.text())
-                .then(csvText => {
-                    Papa.parse(csvText, {
-                        header: true,
-                        skipEmptyLines: true, 
-                        complete: function (results) {
-                            const headers = results.meta.fields;
-                            const dataRows = results.data;  
-                            if (dataRows.length === 0) return;
-            
-                            let html = `<table class="table table-striped text-center" id="datatable-t-tes-3">`;
-            
-                            html += '<thead><tr>';
-                            headers.forEach(header => {
-                                html += `<th>${header}</th>`;
-                            });
-                            html += '</tr></thead>';
-            
-                            html += '<tbody>';
-                            dataRows.forEach(row => {
-                                html += '<tr>';
-                                headers.forEach(header => {
-                                    const cell = row[header];
-                                    html += `<td>${cell}</td>`;
-                                });
-                                html += '</tr>';
-                            });
-                            html += '</tbody>';
-            
-                            html += '</table>';
-                            document.getElementById("tabel-t-tes-3").innerHTML = html;
-            
-                            $(document).ready(function () {
-                                $('#datatable-t-tes-3').DataTable({
-                                    paging: true,
-                                    searching: true,
-                                    scrollX: true,
-                                          pageLength: 5,
-                      	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-            
-                                });
-                            });
-                        }
-                    });
-                });
-          </script>
-          
+	        <p><strong>Kesimpulan:</strong> Jika <strong>p-value < 0.05</strong> (Alpha Anda), maka Anda <strong>menolak $H_0$</strong>. Ini berarti "Ada cukup bukti statistik untuk menyatakan bahwa rata-rata kedua kelompok berbeda secara signifikan."</p>
+	        <h4>Kasus 1: Independent t-test (Ekonomi Pemasaran)</h4>
+	        <p>Sebuah perusahaan e-commerce ingin tahu apakah ada perbedaan rata-rata nilai belanja (Average Order Value/AOV) antara pelanggan yang datang dari Iklan Facebook (Grup A) dan Iklan Google (Grup B).</p>
+	        <p>Lakukan uji t dua sampel independen untuk membandingkan AOV kedua grup.</p>
+	        <p> Apakah rata-rata AOV pelanggan dari Iklan Facebook berbeda (lebih tinggi atau lebih rendah) secara signifikan dibandingkan Iklan Google? (Uji dua arah / two-tail).</p>
+	        <a class="actions" href="t-tes-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-t-tes-1"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-1.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-t-tes-1">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	                          document.getElementById("tabel-t-tes-1").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-t-tes-1').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
+
+	        <h4>Kasus 2: Paired t-test (Ekonomi SDM)</h4>
+	        <p> Sebuah perusahaan memberikan pelatihan manajemen waktu kepada 50 salesmannya. Perusahaan mencatat jumlah deals yang berhasil ditutup dalam sebulan sebelum pelatihan dan sesudah pelatihan.</p>
+	        <p>Lakukan uji t dua sampel berpasangan (paired t-test) untuk data ini.</p>
+	        <p>Apakah pelatihan manajemen waktu secara signifikan meningkatkan jumlah deals yang ditutup? (Uji satu arah / one-tail: Sesudah > Sebelum).</p>
+	        <a class="actions" href="t-tes-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-t-tes-2"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-2.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-t-tes-2">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	                          document.getElementById("tabel-t-tes-2").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-t-tes-2').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
+
+	        <h4>Kasus 3: Independent t-test (Ekonomi Regional)</h4>
+	        <p>Seorang peneliti ekonomi ingin membandingkan rata-rata pengeluaran bulanan (dalam juta Rupiah) untuk kebutuhan pokok antara rumah tangga di Wilayah Urban (Grup 1) dan Wilayah Rural (Grup 2).</p>
+	        <p> Lakukan uji t dua sampel independen. Perhatikan: data ini mungkin memiliki varian yang berbeda (heteroskedastisitas).</p>
+	        <p> Apakah rata-rata pengeluaran bulanan di Wilayah Urban berbeda secara signifikan dengan Wilayah Rural? (Uji dua arah / two-tail).</p>
+	        <a class="actions" href="t-tes-3.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-t-tes-3"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/t-tes-3.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-t-tes-3">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	                          document.getElementById("tabel-t-tes-3").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-t-tes-3').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
+
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
 
@@ -1947,18 +1951,308 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 11</h2>
 	        </div>
-
-	        <script type="module">
-	          import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-	          mermaid.initialize({ startOnLoad: true });
-	        </script>
+            <div class="trigger">
+<p>ANOVA: Apa itu? ANOVA digunakan untuk membandingkan rata-rata dari tiga grup atau lebih secara bersamaan.</p>
+              <p>CHI-SQUARE: Apa itu? Chi-Square digunakan untuk data kategori (hitungan, frekuensi). </p>
+              
+            </div>
 
 	        <div class="mermaid text-center">
-	          graph TD
-	          A[Anggap populasi berdistribusi normal] --> B{Apakah simpangan baku diketahui?}
-	          B -- Tidak --> C[Gunakan distribusi t]
-	          B -- Ya --> D[Gunakan distribusi z]
+flowchart TD
+    A[ANOVA] --> B{Rumuskan Hipotesis H0 & H1};
+    B --> C[Asumsi: Cek Normalitas & Homogenitas Varian];
+    C -- Asumsi Terpenuhi --> D["Jalankan ANOVA (Hitung F-Statistik)"];
+    D --> E{Cek P-value};
+    E -- "P < 0.05 (Signifikan)" --> F[Tolak H0: Setidaknya 1 rata-rata berbeda];
+    E -- "P >= 0.05 (Tidak Signifikan)" --> G[Gagal Tolak H0: Rata-rata grup tidak berbeda signifikan];
+    F --> H["Opsional: Uji Post-Hoc (misal: Tukey) untuk melihat grup mana yg beda"];
+    G --> I[Selesai];
+    H --> I;
+             
 	        </div>
+              <hr>
+              <div class="mermaid text-center">
+flowchart TD
+    A[Chi-Square] --> B{Rumuskan Hipotesis H0 & H1};
+    B --> C["Kumpulkan Data: Buat Tabel Kontingensi (Observasi)"];
+    C --> D[Hitung Tabel Ekspektasi];
+    D --> E["Hitung Statistik Chi-Square (χ²)"];
+    E --> F{Cek P-value};
+    F -- "P < 0.05 (Signifikan)" --> G[Tolak H0: Ada hubungan/dependensi antar variabel];
+    F -- "P >= 0.05 (Tidak Signifikan)" --> H["Gagal Tolak H0: Variabel independen (tidak berhubungan)"];
+    G --> I[Selesai];
+    H --> I;
+              </div>
+<h1>Panduan Analisis: ANOVA dan Chi-Square di MS Excel</h1>
+        
+        <hr>
+
+        <h2>Analisis 1: One-Way ANOVA (Uji Beda Rata-Rata >2 Grup)</h2>
+        <p>
+            ANOVA kita gunakan untuk menguji apakah ada perbedaan rata-rata yang signifikan antara tiga grup atau lebih.
+            Hipotesis kita (H0) adalah: $\mu_1 = \mu_2 = \mu_3$.
+        </p>
+
+        <h3>Persiapan Data di Excel</h3>
+        <div class="step">
+            <strong>Langkah 1: Aktifkan Analysis ToolPak.</strong>
+            <ul>
+                <li>Buka <code>File</code> > <code>Options</code> > <code>Add-ins</code>.</li>
+                <li>Di bagian bawah, pilih <code>Excel Add-ins</code> dan klik <code>Go</code>.</li>
+                <li>Centang <code>Analysis ToolPak</code> dan klik <code>OK</code>.</li>
+            </ul>
+        </div>
+        <div class="step">
+            <strong>Langkah 2: Susun Data.</strong>
+            <ul>
+                <li>Data mentah Anda (misal dari Kasus 1) mungkin dalam format <i>long</i> (Kolom A: Kampanye, Kolom B: Penjualan).</li>
+                <li>ANOVA di ToolPak memerlukan format <i>wide</i>. Anda harus "meng-unstack" data tersebut.</li>
+                <li>Buat 3 kolom terpisah: <code>Data_Grup_A</code>, <code>Data_Grup_B</code>, <code>Data_Grup_C</code>. Pindahkan data penjualan ke kolom yang sesuai.</li>
+            </ul>
+        </div>
+
+        <h3>Menjalankan Analisis ANOVA</h3>
+        <div class="step">
+            <strong>Langkah 3: Buka ANOVA Tool.</strong>
+            <ul>
+                <li>Klik tab <code>Data</code> > <code>Data Analysis</code>.</li>
+                <li>Pilih <code>ANOVA: Single Factor</code> dan klik <code>OK</code>.</li>
+            </ul>
+        </div>
+        <div class="step">
+            <strong>Langkah 4: Input Data.</strong>
+            <ul>
+                <li><strong>Input Range:</strong> Sorot/pilih semua data di 3 kolom yang Anda buat (termasuk judul jika Anda mencentang 'Labels in first row').</li>
+                <li><strong>Grouped By:</strong> Pilih <code>Columns</code>.</li>
+                <li><strong>Alpha:</strong> Biarkan <code>0.05</code> (ini adalah tingkat signifikansi Anda).</li>
+                <li><strong>Output Range:</strong> Pilih satu sel kosong di sheet Anda tempat hasil akan ditampilkan.</li>
+                <li>Klik <code>OK</code>.</li>
+            </ul>
+        </div>
+        <div class="step">
+            <strong>Langkah 5: Interpretasi Hasil.</strong>
+            <ul>
+                <li>Lihat tabel "ANOVA". Fokus pada dua angka:</li>
+                <li><strong>F:</strong> Ini adalah F-statistik Anda.</li>
+                <li><strong>P-value:</strong> Ini adalah angka kunci.</li>
+                <li><strong>Jika P-value < 0.05:</strong> Anda menolak H0. Artinya, ada perbedaan rata-rata yang signifikan di antara grup.</li>
+                <li><strong>Jika P-value >= 0.05:</strong> Anda gagal menolak H0. Tidak ada cukup bukti untuk mengatakan rata-ratanya berbeda.</li>
+            </ul>
+        </div>
+
+        <hr>
+
+        <h2>Analisis 2: Chi-Square (Uji Independensi)</h2>
+        <p>
+            Chi-Square ($\chi^2$) kita gunakan untuk menguji apakah ada hubungan (dependensi) antara dua variabel kategori (misal: Region vs Produk).
+            Hipotesis kita (H0) adalah: Variabel A dan Variabel B bersifat independen (tidak berhubungan).
+        </p>
+
+        <h3>Persiapan Data di Excel</h3>
+        <div class="step">
+            <strong>Langkah 1: Buat Tabel Kontingensi (Observasi).</strong>
+            <ul>
+                <li>Data mentah Anda (misal dari Kasus 3) berisi satu baris per observasi.</li>
+                <li>Gunakan <b>PivotTable</b> untuk meringkas data ini.</li>
+                <li><code>Insert</code> > <code>PivotTable</code>.</li>
+                <li>Letakkan Variabel 1 (misal: Region) di <code>Rows</code>.</li>
+                <li>Letakkan Variabel 2 (misal: Produk) di <code>Columns</code>.</li>
+                <li>Letakkan salah satu variabel (misal: ID) di <code>Values</code> (pastikan diatur ke <code>Count</code>).</li>
+                <li>Anda sekarang memiliki <b>Tabel Observasi</b>. Salin dan tempel (paste as values) tabel ini ke tempat lain.</li>
+            </ul>
+        </div>
+        
+        <h3>Menjalankan Analisis Chi-Square</h3>
+        <div class="step">
+            <strong>Langkah 2: Hitung Tabel Ekspektasi (Wajib).</strong>
+            <ul>
+                <li>Excel memerlukan tabel ekspektasi untuk fungsi <code>CHISQ.TEST</code>.</li>
+                <li>Buat tabel kosong dengan struktur yang sama persis dengan Tabel Observasi Anda.</li>
+                <li>Hitung Total Baris, Total Kolom, dan Grand Total dari Tabel Observasi.</li>
+                <li>Untuk setiap sel di Tabel Ekspektasi, rumusnya adalah: $E = \frac{(\text{Total Baris} \times \text{Total Kolom})}{\text{Grand Total}}$</li>
+                <li>Isi tabel ekspektasi dengan nilai-nilai ini.</li>
+            </ul>
+        </div>
+        <div class="step">
+            <strong>Langkah 3: Gunakan Fungsi CHISQ.TEST().</strong>
+            <ul>
+                <li>Pilih satu sel kosong.</li>
+                <li>Ketik rumus: <code>=CHISQ.TEST(actual_range, expected_range)</code></li>
+                <li><code>actual_range</code>: Sorot data di dalam <b>Tabel Observasi</b> Anda (jangan sertakan total).</li>
+                <li><code>expected_range</code>: Sorot data di dalam <b>Tabel Ekspektasi</b> Anda (jangan sertakan total).</li>
+                <li>Tekan <code>Enter</code>.</li>
+            </ul>
+        </div>
+        <div class="step">
+            <strong>Langkah 4: Interpretasi Hasil.</strong>
+            <ul>
+                <li>Hasil dari rumus <code>CHISQ.TEST()</code> adalah <b>P-value</b>.</li>
+                <li><strong>Jika P-value < 0.05:</strong> Anda menolak H0. Artinya, ada hubungan yang signifikan antara kedua variabel (mereka tidak independen).</li>
+                <li><strong>Jika P-value >= 0.05:</strong> Anda gagal menolak H0. Tidak ada cukup bukti untuk mengatakan keduanya berhubungan.</li>
+            </ul>
+        </div>
+                <h4>Kasus 1: ANOVA (Efektivitas Promosi)</h4>
+                <p>Sebuah perusahaan e-commerce meluncurkan tiga jenis promosi berbeda (A: Diskon Persentase, B: Gratis Ongkir, C: Cashback) di 50 area berbeda (secara acak). Kita ingin tahu apakah ada perbedaan rata-rata nilai transaksi (GMV) harian di antara ketiga jenis promosi tersebut.
+<br>
+Apakah ada perbedaan signifikan pada rata-rata GMV harian antara Promosi A, B, dan C?</p>
+	        <a class="actions" href="anova-chi-1.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-anova-chi-1"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/anova-chi-1.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-anova-chi-1">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	                          document.getElementById("tabel-anova-chi-1").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-anova-chi-1').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
+                <h4>Kasus 2: ANOVA (Produktivitas Karyawan)</h4>
+                <p>Sebuah bank ingin mengevaluasi efektivitas tiga metode pelatihan baru (Metode 1, Metode 2, Metode 3) untuk customer service (CS). 50 CS baru dibagi acak ke tiga metode tersebut. Setelah pelatihan, rata-rata skor kepuasan pelanggan (skala 1-100) untuk setiap CS dicatat.
+<br>
+Apakah ada perbedaan signifikan pada rata-rata skor kepuasan pelanggan antara CS yang dilatih dengan Metode 1, 2, atau 3?</p>
+	        <a class="actions" href="anova-chi-2.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-anova-chi-2"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/anova-chi-2.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-anova-chi-2">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	                          document.getElementById("tabel-anova-chi-2").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-anova-chi-2').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
+                <h4>Kasus 3: Chi-Square (Hubungan Demografi & Produk)</h4>
+                <p>Sebuah perusahaan asuransi ingin tahu apakah ada hubungan antara Kelompok Usia (Kategori 1: Muda, Dewasa, Senior) dan Jenis Polis yang mereka beli (Kategori 2: Jiwa, Kesehatan).
+<br>
+ Apakah ada hubungan (dependensi) yang signifikan antara kelompok usia nasabah dan jenis polis asuransi yang mereka pilih?</p>
+	        <a class="actions" href="anova-chi-3.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-anova-chi-3"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/anova-chi-3.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-anova-chi-3">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	                          document.getElementById("tabel-anova-chi-3").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-anova-chi-3').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp11">
