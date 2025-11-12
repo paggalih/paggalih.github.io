@@ -1971,18 +1971,7 @@ flowchart TD
              
 	        </div>
               <hr>
-              <div class="mermaid text-center">
-flowchart TD
-    A[Chi-Square] --> B{Rumuskan Hipotesis H0 & H1};
-    B --> C["Kumpulkan Data: Buat Tabel Kontingensi (Observasi)"];
-    C --> D[Hitung Tabel Ekspektasi];
-    D --> E["Hitung Statistik Chi-Square (χ²)"];
-    E --> F{Cek P-value};
-    F -- "P < 0.05 (Signifikan)" --> G[Tolak H0: Ada hubungan/dependensi antar variabel];
-    F -- "P >= 0.05 (Tidak Signifikan)" --> H["Gagal Tolak H0: Variabel independen (tidak berhubungan)"];
-    G --> I[Selesai];
-    H --> I;
-              </div>
+
 <h1>Panduan Analisis: ANOVA dan Chi-Square di MS Excel</h1>
         
         <hr>
@@ -2041,57 +2030,8 @@ flowchart TD
         </div>
 
         <hr>
-
-        <h2>Analisis 2: Chi-Square (Uji Independensi)</h2>
-        <p>
-            Chi-Square ($\chi^2$) kita gunakan untuk menguji apakah ada hubungan (dependensi) antara dua variabel kategori (misal: Region vs Produk).
-            Hipotesis kita (H0) adalah: Variabel A dan Variabel B bersifat independen (tidak berhubungan).
-        </p>
-
-        <h3>Persiapan Data di Excel</h3>
-        <div class="step">
-            <strong>Langkah 1: Buat Tabel Kontingensi (Observasi).</strong>
-            <ul>
-                <li>Data mentah Anda (misal dari Kasus 3) berisi satu baris per observasi.</li>
-                <li>Gunakan <b>PivotTable</b> untuk meringkas data ini.</li>
-                <li><code>Insert</code> > <code>PivotTable</code>.</li>
-                <li>Letakkan Variabel 1 (misal: Region) di <code>Rows</code>.</li>
-                <li>Letakkan Variabel 2 (misal: Produk) di <code>Columns</code>.</li>
-                <li>Letakkan salah satu variabel (misal: ID) di <code>Values</code> (pastikan diatur ke <code>Count</code>).</li>
-                <li>Anda sekarang memiliki <b>Tabel Observasi</b>. Salin dan tempel (paste as values) tabel ini ke tempat lain.</li>
-            </ul>
-        </div>
         
-        <h3>Menjalankan Analisis Chi-Square</h3>
-        <div class="step">
-            <strong>Langkah 2: Hitung Tabel Ekspektasi (Wajib).</strong>
-            <ul>
-                <li>Excel memerlukan tabel ekspektasi untuk fungsi <code>CHISQ.TEST</code>.</li>
-                <li>Buat tabel kosong dengan struktur yang sama persis dengan Tabel Observasi Anda.</li>
-                <li>Hitung Total Baris, Total Kolom, dan Grand Total dari Tabel Observasi.</li>
-                <li>Untuk setiap sel di Tabel Ekspektasi, rumusnya adalah: $E = \frac{(\text{Total Baris} \times \text{Total Kolom})}{\text{Grand Total}}$</li>
-                <li>Isi tabel ekspektasi dengan nilai-nilai ini.</li>
-            </ul>
-        </div>
-        <div class="step">
-            <strong>Langkah 3: Gunakan Fungsi CHISQ.TEST().</strong>
-            <ul>
-                <li>Pilih satu sel kosong.</li>
-                <li>Ketik rumus: <code>=CHISQ.TEST(actual_range, expected_range)</code></li>
-                <li><code>actual_range</code>: Sorot data di dalam <b>Tabel Observasi</b> Anda (jangan sertakan total).</li>
-                <li><code>expected_range</code>: Sorot data di dalam <b>Tabel Ekspektasi</b> Anda (jangan sertakan total).</li>
-                <li>Tekan <code>Enter</code>.</li>
-            </ul>
-        </div>
-        <div class="step">
-            <strong>Langkah 4: Interpretasi Hasil.</strong>
-            <ul>
-                <li>Hasil dari rumus <code>CHISQ.TEST()</code> adalah <b>P-value</b>.</li>
-                <li><strong>Jika P-value < 0.05:</strong> Anda menolak H0. Artinya, ada hubungan yang signifikan antara kedua variabel (mereka tidak independen).</li>
-                <li><strong>Jika P-value >= 0.05:</strong> Anda gagal menolak H0. Tidak ada cukup bukti untuk mengatakan keduanya berhubungan.</li>
-            </ul>
-        </div>
-                <h4>Kasus 1: ANOVA (Efektivitas Promosi)</h4>
+                <h4>Kasus 1: (Efektivitas Promosi)</h4>
                 <p>Sebuah perusahaan e-commerce meluncurkan tiga jenis promosi berbeda (A: Diskon Persentase, B: Gratis Ongkir, C: Cashback) di 50 area berbeda (secara acak). Kita ingin tahu apakah ada perbedaan rata-rata nilai transaksi (GMV) harian di antara ketiga jenis promosi tersebut.
 <br>
 Apakah ada perbedaan signifikan pada rata-rata GMV harian antara Promosi A, B, dan C?</p>
@@ -2129,7 +2069,7 @@ Apakah ada perbedaan signifikan pada rata-rata GMV harian antara Promosi A, B, d
 	                          html += '</tbody>';
 	          
 	                          html += '</table>';
-	                          document.getElementById("tabel-anova-chi-1").innerHTML = html;
+document.getElementById("tabel-anova-chi-1").innerHTML = html;
 	          
 	                          $(document).ready(function () {
 	                              $('#datatable-anova-chi-1').DataTable({
@@ -2145,7 +2085,7 @@ Apakah ada perbedaan signifikan pada rata-rata GMV harian antara Promosi A, B, d
 	                  });
 	              });
 	        </script>
-                <h4>Kasus 2: ANOVA (Produktivitas Karyawan)</h4>
+                <h4>Kasus 2: (Produktivitas Karyawan)</h4>
                 <p>Sebuah bank ingin mengevaluasi efektivitas tiga metode pelatihan baru (Metode 1, Metode 2, Metode 3) untuk customer service (CS). 50 CS baru dibagi acak ke tiga metode tersebut. Setelah pelatihan, rata-rata skor kepuasan pelanggan (skala 1-100) untuk setiap CS dicatat.
 <br>
 Apakah ada perbedaan signifikan pada rata-rata skor kepuasan pelanggan antara CS yang dilatih dengan Metode 1, 2, atau 3?</p>
@@ -2183,7 +2123,7 @@ Apakah ada perbedaan signifikan pada rata-rata skor kepuasan pelanggan antara CS
 	                          html += '</tbody>';
 	          
 	                          html += '</table>';
-	                          document.getElementById("tabel-anova-chi-2").innerHTML = html;
+document.getElementById("tabel-anova-chi-2").innerHTML = html;
 	          
 	                          $(document).ready(function () {
 	                              $('#datatable-anova-chi-2').DataTable({
@@ -2199,10 +2139,8 @@ Apakah ada perbedaan signifikan pada rata-rata skor kepuasan pelanggan antara CS
 	                  });
 	              });
 	        </script>
-                <h4>Kasus 3: Chi-Square (Hubungan Demografi & Produk)</h4>
-                <p>Sebuah perusahaan asuransi ingin tahu apakah ada hubungan antara Kelompok Usia (Kategori 1: Muda, Dewasa, Senior) dan Jenis Polis yang mereka beli (Kategori 2: Jiwa, Kesehatan).
-<br>
- Apakah ada hubungan (dependensi) yang signifikan antara kelompok usia nasabah dan jenis polis asuransi yang mereka pilih?</p>
+      <h4>Kasus 3: Pendapatan Berdasarkan Tingkat Pendidikan</h4>
+              <p>Seorang ekonom ingin menguji apakah ada perbedaan signifikan dalam rata-rata pendapatan tahunan (dalam jutaan IDR) di antara empat kelompok tingkat pendidikan: SMA, Diploma, S1, dan S2.<br>Apakah tingkat pendidikan memiliki dampak yang signifikan secara statistik terhadap rata-rata pendapatan tahunan pada $\alpha = 0.05$?</p>
 	        <a class="actions" href="anova-chi-3.csv"><button class="btn btn-primary">Unduh CSV </button></a>
 	        <div class="overflow-auto" id="tabel-anova-chi-3"></div>
 	        <script>
@@ -2237,10 +2175,64 @@ Apakah ada perbedaan signifikan pada rata-rata skor kepuasan pelanggan antara CS
 	                          html += '</tbody>';
 	          
 	                          html += '</table>';
-	                          document.getElementById("tabel-anova-chi-3").innerHTML = html;
+document.getElementById("tabel-anova-chi-3").innerHTML = html;
 	          
 	                          $(document).ready(function () {
 	                              $('#datatable-anova-chi-3').DataTable({
+	                                  paging: true,
+	                                  searching: true,
+	                                  scrollX: true,
+	                                        pageLength: 5,
+	                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+	          
+	                              });
+	                          });
+	                      }
+	                  });
+	              });
+	        </script>
+              <h4>Kasus 4: Kinerja Reksadana</h4>
+              <p>Seorang investor ingin membandingkan kinerja (return bulanan dalam %) dari empat kategori Reksadana yang berbeda: Saham, Pendapatan Tetap, Campuran, dan Pasar Uang.
+<br>
+Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di antara empat kategori reksadana ini?</p>
+	        <a class="actions" href="anova-chi-4.csv"><button class="btn btn-primary">Unduh CSV </button></a>
+	        <div class="overflow-auto" id="tabel-anova-chi-4"></div>
+	        <script>
+	          fetch('https://paggalih.github.io/matkul/sem2025-01/aplikasi-statistik/anova-chi-4.csv')
+	              .then(res => res.text())
+	              .then(csvText => {
+	                  Papa.parse(csvText, {
+	                      header: true,
+	                      skipEmptyLines: true, 
+	                      complete: function (results) {
+	                          const headers = results.meta.fields;
+	                          const dataRows = results.data;  
+	                          if (dataRows.length === 0) return;
+	          
+	                          let html = `<table class="table table-striped text-center" id="datatable-anova-chi-4">`;
+	          
+	                          html += '<thead><tr>';
+	                          headers.forEach(header => {
+	                              html += `<th>${header}</th>`;
+	                          });
+	                          html += '</tr></thead>';
+	          
+	                          html += '<tbody>';
+	                          dataRows.forEach(row => {
+	                              html += '<tr>';
+	                              headers.forEach(header => {
+	                                  const cell = row[header];
+	                                  html += `<td>${cell}</td>`;
+	                              });
+	                              html += '</tr>';
+	                          });
+	                          html += '</tbody>';
+	          
+	                          html += '</table>';
+	          document.getElementById("tabel-anova-chi-4").innerHTML = html;
+	          
+	                          $(document).ready(function () {
+	                              $('#datatable-anova-chi-4').DataTable({
 	                                  paging: true,
 	                                  searching: true,
 	                                  scrollX: true,
