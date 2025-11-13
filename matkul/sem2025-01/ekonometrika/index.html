@@ -3610,12 +3610,17 @@
         </div>
         <p class="h1">Ketentuan UAS</p>
         <ol>
-          <li>UAS hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-          <li>Soal UAS boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
-          <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+          <li>Pembagian soal UAS sesuai kelompok yang ada pada <a href="uas.html"><button class="btn btn-primary">Soal UAS</button></a>.</li>
+          <li>UAS harus dikumpulkan saat minggu UAS pada link ini <a href="uas.html"><button class="btn btn-primary">Pengumpulan UAS</button></a>.</li>
+          <li>Buatlah google form sesuai indikator variable pada pembagian soal UAS dengan menambahkan isian nama dan NIM responden.</li>
+          <li>Bagikan google form kepada teman seangkatan dan kumpulkan 100 data mahasiswa.</li>
+          <li>Pelajari tentang deskripsi data dan skala likert.</li>
+          <li>Olah data menggunakan regresi linier yang sesuai.</li>
+          <li>Analisis data sesuai dengan materi yang telah diberikan di kelas.</li>
+          <li>Simpulkan dan berikan saran yang sesuai.</li>
         </ol>
-        <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button>
-        <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button>
+<!--         <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button> -->
+<!--         <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button> -->
         <script>
           const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
           const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
@@ -3717,127 +3722,30 @@
             </ol>
           </div>
           <div id="soal2uas" style='display:none;'>
-            <p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
-            <ol type="a">
-              <li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
-              <li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
-              <li>Bandingkan penyebaran (<em>dispersi</em>) dari populasi dengan penyebaran dari rata-rata sampel.</li>
-            </ol>
+
           </div>
           <div id="soal3uas" style='display:none;'>
-            <p>Seorang inspektur daging di Iowa ingin memperkirakan <strong>rata-rata berat bersih</strong> dari paket daging giling berlabel “3 pon.”</p>
-            <p>Sampel sebanyak <strong>36 paket</strong> menunjukkan:</p>
-            <ul>
-              <li>Rata-rata sampel: \( \bar{x} = 3.01 \) pon</li>
-              <li>Simpangan baku: \( s = 0.03 \) pon</li>
-              <li>Ukuran sampel: \( n = 36 \)</li>
-              <li>Tingkat kepercayaan: 95%</li>
-            </ul>
-            <ol type="a">
-              <li>Berapa <em>estimasi titik</em> dari rata-rata populasi?</li>
-              <li>Tentukan <em>interval kepercayaan 95%</em> untuk rata-rata populasi.</li>
-            </ol>
+
           </div>
           <!-- ======================= -->
           <div id="soal4uas" style='display:none;'>
-            <p>Jumlah air yang dikonsumsi setiap hari oleh orang dewasa sehat mengikuti distribusi normal dengan rata-rata \( \mu = 1.4 \) liter.</p>
-            <p>Sebuah kampanye kesehatan mendorong konsumsi minimal $2.0$ liter per hari. Setelah kampanye, diambil sampel $10$ orang dewasa dengan konsumsi air (dalam liter):</p>
-            <p>$1.5, 1.6,$ $1.5, 1.4,$ $1.9, 1.4,$ $1.3, 1.9,$ $1.8, 1.7$</p>
-            <p>Pada tingkat signifikansi \( \alpha = 0.01 \), dapatkah kita menyimpulkan bahwa konsumsi air meningkat?</p>
-            <p>Hitung dan interpretasikan nilai-\( p \).</p>
+
           </div>
           <div id="soal5uas" style='display:none;'>
-            <p>Rata-rata pendapatan per orang di Amerika Serikat adalah \$60.000 dan distribusi pendapatan mengikuti distribusi normal.</p>
-            <p>Sebuah sampel acak dari 10 penduduk Wilmington, Delaware memiliki rata-rata \$70.000 dan simpangan baku \$10.000.</p>
-            <p>Pada tingkat signifikansi \( \alpha = 0.05 \), apakah ada cukup bukti bahwa penduduk Wilmington memiliki pendapatan <strong>lebih tinggi</strong> dari rata-rata nasional?</p>
+
           </div>
           <div id="soal6uas" style='display:none;'>
-            <p>Manajemen <strong>GoGo Carts</strong> sedang mempertimbangkan metode baru untuk merakit kereta golf. Metode saat ini membutuhkan waktu rata-rata $42.3$ menit per unit. Dari sampel acak sebanyak $24$ unit menggunakan metode baru, rata-rata waktu perakitan adalah $40.6$ menit dan simpangan baku $2.7$ menit.</p>
-            <p>Pada tingkat signifikansi \( \alpha = 0.10 \), apakah metode baru secara signifikan <strong>lebih cepat</strong>?</p>
+
           </div>
           <!-- ========================= -->
           <div id="soal7uas" style='display:none;'>
-            <p>Lester Hollar mengevaluasi apakah program kebugaran dapat menurunkan jumlah ketidakhadiran karyawan.</p>
-            <h4>Data Absensi (Jumlah Hari Tidak Masuk):</h4>
-            <table class="table table-bordered text-center">
-              <thead class="table-light">
-                <tr>
-                  <th>Employee</th>
-                  <th>Sebelum</th>
-                  <th>Sesudah</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr>
-                  <td>Bauman</td>
-                  <td>6</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>Briggs</td>
-                  <td>6</td>
-                  <td>2</td>
-                </tr>
-                <tr>
-                  <td>Dottellis</td>
-                  <td>7</td>
-                  <td>1</td>
-                </tr>
-                <tr>
-                  <td>Lee</td>
-                  <td>7</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>Perrailt</td>
-                  <td>4</td>
-                  <td>3</td>
-                </tr>
-                <tr>
-                  <td>Rielly</td>
-                  <td>3</td>
-                  <td>6</td>
-                </tr>
-                <tr>
-                  <td>Steinmetz</td>
-                  <td>5</td>
-                  <td>5</td>
-                </tr>
-                <tr>
-                  <td>Stoltz</td>
-                  <td>6</td>
-                  <td>7</td>
-                </tr>
-              </tbody>
-            </table>
+
           </div>
           <div id="soal8uas" style='display:none;'>
-            <p>Grand Strand Family Medical Center menangani kasus darurat ringan di Myrtle Beach. Dua lokasi dibandingkan: <strong>Little River</strong> dan <strong>Murrells Inlet</strong>.</p>
-            <h4>Data Waktu Tunggu (dalam menit):</h4>
-            <div class="overflow-auto">
-              <table class="table table-bordered text-center">
-                <thead class="table-light">
-                  <tr>
-                    <th>Little River</th>
-                    <th>Murrells Inlet</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <td>31, 28, 29, 22, 29, 18, 32, 25, 29, 26</td>
-                    <td>22, 23, 26, 27, 26, 25, 30, 29, 23, 22</td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
+
           </div>
           <div id="soal9uas" style='display:none;'>
-            <p>Clark Heter adalah seorang insinyur industri di Lyons Products. Ia ingin mengetahui apakah jumlah unit yang diproduksi pada shift malam lebih banyak dibanding shift siang.</p>
-            <ul>
-              <li>Rata-rata shift siang: \( \bar{x}_1 = 345 \), \( n_1 = 54 \), \( \sigma_1 = 21 \)</li>
-              <li>Rata-rata shift malam: \( \bar{x}_2 = 351 \), \( n_2 = 60 \), \( \sigma_2 = 28 \)</li>
-              <li>Signifikansi: \( \alpha = 0.05 \)</li>
-            </ul>
+
           </div>
           <p class="h1 text-center">Soal UAS</p>
           <ol id="soalUAS">
