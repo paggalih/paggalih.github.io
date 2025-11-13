@@ -1,0 +1,621 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Penjelajah Topik Penelitian MBS</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <!-- Chosen Palette: Calm Academia (Slate, Sky, White, Emerald) -->
+    <!-- Application Structure Plan: Desain aplikasi ini menggunakan arsitektur dua panel (sidebar-konten) yang disengaja. Tujuannya bukan untuk mereplikasi laporan, tetapi untuk menciptakan 'alat eksplorasi' bagi mahasiswa. Panel kiri (sidebar) berfungsi sebagai navigasi utama, mencantumkan 8 topik. Panel kanan (konten) adalah area dinamis yang merespons pilihan pengguna. Struktur ini dipilih karena memungkinkan perbandingan topik secara cepat dan pendalaman (deep-dive) yang terfokus. Pengguna dapat dengan mudah beralih antar model penelitian tanpa kehilangan konteks. Interaksi utamanya adalah 'pilih-lihat-detail', yang jauh lebih intuitif untuk mengeksplorasi opsi daripada menggulir dokumen linier. -->
+    <!-- Visualization & Content Choices: 
+        1. Daftar Topik (Navigasi): Laporan 8 topik -> Goal: Navigasi -> Viz: Daftar <li> di sidebar -> Interaction: onClick(showTopic) -> Justification: Navigasi utama yang cepat dan jelas.
+        2. Struktur Model (Chart): Jumlah variabel Y dan X -> Goal: Inform (Ringkasan) -> Viz: Chart.js Doughnut Chart -> Interaction: Tampil dinamis per topik -> Justification: Memberikan visualisasi instan tentang kompleksitas model (misal, 3 vs 2 variabel independen) yang lebih mudah dipahami daripada teks.
+        3. Detail Variabel (Accordion): Indikator & Pertanyaan -> Goal: Organize/Inform -> Viz: HTML <details> & <summary> (Accordion) -> Interaction: onClick (expand/collapse) -> Justification: Mengelola kepadatan informasi. Pengguna dapat fokus pada satu variabel (misal, X1) tanpa terdistraksi oleh variabel lain, lalu membukanya untuk melihat detail instrumen.
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+        
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 350px;
+        }
+        
+        .nav-item.active {
+            background-color: #ecfdf5; 
+            border-right: 4px solid #10b981; 
+            font-weight: 600;
+            color: #065f46;
+        }
+        .nav-item {
+            border-right: 4px solid transparent;
+        }
+    </style>
+</head>
+<body class="bg-slate-50 text-slate-800">
+
+    <div class="flex flex-col md:flex-row min-h-screen">
+        
+        <nav class="w-full md:w-2/5 lg:w-1/3 bg-white shadow-lg h-screen overflow-y-auto border-r border-slate-200">
+            <div class="p-6 border-b border-slate-200">
+                <h1 class="text-2xl font-bold text-emerald-700">Penjelajah Topik</h1>
+                <p class="text-sm text-slate-600">8 Topik Penelitian (Regresi Linier Berganda) untuk Mahasiswa MBS</p>
+            </div>
+            <ul id="topic-list">
+            </ul>
+        </nav>
+
+        <main id="main-content" class="w-full md:w-3/5 lg:w-2/3 h-screen overflow-y-auto p-6 md:p-10">
+            
+            <div id="topic-detail-container" class="max-w-4xl mx-auto">
+                
+                <h2 id="topic-title" class="text-3xl font-bold text-slate-900 mb-4"></h2>
+                
+                <p id="topic-intro" class="text-base text-slate-700 mb-8 p-4 bg-white rounded-lg shadow-sm border border-slate-200"></p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-5 gap-6 mb-8">
+                    
+                    <div class="lg:col-span-2 bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-semibold mb-4 text-slate-800">Struktur Model</h3>
+                        <p class="text-sm text-slate-600 mb-4">Visualisasi ini menunjukkan jumlah variabel dependen (Y) dan independen (X) dalam model regresi topik ini.</p>
+                        <div class="chart-container">
+                            <canvas id="modelChart"></canvas>
+                        </div>
+                    </div>
+
+                    <div class="lg:col-span-3 bg-white p-6 rounded-lg shadow-sm border border-slate-200">
+                        <h3 class="text-xl font-semibold mb-4 text-slate-800">Model Regresi (MLR)</h3>
+                        <p class="text-sm text-slate-600 mb-2">Penelitian ini menggunakan model Regresi Linier Berganda untuk menguji hipotesis. Persamaan umumnya adalah:</p>
+                        <code class="block text-sm p-4 bg-slate-100 text-slate-700 rounded-md overflow-x-auto whitespace-nowrap mb-4">
+                            Y = α + β₁(X₁) + β₂(X₂) + β₃(X₃) + ... + ε
+                        </code>
+                        <div id="model-legend" class="space-y-3">
+                        </div>
+                    </div>
+                </div>
+
+                <h3 class="text-2xl font-semibold mb-6 text-slate-900">Eksplorasi Variabel & Indikator</h3>
+                <div id="variables-container" class="space-y-4">
+                </div>
+
+            </div>
+        </main>
+    </div>
+
+    <script>
+        
+        const topicsData = [
+            {
+                id: 0,
+                title: "1. Minat Berkarier di Keuangan Syariah",
+                fullTitle: "Faktor-Faktor yang Mempengaruhi Minat Berkarier di Sektor Keuangan Syariah",
+                model: { Y: "Minat Berkarier", X: ["Ekspektasi Gaji", "Persepsi Lingkungan Kerja", "Religiusitas"] },
+                variables: [
+                    { 
+                        name: "Y: Minat Berkarier di Perbankan Syariah", 
+                        type: "Dependen",
+                        source: "Ajzen, I. (1991). DOI: 10.1016/0749-5978(91)90020-T",
+                        indicators: [
+                            { name: "Minat transaksional", q: ["Saya berencana untuk melamar pekerjaan di bank syariah setelah saya lulus."] },
+                            { name: "Minat preferensial", q: ["Bank syariah adalah pilihan karier utama saya dibandingkan lembaga keuangan konvensional."] },
+                            { name: "Minat referensial", q: ["Saya akan merekomendasikan teman-teman saya untuk berkarier di bank syariah."] },
+                            { name: "Minat eksploratif", q: ["Saya aktif mencari informasi mengenai lowongan pekerjaan di bank syariah."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Ekspektasi Gaji", 
+                        type: "Independen",
+                        source: "Twenge, J. M., et al. (2010). DOI: 10.1111/j.1559-1816.2009.00581.x",
+                        indicators: [
+                            { name: "Persepsi terhadap tingkat gaji", q: ["Saya berharap bank syariah menawarkan gaji yang kompetitif (setara atau lebih baik) dengan bank konvensional."] },
+                            { name: "Kesesuaian gaji dengan kebutuhan", q: ["Saya yakin gaji awal di bank syariah akan mencukupi kebutuhan hidup saya."] },
+                            { name: "Gaji sebagai motivasi", q: ["Besaran gaji adalah pertimbangan utama saya dalam memilih pekerjaan."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Persepsi Lingkungan Kerja", 
+                        type: "Independen",
+                        source: "Gull, S. (2016). DOI: 10.5296/jmr.v8i1.8797",
+                        indicators: [
+                            { name: "Hubungan dengan rekan kerja & Dukungan atasan", q: ["Saya membayangkan lingkungan kerja di bank syariah sangat suportif dan kooperatif."] },
+                            { name: "Kesempatan pengembangan karier", q: ["Saya yakin bank syariah memberikan jenjang karier yang jelas dan adil bagi karyawannya."] },
+                            { name: "Kesesuaian dengan nilai-nilai religius", q: ["Saya memandang lingkungan kerja di bank syariah mendukung praktik keagamaan (misal: shalat tepat waktu, busana syar'i)."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Religiusitas", 
+                        type: "Independen",
+                        source: "Khairani, Z., & Widiastuti, T. (2017). DOI: 10.15575/jiseb.v2i2.1585",
+                        indicators: [
+                            { name: "Dimensi keyakinan (Ideologi)", q: ["Saya meyakini bahwa bekerja di lembaga keuangan syariah adalah bagian dari ibadah."] },
+                            { name: "Dimensi praktik (Ritual)", q: ["Saya berusaha rutin melaksanakan shalat lima waktu tepat waktu."] },
+                            { name: "Dimensi konsekuensi (Perilaku)", q: ["Saya selalu berusaha menghindari transaksi yang mengandung Riba dalam kehidupan sehari-hari."] }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 1,
+                title: "2. Intensi Berinvestasi Syariah",
+                fullTitle: "Pengaruh Literasi Keuangan terhadap Intensi Berinvestasi Syariah",
+                model: { Y: "Intensi Berinvestasi", X: ["Literasi Keuangan Syariah", "Persepsi Risiko", "Social Influence"] },
+                variables: [
+                    { 
+                        name: "Y: Intensi/Minat Berinvestasi (Saham Syariah)", 
+                        type: "Dependen",
+                        source: "Ajzen, I. (1991). DOI: 10.1016/0749-5978(91)90020-T",
+                        indicators: [
+                            { name: "Ketertarikan", q: ["Saya tertarik untuk mempelajari lebih lanjut tentang cara berinvestasi saham syariah."] },
+                            { name: "Keinginan untuk mencoba", q: ["Saya memiliki keinginan kuat untuk mencoba membeli saham syariah."] },
+                            { name: "Rencana masa depan", q: ["Saya berencana untuk mulai berinvestasi di saham syariah dalam 6 bulan ke depan."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Literasi Keuangan Syariah", 
+                        type: "Independen (Tes Objektif)",
+                        source: "Ibrahim, I., & Al-Qayem, M. (2021). DOI: 10.1108/ISRA-01-2021-0014",
+                        indicators: [
+                            { name: "Pengetahuan dasar (Riba, Gharar, Maysir)", q: ["Manakah dari transaksi berikut yang paling jelas mengandung unsur Riba? (a) Kredit motor dengan bunga 5%...", "Ketidakpastian atau spekulasi yang dilarang... dikenal sebagai... (a) Riba (b) Gharar..."] },
+                            { name: "Pengetahuan produk (Saham Syariah, Sukuk)", q: ["BENAR atau SALAH: 'Semua saham yang terdaftar di Bursa Efek Indonesia otomatis merupakan saham syariah'."] },
+                            { name: "Pengetahuan manajemen risiko syariah", q: ["Prinsip membagi risiko dalam investasi syariah sesuai dengan konsep... (a) Diversifikasi..."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Persepsi Risiko", 
+                        type: "Independen",
+                        source: "Pahlawan, M. F., et al. (2018). DOI: 10.21070/jess.v3i1.1070",
+                        indicators: [
+                            { name: "Risiko keuangan", q: ["Saya khawatir akan kehilangan sebagian besar uang saya jika berinvestasi di saham syariah."] },
+                            { name: "Risiko kinerja", q: ["Saya ragu bahwa kinerja (keuntungan) saham syariah bisa sebagus saham konvensional."] },
+                            { name: "Risiko psikologis/kompleksitas", q: ["Menurut saya, investasi saham syariah terlalu rumit untuk saya pahami."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Social Influence (Pengaruh Sosial)", 
+                        type: "Independen",
+                        source: "Venkatesh, V., et al. (2003). DOI: 10.2307/30036540",
+                        indicators: [
+                            { name: "Pengaruh keluarga", q: ["Keluarga saya mendukung keputusan saya untuk berinvestasi di instrumen syariah."] },
+                            { name: "Pengaruh teman sebaya", q: ["Teman-teman dekat saya banyak yang berinvestasi di saham syariah."] },
+                            { name: "Pengaruh media sosial/figur publik", q: ["Rekomendasi dari *influencer* keuangan syariah... mempengaruhi minat saya."] }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 2,
+                title: "3. Determinan Persepsi Risiko",
+                fullTitle: "Determinan Persepsi Risiko pada Instrumen Keuangan Syariah (Sukuk Ritel)",
+                model: { Y: "Persepsi Risiko", X: ["Pengetahuan Investasi", "Pengalaman Investasi", "Toleransi Risiko"] },
+                variables: [
+                    { 
+                        name: "Y: Persepsi Risiko (Sukuk Ritel)", 
+                        type: "Dependen",
+                        source: "Weber, E. U., et al. (2002). DOI: 10.1023/A:1015039730562",
+                        indicators: [
+                            { name: "Persepsi ketidakpastian pengembalian", q: ["Menurut saya, hasil (kupon/imbalan) dari Sukuk Ritel sangat tidak pasti."] },
+                            { name: "Persepsi potensi kerugian modal", q: ["Saya merasa ada kemungkinan saya kehilangan uang pokok saya jika berinvestasi di Sukuk Ritel."] },
+                            { name: "Persepsi volatilitas", q: ["Saya memandang harga Sukuk Ritel di pasar sekunder sangat fluktuatif (naik-turun drastis)."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Pengetahuan Investasi", 
+                        type: "Independen (Tes Objektif)",
+                        source: "van Rooij, M., et al. (2011). DOI: 10.1016/j.jbankfin.2011.09.002",
+                        indicators: [
+                            { name: "Pengetahuan dasar investasi", q: ["BENAR atau SALAH: 'Investasi yang menawarkan potensi keuntungan tinggi biasanya memiliki risiko yang tinggi pula'."] },
+                            { name: "Pengetahuan tentang produk Sukuk", q: ["Apa yang menjadi dasar pembayaran imbalan (kupon) pada Sukuk? (a) Suku bunga (b) Keuntungan aset...", "BENAR atau SALAH: 'Sukuk Ritel yang diterbitkan pemerintah Indonesia dijamin oleh undang-undang'."] },
+                            { name: "Pemahaman risiko dan pengembalian", q: ["Manakah yang umumnya dianggap memiliki risiko lebih rendah? (a) Saham (b) Sukuk Ritel Negara..."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Pengalaman Investasi", 
+                        type: "Independen (Ordinal/Isian)",
+                        source: "Al-Tamimi, H. A. H., & Kalli, A. A. B. (2009). DOI: 10.1108/02651330910977502",
+                        indicators: [
+                            { name: "Durasi berinvestasi", q: ["Sudah berapa lama Anda berinvestasi di instrumen keuangan APAPUN? (a) Belum pernah (b) < 6 bulan..."] },
+                            { name: "Frekuensi transaksi", q: ["Dalam 3 bulan terakhir, seberapa sering Anda bertransaksi...? (a) 0 kali (b) 1-2 kali..."] },
+                            { name: "Keragaman portofolio", q: ["Apakah Anda pernah membeli Sukuk (termasuk Sukuk Ritel) sebelumnya? (a) Ya (b) Tidak."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Toleransi Risiko", 
+                        type: "Independen",
+                        source: "Grable, J. E., & Lytton, R. H. (1999). DOI: 10.1023/A:1022993102432",
+                        indicators: [
+                            { name: "Kenyamanan dalam menghadapi ketidakpastian", q: ["Saya lebih memilih investasi yang hasilnya pasti... daripada investasi yang hasilnya tidak pasti tapi berpotensi besar."] },
+                            { name: "Reaksi terhadap kerugian", q: ["Saya akan merasa sangat cemas dan panik jika nilai investasi saya turun 10% dalam satu hari."] }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 3,
+                title: "4. Minat Menggunakan Fintech Syariah",
+                fullTitle: "Faktor yang Mempengaruhi Minat Menggunakan Fintech Syariah (E-Wallet)",
+                model: { Y: "Minat Berkelanjutan", X: ["Persepsi Kegunaan", "Persepsi Kemudahan", "Kepercayaan"] },
+                variables: [
+                    { 
+                        name: "Y: Minat Berkelanjutan Menggunakan (E-Wallet Syariah)", 
+                        type: "Dependen",
+                        source: "Bhattacherjee, A. (2001). DOI: 10.2307/3069476",
+                        indicators: [
+                            { name: "Niat untuk terus menggunakan", q: ["Saya akan terus menggunakan E-Wallet Syariah ini di masa depan.", "Saya berniat menjadikan E-Wallet Syariah ini sebagai alat pembayaran utama saya."] },
+                            { name: "Niat untuk merekomendasikan", q: ["Saya akan merekomendasikan E-Wallet Syariah ini kepada teman atau keluarga saya."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Persepsi Kegunaan (Perceived Usefulness)", 
+                        type: "Independen",
+                        source: "Davis, F. D. (1989). DOI: 10.2307/249008",
+                        indicators: [
+                            { name: "Efektivitas & Efisiensi", q: ["Menggunakan E-Wallet Syariah mempercepat proses transaksi saya."] },
+                            { name: "Peningkatan kinerja transaksi", q: ["Aplikasi E-Wallet Syariah ini sangat bermanfaat untuk mengelola pembayaran harian saya."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Persepsi Kemudahan (Perceived Ease of Use)", 
+                        type: "Independen",
+                        source: "Davis, F. D. (1989). DOI: 10.2307/249008",
+                        indicators: [
+                            { name: "Mudah dipelajari", q: ["Saya tidak memerlukan banyak waktu untuk belajar cara menggunakan aplikasi E-Wallet Syariah ini."] },
+                            { name: "Mudah dioperasikan", q: ["Tampilan (interface) aplikasi E-Wallet Syariah ini sangat mudah dipahami dan digunakan."] },
+                            { name: "Tidak memerlukan usaha besar", q: ["Saya tidak mengalami kesulitan saat melakukan transaksi menggunakan E-Wallet Syariah ini."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Kepercayaan (Trust)", 
+                        type: "Independen",
+                        source: "Gefen, D., et al. (2003). DOI: 10.2307/30036519",
+                        indicators: [
+                            { name: "Keamanan data", q: ["Saya percaya bahwa data pribadi dan keuangan saya aman di aplikasi E-Wallet Syariah ini."] },
+                            { name: "Kepatuhan syariah", q: ["Saya yakin semua fitur dan transaksi di E-Wallet ini telah 100% sesuai dengan prinsip syariah."] },
+                            { name: "Reliabilitas (keandalan) sistem", q: ["Saya merasa aplikasi E-Wallet Syariah ini jarang mengalami error atau gangguan sistem."] }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 4,
+                title: "5. Etika Bisnis & Perilaku Konsumsi",
+                fullTitle: "Pengaruh Pemahaman Etika Bisnis Islam terhadap Perilaku Konsumsi",
+                model: { Y: "Perilaku Konsumsi Halal", X: ["Pemahaman Etika Bisnis", "Kontrol Diri", "Pengetahuan Label Halal"] },
+                variables: [
+                    { 
+                        name: "Y: Perilaku Konsumsi Halal", 
+                        type: "Dependen",
+                        source: "Ambali, A. R., & Bakar, A. N. (2014). DOI: 10.1016/j.sbspro.2014.01.1104",
+                        indicators: [
+                            { name: "Kesadaran label halal", q: ["Saya selalu memeriksa keberadaan label halal MUI sebelum membeli makanan atau minuman kemasan."] },
+                            { name: "Upaya mencari produk halal", q: ["Saya berusaha mencari alternatif produk halal jika produk yang saya inginkan tidak jelas status halalnya."] },
+                            { name: "Menghindari produk non-halal/syubhat", q: ["Saya menghindari membeli produk dari produsen yang terkenal tidak peduli pada sertifikasi halal."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Pemahaman Etika Bisnis Islam", 
+                        type: "Independen (Persepsi)",
+                        source: "Laili, R. N. (2017). DOI: 10.21043/iqtishadia.v10i2.2039",
+                        indicators: [
+                            { name: "Pemahaman prinsip Tauhid & 'Adl (Keadilan)", q: ["Saya paham bahwa dalam bisnis, penjual dan pembeli harus jujur dan adil dalam timbangan dan informasi."] },
+                            { name: "Pemahaman Ikhtiyar & Mas'uliyah", q: ["Saya mengerti konsep bahwa pebisnis Muslim memiliki tanggung jawab sosial (mas'uliyah) terhadap masyarakat."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Kontrol Diri (Self-Control)", 
+                        type: "Independen",
+                        source: "Tangney, J. P., et al. (2004). DOI: 10.1111/j.0022-3506.2004.00263.x",
+                        indicators: [
+                            { name: "Kemampuan menahan godaan", q: ["Saya dapat menahan diri untuk tidak membeli barang yang tidak saya butuhkan, meskipun sedang diskon besar."] },
+                            { name: "Menghindari pembelian impulsif", q: ["Saya jarang melakukan pembelian mendadak (impulsif) yang tidak saya rencanakan sebelumnya."] },
+                            { name: "Disiplin", q: ["Saya disiplin mematuhi anggaran belanja yang telah saya buat."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Pengetahuan Label Halal", 
+                        type: "Independen (Persepsi)",
+                        source: "Aziz, N. A., & Wahab, A. A. (2018). DOI: 10.11113/ijbes.v5.n3.279",
+                        indicators: [
+                            { name: "Kemampuan mengenali logo halal yang sah", q: ["Saya yakin saya dapat membedakan logo halal MUI yang asli dan yang palsu."] },
+                            { name: "Pemahaman arti sertifikasi halal", q: ["Saya paham bahwa logo halal berarti produk telah diaudit proses produksi dan bahannya dari hulu ke hilir."] }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 5,
+                title: "6. Alokasi Pendapatan & Filantropi",
+                fullTitle: "Determinan Alokasi Pendapatan untuk Filantropi Islam (ZISWAF)",
+                model: { Y: "Proporsi ZISWAF", X: ["Jumlah Uang Saku", "Tingkat Religiusitas", "Literasi Filantropi"] },
+                variables: [
+                    { 
+                        name: "Y: Proporsi Pendapatan untuk ZISWAF", 
+                        type: "Dependen (Rasio)",
+                        source: "Andreoni, J. (1990). DOI: 10.2307/2117403",
+                        indicators: [
+                            { name: "Persentase (0-100%)", q: ["Dari total uang saku/pendapatan bulanan Anda, kira-kira berapa persen (%) yang Anda alokasikan untuk Zakat, Infaq, dan Sedekah (ZIS)? (Isikan angka 0-100)."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Jumlah Uang Saku", 
+                        type: "Independen (Rasio)",
+                        source: "Data Demografis",
+                        indicators: [
+                            { name: "Total pendapatan bulanan", q: ["Berapa rata-rata uang saku (atau pendapatan jika bekerja) yang Anda terima per bulan? (Isikan angka dalam Rupiah)."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Tingkat Religiusitas", 
+                        type: "Independen",
+                        source: "Khairani, Z., & Widiastuti, T. (2017). DOI: 10.15575/jiseb.v2i2.1585",
+                        indicators: [
+                            { name: "Dimensi keyakinan", q: ["Saya meyakini bahwa menyisihkan harta untuk ZISWAF akan membersihkan jiwa dan harta saya."] },
+                            { name: "Dimensi praktik", q: ["Saya rutin memberikan infaq/sedekah setiap minggu atau setiap bulan."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Literasi Filantropi Islam", 
+                        type: "Independen (Tes Objektif)",
+                        source: "Khasanah, U., et al. (2019). DOI: 10.20473/vol6iss20199pp1774-1788",
+                        indicators: [
+                            { name: "Pengetahuan tentang Zakat", q: ["Manakah perbedaan utama antara Zakat Maal (harta) dan Zakat Fitrah? (a) Waktu..."] },
+                            { name: "Pengetahuan tentang Wakaf", q: ["BENAR atau SALAH: 'Ketika seseorang berwakaf tanah, tanah tersebut boleh dijual oleh pengelola (nazhir)...'"] },
+                            { name: 'Pengetahuan tentang lembaga amil zakat', q: ["Lembaga resmi yang mengkoordinasi pengelolaan zakat nasional... adalah... (a) BAZNAS..."] }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 6,
+                title: "7. Religiusitas & Perilaku Keuangan",
+                fullTitle: "Pengaruh Religiusitas terhadap Perilaku Keuangan yang Bertanggung Jawab",
+                model: { Y: "Manajemen Keuangan", X: ["Religiusitas Intrinsik", "Literasi Keuangan"] },
+                variables: [
+                    { 
+                        name: "Y: Perilaku Manajemen Keuangan Pribadi", 
+                        type: "Dependen",
+                        source: "Hilgert, M. A., et al. (2003). DOI: 10.17016/FRB.2003.07.309-322",
+                        indicators: [
+                            { name: "Penganggaran (Budgeting)", q: ["Seberapa sering Anda membuat anggaran bulanan untuk pengeluaran Anda?"] },
+                            { name: "Menabung", q: ["Seberapa sering Anda menyisihkan uang untuk ditabung segera setelah menerima uang saku...?"] },
+                            { name: "Pengelolaan utang (Menghindari Riba)", q: ["Seberapa sering Anda menghindari pinjaman yang mengandung bunga (riba), seperti pinjol...?"] },
+                            { name: "Perencanaan keuangan", q: ["Seberapa sering Anda memikirkan rencana keuangan jangka panjang (misal: biaya setelah lulus)?"] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Religiusitas Intrinsik", 
+                        type: "Independen",
+                        source: "Allport, G. W., & Ross, J. M. (1967). DOI: 10.1037/h0021212",
+                        indicators: [
+                            { name: "Menjadikan agama sebagai pedoman utama", q: ["Agama adalah panduan utama dalam hidup saya.", "Saya berusaha menerapkan ajaran agama dalam setiap keputusan... termasuk keputusan keuangan."] },
+                            { name: "Motivasi internal dalam beragama", q: ["Saya beribadah karena saya merasa itu adalah kebutuhan batin saya, bukan karena dorongan orang lain."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Literasi Keuangan (Konvensional)", 
+                        type: "Independen (Tes Objektif)",
+                        source: "Lusardi, A., & Mitchell, O. S. (2011). DOI: 10.1017/S147474721100044X",
+                        indicators: [
+                            { name: "Pengetahuan bunga majemuk", q: ["Jika Anda menabung Rp 1.000.000 di bank dengan bunga 10% per tahun... Berapa uang Anda setelah 2 tahun? (a) ... (b) Rp 1.210.000..."] },
+                            { name: "Inflasi", q: ["Jika inflasi 5% per tahun dan tabungan Anda memberi bunga 3% per tahun, maka daya beli... uang Anda akan... (a) Meningkat (b) Menurun..."] },
+                            { 
+                                name: "Diversifikasi risiko", q: ["Pernyataan berikut yang paling TEPAT menggambarkan 'diversifikasi' adalah... (c) Menyebar investasi di beberapa instrumen berbeda."] 
+                            }
+                        ]
+                    }
+                ]
+            },
+            {
+                id: 7,
+                title: "8. Determinan Minat Berwirausaha",
+                fullTitle: "Analisis Determinan Minat Berwirausaha Syariah",
+                model: { Y: "Minat Berwirausaha", X: ["Mata Kuliah Kewirausahaan", "Dukungan Keluarga", "Pemahaman Akad Syariah"] },
+                variables: [
+                    { 
+                        name: "Y: Minat Berwirausaha (Entrepreneurial Intention)", 
+                        type: "Dependen",
+                        source: "Liñán, F., & Chen, Y. W. (2009). DOI: 10.1111/j.1540-6520.2009.00315.x",
+                        indicators: [
+                            { name: "Keinginan kuat", q: ["Saya sangat ingin memiliki bisnis sendiri suatu saat nanti."] },
+                            { name: "Keyakinan diri (Self-efficacy)", q: ["Saya yakin saya memiliki kemampuan dan keterampilan untuk menjadi wirausahawan yang sukses."] },
+                            { name: "Rencana konkrit", q: ["Saya sudah secara aktif memikirkan langkah-langkah konkrit untuk memulai usaha saya sendiri."] }
+                        ]
+                    },
+                    { 
+                        name: "X1: Persepsi Mata Kuliah Kewirausahaan", 
+                        type: "Independen",
+                        source: "Souitaris, V., et al. (2007). DOI: 10.1016/j.jbusvent.2006.01.006",
+                        indicators: [
+                            { name: "Relevansi kurikulum & Peningkatan skill", q: ["Mata kuliah kewirausahaan di kampus saya memberi saya keterampilan praktis yang saya butuhkan untuk memulai bisnis."] },
+                            { name: "Metode pengajaran (inspiratif)", q: ["Dosen mata kuliah kewirausahaan sangat memotivasi dan menginspirasi saya untuk berwirausaha."] }
+                        ]
+                    },
+                    { 
+                        name: "X2: Dukungan Keluarga (Family Support)", 
+                        type: "Independen",
+                        source: "Krueger, N. F., et al. (2000). DOI: 10.1016/S0883-9026(98)00033-0",
+                        indicators: [
+                            { name: "Dukungan emosional", q: ["Keluarga saya sangat mendukung jika saya memilih menjadi wirausaha daripada menjadi karyawan."] },
+                            { name: "Dukungan instrumental (finansial)", q: ["Saya merasa keluarga saya akan bersedia membantu (misal: modal awal) jika saya serius memulai bisnis."] },
+                            { name: "Peran model (orang tua sebagai wirausaha)", q: ["Saya memiliki anggota keluarga dekat (orang tua/kakak) yang sukses sebagai wirausaha."] }
+                        ]
+                    },
+                    { 
+                        name: "X3: Pemahaman Akad Syariah", 
+                        type: "Independen (Tes Objektif)",
+                        source: "Diadaptasi dari Fiqh Muamalah",
+                        indicators: [
+                            { name: "Pengetahuan akad Mudharabah", q: ["Akad kerjasama dimana satu pihak memberi modal 100%... disebut... (a) Mudharabah..."] },
+                            { name: "Pengetahuan akad Musyarakah", q: ["Akad kerjasama dimana dua pihak atau lebih menyertakan modal... disebut... (b) Musyarakah..."] },
+                            { name: "Pengetahuan akad Murabahah", q: ["Akad jual beli dimana penjual secara jelas menyebutkan harga perolehan... disebut... (c) Murabahah..."] }
+                        ]
+                    }
+                ]
+            }
+        ];
+
+        let currentChart = null;
+        const topicListEl = document.getElementById('topic-list');
+        const topicTitleEl = document.getElementById('topic-title');
+        const topicIntroEl = document.getElementById('topic-intro');
+        const variablesContainerEl = document.getElementById('variables-container');
+        const modelLegendEl = document.getElementById('model-legend');
+        const chartCtx = document.getElementById('modelChart').getContext('2d');
+
+        document.addEventListener('DOMContentLoaded', () => {
+            loadTopics();
+            displayTopic(0);
+        });
+
+        function loadTopics() {
+            topicListEl.innerHTML = '';
+            topicsData.forEach(topic => {
+                const li = document.createElement('li');
+                li.className = 'nav-item p-4 text-slate-700 hover:bg-emerald-50 cursor-pointer text-sm font-medium';
+                li.innerText = topic.title;
+                li.dataset.topicId = topic.id;
+                li.addEventListener('click', () => displayTopic(topic.id));
+                topicListEl.appendChild(li);
+            });
+        }
+
+        function displayTopic(id) {
+            const topic = topicsData[id];
+            
+            topicTitleEl.innerText = topic.fullTitle;
+            topicIntroEl.innerText = `Topik ini menganalisis bagaimana variabel ${topic.model.X.join(', ')} mempengaruhi ${topic.model.Y}. Gunakan panel di bawah untuk menjelajahi setiap variabel, indikator, dan contoh pertanyaannya.`;
+
+            updateActiveNav(id);
+            updateChart(topic);
+            updateModelLegend(topic);
+            updateVariables(topic);
+
+            document.getElementById('main-content').scrollTop = 0;
+        }
+
+        function updateActiveNav(id) {
+            Array.from(topicListEl.children).forEach(li => {
+                if (li.dataset.topicId == id) {
+                    li.classList.add('active');
+                } else {
+                    li.classList.remove('active');
+                }
+            });
+        }
+
+        function updateChart(topic) {
+            const numIndependen = topic.model.X.length;
+            const data = {
+                labels: ['Variabel Dependen (Y)', 'Variabel Independen (X)'],
+                datasets: [{
+                    label: 'Struktur Model',
+                    data: [1, numIndependen],
+                    backgroundColor: [
+                        '#10b981', 
+                        '#3b82f6'  
+                    ],
+                    borderColor: '#ffffff',
+                    borderWidth: 2
+                }]
+            };
+
+            if (currentChart) {
+                currentChart.destroy();
+            }
+
+            currentChart = new Chart(chartCtx, {
+                type: 'doughnut',
+                data: data,
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            position: 'bottom',
+                            labels: {
+                                padding: 15,
+                                boxWidth: 12
+                            }
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return `${context.label}: ${context.raw} variabel`;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        function updateModelLegend(topic) {
+            modelLegendEl.innerHTML = '';
+            let legendHtml = `
+                <div class="flex items-start">
+                    <span class="text-emerald-500 font-bold w-6">Y</span>
+                    <span class="ml-3 text-slate-700">= ${topic.model.Y}</span>
+                </div>`;
+            
+            topic.model.X.forEach((xVar, index) => {
+                legendHtml += `
+                <div class="flex items-start">
+                    <span class="text-blue-500 font-bold w-6">X${index + 1}</span>
+                    <span class="ml-3 text-slate-700">= ${xVar}</span>
+                </div>`;
+            });
+            modelLegendEl.innerHTML = legendHtml;
+        }
+
+        function updateVariables(topic) {
+            variablesContainerEl.innerHTML = '';
+            topic.variables.forEach(variable => {
+                const isDependen = variable.type === 'Dependen';
+                const headerColor = isDependen ? 'bg-emerald-100 text-emerald-800' : 'bg-blue-100 text-blue-800';
+                const borderColor = isDependen ? 'border-emerald-200' : 'border-blue-200';
+                
+                let indicatorsHtml = '<ul class="space-y-4">';
+                variable.indicators.forEach(indicator => {
+                    
+                    let questionsHtml = indicator.q.map(q => 
+                        `<li class="text-sm text-slate-600 pl-5 relative before:content-['•'] before:absolute before:left-0 before:text-slate-400">${q}</li>`
+                    ).join('');
+                    
+                    indicatorsHtml += `
+                        <li class="border-t border-slate-200 pt-3">
+                            <h5 class="font-semibold text-slate-700">${indicator.name}</h5>
+                            <ul class="mt-2 space-y-1">${questionsHtml}</ul>
+                        </li>
+                    `;
+                });
+                indicatorsHtml += '</ul>';
+
+                const variableHtml = `
+                    <details class="bg-white rounded-lg shadow-sm border ${borderColor} overflow-hidden">
+                        <summary class="p-4 cursor-pointer ${headerColor} font-semibold flex justify-between items-center">
+                            ${variable.name}
+                            <span class="text-xs font-medium px-2 py-0.5 rounded-full ${isDependen ? 'bg-emerald-600 text-white' : 'bg-blue-600 text-white'}">${variable.type}</span>
+                        </summary>
+                        <div class="p-5 border-t ${borderColor}">
+                            ${indicatorsHtml}
+                            <div class="mt-4 pt-3 border-t border-slate-200">
+                                <p class="text-xs text-slate-500 italic"><strong>Sumber Referensi:</strong> ${variable.source}</p>
+                            </div>
+                        </div>
+                    </details>
+                `;
+                variablesContainerEl.innerHTML += variableHtml;
+            });
+        }
+
+    </script>
+</body>
+</html>
