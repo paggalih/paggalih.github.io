@@ -2855,219 +2855,219 @@
           </ol>
         </div>
 
-<p class="fw-bold">Kasus 1: Prediksi Persetujuan Kredit Mikro</p>
-<p>Bank ingin memprediksi probabilitas seorang calon nasabah akan disetujui (APPROVE=1) atau ditolak (APPROVE=0) pengajuan kredit mikronya.
-<br>
-<strong>Variabel Dependen (Y):</strong> <br>APPROVE (1=Disetujui, 0=Ditolak)
-<br>
-<strong>Variabel Independen (X):</strong>
-<br>
-PENDAPATAN: Pendapatan bulanan pemohon (dalam jutaan Rupiah).
-<br>
-LAMA_USAHA: Lama usaha berjalan (dalam tahun).
-<br>
-RASIO_UTANG: Rasio total utang terhadap pendapatan (%).
-<br>
-JAMINAN: Apakah pemohon memiliki jaminan (1=Ya, 0=Tidak).
+        <p class="fw-bold">Kasus 1: Prediksi Persetujuan Kredit Mikro</p>
+        <p>Bank ingin memprediksi probabilitas seorang calon nasabah akan disetujui (APPROVE=1) atau ditolak (APPROVE=0) pengajuan kredit mikronya.
+          <br>
+          <strong>Variabel Dependen (Y):</strong> <br>APPROVE (1=Disetujui, 0=Ditolak)
+          <br>
+          <strong>Variabel Independen (X):</strong>
+          <br>
+          PENDAPATAN: Pendapatan bulanan pemohon (dalam jutaan Rupiah).
+          <br>
+          LAMA_USAHA: Lama usaha berjalan (dalam tahun).
+          <br>
+          RASIO_UTANG: Rasio total utang terhadap pendapatan (%).
+          <br>
+          JAMINAN: Apakah pemohon memiliki jaminan (1=Ya, 0=Tidak).
         </p>
         <a class="actions" href="logit-probit-1.csv"><button>Unduh CSV </button></a>
-                <div class="overflow-auto" id="tabel-logit-probit-1"></div>
-                <script>
-                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-1.csv')
-                      .then(res => res.text())
-                      .then(csvText => {
-                          Papa.parse(csvText, {
-                              header: true,
-                              skipEmptyLines: true, 
-                              complete: function (results) {
-                                  const headers = results.meta.fields;
-                                  const dataRows = results.data;  
-                                  if (dataRows.length === 0) return;
-                  
-                                  let html = `<table class="table table-striped text-center" id="datatable-logit-probit-1">`;
-                  
-                                  html += '<thead><tr>';
-                                  headers.forEach(header => {
-                                      html += `<th>${header}</th>`;
-                                  });
-                                  html += '</tr></thead>';
-                  
-                                  html += '<tbody>';
-                                  dataRows.forEach(row => {
-                                      html += '<tr>';
-                                      headers.forEach(header => {
-                                          const cell = row[header];
-                                          html += `<td>${cell}</td>`;
-                                      });
-                                      html += '</tr>';
-                                  });
-                                  html += '</tbody>';
-                  
-                                  html += '</table>';
-                                  document.getElementById("tabel-logit-probit-1").innerHTML = html;
-                  
-                                  $(document).ready(function () {
-                                      $('#datatable-logit-probit-1').DataTable({
-                                          paging: true,
-                                          searching: true,
-                                          scrollX: true,
-                                                pageLength: 5,
-                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                  
-                                      });
-                                  });
-                              }
+        <div class="overflow-auto" id="tabel-logit-probit-1"></div>
+        <script>
+          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-logit-probit-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
                           });
-                      });
-                </script>
-                <ol>
-                  <li>Lakukan estimasi regresi berganda.</li>
-                  <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
-                  <li>Interpretasikan hasilnya.</li>
-                </ol>
-        
-<p class="fw-bold">Kasus 2: Prediksi Kelulusan Tepat Waktu Mahasiswa</p>
-<p>Universitas ingin mengetahui faktor-faktor yang mempengaruhi probabilitas seorang mahasiswa lulus tepat waktu (LULUS_TEPAT=1) atau tidak (LULUS_TEPAT=0).
-<br>
-<strong>Variabel Dependen (Y):</strong> <br>LULUS_TEPAT (1=Lulus Tepat Waktu, 0=Tidak)
-<br>
-<strong>Variabel Independen (X):</strong>
-<br>
-IPK_SEM2: Indeks Prestasi Kumulatif mahasiswa pada semester 2.
-<br>
-SKS_LULUS_SEM2: Jumlah SKS yang berhasil diambil hingga semester 2.
-<br>
-KEAKTIFAN_ORG: Keaktifan dalam organisasi (1=Aktif, 0=Tidak Aktif).
-<br>
-BEASISWA: Apakah mahasiswa penerima beasiswa (1=Ya, 0=Tidak).
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-logit-probit-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-logit-probit-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+        <ol>
+          <li>Lakukan estimasi regresi berganda.</li>
+          <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
+          <li>Interpretasikan hasilnya.</li>
+        </ol>
+
+        <p class="fw-bold">Kasus 2: Prediksi Kelulusan Tepat Waktu Mahasiswa</p>
+        <p>Universitas ingin mengetahui faktor-faktor yang mempengaruhi probabilitas seorang mahasiswa lulus tepat waktu (LULUS_TEPAT=1) atau tidak (LULUS_TEPAT=0).
+          <br>
+          <strong>Variabel Dependen (Y):</strong> <br>LULUS_TEPAT (1=Lulus Tepat Waktu, 0=Tidak)
+          <br>
+          <strong>Variabel Independen (X):</strong>
+          <br>
+          IPK_SEM2: Indeks Prestasi Kumulatif mahasiswa pada semester 2.
+          <br>
+          SKS_LULUS_SEM2: Jumlah SKS yang berhasil diambil hingga semester 2.
+          <br>
+          KEAKTIFAN_ORG: Keaktifan dalam organisasi (1=Aktif, 0=Tidak Aktif).
+          <br>
+          BEASISWA: Apakah mahasiswa penerima beasiswa (1=Ya, 0=Tidak).
         </p>
         <a class="actions" href="logit-probit-2.csv"><button>Unduh CSV </button></a>
-                <div class="overflow-auto" id="tabel-logit-probit-2"></div>
-                <script>
-                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-2.csv')
-                      .then(res => res.text())
-                      .then(csvText => {
-                          Papa.parse(csvText, {
-                              header: true,
-                              skipEmptyLines: true, 
-                              complete: function (results) {
-                                  const headers = results.meta.fields;
-                                  const dataRows = results.data;  
-                                  if (dataRows.length === 0) return;
-                  
-                                  let html = `<table class="table table-striped text-center" id="datatable-logit-probit-2">`;
-                  
-                                  html += '<thead><tr>';
-                                  headers.forEach(header => {
-                                      html += `<th>${header}</th>`;
-                                  });
-                                  html += '</tr></thead>';
-                  
-                                  html += '<tbody>';
-                                  dataRows.forEach(row => {
-                                      html += '<tr>';
-                                      headers.forEach(header => {
-                                          const cell = row[header];
-                                          html += `<td>${cell}</td>`;
-                                      });
-                                      html += '</tr>';
-                                  });
-                                  html += '</tbody>';
-                  
-                                  html += '</table>';
-                                  document.getElementById("tabel-logit-probit-2").innerHTML = html;
-                  
-                                  $(document).ready(function () {
-                                      $('#datatable-logit-probit-2').DataTable({
-                                          paging: true,
-                                          searching: true,
-                                          scrollX: true,
-                                                pageLength: 5,
-                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                  
-                                      });
-                                  });
-                              }
+        <div class="overflow-auto" id="tabel-logit-probit-2"></div>
+        <script>
+          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-logit-probit-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
                           });
-                      });
-                </script>
-                <ol>
-                  <li>Lakukan estimasi regresi berganda.</li>
-                  <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
-                  <li>Interpretasikan hasilnya.</li>
-                </ol>
-        
-<p class="fw-bold">Kasus 3: Prediksi Adopsi Aplikasi Mobile Banking</p>
-<p>Menganalisis faktor-faktor yang mendorong nasabah untuk mengadopsi (PAKAI_MBANKING=1) atau tidak mengadopsi (PAKAI_MBANKING=0) aplikasi mobile banking.
-<br>
-<strong>Variabel Dependen (Y):</strong> <br>PAKAI_MBANKING (1=Pakai, 0=Tidak Pakai)
-<br>
-<strong>Variabel Independen (X):</strong>
-<br>
-USIA: Usia nasabah (dalam tahun).
-<br>
-TINGKAT_PENDIDIKAN: Tingkat pendidikan (1=SMA/Sederajat, 2=Diploma, 3=Sarjana, 4=Pascasarjana).
-<br>
-LITERASI_DIGITAL: Skor literasi digital nasabah (skala 1-10).
-<br>
-KEPERCAYAAN_KEAMANAN: Skor kepercayaan terhadap keamanan digital (skala 1-10).
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-logit-probit-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-logit-probit-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+        <ol>
+          <li>Lakukan estimasi regresi berganda.</li>
+          <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
+          <li>Interpretasikan hasilnya.</li>
+        </ol>
+
+        <p class="fw-bold">Kasus 3: Prediksi Adopsi Aplikasi Mobile Banking</p>
+        <p>Menganalisis faktor-faktor yang mendorong nasabah untuk mengadopsi (PAKAI_MBANKING=1) atau tidak mengadopsi (PAKAI_MBANKING=0) aplikasi mobile banking.
+          <br>
+          <strong>Variabel Dependen (Y):</strong> <br>PAKAI_MBANKING (1=Pakai, 0=Tidak Pakai)
+          <br>
+          <strong>Variabel Independen (X):</strong>
+          <br>
+          USIA: Usia nasabah (dalam tahun).
+          <br>
+          TINGKAT_PENDIDIKAN: Tingkat pendidikan (1=SMA/Sederajat, 2=Diploma, 3=Sarjana, 4=Pascasarjana).
+          <br>
+          LITERASI_DIGITAL: Skor literasi digital nasabah (skala 1-10).
+          <br>
+          KEPERCAYAAN_KEAMANAN: Skor kepercayaan terhadap keamanan digital (skala 1-10).
         </p>
         <a class="actions" href="logit-probit-3.csv"><button>Unduh CSV </button></a>
-                <div class="overflow-auto" id="tabel-logit-probit-3"></div>
-                <script>
-                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-3.csv')
-                      .then(res => res.text())
-                      .then(csvText => {
-                          Papa.parse(csvText, {
-                              header: true,
-                              skipEmptyLines: true, 
-                              complete: function (results) {
-                                  const headers = results.meta.fields;
-                                  const dataRows = results.data;  
-                                  if (dataRows.length === 0) return;
-                  
-                                  let html = `<table class="table table-striped text-center" id="datatable-logit-probit-3">`;
-                  
-                                  html += '<thead><tr>';
-                                  headers.forEach(header => {
-                                      html += `<th>${header}</th>`;
-                                  });
-                                  html += '</tr></thead>';
-                  
-                                  html += '<tbody>';
-                                  dataRows.forEach(row => {
-                                      html += '<tr>';
-                                      headers.forEach(header => {
-                                          const cell = row[header];
-                                          html += `<td>${cell}</td>`;
-                                      });
-                                      html += '</tr>';
-                                  });
-                                  html += '</tbody>';
-                  
-                                  html += '</table>';
-                                  document.getElementById("tabel-logit-probit-3").innerHTML = html;
-                  
-                                  $(document).ready(function () {
-                                      $('#datatable-logit-probit-3').DataTable({
-                                          paging: true,
-                                          searching: true,
-                                          scrollX: true,
-                                                pageLength: 5,
-                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                  
-                                      });
-                                  });
-                              }
+        <div class="overflow-auto" id="tabel-logit-probit-3"></div>
+        <script>
+          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-3.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-logit-probit-3">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
                           });
-                      });
-                </script>
-                <ol>
-                  <li>Lakukan estimasi regresi berganda.</li>
-                  <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
-                  <li>Interpretasikan hasilnya.</li>
-                </ol>
-        
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-logit-probit-3").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-logit-probit-3').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+        <ol>
+          <li>Lakukan estimasi regresi berganda.</li>
+          <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
+          <li>Interpretasikan hasilnya.</li>
+        </ol>
+
         <div class="container mt-5">
           <div class="accordion" id="accordionp9">
             <div class="accordion-item">
@@ -3091,240 +3091,243 @@ KEPERCAYAAN_KEAMANAN: Skor kepercayaan terhadap keamanan digital (skala 1-10).
           <h2>Pertemuan 10</h2>
         </div>
         <div class="mermaid text-center">
-flowchart TD
-    B{"Cek Variabel Dependen (Y)"};
-    B --> C{"Y Kontinu? (Mis: Rupiah, KG)"};
-    C -- Ya --> D[Gunakan OLS / Regresi Linear];
-    C -- Tidak --> E{Y Kategorikal?};
-    E -- Ya --> F{Berapa Kategori?};
-    F -- "2 Kategori (Mis: Ya/Tidak)" --> G[Gunakan Binary Logit / Probit];
-    F -- 3+ Kategori --> H{Apakah Kategori Punya Urutan?};
-    H -- Ya (Mis: Jelek, Cukup, Bagus) --> I["Gunakan Model ORDINAL (Ordered Logit/Probit)"];
-    H -- "Tidak (Mis: Mobil, Motor, Bus)" --> J["Gunakan Model MULTINOMIAL (MNL)"];
+          flowchart TD
+          B{"Cek Variabel Dependen (Y)"};
+          B --> C{"Y Kontinu? (Mis: Rupiah, KG)"};
+          C -- Ya --> D[Gunakan OLS / Regresi Linear];
+          C -- Tidak --> E{Y Kategorikal?};
+          E -- Ya --> F{Berapa Kategori?};
+          F -- "2 Kategori (Mis: Ya/Tidak)" --> G[Gunakan Binary Logit / Probit];
+          F -- 3+ Kategori --> H{Apakah Kategori Punya Urutan?};
+          H -- Ya (Mis: Jelek, Cukup, Bagus) --> I["Gunakan Model ORDINAL (Ordered Logit/Probit)"];
+          H -- "Tidak (Mis: Mobil, Motor, Bus)" --> J["Gunakan Model MULTINOMIAL (MNL)"];
         </div>
-<h1>Membedah Model Multinomial dan Ordinal Logit</h1>
-    
-    <p>Dalam ekonometrika, kita sering berhadapan dengan variabel dependen (Y) yang bukan angka kontinu. Ketika Y adalah sebuah <strong>pilihan</strong> dari beberapa kategori, kita tidak bisa menggunakan OLS biasa. Di sinilah Model Multinomial dan Ordinal berperan.</p>
+        <h1>Membedah Model Multinomial dan Ordinal Logit</h1>
 
-    <h2>1. Model Multinomial Logit (MNL)</h2>
-    <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>tidak berperingkat</strong> (unordered).</p>
-    <p><strong>Contoh:</strong> Pilihan moda transportasi (Mobil, Motor, Bus), pilihan karier (Swasta, PNS, Wirausaha).</p>
-    <p>Model ini menghitung probabilitas individu <em>i</em> memilih alternatif <em>j</em>, berdasarkan serangkaian variabel independen $X_i$. Model ini mengasumsikan satu kategori sebagai "base" (referensi).</p>
-    <p>Probabilitas pilihan <em>j</em> adalah:</p>
-    <div class="equation">
-    $$ P(Y_i=j | X_i) = \frac{e^{\beta_j'X_i}}{\sum_{k=1}^J e^{\beta_k'X_i}} $$
-    </div>
-    <p>Dimana $J$ adalah jumlah total kategori.</p>
+        <p>Dalam ekonometrika, kita sering berhadapan dengan variabel dependen (Y) yang bukan angka kontinu. Ketika Y adalah sebuah <strong>pilihan</strong> dari beberapa kategori, kita tidak bisa menggunakan OLS biasa. Di sinilah Model Multinomial dan Ordinal berperan.</p>
 
-    <h2>2. Model Ordinal Logit (OL)</h2>
-    <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>berperingkat</strong> (ordered).</p>
-    <p><strong>Contoh:</strong> Rating kepuasan (Buruk, Cukup, Baik), Peringkat kredit (C, B, A, AA).</p>
-    <p>Model ini bekerja dengan mengestimasi sebuah variabel laten (tidak teramati), $Y^*$, yang bergantung pada $X_i$.</p>
-    <div class="equation">
-    $$ Y_i^* = \beta'X_i + \epsilon_i $$
-    </div>
-    <p>Kita tidak mengamati $Y^*$, tapi kita mengamati $Y$ (kategori) melalui "cut-points" atau thresholds ($\mu$):</p>
-    <ul>
-        <li>$Y_i = 1$ (Mis: Buruk) jika $Y_i^* \le \mu_1$</li>
-        <li>$Y_i = 2$ (Mis: Cukup) jika $\mu_1 < Y_i^* \le \mu_2$</li>
-        <li>$Y_i = 3$ (Mis: Baik) jika $Y_i^* > \mu_2$</li>
-    </ul>
-    <p>Model Ordinal Logit mengestimasi koefisien $\beta$ dan titik potong $\mu$ secara bersamaan.</p>
+        <h2>1. Model Multinomial Logit (MNL)</h2>
+        <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>tidak berperingkat</strong> (unordered).</p>
+        <p><strong>Contoh:</strong> Pilihan moda transportasi (Mobil, Motor, Bus), pilihan karier (Swasta, PNS, Wirausaha).</p>
+        <p>Model ini menghitung probabilitas individu <em>i</em> memilih alternatif <em>j</em>, berdasarkan serangkaian variabel independen $X_i$. Model ini mengasumsikan satu kategori sebagai "base" (referensi).</p>
+        <p>Probabilitas pilihan <em>j</em> adalah:</p>
+        <div class="equation">
+          $$ P(Y_i=j | X_i) = \frac{e^{\beta_j'X_i}}{\sum_{k=1}^J e^{\beta_k'X_i}} $$
+        </div>
+        <p>Dimana $J$ adalah jumlah total kategori.</p>
 
-    <h2>Langkah-Langkah Analisis Umum</h2>
-    <ol>
-        <li><strong>Identifikasi Y:</strong> Tentukan apakah Y Anda kategorikal.</li>
-        <li><strong>Cek Urutan:</strong> Apakah kategorinya berperingkat (Ordinal) atau hanya pilihan (Multinomial)?</li>
-        <li><strong>Spesifikasi Model:</strong> Tentukan variabel independen (X) yang relevan.</li>
-        <li><strong>Estimasi Model:</strong> Gunakan Eviews atau software statistik lain (Metode: ORDERED untuk Ordinal, LOGIT/MNL untuk Multinomial).</li>
-        <li><strong>Interpretasi:</strong>
+        <h2>2. Model Ordinal Logit (OL)</h2>
+        <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>berperingkat</strong> (ordered).</p>
+        <p><strong>Contoh:</strong> Rating kepuasan (Buruk, Cukup, Baik), Peringkat kredit (C, B, A, AA).</p>
+        <p>Model ini bekerja dengan mengestimasi sebuah variabel laten (tidak teramati), $Y^*$, yang bergantung pada $X_i$.</p>
+        <div class="equation">
+          $$ Y_i^* = \beta'X_i + \epsilon_i $$
+        </div>
+        <p>Kita tidak mengamati $Y^*$, tapi kita mengamati $Y$ (kategori) melalui "cut-points" atau thresholds ($\mu$):</p>
+        <ul>
+          <li>$Y_i = 1$ (Mis: Buruk) jika $Y_i^* \le \mu_1$</li>
+          <li>$Y_i = 2$ (Mis: Cukup) jika $\mu_1 < Y_i^* \le \mu_2$</li>
+          <li>$Y_i = 3$ (Mis: Baik) jika $Y_i^* > \mu_2$</li>
+        </ul>
+        <p>Model Ordinal Logit mengestimasi koefisien $\beta$ dan titik potong $\mu$ secara bersamaan.</p>
+
+        <h2>Langkah-Langkah Analisis Umum</h2>
+        <ol>
+          <li><strong>Identifikasi Y:</strong> Tentukan apakah Y Anda kategorikal.</li>
+          <li><strong>Cek Urutan:</strong> Apakah kategorinya berperingkat (Ordinal) atau hanya pilihan (Multinomial)?</li>
+          <li><strong>Spesifikasi Model:</strong> Tentukan variabel independen (X) yang relevan.</li>
+          <li><strong>Estimasi Model:</strong> Gunakan Eviews atau software statistik lain (Metode: ORDERED untuk Ordinal, LOGIT/MNL untuk Multinomial).</li>
+          <li><strong>Interpretasi:</strong>
             <div class="highlight">
-            <strong>Peringatan:</strong> Koefisien $\beta$ dalam model Logit (MNL/Ordinal) <strong>TIDAK</strong> dapat diinterpretasikan secara langsung sebagai "jika X naik 1 unit, Y naik $\beta$ unit".
+              <strong>Peringatan:</strong> Koefisien $\beta$ dalam model Logit (MNL/Ordinal) <strong>TIDAK</strong> dapat diinterpretasikan secara langsung sebagai "jika X naik 1 unit, Y naik $\beta$ unit".
             </div>
             <p>Interpretasi harus melalui:</p>
             <ul>
-                <li><strong>Odds Ratios (OR):</strong> $OR = e^\beta$. (Seberapa besar perubahan <em>odds</em> jika X naik 1 unit).</li>
-                <li><strong>Marginal Effects (ME):</strong> (Seberapa besar perubahan <em>probabilitas</em> jika X naik 1 unit). Ini adalah cara interpretasi yang paling intuitif.</li>
+              <li><strong>Odds Ratios (OR):</strong> $OR = e^\beta$. (Seberapa besar perubahan <em>odds</em> jika X naik 1 unit).</li>
+              <li><strong>Marginal Effects (ME):</strong> (Seberapa besar perubahan <em>probabilitas</em> jika X naik 1 unit). Ini adalah cara interpretasi yang paling intuitif.</li>
             </ul>
-        </li>
-    </ol>
+          </li>
+        </ol>
         <h4>Kasus 1: Model Ordinal (Kepuasan Layanan Bank)</h4>
         <p>Y (Dependen): Kepuasan (1 = Sangat Tidak Puas, 2 = Netral, 3 = Puas)
-<br>
-X1 (Independen): Kecepatan (Waktu tunggu dalam menit)
-<br>
-X2 (Independen): Staf_Ramah (Skor 1-10)
-<br>
-X3 (Independen): Digital_App (1 = Sering Pakai, 0 = Jarang/Tidak)</p>
+          <br>
+          X1 (Independen): Kecepatan (Waktu tunggu dalam menit)
+          <br>
+          X2 (Independen): Staf_Ramah (Skor 1-10)
+          <br>
+          X3 (Independen): Digital_App (1 = Sering Pakai, 0 = Jarang/Tidak)
+        </p>
         <a class="actions" href="multi-ordinal-1.csv"><button>Unduh CSV </button></a>
-                <div class="overflow-auto" id="tabel-multi-ordinal-1"></div>
-                <script>
-                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-1.csv')
-                      .then(res => res.text())
-                      .then(csvText => {
-                          Papa.parse(csvText, {
-                              header: true,
-                              skipEmptyLines: true, 
-                              complete: function (results) {
-                                  const headers = results.meta.fields;
-                                  const dataRows = results.data;  
-                                  if (dataRows.length === 0) return;
-                  
-                                  let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-1">`;
-                  
-                                  html += '<thead><tr>';
-                                  headers.forEach(header => {
-                                      html += `<th>${header}</th>`;
-                                  });
-                                  html += '</tr></thead>';
-                  
-                                  html += '<tbody>';
-                                  dataRows.forEach(row => {
-                                      html += '<tr>';
-                                      headers.forEach(header => {
-                                          const cell = row[header];
-                                          html += `<td>${cell}</td>`;
-                                      });
-                                      html += '</tr>';
-                                  });
-                                  html += '</tbody>';
-                  
-                                  html += '</table>';
-                                  document.getElementById("tabel-multi-ordinal-1").innerHTML = html;
-                  
-                                  $(document).ready(function () {
-                                      $('#datatable-multi-ordinal-1').DataTable({
-                                          paging: true,
-                                          searching: true,
-                                          scrollX: true,
-                                                pageLength: 5,
-                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                  
-                                      });
-                                  });
-                              }
+        <div class="overflow-auto" id="tabel-multi-ordinal-1"></div>
+        <script>
+          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-1.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-1">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
                           });
-                      });
-                </script>
-        
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-multi-ordinal-1").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-multi-ordinal-1').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+
         <h4>Kasus 2: Model Multinomial (Pilihan Transportasi Kerja)</h4>
         <p>Y (Dependen): Transport (Mobil, Motor, Umum) -> Harus dalam format Teks/Alpha di Eviews
-<br>
-X1 (Independen): Waktu_Tempuh (Menit)
-<br>
-X2 (Independen): Biaya (Ribu Rupiah per hari)
-<br>
-X3 (Independen): Jarak_KM (Jarak rumah ke kantor)</p>
-       <a class="actions" href="multi-ordinal-2.csv"><button>Unduh CSV </button></a>
-                <div class="overflow-auto" id="tabel-multi-ordinal-2"></div>
-                <script>
-                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-2.csv')
-                      .then(res => res.text())
-                      .then(csvText => {
-                          Papa.parse(csvText, {
-                              header: true,
-                              skipEmptyLines: true, 
-                              complete: function (results) {
-                                  const headers = results.meta.fields;
-                                  const dataRows = results.data;  
-                                  if (dataRows.length === 0) return;
-                  
-                                  let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-2">`;
-                  
-                                  html += '<thead><tr>';
-                                  headers.forEach(header => {
-                                      html += `<th>${header}</th>`;
-                                  });
-                                  html += '</tr></thead>';
-                  
-                                  html += '<tbody>';
-                                  dataRows.forEach(row => {
-                                      html += '<tr>';
-                                      headers.forEach(header => {
-                                          const cell = row[header];
-                                          html += `<td>${cell}</td>`;
-                                      });
-                                      html += '</tr>';
-                                  });
-                                  html += '</tbody>';
-                  
-                                  html += '</table>';
-                                  document.getElementById("tabel-multi-ordinal-2").innerHTML = html;
-                  
-                                  $(document).ready(function () {
-                                      $('#datatable-multi-ordinal-2').DataTable({
-                                          paging: true,
-                                          searching: true,
-                                          scrollX: true,
-                                                pageLength: 5,
-                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                  
-                                      });
-                                  });
-                              }
+          <br>
+          X1 (Independen): Waktu_Tempuh (Menit)
+          <br>
+          X2 (Independen): Biaya (Ribu Rupiah per hari)
+          <br>
+          X3 (Independen): Jarak_KM (Jarak rumah ke kantor)
+        </p>
+        <a class="actions" href="multi-ordinal-2.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-multi-ordinal-2"></div>
+        <script>
+          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-2.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-2">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
                           });
-                      });
-                </script>
-        
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-multi-ordinal-2").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-multi-ordinal-2').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+
         <h4>Kasus 3: Model Ordinal (Rating Risiko Kredit UMKM)</h4>
         <p>Y (Dependen): Rating (1=Tinggi, 2=Sedang, 3=Rendah)
-<br>
-X1 (Independen): DER (Debt to Equity Ratio)
-<br>
-X2 (Independen): Laba_Bersih (Juta Rupiah)
-<br>
-X3 (Independen): Lama_Usaha (Tahun)</p>
-       <a class="actions" href="multi-ordinal-3.csv"><button>Unduh CSV </button></a>
-                <div class="overflow-auto" id="tabel-multi-ordinal-3"></div>
-                <script>
-                  fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-3.csv')
-                      .then(res => res.text())
-                      .then(csvText => {
-                          Papa.parse(csvText, {
-                              header: true,
-                              skipEmptyLines: true, 
-                              complete: function (results) {
-                                  const headers = results.meta.fields;
-                                  const dataRows = results.data;  
-                                  if (dataRows.length === 0) return;
-                  
-                                  let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-3">`;
-                  
-                                  html += '<thead><tr>';
-                                  headers.forEach(header => {
-                                      html += `<th>${header}</th>`;
-                                  });
-                                  html += '</tr></thead>';
-                  
-                                  html += '<tbody>';
-                                  dataRows.forEach(row => {
-                                      html += '<tr>';
-                                      headers.forEach(header => {
-                                          const cell = row[header];
-                                          html += `<td>${cell}</td>`;
-                                      });
-                                      html += '</tr>';
-                                  });
-                                  html += '</tbody>';
-                  
-                                  html += '</table>';
-                                  document.getElementById("tabel-multi-ordinal-3").innerHTML = html;
-                  
-                                  $(document).ready(function () {
-                                      $('#datatable-multi-ordinal-3').DataTable({
-                                          paging: true,
-                                          searching: true,
-                                          scrollX: true,
-                                                pageLength: 5,
-                            	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                  
-                                      });
-                                  });
-                              }
+          <br>
+          X1 (Independen): DER (Debt to Equity Ratio)
+          <br>
+          X2 (Independen): Laba_Bersih (Juta Rupiah)
+          <br>
+          X3 (Independen): Lama_Usaha (Tahun)
+        </p>
+        <a class="actions" href="multi-ordinal-3.csv"><button>Unduh CSV </button></a>
+        <div class="overflow-auto" id="tabel-multi-ordinal-3"></div>
+        <script>
+          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-3.csv')
+              .then(res => res.text())
+              .then(csvText => {
+                  Papa.parse(csvText, {
+                      header: true,
+                      skipEmptyLines: true, 
+                      complete: function (results) {
+                          const headers = results.meta.fields;
+                          const dataRows = results.data;  
+                          if (dataRows.length === 0) return;
+          
+                          let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-3">`;
+          
+                          html += '<thead><tr>';
+                          headers.forEach(header => {
+                              html += `<th>${header}</th>`;
                           });
-                      });
-                </script>
-        
+                          html += '</tr></thead>';
+          
+                          html += '<tbody>';
+                          dataRows.forEach(row => {
+                              html += '<tr>';
+                              headers.forEach(header => {
+                                  const cell = row[header];
+                                  html += `<td>${cell}</td>`;
+                              });
+                              html += '</tr>';
+                          });
+                          html += '</tbody>';
+          
+                          html += '</table>';
+                          document.getElementById("tabel-multi-ordinal-3").innerHTML = html;
+          
+                          $(document).ready(function () {
+                              $('#datatable-multi-ordinal-3').DataTable({
+                                  paging: true,
+                                  searching: true,
+                                  scrollX: true,
+                                        pageLength: 5,
+                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
+          
+                              });
+                          });
+                      }
+                  });
+              });
+        </script>
+
         <div class="container mt-5">
           <div class="accordion" id="accordionp10">
             <div class="accordion-item">
@@ -3348,6 +3351,153 @@ X3 (Independen): Lama_Usaha (Tahun)</p>
           <h2>Pertemuan 11</h2>
         </div>
 
+        <div class="mermaid text-center">
+        flowchart TD
+            A[Mulai: Identifikasi Masalah & Variabel Y] --> B{Apa Sifat Variabel Y?};
+            B -- "Y = Hitungan (0, 1, 2, 3...)" --> D[Model Count Data];
+            B -- "Y = Kontinu, tapi Terbatas" --> E[Model LDV];
+
+            E -- "Y tersensor di 0 (banyak data 0)" --> F[Model Tobit];
+            E -- "Y terpotong (data 0 hilang)" --> G[Model Truncated];
+
+            D --> H{Apakah Mean ≈ Varians?};
+            H -- Ya --> I[Regresi Poisson];
+            H -- "Tidak (Overdispersion)" --> J["Negative Binomial (NB) / ZIP"];
+
+            K["Proses Estimasi (MLE)"];
+            I --> K;
+            F --> K;
+            J --> K;
+            G --> K;
+            
+            K --> O["Selesai: Kesimpulan & Rekomendasi"];
+        </div>
+        <h2>1. Model Tobit (Censored Regression)</h2>
+        
+        <h3>Analogi: Sumbangan Amal</h3>
+        <p>Bayangkan Anda meneliti faktor apa yang memengaruhi <strong>jumlah sumbangan amal</strong> seseorang (Y). Anda mengumpulkan data pendapatan (X1), usia (X2), dan tingkat religiusitas (X3).</p>
+        <p>Masalahnya: Banyak orang memilih untuk <strong>tidak menyumbang sama sekali</strong> (Y=0). Data Anda akan "menggumpal" di angka nol. Jika Anda pakai OLS biasa, OLS akan kesulitan memahami data ini karena OLS mengasumsikan Y bisa bernilai negatif (padahal sumbangan tidak mungkin negatif).</p>
+        <p>Model Tobit adalah solusinya. Model ini memahami bahwa ada dua proses yang terjadi:</p>
+        <ol>
+            <li>Keputusan untuk menyumbang (atau tidak).</li>
+            <li>Keputusan berapa banyak harus menyumbang (jika memutuskan untuk menyumbang).</li>
+        </ol>
+        <p>Model Tobit menangani data yang "tersensor" (censored) atau terpotong pada nilai tertentu (dalam kasus ini, 0).</p>
+
+        <h3>Kapan Digunakan?</h3>
+        <p>Gunakan Model Tobit ketika variabel dependen (Y) Anda memiliki nilai batas (lantai atau langit-langit) di mana data terkonsentrasi. Contoh: Pengeluaran R&D (banyak perusahaan 0), jam kerja (banyak orang 0), atau skor tes (ada nilai maksimal 100).</p>
+
+        <h3>Formula</h3>
+        <p>Model Tobit mengasumsikan ada variabel laten (tidak teramati) $Y^*$:
+        $$ Y_i^* = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \epsilon_i $$
+        Namun, yang kita amati adalah $Y_i$:
+        $$ Y_i = \begin{cases} Y_i^* & \text{jika } Y_i^* > L \\ L & \text{jika } Y_i^* \le L \end{cases} $$
+        Di mana $L$ adalah batas sensor (misalnya $L=0$).</p>
+        <h3>Langkah-langkah Analisis di EViews</h3>
+        <ol>
+            <li><strong>Import Data:</strong> Masukkan data Anda (Y, X1, X2, X3) ke EViews.</li>
+            <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
+            <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> (Least Squares) menjadi <code>TOBIT</code> (Censored/Truncated).</li>
+            <li><strong>Tentukan Batas Sensor:</strong> Akan muncul opsi 'Censoring'. Jika data Anda tersensor di nol (paling umum), biarkan 'Left' = 0 dan 'Right' = NA (Not Available/Tidak Ada).</li>
+            <li><strong>Tulis Persamaan:</strong> Di kotak 'Equation Specification', ketik variabel Anda. Contoh: <code>Y C X1 X2 X3</code> (C adalah konstanta/intersep).</li>
+            <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
+            <li><strong>Interpretasi:</strong> Lihat output. Koefisien yang ditampilkan adalah untuk variabel laten $Y^*$. Untuk interpretasi yang lebih mudah (marginal effects), Anda mungkin perlu ke menu <code>View</code> > <code>Marginal Effects</code> setelah estimasi.</li>
+        </ol>
+        <h2>2. Regresi Poisson (Poisson Regression)</h2>
+
+        <h3>Analogi: Antrian Teller Bank</h3>
+        <p>Bayangkan Anda seorang manajer bank yang ingin memprediksi <strong>jumlah pelanggan</strong> (Y) yang datang ke teller setiap jam. Anda tahu Y adalah "data hitungan" (count data): bisa 0, 1, 2, 10, tapi tidak mungkin 2.5 atau negatif.</p>
+        <p>Anda ingin tahu apakah jumlah kedatangan dipengaruhi oleh jam sibuk (X1), hari (X2=1 jika weekend, 0 jika weekday), dan jumlah promo (X3).</p>
+        <p>OLS tidak cocok karena OLS bisa memprediksi Y = -1 pelanggan, yang tidak masuk akal. Regresi Poisson dirancang khusus untuk memodelkan data hitungan (non-negatif, integer).</p>
+
+        <h3>Kapan Digunakan?</h3>
+        <p>Gunakan Regresi Poisson ketika variabel dependen (Y) Anda adalah <strong>data hitungan</strong> (count) dari suatu kejadian dalam interval waktu atau ruang tertentu. Contoh: Jumlah klaim asuransi per tahun, jumlah gol dalam pertandingan, jumlah cacat produksi per batch.</p>
+
+        <h3>Formula </h3>
+        <p>Regresi Poisson mengasumsikan Y mengikuti distribusi Poisson. Probabilitas Y mengambil nilai $y_i$ adalah:
+        $$ P(Y_i = y_i | X_i) = \frac{e^{-\lambda_i} \lambda_i^{y_i}}{y_i!} $$
+        Di mana $\lambda_i$ (lambda) adalah rata-rata (mean) dan varians dari kejadian, yang dipengaruhi oleh variabel X:
+        $$ \ln(\lambda_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} $$
+        Kita menggunakan $\ln(\lambda_i)$ (log-link) untuk memastikan $\lambda_i$ selalu positif.</p>
+        <h3>Langkah-langkah Analisis di EViews</h3>
+        <ol>
+            <li><strong>Import Data:</strong> Masukkan data hitungan Anda (Y) dan variabel independen (X1, X2, X3).</li>
+            <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
+            <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> menjadi <code>COUNT</code> (Integer Count Data).</li>
+            <li><strong>Tentukan Distribusi:</strong> Di bawah opsi 'Count Data', pastikan <code>Distribution</code> diatur ke <code>Poisson</code>. (Jika Anda mencurigai <em>overdispersion</em>—varians jauh lebih besar dari mean—Anda bisa memilih <code>Negative Binomial</code>).</li>
+            <li><strong>Tulis Persamaan:</strong> Di kotak 'Specification', ketik: <code>Y C X1 X2 X3</code>.</li>
+            <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
+            <li><strong>Interpretasi:</strong> Koefisien $\beta$ menunjukkan perubahan dalam $\ln(\lambda_i)$. Untuk interpretasi yang lebih mudah, lihat nilai $e^\beta$ (exponentiated coefficient). Jika $\beta_1 = 0.1$, maka $e^{0.1} \approx 1.105$. Artinya, kenaikan 1 unit X1 akan meningkatkan jumlah Y (hitungan) sekitar 10.5%, dengan asumsi variabel lain konstan.</li>
+        </ol>
+        <h3>Contoh Kasus dan Data Simulasi (Regresi Terpotong)</h3>
+
+        <div class="data-section">
+            <h4>Kasus 1: Pengeluaran R&D Perusahaan</h4>
+            <ul>
+                <li><strong>Y (Dependen):</strong> RND (Pengeluaran R&D, jutaan USD; tersensor di 0)</li>
+                <li><strong>X1 (Independen):</strong> PROFIT (Keuntungan perusahaan, jutaan USD)</li>
+                <li><strong>X2 (Independen):</strong> ASET (Total aset, miliaran USD)</li>
+                <li><strong>X3 (Independen):</strong> PATEN (Jumlah paten tahun lalu)</li>
+            </ul>
+            <a href="tobit_data_1_rnd.csv" class="csv-link" download>Download Data R&D (N=50)</a>
+        </div>
+
+        <div class="data-section">
+            <h4>Kasus 2: Jam Kerja Karyawan</h4>
+            <ul>
+                <li><strong>Y (Dependen):</strong> JAM_KERJA (Jam kerja per minggu; tersensor di 0 bagi yang tidak bekerja)</li>
+                <li><strong>X1 (Independen):</strong> PENDIDIKAN (Tahun pendidikan)</li>
+                <li><strong>X2 (Independen):</strong> ANAK_BALITA (Jumlah anak di bawah 5 tahun)</li>
+                <li><strong>X3 (Independen):</strong> INCOME_SUAMI (Pendapatan pasangan, jutaan IDR/bulan)</li>
+            </ul>
+            <a href="tobit_data_2_jamkerja.csv" class="csv-link" download>Download Data Jam Kerja (N=50)</a>
+        </div>
+
+        <div class="data-section">
+            <h4>Kasus 3: Pembelian Polis Asuransi</h4>
+            <ul>
+                <li><strong>Y (Dependen):</strong> PREMI (Jumlah premi asuransi jiwa yang dibeli per tahun, jutaan IDR; tersensor di 0)</li>
+                <li><strong>X1 (Independen):</strong> PENDAPATAN (Pendapatan tahunan, jutaan IDR)</li>
+                <li><strong>X2 (Independen):</strong> USIA (Usia nasabah)</li>
+                <li><strong>X3 (Independen):</strong> LITERASI_KEU (Skor literasi keuangan, 0-100)</li>
+            </ul>
+            <a href="tobit_data_3_asuransi.csv" class="csv-link" download>Download Data Asuransi (N=50)</a>
+        </div>
+        <h3>Contoh Kasus dan Data Simulasi (Regresi Poisson)</h3>
+
+        <div class="data-section">
+            <h4>Kasus 1: Jumlah Klaim Asuransi Mobil</h4>
+            <ul>
+                <li><strong>Y (Dependen):</strong> JML_KLAIM (Jumlah klaim dalam 1 tahun; 0, 1, 2, ...)</li>
+                <li><strong>X1 (Independen):</strong> USIA (Usia pengemudi)</li>
+                <li><strong>X2 (Independen):</strong> PENGALAMAN (Pengalaman mengemudi, tahun)</li>
+                <li><strong>X3 (Independen):</strong> TIPE_MOBIL (1=Sport, 0=Keluarga)</li>
+            </ul>
+            <a href="poisson_data_1_klaim.csv" class="csv-link" download>Download Data Klaim (N=50)</a>
+        </div>
+
+        <div class="data-section">
+            <h4>Kasus 2: Jumlah Pelanggan Restoran</h4>
+            <ul>
+                <li><strong>Y (Dependen):</strong> PELANGGAN (Jumlah pelanggan per jam)</li>
+                <li><strong>X1 (Independen):</strong> JAM_SIBUK (1=Makan Siang/Malam, 0=Lainnya)</li>
+                <li><strong>X2 (Independen):</strong> WEEKEND (1=Ya, 0=Tidak)</li>
+                <li><strong>X3 (Independen):</strong> JML_PROMO (Jumlah promosi aktif)</li>
+            </ul>
+            <a href="poisson_data_2_restoran.csv" class="csv-link" download>Download Data Restoran (N=50)</a>
+        </div>
+
+        <div class="data-section">
+            <h4>Kasus 3: Jumlah Cacat Produksi</h4>
+            <ul>
+                <li><strong>Y (Dependen):</strong> CACAT (Jumlah cacat produksi per batch)</li>
+                <li><strong>X1 (Independen):</strong> KEC_MESIN (Kecepatan mesin, RPM)</li>
+                <li><strong>X2 (Independen):</strong> USIA_MESIN (Usia mesin, bulan)</li>
+                <li><strong>X3 (Independen):</strong> SUHU (Suhu ruangan, Celcius)</li>
+            </ul>
+            <a href="poisson_data_3_cacat.csv" class="csv-link" download>Download Data Cacat Produksi (N=50)</a>
+        </div>
+        
         <div class="container mt-5">
           <div class="accordion" id="accordionp11">
             <div class="accordion-item">
