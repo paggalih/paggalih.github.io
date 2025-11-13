@@ -1513,30 +1513,57 @@ Tapi sebagai ekonom, Anda tahu ada yang berbeda. Kenaikan 10 juta bagi warung ke
             </div>
             <div class="mermaid text-center">
 flowchart TD
-    A["Mulai: Punya Fungsi Ekonomi, misal Q = f(P) atau Y = f(X)"] --> B{Tujuan Analisis};
-    B --> C["Perubahan Absolut <br> (Turunan Biasa: dY/dX)"];
-    B --> D["Perubahan Proporsional/Persentase <br> (Turunan Logaritma)"];
+     D["Perubahan Proporsional/Persentase <br> (Turunan Logaritma)"];
     
     D --> E[Mengapa Logaritma?];
     E --> F["1. Menyederhanakan Fungsi <br> (Perkalian -> Penjumlahan, Pangkat -> Perkalian)"];
     E --> G["2. Menghitung Laju Pertumbuhan Proporsional <br> d(ln(Y))/dX = Y'/Y"];
     E --> H["3. Menghitung Elastisitas <br> E = d(ln(Y)) / d(ln(X))"];
 
-    D --> I[Metode: Diferensiasi Logaritmik];
-    I --> J["1. Ambil Logaritma Natural (ln) kedua sisi <br> ln(Y) = ln(f(X))"];
-    J --> K["2. Diferensiasikan kedua sisi thd X <br> (1/Y) * (dY/dX) = d/dX[ln(f(X))]"];
-    K --> L["3. Selesaikan untuk dY/dX <br> dY/dX = Y * (d/dX[ln(f(X))])"];
 
     H --> M[Aplikasi Utama: Elastisitas];
     M --> N["Elastisitas Harga Permintaan <br> Q = f(P) -> E_p = d(ln(Q)) / d(ln(P))"];
     M --> O["Fungsi Produksi Cobb-Douglas <br> Q = A*L^a*K^b <br> ln(Q) = ln(A) + a*ln(L) + b*ln(K)"];
     O --> P["Elastisitas Output thd L = a <br> Elastisitas Output thd K = b"];
 
-    L --> Z[Hasil: Analisis Ekonomi];
-    C --> Z;
+     Z[Analisis Ekonomi];
     N --> Z;
     P --> Z;
             </div>
+    <h1>Latihan Soal: Turunan Logaritma dalam Matematika Ekonomi</h1>
+    <p>Gunakan pengetahuan Anda tentang turunan fungsi logaritma dan diferensiasi logaritmik untuk menyelesaikan soal-soal berikut.</p>
+        <div class="soal">
+            <strong>Soal 1:</strong>
+            <p>Diberikan fungsi total biaya (Total Cost) $C(q) = 5 \ln(q^2 + 10)$, di mana $q$ adalah jumlah unit yang diproduksi. Tentukan fungsi biaya marjinal (Marginal Cost, $MC$).</p>
+            <p>Ingat: $MC = C'(q)$</p>
+        </div>
+        <div class="soal">
+            <strong>Soal 2:</strong>
+            <p>Tentukan turunan dari fungsi $y = \ln(x(3x-1))$.</p>
+        </div>
+        <div class="soal">
+            <strong>Soal 3:</strong>
+            <p>Gunakan <strong>diferensiasi logaritmik</strong> untuk mencari turunan $\frac{dy}{dx}$ dari fungsi $y = x^x$, di mana $x > 0$.</p>
+        </div>
+        <div class="soal">
+            <strong>Soal 4:</strong>
+            <p>Fungsi permintaan untuk suatu produk diberikan oleh $Q = \frac{500}{P^{1.5}}$, di mana $Q$ adalah kuantitas yang diminta dan $P$ adalah harga.</p>
+            <p>Tentukan <strong>elastisitas harga permintaan</strong> ($E_p$) menggunakan metode turunan logaritma.</p>
+            <p>Ingat: $E_p = \frac{d(\ln Q)}{d(\ln P)}$</p>
+        </div>
+        <div class="soal">
+            <strong>Soal 5:</strong>
+            <p>Fungsi produksi Cobb-Douglas diberikan oleh $Q = 20 L^{0.6} K^{0.4}$, di mana $Q$ adalah output, $L$ adalah input tenaga kerja, dan $K$ adalah input modal.</p>
+            <p>a) Tentukan elastisitas output terhadap tenaga kerja ($E_L$).</p>
+            <p>b) Tentukan elastisitas output terhadap modal ($E_K$).</p>
+            <p>c) Apa arti dari $E_L + E_K$?</p>
+        </div>
+        <div class="soal">
+            <strong>Soal 6:</strong>
+            <p>Total Revenue (TR) adalah fungsi dari waktu $t$, yang ditentukan oleh $R(t) = P(t) \cdot Q(t)$.</p>
+            <p>Diketahui bahwa harga $P$ tumbuh dengan laju konstan 3% per tahun, dan kuantitas $Q$ tumbuh dengan laju konstan 5% per tahun.</p>
+            <p>Tentukan <strong>laju pertumbuhan proporsional dari Total Revenue</strong> (yaitu, $\frac{R'}{R}$).</p>
+        </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp11">
