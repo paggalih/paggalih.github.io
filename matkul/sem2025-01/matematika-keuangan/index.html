@@ -1993,7 +1993,219 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 12</h2>
 	        </div>
+            <div class="trigger">
+Bayangkan Anda adalah seorang pengusaha jus mangga. Anda pasti membutuhkan 1 ton mangga 3 bulan lagi. Anda khawatir 3 bulan lagi musim mangga selesai dan harganya melonjak gila-gilaan.
+<br>
+Di sisi lain, ada Pak Tani, seorang petani mangga yang akan panen 1 ton mangga 3 bulan lagi. Pak Tani khawatir saat panen raya, harga mangga malah jatuh.<br><br>
 
+            </div>
+              <p>Kesepakatan (Kontrak Forward): "Saya (Pengusaha Jus) berjanji akan membeli 1 ton mangga dari Pak Tani, 3 bulan dari sekarang, dengan harga Rp 10.000 per kg, berapa pun harga mangga di pasar saat itu."
+              </p>
+            <ol>
+            <li>Kustom (Customized): Anda bisa negosiasi apa saja. "Pak, saya mau mangganya yang Harum Manis, kualitas A, diantar ke pabrik saya tanggal 3."</li>
+              <li>Over-the-Counter (OTC): Ini adalah perjanjian pribadi antara Anda dan Pak Tani. Tidak ada yang tahu, tidak ada campur tangan bursa.</li>
+              <p>Risiko: Ada risiko. Apa yang terjadi jika 3 bulan lagi harga pasar Rp 15.000? Pak Tani mungkin kabur dan menjual ke orang lain (Risiko Pihak Lawan/Counterparty Risk). Atau jika harga pasar Rp 5.000, Anda yang mungkin tergoda membatalkan janji.</p>
+            </ol>
+              <p>Kesepakatan (Kontrak Futures): Anda membeli 1 "Kontrak Futures Kopi". Kontrak ini sudah distandarisasi oleh bursa.
+              </p>
+            <ol>
+            <li>Standar: Bursa sudah menentukan semuanya. "1 Kontrak = 10 ton Kopi Robusta, kualitas X, diambil di gudang Y, pada bulan Juni." Anda tidak bisa nego minta kualitas Z.</li>
+              <li>Lewat Bursa (Exchange-Traded): Anda membeli dari bursa. Penjualnya juga menjual ke bursa. Kalian tidak saling kenal. Bursa (via Clearing House) yang menjamin transaksi.</li>
+              <li>Risiko Nyaris Nol: Tidak ada risiko pihak lawan. Bursa menjamin Pak Tani (penjual) akan menyerahkan kopi dan Anda (pembeli) akan membayar.</li>
+              <li>Marked-to-Market (MTM): Ini perbedaan KUNCI. Di Futures, untung/rugi Anda dihitung setiap hari. Jika hari ini harga kopi naik, Anda langsung dapat untung di rekening Anda hari ini juga. Jika turun, Anda rugi hari ini juga. Kalau di Forward (mangga tadi), untung/rugi baru ketahuan 3 bulan lagi saat transaksi.</li>
+            </ol>
+            <div class="mermaid text-center">
+flowchart TD
+    A("Derivatif Keuangan") --> B("Kontrak Perjanjian Beli/Jual Aset di Masa Depan");
+    A --> C("Tujuan Utama");
+    C --> C1("Lindung Nilai / Hedging");
+    C --> C2("Spekulasi");
+
+    B --> D("Jenis Kontrak");
+    D --> E("Kontrak Forward");
+    D --> F("Kontrak Futures");
+
+    E --> E1("Tempat: Over-the-Counter (OTC)");
+    E --> E2("Sifat: Kustomisasi (Sesuai Kesepakatan)");
+    E --> E3("Risiko: Risiko Pihak Lawan Tinggi");
+    E --> E4("Penyelesaian: Di Akhir Kontrak (At Expiration)");
+
+    F --> F1("Tempat: Bursa Berjangka (Exchange)");
+    F --> F2("Sifat: Terstandardisasi");
+    F --> F3("Risiko: Rendah (Dijamin Clearing House)");
+    F --> F4("Penyelesaian: Harian (Marked-to-Market)");
+            </div>
+    <h1>Latihan Soal: Matematika Keuangan (Derivatif)</h1>
+    <p>Gunakan notasi $S_T$ untuk harga pasar saat jatuh tempo dan $K$ untuk harga kesepakatan (forward/futures price).</p>
+    <p>Rumus dasar payoff (keuntungan/kerugian):</p>
+    <ul>
+        <li>Posisi Long (Beli): Payoff $= S_T - K$</li>
+        <li>Posisi Short (Jual): Payoff $= K - S_T$</li>
+    </ul>
+  <div class="soal">
+        <p><strong>Soal 1:</strong></p>
+        <p>Seorang investor mengambil posisi <em>long</em> (beli) 1 kontrak forward emas dengan harga kesepakatan $K = \$1.800$. Pada saat jatuh tempo, harga pasar emas $S_T = \$1.825$. Berapa payoff (keuntungan/kerugian) investor tersebut?</p>
+            <div>
+                <p><strong>Rumus:</strong> Posisi Long, $Payoff = S_T - K$</p>
+                <p><strong>Perhitungan:</strong></p>
+                <p>$$Payoff = \$1.825 - \$1.800 = \$25$$</p>
+                <p><strong>Kesimpulan:</strong> Investor tersebut mendapat keuntungan sebesar $25.</p>
+            </div>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 2:</strong></p>
+        <p>Seorang petani jagung mengambil posisi <em>short</em> (jual) 1 kontrak forward jagung dengan harga kesepakatan $K = Rp 5.000/kg$. Pada saat jatuh tempo, harga pasar jagung $S_T = Rp 4.700/kg$. Berapa payoff petani tersebut dari kontrak forward ini?</p>
+            <div class="jawaban">
+                <p><strong>Rumus:</strong> Posisi Short, $Payoff = K - S_T$</p>
+                <p><strong>Perhitungan:</strong></p>
+                <p>$$Payoff = Rp 5.000 - Rp 4.700 = Rp 300 \text{ per kg}$$</p>
+                <p><strong>Kesimpulan:</strong> Petani tersebut mendapat keuntungan sebesar Rp 300/kg dari kontraknya. Dia berhasil "mengunci" harga jual di Rp 5.000, padahal harga pasar jatuh ke Rp 4.700.</p>
+            </div>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 3:</strong></p>
+        <p>Sebuah maskapai penerbangan (posisi <em>long</em>) melakukan lindung nilai dengan membeli 10 kontrak futures minyak (avtur) di harga $K = \$90$ per barel. Setiap kontrak berukuran 1.000 barel. Pada saat jatuh tempo, harga pasar minyak $S_T = \$82$ per barel. Berapa total keuntungan atau kerugian maskapai dari posisi futures-nya?</p>
+
+            <div class="jawaban">
+                <p><strong>Rumus:</strong> Posisi Long, $Payoff = S_T - K$</p>
+                <p><strong>Perhitungan per barel:</strong></p>
+                <p>$$Payoff = \$82 - \$90 = -\$8 \text{ per barel}$$</p>
+                <p>Ini adalah kerugian dari sisi futures.</p>
+                <p><strong>Total Kerugian:</strong></p>
+                <p>$$Total = Payoff \times \text{Jumlah Barel}$$</p>
+                <p>$$Total = -\$8/\text{barel} \times (10 \text{ kontrak} \times 1.000 \text{ barel/kontrak})$$</p>
+                <p>$$Total = -\$8 \times 10.000 = -\$80.000$$</p>
+                <p><strong>Kesimpulan:</strong> Maskapai rugi \$80.000 dari kontrak futures-nya. NAMUN, ingat ini adalah lindung nilai. Kerugian ini akan dikompensasi karena mereka bisa membeli minyak fisik di pasar (bahan bakar mereka) dengan harga \$82 yang lebih murah, bukan $90.</p>
+            </div>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 4 (Sedang):</strong></p>
+        <p>Seorang spekulan (posisi <em>short</em>) menjual 1 kontrak futures CPO di harga 4.100. Ukuran kontrak 10 ton. Pada akhir hari pertama (Hari 1), harga futures ditutup di 4.130. Pada akhir hari kedua (Hari 2), harga ditutup di 4.080. Berapa total penyesuaian <em>Marked-to-Market</em> (MTM) di rekening spekulan tersebut pada akhir Hari 2?</p>
+            <div class="jawaban">
+                <p>Total MTM dihitung dari harga awal kontrak ($K=4.100$) ke harga penutupan terakhir ($S_T=4.080$).</p>
+                <p><strong>Rumus:</strong> Posisi Short, $Payoff = K - S_T$</p>
+                <p><strong>Perhitungan per ton:</strong></p>
+                <p>$$Payoff = 4.100 - 4.080 = 20 \text{ per ton}$$</p>
+                <p><strong>Total Payoff (MTM):</strong></p>
+                <p>$$Total = 20 \text{ per ton} \times 10 \text{ ton} = 200$$</p>
+                <p><strong>Rincian Harian (Jika ditanya):</strong></p>
+                <ul>
+                    <li>MTM Hari 1: $K_0 - K_1 = 4.100 - 4.130 = -30$ (Rugi 30 per ton)</li>
+                    <li>MTM Hari 2: $K_1 - K_2 = 4.130 - 4.080 = +50$ (Untung 50 per ton)</li>
+                    <li>Total MTM = $(-30 + 50) = +20$ per ton.</li>
+                </ul>
+                <p><strong>Kesimpulan:</strong> Total keuntungan spekulan adalah 200.</p>
+            </div>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 5 :</strong></p>
+        <p>Harga spot perak ($S_0$) hari ini adalah $\$20$ per ons. Tingkat suku bunga bebas risiko (<em>risk-free rate</em>, $r$) adalah 4% per tahun (compounded continuously). Biaya penyimpanan (<em>storage cost</em>, $c$) perak adalah 2% per tahun (compounded continuously). Berapa harga teoritis kontrak forward 6 bulan ($T=0.5$) untuk perak?</p>
+        <p>Gunakan rumus harga forward: $F_0 = S_0 \times e^{(r+c)T}$</p>
+
+            <div class="jawaban">
+                <p><strong>Variabel:</strong></p>
+                <ul>
+                    <li>$S_0 = \$20$</li>
+                    <li>$r = 0.04$</li>
+                    <li>$c = 0.02$</li>
+                    <li>$T = 0.5$ (6 bulan)</li>
+                </ul>
+                <p><strong>Rumus:</strong> $F_0 = S_0 \times e^{(r+c)T}$</p>
+                <p><strong>Perhitungan:</strong></p>
+                <p>$$F_0 = 20 \times e^{(0.04 + 0.02) \times 0.5}$$</p>
+                <p>$$F_0 = 20 \times e^{0.06 \times 0.5}$$</p>
+                <p>$$F_0 = 20 \times e^{0.03}$$</p>
+                <p>$$F_0 = 20 \times 1.0304545$$</p>
+                <p>$$F_0 \approx \$20.609$$</p>
+                <p><strong>Kesimpulan:</strong> Harga teoritis kontrak forward 6 bulan untuk perak adalah sekitar $20.61.</p>
+            </div>
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 6:</strong></p>
+        <p>Seorang importir di Indonesia akan membayar $\text{EUR } 1.000.000$ kepada pemasok di Jerman dalam 3 bulan ($T=0.25$). Harga spot hari ini ($S_0$) adalah Rp 15.500/EUR. Harga forward 3 bulan ($F_0$) adalah Rp 15.600/EUR.</p>
+        <p>Importir memutuskan untuk melakukan lindung nilai (hedging) dengan membeli (long) kontrak forward hari ini.</p>
+        <p>Ternyata, 3 bulan kemudian, harga spot ($S_T$) melonjak menjadi Rp 15.900/EUR.</p>
+        <p>Berapa besar "keuntungan" (atau penghematan biaya) yang didapat importir karena melakukan hedging, dibandingkan jika dia tidak melakukan hedging?</p>
+            <div class="jawaban">
+                <p>Kita bandingkan dua skenario:</p>
+                <p><strong>Skenario 1: Dengan Hedging (Beli Forward)</strong></p>
+                <p>Importir mengunci harga di $F_0 = Rp 15.600$.</p>
+                <p>$$Biaya = 1.000.000 \text{ EUR} \times Rp 15.600/\text{EUR} = Rp 15.600.000.000$$</p>
+                
+                <p><strong>Skenario 2: Tanpa Hedging (Beli di Pasar Spot)</strong></p>
+                <p>Importir harus membeli Euro di harga pasar $S_T = Rp 15.900$.</p>
+                <p>$$Biaya = 1.000.000 \text{ EUR} \times Rp 15.900/\text{EUR} = Rp 15.900.000.000$$</p>
+
+                <p><strong>Perbandingan (Penghematan):</strong></p>
+                <p>$$Penghematan = \text{Biaya Tanpa Hedging} - \text{Biaya Dengan Hedging}$$</p>
+                <p>$$Penghematan = Rp 15.900.000.000 - Rp 15.600.000.000 = Rp 300.000.000$$</p>
+
+                <p><strong>Kesimpulan:</strong> Dengan melakukan hedging, importir berhasil menghemat Rp 300 Juta karena terhindar dari kenaikan kurs yang tajam.</p>
+            </div>
+    </div>
+
+    <!-- ===== AWAL SOAL TAMBAHAN ===== -->
+
+    <!-- TINGKAT MUDAH (Tambahan) -->
+    <div class="soal">
+        <p><strong>Soal 7 (Mudah):</strong></p>
+        <p>Seorang spekulan mengambil posisi <em>long</em> (beli) 1 kontrak futures indeks S&P 500 dengan harga kesepakatan $K = 4.500$ poin. Pada saat jatuh tempo, harga indeks ditutup (harga $S_T$) di $4.480$ poin. Berapa payoff (keuntungan/kerugian) spekulan tersebut per kontrak (dalam poin)?</p>
+
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 8 (Mudah):</strong></p>
+        <p>Seorang eksportir kopi (yang akan memiliki kopi) mengambil posisi <em>short</em> (jual) 1 kontrak forward kopi di harga $K = Rp 30.000/kg$. Pada saat jatuh tempo, harga pasar kopi ($S_T$) ternyata naik menjadi Rp 32.500/kg. Berapa payoff eksportir tersebut dari kontrak forward-nya?</p>
+    </div>
+    <div class="soal">
+        <p><strong>Soal 9 (Sedang):</strong></p>
+        <p>Seorang investor mengambil posisi <em>long</em> (beli) 1 kontrak futures perak di harga $K_0 = \$20.50$ per ons. Ukuran kontrak adalah 1.000 ons. Berikut adalah pergerakan harga penutupan (settlement price):</p>
+        <ul>
+            <li>Harga Awal ($K_0$): $20.50</li>
+            <li>Harga Tutup Hari 1 ($K_1$): $20.70</li>
+            <li>Harga Tutup Hari 2 ($K_2$): $20.65</li>
+        </ul>
+        <p>Berapa total keuntungan/kerugian <em>Marked-to-Market</em> (MTM) di rekening investor pada akhir Hari 2?</p>
+
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 10 (Sedang):</strong></p>
+        <p>Perusahaan tambang emas (posisi <em>short</em>) ingin melakukan lindung nilai atas produksinya. Mereka menjual 5 kontrak futures emas di harga $K = \$1.900$ per ons. Setiap kontrak berukuran 100 ons. Pada saat jatuh tempo, harga pasar emas ($S_T$) naik menjadi \$1.950 per ons. Berapa total keuntungan atau kerugian perusahaan dari posisi futures-nya?</p>
+
+            <div class="jawaban">
+                <p><strong>Rumus:</strong> Posisi Short, $Payoff = K - S_T$</p>
+                <p><strong>Perhitungan per ons:</strong></p>
+                <p>$$Payoff = \$1.900 - \$1.950 = -\$50 \text{ per ons}$$</p>
+                <p>Ini adalah kerugian dari sisi futures.</p>
+                <p><strong>Total Kerugian:</strong></p>
+                <p>$$Total = Payoff \times \text{Jumlah Ons}$$</p>
+                <p>$$Total = -\$50/\text{ons} \times (5 \text{ kontrak} \times 100 \text{ ons/kontrak})$$</p>
+                <p>$$Total = -\$50 \times 500 = -\$25.000$$</p>
+                <p><strong>Kesimpulan:</strong> Perusahaan rugi \$25.000 dari kontrak futures-nya. Namun, kerugian ini adalah "biaya" lindung nilai. Mereka bisa menjual emas fisik hasil tambang mereka di harga pasar \$1.950 yang lebih tinggi, sehingga kerugian futures ini terkompensasi.</p>
+            </div>
+    </div>
+
+
+    <div class="soal">
+        <p><strong>Soal 11 (Susah):</strong></p>
+        <p>Harga spot sebuah indeks saham ($S_0$) adalah 5.000 poin. Tingkat suku bunga bebas risiko (<em>risk-free rate</em>, $r$) adalah 5% per tahun (compounded continuously). Indeks tersebut diperkirakan memberikan <em>dividend yield</em> ($q$) sebesar 2% per tahun (compounded continuously). Berapa harga teoritis kontrak futures 3 bulan ($T=0.25$) untuk indeks ini?</p>
+        <p>Gunakan rumus harga forward/futures dengan yield: $F_0 = S_0 \times e^{(r-q)T}$</p>
+
+    </div>
+
+    <div class="soal">
+        <p><strong>Soal 12 (Susah):</strong></p>
+        <p>Harga spot saham non-dividen ($S_0$) adalah \$100. Suku bunga bebas risiko ($r$) adalah 5% per tahun (compounded continuously). Saat ini, kontrak forward 1 tahun ($T=1$) diperdagangkan di pasar dengan harga $F_0 = \$108$.</p>
+        <p>1. Berapa harga forward teoritis yang seharusnya?</p>
+        <p>2. Apakah ada peluang arbitrase? Jika ya, jelaskan strateginya dan hitung keuntungannya.</p>
+
+    </div>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp12">
 
