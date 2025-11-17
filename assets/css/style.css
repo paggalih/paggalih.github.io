@@ -1580,28 +1580,19 @@ section {
 			margin-bottom:10px;
 			margin-left:30px;
 	      border-radius: 8px; /* Sudut yang sedikit membulat */
-	      font-size: 1.1rem; /* Ukuran font sedikit lebih besar dari teks biasa */
-	      line-height: 1.6; /* Spasi antar baris agar mudah dibaca */
+	      font-size: 0.8rem; /* Ukuran font sedikit lebih besar dari teks biasa */
+	      line-height: 1.2; /* Spasi antar baris agar mudah dibaca */
 	      position: relative; /* Diperlukan untuk penempatan elemen lain di dalamnya */
 	      box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Bayangan halus untuk efek 3D */
+			width: 80%;
 	    }
 	    
 .trigger::before {
   content: '💡'; 
   font-size: 1.5rem; 
-
-  /* --- Bagian Kunci untuk Posisi Menyembul --- */
-
-  /* 1. Angkat emoji dari alur dokumen */
   position: absolute;
-
-  /* 2. Posisikan tepi KANAN emoji di tepi KIRI kotak .trigger */
   right: 100%; 
-
-  /* 3. Beri jarak 10px antara emoji dan kotak */
   margin-right: 10px; 
-
-  /* 4. Atur posisi vertikal agar persis di tengah */
   top: 0%;
   transform: translateY(-0%);
 }
