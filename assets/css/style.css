@@ -1578,7 +1578,7 @@ section {
 	      padding: 10px 15px; /* Jarak di dalam kotak (vertikal & horizontal) */
 			margin-top:10px;
 			margin-bottom:10px;
-			margin-left:30px;
+			margin-left:10%;
 	      border-radius: 8px; /* Sudut yang sedikit membulat */
 	      font-size: 0.8rem; /* Ukuran font sedikit lebih besar dari teks biasa */
 	      line-height: 1.2; /* Spasi antar baris agar mudah dibaca */
@@ -1589,10 +1589,10 @@ section {
 	    
 .trigger::before {
   content: '💡'; 
-  font-size: 1.5rem; 
+  font-size: 2rem; 
   position: absolute;
   right: 100%; 
-  margin-right: 10px; 
+  margin-right: 5px; 
   top: 0%;
   transform: translateY(-0%);
 }
