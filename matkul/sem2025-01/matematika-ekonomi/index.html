@@ -1396,6 +1396,82 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 11</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A[Analisis Dinamis Ekonomi] --> B{Sifat Waktu?}
+    
+    B -- Waktu Diskrit --> C[Persamaan Beda]
+    B -- Waktu Kontinyu --> D[Persamaan Diferensial]
+    
+    C --> C1[Perubahan bertahap/Periode]
+    C --> C2[Notasi: $y_t+1 - y_t$]
+    C --> C3[Contoh: Bunga Majemuk, Model Cobweb]
+    
+    D --> D1[Perubahan Sesaat/Instant]
+    D --> D2[Notasi: dy/dt]
+    D --> D3[Contoh: Model Pertumbuhan Domar, Inflasi Kontinyu]
+    
+    C3 --> E[Solusi Kestabilan]
+    D3 --> E
+    
+    E --> F{Apakah Konvergen?}
+    F -- Ya --> G[Menuju Ekuilibrium Stabil]
+    F -- Tidak --> H[Divergen / Meledak]
+            </div>
+<h1>Memahami Matematika Ekonomi: Persamaan Beda vs Diferensial</h1>
+
+    <h2>Analogi Sederhana: Tangga vs Prosotan</h2>
+    <div class="analogy-box">
+        <p>Bayangkan perubahan variabel ekonomi seperti pergerakan ketinggian:</p>
+        <ul>
+            <li><strong>Persamaan Beda (Difference Equation):</strong> Seperti menaiki <strong>TANGGA</strong>. Perubahan terjadi per anak tangga (per periode). Data bersifat diskrit (Tahun 1, Tahun 2, dst).<br>
+            <em>Contoh: Bunga deposito tahunan.</em></li>
+            <li><strong>Persamaan Diferensial (Differential Equation):</strong> Seperti menaiki <strong>PROSOTAN/BIDANG MIRING</strong>. Perubahan terjadi setiap detik secara mulus (kontinyu).<br>
+            <em>Contoh: Pergerakan harga saham real-time.</em></li>
+        </ul>
+    </div>
+
+    <hr>
+
+    <h2>Latihan Soal & Pembahasan</h2>
+    <p>Cobalah kerjakan soal di bawah ini sebelum melihat kuncinya!</p>
+
+    <div class="question-box">
+        <strong>Soal 1 (Persamaan Beda):</strong><br>
+        Seorang mahasiswa menyimpan uang $\$100$ dengan bunga $5\%$ per tahun. Tentukan persamaan beda untuk saldo tabungan ($Y_t$) dan hitung saldo pada tahun ke-2.
+        
+    </div>
+
+    <div class="question-box">
+        <strong>Soal 2 (Persamaan Diferensial):</strong><br>
+        Laju pertumbuhan populasi adalah $\frac{dy}{dt} = 0.1y$. Jika populasi awal $y(0) = 50$, tentukan fungsi $y(t)$.
+  
+    </div>
+
+
+    <div class="question-box">
+        <strong>Soal 3 (Persamaan Beda - Model Pendapatan):</strong><br>
+        Diketahui $Y_t = C_t + I_t$, dimana $C_t = 0.8 Y_{t-1}$ dan $I_t = 100$. Jika $Y_0 = 400$, cari $Y_t$.
+
+    </div>
+
+    <div class="question-box">
+        <strong>Soal 4 (Persamaan Diferensial - Harga Pasar):</strong><br>
+        $Q_d = 10 - 2P$, $Q_s = -2 + 4P$. Perubahan harga $\frac{dP}{dt} = 0.5(Q_d - Q_s)$. Cari $P(t)$ jika $P(0)=5$.
+    
+    </div>
+
+    <div class="question-box">
+        <strong>Soal 5 (Persamaan Beda - Cobweb Model):</strong><br>
+        Diketahui $Q_d = 18 - 3P_t$ dan $Q_s = -2 + P_{t-1}$. Syarat pasar $Q_d = Q_s$. Tentukan persamaan $P_t$ dan analisis kestabilannya.
+
+    </div>
+
+    <div class="question-box">
+        <strong>Soal 6 (Persamaan Diferensial - Solow Stability):</strong><br>
+        Selesaikan $y' + 3y = 12$. Tentukan $y(t)$ dan analisis perilaku saat $t \to \infty$.
+      
+    </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp11">
