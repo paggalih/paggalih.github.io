@@ -1545,18 +1545,7 @@ flowchart TD
             <strong>Soal 3:</strong>
             <p>Gunakan <strong>diferensiasi logaritmik</strong> untuk mencari turunan $\frac{dy}{dx}$ dari fungsi $y = x^x$, di mana $x > 0$.</p>
         </div>
-        <div class="soal">
-            <strong>Soal 4:</strong>
-            <p>Fungsi permintaan untuk suatu produk diberikan oleh $Q = \frac{500}{P^{1.5}}$, di mana $Q$ adalah kuantitas yang diminta dan $P$ adalah harga.</p>
-            <p>Tentukan <strong>elastisitas harga permintaan</strong> ($E_p$) menggunakan metode turunan logaritma.</p>
-            <p>Ingat: $E_p = \frac{d(\ln Q)}{d(\ln P)}$</p>
-        </div>
-        <div class="soal">
-            <strong>Soal 5:</strong>
-            <p>Total Revenue (TR) adalah fungsi dari waktu $t$, yang ditentukan oleh $R(t) = P(t) \cdot Q(t)$.</p>
-            <p>Diketahui bahwa harga $P$ tumbuh dengan laju konstan 3% per tahun, dan kuantitas $Q$ tumbuh dengan laju konstan 5% per tahun.</p>
-            <p>Tentukan <strong>laju pertumbuhan proporsional dari Total Revenue</strong> (yaitu, $\frac{R'}{R}$).</p>
-        </div>
+      
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp11">
@@ -1582,6 +1571,82 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 12</h2>
 	        </div>
+            <div class="trigger">
+            <p>Bayangkan Anda adalah seorang Barista di sebuah kedai kopi. Untuk membuat secangkir kopi yang nikmat (kita sebut ini sebagai Output atau Z), Anda memiliki dua bahan utama (kita sebut ini Input atau Variabel Independen):
+              <ol>
+                <li>Gula (x)</li>
+                <li>Bubuk Kopi (y)</li>
+              </ol>
+              </p>
+            <p>Apa itu Turunan Parsial?</p>
+
+<p>Turunan parsial adalah saat Anda ingin mengetahui: "Jika saya menambah takaran Gula sedikit saja, tapi takaran Bubuk Kopi saya biarkan TETAP (tidak berubah), seberapa besar perubahan rasa manis/kepuasan pelanggan?"</p>
+            <p>Dalam Ekonomi, ini adalah dasar dari Marginal Utility (Tambahan kepuasan dari menambah 1 unit barang) dan Marginal Product (Tambahan output dari menambah 1 tenaga kerja).</p>
+            </div>
+          <div class="mermaid text-center">
+flowchart TD
+    A[Fungsi Multivariabel] -->|"Contoh: Z = f (x, y)"| B(Turunan Parsial)
+    
+    B --> C{Pilih Variabel Berubah}
+    
+    C -->|x berubah, y tetap| D[Turunan terhadap x]
+    D --> D1[Simbol: ∂Z/∂x atau Zx]
+    D1 --> D2[Perlakukan y sebagai Konstanta]
+    D2 --> E[Aplikasi Ekonomi: Marginal Utility of X / MUx]
+    
+    C -->|y berubah, x tetap| F[Turunan terhadap y]
+    F --> F1[Simbol: ∂Z/∂y atau Zy]
+    F1 --> F2[Perlakukan x sebagai Konstanta]
+    F2 --> G[Aplikasi Ekonomi: Marginal Utility of Y / MUy]
+
+    E --> H[Interpretasi: Perubahan Z akibat kenaikan 1 unit x]
+    G --> H
+          </div>
+   <div class="difficulty-section">
+        <h2 class="difficulty-title">Level 1:</h2>
+
+        <!-- Soal 1 -->
+            <div class="question">
+                Soal 1: Diketahui fungsi $Z = 3x^2 + 5y - 10$. Tentukan turunan parsial $Z$ terhadap $x$ ($\frac{\partial Z}{\partial x}$) dan terhadap $y$ ($\frac{\partial Z}{\partial y}$).
+            </div>
+
+        <!-- Soal 2 -->
+            <div class="question">
+                Soal 2: Diketahui fungsi $Z = 4x^3 - 2y^2 + 7x$. Tentukan $\frac{\partial Z}{\partial y}$.
+            </div>
+    </div>
+
+    <!-- TINGKAT SEDANG -->
+    <div class="difficulty-section">
+        <h2 class="difficulty-title">Level 2: </h2>
+
+        <!-- Soal 3 -->
+            <div class="question">
+                Soal 3 (Fungsi Utilitas): Diketahui fungsi kepuasan konsumen adalah $U = x^2 y^3$. Tentukan <em>Marginal Utility</em> dari barang X ($MU_x$) dan barang Y ($MU_y$).
+            </div>
+
+        <!-- Soal 4 -->
+            <div class="question">
+                Soal 4: Diketahui fungsi $Z = 2x^2 + 3xy + y^2$. Tentukan nilai $\frac{\partial Z}{\partial x}$ pada saat $x=2$ dan $y=1$.
+            </div>
+        </div>
+
+    <!-- TINGKAT SUSAH -->
+    <div class="difficulty-section">
+        <h2 class="difficulty-title">Level 3: </h2>
+
+        <!-- Soal 5 -->
+            <div class="question">
+                Soal 5 (Fungsi Produksi Cobb-Douglas): Sebuah perusahaan memiliki fungsi produksi $Q = 10 K^{0,5} L^{0,5}$, di mana $K$ adalah Modal dan $L$ adalah Tenaga Kerja. 
+                <br>a. Tentukan <em>Marginal Product of Labor</em> ($MP_L$).
+                <br>b. Apakah fungsi ini menunjukkan <em>Diminishing Marginal Returns</em> terhadap tenaga kerja? Buktikan dengan turunan kedua ($\frac{\partial^2 Q}{\partial L^2}$).
+            </div>
+
+        <!-- Soal 6 -->
+            <div class="question">
+                Soal 6 (Elastisitas Silang): Fungsi permintaan barang A dinyatakan sebagai $Q_A = 100 - 2P_A + P_B$, dimana $P_A$ adalah harga barang A dan $P_B$ adalah harga barang B.
+                <br>Tentukan hubungan antara Barang A dan Barang B dengan menggunakan turunan parsial $\frac{\partial Q_A}{\partial P_B}$. Apakah mereka barang Substitusi atau Komplementer?
+            </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp12">
