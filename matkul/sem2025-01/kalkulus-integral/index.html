@@ -1382,6 +1382,71 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 12</h2>
 	        </div>
+            <div class="mermaid text-center">
+    flowchart TD
+        A["Mulai: Bandingkan f(x) dan g(x)"] --> B{Hitung Limit L}
+        B -->|Gunakan L'Hopital jika perlu| C["$$L = \lim_{x \to \infty} \frac{f(x)}{g(x)}$$"]
+        
+        C --> D{Apa hasil L?}
+        
+        D -->|L = 0| E[Kesimpulan: f tumbuh LEBIH LAMBAT dari g]
+        D -->|L = Tak Hingga| F[Kesimpulan: f tumbuh LEBIH CEPAT dari g]
+        D -->|"L = Konstanta (bukan 0)"| G[Kesimpulan: f dan g tumbuh dengan LAJU SAMA]
+        
+        E --> H["Notasi: f = o(g)"]
+        F --> I["Notasi: g = o(g)"]
+        G --> J[Notasi: f ≈ g atau seorde]  
+            </div>
+    <div class="trigger">
+        <p>Bayangkan <span style="font-weight:bold">x</span> adalah waktu. Kita sedang melihat balapan antara berbagai fungsi saat waktu berjalan menuju tak hingga ($x \to \infty$).</p>
+        <ul>
+            <li>🐢 <strong>Logaritma ($\ln x$)</strong>: Pejalan kaki. Tumbuh, tapi sangat lambat.</li>
+            <li>🚗 <strong>Polinomial ($x^n$)</strong>: Mobil. Semakin besar pangkat ($n$), semakin besar mesinnya, tapi tetap kalah lawan mobil sport.</li>
+            <li>🏎️ <strong>Eksponensial ($a^x$)</strong>: Mobil Sport. Tumbuh sangat cepat. Mengalahkan semua polinomial.</li>
+            <li>🚀 <strong>Faktorial ($x!$) & $x^x$</strong>: Roket. Tumbuh vertikal (super cepat).</li>
+        </ul>
+        <p><strong>Hierarki Pertumbuhan:</strong></p>
+        $$ \ln x \ll x^p \ll a^x \ll x! \ll x^x $$
+    </div>
+
+    
+    <div class="problem-box">
+        <span class="badge easy">Mudah 1</span>
+        <p>Tunjukkan bahwa fungsi $f(x) = x^2$ tumbuh lebih lambat daripada $g(x) = e^x$ saat $x \to \infty$.</p>
+
+    </div>
+
+    <div class="problem-box">
+        <span class="badge easy">Mudah 2</span>
+        <p>Manakah yang tumbuh lebih cepat: $f(x) = \ln(x)$ atau $g(x) = \sqrt{x}$?</p>
+
+    </div>
+
+
+    <div class="problem-box">
+        <span class="badge medium">Sedang 1</span>
+        <p>Tentukan apakah $f(x) = \sqrt{x^2 + 5x}$ dan $g(x) = x$ memiliki laju pertumbuhan yang sama.</p>
+
+    </div>
+
+    <div class="problem-box">
+        <span class="badge medium">Sedang 2</span>
+        <p>Urutkan fungsi berikut dari yang pertumbuhannya paling lambat ke paling cepat: $x^{100}$, $e^{0.1x}$, dan $10 \ln x$.</p>
+
+    </div>
+
+
+    <div class="problem-box">
+        <span class="badge hard">Susah 1</span>
+        <p>Buktikan bahwa fungsi faktorial $f(x) = x!$ tumbuh lebih cepat daripada fungsi eksponensial basis berapapun, misalnya $g(x) = 10^x$.</p>
+
+    </div>
+
+    <div class="problem-box">
+        <span class="badge hard">Susah 2</span>
+        <p>Bandingkan pertumbuhan $f(x) = (\ln x)^x$ dan $g(x) = x^{\ln x}$. Siapa yang lebih cepat?</p>
+
+    </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp12">
