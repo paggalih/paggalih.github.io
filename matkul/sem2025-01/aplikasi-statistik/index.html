@@ -2271,6 +2271,430 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
 	          <h2>Pertemuan 12</h2>
 	        </div>
 
+    <div class="max-w-4xl mx-auto p-6 bg-white shadow-xl mt-10 mb-10 rounded-lg">
+
+        <!-- Konsep -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">1. Konsep Dasar</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                <div class="bg-blue-50 p-4 rounded">
+                    <h3 class="font-bold">Analogi Korelasi (Hubungan)</h3>
+                    <p>Bayangkan <strong>Tali Anjing</strong>. Seberapa kencang tali tersebut menentukan seberapa erat gerakan tuannya dengan anjingnya. Korelasi ($r$) mengukur kekutan hubungan ini (-1 hingga +1).</p>
+                </div>
+                <div class="bg-green-50 p-4 rounded">
+                    <h3 class="font-bold">Analogi Regresi (Prediksi)</h3>
+                    <p>Bayangkan <strong>Cahaya Senter</strong>. Meskipun debu beterbangan (data) tidak beraturan, cahaya senter membentuk jalur lurus yang jelas. Regresi mencari garis lurus tersebut ($Y = a + bX$) untuk memprediksi masa depan.</p>
+                </div>
+            </div>
+            <div class="mt-4">
+                <p>Persamaan Matematika:</p>
+                $$ Y = \alpha + \beta X + \epsilon $$
+                <ul class="list-disc ml-6 mt-2">
+                    <li>$Y$: Variabel Dependen (Akibat)</li>
+                    <li>$X$: Variabel Independen (Sebab)</li>
+                    <li>$\alpha$: Intercept (Nilai Y saat X = 0)</li>
+                    <li>$\beta$: Slope (Kemiringan/Perubahan)</li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Workflow -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">2. Alur Kerja Analisis</h2>
+            <div class="mermaid">
+                graph LR
+                A[Mulai] --> B[Siapkan Data Excel]
+                B --> C[Buat Scatter Plot]
+                C --> D[Analisis Korelasi]
+                D --> E[Analisis Regresi]
+                E --> F[Interpretasi Hasil]
+            </div>
+        </section>
+
+        <!-- Panduan Excel -->
+        <section class="mb-10">
+            <h2 class="text-2xl font-bold mb-4">3. Cara Olah Data di MS Excel</h2>
+            
+            <div class="space-y-4">
+                <div class="border-l-4 border-blue-500 pl-4">
+                    <h3 class="font-bold text-lg">Cara 1: Menggunakan Rumus Cepat</h3>
+                    <p>Gunakan rumus ini di sel kosong:</p>
+                    <ul class="list-disc ml-6">
+                        <li>Mencari Slope ($b$): <code>=SLOPE(blok_Y, blok_X)</code></li>
+                        <li>Mencari Intercept ($a$): <code>=INTERCEPT(blok_Y, blok_X)</code></li>
+                        <li>Mencari Korelasi ($r$): <code>=CORREL(blok_Y, blok_X)</code></li>
+                        <li>Kekuatan Model ($R^2$): <code>=RSQ(blok_Y, blok_X)</code></li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-green-500 pl-4">
+                    <h3 class="font-bold text-lg">Cara 2: Data Analysis Toolpak (Lengkap)</h3>
+                    <ol class="list-decimal ml-6">
+                        <li>Pastikan menu <strong>Data > Data Analysis</strong> aktif (Jika belum, buka File > Options > Add-ins).</li>
+                        <li>Pilih <strong>Regression</strong> lalu klik OK.</li>
+                        <li><strong>Input Y Range:</strong> Blok kolom data Akibat (Target).</li>
+                        <li><strong>Input X Range:</strong> Blok kolom data Sebab (Faktor).</li>
+                        <li>Centang <strong>Labels</strong> jika baris pertama adalah judul.</li>
+                        <li>Klik OK. Excel akan memberikan tabel output lengkap (ANOVA, P-value, Coefficients).</li>
+                    </ol>
+                </div>
+            </div>
+        </section>
+
+        <!-- 6 Studi Kasus -->
+        <section class="mb-10">
+
+            <!-- KASUS 1 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-blue-800">Kasus 1: Biaya Iklan vs. Penjualan (Marketing)</h3>
+                <p class="text-sm mb-2"><strong>Konteks:</strong> Manajer pemasaran ingin tahu seberapa efektif biaya iklan digital terhadap total penjualan bulanan.</p>
+                <p class="text-sm mb-2"><strong>Pertanyaan:</strong> Jika saya menaikkan biaya iklan sebesar $1 juta, berapa kenaikan penjualan yang diharapkan?</p>
+                <textarea class="csv-box w-full" readonly>"Biaya_Iklan_Juta_IDR","Total_Penjualan_Juta_IDR"
+"5.1","55.2"
+"6.3","67.8"
+"4.8","50.4"
+"7.2","75.1"
+"8.5","88.3"
+"5.9","60.5"
+"9.1","95.4"
+"4.2","45.6"
+"6.8","70.2"
+"7.5","78.9"
+"3.5","38.7"
+"8.8","92.1"
+"5.5","58.3"
+"6.1","64.2"
+"9.5","99.8"
+"4.9","52.1"
+"7.8","82.4"
+"3.9","42.5"
+"8.2","85.6"
+"6.5","68.9"
+"5.3","56.7"
+"9.8","102.3"
+"4.5","48.2"
+"7.1","73.5"
+"8.9","93.4"
+"5.7","59.8"
+"3.2","35.4"
+"6.9","72.1"
+"9.2","96.7"
+"4.7","50.1"
+"7.6","79.5"
+"8.4","87.2"
+"5.2","55.9"
+"6.6","69.4"
+"3.8","41.2"
+"9.6","100.5"
+"4.4","47.8"
+"7.3","76.2"
+"8.6","89.5"
+"5.8","61.3"
+"6.4","67.5"
+"9.3","97.8"
+"4.1","44.9"
+"7.9","83.1"
+"3.6","39.5"
+"8.1","84.7"
+"5.4","57.6"
+"6.7","70.8"
+"9.9","103.5"
+"4.6","49.3"</textarea>
+            </div>
+
+            <!-- KASUS 2 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-blue-800">Kasus 2: Pupuk vs. Tinggi Tanaman (Pertanian)</h3>
+                <p class="text-sm mb-2"><strong>Konteks:</strong> Peneliti pertanian menguji dosis pupuk baru terhadap pertumbuhan jagung dalam 30 hari.</p>
+                <p class="text-sm mb-2"><strong>Pertanyaan:</strong> Apakah penambahan pupuk selalu linier dengan tinggi tanaman, atau ada titik jenuhnya? Berapa korelasi hubungannya?</p>
+                <textarea class="csv-box w-full" readonly>"Dosis_Pupuk_Gram","Tinggi_Tanaman_CM"
+"10","45.2"
+"15","52.1"
+"12","48.3"
+"20","60.5"
+"25","68.2"
+"18","57.9"
+"30","74.1"
+"11","46.8"
+"22","63.4"
+"28","71.5"
+"8","41.2"
+"32","76.3"
+"16","54.2"
+"19","59.1"
+"35","79.8"
+"13","49.7"
+"26","69.4"
+"9","43.5"
+"29","73.2"
+"21","61.8"
+"14","51.3"
+"33","77.5"
+"10.5","45.9"
+"23","65.1"
+"31","75.4"
+"17","55.6"
+"7","39.8"
+"24","66.2"
+"34","78.1"
+"12.5","48.9"
+"27","70.3"
+"30.5","74.8"
+"15.5","53.4"
+"20.5","61.2"
+"8.5","42.1"
+"32.5","76.9"
+"11.5","47.5"
+"25.5","68.9"
+"28.5","72.4"
+"16.5","54.8"
+"19.5","59.9"
+"33.5","78.2"
+"9.5","44.2"
+"22.5","64.3"
+"7.5","40.5"
+"29.5","73.8"
+"13.5","50.2"
+"26.5","70.1"
+"34.5","79.1"
+"14.5","51.8"</textarea>
+            </div>
+
+            <!-- KASUS 3 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-blue-800">Kasus 3: Luas Rumah vs. Harga Jual (Real Estate)</h3>
+                <p class="text-sm mb-2"><strong>Konteks:</strong> Agen properti ingin membuat model penentuan harga rumah berdasarkan luas bangunan.</p>
+                <p class="text-sm mb-2"><strong>Pertanyaan:</strong> Berapa harga dasar (intercept) rumah di area ini meskipun luasnya nol (harga tanah saja), dan berapa harga per meter persegi?</p>
+                <textarea class="csv-box w-full" readonly>"Luas_Bangunan_M2","Harga_Jual_Juta_IDR"
+"45","350"
+"60","450"
+"36","280"
+"72","550"
+"90","700"
+"50","390"
+"100","800"
+"40","310"
+"65","490"
+"80","620"
+"30","240"
+"110","890"
+"55","420"
+"62","470"
+"120","980"
+"48","375"
+"85","660"
+"32","260"
+"95","760"
+"68","520"
+"52","400"
+"115","930"
+"42","330"
+"75","580"
+"105","850"
+"58","440"
+"34","270"
+"70","540"
+"108","870"
+"46","360"
+"78","600"
+"98","790"
+"54","410"
+"66","500"
+"38","295"
+"112","910"
+"44","345"
+"76","590"
+"92","730"
+"56","430"
+"64","480"
+"102","820"
+"41","320"
+"82","640"
+"35","275"
+"96","770"
+"51","395"
+"69","530"
+"118","960"
+"49","385"</textarea>
+            </div>
+
+            <!-- KASUS 4 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-blue-800">Kasus 4: Jumlah Absen vs. Nilai Akhir (Pendidikan) - Korelasi Negatif</h3>
+                <p class="text-sm mb-2"><strong>Konteks:</strong> Dosen ingin membuktikan kepada mahasiswa bahwa sering bolos berpengaruh buruk pada nilai.</p>
+                <p class="text-sm mb-2"><strong>Pertanyaan:</strong> Apakah $r$ bernilai negatif? Berapa poin nilai yang hilang untuk setiap 1 kali absen?</p>
+                <textarea class="csv-box w-full" readonly>"Jumlah_Absen_Hari","Nilai_Akhir_Skala_100"
+"2","88"
+"5","75"
+"0","95"
+"8","60"
+"12","45"
+"3","82"
+"10","55"
+"1","92"
+"6","70"
+"7","65"
+"15","35"
+"9","58"
+"4","78"
+"2","86"
+"14","40"
+"3","80"
+"11","50"
+"0","98"
+"13","42"
+"5","73"
+"2","89"
+"9","56"
+"1","90"
+"6","68"
+"10","52"
+"4","77"
+"0","94"
+"7","63"
+"12","44"
+"3","83"
+"8","62"
+"11","48"
+"2","87"
+"5","72"
+"15","32"
+"9","57"
+"1","91"
+"6","69"
+"13","43"
+"4","79"
+"2","85"
+"10","53"
+"0","96"
+"8","61"
+"14","38"
+"7","64"
+"3","81"
+"5","74"
+"11","49"
+"1","93"</textarea>
+            </div>
+
+             <!-- KASUS 5 -->
+             <div class="mb-8">
+                <h3 class="text-xl font-bold text-blue-800">Kasus 5: Usia Mobil vs. Harga Jual Kembali (Otomotif)</h3>
+                <p class="text-sm mb-2"><strong>Konteks:</strong> Dealer mobil bekas ingin membuat panduan harga beli mobil berdasarkan tahun pemakaian.</p>
+                <p class="text-sm mb-2"><strong>Pertanyaan:</strong> Seberapa cepat depresiasi (penurunan harga) mobil per tahunnya?</p>
+                <textarea class="csv-box w-full" readonly>"Usia_Mobil_Tahun","Harga_Jual_Juta_IDR"
+"1","250"
+"3","190"
+"5","150"
+"2","220"
+"7","110"
+"4","170"
+"9","80"
+"0.5","270"
+"6","130"
+"8","95"
+"10","70"
+"2.5","205"
+"4.5","160"
+"1.5","235"
+"7.5","100"
+"3.5","180"
+"5.5","140"
+"0.2","280"
+"6.5","120"
+"8.5","85"
+"9.5","75"
+"1","245"
+"3","195"
+"5","155"
+"2","215"
+"7","115"
+"4","175"
+"9","85"
+"0.8","260"
+"6","135"
+"8","90"
+"10","72"
+"2.2","210"
+"4.8","155"
+"1.8","225"
+"7.8","98"
+"3.8","175"
+"5.8","135"
+"0.4","275"
+"6.8","118"
+"8.8","82"
+"9.8","73"
+"1.2","240"
+"3.2","188"
+"5.2","148"
+"2.8","200"
+"7.2","108"
+"4.2","168"
+"9.2","78"
+"0.6","265"</textarea>
+            </div>
+
+            <!-- KASUS 6 -->
+            <div class="mb-8">
+                <h3 class="text-xl font-bold text-blue-800">Kasus 6: Durasi Olahraga vs. Detak Jantung Istirahat (Kesehatan)</h3>
+                <p class="text-sm mb-2"><strong>Konteks:</strong> Dokter ingin melihat efek kardio mingguan terhadap kesehatan jantung (semakin rendah detak jantung istirahat, semakin bugar).</p>
+                <p class="text-sm mb-2"><strong>Pertanyaan:</strong> Apakah ada korelasi negatif yang kuat antara durasi olahraga dengan detak jantung istirahat?</p>
+                <textarea class="csv-box w-full" readonly>"Menit_Olahraga_PerMinggu","Detak_Jantung_Istirahat_BPM"
+"120","72"
+"60","80"
+"180","65"
+"90","75"
+"240","60"
+"150","68"
+"30","85"
+"300","58"
+"0","90"
+"210","62"
+"45","82"
+"135","70"
+"270","59"
+"75","78"
+"195","64"
+"15","88"
+"225","61"
+"105","74"
+"255","60"
+"285","58"
+"125","71"
+"65","79"
+"185","65"
+"95","75"
+"245","59"
+"155","67"
+"35","84"
+"305","57"
+"10","89"
+"215","62"
+"50","81"
+"140","69"
+"275","58"
+"80","77"
+"200","63"
+"20","87"
+"230","61"
+"110","73"
+"260","60"
+"290","58"
+"130","71"
+"70","79"
+"190","64"
+"100","74"
+"250","59"
+"160","67"
+"40","83"
+"310","57"
+"5","89"
+"220","62"</textarea>
+            </div>
+
+        </section>
+
+    </div>
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp12">
 
