@@ -3520,6 +3520,270 @@
         <div class="section-title">
           <h2>Pertemuan 12</h2>
         </div>
+        <div class="mermaid text-center">
+flowchart TD
+    A[Mulai: Plot Data Mentah] --> B{Apakah Visual Stabil?}
+    B -- Tidak (Ada Tren) --> C[Uji Akar Unit / Unit Root Test]
+    B -- Ya --> D[Identifikasi Model AR/MA]
+    
+    C --> E{Prob < 0.05?}
+    E -- Tidak (Tidak Stasioner) --> F[Lakukan Turunan Pertama / 1st Difference]
+    F --> C
+    E -- Ya (Stasioner) --> D
+    
+    D --> G[Estimasi Model ARIMA]
+    G --> H[Uji Diagnostik Residual]
+    
+    H --> I{Residual White Noise?}
+    I -- Tidak (Masih ada pola) --> D
+    I -- Ya (Acak sempurna) --> J[Peramalan / Forecasting]
+    J --> K[Selesai]
+        </div>
+    <h1>Pengantar Analisis Deret Waktu (Time Series)</h1>
+    <p>Dalam ekonometrika, data deret waktu adalah sekumpulan observasi pada variabel nilai yang diambil pada waktu yang berbeda. Tantangan utamanya adalah <strong>autokorelasi</strong>, di mana masa lalu mempengaruhi masa kini.</p>
+
+    <h2>1. Konsep Stasioneritas</h2>
+    <p>Agar model valid, data harus stasioner. Artinya, rata-rata dan variansnya konstan sepanjang waktu. Secara matematis, proses stasioner \( Y_t \) memenuhi:</p>
+    <p>
+        $$ E(Y_t) = \mu $$
+        $$ Var(Y_t) = \sigma^2 $$
+        $$ Cov(Y_t, Y_{t+k}) = \gamma_k $$
+    </p>
+
+    <h2>2. Model ARIMA (Box-Jenkins)</h2>
+    <p>Model umum yang sering digunakan adalah ARIMA(p,d,q). Jika kita mengambil contoh model AR(1) atau <em>Autoregressive Order 1</em>, persamaannya adalah:</p>
+    <p>
+        $$ Y_t = \beta_0 + \beta_1 Y_{t-1} + \epsilon_t $$
+    </p>
+    <p>Dimana \( \epsilon_t \) adalah <em>white noise</em> (error acak) yang diasumsikan berdistribusi normal \( N(0, \sigma^2) \).</p>
+
+    <h2>3. Langkah Estimasi di EViews</h2>
+    <p>Setelah memastikan data stasioner (misalnya pada tingkat level), kita dapat melakukan estimasi persamaan. Berikut adalah perintah dasar pada <em>command window</em> EViews:</p>
+
+    <code>
+        ls variabel_y c ar(1) ma(1)
+    </code>
+<h2>Kasus 1: Inflasi (Trend Deterministik)</h2>
+<p>Kondisi: Data cenderung naik terus menerus seiring waktu (misal: IHK). Analisis: Butuh Detrending atau Differencing.</p>
+          <textarea>
+"obs","inflasi"
+"1","100.5"
+"2","101.2"
+"3","101.8"
+"4","102.5"
+"5","103.1"
+"6","103.9"
+"7","104.5"
+"8","105.2"
+"9","106.0"
+"10","106.8"
+"11","107.5"
+"12","108.1"
+"13","109.0"
+"14","109.8"
+"15","110.5"
+"16","111.2"
+"17","112.0"
+"18","112.7"
+"19","113.5"
+"20","114.2"
+"21","115.0"
+"22","115.9"
+"23","116.5"
+"24","117.2"
+"25","118.0"
+"26","118.8"
+"27","119.5"
+"28","120.2"
+"29","121.0"
+"30","121.8"
+"31","122.5"
+"32","123.3"
+"33","124.0"
+"34","124.8"
+"35","125.5"
+"36","126.2"
+"37","127.0"
+"38","127.9"
+"39","128.5"
+"40","129.2"
+"41","130.0"
+"42","130.8"
+"43","131.5"
+"44","132.3"
+"45","133.0"
+"46","133.9"
+"47","134.5"
+"48","135.2"
+"49","136.0"
+"50","136.8"
+          </textarea>
+          <h2>Kasus 2: Harga Saham (Random Walk)</h2>
+          <p>Kondisi: Pergerakan acak, sulit ditebak, volatilitas tinggi. Analisis: Seringkali tidak stasioner di level, butuh log-return.</p>
+          <textarea>
+"obs","saham"
+"1","5000"
+"2","5050"
+"3","5025"
+"4","5100"
+"5","5080"
+"6","5150"
+"7","5200"
+"8","5180"
+"9","5120"
+"10","5090"
+"11","5110"
+"12","5160"
+"13","5210"
+"14","5250"
+"15","5230"
+"16","5280"
+"17","5300"
+"18","5290"
+"19","5340"
+"20","5380"
+"21","5350"
+"22","5400"
+"23","5420"
+"24","5390"
+"25","5360"
+"26","5380"
+"27","5410"
+"28","5450"
+"29","5480"
+"30","5460"
+"31","5500"
+"32","5520"
+"33","5490"
+"34","5530"
+"35","5580"
+"36","5600"
+"37","5570"
+"38","5620"
+"39","5650"
+"40","5630"
+"41","5680"
+"42","5700"
+"43","5690"
+"44","5720"
+"45","5750"
+"46","5730"
+"47","5780"
+"48","5800"
+"49","5820"
+"50","5790"
+          </textarea>
+          <h2>Kasus 3: Pertumbuhan Ekonomi (Siklus/Cyclical)</h2>
+          <p>Kondisi: Gelombang naik turun tapi periodenya tidak tetap (Boom & Bust). Analisis: Identifikasi titik balik (turning points).</p>
+          <textarea>
+"obs","gdp_growth"
+"1","5.1"
+"2","5.3"
+"3","5.5"
+"4","5.8"
+"5","6.0"
+"6","6.2"
+"7","5.9"
+"8","5.6"
+"9","5.2"
+"10","4.8"
+"11","4.5"
+"12","4.2"
+"13","4.0"
+"14","4.1"
+"15","4.3"
+"16","4.6"
+"17","5.0"
+"18","5.4"
+"19","5.7"
+"20","6.1"
+"21","6.3"
+"22","6.5"
+"23","6.0"
+"24","5.5"
+"25","5.0"
+"26","4.6"
+"27","4.2"
+"28","3.8"
+"29","3.5"
+"30","3.6"
+"31","3.9"
+"32","4.2"
+"33","4.7"
+"34","5.1"
+"35","5.5"
+"36","5.9"
+"37","6.2"
+"38","5.8"
+"39","5.4"
+"40","5.0"
+"41","4.7"
+"42","4.3"
+"43","4.0"
+"44","4.2"
+"45","4.5"
+"46","4.9"
+"47","5.3"
+"48","5.6"
+"49","6.0"
+"50","6.2"
+          </textarea>
+          <h2>Kasus 4: Nilai Tukar (Structural Break)</h2>
+          <p>Kondisi: Stabil, lalu tiba-tiba melonjak karena krisis/kebijakan, lalu stabil di level baru. Analisis: Perlu uji Chow Test atau Dummy Variable.</p>
+          <textarea>
+"obs","kurs"
+"1","14000"
+"2","14010"
+"3","14005"
+"4","14020"
+"5","14015"
+"6","14000"
+"7","14030"
+"8","14025"
+"9","14010"
+"10","14005"
+"11","14020"
+"12","14015"
+"13","14030"
+"14","14025"
+"15","14010"
+"16","14005"
+"17","14020"
+"18","14015"
+"19","14030"
+"20","14025"
+"21","14010"
+"22","14005"
+"23","14020"
+"24","14015"
+"25","15000"
+"26","15050"
+"27","15020"
+"28","15080"
+"29","15100"
+"30","15050"
+"31","15020"
+"32","15090"
+"33","15060"
+"34","15030"
+"35","15080"
+"36","15040"
+"37","15010"
+"38","15070"
+"39","15020"
+"40","15050"
+"41","15030"
+"42","15080"
+"43","15010"
+"44","15040"
+"45","15060"
+"46","15020"
+"47","15090"
+"48","15050"
+"49","15030"
+"50","15080"
+          </textarea>
+
         <div class="container mt-5">
           <div class="accordion" id="accordionp12">
             <div class="accordion-item">
