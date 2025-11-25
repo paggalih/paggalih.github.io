@@ -2229,6 +2229,171 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 13</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A([Mulai Kontrak Swap]) --> B[Tentukan Nilai Pokok Notional \n mis: Rp 1 Miliar]
+    B --> C[Tentukan Fixed Rate \n mis: 5%]
+    B --> D[Tentukan Indeks Floating Rate \n mis: LIBOR / SOFR]
+    
+    C & D --> E{Masuk Periode Pembayaran?}
+    
+    E -- Ya --> F[Cek Suku Bunga Floating \n pada tanggal Reset]
+    
+    F --> G[Hitung Bunga Fixed: \n Notional x Fixed Rate x Hari]
+    F --> H[Hitung Bunga Floating: \n Notional x Floating Rate x Hari]
+    
+    G & H --> I{Bandingkan Nilai}
+    
+    I -- Fixed > Floating --> J[Pihak Pembayar Fixed \n Bayar SELISIH ke Pihak Floating]
+    I -- Floating > Fixed --> K[Pihak Pembayar Floating \n Bayar SELISIH ke Pihak Fixed]
+    
+    J & K --> L{Kontrak Berakhir?}
+    L -- Tidak --> E
+    L -- Ya --> M([Selesai])
+    
+    style A fill:#f9f,stroke:#333,stroke-width:2px
+    style M fill:#f9f,stroke:#333,stroke-width:2px
+    style J fill:#ffcccc,stroke:#333
+    style K fill:#ccffcc,stroke:#333
+            </div>
+            <div class="trigger">
+<h2>Analogi Sederhana: "Tukar Guling Cicilan Motor"</h2>
+Bayangkan Mahasiswa A (Ali) dan Mahasiswa B (Budi) masing-masing membeli motor seharga Rp 20.000.000 secara kredit.
+<hr>
+<em>Posisi Ali:</em> Ali mengambil kredit dengan bunga Mengambang (Floating). Artinya, jika suku bunga pasar naik, cicilan Ali naik. Jika turun, cicilan Ali turun. Ali adalah orang yang suka kepastian dan sekarang dia stres takut bunga naik.
+<br>
+<em>Posisi Budi:</em> Budi mengambil kredit dengan bunga Tetap (Fixed) sebesar 10%. Budi merasa 10% itu kemahalan dan dia yakin ekonomi akan membaik (bunga pasar akan turun). Budi adalah pengambil risiko.
+<hr>
+<b>Mekanisme Swap:</b> Mereka bertemu di kantin dan sepakat untuk melakukan Swap (Pertukaran) kewajiban bunga, tanpa menukar motornya (Notional Principal).
+<br>
+Ali berjanji membayar bunga Fixed 10% kepada Budi (sesuai keinginan Ali yang ingin kepastian).
+<br>
+Budi berjanji membayar bunga Floating (Pasar) kepada Ali (sesuai prediksi Budi bahwa bunga akan rendah).
+<hr>
+<b>Hasilnya:</b>
+
+Ali sekarang merasa aman (membayar fixed).
+
+Budi sekarang punya potensi bayar lebih murah (jika bunga pasar turun di bawah 10%).
+<hr>
+Dalam matematika keuangan, mereka hanya saling membayar selisihnya (Netting). Jika bunga pasar jadi 11%, Budi rugi dan harus bayar selisih 1% ke Ali. Jika bunga pasar jadi 9%, Ali yang "rugi" secara teknis (karena membayar fixed 10% padahal pasar cuma 9%), tapi dia mendapatkan ketenangan pikiran (hedging).
+            </div>
+       <!-- LEVEL MUDAH -->
+        <section class="mb-12">
+
+
+            <!-- Soal 1 -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h3 class="font-bold text-lg mb-2">Soal 1: Konsep Dasar Netting</h3>
+                <p class="mb-4">
+                    Perusahaan A melakukan perjanjian <em>Plain Vanilla Interest Rate Swap</em> dengan Bank B. 
+                    Nilai pokok (Notional Principal) adalah IDR 10 Miliar. 
+                    Perusahaan A setuju membayar bunga <strong>Fixed 6%</strong> per tahun, dan menerima bunga <strong>Floating (LIBOR)</strong> dari Bank B.
+                    Pembayaran dilakukan tahunan (annual).
+                    <br><br>
+                    Jika pada akhir tahun ke-1, tingkat bunga LIBOR adalah <strong>7.5%</strong>, siapakah yang membayar dan berapa jumlah <em>net payment</em>-nya?
+                </p>
+                
+            </div>
+
+            <!-- Soal 2 -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h3 class="font-bold text-lg mb-2">Soal 2: Definisi Swap</h3>
+                <p class="mb-4">
+                    Dalam konteks swap mata uang (Currency Swap), jelaskan perbedaan utama antara <em>Interest Rate Swap</em> biasa dengan <em>Currency Swap</em> terkait penanganan nilai pokok (Principal) di awal dan akhir kontrak!
+                </p>
+                
+            </div>
+        </section>
+
+        <!-- LEVEL SEDANG -->
+        <section class="mb-12">
+
+
+            <!-- Soal 3 -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h3 class="font-bold text-lg mb-2">Soal 3: Netting dengan Day Count Convention</h3>
+                <p class="mb-4">
+                    Sebuah kontrak swap senilai USD 50,000,000 memiliki ketentuan:
+                    <ul class="list-disc ml-5 mt-2 mb-2">
+                        <li>Pihak X membayar Fixed: 4.5%</li>
+                        <li>Pihak Y membayar Floating: SOFR 6-bulan</li>
+                        <li>Pembayaran dilakukan setiap semester (semi-annual).</li>
+                        <li>Konvensi hari: $\text{Actual}/360$.</li>
+                    </ul>
+                    Periode saat ini memiliki <strong>182 hari</strong>. Jika SOFR 6-bulan ditetapkan sebesar <strong>4.8%</strong>, hitunglah pembayaran bersihnya!
+                </p>
+                
+            </div>
+
+            <!-- Soal 4 -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h3 class="font-bold text-lg mb-2">Soal 4: Comparative Advantage</h3>
+                <p class="mb-4">
+                    Perusahaan AAA dan BBB ingin meminjam dana. Rating kredit mereka berbeda:
+                </p>
+                <div class="overflow-x-auto mb-4">
+                    <table class="min-w-full text-sm text-left text-gray-500 border">
+                        <thead class="text-xs text-gray-700 uppercase bg-gray-100">
+                            <tr>
+                                <th class="px-4 py-2">Perusahaan</th>
+                                <th class="px-4 py-2">Pasar Fixed Rate</th>
+                                <th class="px-4 py-2">Pasar Floating Rate</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr class="bg-white border-b">
+                                <td class="px-4 py-2 font-medium text-gray-900">AAA</td>
+                                <td class="px-4 py-2">5.0%</td>
+                                <td class="px-4 py-2">LIBOR + 0.2%</td>
+                            </tr>
+                            <tr class="bg-gray-50 border-b">
+                                <td class="px-4 py-2 font-medium text-gray-900">BBB</td>
+                                <td class="px-4 py-2">6.5%</td>
+                                <td class="px-4 py-2">LIBOR + 1.0%</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <p>
+                    AAA menginginkan pinjaman Floating, sedangkan BBB menginginkan pinjaman Fixed.
+                    Berapakah total keuntungan (Quality Spread Differential/QSD) yang bisa dibagi jika mereka melakukan Swap?
+                </p>
+                
+            </div>
+        </section>
+
+        <!-- LEVEL SUSAH -->
+        <section class="mb-12">
+
+            <!-- Soal 5 -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h3 class="font-bold text-lg mb-2">Soal 5: Valuasi Swap (Mark-to-Market)</h3>
+                <p class="mb-4">
+                    Anda berada dalam posisi <strong>Menerima Fixed 5%</strong> dan <strong>Membayar Floating</strong> atas notional $10 juta. Sisa umur swap adalah 2 tahun dengan pembayaran tahunan.
+                    <br>
+                    Saat ini, kurva imbal hasil (yield curve) LIBOR flat di angka <strong>6%</strong> (continuously compounded) untuk semua tenor.
+                    <br>
+                    Hitung nilai (Value) dari swap ini bagi Anda! (Asumsi pembayaran bunga floating berikutnya akan sebesar 6% juga berdasarkan estimasi forward rate).
+                </p>
+                
+            </div>
+
+            <!-- Soal 6 -->
+            <div class="bg-white shadow-md rounded-lg p-6 mb-6">
+                <h3 class="font-bold text-lg mb-2">Soal 6: Menentukan Swap Rate (Par Yield)</h3>
+                <p class="mb-4">
+                    Diketahui harga Zero-Coupon Bond (per $1 nilai nominal) untuk maturitas berikut:
+                    <ul class="list-disc ml-5 mb-2">
+                        <li>1 Tahun ($P_1$): 0.9600</li>
+                        <li>2 Tahun ($P_2$): 0.9150</li>
+                        <li>3 Tahun ($P_3$): 0.8650</li>
+                    </ul>
+                    Tentukan <strong>Swap Rate</strong> (Fixed rate) untuk swap bertenor 3 tahun dengan pembayaran tahunan, agar nilai awal swap adalah nol (fair value)!
+                </p>
+                
+            </div>
+        </section>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
