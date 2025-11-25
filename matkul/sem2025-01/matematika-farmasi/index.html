@@ -1667,6 +1667,117 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 10</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+     B{Apa Data yang Ada?}
+    
+    B -- Laju Eliminasi/Absorpsi --> C["Fungsi f(t)"]
+    
+    C --> E[Tentukan Batas Waktu]
+    E --> E1[Batas Bawah a misal: t=0]
+    E --> E2[Batas Atas b misal: t=jam ke-4]
+    
+    E1 & E2 --> F[Susun Integral Tentu]
+    
+    F --> H["∫ f(t) dt dari a ke b"]
+    
+    H --> J[Hasil: Total Obat / AUC]
+    
+    J --> K[Interpretasi Farmakokinetik]
+    K --> L[Selesai]
+            </div>
+
+<div class="problem-card">
+<hr>    <p>Sebuah obat diinfuskan ke dalam tubuh pasien. Laju masuknya obat (dalam mg/jam) dinyatakan dengan fungsi konstan:</p>
+    $$ f(t) = 5 $$
+    <p>Dimana $t$ adalah waktu dalam jam. Berapa total obat yang masuk ke dalam tubuh pasien setelah <strong>4 jam</strong>?</p>
+
+</div>
+
+<div class="problem-card">
+<hr>    <p>Laju pelarutan suatu tablet obat diberikan oleh fungsi sederhana:</p>
+    $$ R(t) = 2t $$
+    <p>Dimana $R(t)$ dalam mg/menit dan $t$ dalam menit. Hitunglah jumlah obat yang terlarut selama <strong>3 menit pertama</strong>.</p>
+
+</div>
+
+<!-- TINGKAT SEDANG -->
+
+<div class="problem-card">
+<hr>    <p>Konsentrasi obat dalam plasma darah menurun mengikuti fungsi eksponensial setelah penyuntikan bolus:</p>
+    $$ C(t) = 10e^{-0.5t} $$
+    <p>Dimana $C(t)$ dalam $\mu g/mL$ dan $t$ dalam jam. Hitunglah <strong>AUC (Area Under Curve)</strong> dari $t=0$ sampai $t=2$ jam.</p>
+
+</div>
+
+<div class="problem-card">
+<hr>    <p>Laju penyerapan obat dalam usus dinyatakan dengan fungsi kuadrat:</p>
+    $$ A'(t) = 3t^2 + 4t $$
+    <p>Berapa total obat yang diserap antara jam ke-1 hingga jam ke-2?</p>
+
+</div>
+
+<!-- TINGKAT SUSAH -->
+
+<div class="problem-card">
+<hr>    <p>Profil konsentrasi obat oral mengikuti persamaan bateman sederhana:</p>
+    $$ C(t) = 2(e^{-0.2t} - e^{-t}) $$
+    <p>Hitunglah total paparan obat (AUC) dari waktu $t=0$ sampai obat habis tak terhingga ($t=\infty$).</p>
+
+</div>
+
+<div class="problem-card">
+<hr>    <p>Diketahui dua formulasi obat (Obat A dan Obat B). Fungsi konsentrasi plasma masing-masing adalah:</p>
+    <ul>
+        <li>Obat A: $C_A(t) = 4t - t^2$ (Hanya valid untuk $0 \le t \le 4$)</li>
+        <li>Obat B: $C_B(t) = 2t$ (Hanya valid untuk $0 \le t \le 2$, kemudian turun tajam dianggap 0)</li>
+    </ul>
+    <p>Tentukan selisih AUC antara Obat A (selama 0-4 jam) dan Obat B (selama 0-2 jam).</p>
+
+</div>
+<div class="problem-card">
+<hr>    <p>Hitunglah integral tak tentu berikut yang merepresentasikan fungsi laju sederhana:</p>
+    $$ \int 2t (t^2 + 1)^3 \, dt $$
+    <p><em>Petunjuk: Misalkan $u = t^2 + 1$.</em></p>
+
+</div>
+
+<div class="problem-card">
+<hr>    <p>Tentukan hasil dari integral eksponensial berikut:</p>
+    $$ \int e^{-3t} \, dt $$
+    <p><em>Petunjuk: Ini adalah bentuk substitusi linear sederhana.</em></p>
+
+</div>
+
+<!-- TINGKAT SEDANG -->
+
+<div class="problem-card">
+<hr>    <p>Dalam menghitung <em>Mean Residence Time</em> (MRT), kita sering menemui bentuk $t \times C(t)$. Selesaikan integral berikut:</p>
+    $$ \int t \cdot e^{-t} \, dt $$
+    <p><em>Petunjuk: Gunakan rumus $\int u \, dv = uv - \int v \, du$. Pilih $u = t$.</em></p>
+
+</div>
+
+<div class="problem-card">
+<hr>    <p>Hitunglah jumlah obat yang terlepas jika laju pelarutan $R(t) = t \sqrt{t^2 + 9}$ dari $t=0$ sampai $t=4$.</p>
+    $$ \int_{0}^{4} t (t^2 + 9)^{1/2} \, dt $$
+
+</div>
+
+<!-- TINGKAT SUSAH -->
+
+<div class="problem-card">
+<hr>    <p>Hitunglah integral tak tentu untuk persamaan momen area tingkat dua (sering digunakan dalam statistik farmasi):</p>
+    $$ \int t^2 e^{-t} \, dt $$
+    <p><em>Petunjuk: Anda perlu melakukan integral parsial sebanyak dua kali.</em></p>
+
+</div>
+
+<div class="problem-card">
+<hr>    <p>Konsentrasi obat $C(t) = e^{-0.5t}$. Hitunglah <strong>AUMC (Area Under Moment Curve)</strong> dari $t=0$ sampai $t=\infty$.</p>
+    $$ AUMC = \int_{0}^{\infty} t \cdot e^{-0.5t} \, dt $$
+
+</div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp10">
