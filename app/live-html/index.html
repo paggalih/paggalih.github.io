@@ -91,7 +91,6 @@
             </div>
         </div>
     </div>
-    <footer id="footer"></footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/codemirror.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/codemirror/5.65.15/mode/xml/xml.min.js"></script>
@@ -328,40 +327,6 @@
             
             addTab('index.html', exampleHTML);
         });
-    </script>
-    <script>
-        // Create the container div
-        const container = document.createElement('div');
-        container.className = 'container';
-
-        // Create and append the h3 element
-        const h3 = document.createElement('h3');
-        h3.textContent = 'Galih Pradananta';
-        container.appendChild(h3);
-
-        // Create and append the paragraph element
-        const paragraph = document.createElement('p');
-        paragraph.textContent = 'You just have to live for this one minute.';
-        container.appendChild(paragraph);
-
- 
-        // Create and append the flag counter link
-        const flagCounterLink = document.createElement('a');
-        flagCounterLink.href = 'http://s01.flagcounter.com/more/rFMs';
-        flagCounterLink.target = '_blank';
-        flagCounterLink.className = 'flag-counter';
-
-        const flagCounterImg = document.createElement('img');
-        flagCounterImg.src = 'https://s01.flagcounter.com/count/rFMs/bg_FFFFFF/txt_000000/border_CCCCCC/columns_2/maxflags_15/viewers_3/labels_1/pageviews_1/flags_1/percent_0/';
-        flagCounterImg.alt = 'Free counters!';
-        flagCounterImg.border = '0';
-
-        flagCounterLink.appendChild(flagCounterImg);
-        container.appendChild(flagCounterLink);
-
-        // Append the container to the footer
-        document.getElementById('footer').appendChild(container);
-
     </script>
 </body>
 </html>
