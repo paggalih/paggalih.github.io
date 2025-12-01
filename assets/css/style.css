@@ -1584,7 +1584,7 @@ section {
 	      line-height: 1.2; /* Spasi antar baris agar mudah dibaca */
 	      position: relative; /* Diperlukan untuk penempatan elemen lain di dalamnya */
 	      box-shadow: 0 4px 8px rgba(0,0,0,0.05); /* Bayangan halus untuk efek 3D */
-			width: 80%;
+			width: 100%;
 	    }
 	    
 .trigger::before {
