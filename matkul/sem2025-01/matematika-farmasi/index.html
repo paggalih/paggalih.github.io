@@ -1803,6 +1803,100 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 11</h2>
 	        </div>
+            <div class="trigger">
+            <h3>Apotek sebagai Semesta</h3>
+              <p>Himpunan Semesta ($S$): Adalah seluruh apotek itu sendiri beserta isinya. Semua obat, alat kesehatan, dan staf yang ada di dalamnya adalah anggota semesta.</p>
+              <p>Himpunan ($A$): Bayangkan sebuah rak khusus, misalnya Rak Antibiotik. Isinya (anggotanya) hanya obat-obatan antibiotik (Amoxicillin, Cefadroxil, dll).</p>
+                <p>Himpunan Bagian ($\subset$): Di dalam Rak Antibiotik, ada kotak kecil berisi Antibiotik Generik. Kotak kecil ini adalah subset (himpunan bagian) dari Rak Antibiotik.</p>
+                  <p>Irisan ($A \cap B$): Bayangkan Himpunan A adalah "Obat Sirup" dan Himpunan B adalah "Obat Batuk". Irisannya adalah obat yang berbentuk sirup DAN berfungsi untuk batuk (Sirup Obat Batuk).</p>
+              <p>Gabungan ($A \cup B$): Jika kita menggabungkan Himpunan A (Obat Sirup) dan Himpunan B (Obat Batuk), maka kita mengambil semua botol sirup (walau bukan obat batuk) dan semua obat batuk (walau bentuknya tablet).</p>
+              <p>Komplemen ($A^c$): Jika Himpunan A adalah "Obat Keras (Logo Merah)", maka komplemennya adalah segala sesuatu di apotek yang BUKAN obat keras (Obat bebas, alat kesehatan, permen, dll).</p>
+            </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A[Pengenalan Himpunan Farmasi] --> B(Konsep Dasar)
+    A --> C(Penyajian Himpunan)
+    A --> D(Operasi Himpunan)
+    
+    B --> B1[Definisi: Kumpulan objek terdefinisi jelas]
+    B --> B2[Notasi: Huruf Kapital A, B, S]
+    B --> B3[Anggota vs Bukan Anggota]
+    
+    C --> C1[Enumerasi / Mendaftar]
+    C --> C2[Notasi Pembentuk Himpunan]
+    C --> C3[Diagram Venn]
+    
+    D --> D1[Irisan / Intersection]
+    D --> D2[Gabungan / Union]
+    D --> D3[Selisih / Difference]
+    D --> D4[Komplemen]
+
+    style A fill:#f9f,stroke:#333,stroke-width:4px
+    style B fill:#bbf,stroke:#333,stroke-width:2px
+    style C fill:#bbf,stroke:#333,stroke-width:2px
+    style D fill:#bbf,stroke:#333,stroke-width:2px
+            </div>
+<div class="soal-card">
+    <p><strong>Soal 1:</strong> Diketahui \( S \) adalah himpunan semua bentuk sediaan obat. Jika \( A = \{ \text{Tablet}, \text{Kapsul}, \text{Pil}, \text{Kaplet} \} \), sebutkan nama himpunan \( A \) berdasarkan karakteristik anggotanya!</p>
+  </div>
+
+  <div class="soal-card">
+    <p><strong>Soal 2:</strong> Tuliskan dalam notasi himpunan: Himpunan \( B \) adalah himpunan suhu penyimpanan vaksin (\( x \)) yang harus berada di antara 2 derajat Celsius hingga 8 derajat Celsius.</p>
+  </div>
+
+  <div class="soal-card">
+    <p><strong>Soal 3:</strong> Di sebuah apotek, diketahui:<br>
+    \( A = \{ \text{Paracetamol}, \text{Ibuprofen}, \text{Asam Mefenamat} \} \) (Analgesik)<br>
+    \( B = \{ \text{Ibuprofen}, \text{Aspirin}, \text{Naproxen} \} \) (Anti-inflamasi)<br>
+    Tentukan \( A \cap B \) dan jelaskan artinya!</p>
+  </div>
+
+  <div class="soal-card">
+    <p><strong>Soal 4:</strong> Diketahui Semesta (\( S \)) adalah bilangan asli kurang dari 10 yang merepresentasikan nomor rak obat.<br>
+    \( A = \{ 1, 3, 5, 7 \} \) (Rak obat generik). Tentukan \( A^c \) (Komplemen A)!</p>
+  </div>
+  <div class="soal-card">
+    <p><strong>Soal 5:</strong> Dalam survei 50 pasien: 25 membeli Vitamin C, 20 membeli Vitamin D, dan 10 membeli keduanya. Berapa pasien yang <strong>tidak</strong> membeli keduanya?</p>
+  </div>
+
+  <div class="soal-card">
+    <p><strong>Soal 6:</strong> Jika \( P = \{ \text{Obat larut air} \} \) dan \( Q = \{ \text{Obat larut alkohol} \} \). Jika Obat X adalah <em>Elixir</em> (sediaan mengandung air & alkohol), tuliskan notasi posisi Obat X!</p>
+  </div>
+  <div class="soal-card">
+    <p><strong>Soal 7:</strong> Diketahui \( S \) adalah himpunan semua bentuk sediaan obat (BSO). Jika \( A = \{ \text{Salep}, \text{Krim}, \text{Gel}, \text{Pasta} \} \), definisikan himpunan \( A \) berdasarkan karakteristik fisik sediaannya!</p>
+  </div>
+              <div class="soal-card">
+    <p><strong>Soal 8:</strong> Tuliskan dalam notasi pembentuk himpunan untuk Himpunan \( B \), dimana \( B \) adalah himpunan pH darah manusia normal (\(x\)) yang berkisar antara 7.35 hingga 7.45.</p>
+  </div>
+              <div class="soal-card">
+    <p><strong>Soal 9:</strong> Di instalasi farmasi terdapat dua lemari pendingin:<br>
+        \( P = \{ \text{Insulin}, \text{Vaksin Polio}, \text{Suppositoria}, \text{Oxytocin} \} \)<br>
+        \( Q = \{ \text{Vaksin Polio}, \text{Vaksin BCG}, \text{Vaksin Hepatitis}, \text{Insulin} \} \)<br>
+        Tentukan \( P \cap Q \) dan jelaskan maknanya dalam konteks stok opname!</p>
+  </div>
+              <div class="soal-card">
+    <p><strong>Soal 10:</strong> Diketahui:<br>
+        \( A = \) Himpunan obat Antibiotik.<br>
+        \( B = \) Himpunan obat yang menyebabkan alergi pada pasien Tuan X.<br>
+        Jika \( A = \{ \text{Amoxicillin}, \text{Cefadroxil}, \text{Azithromycin}, \text{Ciprofloxacin} \} \) dan <br>
+        \( B = \{ \text{Amoxicillin}, \text{Penicillin}, \text{Cefadroxil} \} \).<br>
+        Tentukan \( A - B \) (A selisih B)!</p>
+  </div>
+             <div class="soal-card">
+    <p><strong>Soal 11:</strong> Dari 100 pasien hipertensi di sebuah klinik:<br>
+        - 50 pasien diresepkan Captopril (C)<br>
+        - 40 pasien diresepkan Amlodipine (A)<br>
+        - 10 pasien menerima kombinasi Captopril dan Amlodipine.<br>
+        Berapa banyak pasien yang menerima obat antihipertensi jenis lain (tidak menerima Captopril maupun Amlodipine)?</p>
+  </div>
+            <div class="soal-card">
+    <p><strong>Soal 12:</strong> Diketahui hierarki penggolongan obat:<br>
+        \( S = \) Semua senyawa kimia.<br>
+        \( O = \) Obat (senyawa kimia yang punya efek terapeutik).<br>
+        \( N = \) Narkotika (Obat yang menyebabkan penurunan kesadaran).<br>
+        \( K = \) Kodein (Salah satu jenis zat).<br>
+        Gambarkan hubungan \( S, O, N, \) dan \( K \) dalam bentuk notasi subset!</p>
+  </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp11">
