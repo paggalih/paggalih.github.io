@@ -1486,9 +1486,64 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 12</h2>
 	        </div>
+<div class="mermaid text-center">
+flowchart TD
+    Start([Mulai]) --> Formulasi[Formulasi Model Matematika\nFungsi Tujuan & Kendala]
+    Formulasi --> BentukStandar[Ubah ke Bentuk Standar\nTambahkan Slack Variables]
+    BentukStandar --> TabelAwal[Buat Tabel Simpleks Awal]
+    TabelAwal --> CekOptimal{Cek Baris Z / Cj-Zj\nApakah ada nilai Negatif?}
+    
+    CekOptimal -- Tidak Ada Negatif --> Solusi[Solusi Optimal Ditemukan]
+    Solusi --> Selesai([Selesai])
+    
+    CekOptimal -- Ada Negatif --> KolomPivot[1. Tentukan Kolom Pivot\nNilai negatif terbesar]
+    KolomPivot --> BarisPivot[2. Tentukan Baris Pivot\nRasio positif terkecil: RHS/KolomPivot]
+    BarisPivot --> OBE[3. Lakukan Operasi Baris Dasar\nHitung Tabel Baru]
+    OBE --> TabelBaru[Tabel Simpleks Baru]
+    TabelBaru --> CekOptimal
+</div>
             <div class="text-center">
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Rwt1rvC_BD8?si=JCF4WcEC2B2POgrS" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
             </div>
+												<p>Soal 1:</p>
+												<p>Sebuah pabrik memproduksi tiga jenis makanan: A, B, dan C. Keuntungan per unit berturut-turut adalah Rp10, Rp15, dan Rp12.</p>
+												<p>Kendala:</p>
+												<ul>
+													<li>Bahan mentah: \( 2x + 3y + 1z \leq 100 \)</li>
+													<li>Waktu kerja: \( 4x + y + 2z \leq 120 \)</li>
+													<li>Ruang penyimpanan: \( x + y + z \leq 50 \)</li>
+												</ul>
+												<p><strong>Model:</strong></p>
+												<p>
+													\[ \max Z = 10x + 15y + 12z \]
+												</p>
+	
+												<p>Soal 2:</p>
+												<p>Suatu perusahaan memproduksi barang X, Y, dan Z. Laba per unit: X = 30, Y = 20, Z = 40. </p>
+												<p>Kendala:</p>
+												<ul>
+													<li>Tenaga kerja: \( 2x + 3y + z \leq 180 \)</li>
+													<li>Bahan baku: \( x + y + 2z \leq 150 \)</li>
+													<li>Mesin: \( x + 2y + z \leq 170 \)</li>
+												</ul>
+												<p><strong>Model:</strong></p>
+												<p>
+													\[ \max Z = 30x + 20y + 40z \]
+												</p>
+
+												<p>Soal 3:</p>
+												<p>Perusahaan ingin memproduksi tiga komponen A, B, dan C dengan biaya per unit masing-masing Rp5, Rp4, dan Rp6.</p>
+												<p>Kebutuhan minimum:</p>
+												<ul>
+													<li>Minimum 60 jam kerja: \( 3x + 2y + z \geq 60 \)</li>
+													<li>Minimum 90 unit produksi: \( x + 3y + 2z \geq 90 \)</li>
+													<li>Minimum 50 ruang produksi: \( 2x + y + 2z \geq 50 \)</li>
+												</ul>
+												<p><strong>Model:</strong></p>
+												<p>
+													\[ \min Z = 5x + 4y + 6z \]
+												</p>
+
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp12">
