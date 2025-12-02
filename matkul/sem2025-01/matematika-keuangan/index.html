@@ -2419,6 +2419,93 @@ Dalam matematika keuangan, mereka hanya saling membayar selisihnya (Netting). Ji
 	        <div class="section-title">
 	          <h2>Pertemuan 14</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    Start([Mulai: Membeli Call Option]) --> PayPremium["Bayar Premi (c)"]
+    PayPremium --> Wait["Menunggu Tanggal Jatuh Tempo (T)"]
+    Wait --> CheckPrice{"Cek Harga Pasar (St) vs Strike Price (K)"}
+    
+    CheckPrice -->|"St &gt; K (Harga Naik)"| Exercise[Exercise / Eksekusi Opsi]
+    CheckPrice -->|"St &lt; K (Harga Turun atau Tetap)"| Expire[Biarkan Opsi Hangus]
+    
+    Exercise --> CalcProfit[Hitung Payoff: St - K]
+    Expire --> CalcLoss[Payoff: 0]
+    
+    CalcProfit --> FinalResult{Hitung Net Profit}
+    CalcLoss --> FinalResult
+    
+    FinalResult -->|Payoff > Premi| Untung(Profit: Payoff - Premi)
+    FinalResult -->|Payoff < Premi| Rugi(Loss: Terbatas pada Premi)
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style Untung fill:#9f9,stroke:#333,stroke-width:2px
+    style Rugi fill:#f99,stroke:#333,stroke-width:2px
+            </div>
+      <div class="trigger">
+      <h3>Analogi: "Kupon Diskon VS Asuransi Mobil"</h3>
+        <h4>A. Call Option (Opsi Beli) = "Kupon Pre-Order iPhone"</h4>
+        <p>Bayangkan iPhone 16 akan rilis bulan depan. Harganya belum pasti, bisa jadi Rp 20 juta, bisa jadi Rp 30 juta karena langka.
+        <ol>
+        	<li>Anda membeli sebuah "Kupon Prioritas" seharga Rp 500.000 (Premi) kepada toko.</li>
+          <li>Kupon ini menjamin Anda boleh membeli iPhone tersebut seharga Rp 20.000.000 (Strike Price) bulan depan, apapun yang terjadi di pasar.</li>
+        </ol>
+        </p>
+              <h4>B. Put Option (Opsi Jual) = "Asuransi Mobil All-Risk"</h4>
+              <p>Anda punya mobil seharga Rp 500 juta. Anda takut harganya jatuh atau mobilnya rusak total (nilai jadi 0).
+              <ol>
+              	<li>Anda membayar Asuransi (Premi) sebesar Rp 5 juta.</li>
+                <li>Asuransi menjamin akan mengganti/membeli mobil Anda seharga Rp 450 juta (Strike Price) jika terjadi sesuatu tahun depan.</li>
+              </ol>
+              </p>
+      </div>
+    <!-- TINGKAT MUDAH -->
+
+    <div class="problem-card level-easy">
+        <span class="level-badge badge-easy">Mudah #1</span>
+        <p><strong>Soal:</strong> Anda membeli sebuah <strong>Call Option</strong> saham ABCD dengan <em>Strike Price</em> (\(K\)) sebesar Rp 5.000. Saat tanggal jatuh tempo, harga pasar saham ABCD (\(S_T\)) naik menjadi Rp 5.800.</p>
+        <p>Berapakah <strong>Payoff</strong> (Nilai Intrinsik) dari opsi tersebut per lembar saham? (Abaikan premi).</p>
+        
+    </div>
+
+    <div class="problem-card level-easy">
+        <span class="level-badge badge-easy">Mudah #2</span>
+        <p><strong>Soal:</strong> Seorang investor memegang <strong>Put Option</strong> dengan <em>Strike Price</em> (\(K\)) sebesar \$50. Pada saat jatuh tempo, harga saham di pasar ($S_T$) berada di angka \$55.</p>
+        <p>Apakah opsi tersebut akan dieksekusi (exercise) atau dibiarkan hangus? Berapa Payoff-nya?</p>
+        
+    </div>
+
+    <!-- TINGKAT SEDANG -->
+
+    <div class="problem-card level-medium">
+        <span class="level-badge badge-medium">Sedang #1</span>
+        <p><strong>Soal:</strong> Anda membeli Call Option saham XYZ dengan Strike Price Rp 2.000. Anda membayar <strong>premi (biaya opsi)</strong> sebesar Rp 150 per lembar. Saat jatuh tempo, harga saham XYZ menjadi Rp 2.300.</p>
+        <p>Hitunglah <strong>Net Profit</strong> (Keuntungan Bersih) Anda.</p>
+        
+    </div>
+
+    <div class="problem-card level-medium">
+        <span class="level-badge badge-medium">Sedang #2</span>
+        <p><strong>Soal:</strong> (Titik Impas / Break Even Point). Anda membeli Put Option dengan Strike Price \$100 dan membayar premi sebesar $4. </p>
+        <p>Pada harga pasar berapakah ($S_T$) Anda akan mencapai titik impas (tidak untung dan tidak rugi)?</p>
+        
+    </div>
+
+    <!-- TINGKAT SUSAH -->
+
+    <div class="problem-card level-hard">
+        <span class="level-badge badge-hard">Susah #1</span>
+        <p><strong>Soal:</strong> (Perbandingan Posisi). Investor A melakukan <strong>Long Call</strong> pada strike \$50 dengan premi \$3. Investor B melakukan <strong>Short Call</strong> (penjual opsi) pada opsi yang sama. Jika pada saat jatuh tempo harga pasar ($S_T$) adalah \$60, bandingkan Profit/Loss Investor A dan Investor B!</p>
+        
+    </div>
+
+    <div class="problem-card level-hard">
+        <span class="level-badge badge-hard">Susah #2</span>
+        <p><strong>Soal:</strong> (Moneyness & Time Value). Sebuah saham diperdagangkan saat ini (Spot Price \(S_0\)) seharga Rp 1.000. Tersedia Call Option dengan Strike Price (\(K\)) Rp 900 seharga Rp 150 (Premi).</p>
+        <p>1. Apakah opsi ini <em>In-the-money</em> (ITM), <em>At-the-money</em>, atau <em>Out-of-the-money</em>?<br>
+        2. Berapakah <em>Time Value</em> (Nilai Waktu) dari premi opsi tersebut?</p>
+        
+    </div>
+
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp14">
