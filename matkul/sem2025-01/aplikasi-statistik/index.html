@@ -2720,6 +2720,450 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
 	          <h2>Pertemuan 13</h2>
 	        </div>
 
+<div class="container">
+
+
+    <!-- 1. ANALOGI -->
+    <h2>1. Konsep Dasar & Analogi</h2>
+    <div class="analogy-box">
+        <h3>Analogi: Resep Masakan Rahasia</h3>
+        <p>Bayangkan Anda sedang membuat <strong>Sup Ayam (Y)</strong>. Rasa enak dari sup tersebut tidak hanya ditentukan oleh satu bumbu saja, melainkan gabungan dari:</p>
+        <ul>
+            <li><strong>Garam (X1)</strong></li>
+            <li><strong>Merica (X2)</strong></li>
+            <li><strong>Kaldu (X3)</strong></li>
+        </ul>
+        <p><strong>Regresi Linier Berganda</strong> adalah cara kita menghitung secara presisi: <em>"Jika saya menambah 1 sendok garam (X1), seberapa asin supnya (Y) akan berubah, dengan asumsi takaran merica dan kaldu tetap sama?"</em></p>
+    </div>
+
+    <p>Secara matematis, model ini ditulis sebagai:</p>
+    <p>
+        $$ Y = \beta_0 + \beta_1 X_1 + \beta_2 X_2 + ... + \beta_n X_n + \varepsilon $$
+    </p>
+    <ul>
+        <li>\(Y\): Variabel Terikat (Dependent) - <em>Rasa Sup</em></li>
+        <li>\(X_1, X_2\): Variabel Bebas (Independent) - <em>Garam, Merica</em></li>
+        <li>\(\beta_0\): Konstanta (Intercept) - <em>Rasa dasar air sebelum diberi bumbu</em></li>
+        <li>\(\beta_1, \beta_2\): Koefisien Regresi - <em>Kekuatan pengaruh masing-masing bumbu</em></li>
+        <li>\(\varepsilon\): Error - <em>Faktor lain yang tidak terduga (misal: suhu kompor)</em></li>
+    </ul>
+
+    <!-- 2. WORKFLOW MERMAID -->
+    <hr>
+    <h2>2. Alur Kerja Analisis (Workflow)</h2>
+    <p>Berikut adalah peta jalan (roadmap) dalam melakukan analisis regresi agar valid secara statistik:</p>
+    
+    <div class="mermaid">
+    graph TD
+        A[Mulai: Masalah Penelitian] --> B[Pengumpulan Data]
+        B --> C{Uji Asumsi Klasik}
+        C -- Tidak Lolos --> D[Transformasi Data / Outlier Removal]
+        D --> C
+        C -- Lolos --> E[Uji Normalitas]
+        E --> F[Uji Multikolinieritas]
+        F --> G[Uji Heteroskedastisitas]
+        G --> H[Uji Autokorelasi *jika time series]
+        H --> I[Lakukan Regresi Linier Berganda]
+        I --> J[Interpretasi Hasil]
+        J --> K[Uji F Simultan]
+        K --> L[Uji t Parsial]
+        L --> M[Koefisien Determinasi R-Square]
+        M --> N[Kesimpulan & Rekomendasi]
+    </div>
+
+    <!-- 3. TUTORIAL EXCEL -->
+    <hr>
+    <h2>3. Tutorial Olah Data dengan MS Excel</h2>
+    <div class="excel-steps">
+        <p>Untuk melakukan analisis ini di Excel, Anda tidak perlu rumus manual. Gunakan fitur <strong>Data Analysis Toolpak</strong>.</p>
+        <ol>
+            <li><strong>Aktifkan Add-in:</strong> Pergi ke <code>File</code> > <code>Options</code> > <code>Add-ins</code>. Di bagian bawah pilih "Excel Add-ins" lalu klik <code>Go</code>. Centang <strong>Analysis Toolpak</strong>.</li>
+            <li><strong>Siapkan Data:</strong> Susun data variabel Y di satu kolom, dan variabel X berdampingan di kolom sebelahnya (X1, X2, X3).</li>
+            <li><strong>Buka Tool:</strong> Klik tab <code>Data</code> > <code>Data Analysis</code> > pilih <strong>Regression</strong>.</li>
+            <li><strong>Input Data:</strong>
+                <ul>
+                    <li><em>Input Y Range:</em> Blok kolom data Y (termasuk label judul).</li>
+                    <li><em>Input X Range:</em> Blok seluruh kolom data X (X1, X2, dst) sekaligus (termasuk label).</li>
+                    <li>Centang kotak <strong>Labels</strong> (agar Excel tahu baris pertama adalah nama variabel).</li>
+                    <li><em>Output Range:</em> Pilih sel kosong di mana hasil akan ditampilkan.</li>
+                </ul>
+            </li>
+            <li><strong>Analisis:</strong> Klik OK dan interpretasikan tabel <em>Coefficients</em> (untuk persamaan) dan <em>P-value</em> (untuk signifikansi).</li>
+        </ol>
+    </div>
+
+    <!-- 4. STUDI KASUS -->
+    <hr>
+    <h2>4. Bank Soal & Studi Kasus (50 Data Simulasi)</h2>
+    <p>Gunakan data di bawah ini untuk latihan. Salin teks dalam kotak hitam, simpan sebagai file <strong>.csv</strong>, lalu buka di Excel.</p>
+
+    <!-- KASUS 1 -->
+    <h3>Kasus 1: Penjualan Ritel</h3>
+    <p><strong>Tujuan:</strong> Memprediksi Penjualan Harian (Y) berdasarkan Biaya Iklan (X1) dan Harga Produk (X2).</p>
+    <p><strong>Hipotesis:</strong> Iklan menaikkan penjualan, Harga menurunkan penjualan.</p>
+    <button class="copy-btn" onclick="copyToClipboard('data1')">Salin Data CSV</button><br>
+    <textarea>
+"Penjualan (Y)","Biaya Iklan (X1)","Harga Produk (X2)"
+"150","10","50"
+"160","12","48"
+"145","9","52"
+"170","15","49"
+"155","11","50"
+"140","8","53"
+"165","14","48"
+"158","12","49"
+"148","10","51"
+"175","16","47"
+"152","11","50"
+"162","13","49"
+"142","9","52"
+"168","15","48"
+"150","10","51"
+"180","18","46"
+"146","9","52"
+"159","12","49"
+"164","14","48"
+"138","7","54"
+"172","16","47"
+"154","11","50"
+"161","13","49"
+"149","10","51"
+"166","14","48"
+"157","12","50"
+"144","9","52"
+"174","16","47"
+"151","11","50"
+"163","13","48"
+"139","8","53"
+"169","15","47"
+"153","11","50"
+"147","10","51"
+"160","12","49"
+"171","15","48"
+"143","9","52"
+"167","14","48"
+"156","11","49"
+"141","8","53"
+"176","17","46"
+"155","12","50"
+"145","9","51"
+"165","14","48"
+"137","7","54"
+"173","16","47"
+"158","12","49"
+"149","10","51"
+"161","13","48"
+"142","8","52"
+    </textarea>
+
+    <!-- KASUS 2 -->
+    <h3>Kasus 2: Harga Properti</h3>
+    <p><strong>Tujuan:</strong> Menentukan Harga Rumah (Y) dalam juta, berdasarkan Luas Tanah m2 (X1) dan Jarak ke Pusat Kota km (X2).</p>
+    <p><strong>Pertanyaan:</strong> Apakah jarak ke pusat kota berpengaruh negatif secara signifikan terhadap harga?</p>
+    <button class="copy-btn" onclick="copyToClipboard('data2')">Salin Data CSV</button><br>
+    <textarea>
+"Harga Rumah (Y)","Luas Tanah (X1)","Jarak Kota (X2)"
+"800","100","5"
+"950","120","3"
+"700","90","8"
+"1200","150","2"
+"850","110","6"
+"650","80","10"
+"1000","130","4"
+"900","115","5"
+"750","95","7"
+"1100","140","3"
+"820","105","6"
+"980","125","4"
+"720","92","8"
+"1050","135","3"
+"880","112","5"
+"1250","160","2"
+"680","85","9"
+"930","118","4"
+"780","98","7"
+"1150","145","3"
+"840","108","6"
+"960","122","4"
+"710","91","8"
+"1020","132","3"
+"860","111","5"
+"660","82","10"
+"990","128","4"
+"760","96","7"
+"1120","142","3"
+"830","106","6"
+"940","119","4"
+"730","93","8"
+"1080","138","3"
+"810","102","6"
+"970","124","4"
+"690","88","9"
+"1180","148","2"
+"870","113","5"
+"740","94","7"
+"1030","133","3"
+"890","116","5"
+"670","83","10"
+"920","117","4"
+"770","97","7"
+"1130","143","3"
+"805","101","6"
+"955","121","4"
+"715","90","8"
+"1060","136","3"
+"845","109","5"
+    </textarea>
+
+    <!-- KASUS 3 -->
+    <h3>Kasus 3: Kinerja Karyawan</h3>
+    <p><strong>Tujuan:</strong> Mengukur Skor Kinerja (Y) berdasarkan Jam Pelatihan (X1) dan Tahun Pengalaman (X2).</p>
+    <p><strong>Pertanyaan:</strong> Variabel mana yang memberikan kontribusi lebih besar terhadap kinerja?</p>
+    <button class="copy-btn" onclick="copyToClipboard('data3')">Salin Data CSV</button><br>
+    <textarea>
+"Skor Kinerja (Y)","Jam Pelatihan (X1)","Pengalaman (X2)"
+"75","20","2"
+"82","25","3"
+"68","15","1"
+"90","30","5"
+"78","22","2"
+"65","10","1"
+"85","28","4"
+"80","24","3"
+"72","18","2"
+"88","29","5"
+"76","21","2"
+"83","26","4"
+"69","16","1"
+"86","27","4"
+"79","23","3"
+"92","32","6"
+"66","12","1"
+"81","25","3"
+"74","19","2"
+"89","30","5"
+"77","22","2"
+"84","27","4"
+"70","17","1"
+"87","28","4"
+"78","23","3"
+"64","11","1"
+"82","26","3"
+"73","19","2"
+"91","31","5"
+"75","20","2"
+"85","29","4"
+"68","15","1"
+"88","30","5"
+"76","21","2"
+"83","27","4"
+"67","14","1"
+"93","33","6"
+"80","24","3"
+"71","18","2"
+"86","28","4"
+"79","23","3"
+"65","11","1"
+"81","25","3"
+"74","20","2"
+"90","31","5"
+"77","22","2"
+"84","28","4"
+"69","16","1"
+"87","29","5"
+"78","23","3"
+    </textarea>
+
+    <!-- KASUS 4 -->
+    <h3>Kasus 4: Hasil Pertanian (Padi)</h3>
+    <p><strong>Tujuan:</strong> Memprediksi Hasil Panen Ton/Ha (Y) berdasarkan Jumlah Pupuk kg (X1) dan Curah Hujan mm (X2).</p>
+    <p><strong>Pertanyaan:</strong> Apakah penambahan pupuk selalu efektif jika curah hujan rendah?</p>
+    <button class="copy-btn" onclick="copyToClipboard('data4')">Salin Data CSV</button><br>
+    <textarea>
+"Hasil Panen (Y)","Pupuk (X1)","Curah Hujan (X2)"
+"5.5","100","200"
+"6.2","120","220"
+"4.8","80","180"
+"7.0","150","250"
+"5.8","110","210"
+"4.5","70","170"
+"6.5","130","230"
+"6.0","115","215"
+"5.2","90","190"
+"6.8","140","240"
+"5.6","105","205"
+"6.3","125","225"
+"4.9","85","185"
+"6.6","135","235"
+"5.9","112","212"
+"7.2","160","260"
+"4.6","75","175"
+"6.1","118","218"
+"5.4","100","200"
+"6.9","145","245"
+"5.7","108","208"
+"6.4","122","222"
+"5.0","95","195"
+"6.7","132","232"
+"5.8","111","211"
+"4.4","65","165"
+"6.2","128","228"
+"5.3","102","202"
+"7.1","155","255"
+"5.5","106","206"
+"6.0","119","219"
+"5.1","98","198"
+"6.8","138","238"
+"5.6","104","204"
+"6.3","124","224"
+"4.7","82","182"
+"7.3","165","265"
+"5.9","113","213"
+"5.2","94","194"
+"6.6","133","233"
+"5.7","109","209"
+"4.5","72","172"
+"6.1","117","217"
+"5.4","101","201"
+"6.9","143","243"
+"5.8","107","207"
+"6.4","123","223"
+"4.8","88","188"
+"6.7","136","236"
+"6.0","114","214"
+    </textarea>
+
+     <!-- KASUS 5 -->
+     <h3>Kasus 5: Prestasi Mahasiswa (IPK)</h3>
+     <p><strong>Tujuan:</strong> Menganalisis IPK (Y) berdasarkan Jam Belajar per Minggu (X1) dan Absensi % (X2).</p>
+     <p><strong>Pertanyaan:</strong> Jika absensi 100% tapi jam belajar rendah, apakah IPK tetap tinggi?</p>
+     <button class="copy-btn" onclick="copyToClipboard('data5')">Salin Data CSV</button><br>
+     <textarea>
+"IPK (Y)","Jam Belajar (X1)","Absensi (X2)"
+"3.20","10","85"
+"3.50","15","90"
+"2.80","5","75"
+"3.80","20","95"
+"3.30","12","88"
+"2.50","4","70"
+"3.60","18","92"
+"3.40","14","89"
+"3.00","8","80"
+"3.75","19","94"
+"3.25","11","86"
+"3.55","16","91"
+"2.90","6","78"
+"3.65","17","93"
+"3.35","13","88"
+"3.90","22","98"
+"2.60","5","72"
+"3.45","15","90"
+"3.10","9","82"
+"3.70","18","94"
+"3.30","12","87"
+"3.50","16","91"
+"2.95","7","79"
+"3.60","17","92"
+"3.40","14","89"
+"2.40","3","65"
+"3.55","16","91"
+"3.15","10","84"
+"3.85","21","96"
+"3.25","11","86"
+"3.45","15","90"
+"2.85","6","77"
+"3.70","19","93"
+"3.30","12","88"
+"3.50","16","91"
+"2.70","5","74"
+"3.95","23","99"
+"3.35","13","89"
+"3.05","8","81"
+"3.65","18","93"
+"3.30","12","87"
+"2.55","4","71"
+"3.45","15","90"
+"3.10","9","83"
+"3.75","19","95"
+"3.35","13","88"
+"3.55","16","92"
+"2.90","7","78"
+"3.60","17","92"
+"3.40","14","89"
+     </textarea>
+
+    <!-- KASUS 6 -->
+    <h3>Kasus 6: Kesehatan (Tekanan Darah)</h3>
+    <p><strong>Tujuan:</strong> Memprediksi Tekanan Darah Sistolik (Y) berdasarkan Usia (X1) dan Berat Badan (X2).</p>
+    <p><strong>Pertanyaan:</strong> Berapa perkiraan tekanan darah seseorang usia 50 tahun dengan berat 80kg berdasarkan model?</p>
+    <button class="copy-btn" onclick="copyToClipboard('data6')">Salin Data CSV</button><br>
+    <textarea>
+"Tekanan Darah (Y)","Usia (X1)","Berat Badan (X2)"
+"120","30","60"
+"135","45","75"
+"115","25","55"
+"150","60","85"
+"125","35","65"
+"110","22","52"
+"140","50","80"
+"130","40","70"
+"118","28","58"
+"145","55","82"
+"122","32","62"
+"138","48","78"
+"116","26","56"
+"142","52","81"
+"128","38","68"
+"155","65","88"
+"112","23","53"
+"136","46","76"
+"120","29","60"
+"148","58","84"
+"126","36","66"
+"139","49","79"
+"117","27","57"
+"141","51","80"
+"129","39","69"
+"108","20","50"
+"137","47","77"
+"121","31","61"
+"152","62","86"
+"124","34","64"
+"134","44","74"
+"119","28","59"
+"144","54","83"
+"123","33","63"
+"140","50","80"
+"114","24","54"
+"158","68","90"
+"132","42","72"
+"120","30","60"
+"143","53","82"
+"127","37","67"
+"111","21","51"
+"135","45","75"
+"122","32","62"
+"149","59","85"
+"125","35","65"
+"138","48","78"
+"118","28","58"
+"146","56","83"
+"130","40","70"
+    </textarea>
+
+</div>
+
+<script>
+    function copyToClipboard(elementId) {
+        var text = document.getElementById(elementId).innerText;
+        navigator.clipboard.writeText(text).then(function() {
+            alert('Data berhasil disalin! Silakan paste di Notepad lalu simpan sebagai file .csv, atau paste langsung ke Excel (Text to Columns).');
+        }, function(err) {
+            console.error('Gagal menyalin: ', err);
+        });
+    }
+</script>
+
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
 
