@@ -1472,6 +1472,81 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 13</h2>
 	        </div>
+            <div class="trigger">
+              <p>Rumus integral parsial adalah: $\int u \, dv = uv - \int v \, du$.</p>
+              <P>Bagian $u$ adalah bagian yang 'rela berkorban'. Kita akan menurunkannya ($du$) supaya bentuknya menjadi lebih sederhana atau hilang (misal $x$ diturunkan jadi 1).Bagian $dv$ adalah bagian yang 'kuat'. Kita akan mengintegralkannya ($v$) dan dia biasanya tidak keberatan bentuknya berubah sedikit (seperti $e^x$ atau $\sin x$).Tujuannya? Kita menukar integral awal yang rumit ($\int u \, dv$) dengan integral baru ($\int v \, du$) yang lebih mudah. Jika integral barunya makin ruwet, berarti kalian salah memilih siapa yang jadi $u$!"</P>
+              <p>Tips Jitu (LIATE):Untuk memilih $u$, gunakan prioritas LIATE:
+                <ol>
+              	<li>Logaritma ($\ln x$)</li>
+                  <li>Invers Trigonometri ($\arcsin x$)</li>
+                  <li>Aljabar ($x^2, 2x$)</li>
+                  <li>Trigonometri ($\sin x, \cos x$)</li>
+                  <li>Eksponensial ($e^x$)</li>
+              </ol>(Pilih yang paling atas untuk jadi $u$)</p>
+            </div>
+          <div class="mermaid text-center">
+flowchart TD
+    A["Mulai: Integral f(x)g(x) dx"] --> B{Bisa pakai<br>Substitusi Biasa?};
+    B -- Ya --> C[Gunakan Substitusi Biasa<br>Selesai];
+    B -- Tidak --> D[Gunakan Integral Parsial];
+    
+    D --> E["Pilih u berdasarkan prioritas LIATE:<br>Log > Invers > Aljabar > Trig > Ekspo"];
+    E --> F[Sisanya adalah dv];
+    
+    F --> G[Turunkan u menjadi du<br>Integralkan dv menjadi v];
+    
+    G --> H[Masukkan Rumus:<br>uv - Integral v du];
+    
+    H --> I{Apakah Integral v du<br>lebih mudah?};
+    I -- Tidak/Makin Rumit --> J[STOP! Salah pilih u.<br>Tukar pemilihan u dan dv];
+    I -- Ya --> K[Selesaikan Integral v du];
+    K --> L[Gabungkan Hasil + C];
+          </div>
+<div class="math-exercises-parsial">
+    <h3>Latihan Soal Integral Parsial</h3>
+    <p>Ingat rumus kuncinya: $$ \int u \, dv = uv - \int v \, du $$</p>
+    <p>Gunakan prioritas <strong>LIATE</strong> untuk memilih $u$. Klik tombol pembahasan untuk mengecek jawabanmu.</p>
+
+    <hr>
+    
+    <!-- LEVEL MUDAH -->
+    <h4>Level 1: Pemula (Basic)</h4>
+    
+    <div class="soal-item">
+        <p><strong>Soal 1:</strong> Tentukan hasil dari $$ \int x e^x \, dx $$.</p>
+      
+    </div>
+
+    <div class="soal-item">
+        <p><strong>Soal 2:</strong> Tentukan hasil dari $$ \int x \cos(x) \, dx $$.</p>
+    </div>
+
+    <hr>
+
+    <!-- LEVEL SEDANG -->
+    <h4>Level 2: Menengah (Logaritma & Koefisien)</h4>
+
+    <div class="soal-item">
+        <p><strong>Soal 3:</strong> Tentukan hasil dari $$ \int \ln(x) \, dx $$.</p>
+    </div>
+
+    <div class="soal-item">
+        <p><strong>Soal 4:</strong> Tentukan hasil dari $$ \int (2x+1) \sin(3x) \, dx $$.</p>
+    </div>
+
+    <hr>
+
+    <!-- LEVEL SUSAH -->
+    <h4>Level 3: Mahir (Berulang/Siklus)</h4>
+
+    <div class="soal-item">
+        <p><strong>Soal 5 (Parsial Berulang):</strong> Tentukan hasil dari $$ \int x^2 e^x \, dx $$.</p>
+    </div>
+
+    <div class="soal-item">
+        <p><strong>Soal 6 (Integral Siklus/Phoenix):</strong> Tentukan $$ \int e^x \sin(x) \, dx $$.</p>
+    </div>
+</div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
