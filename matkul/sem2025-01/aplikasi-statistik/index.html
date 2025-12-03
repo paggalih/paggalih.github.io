@@ -2801,7 +2801,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
     <h3>Kasus 1: Penjualan Ritel</h3>
     <p><strong>Tujuan:</strong> Memprediksi Penjualan Harian (Y) berdasarkan Biaya Iklan (X1) dan Harga Produk (X2).</p>
     <p><strong>Hipotesis:</strong> Iklan menaikkan penjualan, Harga menurunkan penjualan.</p>
-    <button class="copy-btn" onclick="copyToClipboard('data1')">Salin Data CSV</button><br>
     <textarea>
 "Penjualan (Y)","Biaya Iklan (X1)","Harga Produk (X2)"
 "150","10","50"
@@ -2860,7 +2859,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
     <h3>Kasus 2: Harga Properti</h3>
     <p><strong>Tujuan:</strong> Menentukan Harga Rumah (Y) dalam juta, berdasarkan Luas Tanah m2 (X1) dan Jarak ke Pusat Kota km (X2).</p>
     <p><strong>Pertanyaan:</strong> Apakah jarak ke pusat kota berpengaruh negatif secara signifikan terhadap harga?</p>
-    <button class="copy-btn" onclick="copyToClipboard('data2')">Salin Data CSV</button><br>
     <textarea>
 "Harga Rumah (Y)","Luas Tanah (X1)","Jarak Kota (X2)"
 "800","100","5"
@@ -2919,7 +2917,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
     <h3>Kasus 3: Kinerja Karyawan</h3>
     <p><strong>Tujuan:</strong> Mengukur Skor Kinerja (Y) berdasarkan Jam Pelatihan (X1) dan Tahun Pengalaman (X2).</p>
     <p><strong>Pertanyaan:</strong> Variabel mana yang memberikan kontribusi lebih besar terhadap kinerja?</p>
-    <button class="copy-btn" onclick="copyToClipboard('data3')">Salin Data CSV</button><br>
     <textarea>
 "Skor Kinerja (Y)","Jam Pelatihan (X1)","Pengalaman (X2)"
 "75","20","2"
@@ -2978,7 +2975,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
     <h3>Kasus 4: Hasil Pertanian (Padi)</h3>
     <p><strong>Tujuan:</strong> Memprediksi Hasil Panen Ton/Ha (Y) berdasarkan Jumlah Pupuk kg (X1) dan Curah Hujan mm (X2).</p>
     <p><strong>Pertanyaan:</strong> Apakah penambahan pupuk selalu efektif jika curah hujan rendah?</p>
-    <button class="copy-btn" onclick="copyToClipboard('data4')">Salin Data CSV</button><br>
     <textarea>
 "Hasil Panen (Y)","Pupuk (X1)","Curah Hujan (X2)"
 "5.5","100","200"
@@ -3037,7 +3033,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
      <h3>Kasus 5: Prestasi Mahasiswa (IPK)</h3>
      <p><strong>Tujuan:</strong> Menganalisis IPK (Y) berdasarkan Jam Belajar per Minggu (X1) dan Absensi % (X2).</p>
      <p><strong>Pertanyaan:</strong> Jika absensi 100% tapi jam belajar rendah, apakah IPK tetap tinggi?</p>
-     <button class="copy-btn" onclick="copyToClipboard('data5')">Salin Data CSV</button><br>
      <textarea>
 "IPK (Y)","Jam Belajar (X1)","Absensi (X2)"
 "3.20","10","85"
@@ -3096,7 +3091,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
     <h3>Kasus 6: Kesehatan (Tekanan Darah)</h3>
     <p><strong>Tujuan:</strong> Memprediksi Tekanan Darah Sistolik (Y) berdasarkan Usia (X1) dan Berat Badan (X2).</p>
     <p><strong>Pertanyaan:</strong> Berapa perkiraan tekanan darah seseorang usia 50 tahun dengan berat 80kg berdasarkan model?</p>
-    <button class="copy-btn" onclick="copyToClipboard('data6')">Salin Data CSV</button><br>
     <textarea>
 "Tekanan Darah (Y)","Usia (X1)","Berat Badan (X2)"
 "120","30","60"
@@ -3152,17 +3146,6 @@ Pertanyaan: Apakah ada perbedaan signifikan dalam rata-rata return bulanan di an
     </textarea>
 
 </div>
-
-<script>
-    function copyToClipboard(elementId) {
-        var text = document.getElementById(elementId).innerText;
-        navigator.clipboard.writeText(text).then(function() {
-            alert('Data berhasil disalin! Silakan paste di Notepad lalu simpan sebagai file .csv, atau paste langsung ke Excel (Text to Columns).');
-        }, function(err) {
-            console.error('Gagal menyalin: ', err);
-        });
-    }
-</script>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
