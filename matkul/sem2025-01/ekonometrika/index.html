@@ -3806,6 +3806,82 @@ flowchart TD
         <div class="section-title">
           <h2>Pertemuan 13</h2>
         </div>
+        <div class="trigger">
+          <h4>Pria Mabuk dan Anjingnya</h4>
+<p>Non-Stasioner (Random Walk): Jalan si pria mabuk tidak bisa ditebak (acak), begitu juga jalan si anjing. Jika kita lihat mereka secara terpisah, jalannya berantakan (tidak stasioner).</p>
+
+<p>Kointegrasi: Namun, anjing tersebut memakai tali leher (leash). Meskipun mereka jalan sempoyongan ke sana ke mari, mereka tidak akan pernah terpisah terlalu jauh. Ada hubungan jangka panjang yang mengikat mereka. Inilah Kointegrasi.</p>
+
+<p>Error Correction Model (ECM): Jika si anjing terlalu jauh ke kiri dan tuannya ke kanan (ada error atau ketidakseimbangan jangka pendek), tali leher akan tertarik. Si anjing atau tuannya akan mengoreksi arah jalan mereka untuk mendekat kembali (menuju keseimbangan). Proses "koreksi" agar kembali dekat inilah ECM.</p>
+        </div>
+
+    <h1>Analisis Kointegrasi dan Error Correction Model (ECM)</h1>
+
+
+    <h2>1. Workflow Analisis Data</h2>
+    <p>Berikut adalah alur logika yang harus Anda tempuh sebelum memutuskan menggunakan ECM:</p>
+    
+    <div class="mermaid text-center">
+    flowchart TD
+        A[Mulai: Data Time Series] --> B{Uji Stasioneritas Level I-0}
+        B -- Stasioner --> C[Gunakan Regresi OLS Biasa / VAR Level]
+        B -- Tidak Stasioner --> D{Uji Stasioneritas 1st Diff I-1}
+        D -- Tidak Stasioner --> E[Cek Data / Transformasi Ulang]
+        D -- Stasioner --> F{Uji Kointegrasi Engle-Granger / Johansen}
+        F -- Tidak Terkointegrasi --> G[Gunakan VAR Difference]
+        F -- Terkointegrasi --> H[Estimasi Model ECM]
+        H --> I[Uji Asumsi Klasik & Interpretasi]
+    </div>
+
+    <h2>2. Model Matematika</h2>
+    <p>Jika variabel $Y_t$ dan $X_t$ terintegrasi pada ordo 1 atau $I(1)$ dan terkointegrasi, maka:</p>
+    
+    <h3>Persamaan Jangka Panjang (Long Run):</h3>
+    $$ Y_t = \beta_0 + \beta_1 X_t + e_t $$
+    <p>Di mana $e_t$ adalah residual yang harus stasioner pada level $I(0)$.</p>
+
+    <h3>Persamaan Jangka Pendek (ECM):</h3>
+    $$ \Delta Y_t = \alpha_0 + \alpha_1 \Delta X_t + \gamma ECT_{t-1} + u_t $$
+    <ul>
+        <li>$\Delta$: Perubahan data (First Difference).</li>
+        <li>$\alpha_1$: Pengaruh jangka pendek $X$ terhadap $Y$.</li>
+        <li>$\gamma$: Koefisien <i>Error Correction Term</i> (ECT). Nilainya harus <strong>negatif dan signifikan</strong> (antara 0 sampai -1). Ini menunjukkan kecepatan penyesuaian menuju keseimbangan.</li>
+        <li>$ECT_{t-1}$: Sisaan (residual) dari persamaan jangka panjang periode sebelumnya.</li>
+    </ul>
+
+    <h2>3. Tutorial EViews</h2>
+    <p>Berikut langkah-langkah praktis menggunakan EViews:</p>
+
+    <h3>Langkah 1: Uji Akar Unit (Unit Root Test)</h3>
+    <p>Pastikan data tidak stasioner di Level, tapi stasioner di First Difference.</p>
+    <pre class="eviews-cmd">
+View > Unit Root Test > Level / 1st Difference
+    </pre>
+
+    <h3>Langkah 2: Uji Kointegrasi (Engle-Granger Approach)</h3>
+    <p>Kita akan membuat residual dari persamaan jangka panjang, lalu menguji stasioneritasnya.</p>
+    <pre>
+1. Quick > Estimate Equation
+2. Masukkan: Y C X
+3. Klik OK (Simpan sebagai EQ01)
+4. Proc > Make Residual Series (Beri nama RESID01)
+5. Buka RESID01 > View > Unit Root Test > Level
+    </pre>
+    <p><strong>Syarat:</strong> RESID01 harus stasioner pada Level $I(0)$. Jika ya, maka ada Kointegrasi.</p>
+
+    <h3>Langkah 3: Estimasi ECM (Domark Method)</h3>
+    <p>Kita meregresikan variabel dalam bentuk selisih (d) dan memasukkan residual lag 1 (resid01(-1)).</p>
+    <pre class="eviews-cmd">
+ls d(Y) c d(X) resid01(-1)
+    </pre>
+
+    <h2>4. Interpretasi Output</h2>
+    <p>Fokus pada koefisien <strong>RESID01(-1)</strong>:</p>
+    <ul>
+        <li><strong>Tanda Negatif (-):</strong> Wajib. Menandakan ada koreksi. Jika positif, model divergen (menjauh).</li>
+        <li><strong>Signifikan (Prob < 0.05):</strong> Mekanisme koreksi kesalahan bekerja secara nyata.</li>
+        <li><strong>Nilai (Contoh -0.45):</strong> Artinya, 45% ketidakseimbangan yang terjadi di periode sebelumnya dikoreksi pada periode ini menuju keseimbangan jangka panjang.</li>
+    </ul>
         <div class="container mt-5">
           <div class="accordion" id="accordionp13">
             <div class="accordion-item">
