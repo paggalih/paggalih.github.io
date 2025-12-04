@@ -1886,6 +1886,28 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 14</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A["Mulai: Fungsi f(x,y)"] --> B[Cari Turunan Parsial Pertama\nfx dan fy]
+    B --> C{Syarat Perlu FOC\nSet fx = 0 dan fy = 0}
+    C --> D[Selesaikan Sistem Persamaan\nCari nilai x dan y]
+    D --> E[Cari Turunan Parsial Kedua\nfxx, fyy, fxy]
+    E --> F["Hitung Determinan Hessian |H|\n|H| = fxx*fyy - (fxy)^2"]
+    F --> G{"Cek Nilai |H|"}
+    
+    G -- "|H| &gt; 0" --> H{Cek Nilai fxx}
+    G -- "|H| &lt; 0" --> I["Titik Pelana / Saddle Point\n(Bukan Max, Bukan Min)"]
+    G -- "|H| = 0" --> J["Pengujian Gagal\n(Butuh investigasi lanjut)"]
+    
+    H -- "fxx &lt; 0" --> K[Titik Maksimum Relatif]
+    H -- "fxx &gt; 0" --> L[Titik Minimum Relatif]
+    
+    I --> M[Selesai]
+    K --> M
+    L --> M
+    J --> M
+            </div>
+            <iframe src="https://paggalih.github.io/matkul/sem2025-01/matematika-ekonomi-1/visualisasi.html" width="100%" height="600px" title="Deskripsi Konten" frameborder="0" allowfullscreen></iframe>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp14">
