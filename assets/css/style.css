@@ -1600,3 +1600,8 @@ section {
 
 		.dt-length {display:none;}
 
+textarea {
+	width: 90%;
+  min-height: 100px;
+}
+
