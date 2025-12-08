@@ -1922,6 +1922,25 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 12</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A[Mulai: Menghadapi Masalah Pemilihan Objek] --> B{Apakah URUTAN atau POSISI<br/>mempengaruhi hasil?}
+    
+    B -- "YA (Penting)" --> C[Gunakan PERMUTASI]
+    B -- "TIDAK (Acak)" --> D[Gunakan KOMBINASI]
+    
+    C --> E{Apakah semua objek<br/>berbeda?}
+    D --> F["Rumus Kombinasi:<br/>$C(n,r) = \dfrac{n!}{ (n-r)! r!}$"]
+    
+    E -- Ya --> G["Permutasi Biasa:<br/>$P(n,r) = \dfrac{n!}{(n-r)!}$"]
+    E -- "Tidak (Ada unsur sama)" --> H["Permutasi Unsur Sama:<br/>$P = \dfrac{n!}{(k1! k2! ...)}$"]
+    E -- "Siklis (Melingkar)" --> I["Permutasi Siklis:<br/>$P = (n-1)!$"]
+    
+    G --> J[Contoh: Juara Lomba,<br/>Susunan Jabatan]
+    H --> K[Contoh: Susunan Huruf<br/>kata 'KAPSUL']
+    I --> L[Contoh: Rapat Meja Bundar]
+    F --> M[Contoh: Memilih Tim Riset,<br/>Mengambil Sampel Obat]
+            </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp12">
