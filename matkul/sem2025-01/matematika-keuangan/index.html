@@ -2531,7 +2531,126 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 15</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    Start([Mulai: Suku Bunga Saat Ini $r_t$]) --> Split{Apa yang Menggerakkan?};
+    
+    Split --> Deterministic["Komponen Deterministik<br/>(Drift)"];
+    Split --> Stochastic["Komponen Stokastik<br/>(Difusi)"];
+    
+    Deterministic --> Logic1["Cek Posisi: Apakah $r_t > b$ ?"];
+    Logic1 -- "Ya (Di atas rata-rata)" --> PullDown[Tarik Turun: $a$ bernilai negatif];
+    Logic1 -- "Tidak (Di bawah rata-rata)" --> PullUp[Tarik Naik: $a$ bernilai positif];
+    
+    PullDown --> DriftTerm["$a(b - r_t)dt$"];
+    PullUp --> DriftTerm;
+    
+    Stokastik --> Randomness["Acak Normal Baku ($Z$)"];
+    Randomness --> Volatility["Dikalikan Volatilitas ($σ$)"];
+    Volatility --> DiffusionTerm["$σ dW_t$"];
+    
+    DriftTerm --> Combine[Gabungkan];
+    DiffusionTerm --> Combine;
+    
+    Combine --> NewRate([Suku Bunga Baru: $r_t + dr_t$]);
+    
+    style Start fill:#f9f,stroke:#333,stroke-width:2px
+    style NewRate fill:#bbf,stroke:#333,stroke-width:2px
+    style DriftTerm fill:#dfd,stroke:#333
+    style DiffusionTerm fill:#fdd,stroke:#333
+            </div>
+            <div class="trigger">
+<h4>Analogi Mendalam: "Karet Gelang di Tengah Badai"</h4>
+              <p>Untuk menjelaskan persamaan diferensial stokastik Vasicek: $$dr_t = a(b - r_t)dt + \sigma dW_t$$ Bayangkan sebuah bola yang diikat dengan karet gelang pada sebuah tiang pancang. </p>
+              <p>Tiang Pancang ($b$): Ini adalah Long Term Mean. Di mana pun bola berada, karet gelang akan selalu mencoba menarik bola kembali ke posisi tiang ini. Dalam ekonomi, ini adalah target suku bunga jangka panjang yang wajar.</p>
+              <p>Karet Gelang ($a$): Ini adalah Speed of Mean Reversion. Jika karetnya kendor ($a$ kecil), bola butuh waktu lama untuk kembali ke tiang. Jika karetnya kencang/kuat ($a$ besar), bola akan ditarik dengan cepat kembali ke tiang begitu ia menjauh.</p>
+              <p>Badai Angin ($\sigma dW_t$): Ini adalah Volatilitas/Stokastik. Meskipun karet gelang menarik bola ke tiang, ada angin badai yang bertiup tidak beraturan (acak). Kadang angin meniup bola menjauh dari tiang (melawan karet), kadang meniup mendekati tiang (membantu karet).</p>
+              <p>Dalam Vasicek, kekuatan angin ini ($\sigma$) dianggap konstan. Tidak peduli bola ada di mana, kekuatan badainya sama saja.Inti Cerita: Posisi bola (suku bunga) adalah hasil pertarungan antara tarikan karet (kebijakan ekonomi) melawan hembusan angin (kejutan pasar).</p>
+    <div class="intro-box">
+        <p><strong>Rumus Utama (Vasicek SDE):</strong></p>
+        $$ dr_t = a(b - r_t)dt + \sigma dW_t $$
+        <ul>
+            <li>\( r_t \): Suku bunga saat ini</li>
+            <li>\( a \): Kecepatan <em>mean reversion</em> (seberapa kuat karet gelangnya)</li>
+            <li>\( b \): Tingkat rata-rata jangka panjang (posisi tiang pancang)</li>
+            <li>\( \sigma \): Volatilitas (kekuatan badai)</li>
+            <li>\( dW_t \): Unsur acak (Gerak Brown)</li>
+        </ul>
+    </div>
+            </div>
+    <!-- LEVEL MUDAH (8 Soal) -->
+    
+    <!-- Soal 1 -->
+    <div class="question-card">
+        <p><strong>Identifikasi Parameter:</strong></p>
+        <p>Diketahui model: \( dr_t = 0.5(0.06 - r_t)dt + 0.02 dW_t \). Sebutkan nilai target suku bunga jangka panjang (\(b\)) dan volatilitasnya (\(\sigma\))!</p>
+    </div>
 
+    <!-- Soal 2 -->
+    <div class="question-card">
+        <p><strong>Arah Pergerakan (Drift):</strong></p>
+        <p>Jika rata-rata jangka panjang (\(b\)) adalah 8%, dan suku bunga pasar saat ini (\(r_t\)) adalah 5%. Ke arah manakah komponen <em>drift</em> akan menarik suku bunga? (Naik atau Turun?)</p>
+    </div>
+
+    <!-- Soal 3 (Baru) -->
+    <div class="question-card">
+        <p><strong>Logika Mean Reversion:</strong></p>
+        <p>Apa yang terjadi pada model Vasicek jika kita menetapkan parameter \( a = 0 \)? Apakah suku bunga masih akan kembali ke titik rata-rata?</p>
+    </div>
+
+    <!-- Soal 4 (Baru) -->
+    <div class="question-card">
+        <p><strong>Peran Volatilitas:</strong></p>
+        <p>Terdapat dua skenario pasar. Pasar A memiliki \( \sigma = 0.01 \) dan Pasar B memiliki \( \sigma = 0.10 \). Grafik suku bunga manakah yang akan terlihat lebih "bergerigi" atau fluktuatif tajam?</p>
+    </div>
+
+    <!-- Soal 5 (Baru) -->
+    <div class="question-card">
+        <p><strong>Simbol Waktu:</strong></p>
+        <p>Dalam simulasi, kita sering melihat simbol \( dt \) atau \( \Delta t \). Jika Anda melakukan simulasi pergerakan bunga secara <strong>harian</strong> dalam setahun (asumsi 1 tahun = 250 hari kerja), berapakah nilai \( \Delta t \)?</p>
+    </div>
+
+    <!-- Soal 6 (Baru) -->
+    <div class="question-card">
+        <p><strong>Hitungan Sederhana (Drift):</strong></p>
+        <p>Diketahui \( a = 2 \), \( b = 10\% \), dan saat ini \( r_t = 12\% \). Hitunglah nilai komponen <em>drift</em> saja, yaitu \( a(b - r_t) \)!</p>
+    </div>
+
+    <!-- Soal 7 (Baru) -->
+    <div class="question-card">
+        <p><strong>Deterministik vs Stokastik:</strong></p>
+        <p>Bagian mana dari persamaan \( dr_t = a(b - r_t)dt + \sigma dW_t \) yang membuat model ini menjadi "Stokastik" (tidak pasti)?</p>
+    </div>
+
+    <!-- Soal 8 (Baru) -->
+    <div class="question-card">
+        <p><strong>Logika Suku Bunga Negatif:</strong></p>
+        <p>Dalam model Vasicek, apakah mungkin suku bunga (\(r_t\)) bernilai negatif (misal -0.5%)? Jawab Ya atau Tidak berdasarkan teori model ini.</p>
+    </div>
+
+    <!-- LEVEL SEDANG -->
+
+    <div class="question-card">
+        <p><strong>Ekspektasi (Tanpa Kejutan):</strong></p>
+        <p>Diketahui \( r_0 = 4\% \), \( b = 8\% \), dan \( a = 2 \). Tanpa memperhitungkan unsur acak, perkirakan suku bunga pada \( t = 0.5 \) tahun menggunakan pendekatan eksak \( E[r_t] = r_0 e^{-at} + b(1 - e^{-at}) \).</p>
+        <p><em>(Petunjuk: \( e^{-1} \approx 0.368 \))</em></p>
+    </div>
+
+    <div class="question-card">
+        <p><strong>Simulasi Satu Langkah (Euler):</strong></p>
+        <p>Jika \( r_{now} = 0.05 \), \( a = 0.1 \), \( b = 0.05 \), \( \sigma = 0.01 \), \( \Delta t = 0.004 \), dan angka acak \( Z = 1.5 \). Hitung \( r_{next} \)!</p>
+    </div>
+
+    <div class="question-card">
+        <p><strong>Probabilitas Suku Bunga Negatif:</strong></p>
+        <p>Jika \( r_t \) berdistribusi Normal dengan Mean = 2% dan Standar Deviasi = 22%. Analisislah risiko suku bunga negatif!</p>
+    </div>
+
+    <div class="question-card">
+        <p><strong>Solusi SDE:</strong></p>
+        <p>Buktikan solusi eksak Vasicek menggunakan faktor integrasi \( e^{at} \)!</p>
+    </div>
+            
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp15">
 
