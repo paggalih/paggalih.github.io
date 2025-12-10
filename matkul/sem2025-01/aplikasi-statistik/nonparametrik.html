@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Panduan Non-Parametrik: Mann-Whitney & Wilcoxon</title>
+    
+    <!-- Konfigurasi MathJax untuk Rumus Matematika -->
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    
+    <!-- Mermaid JS untuk Diagram -->
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        mermaid.initialize({ startOnLoad: true });
+    </script>
+
+    <style>
+        :root {
+            --primary: #2563eb;
+            --secondary: #475569;
+            --bg: #f8fafc;
+            --card-bg: #ffffff;
+            --border: #e2e8f0;
+        }
+        
+        body {
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--bg);
+        }
+
+        h1, h2, h3 {
+            color: #1e293b;
+        }
+
+        h1 {
+            border-bottom: 3px solid var(--primary);
+            padding-bottom: 10px;
+            margin-bottom: 30px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .analogy-box {
+            background-color: #e0f2fe;
+            border-left: 5px solid var(--primary);
+            padding: 15px;
+            margin: 15px 0;
+            font-style: italic;
+        }
+
+        code {
+            background-color: #f1f5f9;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            color: #db2777;
+        }
+
+        pre {
+            background-color: #1e293b;
+            color: #f8fafc;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+            max-height: 300px;
+            font-size: 0.85em;
+        }
+
+        .excel-step {
+            margin-bottom: 10px;
+            padding-left: 15px;
+            border-left: 2px solid #cbd5e1;
+        }
+
+        .csv-box {
+            width: 100%;
+            height: 100px;
+            font-family: monospace;
+            font-size: 12px;
+            margin-top: 10px;
+            border: 1px solid #ccc;
+        }
+
+        button.copy-btn {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.8em;
+            margin-bottom: 5px;
+        }
+        
+        button.copy-btn:hover {
+            background-color: #1d4ed8;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: left;
+        }
+        th {
+            background-color: #f1f5f9;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1>Statistik & Ekonomi: Uji Beda Non-Parametrik</h1>
+        <p>Selamat datang di panduan analisis data. Hari ini kita membahas dua uji sakti ketika data tidak berdistribusi normal: <strong>Mann-Whitney U</strong> dan <strong>Wilcoxon Signed Rank</strong>.</p>
+    </header>
+
+    <!-- SECTION 1: MANN-WHITNEY U TEST -->
+    <section class="card">
+        <h2>1. Mann-Whitney U Test</h2>
+        <p>Digunakan untuk membandingkan perbedaan antara <strong>dua kelompok independen</strong> (tidak saling berhubungan) ketika data tidak normal.</p>
+        
+        <div class="analogy-box">
+            <strong>Analogi Sederhana:</strong><br>
+            Bayangkan Anda menjadi juri lomba memasak antara <strong>Kelas A</strong> dan <strong>Kelas B</strong>. Karena selera juri subjektif (tidak terukur presisi seperti penggaris/tidak normal), Anda tidak membandingkan nilai rata-rata rasa secara langsung. Sebaliknya, Anda mengurutkan (ranking) semua masakan dari yang paling enak sampai yang paling tidak enak. Jika mayoritas masakan Kelas A berada di peringkat atas (ranking 1-10) dan Kelas B di bawah, maka Kelas A menang.
+        </div>
+
+        <h3>Workflow Analisis</h3>
+        <div class="mermaid">
+            graph TD
+            A[Mulai: Punya Data 2 Kelompok Independen] --> B{Data Normal?}
+            B -- Ya --> C[Gunakan Independent t-test]
+            B -- Tidak --> D[Gunakan Mann-Whitney U Test]
+            D --> E[Gabungkan Data & Beri Ranking]
+            E --> F[Jumlahkan Ranking masing-masing grup]
+            F --> G[Hitung Statistik U]
+            G --> H{Nilai p < 0.05?}
+            H -- Ya --> I[Ada Perbedaan Signifikan]
+            H -- Tidak --> J[Tidak Ada Perbedaan Signifikan]
+        </div>
+
+        <h3>Cara Olah Data di Excel (Manual Ranking)</h3>
+        <p>Excel tidak memiliki fungsi langsung <code>=MANNWHITNEY()</code>, jadi kita lakukan pendekatan manual yang logis:</p>
+        <div class="excel-step">
+            <strong>Langkah 1:</strong> Masukkan data Grup A di kolom A dan Grup B di kolom B.
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 2:</strong> Buat kolom baru "Gabungan Data" (semua angka dijadikan satu kolom) dan kolom di sebelahnya "Kode Grup" (misal: 1 untuk Grup A, 2 untuk Grup B).
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 3:</strong> Gunakan rumus <code>=RANK.AVG(CellData, $Range$Semua$Data, 1)</code> untuk meranking data dari terkecil ke terbesar.
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 4:</strong> Jumlahkan ranking milik Grup A ($R_1$) dan Grup B ($R_2$) menggunakan <code>=SUMIF()</code>.
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 5:</strong> Hitung nilai U dengan rumus:
+            $$ U_1 = n_1 n_2 + \frac{n_1(n_1+1)}{2} - R_1 $$
+            Ambil nilai terkecil antara $U_1$ dan $U_2$ lalu bandingkan dengan Tabel U (atau gunakan pendekatan Z-score jika $n > 20$).
+        </div>
+    </section>
+
+    <!-- SECTION 2: WILCOXON SIGNED RANK TEST -->
+    <section class="card">
+        <h2>2. Wilcoxon Signed Rank Test</h2>
+        <p>Digunakan untuk membandingkan perbedaan pada <strong>dua data berpasangan</strong> (subjek yang sama, diukur dua kali: Sebelum vs Sesudah) ketika data tidak normal.</p>
+
+        <div class="analogy-box">
+            <strong>Analogi Sederhana:</strong><br>
+            Anda menguji obat diet pada 10 orang. Anda menimbang mereka <strong>Sebelum</strong> minum obat dan <strong>Sesudah</strong> minum obat. Anda tidak peduli berapa persisnya berat mereka, tapi Anda peduli pada <em>selisihnya</em>. Apakah selisih penurunannya konsisten (ranking selisih besar) atau hanya kebetulan? Ini adalah "Before-After" challenge.
+        </div>
+
+        <h3>Workflow Analisis</h3>
+        <div class="mermaid">
+            graph TD
+            A[Mulai: Data Berpasangan Pre-Post] --> B{Data Selisih Normal?}
+            B -- Ya --> C[Gunakan Paired t-test]
+            B -- Tidak --> D[Gunakan Wilcoxon Signed Rank]
+            D --> E[Hitung Selisih (d = Post - Pre)]
+            E --> F[Abaikan jika selisih = 0]
+            F --> G[Ranking Selisih Mutlak |d|]
+            G --> H[Beri Tanda (+/-) kembali ke Ranking]
+            H --> I[Jumlahkan Ranking Positif & Negatif]
+            I --> J{Nilai p < 0.05?}
+        </div>
+
+        <h3>Cara Olah Data di Excel</h3>
+        <div class="excel-step">
+            <strong>Langkah 1:</strong> Kolom A = Pre-test, Kolom B = Post-test.
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 2:</strong> Kolom C = Selisih (<code>=B2-A2</code>). Buang data yang hasilnya 0.
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 3:</strong> Kolom D = Selisih Mutlak (<code>=ABS(C2)</code>).
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 4:</strong> Kolom E = Ranking (<code>=RANK.AVG(D2, $D$2:$D$51, 1)</code>).
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 5:</strong> Pisahkan Ranking Positif dan Negatif (Jika C2 positif, ambil ranknya. Jika negatif, ambil ranknya).
+        </div>
+        <div class="excel-step">
+            <strong>Langkah 6:</strong> Gunakan rumus pendekatan Normal (Z) karena N=50:
+            $$ Z = \frac{T - \frac{N(N+1)}{4}}{\sqrt{\frac{N(N+1)(2N+1)}{24}}} $$
+            Lalu hitung p-value dengan <code>=2*(1-NORM.S.DIST(ABS(Z),TRUE))</code>.
+        </div>
+    </section>
+
+    <!-- SECTION 3: STUDI KASUS & DATA -->
+    <section class="card">
+        <h2>3. Studi Kasus & Simulasi Data (CSV)</h2>
+        <p>Berikut adalah 6 contoh kasus (3 Mann-Whitney, 3 Wilcoxon). Salin data CSV di bawah ini, simpan sebagai file <code>.csv</code> atau paste langsung ke Excel (Text to Columns > Delimited > Comma).</p>
+
+        <!-- KASUS 1 -->
+        <h3>Kasus 1: Gaji Karyawan (Mann-Whitney)</h3>
+        <p><strong>Skenario:</strong> Seorang ekonom ingin tahu apakah ada perbedaan median gaji (dalam juta Rp) antara pekerja di Kota "Metropolis" dan Kota "Desa Maju". Data tidak berdistribusi normal karena adanya outlier (gaji CEO).</p>
+        <p><strong>Pertanyaan:</strong> Apakah gaji di Metropolis signifikan lebih tinggi dari Desa Maju?</p>
+        <p><strong>Arahan:</strong> Lakukan Mann-Whitney U Test. Kelompokkan data menjadi dua grup.</p>
+        <button class="copy-btn" onclick="copyToClipboard('csv1')">Salin CSV Kasus 1</button>
+        <textarea id="csv1" class="csv-box" readonly>
+"Kota","Gaji"
+"Metropolis","8.5"
+"Metropolis","9.2"
+"Metropolis","15.5"
+"Metropolis","7.8"
+"Metropolis","8.9"
+"Metropolis","25.0"
+"Metropolis","9.1"
+"Metropolis","10.2"
+"Metropolis","8.4"
+"Metropolis","9.5"
+"Metropolis","12.1"
+"Metropolis","8.8"
+"Metropolis","9.9"
+"Metropolis","30.5"
+"Metropolis","8.2"
+"Metropolis","9.3"
+"Metropolis","11.0"
+"Metropolis","8.6"
+"Metropolis","9.0"
+"Metropolis","22.1"
+"Metropolis","8.7"
+"Metropolis","9.6"
+"Metropolis","13.2"
+"Metropolis","8.3"
+"Metropolis","9.8"
+"Desa Maju","5.5"
+"Desa Maju","6.2"
+"Desa Maju","5.8"
+"Desa Maju","6.5"
+"Desa Maju","5.9"
+"Desa Maju","15.0"
+"Desa Maju","6.1"
+"Desa Maju","5.4"
+"Desa Maju","6.8"
+"Desa Maju","5.7"
+"Desa Maju","6.3"
+"Desa Maju","5.6"
+"Desa Maju","6.9"
+"Desa Maju","18.2"
+"Desa Maju","6.0"
+"Desa Maju","5.3"
+"Desa Maju","6.6"
+"Desa Maju","5.2"
+"Desa Maju","6.4"
+"Desa Maju","12.5"
+"Desa Maju","6.7"
+"Desa Maju","5.1"
+"Desa Maju","7.0"
+"Desa Maju","5.5"
+</textarea>
+
+        <!-- KASUS 2 -->
+        <h3>Kasus 2: Efektivitas Website (Mann-Whitney)</h3>
+        <p><strong>Skenario:</strong> Tim UX menguji waktu (detik) yang dibutuhkan user menyelesaikan tugas di Desain A vs Desain B.</p>
+        <p><strong>Pertanyaan:</strong> Manakah desain yang membuat user lebih cepat selesai?</p>
+        <textarea id="csv2" class="csv-box" readonly>
+"Desain","Waktu_Detik"
+"A","45"
+"A","50"
+"A","42"
+"A","48"
+"A","120"
+"A","44"
+"A","46"
+"A","49"
+"A","43"
+"A","55"
+"A","41"
+"A","47"
+"A","52"
+"A","40"
+"A","51"
+"A","45"
+"A","43"
+"A","58"
+"A","46"
+"A","42"
+"A","53"
+"A","49"
+"A","44"
+"A","48"
+"A","47"
+"B","30"
+"B","35"
+"B","28"
+"B","32"
+"B","90"
+"B","33"
+"B","31"
+"B","36"
+"B","29"
+"B","34"
+"B","27"
+"B","38"
+"B","30"
+"B","25"
+"B","37"
+"B","29"
+"B","33"
+"B","40"
+"B","31"
+"B","28"
+"B","35"
+"B","32"
+"B","26"
+"B","34"
+"B","30"
+</textarea>
+
+        <!-- KASUS 3 -->
+        <h3>Kasus 3: Skor Kepuasan Pelanggan (Mann-Whitney)</h3>
+        <p><strong>Skenario:</strong> Skor kepuasan (skala 1-100) antara pelanggan Toko Online vs Toko Fisik.</p>
+        <textarea id="csv3" class="csv-box" readonly>
+"Tipe_Toko","Skor"
+"Online","88"
+"Online","92"
+"Online","85"
+"Online","90"
+"Online","87"
+"Online","95"
+"Online","89"
+"Online","91"
+"Online","86"
+"Online","93"
+"Online","84"
+"Online","88"
+"Online","94"
+"Online","90"
+"Online","87"
+"Online","96"
+"Online","85"
+"Online","92"
+"Online","89"
+"Online","88"
+"Online","91"
+"Online","86"
+"Online","93"
+"Online","90"
+"Online","87"
+"Fisik","75"
+"Fisik","80"
+"Fisik","72"
+"Fisik","78"
+"Fisik","74"
+"Fisik","85"
+"Fisik","76"
+"Fisik","79"
+"Fisik","73"
+"Fisik","82"
+"Fisik","70"
+"Fisik","77"
+"Fisik","81"
+"Fisik","75"
+"Fisik","71"
+"Fisik","83"
+"Fisik","74"
+"Fisik","78"
+"Fisik","76"
+"Fisik","72"
+"Fisik","79"
+"Fisik","73"
+"Fisik","80"
+"Fisik","77"
+"Fisik","75"
+</textarea>
+
+        <!-- KASUS 4 -->
+        <h3>Kasus 4: Pelatihan Karyawan (Wilcoxon Signed Rank)</h3>
+        <p><strong>Skenario:</strong> Produktivitas (unit/jam) 50 karyawan yang sama diukur Sebelum dan Sesudah pelatihan.</p>
+        <p><strong>Pertanyaan:</strong> Apakah pelatihan meningkatkan produktivitas secara signifikan?</p>
+        <textarea id="csv4" class="csv-box" readonly>
+"ID_Karyawan","Pre_Training","Post_Training"
+"1","10","12"
+"2","12","14"
+"3","9","11"
+"4","11","13"
+"5","10","15"
+"6","13","14"
+"7","8","10"
+"8","11","12"
+"9","10","11"
+"10","12","16"
+"11","9","12"
+"12","11","14"
+"13","10","13"
+"14","14","15"
+"15","8","11"
+"16","12","13"
+"17","10","12"
+"18","11","14"
+"19","9","10"
+"20","13","17"
+"21","10","12"
+"22","11","13"
+"23","8","9"
+"24","12","15"
+"25","10","11"
+"26","11","14"
+"27","9","12"
+"28","13","15"
+"29","10","13"
+"30","12","14"
+"31","8","11"
+"32","11","12"
+"33","10","14"
+"34","14","16"
+"35","9","11"
+"36","12","15"
+"37","10","12"
+"38","11","13"
+"39","8","10"
+"40","13","16"
+"41","10","11"
+"42","11","14"
+"43","9","12"
+"44","12","15"
+"45","10","13"
+"46","11","12"
+"47","8","11"
+"48","13","15"
+"49","10","12"
+"50","12","14"
+</textarea>
+
+        <!-- KASUS 5 -->
+        <h3>Kasus 5: Program Diet (Wilcoxon Signed Rank)</h3>
+        <p><strong>Skenario:</strong> Berat badan (kg) 50 pasien sebelum dan sesudah program diet 1 bulan.</p>
+        <textarea id="csv5" class="csv-box" readonly>
+"ID_Pasien","Berat_Awal","Berat_Akhir"
+"1","80","78"
+"2","85","82"
+"3","90","88"
+"4","75","74"
+"5","82","79"
+"6","88","85"
+"7","95","91"
+"8","78","76"
+"9","84","81"
+"10","81","80"
+"11","89","86"
+"12","76","73"
+"13","83","80"
+"14","92","89"
+"15","79","77"
+"16","86","83"
+"17","80","78"
+"18","91","87"
+"19","77","75"
+"20","85","81"
+"21","82","80"
+"22","88","84"
+"23","75","73"
+"24","94","90"
+"25","81","79"
+"26","87","84"
+"27","78","77"
+"28","90","86"
+"29","83","81"
+"30","76","74"
+"31","84","82"
+"32","89","85"
+"33","79","76"
+"34","93","89"
+"35","80","78"
+"36","86","83"
+"37","77","75"
+"38","91","88"
+"39","82","80"
+"40","75","72"
+"41","88","85"
+"42","81","79"
+"43","95","92"
+"44","78","76"
+"45","85","82"
+"46","83","80"
+"47","90","87"
+"48","76","74"
+"49","84","81"
+"50","82","79"
+</textarea>
+
+        <!-- KASUS 6 -->
+        <h3>Kasus 6: Tingkat Nyeri Terapi (Wilcoxon Signed Rank)</h3>
+        <p><strong>Skenario:</strong> Skala nyeri (1-10) sebelum dan sesudah terapi akupunktur pada 50 pasien.</p>
+        <textarea id="csv6" class="csv-box" readonly>
+"ID_Pasien","Nyeri_Pre","Nyeri_Post"
+"1","8","5"
+"2","7","4"
+"3","9","6"
+"4","6","3"
+"5","8","5"
+"6","7","5"
+"7","9","7"
+"8","6","4"
+"9","8","6"
+"10","7","3"
+"11","9","5"
+"12","6","4"
+"13","8","5"
+"14","7","4"
+"15","9","6"
+"16","6","3"
+"17","8","5"
+"18","7","5"
+"19","9","7"
+"20","6","4"
+"21","8","6"
+"22","7","3"
+"23","9","5"
+"24","6","4"
+"25","8","5"
+"26","7","4"
+"27","9","6"
+"28","6","3"
+"29","8","5"
+"30","7","5"
+"31","9","7"
+"32","6","4"
+"33","8","6"
+"34","7","3"
+"35","9","5"
+"36","6","4"
+"37","8","5"
+"38","7","4"
+"39","9","6"
+"40","6","3"
+"41","8","5"
+"42","7","5"
+"43","9","7"
+"44","6","4"
+"45","8","6"
+"46","7","3"
+"47","9","5"
+"48","6","4"
+"49","8","5"
+"50","7","4"
+</textarea>
+    </section>
+
+    <script>
+        function copyToClipboard(elementId) {
+            var copyText = document.getElementById(elementId);
+            copyText.select();
+            copyText.setSelectionRange(0, 99999); 
+            navigator.clipboard.writeText(copyText.value);
+            alert("Data CSV berhasil disalin! Silakan paste ke Notepad atau Excel.");
+        }
+    </script>
+</body>
+</html>
