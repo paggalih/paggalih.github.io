@@ -167,12 +167,12 @@
             <strong>Langkah 3:</strong> Gunakan rumus <code>=RANK.AVG(CellData, $Range$Semua$Data, 1)</code> untuk meranking data dari terkecil ke terbesar.
         </div>
         <div class="excel-step">
-            <strong>Langkah 4:</strong> Jumlahkan ranking milik Grup A ($R_1$) dan Grup B ($R_2$) menggunakan <code>=SUMIF()</code>.
+            <strong>Langkah 4:</strong> Jumlahkan ranking milik Grup A (\(R_1\)) dan Grup B (\(R_2\)) menggunakan <code>=SUMIF()</code>.
         </div>
         <div class="excel-step">
             <strong>Langkah 5:</strong> Hitung nilai U dengan rumus:
             $$ U_1 = n_1 n_2 + \frac{n_1(n_1+1)}{2} - R_1 $$
-            Ambil nilai terkecil antara $U_1$ dan $U_2$ lalu bandingkan dengan Tabel U (atau gunakan pendekatan Z-score jika $n > 20$).
+            Ambil nilai terkecil antara \(U_1\) dan \(U_2\) lalu bandingkan dengan Tabel U (atau gunakan pendekatan Z-score jika \(n > 20\)).
         </div>
     </section>
 
@@ -192,10 +192,10 @@
             A[Mulai: Data Berpasangan Pre-Post] --> B{Data Selisih Normal?}
             B -- Ya --> C[Gunakan Paired t-test]
             B -- Tidak --> D[Gunakan Wilcoxon Signed Rank]
-            D --> E[Hitung Selisih (d = Post - Pre)]
+            D --> E["Hitung Selisih (d = Post - Pre)"]
             E --> F[Abaikan jika selisih = 0]
-            F --> G[Ranking Selisih Mutlak |d|]
-            G --> H[Beri Tanda (+/-) kembali ke Ranking]
+            F --> G["Ranking Selisih Mutlak |d|"]
+            G --> H["Beri Tanda (+/-) kembali ke Ranking"]
             H --> I[Jumlahkan Ranking Positif & Negatif]
             I --> J{Nilai p < 0.05?}
         </div>
