@@ -1795,61 +1795,294 @@ flowchart TD
             <div class="text center">
             <iframe width="560" height="315" src="https://www.youtube.com/embed/biVWMfYQrUM?si=LrI_60Vgvnokuoen" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
 
-												<p>Soal 1:</p>
-												<p>Sebuah perusahaan memiliki 3 gudang dan 4 toko yang perlu memasok produk. Setiap gudang memiliki kapasitas terbatas, sementara setiap toko memiliki permintaan tertentu. Biaya pengiriman per unit dari gudang ke toko ditunjukkan dalam tabel biaya di bawah ini. Tujuan dari masalah ini adalah untuk <strong>meminimalkan biaya pengiriman total</strong>.</p>
+        <!-- SOAL 1 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 1: Logistik Makanan Ringan</h2>
+            <p class="mb-4">Tentukan biaya pengiriman minimum untuk data berikut:</p>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td class="font-bold text-blue-600">30</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="font-bold text-blue-600">40</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td class="font-bold text-blue-600">30</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="bg-gray-100">100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-												<b>Data:</b>
-												<p><strong>Kapasitas Gudang:</strong></p>
-												<ul>
-													<li>Gudang 1: 40 unit</li>
-													<li>Gudang 2: 60 unit</li>
-													<li>Gudang 3: 50 unit</li>
-												</ul>
+            <div class="bg-gray-50 p-4 rounded border-l-4 border-green-500">
+                <h3 class="font-bold text-green-700 mb-2">Kunci Jawaban Optimal</h3>
+                <p>Alokasi unit yang meminimalkan biaya:</p>
+                <ul class="list-disc ml-5 mb-2 text-sm">
+                    <li>\(X_{1B} = 30\) unit (Biaya 3)</li>
+                    <li>\(X_{2A} = 20\) unit (Biaya 3)</li>
+                    <li>\(X_{2D} = 20\) unit (Biaya 2)</li>
+                    <li>\(X_{3C} = 30\) unit (Biaya 3)</li>
+                </ul>
+                <p class="font-bold mt-2">Perhitungan Z (Total Cost):</p>
+                $$ Z = (30 \times 3) + (20 \times 3) + (20 \times 2) + (30 \times 3) $$
+                $$ Z = 90 + 60 + 40 + 90 = \mathbf{280} $$
+            </div>
+        </div>
 
-												<p><strong>Kebutuhan Toko:</strong></p>
-												<ul>
-													<li>Toko A: 50 unit</li>
-													<li>Toko B: 60 unit</li>
-													<li>Toko C: 30 unit</li>
-													<li>Toko D: 10 unit</li>
-												</ul>
+        <!-- SOAL 2 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 2: Distribusi Elektronik</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>8</td>
+                            <td>6</td>
+                            <td>10</td>
+                            <td>9</td>
+                            <td class="font-bold text-blue-600">60</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>9</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">80</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>14</td>
+                            <td>9</td>
+                            <td>16</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">60</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="bg-gray-100">200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
 
-												<b>Biaya Pengiriman (dalam Rp per unit)</b>
-												<table class="table table-bordered">
-													<thead>
-														<tr>
-															<th>Lokasi</th>
-															<th>Toko A</th>
-															<th>Toko B</th>
-															<th>Toko C</th>
-															<th>Toko D</th>
-														</tr>
-													</thead>
-													<tbody>
-														<tr>
-															<td>Gudang 1</td>
-															<td>4</td>
-															<td>6</td>
-															<td>8</td>
-															<td>10</td>
-														</tr>
-														<tr>
-															<td>Gudang 2</td>
-															<td>7</td>
-															<td>3</td>
-															<td>6</td>
-															<td>5</td>
-														</tr>
-														<tr>
-															<td>Gudang 3</td>
-															<td>5</td>
-															<td>4</td>
-															<td>7</td>
-															<td>9</td>
-														</tr>
-													</tbody>
-												</table>
-	
+        </div>
+
+        <!-- SOAL 3 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 3: Material Bangunan</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>10</td>
+                            <td>20</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>15</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>5</td>
+                            <td>12</td>
+                            <td>8</td>
+                            <td>15</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="bg-gray-100">300</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- SOAL 4 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 4: Suplai Farmasi</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td class="font-bold text-blue-600">40</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td class="font-bold text-blue-600">90</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>6</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">20</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="bg-gray-100">150</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+        <!-- SOAL 5 -->
+        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 5: Ekspor Impor</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>7</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="bg-gray-100">150</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
