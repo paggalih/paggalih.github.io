@@ -1858,10 +1858,6 @@ flowchart TD
 
         <!-- Tingkat Mudah -->
         <section class="mb-12">
-            <h2 class="text-2xl font-bold text-green-700 mb-6 flex items-center">
-                <span class="bg-green-100 text-green-700 py-1 px-3 rounded text-sm mr-3">Tingkat 1</span> 
-                Level Mudah (Basic Concept)
-            </h2>
 
             <!-- Soal 1 -->
             <div class="bg-white rounded-lg shadow p-6 mb-6">
@@ -1869,9 +1865,6 @@ flowchart TD
                     <h3 class="font-bold text-lg">Soal 1: Maksimalisasi Produk</h3>
                     <p class="mt-2">Tentukan nilai maksimum dari fungsi $z = xy$ dengan kendala $x + y = 6$.</p>
                 </div>
-                <button onclick="toggleAnswer('ans1')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition">
-                    Lihat Pembahasan
-                </button>
                 <div id="ans1" class="answer-box mt-6 bg-gray-50 p-4 rounded border border-gray-200">
                     <p><strong>Langkah 1: Bentuk Fungsi Lagrange</strong></p>
                     $$L = xy - \lambda(x + y - 6)$$
@@ -1894,195 +1887,23 @@ flowchart TD
             </div>
 
             <!-- Soal 2 -->
-            <div class="bg-white rounded-lg shadow p-6 mb-6">
                 <div class="mb-4">
                     <h3 class="font-bold text-lg">Soal 2: Minimalisasi Biaya Sederhana</h3>
                     <p class="mt-2">Minimumkan fungsi biaya $C = x^2 + y^2$ dengan kendala kuota produksi $x + y = 20$.</p>
                 </div>
-                <button onclick="toggleAnswer('ans2')" class="bg-green-600 hover:bg-green-700 text-white font-bold py-2 px-4 rounded transition">
-                    Lihat Pembahasan
-                </button>
-                <div id="ans2" class="answer-box mt-6 bg-gray-50 p-4 rounded border border-gray-200">
-                    <p><strong>Langkah 1: Bentuk Fungsi Lagrange</strong></p>
-                    $$L = x^2 + y^2 - \lambda(x + y - 20)$$
-                    
-                    <p><strong>Langkah 2: Turunan Parsial</strong></p>
-                    <ol class="list-decimal ml-5 mb-2">
-                        <li>$L_x = 2x - \lambda = 0 \implies \lambda = 2x$</li>
-                        <li>$L_y = 2y - \lambda = 0 \implies \lambda = 2y$</li>
-                        <li>$L_\lambda = 20 - x - y = 0$</li>
-                    </ol>
-
-                    <p><strong>Langkah 3: Eliminasi</strong></p>
-                    <p>Dari (1) dan (2): $2x = 2y \implies x = y$.</p>
-                    <p>Substitusi ke kendala: $x + x = 20 \implies 2x = 20 \implies x = 10$.</p>
-                    <p>Maka $y = 10$.</p>
-
-                    <p class="mt-2 text-blue-800 font-bold">Kesimpulan:</p>
-                    <p>Biaya minimum $C = 10^2 + 10^2 = 200$.</p>
-                </div>
-            </div>
-        </section>
 
         <!-- Tingkat Sedang -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold text-yellow-700 mb-6 flex items-center">
-                <span class="bg-yellow-100 text-yellow-700 py-1 px-3 rounded text-sm mr-3">Tingkat 2</span> 
-                Level Sedang (Aplikasi Ekonomi)
-            </h2>
 
             <!-- Soal 3 -->
-            <div class="bg-white rounded-lg shadow p-6 mb-6">
-                <div class="mb-4">
                     <h3 class="font-bold text-lg">Soal 3: Utilitas Konsumen</h3>
                     <p class="mt-2">Seorang konsumen memiliki fungsi utilitas $U = 5xy$. Harga barang X adalah Rp10 dan harga barang Y adalah Rp20. Anggaran konsumen tersebut adalah Rp400. Berapa unit X dan Y yang harus dibeli untuk memaksimumkan kepuasan?</p>
-                </div>
-                <button onclick="toggleAnswer('ans3')" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded transition">
-                    Lihat Pembahasan
-                </button>
-                <div id="ans3" class="answer-box mt-6 bg-gray-50 p-4 rounded border border-gray-200">
-                    <p><strong>Identifikasi:</strong></p>
-                    <ul class="list-disc ml-5">
-                        <li>Fungsi Objektif: $U = 5xy$</li>
-                        <li>Kendala (Budget Line): $10x + 20y = 400$</li>
-                    </ul>
 
-                    <p class="mt-2"><strong>Fungsi Lagrange:</strong></p>
-                    $$L = 5xy - \lambda(10x + 20y - 400)$$
-
-                    <p><strong>FOC:</strong></p>
-                    $$
-                    \begin{align}
-                    (1)\quad & 5y - 10\lambda = 0 \implies 5y = 10\lambda \implies \lambda = \frac{y}{2} \\
-                    (2)\quad & 5x - 20\lambda = 0 \implies 5x = 20\lambda \implies \lambda = \frac{x}{4} \\
-                    (3)\quad & 10x + 20y = 400
-                    \end{align}
-                    $$
-                    
-                    <p><strong>Penyelesaian:</strong></p>
-                    <p>Samakan nilai $\lambda$: $\frac{y}{2} = \frac{x}{4} \implies 4y = 2x \implies x = 2y$.</p>
-                    <p>Substitusi ke kendala (3):</p>
-                    <p>$10(2y) + 20y = 400$</p>
-                    <p>$20y + 20y = 400 \implies 40y = 400 \implies y = 10$.</p>
-                    <p>Cari $x$: $x = 2(10) = 20$.</p>
-
-                    <p class="mt-2 text-blue-800 font-bold">Kesimpulan:</p>
-                    <p>Konsumen harus membeli <strong>20 unit X</strong> dan <strong>10 unit Y</strong>.</p>
-                </div>
-            </div>
 
             <!-- Soal 4 -->
-            <div class="bg-white rounded-lg shadow p-6 mb-6">
-                <div class="mb-4">
                     <h3 class="font-bold text-lg">Soal 4: Biaya Produksi Non-Linear</h3>
                     <p class="mt-2">Sebuah perusahaan menghadapi fungsi biaya gabungan $C = 2x^2 + 3y^2$. Perusahaan wajib memproduksi total output sebanyak 35 unit gabungan dari barang x dan y. Tentukan kombinasi produksi biaya minimum.</p>
-                </div>
-                <button onclick="toggleAnswer('ans4')" class="bg-yellow-600 hover:bg-yellow-700 text-white font-bold py-2 px-4 rounded transition">
-                    Lihat Pembahasan
-                </button>
-                <div id="ans4" class="answer-box mt-6 bg-gray-50 p-4 rounded border border-gray-200">
-                     <p><strong>Fungsi Lagrange:</strong></p>
-                    $$L = 2x^2 + 3y^2 - \lambda(x + y - 35)$$
-
-                    <p><strong>Turunan Parsial:</strong></p>
-                    $$
-                    \begin{align}
-                    L_x &= 4x - \lambda = 0 \implies \lambda = 4x \\
-                    L_y &= 6y - \lambda = 0 \implies \lambda = 6y
-                    \end{align}
-                    $$
-                    
-                    <p><strong>Substitusi:</strong></p>
-                    <p>$4x = 6y \implies x = \frac{6}{4}y = 1.5y$.</p>
-                    <p>Masukan ke kendala $x + y = 35$:</p>
-                    <p>$1.5y + y = 35 \implies 2.5y = 35$.</p>
-                    <p>$y = \frac{35}{2.5} = 14$.</p>
-                    <p>$x = 35 - 14 = 21$.</p>
-
-                    <p class="mt-2 text-blue-800 font-bold">Kesimpulan:</p>
-                    <p>Kombinasi optimal adalah <strong>x = 21</strong> dan <strong>y = 14</strong>.</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- Tingkat Sukar -->
-        <section class="mb-12">
-            <h2 class="text-2xl font-bold text-red-700 mb-6 flex items-center">
-                <span class="bg-red-100 text-red-700 py-1 px-3 rounded text-sm mr-3">Tingkat 3</span> 
-                Level Sukar (Fungsi Cobb-Douglas & Interpretasi Lambda)
-            </h2>
-
-            <!-- Soal 5 -->
-            <div class="bg-white rounded-lg shadow p-6 mb-6">
-                <div class="mb-4">
-                    <h3 class="font-bold text-lg">Soal 5: Fungsi Produksi Cobb-Douglas</h3>
-                    <p class="mt-2">Diketahui fungsi produksi $Q = 100 K^{0.5} L^{0.5}$. Harga modal ($P_K$) adalah 40 dan upah tenaga kerja ($P_L$) adalah 10. Anggaran perusahaan adalah 800. Tentukan input K dan L yang memaksimumkan output.</p>
-                </div>
-                <button onclick="toggleAnswer('ans5')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
-                    Lihat Pembahasan
-                </button>
-                <div id="ans5" class="answer-box mt-6 bg-gray-50 p-4 rounded border border-gray-200">
-                    <p><strong>Model Matematika:</strong></p>
-                    <p>Max $Q = 100 K^{0.5} L^{0.5}$ s.t. $40K + 10L = 800$.</p>
-                    
-                    <p><strong>Lagrange:</strong></p>
-                    $$L = 100 K^{0.5} L^{0.5} - \lambda(40K + 10L - 800)$$
-
-                    <p><strong>FOC:</strong></p>
-                    <p>Gunakan trik rasio (Marginal Productivity per Price):</p>
-                    $$ \frac{MP_K}{P_K} = \frac{MP_L}{P_L} $$
-                    
-                    <p>1. $MP_K = \frac{\partial Q}{\partial K} = 50 K^{-0.5} L^{0.5} = 50 \frac{L^{0.5}}{K^{0.5}}$</p>
-                    <p>2. $MP_L = \frac{\partial Q}{\partial L} = 50 K^{0.5} L^{-0.5} = 50 \frac{K^{0.5}}{L^{0.5}}$</p>
-                    
-                    <p>Masukan ke rasio:</p>
-                    $$ \frac{50 (L/K)^{0.5}}{40} = \frac{50 (K/L)^{0.5}}{10} $$
-                    $$ \frac{1}{4} (L/K)^{0.5} = (K/L)^{0.5} $$
-                    $$ \frac{1}{4} \sqrt{\frac{L}{K}} = \sqrt{\frac{K}{L}} $$
-                    <p>Kuadratkan kedua sisi:</p>
-                    $$ \frac{1}{16} \frac{L}{K} = \frac{K}{L} \implies L^2 = 16K^2 \implies L = 4K $$
-
-                    <p><strong>Substitusi ke Budget:</strong></p>
-                    <p>$40K + 10(4K) = 800$</p>
-                    <p>$40K + 40K = 800 \implies 80K = 800 \implies K = 10$.</p>
-                    <p>$L = 4(10) = 40$.</p>
-
-                    <p class="mt-2 text-blue-800 font-bold">Kesimpulan:</p>
-                    <p>Input optimal: <strong>Modal (K) = 10 unit</strong> dan <strong>Tenaga Kerja (L) = 40 unit</strong>.</p>
-                </div>
-            </div>
-
-            <!-- Soal 6 -->
-            <div class="bg-white rounded-lg shadow p-6 mb-6">
-                <div class="mb-4">
-                    <h3 class="font-bold text-lg">Soal 6: Interpretasi Nilai Lambda</h3>
-                    <p class="mt-2">Gunakan fungsi dari Soal 5. Hitunglah nilai $\lambda$ dan jelaskan interpretasi ekonominya! Berapa kira-kira kenaikan output jika anggaran ditambah sebesar 1 unit mata uang?</p>
-                </div>
-                <button onclick="toggleAnswer('ans6')" class="bg-red-600 hover:bg-red-700 text-white font-bold py-2 px-4 rounded transition">
-                    Lihat Pembahasan
-                </button>
-                <div id="ans6" class="answer-box mt-6 bg-gray-50 p-4 rounded border border-gray-200">
-                    <p><strong>Mencari Nilai Lambda:</strong></p>
-                    <p>Dari persamaan FOC soal sebelumnya: $\lambda = \frac{MP_L}{P_L}$.</p>
-                    <p>Kita tahu $K=10, L=40$.</p>
-                    
-                    $$ MP_L = 50 \left(\frac{10}{40}\right)^{0.5} = 50 \sqrt{0.25} = 50(0.5) = 25 $$
-                    
-                    $$ \lambda = \frac{25}{10} = 2.5 $$
-
-                    <p><strong>Verifikasi lewat $K$:</strong></p>
-                    $$ MP_K = 50 \left(\frac{40}{10}\right)^{0.5} = 50(2) = 100 $$
-                    $$ \lambda = \frac{100}{40} = 2.5 \quad (Konsisten!) $$
-
-                    <p class="mt-4 text-blue-800 font-bold">Interpretasi Ekonomi:</p>
-                    <p>Nilai $\lambda = 2.5$ adalah <em>Shadow Price</em> dari anggaran.</p>
-                    <p>Artinya: <strong>Jika anggaran perusahaan dinaikkan sebesar 1 unit (dari 800 menjadi 801), maka total Output (Q) akan meningkat kurang lebih sebesar 2.5 unit.</strong></p>
-                </div>
-            </div>
-        </section>
 
 
-    </div>
 
 
 	        <div class="container mt-5">
