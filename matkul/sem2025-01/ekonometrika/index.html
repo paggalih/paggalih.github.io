@@ -3352,35 +3352,35 @@
         </div>
 
         <div class="mermaid text-center">
-        flowchart TD
-            A[Mulai: Identifikasi Masalah & Variabel Y] --> B{Apa Sifat Variabel Y?};
-            B -- "Y = Hitungan (0, 1, 2, 3...)" --> D[Model Count Data];
-            B -- "Y = Kontinu, tapi Terbatas" --> E[Model LDV];
+          flowchart TD
+          A[Mulai: Identifikasi Masalah & Variabel Y] --> B{Apa Sifat Variabel Y?};
+          B -- "Y = Hitungan (0, 1, 2, 3...)" --> D[Model Count Data];
+          B -- "Y = Kontinu, tapi Terbatas" --> E[Model LDV];
 
-            E -- "Y tersensor di 0 (banyak data 0)" --> F[Model Tobit];
-            E -- "Y terpotong (data 0 hilang)" --> G[Model Truncated];
+          E -- "Y tersensor di 0 (banyak data 0)" --> F[Model Tobit];
+          E -- "Y terpotong (data 0 hilang)" --> G[Model Truncated];
 
-            D --> H{Apakah Mean ≈ Varians?};
-            H -- Ya --> I[Regresi Poisson];
-            H -- "Tidak (Overdispersion)" --> J["Negative Binomial (NB) / ZIP"];
+          D --> H{Apakah Mean ≈ Varians?};
+          H -- Ya --> I[Regresi Poisson];
+          H -- "Tidak (Overdispersion)" --> J["Negative Binomial (NB) / ZIP"];
 
-            K["Proses Estimasi (MLE)"];
-            I --> K;
-            F --> K;
-            J --> K;
-            G --> K;
-            
-            K --> O["Selesai: Kesimpulan & Rekomendasi"];
+          K["Proses Estimasi (MLE)"];
+          I --> K;
+          F --> K;
+          J --> K;
+          G --> K;
+
+          K --> O["Selesai: Kesimpulan & Rekomendasi"];
         </div>
         <h2>1. Model Tobit (Censored Regression)</h2>
-        
+
         <h3>Analogi: Sumbangan Amal</h3>
         <p>Bayangkan Anda meneliti faktor apa yang memengaruhi <strong>jumlah sumbangan amal</strong> seseorang (Y). Anda mengumpulkan data pendapatan (X1), usia (X2), dan tingkat religiusitas (X3).</p>
         <p>Masalahnya: Banyak orang memilih untuk <strong>tidak menyumbang sama sekali</strong> (Y=0). Data Anda akan "menggumpal" di angka nol. Jika Anda pakai OLS biasa, OLS akan kesulitan memahami data ini karena OLS mengasumsikan Y bisa bernilai negatif (padahal sumbangan tidak mungkin negatif).</p>
         <p>Model Tobit adalah solusinya. Model ini memahami bahwa ada dua proses yang terjadi:</p>
         <ol>
-            <li>Keputusan untuk menyumbang (atau tidak).</li>
-            <li>Keputusan berapa banyak harus menyumbang (jika memutuskan untuk menyumbang).</li>
+          <li>Keputusan untuk menyumbang (atau tidak).</li>
+          <li>Keputusan berapa banyak harus menyumbang (jika memutuskan untuk menyumbang).</li>
         </ol>
         <p>Model Tobit menangani data yang "tersensor" (censored) atau terpotong pada nilai tertentu (dalam kasus ini, 0).</p>
 
@@ -3389,19 +3389,19 @@
 
         <h3>Formula</h3>
         <p>Model Tobit mengasumsikan ada variabel laten (tidak teramati) $Y^*$:
-        $$ Y_i^* = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \epsilon_i $$
-        Namun, yang kita amati adalah $Y_i$:
-        $$ Y_i = \begin{cases} Y_i^* & \text{jika } Y_i^* > L \\ L & \text{jika } Y_i^* \le L \end{cases} $$
-        Di mana $L$ adalah batas sensor (misalnya $L=0$).</p>
+          $$ Y_i^* = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \epsilon_i $$
+          Namun, yang kita amati adalah $Y_i$:
+          $$ Y_i = \begin{cases} Y_i^* & \text{jika } Y_i^* > L \\ L & \text{jika } Y_i^* \le L \end{cases} $$
+          Di mana $L$ adalah batas sensor (misalnya $L=0$).</p>
         <h3>Langkah-langkah Analisis di EViews</h3>
         <ol>
-            <li><strong>Import Data:</strong> Masukkan data Anda (Y, X1, X2, X3) ke EViews.</li>
-            <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
-            <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> (Least Squares) menjadi <code>TOBIT</code> (Censored/Truncated).</li>
-            <li><strong>Tentukan Batas Sensor:</strong> Akan muncul opsi 'Censoring'. Jika data Anda tersensor di nol (paling umum), biarkan 'Left' = 0 dan 'Right' = NA (Not Available/Tidak Ada).</li>
-            <li><strong>Tulis Persamaan:</strong> Di kotak 'Equation Specification', ketik variabel Anda. Contoh: <code>Y C X1 X2 X3</code> (C adalah konstanta/intersep).</li>
-            <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
-            <li><strong>Interpretasi:</strong> Lihat output. Koefisien yang ditampilkan adalah untuk variabel laten $Y^*$. Untuk interpretasi yang lebih mudah (marginal effects), Anda mungkin perlu ke menu <code>View</code> > <code>Marginal Effects</code> setelah estimasi.</li>
+          <li><strong>Import Data:</strong> Masukkan data Anda (Y, X1, X2, X3) ke EViews.</li>
+          <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
+          <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> (Least Squares) menjadi <code>TOBIT</code> (Censored/Truncated).</li>
+          <li><strong>Tentukan Batas Sensor:</strong> Akan muncul opsi 'Censoring'. Jika data Anda tersensor di nol (paling umum), biarkan 'Left' = 0 dan 'Right' = NA (Not Available/Tidak Ada).</li>
+          <li><strong>Tulis Persamaan:</strong> Di kotak 'Equation Specification', ketik variabel Anda. Contoh: <code>Y C X1 X2 X3</code> (C adalah konstanta/intersep).</li>
+          <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
+          <li><strong>Interpretasi:</strong> Lihat output. Koefisien yang ditampilkan adalah untuk variabel laten $Y^*$. Untuk interpretasi yang lebih mudah (marginal effects), Anda mungkin perlu ke menu <code>View</code> > <code>Marginal Effects</code> setelah estimasi.</li>
         </ol>
         <h2>2. Regresi Poisson (Poisson Regression)</h2>
 
@@ -3415,89 +3415,89 @@
 
         <h3>Formula </h3>
         <p>Regresi Poisson mengasumsikan Y mengikuti distribusi Poisson. Probabilitas Y mengambil nilai $y_i$ adalah:
-        $$ P(Y_i = y_i | X_i) = \frac{e^{-\lambda_i} \lambda_i^{y_i}}{y_i!} $$
-        Di mana $\lambda_i$ (lambda) adalah rata-rata (mean) dan varians dari kejadian, yang dipengaruhi oleh variabel X:
-        $$ \ln(\lambda_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} $$
-        Kita menggunakan $\ln(\lambda_i)$ (log-link) untuk memastikan $\lambda_i$ selalu positif.</p>
+          $$ P(Y_i = y_i | X_i) = \frac{e^{-\lambda_i} \lambda_i^{y_i}}{y_i!} $$
+          Di mana $\lambda_i$ (lambda) adalah rata-rata (mean) dan varians dari kejadian, yang dipengaruhi oleh variabel X:
+          $$ \ln(\lambda_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} $$
+          Kita menggunakan $\ln(\lambda_i)$ (log-link) untuk memastikan $\lambda_i$ selalu positif.</p>
         <h3>Langkah-langkah Analisis di EViews</h3>
         <ol>
-            <li><strong>Import Data:</strong> Masukkan data hitungan Anda (Y) dan variabel independen (X1, X2, X3).</li>
-            <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
-            <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> menjadi <code>COUNT</code> (Integer Count Data).</li>
-            <li><strong>Tentukan Distribusi:</strong> Di bawah opsi 'Count Data', pastikan <code>Distribution</code> diatur ke <code>Poisson</code>. (Jika Anda mencurigai <em>overdispersion</em>—varians jauh lebih besar dari mean—Anda bisa memilih <code>Negative Binomial</code>).</li>
-            <li><strong>Tulis Persamaan:</strong> Di kotak 'Specification', ketik: <code>Y C X1 X2 X3</code>.</li>
-            <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
-            <li><strong>Interpretasi:</strong> Koefisien $\beta$ menunjukkan perubahan dalam $\ln(\lambda_i)$. Untuk interpretasi yang lebih mudah, lihat nilai $e^\beta$ (exponentiated coefficient). Jika $\beta_1 = 0.1$, maka $e^{0.1} \approx 1.105$. Artinya, kenaikan 1 unit X1 akan meningkatkan jumlah Y (hitungan) sekitar 10.5%, dengan asumsi variabel lain konstan.</li>
+          <li><strong>Import Data:</strong> Masukkan data hitungan Anda (Y) dan variabel independen (X1, X2, X3).</li>
+          <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
+          <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> menjadi <code>COUNT</code> (Integer Count Data).</li>
+          <li><strong>Tentukan Distribusi:</strong> Di bawah opsi 'Count Data', pastikan <code>Distribution</code> diatur ke <code>Poisson</code>. (Jika Anda mencurigai <em>overdispersion</em>—varians jauh lebih besar dari mean—Anda bisa memilih <code>Negative Binomial</code>).</li>
+          <li><strong>Tulis Persamaan:</strong> Di kotak 'Specification', ketik: <code>Y C X1 X2 X3</code>.</li>
+          <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
+          <li><strong>Interpretasi:</strong> Koefisien $\beta$ menunjukkan perubahan dalam $\ln(\lambda_i)$. Untuk interpretasi yang lebih mudah, lihat nilai $e^\beta$ (exponentiated coefficient). Jika $\beta_1 = 0.1$, maka $e^{0.1} \approx 1.105$. Artinya, kenaikan 1 unit X1 akan meningkatkan jumlah Y (hitungan) sekitar 10.5%, dengan asumsi variabel lain konstan.</li>
         </ol>
         <h3>Contoh Kasus dan Data Simulasi (Regresi Terpotong)</h3>
 
         <div class="data-section">
-            <h4>Kasus 1: Pengeluaran R&D Perusahaan</h4>
-            <ul>
-                <li><strong>Y (Dependen):</strong> RND (Pengeluaran R&D, jutaan USD; tersensor di 0)</li>
-                <li><strong>X1 (Independen):</strong> PROFIT (Keuntungan perusahaan, jutaan USD)</li>
-                <li><strong>X2 (Independen):</strong> ASET (Total aset, miliaran USD)</li>
-                <li><strong>X3 (Independen):</strong> PATEN (Jumlah paten tahun lalu)</li>
-            </ul>
-            <a href="tobit_data_1_rnd.csv" class="csv-link" download>Download Data R&D (N=50)</a>
+          <h4>Kasus 1: Pengeluaran R&D Perusahaan</h4>
+          <ul>
+            <li><strong>Y (Dependen):</strong> RND (Pengeluaran R&D, jutaan USD; tersensor di 0)</li>
+            <li><strong>X1 (Independen):</strong> PROFIT (Keuntungan perusahaan, jutaan USD)</li>
+            <li><strong>X2 (Independen):</strong> ASET (Total aset, miliaran USD)</li>
+            <li><strong>X3 (Independen):</strong> PATEN (Jumlah paten tahun lalu)</li>
+          </ul>
+          <a href="tobit_data_1_rnd.csv" class="csv-link" download>Download Data R&D (N=50)</a>
         </div>
 
         <div class="data-section">
-            <h4>Kasus 2: Jam Kerja Karyawan</h4>
-            <ul>
-                <li><strong>Y (Dependen):</strong> JAM_KERJA (Jam kerja per minggu; tersensor di 0 bagi yang tidak bekerja)</li>
-                <li><strong>X1 (Independen):</strong> PENDIDIKAN (Tahun pendidikan)</li>
-                <li><strong>X2 (Independen):</strong> ANAK_BALITA (Jumlah anak di bawah 5 tahun)</li>
-                <li><strong>X3 (Independen):</strong> INCOME_SUAMI (Pendapatan pasangan, jutaan IDR/bulan)</li>
-            </ul>
-            <a href="tobit_data_2_jamkerja.csv" class="csv-link" download>Download Data Jam Kerja (N=50)</a>
+          <h4>Kasus 2: Jam Kerja Karyawan</h4>
+          <ul>
+            <li><strong>Y (Dependen):</strong> JAM_KERJA (Jam kerja per minggu; tersensor di 0 bagi yang tidak bekerja)</li>
+            <li><strong>X1 (Independen):</strong> PENDIDIKAN (Tahun pendidikan)</li>
+            <li><strong>X2 (Independen):</strong> ANAK_BALITA (Jumlah anak di bawah 5 tahun)</li>
+            <li><strong>X3 (Independen):</strong> INCOME_SUAMI (Pendapatan pasangan, jutaan IDR/bulan)</li>
+          </ul>
+          <a href="tobit_data_2_jamkerja.csv" class="csv-link" download>Download Data Jam Kerja (N=50)</a>
         </div>
 
         <div class="data-section">
-            <h4>Kasus 3: Pembelian Polis Asuransi</h4>
-            <ul>
-                <li><strong>Y (Dependen):</strong> PREMI (Jumlah premi asuransi jiwa yang dibeli per tahun, jutaan IDR; tersensor di 0)</li>
-                <li><strong>X1 (Independen):</strong> PENDAPATAN (Pendapatan tahunan, jutaan IDR)</li>
-                <li><strong>X2 (Independen):</strong> USIA (Usia nasabah)</li>
-                <li><strong>X3 (Independen):</strong> LITERASI_KEU (Skor literasi keuangan, 0-100)</li>
-            </ul>
-            <a href="tobit_data_3_asuransi.csv" class="csv-link" download>Download Data Asuransi (N=50)</a>
+          <h4>Kasus 3: Pembelian Polis Asuransi</h4>
+          <ul>
+            <li><strong>Y (Dependen):</strong> PREMI (Jumlah premi asuransi jiwa yang dibeli per tahun, jutaan IDR; tersensor di 0)</li>
+            <li><strong>X1 (Independen):</strong> PENDAPATAN (Pendapatan tahunan, jutaan IDR)</li>
+            <li><strong>X2 (Independen):</strong> USIA (Usia nasabah)</li>
+            <li><strong>X3 (Independen):</strong> LITERASI_KEU (Skor literasi keuangan, 0-100)</li>
+          </ul>
+          <a href="tobit_data_3_asuransi.csv" class="csv-link" download>Download Data Asuransi (N=50)</a>
         </div>
         <h3>Contoh Kasus dan Data Simulasi (Regresi Poisson)</h3>
 
         <div class="data-section">
-            <h4>Kasus 1: Jumlah Klaim Asuransi Mobil</h4>
-            <ul>
-                <li><strong>Y (Dependen):</strong> JML_KLAIM (Jumlah klaim dalam 1 tahun; 0, 1, 2, ...)</li>
-                <li><strong>X1 (Independen):</strong> USIA (Usia pengemudi)</li>
-                <li><strong>X2 (Independen):</strong> PENGALAMAN (Pengalaman mengemudi, tahun)</li>
-                <li><strong>X3 (Independen):</strong> TIPE_MOBIL (1=Sport, 0=Keluarga)</li>
-            </ul>
-            <a href="poisson_data_1_klaim.csv" class="csv-link" download>Download Data Klaim (N=50)</a>
+          <h4>Kasus 1: Jumlah Klaim Asuransi Mobil</h4>
+          <ul>
+            <li><strong>Y (Dependen):</strong> JML_KLAIM (Jumlah klaim dalam 1 tahun; 0, 1, 2, ...)</li>
+            <li><strong>X1 (Independen):</strong> USIA (Usia pengemudi)</li>
+            <li><strong>X2 (Independen):</strong> PENGALAMAN (Pengalaman mengemudi, tahun)</li>
+            <li><strong>X3 (Independen):</strong> TIPE_MOBIL (1=Sport, 0=Keluarga)</li>
+          </ul>
+          <a href="poisson_data_1_klaim.csv" class="csv-link" download>Download Data Klaim (N=50)</a>
         </div>
 
         <div class="data-section">
-            <h4>Kasus 2: Jumlah Pelanggan Restoran</h4>
-            <ul>
-                <li><strong>Y (Dependen):</strong> PELANGGAN (Jumlah pelanggan per jam)</li>
-                <li><strong>X1 (Independen):</strong> JAM_SIBUK (1=Makan Siang/Malam, 0=Lainnya)</li>
-                <li><strong>X2 (Independen):</strong> WEEKEND (1=Ya, 0=Tidak)</li>
-                <li><strong>X3 (Independen):</strong> JML_PROMO (Jumlah promosi aktif)</li>
-            </ul>
-            <a href="poisson_data_2_restoran.csv" class="csv-link" download>Download Data Restoran (N=50)</a>
+          <h4>Kasus 2: Jumlah Pelanggan Restoran</h4>
+          <ul>
+            <li><strong>Y (Dependen):</strong> PELANGGAN (Jumlah pelanggan per jam)</li>
+            <li><strong>X1 (Independen):</strong> JAM_SIBUK (1=Makan Siang/Malam, 0=Lainnya)</li>
+            <li><strong>X2 (Independen):</strong> WEEKEND (1=Ya, 0=Tidak)</li>
+            <li><strong>X3 (Independen):</strong> JML_PROMO (Jumlah promosi aktif)</li>
+          </ul>
+          <a href="poisson_data_2_restoran.csv" class="csv-link" download>Download Data Restoran (N=50)</a>
         </div>
 
         <div class="data-section">
-            <h4>Kasus 3: Jumlah Cacat Produksi</h4>
-            <ul>
-                <li><strong>Y (Dependen):</strong> CACAT (Jumlah cacat produksi per batch)</li>
-                <li><strong>X1 (Independen):</strong> KEC_MESIN (Kecepatan mesin, RPM)</li>
-                <li><strong>X2 (Independen):</strong> USIA_MESIN (Usia mesin, bulan)</li>
-                <li><strong>X3 (Independen):</strong> SUHU (Suhu ruangan, Celcius)</li>
-            </ul>
-            <a href="poisson_data_3_cacat.csv" class="csv-link" download>Download Data Cacat Produksi (N=50)</a>
+          <h4>Kasus 3: Jumlah Cacat Produksi</h4>
+          <ul>
+            <li><strong>Y (Dependen):</strong> CACAT (Jumlah cacat produksi per batch)</li>
+            <li><strong>X1 (Independen):</strong> KEC_MESIN (Kecepatan mesin, RPM)</li>
+            <li><strong>X2 (Independen):</strong> USIA_MESIN (Usia mesin, bulan)</li>
+            <li><strong>X3 (Independen):</strong> SUHU (Suhu ruangan, Celcius)</li>
+          </ul>
+          <a href="poisson_data_3_cacat.csv" class="csv-link" download>Download Data Cacat Produksi (N=50)</a>
         </div>
-        
+
         <div class="container mt-5">
           <div class="accordion" id="accordionp11">
             <div class="accordion-item">
@@ -3521,51 +3521,50 @@
           <h2>Pertemuan 12</h2>
         </div>
         <div class="mermaid text-center">
-flowchart TD
-    A[Mulai: Plot Data Mentah] --> B{Apakah Visual Stabil?}
-    B -- Tidak (Ada Tren) --> C[Uji Akar Unit / Unit Root Test]
-    B -- Ya --> D[Identifikasi Model AR/MA]
-    
-    C --> E{Prob < 0.05?}
-    E -- Tidak (Tidak Stasioner) --> F[Lakukan Turunan Pertama / 1st Difference]
-    F --> C
-    E -- Ya (Stasioner) --> D
-    
-    D --> G[Estimasi Model ARIMA]
-    G --> H[Uji Diagnostik Residual]
-    
-    H --> I{Residual White Noise?}
-    I -- Tidak (Masih ada pola) --> D
-    I -- Ya (Acak sempurna) --> J[Peramalan / Forecasting]
-    J --> K[Selesai]
+          flowchart TD
+          A[Mulai: Plot Data Mentah] --> B{Apakah Visual Stabil?}
+          B -- Tidak (Ada Tren) --> C[Uji Akar Unit / Unit Root Test]
+          B -- Ya --> D[Identifikasi Model AR/MA]
+
+          C --> E{Prob < 0.05?} E -- Tidak (Tidak Stasioner) --> F[Lakukan Turunan Pertama / 1st Difference]
+            F --> C
+            E -- Ya (Stasioner) --> D
+
+            D --> G[Estimasi Model ARIMA]
+            G --> H[Uji Diagnostik Residual]
+
+            H --> I{Residual White Noise?}
+            I -- Tidak (Masih ada pola) --> D
+            I -- Ya (Acak sempurna) --> J[Peramalan / Forecasting]
+            J --> K[Selesai]
         </div>
-    <h1>Pengantar Analisis Deret Waktu (Time Series)</h1>
-    <p>Dalam ekonometrika, data deret waktu adalah sekumpulan observasi pada variabel nilai yang diambil pada waktu yang berbeda. Tantangan utamanya adalah <strong>autokorelasi</strong>, di mana masa lalu mempengaruhi masa kini.</p>
+        <h1>Pengantar Analisis Deret Waktu (Time Series)</h1>
+        <p>Dalam ekonometrika, data deret waktu adalah sekumpulan observasi pada variabel nilai yang diambil pada waktu yang berbeda. Tantangan utamanya adalah <strong>autokorelasi</strong>, di mana masa lalu mempengaruhi masa kini.</p>
 
-    <h2>1. Konsep Stasioneritas</h2>
-    <p>Agar model valid, data harus stasioner. Artinya, rata-rata dan variansnya konstan sepanjang waktu. Secara matematis, proses stasioner \( Y_t \) memenuhi:</p>
-    <p>
-        $$ E(Y_t) = \mu $$
-        $$ Var(Y_t) = \sigma^2 $$
-        $$ Cov(Y_t, Y_{t+k}) = \gamma_k $$
-    </p>
+        <h2>1. Konsep Stasioneritas</h2>
+        <p>Agar model valid, data harus stasioner. Artinya, rata-rata dan variansnya konstan sepanjang waktu. Secara matematis, proses stasioner \( Y_t \) memenuhi:</p>
+        <p>
+          $$ E(Y_t) = \mu $$
+          $$ Var(Y_t) = \sigma^2 $$
+          $$ Cov(Y_t, Y_{t+k}) = \gamma_k $$
+        </p>
 
-    <h2>2. Model ARIMA (Box-Jenkins)</h2>
-    <p>Model umum yang sering digunakan adalah ARIMA(p,d,q). Jika kita mengambil contoh model AR(1) atau <em>Autoregressive Order 1</em>, persamaannya adalah:</p>
-    <p>
-        $$ Y_t = \beta_0 + \beta_1 Y_{t-1} + \epsilon_t $$
-    </p>
-    <p>Dimana \( \epsilon_t \) adalah <em>white noise</em> (error acak) yang diasumsikan berdistribusi normal \( N(0, \sigma^2) \).</p>
+        <h2>2. Model ARIMA (Box-Jenkins)</h2>
+        <p>Model umum yang sering digunakan adalah ARIMA(p,d,q). Jika kita mengambil contoh model AR(1) atau <em>Autoregressive Order 1</em>, persamaannya adalah:</p>
+        <p>
+          $$ Y_t = \beta_0 + \beta_1 Y_{t-1} + \epsilon_t $$
+        </p>
+        <p>Dimana \( \epsilon_t \) adalah <em>white noise</em> (error acak) yang diasumsikan berdistribusi normal \( N(0, \sigma^2) \).</p>
 
-    <h2>3. Langkah Estimasi di EViews</h2>
-    <p>Setelah memastikan data stasioner (misalnya pada tingkat level), kita dapat melakukan estimasi persamaan. Berikut adalah perintah dasar pada <em>command window</em> EViews:</p>
+        <h2>3. Langkah Estimasi di EViews</h2>
+        <p>Setelah memastikan data stasioner (misalnya pada tingkat level), kita dapat melakukan estimasi persamaan. Berikut adalah perintah dasar pada <em>command window</em> EViews:</p>
 
-    <code>
-        ls variabel_y c ar(1) ma(1)
-    </code>
-<h2>Kasus 1: Inflasi (Trend Deterministik)</h2>
-<p>Kondisi: Data cenderung naik terus menerus seiring waktu (misal: IHK). Analisis: Butuh Detrending atau Differencing.</p>
-          <textarea>
+        <code>
+          ls variabel_y c ar(1) ma(1)
+        </code>
+        <h2>Kasus 1: Inflasi (Trend Deterministik)</h2>
+        <p>Kondisi: Data cenderung naik terus menerus seiring waktu (misal: IHK). Analisis: Butuh Detrending atau Differencing.</p>
+        <textarea>
 "obs","inflasi"
 "1","100.5"
 "2","101.2"
@@ -3618,9 +3617,9 @@ flowchart TD
 "49","136.0"
 "50","136.8"
           </textarea>
-          <h2>Kasus 2: Harga Saham (Random Walk)</h2>
-          <p>Kondisi: Pergerakan acak, sulit ditebak, volatilitas tinggi. Analisis: Seringkali tidak stasioner di level, butuh log-return.</p>
-          <textarea>
+        <h2>Kasus 2: Harga Saham (Random Walk)</h2>
+        <p>Kondisi: Pergerakan acak, sulit ditebak, volatilitas tinggi. Analisis: Seringkali tidak stasioner di level, butuh log-return.</p>
+        <textarea>
 "obs","saham"
 "1","5000"
 "2","5050"
@@ -3673,9 +3672,9 @@ flowchart TD
 "49","5820"
 "50","5790"
           </textarea>
-          <h2>Kasus 3: Pertumbuhan Ekonomi (Siklus/Cyclical)</h2>
-          <p>Kondisi: Gelombang naik turun tapi periodenya tidak tetap (Boom & Bust). Analisis: Identifikasi titik balik (turning points).</p>
-          <textarea>
+        <h2>Kasus 3: Pertumbuhan Ekonomi (Siklus/Cyclical)</h2>
+        <p>Kondisi: Gelombang naik turun tapi periodenya tidak tetap (Boom & Bust). Analisis: Identifikasi titik balik (turning points).</p>
+        <textarea>
 "obs","gdp_growth"
 "1","5.1"
 "2","5.3"
@@ -3728,9 +3727,9 @@ flowchart TD
 "49","6.0"
 "50","6.2"
           </textarea>
-          <h2>Kasus 4: Nilai Tukar (Structural Break)</h2>
-          <p>Kondisi: Stabil, lalu tiba-tiba melonjak karena krisis/kebijakan, lalu stabil di level baru. Analisis: Perlu uji Chow Test atau Dummy Variable.</p>
-          <textarea>
+        <h2>Kasus 4: Nilai Tukar (Structural Break)</h2>
+        <p>Kondisi: Stabil, lalu tiba-tiba melonjak karena krisis/kebijakan, lalu stabil di level baru. Analisis: Perlu uji Chow Test atau Dummy Variable.</p>
+        <textarea>
 "obs","kurs"
 "1","14000"
 "2","14010"
@@ -3808,80 +3807,79 @@ flowchart TD
         </div>
         <div class="trigger">
           <h4>Pria Mabuk dan Anjingnya</h4>
-<p>Non-Stasioner (Random Walk): Jalan si pria mabuk tidak bisa ditebak (acak), begitu juga jalan si anjing. Jika kita lihat mereka secara terpisah, jalannya berantakan (tidak stasioner).</p>
+          <p>Non-Stasioner (Random Walk): Jalan si pria mabuk tidak bisa ditebak (acak), begitu juga jalan si anjing. Jika kita lihat mereka secara terpisah, jalannya berantakan (tidak stasioner).</p>
 
-<p>Kointegrasi: Namun, anjing tersebut memakai tali leher (leash). Meskipun mereka jalan sempoyongan ke sana ke mari, mereka tidak akan pernah terpisah terlalu jauh. Ada hubungan jangka panjang yang mengikat mereka. Inilah Kointegrasi.</p>
+          <p>Kointegrasi: Namun, anjing tersebut memakai tali leher (leash). Meskipun mereka jalan sempoyongan ke sana ke mari, mereka tidak akan pernah terpisah terlalu jauh. Ada hubungan jangka panjang yang mengikat mereka. Inilah Kointegrasi.</p>
 
-<p>Error Correction Model (ECM): Jika si anjing terlalu jauh ke kiri dan tuannya ke kanan (ada error atau ketidakseimbangan jangka pendek), tali leher akan tertarik. Si anjing atau tuannya akan mengoreksi arah jalan mereka untuk mendekat kembali (menuju keseimbangan). Proses "koreksi" agar kembali dekat inilah ECM.</p>
+          <p>Error Correction Model (ECM): Jika si anjing terlalu jauh ke kiri dan tuannya ke kanan (ada error atau ketidakseimbangan jangka pendek), tali leher akan tertarik. Si anjing atau tuannya akan mengoreksi arah jalan mereka untuk mendekat kembali (menuju keseimbangan). Proses "koreksi" agar kembali dekat inilah ECM.</p>
         </div>
 
-    <h1>Analisis Kointegrasi dan Error Correction Model (ECM)</h1>
+        <h1>Analisis Kointegrasi dan Error Correction Model (ECM)</h1>
 
+        <h2>1. Workflow Analisis Data</h2>
+        <p>Berikut adalah alur logika yang harus Anda tempuh sebelum memutuskan menggunakan ECM:</p>
 
-    <h2>1. Workflow Analisis Data</h2>
-    <p>Berikut adalah alur logika yang harus Anda tempuh sebelum memutuskan menggunakan ECM:</p>
-    
-    <div class="mermaid text-center">
-    flowchart TD
-        A[Mulai: Data Time Series] --> B{Uji Stasioneritas Level I-0}
-        B -- Stasioner --> C[Gunakan Regresi OLS Biasa / VAR Level]
-        B -- Tidak Stasioner --> D{Uji Stasioneritas 1st Diff I-1}
-        D -- Tidak Stasioner --> E[Cek Data / Transformasi Ulang]
-        D -- Stasioner --> F{Uji Kointegrasi Engle-Granger / Johansen}
-        F -- Tidak Terkointegrasi --> G[Gunakan VAR Difference]
-        F -- Terkointegrasi --> H[Estimasi Model ECM]
-        H --> I[Uji Asumsi Klasik & Interpretasi]
-    </div>
+        <div class="mermaid text-center">
+          flowchart TD
+          A[Mulai: Data Time Series] --> B{Uji Stasioneritas Level I-0}
+          B -- Stasioner --> C[Gunakan Regresi OLS Biasa / VAR Level]
+          B -- Tidak Stasioner --> D{Uji Stasioneritas 1st Diff I-1}
+          D -- Tidak Stasioner --> E[Cek Data / Transformasi Ulang]
+          D -- Stasioner --> F{Uji Kointegrasi Engle-Granger / Johansen}
+          F -- Tidak Terkointegrasi --> G[Gunakan VAR Difference]
+          F -- Terkointegrasi --> H[Estimasi Model ECM]
+          H --> I[Uji Asumsi Klasik & Interpretasi]
+        </div>
 
-    <h2>2. Model Matematika</h2>
-    <p>Jika variabel $Y_t$ dan $X_t$ terintegrasi pada ordo 1 atau $I(1)$ dan terkointegrasi, maka:</p>
-    
-    <h3>Persamaan Jangka Panjang (Long Run):</h3>
-    $$ Y_t = \beta_0 + \beta_1 X_t + e_t $$
-    <p>Di mana $e_t$ adalah residual yang harus stasioner pada level $I(0)$.</p>
+        <h2>2. Model Matematika</h2>
+        <p>Jika variabel $Y_t$ dan $X_t$ terintegrasi pada ordo 1 atau $I(1)$ dan terkointegrasi, maka:</p>
 
-    <h3>Persamaan Jangka Pendek (ECM):</h3>
-    $$ \Delta Y_t = \alpha_0 + \alpha_1 \Delta X_t + \gamma ECT_{t-1} + u_t $$
-    <ul>
-        <li>$\Delta$: Perubahan data (First Difference).</li>
-        <li>$\alpha_1$: Pengaruh jangka pendek $X$ terhadap $Y$.</li>
-        <li>$\gamma$: Koefisien <i>Error Correction Term</i> (ECT). Nilainya harus <strong>negatif dan signifikan</strong> (antara 0 sampai -1). Ini menunjukkan kecepatan penyesuaian menuju keseimbangan.</li>
-        <li>$ECT_{t-1}$: Sisaan (residual) dari persamaan jangka panjang periode sebelumnya.</li>
-    </ul>
+        <h3>Persamaan Jangka Panjang (Long Run):</h3>
+        $$ Y_t = \beta_0 + \beta_1 X_t + e_t $$
+        <p>Di mana $e_t$ adalah residual yang harus stasioner pada level $I(0)$.</p>
 
-    <h2>3. Tutorial EViews</h2>
-    <p>Berikut langkah-langkah praktis menggunakan EViews:</p>
+        <h3>Persamaan Jangka Pendek (ECM):</h3>
+        $$ \Delta Y_t = \alpha_0 + \alpha_1 \Delta X_t + \gamma ECT_{t-1} + u_t $$
+        <ul>
+          <li>$\Delta$: Perubahan data (First Difference).</li>
+          <li>$\alpha_1$: Pengaruh jangka pendek $X$ terhadap $Y$.</li>
+          <li>$\gamma$: Koefisien <i>Error Correction Term</i> (ECT). Nilainya harus <strong>negatif dan signifikan</strong> (antara 0 sampai -1). Ini menunjukkan kecepatan penyesuaian menuju keseimbangan.</li>
+          <li>$ECT_{t-1}$: Sisaan (residual) dari persamaan jangka panjang periode sebelumnya.</li>
+        </ul>
 
-    <h3>Langkah 1: Uji Akar Unit (Unit Root Test)</h3>
-    <p>Pastikan data tidak stasioner di Level, tapi stasioner di First Difference.</p>
-    <pre class="eviews-cmd">
+        <h2>3. Tutorial EViews</h2>
+        <p>Berikut langkah-langkah praktis menggunakan EViews:</p>
+
+        <h3>Langkah 1: Uji Akar Unit (Unit Root Test)</h3>
+        <p>Pastikan data tidak stasioner di Level, tapi stasioner di First Difference.</p>
+        <pre class="eviews-cmd">
 View > Unit Root Test > Level / 1st Difference
     </pre>
 
-    <h3>Langkah 2: Uji Kointegrasi (Engle-Granger Approach)</h3>
-    <p>Kita akan membuat residual dari persamaan jangka panjang, lalu menguji stasioneritasnya.</p>
-    <pre>
+        <h3>Langkah 2: Uji Kointegrasi (Engle-Granger Approach)</h3>
+        <p>Kita akan membuat residual dari persamaan jangka panjang, lalu menguji stasioneritasnya.</p>
+        <pre>
 1. Quick > Estimate Equation
 2. Masukkan: Y C X
 3. Klik OK (Simpan sebagai EQ01)
 4. Proc > Make Residual Series (Beri nama RESID01)
 5. Buka RESID01 > View > Unit Root Test > Level
     </pre>
-    <p><strong>Syarat:</strong> RESID01 harus stasioner pada Level $I(0)$. Jika ya, maka ada Kointegrasi.</p>
+        <p><strong>Syarat:</strong> RESID01 harus stasioner pada Level $I(0)$. Jika ya, maka ada Kointegrasi.</p>
 
-    <h3>Langkah 3: Estimasi ECM (Domark Method)</h3>
-    <p>Kita meregresikan variabel dalam bentuk selisih (d) dan memasukkan residual lag 1 (resid01(-1)).</p>
-    <pre class="eviews-cmd">
+        <h3>Langkah 3: Estimasi ECM (Domark Method)</h3>
+        <p>Kita meregresikan variabel dalam bentuk selisih (d) dan memasukkan residual lag 1 (resid01(-1)).</p>
+        <pre class="eviews-cmd">
 ls d(Y) c d(X) resid01(-1)
     </pre>
 
-    <h2>4. Interpretasi Output</h2>
-    <p>Fokus pada koefisien <strong>RESID01(-1)</strong>:</p>
-    <ul>
-        <li><strong>Tanda Negatif (-):</strong> Wajib. Menandakan ada koreksi. Jika positif, model divergen (menjauh).</li>
-        <li><strong>Signifikan (Prob < 0.05):</strong> Mekanisme koreksi kesalahan bekerja secara nyata.</li>
-        <li><strong>Nilai (Contoh -0.45):</strong> Artinya, 45% ketidakseimbangan yang terjadi di periode sebelumnya dikoreksi pada periode ini menuju keseimbangan jangka panjang.</li>
-    </ul>
+        <h2>4. Interpretasi Output</h2>
+        <p>Fokus pada koefisien <strong>RESID01(-1)</strong>:</p>
+        <ul>
+          <li><strong>Tanda Negatif (-):</strong> Wajib. Menandakan ada koreksi. Jika positif, model divergen (menjauh).</li>
+          <li><strong>Signifikan (Prob < 0.05):</strong> Mekanisme koreksi kesalahan bekerja secara nyata.</li>
+          <li><strong>Nilai (Contoh -0.45):</strong> Artinya, 45% ketidakseimbangan yang terjadi di periode sebelumnya dikoreksi pada periode ini menuju keseimbangan jangka panjang.</li>
+        </ul>
         <hr>
         <h4>Kasus 1: Konsumsi (Y) dan Pendapatan (X)</h4>
         <p>Teori: Konsumsi masyarakat bergantung pada pendapatan. Dalam jangka panjang mereka bergerak bersama.
@@ -4190,6 +4188,165 @@ ls d(Y) c d(X) resid01(-1)
         <div class="section-title">
           <h2>Pertemuan 14</h2>
         </div>
+        <div class="mermaid text-center">
+          flowchart TD
+          A[Mulai: Input Data Time Series] --> B[Uji Stasioneritas]
+          B -->|Harus Stasioner| C[Estimasi Model Mean ARMA/ARIMA]
+          C --> D[Uji Efek ARCH]
+          D -- Apakah ada Heteroskedastisitas? --> E{Ya, Lanjut}
+          E -->|Tidak| F[Cukup Pakai OLS/ARIMA Biasa]
+          E -->|Ya| G[Estimasi Model ARCH/GARCH]
+          G --> H[Pilih Orde Terbaik: AIC/SIC Terkecil]
+          H --> I[Uji Diagnostik: ARCH-LM Test]
+          I -- Masih ada efek ARCH? --> J{Cek Residual}
+          J -->|Masih Ada| G
+          J -->|Sudah Bersih| K[Interpretasi & Forecasting]
+          K --> L[Selesai]
+
+          style A fill:#f9f,stroke:#333,stroke-width:2px
+          style G fill:#bbf,stroke:#333,stroke-width:2px
+          style K fill:#bfb,stroke:#333,stroke-width:2px </div>
+        <div class="trigger">
+          <h4>Analogi Singkat: "Suasana Hati yang Menular"</h4>
+          Bayangkan Volatilitas (ragam/variance error) itu seperti "Level Emosi Seseorang".
+          <br><br>
+          Kondisi Normal (Homoskedastisitas): Emosi seseorang stabil. Kadang senang sedikit, kadang sedih sedikit, tapi besoknya sudah lupa dan kembali normal.
+          <br><br>
+          ARCH (AutoRegressive Conditional Heteroskedasticity): Ini seperti orang yang pendendam. Jika kemarin ada masalah besar (shock/error besar), maka hari ini emosinya pasti tidak stabil (volatilitas tinggi). Emosi hari ini tergantung seberapa besar "masalah" kemarin.
+          <br><br>
+          GARCH (Generalized ARCH): Ini lebih kompleks. Emosi hari ini tidak hanya dipengaruhi oleh masalah kemarin (ARCH term), tapi juga oleh seberapa emosional dia kemarin (GARCH term). Jadi, jika dia punya riwayat emosional yang panjang, ketidakstabilan itu akan bertahan lama (persisten).
+        </div>
+
+        <p> Fenomena di mana periode tenang diikuti periode tenang, dan periode gejolak diikuti periode gejolak disebut <strong>Volatility Clustering</strong>. Untuk memodelkannya, kita tidak bisa pakai regresi biasa (OLS). Kita butuh senjata khusus: <strong>ARCH</strong> dan <strong>GARCH</strong>.</p>
+
+        <h2>Model Matematika</h2>
+        <p>Model GARCH(p,q) terdiri dari dua persamaan utama:</p>
+
+        <ol>
+          <li>
+            <strong>Persamaan Mean (Rata-rata):</strong>
+            $$ Y_t = \mu + \epsilon_t $$
+          </li>
+          <li>
+            <strong>Persamaan Variance (Ragam Bersyarat):</strong>
+            $$ \sigma^2_t = \omega + \underbrace{\sum_{i=1}^{p} \alpha_i \epsilon^2_{t-i}}_{\text{ARCH Term}} + \underbrace{\sum_{j=1}^{q} \beta_j \sigma^2_{t-j}}_{\text{GARCH Term}} $$
+          </li>
+        </ol>
+
+        <div class="note">
+          <strong>Intinya:</strong> Volatilitas hari ini ($\sigma^2_t$) dipengaruhi oleh konstanta ($\omega$), error masa lalu/shocks ($\epsilon^2_{t-1}$), dan volatilitas masa lalu itu sendiri ($\sigma^2_{t-1}$).
+        </div>
+
+        <h2>Langkah Analisis Data di EViews</h2>
+
+        <p>Berikut adalah langkah step-by-step mengolah data menggunakan software EViews. Asumsikan Anda sudah memiliki data <em>return</em>.</p>
+
+        <div class="step">
+          <h3>1. Uji Efek ARCH (Pre-Test)</h3>
+          <p>Sebelum masuk ke GARCH, kita harus buktikan dulu datanya memang mengandung heteroskedastisitas.</p>
+          <ul>
+            <li>Estimasi persamaan Mean dulu (misal OLS biasa): <code>Quick -> Estimate Equation</code>. Ketik: <code>return c</code>.</li>
+            <li>Dari jendela hasil regresi, klik: <code>View -> Residual Diagnostics -> Heteroskedasticity Tests</code>.</li>
+            <li>Pilih <strong>ARCH</strong>.</li>
+            <li><strong>Aturan:</strong> Jika Prob. Chi-Square < 0.05, maka <strong>ADA</strong> efek ARCH. Lanjut ke modeling GARCH.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3>2. Estimasi Model GARCH</h3>
+          <ul>
+            <li>Klik <code>Quick -> Estimate Equation</code>.</li>
+            <li>Pada bagian <strong>Method</strong>, ubah dari LS (Least Squares) menjadi <strong>ARCH</strong>.</li>
+            <li><strong>Mean Equation:</strong> Ketik variabel dependen (misal: <code>return c</code>).</li>
+            <li><strong>Variance/ARCH Spec:</strong> Masukkan ordo. Standarnya adalah GARCH(1,1) yang paling sering fit dengan data keuangan. (ARCH=1, GARCH=1).</li>
+            <li>Klik <strong>OK</strong>.</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3>3. Interpretasi Output</h3>
+          <p>Lihat pada bagian <em>Variance Equation</em>:</p>
+          <ul>
+            <li><strong>RESID(-1)^2 (Alpha):</strong> Pengaruh shock informasi terbaru.</li>
+            <li><strong>GARCH(-1) (Beta):</strong> Pengaruh volatilitas masa lalu (persistensi).</li>
+            <li>Jika $\alpha + \beta$ mendekati 1 (misal 0.98), artinya volatilitas bersifat <em>persistent</em> (lama hilangnya jika ada gejolak).</li>
+          </ul>
+        </div>
+
+        <div class="step">
+          <h3>4. Uji Diagnostik (Post-Test)</h3>
+          <p>Pastikan model sudah bagus dan tidak ada sisa efek ARCH.</p>
+          <ul>
+            <li>Dari hasil output GARCH, klik: <code>View -> Residual Diagnostics -> ARCH LM Test</code>.</li>
+            <li><strong>Harapan:</strong> Prob. Chi-Square > 0.05. Artinya, sisaan model sudah bersih dari masalah heteroskedastisitas.</li>
+          </ul>
+        </div>
+
+        <textarea>
+"Observation","Kasus_1_Saham_Return","Kasus_2_Forex_Return","Kasus_3_Kripto_Return","Kasus_4_Inflasi_MoM","Kasus_5_Minyak_Shock"
+"1","0.012","0.001","-0.050","0.002","0.020"
+"2","-0.005","0.002","0.010","0.003","-0.010"
+"3","0.003","-0.001","0.020","0.002","0.005"
+"4","0.001","0.000","-0.010","0.002","0.001"
+"5","-0.002","0.001","0.005","0.003","-0.002"
+"6","0.004","-0.002","0.030","0.004","0.005"
+"7","0.002","0.001","-0.020","0.002","0.003"
+"8","-0.001","0.000","0.010","0.002","-0.001"
+"9","0.005","-0.001","0.040","0.003","0.008"
+"10","0.025","0.005","-0.080","0.004","0.040"
+"11","-0.030","-0.004","0.120","0.005","-0.035"
+"12","0.045","0.006","-0.100","0.006","0.050"
+"13","-0.050","-0.005","0.090","0.005","-0.045"
+"14","0.035","0.004","-0.070","0.005","0.030"
+"15","-0.020","-0.003","0.050","0.004","-0.025"
+"16","0.015","0.002","-0.040","0.003","0.015"
+"17","-0.010","-0.001","0.020","0.003","-0.010"
+"18","0.005","0.001","-0.010","0.002","0.005"
+"19","0.002","0.000","0.005","0.002","0.002"
+"20","-0.001","-0.001","-0.002","0.002","-0.001"
+"21","0.003","0.001","0.008","0.002","0.004"
+"22","-0.002","-0.001","-0.005","0.002","-0.003"
+"23","0.001","0.000","0.003","0.002","0.002"
+"24","0.004","0.002","0.015","0.003","0.005"
+"25","-0.003","-0.001","-0.010","0.002","-0.004"
+"26","0.060","0.008","0.150","0.006","0.080"
+"27","-0.070","-0.009","-0.180","0.007","-0.090"
+"28","0.055","0.007","0.140","0.006","0.075"
+"29","-0.040","-0.006","-0.110","0.006","-0.060"
+"30","0.030","0.005","0.080","0.005","0.040"
+"31","-0.025","-0.004","-0.060","0.005","-0.030"
+"32","0.018","0.003","0.040","0.004","0.020"
+"33","-0.012","-0.002","-0.030","0.004","-0.015"
+"34","0.008","0.001","0.020","0.003","0.010"
+"35","-0.005","-0.001","-0.015","0.003","-0.008"
+"36","0.003","0.001","0.010","0.002","0.005"
+"37","-0.002","0.000","-0.005","0.002","-0.003"
+"38","0.001","0.000","0.002","0.002","0.001"
+"39","0.002","0.001","0.005","0.002","0.003"
+"40","-0.001","-0.001","-0.003","0.002","-0.002"
+"41","0.001","0.000","0.002","0.002","0.001"
+"42","-0.001","0.000","-0.001","0.002","-0.001"
+"43","0.002","0.001","0.004","0.002","0.002"
+"44","-0.002","-0.001","-0.006","0.002","-0.003"
+"45","0.040","0.005","0.100","0.005","0.050"
+"46","-0.035","-0.004","-0.090","0.005","-0.045"
+"47","0.025","0.003","0.070","0.004","0.035"
+"48","-0.015","-0.002","-0.050","0.004","-0.025"
+"49","0.010","0.001","0.030","0.003","0.015"
+"50","-0.005","-0.001","-0.015","0.003","-0.010"
+      </textarea><br><br>
+
+        Kasus 1: Pasar Saham (IHSG Style): Data ini memiliki periode tenang di awal, gejolak besar di tengah (seperti krisis), lalu perlahan tenang kembali. Cocok untuk GARCH(1,1).
+        <br><br>
+        Kasus 2: Nilai Tukar (Forex): Perubahan kecil dan stabil, tapi ada lompatan sesekali. Volatilitasnya rendah tapi persisten.
+        <br><br>
+        Kasus 3: Mata Uang Kripto: Volatilitas sangat ekstrem (angka return besar). Ini contoh High Volatility Regime.
+        <br><br>
+
+        Kasus 4: Inflasi Bulanan: Data cenderung positif (karena inflasi jarang minus drastis) dan perubahannya lambat (sticky).
+        <br><br>
+
+        Kasus 5: Harga Minyak (Commodity Shock): Mirip saham tapi gejolaknya lebih tajam dan cepat kembali ke normal (mean reverting lebih cepat).
         <div class="container mt-5">
           <div class="accordion" id="accordionp14">
             <div class="accordion-item">
@@ -4245,8 +4402,8 @@ ls d(Y) c d(X) resid01(-1)
           <li>Analisis data sesuai dengan materi yang telah diberikan di kelas.</li>
           <li>Simpulkan dan berikan saran yang sesuai.</li>
         </ol>
-<!--         <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button> -->
-<!--         <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button> -->
+        <!--         <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button> -->
+        <!--         <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button> -->
         <script>
           const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
           const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
