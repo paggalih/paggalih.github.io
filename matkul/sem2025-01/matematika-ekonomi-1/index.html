@@ -1694,173 +1694,39 @@ flowchart TD
     I --> J
             </div>
         <!-- Level: Mudah -->
-        <section class="mb-12">
-            <div class="flex items-center mb-4">
-                <span class="bg-green-100 text-green-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded border border-green-400">Tingkat: Mudah</span>
-                <h2 class="text-2xl font-semibold">Konsep Dasar Marjinal</h2>
-            </div>
+
 
             <!-- Soal 1 -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                 <h3 class="font-bold text-lg mb-2">Soal 1: Utilitas Marjinal</h3>
                 <p class="mb-4">Diketahui fungsi utilitas total seorang konsumen adalah \( U = 4x^2 + 3y^2 \). Tentukan persamaan Utilitas Marjinal barang x (\(MU_x\)) dan barang y (\(MU_y\)).</p>
                 
-                <details class="group">
-                    <summary class="flex items-center font-medium cursor-pointer text-indigo-600 hover:text-indigo-800">
-                        <span class="transition group-open:rotate-180">
-                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                        <span class="ml-2">Lihat Pembahasan</span>
-                    </summary>
-                    <div class="text-gray-700 mt-4 pl-4 border-l-4 border-indigo-200 bg-gray-50 p-4 rounded">
-                        <p><strong>Jawab:</strong></p>
-                        <p>Untuk mencari \(MU_x\), turunkan \(U\) terhadap \(x\) (anggap \(y\) konstanta/angka biasa).</p>
-                        $$ MU_x = \frac{\partial U}{\partial x} = 2 \cdot 4x^{(2-1)} + 0 = 8x $$
-                        <p>Untuk mencari \(MU_y\), turunkan \(U\) terhadap \(y\) (anggap \(x\) konstanta).</p>
-                        $$ MU_y = \frac{\partial U}{\partial y} = 0 + 2 \cdot 3y^{(2-1)} = 6y $$
-                    </div>
-                </details>
-            </div>
 
             <!-- Soal 2 -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                 <h3 class="font-bold text-lg mb-2">Soal 2: Biaya Marjinal Gabungan</h3>
                 <p class="mb-4">Fungsi biaya gabungan untuk memproduksi dua barang adalah \( C = 10 + 5Q_a + 2Q_b \). Berapakah biaya marjinal untuk memproduksi barang A (\(MC_a\))?</p>
                 
-                <details class="group">
-                    <summary class="flex items-center font-medium cursor-pointer text-indigo-600 hover:text-indigo-800">
-                        <span class="transition group-open:rotate-180">
-                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                        <span class="ml-2">Lihat Pembahasan</span>
-                    </summary>
-                    <div class="text-gray-700 mt-4 pl-4 border-l-4 border-indigo-200 bg-gray-50 p-4 rounded">
-                        <p><strong>Jawab:</strong></p>
-                        <p>\(MC_a\) adalah turunan parsial fungsi biaya \(C\) terhadap \(Q_a\).</p>
-                        $$ MC_a = \frac{\partial C}{\partial Q_a} $$
-                        <p>Turunan dari 10 adalah 0. Turunan dari \(2Q_b\) (karena dianggap konstanta) adalah 0.</p>
-                        $$ MC_a = 5 $$
-                        <p>Artinya, setiap tambahan 1 unit produksi barang A, biaya bertambah sebesar 5 satuan uang.</p>
-                    </div>
-                </details>
-            </div>
-        </section>
 
         <!-- Level: Sedang -->
-        <section class="mb-12">
-            <div class="flex items-center mb-4">
-                <span class="bg-yellow-100 text-yellow-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded border border-yellow-400">Tingkat: Sedang</span>
-                <h2 class="text-2xl font-semibold">Produksi & Elastisitas</h2>
-            </div>
 
             <!-- Soal 3 -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                 <h3 class="font-bold text-lg mb-2">Soal 3: Fungsi Produksi Cobb-Douglas</h3>
                 <p class="mb-4">Diketahui fungsi produksi \( P = 10 K^{0.5} L^{0.5} \), dimana K adalah modal dan L adalah tenaga kerja. Tentukan Produk Marjinal Tenaga Kerja (\(MP_L\)).</p>
                 
-                <details class="group">
-                    <summary class="flex items-center font-medium cursor-pointer text-indigo-600 hover:text-indigo-800">
-                        <span class="transition group-open:rotate-180">
-                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                        <span class="ml-2">Lihat Pembahasan</span>
-                    </summary>
-                    <div class="text-gray-700 mt-4 pl-4 border-l-4 border-indigo-200 bg-gray-50 p-4 rounded">
-                        <p><strong>Jawab:</strong></p>
-                        <p>\(MP_L\) adalah turunan parsial \(P\) terhadap \(L\). Anggap \(K\) sebagai konstanta.</p>
-                        $$ P = 10 K^{0.5} L^{0.5} $$
-                        $$ MP_L = \frac{\partial P}{\partial L} = 10 K^{0.5} \cdot (0.5 L^{0.5 - 1}) $$
-                        $$ MP_L = 5 K^{0.5} L^{-0.5} $$
-                        <p>Atau bisa ditulis sebagai:</p>
-                        $$ MP_L = 5 \left( \frac{K}{L} \right)^{0.5} $$
-                    </div>
-                </details>
-            </div>
 
             <!-- Soal 4 -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                 <h3 class="font-bold text-lg mb-2">Soal 4: Hubungan Dua Barang</h3>
                 <p class="mb-4">Fungsi permintaan barang A adalah \( Q_A = 100 - 3P_A + 2P_B \). Apakah barang A dan barang B bersifat substitusi atau komplementer? Buktikan dengan turunan parsial.</p>
                 
-                <details class="group">
-                    <summary class="flex items-center font-medium cursor-pointer text-indigo-600 hover:text-indigo-800">
-                        <span class="transition group-open:rotate-180">
-                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                        <span class="ml-2">Lihat Pembahasan</span>
-                    </summary>
-                    <div class="text-gray-700 mt-4 pl-4 border-l-4 border-indigo-200 bg-gray-50 p-4 rounded">
-                        <p><strong>Jawab:</strong></p>
-                        <p>Kita perlu melihat bagaimana perubahan harga barang B (\(P_B\)) mempengaruhi permintaan barang A (\(Q_A\)). Kita cari \(\frac{\partial Q_A}{\partial P_B}\).</p>
-                        $$ \frac{\partial Q_A}{\partial P_B} = 2 $$
-                        <p>Hasilnya adalah <strong>Positif (+2)</strong>. Artinya, jika harga barang B naik, permintaan barang A ikut naik.</p>
-                        <p><strong>Kesimpulan:</strong> Barang A dan B adalah barang <strong>Substitusi</strong> (saling menggantikan).</p>
-                    </div>
-                </details>
-            </div>
-        </section>
-
-        <!-- Level: Susah -->
-        <section class="mb-12">
-            <div class="flex items-center mb-4">
-                <span class="bg-red-100 text-red-800 text-sm font-medium mr-2 px-2.5 py-0.5 rounded border border-red-400">Tingkat: Susah</span>
-                <h2 class="text-2xl font-semibold">Analisis Lanjutan</h2>
-            </div>
 
             <!-- Soal 5 -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                 <h3 class="font-bold text-lg mb-2">Soal 5: Evaluasi Nilai Marjinal</h3>
                 <p class="mb-4">Fungsi Utilitas konsumen adalah \( U = x^3 y^2 \). Jika saat ini konsumen mengonsumsi \(x=2\) dan \(y=3\), berapakah nilai Utilitas Marjinal barang y (\(MU_y\)) pada titik tersebut?</p>
                 
-                <details class="group">
-                    <summary class="flex items-center font-medium cursor-pointer text-indigo-600 hover:text-indigo-800">
-                        <span class="transition group-open:rotate-180">
-                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                        <span class="ml-2">Lihat Pembahasan</span>
-                    </summary>
-                    <div class="text-gray-700 mt-4 pl-4 border-l-4 border-indigo-200 bg-gray-50 p-4 rounded">
-                        <p><strong>Jawab:</strong></p>
-                        <p>Langkah 1: Cari fungsi \(MU_y\) dengan menurunkan \(U\) terhadap \(y\).</p>
-                        $$ MU_y = \frac{\partial}{\partial y}(x^3 y^2) = x^3 \cdot 2y = 2x^3 y $$
-                        <p>Langkah 2: Substitusikan nilai \(x=2\) dan \(y=3\) ke dalam persamaan \(MU_y\).</p>
-                        $$ MU_y = 2(2)^3 (3) $$
-                        $$ MU_y = 2(8)(3) $$
-                        $$ MU_y = 48 $$
-                        <p>Jadi, pada tingkat konsumsi tersebut, setiap penambahan 1 unit barang y akan menambah kepuasan sebesar 48 util.</p>
-                    </div>
-                </details>
-            </div>
 
             <!-- Soal 6 -->
-            <div class="bg-white p-6 rounded-lg shadow-sm border border-gray-200 mb-6">
                 <h3 class="font-bold text-lg mb-2">Soal 6: Elastisitas Silang</h3>
                 <p class="mb-4">Fungsi permintaan gula (G) adalah \( Q_G = 50 - 2P_G - 1.5P_K + 0.1Y \), dimana \(P_K\) adalah harga kopi dan \(Y\) adalah pendapatan. Tentukan nilai Elastisitas Silang permintaan gula terhadap harga kopi jika \(P_G=10\), \(P_K=20\), dan \(Y=1000\).</p>
                 
-                <details class="group">
-                    <summary class="flex items-center font-medium cursor-pointer text-indigo-600 hover:text-indigo-800">
-                        <span class="transition group-open:rotate-180">
-                            <svg fill="none" height="24" shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24"><path d="M6 9l6 6 6-6"></path></svg>
-                        </span>
-                        <span class="ml-2">Lihat Pembahasan</span>
-                    </summary>
-                    <div class="text-gray-700 mt-4 pl-4 border-l-4 border-indigo-200 bg-gray-50 p-4 rounded">
-                        <p><strong>Jawab:</strong></p>
-                        <p>Rumus elastisitas silang (\(E_{GK}\)):</p>
-                        $$ E_{GK} = \frac{\partial Q_G}{\partial P_K} \cdot \frac{P_K}{Q_G} $$
-                        <p>Langkah 1: Cari turunan parsial \(Q_G\) terhadap \(P_K\).</p>
-                        $$ \frac{\partial Q_G}{\partial P_K} = -1.5 $$
-                        <p>Langkah 2: Cari nilai \(Q_G\) saat variabel diketahui.</p>
-                        $$ Q_G = 50 - 2(10) - 1.5(20) + 0.1(1000) $$
-                        $$ Q_G = 50 - 20 - 30 + 100 = 100 $$
-                        <p>Langkah 3: Hitung elastisitas.</p>
-                        $$ E_{GK} = -1.5 \cdot \frac{20}{100} $$
-                        $$ E_{GK} = -1.5 \cdot 0.2 = -0.3 $$
-                        <p>Karena negatif, Gula dan Kopi adalah barang <strong>Komplementer</strong>.</p>
-                    </div>
-                </details>
-            </div>
-        </section>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
@@ -1969,6 +1835,23 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 15</h2>
 	        </div>
+            <div class="mermaid text-center">
+flowchart TD
+    A([Mulai]) --> B[Identifikasi Masalah];
+    B --> C{Tentukan Fungsi};
+    C -->|Fungsi yang dimaksimumkan| D["Fungsi Objektif: $f(x,y)$"];
+    C -->|Batasan/Budget| E["Fungsi Kendala: $g (x,y) = c$"];
+    E --> F["Ubah Kendala jadi = 0: <br>$g (x,y) - c = 0$"];
+    D & F --> G["Bentuk Fungsi Lagrange L: <br>$L = f (x,y) - λ g (x,y) - c$"];
+    G --> H[Cari Turunan Parsial Pertama <br>FOC - First Order Conditions];
+    H --> I["$∂L/∂x = 0$ <br> $∂L/∂y = 0$ <br> $∂L/∂λ = 0$"];
+    I --> J[Selesaikan Sistem Persamaan Linear];
+    J --> K[Dapatkan nilai $x*, y*,$ dan $λ*$];
+    K --> L["Substitusi $x*$ dan $y*$ ke $f (x,y)$"];
+    L --> M([Selesai: Nilai Optimum Ditemukan]);
+            </div>
+            <iframe src="https://paggalih.github.io/matkul/sem2025-01/matematika-ekonomi-1/lagrange.html" width="100%" height="700px" title="Deskripsi Konten" frameborder="0" allowfullscreen></iframe>
+
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp15">
