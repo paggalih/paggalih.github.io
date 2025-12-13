@@ -1595,481 +1595,482 @@ flowchart TD
     style A fill:#e0e7ff,stroke:#4338ca,stroke-width:2px
     style K fill:#dcfce7,stroke:#15803d,stroke-width:2px
                 </pre>
-  <h4>Contoh Kasus:</h4>
-  <p>Sebuah perusahaan outsourcing memiliki tiga sistem (A, B, dan C) dan empat lokasi pemrosesan. Setiap lokasi memiliki kapasitas pemrosesan terbatas, dan setiap sistem memerlukan jam pemrosesan yang berbeda. Tujuan perusahaan adalah meminimalkan biaya total pemrosesan yang terjadi akibat distribusi data antar lokasi.</p>
+	        <h4>Contoh Kasus:</h4>
+	        <p>Sebuah perusahaan outsourcing memiliki tiga sistem (A, B, dan C) dan empat lokasi pemrosesan. Setiap lokasi memiliki kapasitas pemrosesan terbatas, dan setiap sistem memerlukan jam pemrosesan yang berbeda. Tujuan perusahaan adalah meminimalkan biaya total pemrosesan yang terjadi akibat distribusi data antar lokasi.</p>
 
-  <h4>Tabel Kapasitas Pemrosesan</h4>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Lokasi</th>
-        <th>Sistem A</th>
-        <th>Sistem B</th>
-        <th>Sistem C</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>5</td>
-        <td>8</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>7</td>
-        <td>6</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>5</td>
-        <td>4</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
-        <td>6</td>
-      </tr>
-    </tbody>
-  </table>
+	        <h4>Tabel Kapasitas Pemrosesan</h4>
+	        <table class="table table-bordered">
+	          <thead>
+	            <tr>
+	              <th>Lokasi</th>
+	              <th>Sistem A</th>
+	              <th>Sistem B</th>
+	              <th>Sistem C</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr>
+	              <td>1</td>
+	              <td>5</td>
+	              <td>8</td>
+	              <td>6</td>
+	            </tr>
+	            <tr>
+	              <td>2</td>
+	              <td>7</td>
+	              <td>6</td>
+	              <td>7</td>
+	            </tr>
+	            <tr>
+	              <td>3</td>
+	              <td>5</td>
+	              <td>4</td>
+	              <td>5</td>
+	            </tr>
+	            <tr>
+	              <td>4</td>
+	              <td>5</td>
+	              <td>6</td>
+	              <td>6</td>
+	            </tr>
+	          </tbody>
+	        </table>
 
-  <h4>Tabel Kebutuhan dan Kapasitas</h4>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Proses</th>
-        <th>Kapasitas</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>Sistem A</td>
-        <td>5 jam</td>
-      </tr>
-      <tr>
-        <td>Sistem B</td>
-        <td>5 jam</td>
-      </tr>
-      <tr>
-        <td>Sistem C</td>
-        <td>7 jam</td>
-      </tr>
-    </tbody>
-  </table>
+	        <h4>Tabel Kebutuhan dan Kapasitas</h4>
+	        <table class="table table-bordered">
+	          <thead>
+	            <tr>
+	              <th>Proses</th>
+	              <th>Kapasitas</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr>
+	              <td>Sistem A</td>
+	              <td>5 jam</td>
+	            </tr>
+	            <tr>
+	              <td>Sistem B</td>
+	              <td>5 jam</td>
+	            </tr>
+	            <tr>
+	              <td>Sistem C</td>
+	              <td>7 jam</td>
+	            </tr>
+	          </tbody>
+	        </table>
 
-  <h4>Langkah 1: Menyusun Tabel Biaya Pemrosesan</h4>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Lokasi</th>
-        <th>Sistem A</th>
-        <th>Sistem B</th>
-        <th>Sistem C</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>5</td>
-        <td>8</td>
-        <td>6</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>7</td>
-        <td>6</td>
-        <td>7</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>5</td>
-        <td>4</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>4</td>
-        <td>5</td>
-        <td>6</td>
-        <td>6</td>
-      </tr>
-    </tbody>
-  </table>
+	        <h4>Langkah 1: Menyusun Tabel Biaya Pemrosesan</h4>
+	        <table class="table table-bordered">
+	          <thead>
+	            <tr>
+	              <th>Lokasi</th>
+	              <th>Sistem A</th>
+	              <th>Sistem B</th>
+	              <th>Sistem C</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr>
+	              <td>1</td>
+	              <td>5</td>
+	              <td>8</td>
+	              <td>6</td>
+	            </tr>
+	            <tr>
+	              <td>2</td>
+	              <td>7</td>
+	              <td>6</td>
+	              <td>7</td>
+	            </tr>
+	            <tr>
+	              <td>3</td>
+	              <td>5</td>
+	              <td>4</td>
+	              <td>5</td>
+	            </tr>
+	            <tr>
+	              <td>4</td>
+	              <td>5</td>
+	              <td>6</td>
+	              <td>6</td>
+	            </tr>
+	          </tbody>
+	        </table>
 
-  <h4>Langkah 2: Menyusun Tabel Alokasi Pemrosesan (Alokasi Awal)</h4>
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Lokasi</th>
-        <th>Sistem A</th>
-        <th>Sistem B</th>
-        <th>Sistem C</th>
-        <th>Jumlah</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>3</td>
-        <td>2</td>
-        <td>0</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>0</td>
-        <td>2</td>
-        <td>3</td>
-        <td>5</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>0</td>
-        <td>0</td>
-        <td>2</td>
-        <td>7</td>
-      </tr>
-    </tbody>
-  </table>
+	        <h4>Langkah 2: Menyusun Tabel Alokasi Pemrosesan (Alokasi Awal)</h4>
+	        <table class="table table-bordered">
+	          <thead>
+	            <tr>
+	              <th>Lokasi</th>
+	              <th>Sistem A</th>
+	              <th>Sistem B</th>
+	              <th>Sistem C</th>
+	              <th>Jumlah</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr>
+	              <td>1</td>
+	              <td>3</td>
+	              <td>2</td>
+	              <td>0</td>
+	              <td>5</td>
+	            </tr>
+	            <tr>
+	              <td>2</td>
+	              <td>0</td>
+	              <td>2</td>
+	              <td>3</td>
+	              <td>5</td>
+	            </tr>
+	            <tr>
+	              <td>3</td>
+	              <td>0</td>
+	              <td>0</td>
+	              <td>2</td>
+	              <td>7</td>
+	            </tr>
+	          </tbody>
+	        </table>
 
-  <h4>Langkah 3: Menghitung Biaya Pemrosesan Awal</h4>
-  <p>Biaya pemrosesan awal dihitung berdasarkan alokasi yang ada:</p>
-  \[
-  \text{Total Biaya} = (3 \times 5) + (2 \times 8) + (2 \times 6) + (3 \times 7) + (2 \times 5) + (5 \times 6) = 104
-  \]
+	        <h4>Langkah 3: Menghitung Biaya Pemrosesan Awal</h4>
+	        <p>Biaya pemrosesan awal dihitung berdasarkan alokasi yang ada:</p>
+	        \[
+	        \text{Total Biaya} = (3 \times 5) + (2 \times 8) + (2 \times 6) + (3 \times 7) + (2 \times 5) + (5 \times 6) = 104
+	        \]
 
-  <h4>Langkah 4: Menyusun Ghost Costs</h4>
-  <p>Ghost costs dihitung dengan menggunakan rumus: </p>
-  \[
-  C_{ij} = S_i + L_j
-  \]
-  Di mana \( S_i \) adalah biaya hantu untuk sistem dan \( L_j \) adalah biaya hantu untuk lokasi.
+	        <h4>Langkah 4: Menyusun Ghost Costs</h4>
+	        <p>Ghost costs dihitung dengan menggunakan rumus: </p>
+	        \[
+	        C_{ij} = S_i + L_j
+	        \]
+	        Di mana \( S_i \) adalah biaya hantu untuk sistem dan \( L_j \) adalah biaya hantu untuk lokasi.
 
-  <table class="table table-bordered">
-    <thead>
-      <tr>
-        <th>Lokasi</th>
-        <th>Sistem A</th>
-        <th>Sistem B</th>
-        <th>Sistem C</th>
-        <th>Si</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>1</td>
-        <td>5</td>
-        <td>8</td>
-        <td>0</td>
-        <td>0</td>
-      </tr>
-      <tr>
-        <td>2</td>
-        <td>6</td>
-        <td>7</td>
-        <td>-2</td>
-        <td>-4</td>
-      </tr>
-      <tr>
-        <td>3</td>
-        <td>5</td>
-        <td>6</td>
-        <td>-4</td>
-        <td>-4</td>
-      </tr>
-    </tbody>
-  </table>
+	        <table class="table table-bordered">
+	          <thead>
+	            <tr>
+	              <th>Lokasi</th>
+	              <th>Sistem A</th>
+	              <th>Sistem B</th>
+	              <th>Sistem C</th>
+	              <th>Si</th>
+	            </tr>
+	          </thead>
+	          <tbody>
+	            <tr>
+	              <td>1</td>
+	              <td>5</td>
+	              <td>8</td>
+	              <td>0</td>
+	              <td>0</td>
+	            </tr>
+	            <tr>
+	              <td>2</td>
+	              <td>6</td>
+	              <td>7</td>
+	              <td>-2</td>
+	              <td>-4</td>
+	            </tr>
+	            <tr>
+	              <td>3</td>
+	              <td>5</td>
+	              <td>6</td>
+	              <td>-4</td>
+	              <td>-4</td>
+	            </tr>
+	          </tbody>
+	        </table>
 
-  <h4>Langkah 5: Iterasi dan Perbaikan</h4>
-  <p>Iterasi dilakukan untuk menemukan solusi yang lebih optimal berdasarkan perhitungan ghost costs dan perbedaan biaya.</p>
+	        <h4>Langkah 5: Iterasi dan Perbaikan</h4>
+	        <p>Iterasi dilakukan untuk menemukan solusi yang lebih optimal berdasarkan perhitungan ghost costs dan perbedaan biaya.</p>
 
-  <h4>Solusi Optimal:</h4>
-  <p>Setelah beberapa siklus, solusi optimal tercapai dengan biaya total yang lebih rendah: 78. Alokasi optimal adalah:</p>
-  <ul>
-    <li>Sistem A: 3 jam ke Lokasi 1 dan 2 jam ke Lokasi 3.</li>
-    <li>Sistem B: 5 jam ke Lokasi 4.</li>
-    <li>Sistem C: 4 jam ke Lokasi 2 dan 3 jam ke Lokasi 3.</li>
-  </ul>
-            <div class="text center">
-            <iframe width="560" height="315" src="https://www.youtube.com/embed/biVWMfYQrUM?si=LrI_60Vgvnokuoen" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe></div>
+	        <h4>Solusi Optimal:</h4>
+	        <p>Setelah beberapa siklus, solusi optimal tercapai dengan biaya total yang lebih rendah: 78. Alokasi optimal adalah:</p>
+	        <ul>
+	          <li>Sistem A: 3 jam ke Lokasi 1 dan 2 jam ke Lokasi 3.</li>
+	          <li>Sistem B: 5 jam ke Lokasi 4.</li>
+	          <li>Sistem C: 4 jam ke Lokasi 2 dan 3 jam ke Lokasi 3.</li>
+	        </ul>
+	        <div class="text center">
+	          <iframe width="560" height="315" src="https://www.youtube.com/embed/biVWMfYQrUM?si=LrI_60Vgvnokuoen" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>
+	        </div>
 
-        <!-- SOAL 1 -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 1: Logistik Makanan Ringan</h2>
-            <p class="mb-4">Tentukan biaya pengiriman minimum untuk data berikut:</p>
-            
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full table-custom">
-                    <thead>
-                        <tr>
-                            <th>Sumber \ Tujuan</th>
-                            <th>Toko A</th>
-                            <th>Toko B</th>
-                            <th>Toko C</th>
-                            <th>Toko D</th>
-                            <th>Kapasitas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-bold">Gudang 1</td>
-                            <td>5</td>
-                            <td>3</td>
-                            <td>6</td>
-                            <td>4</td>
-                            <td class="font-bold text-blue-600">30</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 2</td>
-                            <td>3</td>
-                            <td>6</td>
-                            <td>5</td>
-                            <td>2</td>
-                            <td class="font-bold text-blue-600">40</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 3</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>3</td>
-                            <td>6</td>
-                            <td class="font-bold text-blue-600">30</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Permintaan</td>
-                            <td class="font-bold text-red-600">20</td>
-                            <td class="font-bold text-red-600">30</td>
-                            <td class="font-bold text-red-600">30</td>
-                            <td class="font-bold text-red-600">20</td>
-                            <td class="bg-gray-100">100</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+	        <!-- SOAL 1 -->
+	        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+	          <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 1: Logistik Makanan Ringan</h2>
+	          <p class="mb-4">Tentukan biaya pengiriman minimum untuk data berikut:</p>
 
-        </div>
+	          <div class="overflow-x-auto mb-6">
+	            <table class="w-full table-custom">
+	              <thead>
+	                <tr>
+	                  <th>Sumber \ Tujuan</th>
+	                  <th>Toko A</th>
+	                  <th>Toko B</th>
+	                  <th>Toko C</th>
+	                  <th>Toko D</th>
+	                  <th>Kapasitas</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td class="font-bold">Gudang 1</td>
+	                  <td>5</td>
+	                  <td>3</td>
+	                  <td>6</td>
+	                  <td>4</td>
+	                  <td class="font-bold text-blue-600">30</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 2</td>
+	                  <td>3</td>
+	                  <td>6</td>
+	                  <td>5</td>
+	                  <td>2</td>
+	                  <td class="font-bold text-blue-600">40</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 3</td>
+	                  <td>4</td>
+	                  <td>5</td>
+	                  <td>3</td>
+	                  <td>6</td>
+	                  <td class="font-bold text-blue-600">30</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Permintaan</td>
+	                  <td class="font-bold text-red-600">20</td>
+	                  <td class="font-bold text-red-600">30</td>
+	                  <td class="font-bold text-red-600">30</td>
+	                  <td class="font-bold text-red-600">20</td>
+	                  <td class="bg-gray-100">100</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
 
-        <!-- SOAL 2 -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 2: Distribusi Elektronik</h2>
-            
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full table-custom">
-                    <thead>
-                        <tr>
-                            <th>Sumber \ Tujuan</th>
-                            <th>Toko A</th>
-                            <th>Toko B</th>
-                            <th>Toko C</th>
-                            <th>Toko D</th>
-                            <th>Kapasitas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-bold">Gudang 1</td>
-                            <td>8</td>
-                            <td>6</td>
-                            <td>10</td>
-                            <td>9</td>
-                            <td class="font-bold text-blue-600">60</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 2</td>
-                            <td>9</td>
-                            <td>12</td>
-                            <td>13</td>
-                            <td>7</td>
-                            <td class="font-bold text-blue-600">80</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 3</td>
-                            <td>14</td>
-                            <td>9</td>
-                            <td>16</td>
-                            <td>5</td>
-                            <td class="font-bold text-blue-600">60</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Permintaan</td>
-                            <td class="font-bold text-red-600">50</td>
-                            <td class="font-bold text-red-600">50</td>
-                            <td class="font-bold text-red-600">50</td>
-                            <td class="font-bold text-red-600">50</td>
-                            <td class="bg-gray-100">200</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+	        </div>
 
-        </div>
+	        <!-- SOAL 2 -->
+	        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+	          <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 2: Distribusi Elektronik</h2>
 
-        <!-- SOAL 3 -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 3: Material Bangunan</h2>
-            
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full table-custom">
-                    <thead>
-                        <tr>
-                            <th>Sumber \ Tujuan</th>
-                            <th>Toko A</th>
-                            <th>Toko B</th>
-                            <th>Toko C</th>
-                            <th>Toko D</th>
-                            <th>Kapasitas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-bold">Gudang 1</td>
-                            <td>10</td>
-                            <td>20</td>
-                            <td>5</td>
-                            <td>7</td>
-                            <td class="font-bold text-blue-600">100</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 2</td>
-                            <td>15</td>
-                            <td>10</td>
-                            <td>10</td>
-                            <td>8</td>
-                            <td class="font-bold text-blue-600">100</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 3</td>
-                            <td>5</td>
-                            <td>12</td>
-                            <td>8</td>
-                            <td>15</td>
-                            <td class="font-bold text-blue-600">100</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Permintaan</td>
-                            <td class="font-bold text-red-600">75</td>
-                            <td class="font-bold text-red-600">75</td>
-                            <td class="font-bold text-red-600">75</td>
-                            <td class="font-bold text-red-600">75</td>
-                            <td class="bg-gray-100">300</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+	          <div class="overflow-x-auto mb-6">
+	            <table class="w-full table-custom">
+	              <thead>
+	                <tr>
+	                  <th>Sumber \ Tujuan</th>
+	                  <th>Toko A</th>
+	                  <th>Toko B</th>
+	                  <th>Toko C</th>
+	                  <th>Toko D</th>
+	                  <th>Kapasitas</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td class="font-bold">Gudang 1</td>
+	                  <td>8</td>
+	                  <td>6</td>
+	                  <td>10</td>
+	                  <td>9</td>
+	                  <td class="font-bold text-blue-600">60</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 2</td>
+	                  <td>9</td>
+	                  <td>12</td>
+	                  <td>13</td>
+	                  <td>7</td>
+	                  <td class="font-bold text-blue-600">80</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 3</td>
+	                  <td>14</td>
+	                  <td>9</td>
+	                  <td>16</td>
+	                  <td>5</td>
+	                  <td class="font-bold text-blue-600">60</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Permintaan</td>
+	                  <td class="font-bold text-red-600">50</td>
+	                  <td class="font-bold text-red-600">50</td>
+	                  <td class="font-bold text-red-600">50</td>
+	                  <td class="font-bold text-red-600">50</td>
+	                  <td class="bg-gray-100">200</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
 
-        </div>
+	        </div>
 
-        <!-- SOAL 4 -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 4: Suplai Farmasi</h2>
-            
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full table-custom">
-                    <thead>
-                        <tr>
-                            <th>Sumber \ Tujuan</th>
-                            <th>Toko A</th>
-                            <th>Toko B</th>
-                            <th>Toko C</th>
-                            <th>Toko D</th>
-                            <th>Kapasitas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-bold">Gudang 1</td>
-                            <td>2</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td>6</td>
-                            <td class="font-bold text-blue-600">40</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 2</td>
-                            <td>5</td>
-                            <td>2</td>
-                            <td>4</td>
-                            <td>3</td>
-                            <td class="font-bold text-blue-600">90</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 3</td>
-                            <td>6</td>
-                            <td>8</td>
-                            <td>2</td>
-                            <td>5</td>
-                            <td class="font-bold text-blue-600">20</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Permintaan</td>
-                            <td class="font-bold text-red-600">40</td>
-                            <td class="font-bold text-red-600">50</td>
-                            <td class="font-bold text-red-600">20</td>
-                            <td class="font-bold text-red-600">40</td>
-                            <td class="bg-gray-100">150</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+	        <!-- SOAL 3 -->
+	        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+	          <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 3: Material Bangunan</h2>
 
-        </div>
+	          <div class="overflow-x-auto mb-6">
+	            <table class="w-full table-custom">
+	              <thead>
+	                <tr>
+	                  <th>Sumber \ Tujuan</th>
+	                  <th>Toko A</th>
+	                  <th>Toko B</th>
+	                  <th>Toko C</th>
+	                  <th>Toko D</th>
+	                  <th>Kapasitas</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td class="font-bold">Gudang 1</td>
+	                  <td>10</td>
+	                  <td>20</td>
+	                  <td>5</td>
+	                  <td>7</td>
+	                  <td class="font-bold text-blue-600">100</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 2</td>
+	                  <td>15</td>
+	                  <td>10</td>
+	                  <td>10</td>
+	                  <td>8</td>
+	                  <td class="font-bold text-blue-600">100</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 3</td>
+	                  <td>5</td>
+	                  <td>12</td>
+	                  <td>8</td>
+	                  <td>15</td>
+	                  <td class="font-bold text-blue-600">100</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Permintaan</td>
+	                  <td class="font-bold text-red-600">75</td>
+	                  <td class="font-bold text-red-600">75</td>
+	                  <td class="font-bold text-red-600">75</td>
+	                  <td class="font-bold text-red-600">75</td>
+	                  <td class="bg-gray-100">300</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
 
-        <!-- SOAL 5 -->
-        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
-            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 5: Ekspor Impor</h2>
-            
-            <div class="overflow-x-auto mb-6">
-                <table class="w-full table-custom">
-                    <thead>
-                        <tr>
-                            <th>Sumber \ Tujuan</th>
-                            <th>Toko A</th>
-                            <th>Toko B</th>
-                            <th>Toko C</th>
-                            <th>Toko D</th>
-                            <th>Kapasitas</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-bold">Gudang 1</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>6</td>
-                            <td>7</td>
-                            <td class="font-bold text-blue-600">50</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 2</td>
-                            <td>6</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td>8</td>
-                            <td class="font-bold text-blue-600">50</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Gudang 3</td>
-                            <td>7</td>
-                            <td>6</td>
-                            <td>4</td>
-                            <td>5</td>
-                            <td class="font-bold text-blue-600">50</td>
-                        </tr>
-                        <tr>
-                            <td class="font-bold">Permintaan</td>
-                            <td class="font-bold text-red-600">30</td>
-                            <td class="font-bold text-red-600">40</td>
-                            <td class="font-bold text-red-600">50</td>
-                            <td class="font-bold text-red-600">30</td>
-                            <td class="bg-gray-100">150</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
+	        </div>
 
-        </div>
+	        <!-- SOAL 4 -->
+	        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+	          <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 4: Suplai Farmasi</h2>
+
+	          <div class="overflow-x-auto mb-6">
+	            <table class="w-full table-custom">
+	              <thead>
+	                <tr>
+	                  <th>Sumber \ Tujuan</th>
+	                  <th>Toko A</th>
+	                  <th>Toko B</th>
+	                  <th>Toko C</th>
+	                  <th>Toko D</th>
+	                  <th>Kapasitas</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td class="font-bold">Gudang 1</td>
+	                  <td>2</td>
+	                  <td>4</td>
+	                  <td>3</td>
+	                  <td>6</td>
+	                  <td class="font-bold text-blue-600">40</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 2</td>
+	                  <td>5</td>
+	                  <td>2</td>
+	                  <td>4</td>
+	                  <td>3</td>
+	                  <td class="font-bold text-blue-600">90</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 3</td>
+	                  <td>6</td>
+	                  <td>8</td>
+	                  <td>2</td>
+	                  <td>5</td>
+	                  <td class="font-bold text-blue-600">20</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Permintaan</td>
+	                  <td class="font-bold text-red-600">40</td>
+	                  <td class="font-bold text-red-600">50</td>
+	                  <td class="font-bold text-red-600">20</td>
+	                  <td class="font-bold text-red-600">40</td>
+	                  <td class="bg-gray-100">150</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+
+	        </div>
+
+	        <!-- SOAL 5 -->
+	        <div class="bg-white rounded-lg shadow-md p-6 mb-8">
+	          <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Soal 5: Ekspor Impor</h2>
+
+	          <div class="overflow-x-auto mb-6">
+	            <table class="w-full table-custom">
+	              <thead>
+	                <tr>
+	                  <th>Sumber \ Tujuan</th>
+	                  <th>Toko A</th>
+	                  <th>Toko B</th>
+	                  <th>Toko C</th>
+	                  <th>Toko D</th>
+	                  <th>Kapasitas</th>
+	                </tr>
+	              </thead>
+	              <tbody>
+	                <tr>
+	                  <td class="font-bold">Gudang 1</td>
+	                  <td>4</td>
+	                  <td>5</td>
+	                  <td>6</td>
+	                  <td>7</td>
+	                  <td class="font-bold text-blue-600">50</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 2</td>
+	                  <td>6</td>
+	                  <td>4</td>
+	                  <td>5</td>
+	                  <td>8</td>
+	                  <td class="font-bold text-blue-600">50</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Gudang 3</td>
+	                  <td>7</td>
+	                  <td>6</td>
+	                  <td>4</td>
+	                  <td>5</td>
+	                  <td class="font-bold text-blue-600">50</td>
+	                </tr>
+	                <tr>
+	                  <td class="font-bold">Permintaan</td>
+	                  <td class="font-bold text-red-600">30</td>
+	                  <td class="font-bold text-red-600">40</td>
+	                  <td class="font-bold text-red-600">50</td>
+	                  <td class="font-bold text-red-600">30</td>
+	                  <td class="bg-gray-100">150</td>
+	                </tr>
+	              </tbody>
+	            </table>
+	          </div>
+
+	        </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
@@ -2146,262 +2147,566 @@ flowchart TD
 	          <h2>Pertemuan 16</h2>
 	        </div>
 
-	        <p class="h1">Ketentuan UAS</p>
-	        <ol>
-	          <li>UAS hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-	          <li>Soal UAS boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
-	          <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
-	        </ol>
-	        <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button>
-	        <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button>
-	        <script>
-	          const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
-	          const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
-	          function validateUASes4d() {
-	          	let sekarang = new Date().getTime();
-	          	document.getElementById('timerUAS').style.display="block";
-	          
-	          	if (sekarang-mulaiUASes4d < 0){
-	          		alert("Belum waktunya");
-	          	}
-	          	else {
-	          		if (sekarang-akhirUASes4d < 0) {
-	          			 let person = prompt("Masukkan Password", "isi di sini");
-	          			 if (person === "mata") {
-	          				document.getElementById("tombol_uas_es4d").style.display="none";
-	          				document.getElementById("berhasilValidateUAS").style.display = "block";
-	          				let validNIM = false;
-	          				let nim;
-	          				while (!validNIM) {
-	          						nim = prompt("Masukkan NIM:");
-	          						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-	          						if (konfirmasi) {
-	          								validNIM = true;
-	          						} else {
-	          								alert("Silakan ulangi dan masukkan NIM yang benar.");
-	          						}
-	          				}
-	          				let b = (nim*5)% 6;
-	          				let c = [
-	          					['soal1uas', 'soal4uas', 'soal7uas'],
-	          					['soal1uas', 'soal5uas', 'soal9uas'],
-	          					['soal2uas', 'soal4uas', 'soal8uas'],
-	          					['soal2uas', 'soal6uas', 'soal9uas'],
-	          					['soal3uas', 'soal5uas', 'soal7uas'],
-	          					['soal3uas', 'soal6uas', 'soal8uas']
-	          				];
-	          				let d = c[b];
-	          				for (i = 1; i < 4; i++) {
-	          					let e = document.getElementById(d[i-1]);
-	          					document.getElementById('nomer'+i+'uas').appendChild(e);
-	          					e.style.display="block";
-	          					document.getElementById('nomer'+i+'uas').style.display="block";
-	          				}
-	          			 }
-	          			 else {
-	          				 alert("Maaf, password yang Anda masukkan salah.");
-	          			}
-	          		}
-	          		else{
-	          			alert("Sudah selesai");
-	          		}
-	          	}
-	          	// Update the count down every 1 second
-	          	let x = setInterval(function() {	
-	          		let sekarang = new Date().getTime();
-	          
-	          		// Find the distance between now and the count down date
-	          		let distanceUASes4d = akhirUASes4d - sekarang;
-	          			
-	          		// Time calculations for days, hours, minutes and seconds
-	          		let daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
-	          		let hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	          		let minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
-	          		let secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
-	          			
-	          		// Output the result in an element with id="demo"
-	          		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
-	          		+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
-	          			
-	          		// If the count down is over, write some text 
-	          		if (distanceUASes4d < 0) {
-	          			clearInterval(x);
-	          			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-	          			document.getElementById("berhasilValidateUAS").style.display = "none";
-	          		}
-	          	}, 1000);
-	          	// Update the count down every 1 second
-	          }
-	          
-	          function closeValidateUASes4d() {
-	          	let sekarang = new Date().getTime();
-	          	if (sekarang - mulaiUASes4d > 1000*60*60*5){
-	          				alert("Terkunci");
-	          		} else {
-	          			setTimeout(function() {
-	          				window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-	          			}, 500);
-	          		}
-	          }
-	          
-	        </script>
-
-	        <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
-	        <div id="berhasilValidateUAS" style="display: none">
-	          <div id="soal1uas" style='display:none;'>
-	            <p>Berdasarkan studi, waktu rata-rata untuk menyiapkan, menyalin, dan mengirimkan formulir pajak 1040 secara elektronik adalah <strong>330 menit</strong>, dengan simpangan baku <strong>80 menit</strong>. Distribusi waktu ini mengikuti distribusi normal. Sebuah lembaga pengawas memilih sampel acak sebanyak <strong>40 wajib pajak</strong>.</p>
-	            <ol type="a">
-	              <li>Berapa <em>standard error</em> dari rata-rata sampel dalam kasus ini?</li>
-	              <li>Berapa probabilitas bahwa <em>rata-rata sampel</em> berada antara 320 dan 350 menit?</li>
+	  	            <p class="h1">Ketentuan UAS</p>
+	            <ol>
+	              <li>UAS hanya boleh dikerjakan selama 75 menit.</li>
+	              <li>Soal UAS boleh dikerjakan dari 08:50-10:05.</li>
+	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 	            </ol>
-	          </div>
+	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUASmbs2d()">Mulai UAS</button>
+	            <button type="button" class="btn btn-primary" onclick="closeValidateUASmbs2d()">Kirim Jawaban</button>
+	            <script>
+	              const mulaiUASmbs2d = new Date("December 17, 2024 08:50:00").getTime();
+	              const akhirUASmbs2d = new Date("December 17, 2025 10:05:00").getTime();
+	              function validateUASmbs2d() {
+	              	let sekarang = new Date().getTime();
+	              	document.getElementById('timerUAS').style.display="block";
+	              
+	              	if (sekarang-mulaiUASmbs2d<0){
+	              		// Find the distance between now and the count down date
+	              		let distancembs2d = mulaiUASmbs2d - sekarang;
+	              			
+	              		// Time calculations for days, hours, minutes and seconds
+	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+	              		alert("Belum waktunya. Bisa dimulai dalam " + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik "+" lagi.");
+	              	}
+	              	else {
+	              		if (sekarang-akhirUASmbs2d<0) {
+	              			 let person = prompt("Masukkan Password", "isi di sini");
+	              			 if (person === ",ata") {
+	              				document.getElementById("tombol_mulai_mbs2d").style.display="none";
+	              				document.getElementById("berhasilValidateUAS").style.display = "block";
+	              				let validNIM = false;
+	              				let nim;
+	              				while (!validNIM) {
+	              						nim = prompt("Masukkan NIM:");
+	              						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+	              						if (konfirmasi) {
+	              								validNIM = true;
+	              						} else {
+	              								alert("Silakan ulangi dan masukkan NIM yang benar.");
+	              						}
+	              				}
+	              
+	              				let b = (nim*5)% 6;
+	              				let c = [
+	              ['soal1a', 'soal2a', 'soal3a', 'soal4a', 'soal5a'],
+	              ['soal1b', 'soal2b', 'soal3b', 'soal4b', 'soal5b'],
+	              ['soal1c', 'soal2c', 'soal3c', 'soal4c', 'soal5c'],
+	              ['soal1d', 'soal2d', 'soal3d', 'soal4d', 'soal5d'],
+	              ['soal1e', 'soal2e', 'soal3e', 'soal4e', 'soal5e'],
+	              ['soal1a', 'soal2b', 'soal3c', 'soal4d', 'soal5e'],
+	              				];
+	              				let d = c[b];
+	              				for (i = 1; i < 6; i++) {
+	              					let e = document.getElementById(d[i-1]);
+	              					document.getElementById('nomer'+i).appendChild(e);
+	              					e.style.display="block";
+	              					document.getElementById('nomer'+i).style.display="block";
+	              				}
+	              			 }
+	              			 else {
+	              				 alert("Maaf, password yang Anda masukkan salah.");
+	              			}
+	              		}
+	              		else{
+	              			alert("Sudah selesai.");
+	              		}
+	              	}
+	              	// Update the count down every 1 second
+	              	let x = setInterval(function() {	
+	              		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	              		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	              		let sekarang = new Date().getTime();
+	              
+	              		// Find the distance between now and the count down date
+	              		let distancembs2d = akhirUTSmbs2d - sekarang;
+	              			
+	              		// Time calculations for days, hours, minutes and seconds
+	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+	              			
+	              		// Output the result in an element with id="demo"
+	              		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
+	              			
+	              		// If the count down is over, write some text 
+	              		if (distancembs2d < 0) {
+	              			clearInterval(x);
+	              			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+	              			document.getElementById("berhasilValidateUAS").style.display = "none";
+	              		}
+	              	}, 1000);
+	              	// Update the count down every 1 second
+	              }
+	              
+	              function closeValidateUASmbs2d() {
+	              	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
+	                  setTimeout(function() {
+	                      window.open("https://forms.gle/XfYVtAqC7c64f1Si9", "_blank");
+	                  }, 500);
+	              }
+	              
+	            </script>
+	            <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+	            <div id="berhasilValidateUAS" style="display: none">
+	              <div id="soal1a" style='display:none;'>
+	                <p>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimiumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>7</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="bg-gray-100">150</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	                </p>
+	              </div>
+	              <div id="soal1b" style='display:none;'>
+	                <p>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td class="font-bold text-blue-600">40</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td class="font-bold text-blue-600">90</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>6</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">20</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="bg-gray-100">150</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	                </p>
+	              </div>
+	              <div id="soal1c" style='display:none;'>
+	                <p>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>10</td>
+                            <td>20</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>15</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>5</td>
+                            <td>12</td>
+                            <td>8</td>
+                            <td>15</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="bg-gray-100">300</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	                </p>
+	              </div>
+	              <div id="soal1d" style='display:none;'>
+	                <p>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>8</td>
+                            <td>6</td>
+                            <td>10</td>
+                            <td>9</td>
+                            <td class="font-bold text-blue-600">60</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>9</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">80</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>14</td>
+                            <td>9</td>
+                            <td>16</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">60</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="bg-gray-100">200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	                </p>
+	              </div>
+	              <div id="soal1e" style='display:none;'>
+	                <p>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Tentukan biaya pengiriman minimum untuk data berikut:</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td class="font-bold text-blue-600">30</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="font-bold text-blue-600">40</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td class="font-bold text-blue-600">30</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="bg-gray-100">100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	                </p>
+	              </div>
+	              <div id="soal2a" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran untuk dua komoditas yang saling berhubungan diberikan oleh persamaan berikut:
+	                  $$Q_{D1} = 30 - 2P_1 - P_2$$
+	                  $$Q_{D2} = 40 - P_1 - P_2$$
+	                  $$Q_{S1} = 5 + P_1$$
+	                  $$Q_{S2} = 15 + P_2$$
+	                  dimana $Q_D$, $Q_S$, dan $P$ masing-masing menunjukkan kuantitas permintaan, kuantitas penawaran, dan harga untuk barang ke-$i$. Tentukan harga dan kuantitas keseimbangan untuk model dua komoditas ini. Apakah kedua barang tersebut merupakan barang substitusi atau komplementer?
+	                </p>
+	              </div>
+	              <div id="soal2b" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran untuk dua komoditas adalah sebagai berikut:
+	                  $$Q_{D1} = 30 - 3P_1 + 2P_2$$
+	                  $$Q_{D2} = 20 + P_1 - 2P_2$$
+	                  $$Q_{S1} = 6 + P_1$$
+	                  $$Q_{S2} = 6 + P_2$$
+	                  Tentukan harga dan kuantitas keseimbangan untuk model ini. Apakah kedua barang tersebut substitusi atau komplementer?
+	                </p>
+	              </div>
+	              <div id="soal2c" style='display:none;'>
+	                <p>
+	                  Diketahui fungsi permintaan dan penawaran untuk dua barang adalah:
+	                  $$Q_{D1} = 100 - 2P_1 - 2P_2$$
+	                  $$Q_{D2} = 90 - P_1 - 3P_2$$
+	                  $$Q_{S1} = 10 + P_1$$
+	                  $$Q_{S2} = 10 + P_2$$
+	                  Tentukan harga dan kuantitas keseimbangan serta jenis hubungan antara kedua barang tersebut.
+	                </p>
+	              </div>
+	              <div id="soal2d" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran untuk dua komoditas adalah sebagai berikut:
+	                  $$Q_{D1} = 40 - 3P_1 + P_2$$
+	                  $$Q_{D2} = 50 + 2P_1 - P_2$$
+	                  $$Q_{S1} = 19 + 2P_1$$
+	                  $$Q_{S2} = 35 + 2P_2$$
+	                  Tentukan harga dan kuantitas keseimbangan untuk model ini. Apakah kedua barang tersebut substitusi atau komplementer?
+	                </p>
+	              </div>
+	              <div id="soal2e" style='display:none;'>
+	                <p>
+	                  Diketahui fungsi permintaan dan penawaran untuk dua barang adalah:
+	                  $$Q_{D1} = 50 - P_1 - P_2$$
+	                  $$Q_{D2} = 60 - P_1 - P_2$$
+	                  $$Q_{S1} = 22 + P_1$$
+	                  $$Q_{S2} = 16 + 2P_2$$
+	                  Tentukan harga dan kuantitas keseimbangan serta jenis hubungan antara kedua barang tersebut.
+	                </p>
+	              </div>
+	              <div id="soal3a" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+	                  $$P = -3Q_D + 60$$
+	                  $$P = Q_S + 20$$
+	                  dimana P, $Q_D$, dan $Q_S$ masing-masing menunjukkan harga, kuantitas permintaan, dan kuantitas penawaran.
+	                  <br>
+	                  Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah memutuskan untuk mengenakan pajak tetap sebesar Rp 4 untuk setiap barang.
+	                </p>
+	              </div>
+	              <div id="soal3b" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+	                  $$P = -Q_D + 100$$
+	                  $$P = \frac{1}{3}Q_S + 20$$
+	                  <br>
+	                  Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 8 untuk setiap barang.
+	                </p>
+	              </div>
+	              <div id="soal3c" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+	                  $$P = -4Q_D + 120$$
+	                  $$P = Q_S + 30$$
+	                  <br>
+	                  Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 10 untuk setiap barang.
+	                </p>
+	              </div>
+	              <div id="soal3d" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+	                  $$P = -2Q_D + 80$$
+	                  $$P = 2Q_S + 10$$
+	                  <br>
+	                  Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 6 untuk setiap barang.
+	                </p>
+	              </div>
+	              <div id="soal3e" style='display:none;'>
+	                <p>
+	                  Fungsi permintaan dan penawaran suatu barang diberikan oleh:
+	                  $$P = -\frac{1}{2}Q_D + 75$$
+	                  $$P = Q_S + 15$$
+	                  <br>
+	                  Tentukan pengaruhnya terhadap keseimbangan pasar jika pemerintah mengenakan pajak tetap sebesar Rp 9 untuk setiap barang.
+	                </p>
+	              </div>
+	              <div id="soal4a" style='display:none;'>
+	                <p>
+	                  Jika fungsi permintaan adalah
+	                  $$P = 2000 - 5\sqrt{Q}$$
+	                  tentukan rumus untuk Pendapatan Total (TR) dan Pendapatan Marjinal (MR). Hitunglah pendapatan marjinal ketika $Q = 25$ dan berikan interpretasi dari hasil ini.
+	                </p>
+	              </div>
+	              <div id="soal4b" style='display:none;'>
+	                <p>
+	                  Jika fungsi permintaan adalah
+	                  $$P = 4500 - 3\sqrt{Q}$$
+	                  tentukan rumus untuk TR dan MR. Hitunglah pendapatan marjinal ketika $Q = 100$ dan berikan interpretasi dari hasil ini.
+	                </p>
+	              </div>
+	              <div id="soal4c" style='display:none;'>
+	                <p>
+	                  Jika fungsi permintaan adalah
+	                  $$P = 1800 - 10\sqrt{Q}$$
+	                  tentukan rumus untuk TR dan MR. Hitunglah pendapatan marjinal ketika $Q = 36$ dan berikan interpretasi dari hasil ini.
+	                </p>
+	              </div>
+	              <div id="soal4d" style='display:none;'>
+	                <p>
+	                  Jika fungsi permintaan adalah
+	                  $$P = 1800 - 10\sqrt{Q}$$
+	                  tentukan rumus untuk TR dan MR. Hitunglah pendapatan marjinal ketika $Q = 36$ dan berikan interpretasi dari hasil ini.
+	                </p>
+	              </div>
+	              <div id="soal4e" style='display:none;'>
+	                <p>
+	                  Jika fungsi permintaan adalah
+	                  $$P = 6000 - 20\sqrt{Q}$$
+	                  tentukan rumus untuk TR dan MR. Hitunglah pendapatan marjinal ketika $Q = 81$ dan berikan interpretasi dari hasil ini.
+	                </p>
+	              </div>
+	              <div id="soal5a" style='display:none;'>
+	                <p>
+	                  Carilah surplus konsumen pada tingkat kuantitas $Q = 10$ untuk fungsi permintaan berikut:
+	                  $$P = 60 - 3Q$$
+	                </p>
+	              </div>
+	              <div id="soal5b" style='display:none;'>
+	                <p>
+	                  Carilah surplus konsumen pada tingkat kuantitas $Q = 12$ untuk fungsi permintaan berikut:
+	                  $$P = 100 - 5Q$$
+	                </p>
+	              </div>
+	              <div id="soal5c" style='display:none;'>
+	                <p>
+	                  Carilah surplus konsumen pada tingkat kuantitas $Q = 15$ untuk fungsi permintaan berikut:
+	                  $$P = 80 - 2Q$$
+	                </p>
+	              </div>
+	              <div id="soal5d" style='display:none;'>
+	                <p>
+	                  Carilah surplus konsumen pada tingkat kuantitas $Q = 20$ untuk fungsi permintaan berikut:
+	                  $$P = 45 - Q$$
+	                </p>
+	              </div>
+	              <div id="soal5e" style='display:none;'>
+	                <p>
+	                  Carilah surplus konsumen pada tingkat kuantitas $Q = 5$ untuk fungsi permintaan berikut:
+	                  $$P = 200 - 10Q$$
+	                </p>
+	              </div>
 
-	          <div id="soal2uas" style='display:none;'>
-	            <p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
-	            <ol type="a">
-	              <li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
-	              <li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
-	              <li>Bandingkan penyebaran (<em>dispersi</em>) dari populasi dengan penyebaran dari rata-rata sampel.</li>
-	            </ol>
-	          </div>
-
-	          <div id="soal3uas" style='display:none;'>
-	            <p>Seorang inspektur daging di Iowa ingin memperkirakan <strong>rata-rata berat bersih</strong> dari paket daging giling berlabel “3 pon.”</p>
-	            <p>Sampel sebanyak <strong>36 paket</strong> menunjukkan:</p>
-	            <ul>
-	              <li>Rata-rata sampel: \( \bar{x} = 3.01 \) pon</li>
-	              <li>Simpangan baku: \( s = 0.03 \) pon</li>
-	              <li>Ukuran sampel: \( n = 36 \)</li>
-	              <li>Tingkat kepercayaan: 95%</li>
-	            </ul>
-	            <ol type="a">
-	              <li>Berapa <em>estimasi titik</em> dari rata-rata populasi?</li>
-	              <li>Tentukan <em>interval kepercayaan 95%</em> untuk rata-rata populasi.</li>
-	            </ol>
-	          </div>
-	          <!-- ======================= -->
-	          <div id="soal4uas" style='display:none;'>
-	            <p>Jumlah air yang dikonsumsi setiap hari oleh orang dewasa sehat mengikuti distribusi normal dengan rata-rata \( \mu = 1.4 \) liter.</p>
-	            <p>Sebuah kampanye kesehatan mendorong konsumsi minimal $2.0$ liter per hari. Setelah kampanye, diambil sampel $10$ orang dewasa dengan konsumsi air (dalam liter):</p>
-	            <p>$1.5, 1.6,$ $1.5, 1.4,$ $1.9, 1.4,$ $1.3, 1.9,$ $1.8, 1.7$</p>
-	            <p>Pada tingkat signifikansi \( \alpha = 0.01 \), dapatkah kita menyimpulkan bahwa konsumsi air meningkat?</p>
-	            <p>Hitung dan interpretasikan nilai-\( p \).</p>
-	          </div>
-
-	          <div id="soal5uas" style='display:none;'>
-	            <p>Rata-rata pendapatan per orang di Amerika Serikat adalah \$60.000 dan distribusi pendapatan mengikuti distribusi normal.</p>
-	            <p>Sebuah sampel acak dari 10 penduduk Wilmington, Delaware memiliki rata-rata \$70.000 dan simpangan baku \$10.000.</p>
-	            <p>Pada tingkat signifikansi \( \alpha = 0.05 \), apakah ada cukup bukti bahwa penduduk Wilmington memiliki pendapatan <strong>lebih tinggi</strong> dari rata-rata nasional?</p>
-	          </div>
-
-	          <div id="soal6uas" style='display:none;'>
-	            <p>Manajemen <strong>GoGo Carts</strong> sedang mempertimbangkan metode baru untuk merakit kereta golf. Metode saat ini membutuhkan waktu rata-rata $42.3$ menit per unit. Dari sampel acak sebanyak $24$ unit menggunakan metode baru, rata-rata waktu perakitan adalah $40.6$ menit dan simpangan baku $2.7$ menit.</p>
-	            <p>Pada tingkat signifikansi \( \alpha = 0.10 \), apakah metode baru secara signifikan <strong>lebih cepat</strong>?</p>
-	          </div>
-	          <!-- ========================= -->
-	          <div id="soal7uas" style='display:none;'>
-	            <p>Lester Hollar mengevaluasi apakah program kebugaran dapat menurunkan jumlah ketidakhadiran karyawan.</p>
-
-	            <h4>Data Absensi (Jumlah Hari Tidak Masuk):</h4>
-
-	            <table class="table table-bordered text-center">
-	              <thead class="table-light">
-	                <tr>
-	                  <th>Employee</th>
-	                  <th>Sebelum</th>
-	                  <th>Sesudah</th>
-	                </tr>
-	              </thead>
-	              <tbody>
-	                <tr>
-	                  <td>Bauman</td>
-	                  <td>6</td>
-	                  <td>5</td>
-	                </tr>
-	                <tr>
-	                  <td>Briggs</td>
-	                  <td>6</td>
-	                  <td>2</td>
-	                </tr>
-	                <tr>
-	                  <td>Dottellis</td>
-	                  <td>7</td>
-	                  <td>1</td>
-	                </tr>
-	                <tr>
-	                  <td>Lee</td>
-	                  <td>7</td>
-	                  <td>3</td>
-	                </tr>
-	                <tr>
-	                  <td>Perrailt</td>
-	                  <td>4</td>
-	                  <td>3</td>
-	                </tr>
-	                <tr>
-	                  <td>Rielly</td>
-	                  <td>3</td>
-	                  <td>6</td>
-	                </tr>
-	                <tr>
-	                  <td>Steinmetz</td>
-	                  <td>5</td>
-	                  <td>5</td>
-	                </tr>
-	                <tr>
-	                  <td>Stoltz</td>
-	                  <td>6</td>
-	                  <td>7</td>
-	                </tr>
-	              </tbody>
-	            </table>
-	          </div>
-
-	          <div id="soal8uas" style='display:none;'>
-	            <p>Grand Strand Family Medical Center menangani kasus darurat ringan di Myrtle Beach. Dua lokasi dibandingkan: <strong>Little River</strong> dan <strong>Murrells Inlet</strong>.</p>
-
-	            <h4>Data Waktu Tunggu (dalam menit):</h4>
-	            <div class="overflow-auto">
-	              <table class="table table-bordered text-center">
-	                <thead class="table-light">
-	                  <tr>
-	                    <th>Little River</th>
-	                    <th>Murrells Inlet</th>
-	                  </tr>
-	                </thead>
-	                <tbody>
-	                  <tr>
-	                    <td>31, 28, 29, 22, 29, 18, 32, 25, 29, 26</td>
-	                    <td>22, 23, 26, 27, 26, 25, 30, 29, 23, 22</td>
-	                  </tr>
-	                </tbody>
-	              </table>
+	              <p class="h1 text-center">Soal UAS</p>
+	              <ol id="soalUAS">
+	                <li id='nomer1'>
+	                  <h2>Soal 1</h2>
+	                </li>
+	                <li id='nomer2'>
+	                  <h2>Soal 2</h2>
+	                </li>
+	                <li id='nomer3'>
+	                  <h2>Soal 3</h2>
+	                </li>
+	                <li id='nomer4'>
+	                  <h2>Soal 4</h2>
+	                </li>
+	                <li id='nomer5'>
+	                  <h2>Soal 5</h2>
+	                </li>
+	              </ol>
 	            </div>
-	          </div>
-
-	          <div id="soal9uas" style='display:none;'>
-	            <p>Clark Heter adalah seorang insinyur industri di Lyons Products. Ia ingin mengetahui apakah jumlah unit yang diproduksi pada shift malam lebih banyak dibanding shift siang.</p>
-
-	            <ul>
-	              <li>Rata-rata shift siang: \( \bar{x}_1 = 345 \), \( n_1 = 54 \), \( \sigma_1 = 21 \)</li>
-	              <li>Rata-rata shift malam: \( \bar{x}_2 = 351 \), \( n_2 = 60 \), \( \sigma_2 = 28 \)</li>
-	              <li>Signifikansi: \( \alpha = 0.05 \)</li>
-	            </ul>
-	          </div>
-
-	          <p class="h1 text-center">Soal UAS</p>
-	          <ol id="soalUAS">
-	            <li id='nomer1uas'>
-	              <h2>Soal 1</h2>
-	            </li>
-	            <li id='nomer2uas'>
-	              <h2>Soal 2</h2>
-	            </li>
-	            <li id='nomer3uas'>
-	              <h2>Soal 3</h2>
-	            </li>
-	          </ol>
-	        </div>
 
 	      </div>
 	    </section>
