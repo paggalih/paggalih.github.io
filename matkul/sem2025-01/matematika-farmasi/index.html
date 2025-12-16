@@ -2040,6 +2040,120 @@ Kata Kunci: Memilih Kelompok, Mengambil Sampel Acak, Campuran Bahan (homogen), M
 	          <h2>Pertemuan 13</h2>
 	        </div>
 
+    <div class="max-w-4xl mx-auto bg-white p-6 sm:p-10 shadow-xl rounded-xl">
+
+<div class="trigger">
+        <!-- Bagian 1: Analogi Dosen -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-4 border-l-4 border-indigo-500 pl-3">Analogi Dosen: Peracikan Sediaan Obat (Compounding)</h2>
+            <div class="p-6 bg-indigo-50 rounded-lg shadow-inner">
+                <p class="mb-4 text-gray-700 leading-relaxed">
+                    Bayangkan Anda sedang <strong>meracik 100 kapsul Amoksisilin</strong>. Tujuan kita adalah setiap kapsul memiliki dosis yang <strong>tepat</strong>. Proses peracikan ini adalah <strong>Eksperimen</strong> kita.
+                </p>
+                <ul class="list-disc list-inside space-y-2 text-gray-700 ml-4">
+                    <li><strong>Ruang Sampel ($S$):</strong> Ini adalah <strong>semua kemungkinan hasil</strong> dari 100 kapsul yang Anda buat. Misalnya, kapsul A dosis tepat, kapsul B dosis kurang, kapsul C dosis berlebih, dan seterusnya. Total $100$ kapsul adalah $S$.</li>
+                    <li><strong>Kejadian ($E$):</strong> Ini adalah <strong>hasil spesifik</strong> yang kita minati. Misalnya, $E$ = Kejadian bahwa kapsul memiliki dosis yang <strong>tepat</strong>. Jika ada 95 kapsul yang dosisnya tepat, maka $n(E) = 95$.</li>
+                    <li><strong>Peluang ($P(E)$):</strong> Inilah <strong>ukuran keyakinan</strong> kita. $P(E) = n(E) / n(S) = 95/100 = 0.95$. Peluang $0.95$ berarti ada keyakinan $95\%$ bahwa proses peracikan Anda menghasilkan dosis yang aman dan efektif.</li>
+                </ul>
+                <p class="mt-4 text-gray-700 leading-relaxed font-semibold">
+                    Kesimpulannya, peluang bukan cuma melempar koin, tapi mengukur seberapa handal (reliable) proses farmasi kita, mulai dari uji kualitas bahan baku hingga efektivitas klinis.
+                </p>
+            </div>
+        </section>
+      </div>
+
+        <!-- Bagian 2: Diagram Alir Materi (Mermaid JS) -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-4 border-l-4 border-indigo-500 pl-3">Diagram Alir Konsep Peluang</h2>
+            <div class="mermaid text-center">
+                flowchart TD
+    A["PELUANG"] --> B["Konsep Dasar"]
+    B --> C["Definisi Klasik:<br> P(A) = n(A)/n(S)"]
+    B --> D["Nilai Peluang:<br> 0 s.d 1"]
+    
+    A --> E["Aturan Perhitungan"]
+    E --> F["Penjumlahan<br> (Aturan 'ATAU')"]
+    E --> G["Perkalian <br>(Aturan 'DAN')"]
+    
+    G --> H["Kejadian Saling Bebas<br> (Sampel berbeda Batch)"]
+    G --> I["Kejadian Bersyarat<br> (Sampling tanpa pengembalian)"]
+
+            </div>
+            <p class="mt-4 text-sm text-gray-500 italic">Diagram ini menunjukkan alur berpikir dari dasar hingga penerapan peluang bersyarat yang sangat relevan di dunia farmasi.</p>
+        </section>
+
+        <!-- Bagian 3: Latihan Soal -->
+        <section class="mb-12">
+            <h2 class="text-2xl font-bold text-indigo-600 mb-6 border-l-4 border-indigo-500 pl-3">Latihan Soal Peluang Farmasi</h2>
+
+            <!-- TINGKAT MUDAH -->
+            
+            <div class="space-y-4">
+                <div>
+                    <p class="font-medium text-gray-700">1. Dalam satu batch produksi terdapat 5000 tablet. Setelah uji disolusi, ditemukan 50 tablet yang tidak memenuhi syarat mutu (out-of-specification). Berapa peluang jika secara acak kita mengambil satu tablet, tablet tersebut <strong>memenuhi syarat mutu</strong>?</p>
+                </div>
+
+                <div>
+                    <p class="font-medium text-gray-700">2. Di lemari obat UGD terdapat 4 jenis obat injeksi (I), 7 jenis tablet (T), dan 5 jenis sirup (S). Jika seorang asisten apoteker mengambil satu jenis sediaan secara acak, berapa peluang yang terambil adalah <strong>sediaan sirup</strong>?</p>
+                   
+                </div>
+            </div>
+
+            <!-- TINGKAT SEDANG -->            
+            <div class="space-y-4">
+                <div>
+                    <p class="font-medium text-gray-700">3. Dalam uji klinis fase III, peluang pasien mengalami mual ($M$) adalah $P(M) = 0.15$ dan peluang mengalami diare ($D$) adalah $P(D) = 0.10$. Peluang pasien mengalami <strong>kedua efek samping</strong> adalah $P(M \cap D) = 0.04$. Berapa peluang pasien mengalami mual <strong>atau</strong> diare?</p>
+                </div>
+
+                <div>
+                    <p class="font-medium text-gray-700">4. Peluang suatu infus lulus uji sterilitas ($S$) adalah $P(S) = 0.98$. Peluang infus tersebut lulus uji pirogenitas ($P$) adalah $P(P) = 0.95$. Asumsikan kedua uji saling bebas. Berapa peluang infus tersebut <strong>lulus kedua uji (Sterilitas dan Pirogenitas)</strong>?</p>
+                </div>
+            </div>
+
+        
+
+
+        <!-- Tingkat Mudah -->
+
+            <!-- Soal 1 -->
+                <p class="mb-4 font-medium">5. Seorang apoteker melakukan pemeriksaan visual pada 200 botol sirup. Ditemukan 4 botol memiliki label yang miring (cacat visual). Berapakah peluang terpilihnya satu botol yang memiliki label sempurna (tidak cacat) secara acak?</p>
+
+            <!-- Soal 2 -->
+                <p class="mb-4 font-medium">6. Sebuah obat antibiotik baru memiliki probabilitas kesembuhan sebesar 0,85. Tentukan probabilitas seorang pasien gagal sembuh (tidak sembuh) setelah meminum obat tersebut!</p>
+
+        <!-- Tingkat Sedang -->
+
+
+            <!-- Soal 3 -->
+                <p class="mb-4 font-medium">7. Dalam sebuah kotak penyimpanan, terdapat 10 ampul Vitamin C dan 5 ampul Vitamin B kompleks. Seorang asisten apoteker mengambil 2 ampul satu per satu <strong>tanpa pengembalian</strong>. Berapakah peluang terambilnya ampul pertama Vitamin C DAN ampul kedua Vitamin B kompleks?</p>
+
+            <!-- Soal 4 -->
+                <p class="mb-4 font-medium">8. Sebuah pabrik farmasi memiliki dua mesin tablet, Mesin A dan Mesin B, yang bekerja secara independen. Peluang Mesin A menghasilkan produk sesuai spesifikasi adalah 0,9. Peluang Mesin B menghasilkan produk sesuai spesifikasi adalah 0,8. Berapakah peluang <strong>keduanya</strong> menghasilkan produk sesuai spesifikasi secara bersamaan?</p>
+        </section>
+
+        <!-- Studi Kasus: Permutasi vs Kombinasi -->
+
+
+            <!-- Soal 7: Permutasi -->
+                <p class="mb-4 font-medium">9. (Permutasi) Seorang formulator sedang mengembangkan sediaan baru dan harus mencampurkan 3 bahan pengawet berbeda dari 5 bahan yang tersedia (P1, P2, P3, P4, P5). Urutan pencampuran mempengaruhi stabilitas akhir sediaan. Jika formulator mengambil 3 bahan secara acak dan mencampurkannya secara berurutan, berapakah peluang ia mendapatkan urutan pencampuran P1, kemudian P2, lalu P3?</p>
+
+            <!-- Soal 8: Kombinasi -->
+                <p class="mb-4 font-medium">10. (Kombinasi) Sebuah apotek membuka lowongan dan menerima 8 pelamar apoteker yang memenuhi syarat. Jika pemilik apotek hanya akan memilih 3 orang pelamar untuk diterima bekerja (tanpa membedakan posisi), berapakah peluang 3 orang tertentu (misal: Adi, Budi, dan Citra) terpilih bersama-sama?</p>
+
+        <!-- Tingkat Susah -->
+
+
+            <!-- Soal 5 -->
+                <p class="mb-4 font-medium">11. (Distribusi Binomial) Peluang seorang pasien sembuh dari penyakit kulit setelah menggunakan Salep X adalah 0,6. Jika terdapat 4 pasien yang diobati dengan salep tersebut, berapakah peluang tepat <strong>2 pasien</strong> sembuh?</p>
+
+            <!-- Soal 6 -->
+                <p class="mb-4 font-medium">12. Di dalam kotak obat terdapat 6 tablet Paracetamol dan 4 tablet Ibuprofen yang bentuknya identik. Jika diambil 3 tablet sekaligus secara acak untuk diuji kadar zat aktifnya, berapakah peluang terambilnya <strong>minimal 2 tablet Paracetamol</strong>?</p>
+
+
+
+
+    </div>
+
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp13">
 
