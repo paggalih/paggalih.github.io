@@ -2152,6 +2152,7 @@ flowchart TD
 	              <li>UAS hanya boleh dikerjakan selama 75 menit.</li>
 	              <li>Soal UAS boleh dikerjakan dari 08:50-10:05.</li>
 	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+                  <li>Jawaban berupa file pdf dikirimkan pada link di bawah ini.</li>
 	            </ol>
 	            <button id="tombol_uas_mbs2d" type="button" class="btn btn-primary" onclick="validateUASmbs2d()">Mulai UAS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUASmbs2d()">Kirim Jawaban</button>
@@ -2194,15 +2195,15 @@ flowchart TD
 	              
 	              				let b = (nim*5)% 6;
 	              				let c = [
-	     ['soaluas1a', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a'],
-	     ['soaluas1b', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a'],
-	     ['soaluas1c', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a'],
-	     ['soaluas1d', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a'],
-	     ['soaluas1e', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a'],
-	     ['soaluas1a', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a'],
+	     ['soaluas1a', 'soaluas2a', 'soaluas3a', 'soaluas4a'],
+	     ['soaluas1b', 'soaluas2b', 'soaluas3b', 'soaluas4b'],
+	     ['soaluas1c', 'soaluas2c', 'soaluas3c', 'soaluas4c'],
+	     ['soaluas1d', 'soaluas2d', 'soaluas3d', 'soaluas4d'],
+	     ['soaluas1e', 'soaluas2e', 'soaluas3e', 'soaluas4e'],
+	     ['soaluas1a', 'soaluas2b', 'soaluas3c', 'soaluas4d']
 	              				];
 	              				let d = c[b];
-	              				for (i = 1; i < 6; i++) {
+	              				for (i = 1; i < 5; i++) {
 	              					let e = document.getElementById(d[i-1]);
 	              					document.getElementById('uas'+i).appendChild(e);
 	              					e.style.display="block";
@@ -2249,7 +2250,7 @@ flowchart TD
 	              function closeValidateUASmbs2d() {
 	              	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
 	                  setTimeout(function() {
-	                      window.open("https://forms.gle/XfYVtAqC7c64f1Si9", "_blank");
+	                      window.open("https://forms.gle/RoTftvd2xv1kRTkp7", "_blank");
 	                  }, 500);
 	              }
 	              
@@ -2632,35 +2633,31 @@ flowchart TD
         </div>
 	              </div>
 	              <div id="soaluas4a" style='display:none;'>
-
+        <p>Diketahui matriks <strong>B</strong>:</p>
+        $$ B = \begin{pmatrix} 5 & 3 \\ 3 & 2 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks B!</p>
 	              </div>
 	              <div id="soaluas4b" style='display:none;'>
-
+        <p>Diketahui matriks <strong>C</strong>:</p>
+        $$ C = \begin{pmatrix} 4 & 7 \\ 1 & 2 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks C!</p>
 	              </div>
 	              <div id="soaluas4c" style='display:none;'>
-
+        <p>Diketahui matriks <strong>D</strong>:</p>
+        $$ D = \begin{pmatrix} 2 & 3 \\ 3 & 5 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks D!</p>
 	              </div>
 	              <div id="soaluas4d" style='display:none;'>
-
+        <p>Diketahui matriks <strong>E</strong>:</p>
+        $$ E = \begin{pmatrix} 4 & 5 \\ 3 & 4 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks E!</p>
 	              </div>
 	              <div id="soaluas4e" style='display:none;'>
-
+        <p>Diketahui matriks <strong>F</strong>:</p>
+        $$ F = \begin{pmatrix} 4 & 2 \\ 5 & 3 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks F!</p>
 	              </div>
-	              <div id="soaluas5a" style='display:none;'>
 
-	              </div>
-	              <div id="soaluas5b" style='display:none;'>
-
-	              </div>
-	              <div id="soaluas5c" style='display:none;'>
-
-	              </div>
-	              <div id="soaluas5d" style='display:none;'>
-
-	              </div>
-	              <div id="soaluas5e" style='display:none;'>
-
-	              </div>
 
 	              <p class="h1 text-center">Soal UAS</p>
 	              <ol id="soalUAS">
@@ -2676,9 +2673,7 @@ flowchart TD
 	                <li id='uas4'>
 	                  <h2>Soal 4</h2>
 	                </li>
-	                <li id='uas5'>
-	                  <h2>Soal 5</h2>
-	                </li>
+
 	              </ol>
 	            </div>
 
