@@ -2153,7 +2153,7 @@ flowchart TD
 	              <li>Soal UAS boleh dikerjakan dari 08:50-10:05.</li>
 	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
 	            </ol>
-	            <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUASmbs2d()">Mulai UAS</button>
+	            <button id="tombol_uas_mbs2d" type="button" class="btn btn-primary" onclick="validateUASmbs2d()">Mulai UAS</button>
 	            <button type="button" class="btn btn-primary" onclick="closeValidateUASmbs2d()">Kirim Jawaban</button>
 	            <script>
 	              const mulaiUASmbs2d = new Date("December 17, 2024 08:50:00").getTime();
@@ -2178,7 +2178,7 @@ flowchart TD
 	              		if (sekarang-akhirUASmbs2d<0) {
 	              			 let person = prompt("Masukkan Password", "isi di sini");
 	              			 if (person === "ata") {
-	              				document.getElementById("tombol_mulai_mbs2d").style.display="none";
+	              				document.getElementById("tombol_uas_mbs2d").style.display="none";
 	              				document.getElementById("berhasilValidateUAS").style.display = "block";
 	              				let validNIM = false;
 	              				let nim;
@@ -2224,7 +2224,7 @@ flowchart TD
 	              		let sekarang = new Date().getTime();
 	              
 	              		// Find the distance between now and the count down date
-	              		let distancembs2d = akhirUTSmbs2d - sekarang;
+	              		let distancembs2d = akhirUASmbs2d - sekarang;
 	              			
 	              		// Time calculations for days, hours, minutes and seconds
 	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
