@@ -1623,262 +1623,535 @@ flowchart TD
 	          <h2>Pertemuan 16</h2>
 	        </div>
 
-	        <p class="h1">Ketentuan UAS</p>
-	        <ol>
-	          <li>UAS hanya boleh dikerjakan selama 1,5 jam (sudah termasuk mengunggah jawaban berbentuk <strong>pdf</strong>).</li>
-	          <li>Soal UAS boleh dikerjakan dari 10:20-11:20 dan selanjutnya klik Kirim Jawaban untuk mengunggah jawaban di google form.</li>
-	          <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
-	        </ol>
-	        <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button>
-	        <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button>
-	        <script>
-	          const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
-	          const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
-	          function validateUASes4d() {
-	          	let sekarang = new Date().getTime();
-	          	document.getElementById('timerUAS').style.display="block";
-	          
-	          	if (sekarang-mulaiUASes4d < 0){
-	          		alert("Belum waktunya");
-	          	}
-	          	else {
-	          		if (sekarang-akhirUASes4d < 0) {
-	          			 let person = prompt("Masukkan Password", "isi di sini");
-	          			 if (person === "mata") {
-	          				document.getElementById("tombol_uas_es4d").style.display="none";
-	          				document.getElementById("berhasilValidateUAS").style.display = "block";
-	          				let validNIM = false;
-	          				let nim;
-	          				while (!validNIM) {
-	          						nim = prompt("Masukkan NIM:");
-	          						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-	          						if (konfirmasi) {
-	          								validNIM = true;
-	          						} else {
-	          								alert("Silakan ulangi dan masukkan NIM yang benar.");
-	          						}
-	          				}
-	          				let b = (nim*5)% 6;
-	          				let c = [
-	          					['soal1uas', 'soal4uas', 'soal7uas'],
-	          					['soal1uas', 'soal5uas', 'soal9uas'],
-	          					['soal2uas', 'soal4uas', 'soal8uas'],
-	          					['soal2uas', 'soal6uas', 'soal9uas'],
-	          					['soal3uas', 'soal5uas', 'soal7uas'],
-	          					['soal3uas', 'soal6uas', 'soal8uas']
-	          				];
-	          				let d = c[b];
-	          				for (i = 1; i < 4; i++) {
-	          					let e = document.getElementById(d[i-1]);
-	          					document.getElementById('nomer'+i+'uas').appendChild(e);
-	          					e.style.display="block";
-	          					document.getElementById('nomer'+i+'uas').style.display="block";
-	          				}
-	          			 }
-	          			 else {
-	          				 alert("Maaf, password yang Anda masukkan salah.");
-	          			}
-	          		}
-	          		else{
-	          			alert("Sudah selesai");
-	          		}
-	          	}
-	          	// Update the count down every 1 second
-	          	let x = setInterval(function() {	
-	          		let sekarang = new Date().getTime();
-	          
-	          		// Find the distance between now and the count down date
-	          		let distanceUASes4d = akhirUASes4d - sekarang;
-	          			
-	          		// Time calculations for days, hours, minutes and seconds
-	          		let daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
-	          		let hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-	          		let minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
-	          		let secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
-	          			
-	          		// Output the result in an element with id="demo"
-	          		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
-	          		+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
-	          			
-	          		// If the count down is over, write some text 
-	          		if (distanceUASes4d < 0) {
-	          			clearInterval(x);
-	          			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-	          			document.getElementById("berhasilValidateUAS").style.display = "none";
-	          		}
-	          	}, 1000);
-	          	// Update the count down every 1 second
-	          }
-	          
-	          function closeValidateUASes4d() {
-	          	let sekarang = new Date().getTime();
-	          	if (sekarang - mulaiUASes4d > 1000*60*60*5){
-	          				alert("Terkunci");
-	          		} else {
-	          			setTimeout(function() {
-	          				window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-	          			}, 500);
-	          		}
-	          }
-	          
-	        </script>
-
-	        <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
-	        <div id="berhasilValidateUAS" style="display: none">
-	          <div id="soal1uas" style='display:none;'>
-	            <p>Berdasarkan studi, waktu rata-rata untuk menyiapkan, menyalin, dan mengirimkan formulir pajak 1040 secara elektronik adalah <strong>330 menit</strong>, dengan simpangan baku <strong>80 menit</strong>. Distribusi waktu ini mengikuti distribusi normal. Sebuah lembaga pengawas memilih sampel acak sebanyak <strong>40 wajib pajak</strong>.</p>
-	            <ol type="a">
-	              <li>Berapa <em>standard error</em> dari rata-rata sampel dalam kasus ini?</li>
-	              <li>Berapa probabilitas bahwa <em>rata-rata sampel</em> berada antara 320 dan 350 menit?</li>
+	  	            <p class="h1">Ketentuan UAS</p>
+	            <ol>
+	              <li>UAS hanya boleh dikerjakan selama 75 menit.</li>
+	              <li>Soal UAS boleh dikerjakan dari 11:45-13:00.</li>
+	              <li>Setiap mahasiswa akan menerima soal masing-masing sesuai dengan NIM.</li>
+                  <li>Jawaban berupa file pdf dikirimkan pada link di bawah ini.</li>
 	            </ol>
-	          </div>
+	            <button id="tombol_uas_mbs2d" type="button" class="btn btn-primary" onclick="validateUASmbs2d()">Mulai UAS</button>
+	            <button type="button" class="btn btn-primary" onclick="closeValidateUASmbs2d()">Kirim Jawaban</button>
+	            <script>
+	              const mulaiUASmbs2d = new Date("December 17, 2024 11:45:00").getTime();
+	              const akhirUASmbs2d = new Date("December 17, 2025 13:00:00").getTime();
+	              function validateUASmbs2d() {
+	              	let sekarang = new Date().getTime();
+	              	document.getElementById('timerUAS').style.display="block";
+	              
+	              	if (sekarang-mulaiUASmbs2d<0){
+	              		// Find the distance between now and the count down date
+	              		let distancembs2d = mulaiUASmbs2d - sekarang;
+	              			
+	              		// Time calculations for days, hours, minutes and seconds
+	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+	              		alert("Belum waktunya. Bisa dimulai dalam " + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik "+" lagi.");
+	              	}
+	              	else {
+	              		if (sekarang-akhirUASmbs2d<0) {
+	              			 let person = prompt("Masukkan Password", "isi di sini");
+	              			 if (person === "ata") {
+	              				document.getElementById("tombol_uas_mbs2d").style.display="none";
+	              				document.getElementById("berhasilValidateUAS").style.display = "block";
+	              				let validNIM = false;
+	              				let nim;
+	              				while (!validNIM) {
+	              						nim = prompt("Masukkan NIM:");
+	              						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
+	              						if (konfirmasi) {
+	              								validNIM = true;
+	              						} else {
+	              								alert("Silakan ulangi dan masukkan NIM yang benar.");
+	              						}
+	              				}
+	              
+	              				let b = (nim*5)% 6;
+	              				let c = [
+	     ['soaluas1a', 'soaluas2a', 'soaluas3a', 'soaluas4a'],
+	     ['soaluas1b', 'soaluas2b', 'soaluas3b', 'soaluas4b'],
+	     ['soaluas1c', 'soaluas2c', 'soaluas3c', 'soaluas4c'],
+	     ['soaluas1d', 'soaluas2d', 'soaluas3d', 'soaluas4d'],
+	     ['soaluas1e', 'soaluas2e', 'soaluas3e', 'soaluas4e'],
+	     ['soaluas1a', 'soaluas2b', 'soaluas3c', 'soaluas4d']
+	              				];
+	              				let d = c[b];
+	              				for (i = 1; i < 5; i++) {
+	              					let e = document.getElementById(d[i-1]);
+	              					document.getElementById('uas'+i).appendChild(e);
+	              					e.style.display="block";
+	              					document.getElementById('uas'+i).style.display="block";
+	              				}
+	              			 }
+	              			 else {
+	              				 alert("Maaf, password yang Anda masukkan salah.");
+	              			}
+	              		}
+	              		else{
+	              			alert("Sudah selesai.");
+	              		}
+	              	}
+	              	// Update the count down every 1 second
+	              	let x = setInterval(function() {	
+	              		// var mulaiUAS = new Date("May 26, 2024 09:00:00").getTime();
+	              		// var akhirUAS = new Date("May 28, 2024 11:00:00").getTime();
+	              		let sekarang = new Date().getTime();
+	              
+	              		// Find the distance between now and the count down date
+	              		let distancembs2d = akhirUASmbs2d - sekarang;
+	              			
+	              		// Time calculations for days, hours, minutes and seconds
+	              		let daysmbs2d = Math.floor(distancembs2d / (1000 * 60 * 60 * 24));
+	              		let hoursmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+	              		let minutesmbs2d = Math.floor((distancembs2d % (1000 * 60 * 60)) / (1000 * 60));
+	              		let secondsmbs2d = Math.floor((distancembs2d % (1000 * 60)) / 1000);
+	              			
+	              		// Output the result in an element with id="demo"
+	              		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysmbs2d + "hari " + hoursmbs2d + "jam "
+	              		+ minutesmbs2d + "menit " + secondsmbs2d + "detik ";
+	              			
+	              		// If the count down is over, write some text 
+	              		if (distancembs2d < 0) {
+	              			clearInterval(x);
+	              			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
+	              			document.getElementById("berhasilValidateUAS").style.display = "none";
+	              		}
+	              	}, 1000);
+	              	// Update the count down every 1 second
+	              }
+	              
+	              function closeValidateUASmbs2d() {
+	              	<!-- document.getElementById("berhasilValidateUTS").style.display = "none"; -->
+	                  setTimeout(function() {
+	                      window.open("https://forms.gle/RoTftvd2xv1kRTkp7", "_blank");
+	                  }, 500);
+	              }
+	              
+	            </script>
+	            <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
+	            <div id="berhasilValidateUAS" style="display: none">
+	              <div id="soaluas1a" style='display:none;'>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimiumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>6</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>8</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>7</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">50</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="bg-gray-100">150</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	              </div>
+	              <div id="soaluas1b" style='display:none;'>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td class="font-bold text-blue-600">40</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td>4</td>
+                            <td>3</td>
+                            <td class="font-bold text-blue-600">90</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>6</td>
+                            <td>8</td>
+                            <td>2</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">20</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="font-bold text-red-600">40</td>
+                            <td class="bg-gray-100">150</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	              </div>
+	              <div id="soaluas1c" style='display:none;'>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>10</td>
+                            <td>20</td>
+                            <td>5</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>15</td>
+                            <td>10</td>
+                            <td>10</td>
+                            <td>8</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>5</td>
+                            <td>12</td>
+                            <td>8</td>
+                            <td>15</td>
+                            <td class="font-bold text-blue-600">100</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="font-bold text-red-600">75</td>
+                            <td class="bg-gray-100">300</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	              </div>
+	              <div id="soaluas1d" style='display:none;'>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Lakukan optimisasi untuk meminimumkan biaya.</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>8</td>
+                            <td>6</td>
+                            <td>10</td>
+                            <td>9</td>
+                            <td class="font-bold text-blue-600">60</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>9</td>
+                            <td>12</td>
+                            <td>13</td>
+                            <td>7</td>
+                            <td class="font-bold text-blue-600">80</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>14</td>
+                            <td>9</td>
+                            <td>16</td>
+                            <td>5</td>
+                            <td class="font-bold text-blue-600">60</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="font-bold text-red-600">50</td>
+                            <td class="bg-gray-100">200</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	              </div>
+	              <div id="soaluas1e" style='display:none;'>
+            <h2 class="text-xl font-bold border-b pb-2 mb-4 text-blue-700">Tentukan biaya pengiriman minimum untuk data berikut:</h2>
+            
+            <div class="overflow-x-auto mb-6">
+                <table class="w-full table-custom">
+                    <thead>
+                        <tr>
+                            <th>Sumber \ Tujuan</th>
+                            <th>Toko A</th>
+                            <th>Toko B</th>
+                            <th>Toko C</th>
+                            <th>Toko D</th>
+                            <th>Kapasitas</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-bold">Gudang 1</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>4</td>
+                            <td class="font-bold text-blue-600">30</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 2</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td>5</td>
+                            <td>2</td>
+                            <td class="font-bold text-blue-600">40</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Gudang 3</td>
+                            <td>4</td>
+                            <td>5</td>
+                            <td>3</td>
+                            <td>6</td>
+                            <td class="font-bold text-blue-600">30</td>
+                        </tr>
+                        <tr>
+                            <td class="font-bold">Permintaan</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">30</td>
+                            <td class="font-bold text-red-600">20</td>
+                            <td class="bg-gray-100">100</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+	              </div>
+	              <div id="soaluas2a" style='display:none;'>
+	        <p>Sebuah pabrik memproduksi tiga jenis makanan: A, B, dan C. Keuntungan per unit berturut-turut adalah Rp10, Rp15, dan Rp12.</p>
+	        <p>Kendala:</p>
+	        <ul>
+	          <li>Bahan mentah: \( 2x + 3y + 1z \leq 100 \)</li>
+	          <li>Waktu kerja: \( 4x + y + 2z \leq 120 \)</li>
+	          <li>Ruang penyimpanan: \( x + y + z \leq 50 \)</li>
+	        </ul>
+	        <p><strong>Model:</strong></p>
+	        <p>
+	          \[ \max Z = 10x + 15y + 12z \]
+	        </p>
+	              </div>
+	              <div id="soaluas2b" style='display:none;'>
+	        <p>Suatu perusahaan memproduksi barang X, Y, dan Z. Laba per unit: X = 30, Y = 20, Z = 40. </p>
+	        <p>Kendala:</p>
+	        <ul>
+	          <li>Tenaga kerja: \( 2x + 3y + z \leq 180 \)</li>
+	          <li>Bahan baku: \( x + y + 2z \leq 150 \)</li>
+	          <li>Mesin: \( x + 2y + z \leq 170 \)</li>
+	        </ul>
+	        <p><strong>Model:</strong></p>
+	        <p>
+	          \[ \max Z = 30x + 20y + 40z \]
+	        </p>
+	              </div>
+	              <div id="soaluas2c" style='display:none;'>
+	        <p>Suatu perusahaan memproduksi barang X, Y, dan Z. Laba per unit: X = 30, Y = 20, Z = 40. </p>
+	        <p>Kendala:</p>
+	        <ul>
+	          <li>Tenaga kerja: \( 2x + 3y + z \leq 180 \)</li>
+	          <li>Bahan baku: \( x + y + 2z \leq 150 \)</li>
+	          <li>Mesin: \( x + 2y + z \leq 170 \)</li>
+	        </ul>
+	        <p><strong>Model:</strong></p>
+	        <p>
+	          \[ \max Z = 30x + 20y + 40z \]
+	        </p>
+	              </div>
+	              <div id="soaluas2d" style='display:none;'>
+	        <p>Sebuah pabrik memproduksi tiga jenis makanan: A, B, dan C. Keuntungan per unit berturut-turut adalah Rp10, Rp15, dan Rp12.</p>
+	        <p>Kendala:</p>
+	        <ul>
+	          <li>Bahan mentah: \( 2x + 3y + 1z \leq 100 \)</li>
+	          <li>Waktu kerja: \( 4x + y + 2z \leq 120 \)</li>
+	          <li>Ruang penyimpanan: \( x + y + z \leq 50 \)</li>
+	        </ul>
+	        <p><strong>Model:</strong></p>
+	        <p>
+	          \[ \max Z = 10x + 15y + 12z \]
+	        </p>
+	              </div>
+	              <div id="soaluas2e" style='display:none;'>
+	        <p>Sebuah pabrik memproduksi tiga jenis makanan: A, B, dan C. Keuntungan per unit berturut-turut adalah Rp10, Rp15, dan Rp12.</p>
+	        <p>Kendala:</p>
+	        <ul>
+	          <li>Bahan mentah: \( 2x + 3y + 1z \leq 100 \)</li>
+	          <li>Waktu kerja: \( 4x + y + 2z \leq 120 \)</li>
+	          <li>Ruang penyimpanan: \( x + y + z \leq 50 \)</li>
+	        </ul>
+	        <p><strong>Model:</strong></p>
+	        <p>
+	          \[ \max Z = 10x + 15y + 12z \]
+	        </p>
+	              </div>
+	              <div id="soaluas3a" style='display:none;'>
+        <div class="problem-text">
+            Seorang peternak ingin mencampur dua jenis pakan, yaitu <strong>Pakan X</strong> dan <strong>Pakan Y</strong>.
+            <ul>
+                <li>Ternak membutuhkan setidaknya <strong>10 unit Protein</strong> dan <strong>8 unit Karbohidrat</strong> per hari.</li>
+                <li><strong>Pakan X</strong> mengandung 2 unit Protein dan 1 unit Karbohidrat dengan harga <strong>Rp2.000/kg</strong>.</li>
+                <li><strong>Pakan Y</strong> mengandung 2 unit Protein dan 4 unit Karbohidrat dengan harga <strong>Rp3.000/kg</strong>.</li>
+            </ul>
+            Berapa kg masing-masing pakan harus dibeli agar biaya minimum?
+        </div>
+	              </div>
+	              <div id="soaluas3b" style='display:none;'>
+        <div class="problem-text">
+            Seorang pasien diwajibkan dokter untuk mengonsumsi setidaknya <strong>50 unit Vitamin A</strong> dan <strong>32 unit Vitamin B</strong>.
+            <ul>
+                <li><strong>Tablet I</strong> mengandung 10 unit Vit A dan 4 unit Vit B, seharga <strong>Rp1.000/butir</strong>.</li>
+                <li><strong>Tablet II</strong> mengandung 5 unit Vit A dan 8 unit Vit B, seharga <strong>Rp800/butir</strong>.</li>
+            </ul>
+            Tentukan kombinasi tablet agar biaya pengobatan termurah!
+        </div>
+	              </div>
+	              <div id="soaluas3c" style='display:none;'>
+        <div class="problem-text">
+            Lahan pertanian membutuhkan minimal <strong>20 kg Nitrogen</strong> dan <strong>28 kg Fosfat</strong>.
+            <ul>
+                <li><strong>Pupuk A</strong> (Rp40.000/sak) mengandung 4 kg Nitrogen dan 2 kg Fosfat.</li>
+                <li><strong>Pupuk B</strong> (Rp50.000/sak) mengandung 2 kg Nitrogen dan 4 kg Fosfat.</li>
+            </ul>
+            Berapa sak masing-masing pupuk yang harus dibeli?
+        </div>
+	              </div>
+	              <div id="soaluas3d" style='display:none;'>
+        <div class="problem-text">
+            Sebuah mesin membutuhkan input minimal <strong>12 liter zat aditif A</strong> dan <strong>12 liter zat aditif B</strong>.
+            <ul>
+                <li><strong>Kaleng Merah</strong>: 2 liter aditif A, 1 liter aditif B. Harga <strong>Rp50.000</strong>.</li>
+                <li><strong>Kaleng Biru</strong>: 1 liter aditif A, 2 liter aditif B. Harga <strong>Rp60.000</strong>.</li>
+            </ul>
+            Tentukan biaya minimum!
+        </div>
+	              </div>
+	              <div id="soaluas3e" style='display:none;'>
+        <div class="problem-text">
+            Seorang atlet membutuhkan asupan minimal <strong>18 unit Kalsium</strong> dan <strong>16 unit Zat Besi</strong>.
+            <ul>
+                <li><strong>Suplemen X</strong>: 2 unit Kalsium, 4 unit Zat Besi. Harga <strong>Rp10.000</strong>.</li>
+                <li><strong>Suplemen Y</strong>: 6 unit Kalsium, 2 unit Zat Besi. Harga <strong>Rp8.000</strong>.</li>
+            </ul>
+        </div>
+	              </div>
+	              <div id="soaluas4a" style='display:none;'>
+        <p>Diketahui matriks <strong>B</strong>:</p>
+        $$ B = \begin{pmatrix} 5 & 3 \\ 3 & 2 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks B!</p>
+	              </div>
+	              <div id="soaluas4b" style='display:none;'>
+        <p>Diketahui matriks <strong>C</strong>:</p>
+        $$ C = \begin{pmatrix} 4 & 7 \\ 1 & 2 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks C!</p>
+	              </div>
+	              <div id="soaluas4c" style='display:none;'>
+        <p>Diketahui matriks <strong>D</strong>:</p>
+        $$ D = \begin{pmatrix} 2 & 3 \\ 3 & 5 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks D!</p>
+	              </div>
+	              <div id="soaluas4d" style='display:none;'>
+        <p>Diketahui matriks <strong>E</strong>:</p>
+        $$ E = \begin{pmatrix} 4 & 5 \\ 3 & 4 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks E!</p>
+	              </div>
+	              <div id="soaluas4e" style='display:none;'>
+        <p>Diketahui matriks <strong>F</strong>:</p>
+        $$ F = \begin{pmatrix} 4 & 2 \\ 5 & 3 \end{pmatrix} $$
+        <p>Tentukan invers dari matriks F!</p>
+	              </div>
 
-	          <div id="soal2uas" style='display:none;'>
-	            <p>Sebuah populasi terdiri dari lima nilai: 3, 3, 4, 5, dan 8.</p>
-	            <ol type="a">
-	              <li>Daftarkan semua sampel berukuran 2 (tanpa pengulangan urutan), dan hitung rata-rata dari setiap sampel.</li>
-	              <li>Hitung rata-rata dari distribusi <em>sample means</em> dan bandingkan dengan rata-rata populasi.</li>
-	              <li>Bandingkan penyebaran (<em>dispersi</em>) dari populasi dengan penyebaran dari rata-rata sampel.</li>
-	            </ol>
-	          </div>
 
-	          <div id="soal3uas" style='display:none;'>
-	            <p>Seorang inspektur daging di Iowa ingin memperkirakan <strong>rata-rata berat bersih</strong> dari paket daging giling berlabel “3 pon.”</p>
-	            <p>Sampel sebanyak <strong>36 paket</strong> menunjukkan:</p>
-	            <ul>
-	              <li>Rata-rata sampel: \( \bar{x} = 3.01 \) pon</li>
-	              <li>Simpangan baku: \( s = 0.03 \) pon</li>
-	              <li>Ukuran sampel: \( n = 36 \)</li>
-	              <li>Tingkat kepercayaan: 95%</li>
-	            </ul>
-	            <ol type="a">
-	              <li>Berapa <em>estimasi titik</em> dari rata-rata populasi?</li>
-	              <li>Tentukan <em>interval kepercayaan 95%</em> untuk rata-rata populasi.</li>
-	            </ol>
-	          </div>
-	          <!-- ======================= -->
-	          <div id="soal4uas" style='display:none;'>
-	            <p>Jumlah air yang dikonsumsi setiap hari oleh orang dewasa sehat mengikuti distribusi normal dengan rata-rata \( \mu = 1.4 \) liter.</p>
-	            <p>Sebuah kampanye kesehatan mendorong konsumsi minimal $2.0$ liter per hari. Setelah kampanye, diambil sampel $10$ orang dewasa dengan konsumsi air (dalam liter):</p>
-	            <p>$1.5, 1.6,$ $1.5, 1.4,$ $1.9, 1.4,$ $1.3, 1.9,$ $1.8, 1.7$</p>
-	            <p>Pada tingkat signifikansi \( \alpha = 0.01 \), dapatkah kita menyimpulkan bahwa konsumsi air meningkat?</p>
-	            <p>Hitung dan interpretasikan nilai-\( p \).</p>
-	          </div>
+	              <p class="h1 text-center">Soal UAS</p>
+	              <ol id="soalUAS">
+	                <li id='uas1'>
+	                  <h2>Soal 1</h2>
+	                </li>
+	                <li id='uas2'>
+	                  <h2>Soal 2</h2>
+	                </li>
+	                <li id='uas3'>
+	                  <h2>Soal 3</h2>
+	                </li>
+	                <li id='uas4'>
+	                  <h2>Soal 4</h2>
+	                </li>
 
-	          <div id="soal5uas" style='display:none;'>
-	            <p>Rata-rata pendapatan per orang di Amerika Serikat adalah \$60.000 dan distribusi pendapatan mengikuti distribusi normal.</p>
-	            <p>Sebuah sampel acak dari 10 penduduk Wilmington, Delaware memiliki rata-rata \$70.000 dan simpangan baku \$10.000.</p>
-	            <p>Pada tingkat signifikansi \( \alpha = 0.05 \), apakah ada cukup bukti bahwa penduduk Wilmington memiliki pendapatan <strong>lebih tinggi</strong> dari rata-rata nasional?</p>
-	          </div>
-
-	          <div id="soal6uas" style='display:none;'>
-	            <p>Manajemen <strong>GoGo Carts</strong> sedang mempertimbangkan metode baru untuk merakit kereta golf. Metode saat ini membutuhkan waktu rata-rata $42.3$ menit per unit. Dari sampel acak sebanyak $24$ unit menggunakan metode baru, rata-rata waktu perakitan adalah $40.6$ menit dan simpangan baku $2.7$ menit.</p>
-	            <p>Pada tingkat signifikansi \( \alpha = 0.10 \), apakah metode baru secara signifikan <strong>lebih cepat</strong>?</p>
-	          </div>
-	          <!-- ========================= -->
-	          <div id="soal7uas" style='display:none;'>
-	            <p>Lester Hollar mengevaluasi apakah program kebugaran dapat menurunkan jumlah ketidakhadiran karyawan.</p>
-
-	            <h4>Data Absensi (Jumlah Hari Tidak Masuk):</h4>
-
-	            <table class="table table-bordered text-center">
-	              <thead class="table-light">
-	                <tr>
-	                  <th>Employee</th>
-	                  <th>Sebelum</th>
-	                  <th>Sesudah</th>
-	                </tr>
-	              </thead>
-	              <tbody>
-	                <tr>
-	                  <td>Bauman</td>
-	                  <td>6</td>
-	                  <td>5</td>
-	                </tr>
-	                <tr>
-	                  <td>Briggs</td>
-	                  <td>6</td>
-	                  <td>2</td>
-	                </tr>
-	                <tr>
-	                  <td>Dottellis</td>
-	                  <td>7</td>
-	                  <td>1</td>
-	                </tr>
-	                <tr>
-	                  <td>Lee</td>
-	                  <td>7</td>
-	                  <td>3</td>
-	                </tr>
-	                <tr>
-	                  <td>Perrailt</td>
-	                  <td>4</td>
-	                  <td>3</td>
-	                </tr>
-	                <tr>
-	                  <td>Rielly</td>
-	                  <td>3</td>
-	                  <td>6</td>
-	                </tr>
-	                <tr>
-	                  <td>Steinmetz</td>
-	                  <td>5</td>
-	                  <td>5</td>
-	                </tr>
-	                <tr>
-	                  <td>Stoltz</td>
-	                  <td>6</td>
-	                  <td>7</td>
-	                </tr>
-	              </tbody>
-	            </table>
-	          </div>
-
-	          <div id="soal8uas" style='display:none;'>
-	            <p>Grand Strand Family Medical Center menangani kasus darurat ringan di Myrtle Beach. Dua lokasi dibandingkan: <strong>Little River</strong> dan <strong>Murrells Inlet</strong>.</p>
-
-	            <h4>Data Waktu Tunggu (dalam menit):</h4>
-	            <div class="overflow-auto">
-	              <table class="table table-bordered text-center">
-	                <thead class="table-light">
-	                  <tr>
-	                    <th>Little River</th>
-	                    <th>Murrells Inlet</th>
-	                  </tr>
-	                </thead>
-	                <tbody>
-	                  <tr>
-	                    <td>31, 28, 29, 22, 29, 18, 32, 25, 29, 26</td>
-	                    <td>22, 23, 26, 27, 26, 25, 30, 29, 23, 22</td>
-	                  </tr>
-	                </tbody>
-	              </table>
+	              </ol>
 	            </div>
-	          </div>
-
-	          <div id="soal9uas" style='display:none;'>
-	            <p>Clark Heter adalah seorang insinyur industri di Lyons Products. Ia ingin mengetahui apakah jumlah unit yang diproduksi pada shift malam lebih banyak dibanding shift siang.</p>
-
-	            <ul>
-	              <li>Rata-rata shift siang: \( \bar{x}_1 = 345 \), \( n_1 = 54 \), \( \sigma_1 = 21 \)</li>
-	              <li>Rata-rata shift malam: \( \bar{x}_2 = 351 \), \( n_2 = 60 \), \( \sigma_2 = 28 \)</li>
-	              <li>Signifikansi: \( \alpha = 0.05 \)</li>
-	            </ul>
-	          </div>
-
-	          <p class="h1 text-center">Soal UAS</p>
-	          <ol id="soalUAS">
-	            <li id='nomer1uas'>
-	              <h2>Soal 1</h2>
-	            </li>
-	            <li id='nomer2uas'>
-	              <h2>Soal 2</h2>
-	            </li>
-	            <li id='nomer3uas'>
-	              <h2>Soal 3</h2>
-	            </li>
-	          </ol>
-	        </div>
 
 	      </div>
 	    </section>
