@@ -2723,15 +2723,15 @@ flowchart TD
 	              
 	              				let b = (nim*5)% 6;
 	              				let c = [
-	     ['soaluas1a', 'soaluas2a', 'soaluas3a', 'soaluas4a'],
-	     ['soaluas1b', 'soaluas2b', 'soaluas3b', 'soaluas4b'],
-	     ['soaluas1c', 'soaluas2c', 'soaluas3c', 'soaluas4c'],
-	     ['soaluas1d', 'soaluas2d', 'soaluas3d', 'soaluas4d'],
-	     ['soaluas1e', 'soaluas2e', 'soaluas3e', 'soaluas4e'],
-	     ['soaluas1a', 'soaluas2b', 'soaluas3c', 'soaluas4d']
+	     ['soaluas1a', 'soaluas2a', 'soaluas3a', 'soaluas4a', 'soaluas5a' ],
+	     ['soaluas1b', 'soaluas2b', 'soaluas3b', 'soaluas4b', 'soaluas5b' ],
+	     ['soaluas1c', 'soaluas2c', 'soaluas3c', 'soaluas4c', 'soaluas5c' ],
+	     ['soaluas1d', 'soaluas2d', 'soaluas3d', 'soaluas4d', 'soaluas5d' ],
+	     ['soaluas1e', 'soaluas2e', 'soaluas3e', 'soaluas4e', 'soaluas5e' ],
+	     ['soaluas1e', 'soaluas2d', 'soaluas3c', 'soaluas4b', 'soaluas5a' ]
 	              				];
 	              				let d = c[b];
-	              				for (i = 1; i < 5; i++) {
+	              				for (i = 1; i < 6; i++) {
 	              					let e = document.getElementById(d[i-1]);
 	              					document.getElementById('uas'+i).appendChild(e);
 	              					e.style.display="block";
@@ -2871,24 +2871,54 @@ flowchart TD
         <p>Berapakah QSD yang dihasilkan jika mereka melakukan swap?</p>
 	              </div>
 	              <div id="soaluas4a" style='display:none;'>
-            \[ \int \frac{6x}{3x^2 + 5} \, dx \]
-
+<p>Anda harus memilih antara dua proyek dengan tingkat diskonto <strong>10%</strong>.</p>
+        <div class="project-info">
+            <strong>Proyek Gamma:</strong> Investasi Awal Rp 400 Juta. Arus Kas: Y1=150, Y2=200, Y3=250.<br>
+            <strong>Proyek Delta:</strong> Investasi Awal Rp 420 Juta. Arus Kas: Y1=250, Y2=200, Y3=100.
+        </div>
 	              </div>
 	              <div id="soaluas4b" style='display:none;'>
-            \[ \int \frac{4x^3}{x^4 - 2} \, dx \]
-
+<p>Tingkat diskonto <strong>12%</strong>.</p>
+        <div class="project-info">
+            <strong>Proyek Epsilon:</strong> Investasi Rp 600 Juta. CF: Y1=300, Y2=300, Y3=300.<br>
+            <strong>Proyek Zeta:</strong> Investasi Rp 550 Juta. CF: Y1=400, Y2=200, Y3=100.
+        </div>
 	              </div>
 	              <div id="soaluas4c" style='display:none;'>
-            \[ \int \frac{x}{2x^2 + 7} \, dx \]
-
+<p>Tingkat diskonto <strong>15%</strong>.</p>
+        <div class="project-info">
+            <strong>Proyek Eta:</strong> Investasi Rp 350 Juta. CF: Y1=100, Y2=150, Y3=250.<br>
+            <strong>Proyek Theta:</strong> Investasi Rp 320 Juta. CF: Y1=200, Y2=150, Y3=100.
+        </div>
 	              </div>
 	              <div id="soaluas4d" style='display:none;'>
-            \[ \int \frac{5}{5x - 3} \, dx \]
-
+<p>Tingkat diskonto <strong>8%</strong>.</p>
+        <div class="project-info">
+            <strong>Proyek Iota:</strong> Investasi Rp 800 Juta. CF: Y1=300, Y2=300, Y3=300.<br>
+            <strong>Proyek Kappa:</strong> Investasi Rp 750 Juta. CF: Y1=400, Y2=300, Y3=200.
+        </div>
 	              </div>
 	              <div id="soaluas4e" style='display:none;'>
-            \[ \int \frac{2x + 3}{x^2 + 3x - 4} \, dx \]
-
+<p>Tingkat diskonto <strong>20%</strong> (High Risk).</p>
+        <div class="project-info">
+            <strong>Proyek Lambda:</strong> Investasi Rp 100 Juta. CF: Y1=50, Y2=50, Y3=60.<br>
+            <strong>Proyek Mu:</strong> Investasi Rp 100 Juta. CF: Y1=70, Y2=40, Y3=40.
+        </div>
+	              </div>
+	              <div id="soaluas5a" style='display:none;'>
+<p>Sebuah perusahaan manufaktur (posisi <em>long</em>) melakukan lindung nilai dengan membeli <strong>5 kontrak</strong> futures minyak di harga \( K = \$85 \) per barel. Setiap kontrak berukuran 1.000 barel. Pada saat jatuh tempo, harga pasar minyak \( S_T = \$95 \) per barel. Berapa total keuntungan atau kerugian perusahaan dari posisi futures-nya?</p>
+	              </div>
+	              <div id="soaluas5b" style='display:none;'>
+<p>Sebuah maskapai penerbangan (posisi <em>long</em>) membeli <strong>20 kontrak</strong> futures avtur di harga \( K = \$100 \) per barel. Satu kontrak setara dengan 500 barel. Saat jatuh tempo, harga pasar avtur turun menjadi \( S_T = \$92 \) per barel. Hitunglah total profit atau loss dari posisi tersebut.</p>
+	              </div>
+	              <div id="soaluas5c" style='display:none;'>
+<p>Seorang spekulan mengambil posisi <em>long</em> pada <strong>15 kontrak</strong> futures minyak mentah pada harga \( K = \$78 \) per barel. Ukuran per kontrak adalah 1.000 barel. Pada tanggal penyelesaian, harga spot minyak berada di angka \( S_T = \$84 \) per barel. Berapa keuntungan spekulan tersebut?</p>
+	              </div>
+	              <div id="soaluas5d" style='display:none;'>
+<p>Untuk mengamankan biaya bahan bakar, perusahaan logistik membeli <strong>8 kontrak</strong> futures di harga \( K = \$110 \) per barel. Kontrak tersebut memiliki ukuran jumbo sebesar 2.000 barel per kontrak. Saat jatuh tempo, harga pasar ternyata anjlok ke \( S_T = \$95 \) per barel. Berapa kerugian yang dialami dari posisi futures ini?</p>
+	              </div>
+	              <div id="soaluas5e" style='display:none;'>
+<p>Sebuah pembangkit listrik (posisi <em>long</em>) melakukan hedging dengan membeli <strong>50 kontrak</strong> futures batubara di harga \( K = \$60 \) per satuan. Ukuran kontrak adalah 1.000 satuan. Pada saat jatuh tempo, harga pasar stabil dan berada tepat di angka \( S_T = \$60 \). Bagaimana status keuangan posisi futures tersebut?</p>
 	              </div>
 
 
@@ -2905,6 +2935,9 @@ flowchart TD
 	                </li>
 	                <li id='uas4'>
 	                  <h2>Soal 4</h2>
+	                </li>
+	                <li id='uas5'>
+	                  <h2>Soal 5</h2>
 	                </li>
 
 	              </ol>
