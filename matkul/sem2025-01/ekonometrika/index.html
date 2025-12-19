@@ -4441,7 +4441,42 @@ ls d(Y) c d(X) resid01(-1)
                     <p class="text-sm">Jalankan model <strong>Random Effect</strong> dulu. Lalu klik <strong>View</strong> &rarr; <strong>Fixed/Random Effects Testing</strong> &rarr; <strong>Correlated Random Effects - Hausman Test</strong>.</p>
                     <p class="text-sm italic text-gray-600">Aturan: Jika Prob. Chi-square < 0.05, pilih FEM. Jika > 0.05, pilih REM.</p>
                 </div>
-              
+              <div class="trigger">
+<h4>1. Common Effect Model (CEM) - "Si Pukul Rata"</h4>
+Ini adalah model yang paling cuek.
+<br>
+<strong>Analogi: </strong>Anggaplah semua sawah itu sama persis. Tidak peduli itu Sawah Pak Budi di lereng gunung atau Sawah Pak Joko di pinggir pantai, kita anggap karakteristik tanahnya identik.
+<br>
+Cara Kerja: Data dari 5 sawah dan 10 musim digabung (di-pool) begitu saja menjadi satu tumpukan besar (50 data). Lalu kita buat satu garis lurus regresi untuk semuanya.
+<br>
+<strong>Kelemahan:</strong> Sering bias karena mengabaikan fakta bahwa setiap sawah punya keunikan sendiri.
+
+<h4>2. Fixed Effect Model (FEM) - "Si Unik Konsisten"</h4>
+Model ini menghargai perbedaan, tapi menganggap perbedaan itu sifatnya tetap/konstan.
+<br>
+<strong>Analogi:</strong> Kita mengakui bahwa Sawah 1 tanahnya memang subur dari sananya (intersep tinggi), sedangkan Sawah 4 tanahnya agak tandus (intersep rendah). Sifat "subur" atau "tandus" ini dianggap melekat (fixed) pada sawah tersebut dan tidak berubah selama periode penelitian.
+<br>
+Cara Kerja: Setiap sawah (individu) punya intersep (titik awal) yang berbeda-beda, tapi kemiringan garis (slope/pengaruh pupuk) dianggap sama. EViews akan membuat variabel dummy untuk setiap sawah guna menangkap perbedaan intersep ini.
+<br>
+<strong>Kapan dipakai:</strong> Biasanya jika objek penelitian kita spesifik (misal: 5 sawah spesifik ini saja, bukan sampel acak dari seluruh sawah di Indonesia).
+
+<h4>3. Random Effect Model (REM) - "Si Variasi Acak"</h4>
+Model ini melihat perbedaan antar individu sebagai bagian dari kesalahan (error) acak, bukan karakteristik yang pasti.
+<br>
+<strong>Analogi:</strong> Perbedaan hasil panen antara Sawah 1 dan Sawah 2 dianggap terjadi secara kebetulan (random) karena variasi alamiah, bukan karena ada "identitas tetap" yang kaku. Perbedaannya diakomodasi lewat error term (galat), bukan lewat variabel dummy.
+<br>
+Cara Kerja: Memperhitungkan error antar individu dan error antar waktu.
+<br>
+Kapan dipakai: Jika data kita dianggap sebagai sampel acak dari populasi yang lebih besar (misal: 5 sawah ini mewakili ribuan sawah lain).
+<br>
+<strong>Ringkasan Cepat untuk Pemilihan Model:</strong>
+<br>
+CEM vs FEM? Gunakan Uji Chow. (Kalau Prob < 0.05, pilih FEM).
+<br>
+FEM vs REM? Gunakan Uji Hausman. (Kalau Prob < 0.05, pilih FEM. Kalau > 0.05, pilih REM).
+<br>
+CEM vs REM? Gunakan Uji Lagrange Multiplier (LM). (Jarang dipakai karena biasanya sudah putus di Hausman, tapi ini untuk memastikan REM lebih baik dari CEM).
+              </div>
               <hr>
 <strong>Kasus 1: Makroekonomi (Pertumbuhan Ekonomi)<br></strong>
 Topik: Pengaruh Investasi Asing (FDI) dan Tenaga Kerja terhadap GDP.<br>
