@@ -4369,6 +4369,388 @@ ls d(Y) c d(X) resid01(-1)
         <div class="section-title">
           <h2>Pertemuan 15</h2>
         </div>
+        <!-- Section 1: Konsep Dasar -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">1. Model Ekonometrika</h2>
+            <p class="mb-4">
+                Data panel menggabungkan dimensi <em>cross-section</em> ($i$) dan <em>time-series</em> ($t$). Model umumnya ditulis sebagai:
+            </p>
+            <div class="p-4 bg-blue-50 rounded border border-blue-100 text-center text-lg">
+                $$Y_{it} = \alpha + \beta X_{it} + \mu_i + \epsilon_{it}$$
+            </div>
+            <p class="mt-4 text-sm text-gray-500">
+                Dimana $Y_{it}$ adalah variabel dependen, $X_{it}$ variabel independen, $\mu_i$ efek individu, dan $\epsilon_{it}$ error term.
+            </p>
+        </section>
+
+        <!-- Section 2: Workflow Analisis (Mermaid) -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">2. Alur Kerja Analisis (Workflow)</h2>
+            <div class="mermaid flex justify-center bg-gray-50 p-4 rounded border">
+                graph TD
+                A["Mulai: Input Data Panel"] --> B["Estimasi Model Awal"]
+                B --> C["Uji Chow"]
+                C -->|"Prob < 0.05"| D["Pilih Fixed Effect (FEM)"]
+                C -->|"Prob > 0.05"| E["Pilih Common Effect (CEM)"]
+                
+                D --> F["Uji Hausman"]
+                F -->|"Prob < 0.05"| G["Pilih Fixed Effect (FEM)"]
+                F -->|"Prob > 0.05"| H["Pilih Random Effect (REM)"]
+                
+                E --> I["Uji LM (Lagrange Multiplier)"]
+                H --> I
+                I -->|"Prob < 0.05"| J["Final: Random Effect"]
+                I -->|"Prob > 0.05"| K["Final: Common Effect"]
+                
+                G --> L["Uji Asumsi Klasik & Interpretasi"]
+                J --> L
+                K --> L
+                L --> M["Selesai"]
+            </div>
+            <p class="text-xs text-center mt-2 text-gray-500">*Diagram alur pemilihan model terbaik</p>
+        </section>
+
+        <!-- Section 3: Langkah EViews -->
+        <section class="mb-8">
+            <h2 class="text-2xl font-semibold text-blue-700 mb-4">3. Tutorial EViews</h2>
+            
+            <div class="space-y-4">
+                <div class="border-l-4 border-green-500 pl-4 py-2 bg-green-50">
+                    <h3 class="font-bold text-lg">Langkah 1: Struktur Data</h3>
+                    <p>Pastikan data Anda memiliki kolom <strong>Cross ID</strong> (misal: Negara) dan <strong>Date ID</strong> (misal: Tahun). Saat import di EViews, pilih <em>Balanced Panel</em>.</p>
+                </div>
+
+                <div class="border-l-4 border-yellow-500 pl-4 py-2 bg-yellow-50">
+                    <h3 class="font-bold text-lg">Langkah 2: Estimasi Model (CEM/FEM/REM)</h3>
+                    <p>Klik <strong>Quick</strong> &rarr; <strong>Estimate Equation</strong>.</p>
+                    <ul class="list-disc ml-5 mt-2">
+                        <li>Ketik persamaan: <code>Y C X1 X2</code></li>
+                        <li>Buka tab <strong>Panel Options</strong>.</li>
+                        <li>Pada "Cross-section", ubah menjadi <em>None</em> (CEM), <em>Fixed</em> (FEM), atau <em>Random</em> (REM).</li>
+                    </ul>
+                </div>
+
+                <div class="border-l-4 border-red-500 pl-4 py-2 bg-red-50">
+                    <h3 class="font-bold text-lg">Langkah 3: Uji Pemilihan Model</h3>
+                    
+                    <p class="font-semibold mt-2">A. Uji Chow (CEM vs FEM)</p>
+                    <p class="text-sm">Jalankan model <strong>Fixed Effect</strong> dulu. Lalu klik <strong>View</strong> &rarr; <strong>Fixed/Random Effects Testing</strong> &rarr; <strong>Redundant Fixed Effects</strong>.</p>
+                    <p class="text-sm italic text-gray-600">Aturan: Jika Prob. Chi-square < 0.05, pilih FEM.</p>
+
+                    <p class="font-semibold mt-2">B. Uji Hausman (FEM vs REM)</p>
+                    <p class="text-sm">Jalankan model <strong>Random Effect</strong> dulu. Lalu klik <strong>View</strong> &rarr; <strong>Fixed/Random Effects Testing</strong> &rarr; <strong>Correlated Random Effects - Hausman Test</strong>.</p>
+                    <p class="text-sm italic text-gray-600">Aturan: Jika Prob. Chi-square < 0.05, pilih FEM. Jika > 0.05, pilih REM.</p>
+                </div>
+              
+              <hr>
+<strong>Kasus 1: Makroekonomi (Pertumbuhan Ekonomi)<br></strong>
+Topik: Pengaruh Investasi Asing (FDI) dan Tenaga Kerja terhadap GDP.<br>
+Entitas: 10 Negara ASEAN.<br>
+Waktu: 5 Tahun (2019-2023).<br>
+Variabel: Y (GDP), X1 (FDI), X2 (Labor Force).<br>
+              <textarea>
+"CountryID","Year","GDP_Y","FDI_X1","Labor_X2"
+"1","2019","500.2","45.1","120.5"
+"1","2020","480.5","40.2","121.0"
+"1","2021","510.3","48.5","122.1"
+"1","2022","530.8","52.1","123.5"
+"1","2023","550.1","55.0","124.0"
+"2","2019","300.5","20.5","80.1"
+"2","2020","290.1","18.2","80.5"
+"2","2021","310.2","22.1","81.0"
+"2","2022","325.5","25.3","81.5"
+"2","2023","340.2","28.1","82.0"
+"3","2019","700.1","80.2","150.2"
+"3","2020","680.5","75.5","151.0"
+"3","2021","720.3","85.1","152.5"
+"3","2022","750.8","90.2","153.2"
+"3","2023","780.5","95.5","154.0"
+"4","2019","150.2","10.1","40.5"
+"4","2020","145.5","9.2","40.8"
+"4","2021","155.3","11.5","41.2"
+"4","2022","160.8","12.8","41.5"
+"4","2023","168.2","14.1","42.0"
+"5","2019","400.5","35.2","90.5"
+"5","2020","390.2","32.1","91.0"
+"5","2021","410.5","38.5","91.8"
+"5","2022","425.2","42.1","92.5"
+"5","2023","440.1","45.5","93.0"
+"6","2019","250.8","15.5","60.2"
+"6","2020","245.2","14.1","60.5"
+"6","2021","260.5","17.2","61.0"
+"6","2022","270.8","19.5","61.5"
+"6","2023","285.2","21.2","62.0"
+"7","2019","600.5","65.2","130.5"
+"7","2020","580.2","60.1","131.0"
+"7","2021","620.5","70.5","132.2"
+"7","2022","645.2","75.2","133.5"
+"7","2023","670.1","80.5","134.0"
+"8","2019","180.5","12.5","50.2"
+"8","2020","175.2","11.1","50.5"
+"8","2021","190.5","14.2","51.0"
+"8","2022","200.8","16.5","51.5"
+"8","2023","215.2","18.2","52.0"
+"9","2019","550.2","55.1","110.5"
+"9","2020","530.5","50.2","111.0"
+"9","2021","570.3","60.5","112.1"
+"9","2022","590.8","65.1","113.5"
+"9","2023","610.1","70.0","114.0"
+"10","2019","350.5","28.5","85.1"
+"10","2020","340.1","25.2","85.5"
+"10","2021","365.2","30.1","86.0"
+"10","2022","380.5","33.3","86.5"
+"10","2023","400.2","36.1","87.0"
+              </textarea>
+              <hr>
+<strong>Kasus 2: Pemasaran (Penjualan Retail)<br></strong>
+Topik: Pengaruh Biaya Iklan dan Diskon terhadap Penjualan.<br>
+
+Entitas: 5 Cabang Toko.<br>
+
+Waktu: 10 Bulan.<br>
+
+Variabel: Y (Sales), X1 (Ads), X2 (Discount).<br>
+              <textarea>
+"StoreID","Month","Sales_Y","Ads_X1","Discount_X2"
+"1","1","100.5","5.2","0.10"
+"1","2","102.3","5.5","0.10"
+"1","3","110.5","6.0","0.15"
+"1","4","108.2","5.8","0.12"
+"1","5","120.1","7.0","0.20"
+"1","6","125.5","7.5","0.20"
+"1","7","130.2","8.0","0.25"
+"1","8","128.5","7.8","0.22"
+"1","9","140.1","9.0","0.30"
+"1","10","145.5","9.5","0.30"
+"2","1","80.5","3.2","0.05"
+"2","2","82.3","3.5","0.05"
+"2","3","88.5","4.0","0.10"
+"2","4","86.2","3.8","0.08"
+"2","5","95.1","5.0","0.15"
+"2","6","98.5","5.5","0.15"
+"2","7","105.2","6.0","0.20"
+"2","8","102.5","5.8","0.18"
+"2","9","115.1","7.0","0.25"
+"2","10","120.5","7.5","0.25"
+"3","1","150.5","8.2","0.15"
+"3","2","155.3","8.5","0.15"
+"3","3","165.5","9.0","0.20"
+"3","4","162.2","8.8","0.18"
+"3","5","180.1","10.0","0.25"
+"3","6","185.5","10.5","0.25"
+"3","7","200.2","12.0","0.30"
+"3","8","195.5","11.5","0.28"
+"3","9","210.1","13.0","0.35"
+"3","10","220.5","14.0","0.35"
+"4","1","90.5","4.2","0.08"
+"4","2","92.3","4.5","0.08"
+"4","3","98.5","5.0","0.12"
+"4","4","96.2","4.8","0.10"
+"4","5","105.1","6.0","0.18"
+"4","6","110.5","6.5","0.18"
+"4","7","115.2","7.0","0.22"
+"4","8","112.5","6.8","0.20"
+"4","9","125.1","8.0","0.28"
+"4","10","130.5","8.5","0.28"
+"5","1","120.5","6.2","0.12"
+"5","2","125.3","6.5","0.12"
+"5","3","135.5","7.0","0.18"
+"5","4","132.2","6.8","0.15"
+"5","5","145.1","8.0","0.22"
+"5","6","150.5","8.5","0.22"
+"5","7","160.2","9.0","0.28"
+"5","8","158.5","8.8","0.25"
+"5","9","175.1","10.0","0.32"
+"5","10","180.5","10.5","0.32"
+              </textarea>
+              <hr>
+<strong>Kasus 3: Kesehatan (Kondisi Pasien)<br></strong>
+Topik: Pengaruh Jam Olahraga dan Kalori terhadap Tekanan Darah.<br>
+
+Entitas: 10 Pasien.<br>
+
+Waktu: 5 Bulan Check-up.<br>
+
+Variabel: Y (Tekanan Darah Sistolik - semakin rendah semakin baik), X1 (Jam Olahraga/minggu), X2 (Intake Kalori Harian/1000).<br>
+              <textarea>
+"PatientID","Month","BP_Y","Sport_X1","Cal_X2"
+"1","1","140","2","2.5"
+"1","2","138","3","2.4"
+"1","3","135","4","2.3"
+"1","4","132","5","2.2"
+"1","5","130","6","2.1"
+"2","1","150","1","2.8"
+"2","2","148","2","2.7"
+"2","3","145","3","2.6"
+"2","4","142","4","2.5"
+"2","5","140","5","2.4"
+"3","1","130","3","2.2"
+"3","2","128","4","2.1"
+"3","3","125","5","2.0"
+"3","4","122","6","1.9"
+"3","5","120","7","1.8"
+"4","1","160","0","3.0"
+"4","2","158","1","2.9"
+"4","3","155","2","2.8"
+"4","4","152","3","2.7"
+"4","5","150","4","2.6"
+"5","1","135","2","2.4"
+"5","2","133","3","2.3"
+"5","3","130","4","2.2"
+"5","4","128","5","2.1"
+"5","5","126","6","2.0"
+"6","1","145","1","2.6"
+"6","2","143","2","2.5"
+"6","3","140","3","2.4"
+"6","4","138","4","2.3"
+"6","5","136","5","2.2"
+"7","1","125","4","2.0"
+"7","2","123","5","1.9"
+"7","3","120","6","1.8"
+"7","4","118","7","1.7"
+"7","5","116","8","1.6"
+"8","1","155","1","2.9"
+"8","2","153","2","2.8"
+"8","3","150","3","2.7"
+"8","4","148","4","2.6"
+"8","5","146","5","2.5"
+"9","1","138","2","2.5"
+"9","2","136","3","2.4"
+"9","3","133","4","2.3"
+"9","4","131","5","2.2"
+"9","5","129","6","2.1"
+"10","1","142","2","2.6"
+"10","2","140","3","2.5"
+"10","3","137","4","2.4"
+"10","4","135","5","2.3"
+"10","5","133","6","2.2"
+              </textarea>
+              <hr>
+<strong>Kasus 4: Pendidikan (Prestasi Siswa)</strong><br>
+Topik: Pengaruh Jam Belajar Mandiri dan Kehadiran terhadap Nilai Ujian.<br>
+
+Entitas: 10 Siswa.<br>
+
+Waktu: 5 Semester.<br>
+
+Variabel: Y (Nilai Ujian 0-100), X1 (Jam Belajar/minggu), X2 (Persen Kehadiran).<br>
+              <textarea>
+"StudentID","Semester","Score_Y","StudyTime_X1","Attend_X2"
+"1","1","70","5","80"
+"1","2","72","6","82"
+"1","3","75","7","85"
+"1","4","78","8","88"
+"1","5","80","9","90"
+"2","1","60","3","70"
+"2","2","62","4","72"
+"2","3","65","5","75"
+"2","4","68","6","78"
+"2","5","70","7","80"
+"3","1","85","10","90"
+"3","2","87","11","92"
+"3","3","90","12","95"
+"3","4","92","13","97"
+"3","5","95","14","99"
+"4","1","50","2","60"
+"4","2","52","3","62"
+"4","3","55","4","65"
+"4","4","58","5","68"
+"4","5","60","6","70"
+"5","1","75","6","85"
+"5","2","77","7","87"
+"5","3","80","8","90"
+"5","4","82","9","92"
+"5","5","85","10","95"
+"6","1","65","4","75"
+"6","2","67","5","77"
+"6","3","70","6","80"
+"6","4","72","7","82"
+"6","5","75","8","85"
+"7","1","90","12","95"
+"7","2","92","13","97"
+"7","3","95","14","98"
+"7","4","97","15","99"
+"7","5","99","16","100"
+"8","1","55","3","65"
+"8","2","57","4","67"
+"8","3","60","5","70"
+"8","4","62","6","72"
+"8","5","65","7","75"
+"9","1","72","5","82"
+"9","2","74","6","84"
+"9","3","77","7","87"
+"9","4","80","8","90"
+"9","5","82","9","92"
+"10","1","68","4","78"
+"10","2","70","5","80"
+"10","3","73","6","83"
+"10","4","75","7","85"
+"10","5","78","8","88"
+              </textarea>
+              <hr>
+<strong>Kasus 5: Pertanian (Hasil Panen)</strong><br>
+Topik: Pengaruh Pupuk dan Curah Hujan terhadap Hasil Panen Padi.<br>
+
+Entitas: 5 Petak Sawah Besar.<br>
+
+Waktu: 10 Musim Tanam.<br>
+
+Variabel: Y (Ton Gabah), X1 (Pupuk Kg), X2 (Curah Hujan mm).<br>
+              <textarea>
+"FarmID","Season","Yield_Y","Fertilizer_X1","Rainfall_X2"
+"1","1","5.2","100","200"
+"1","2","5.5","110","210"
+"1","3","6.0","120","220"
+"1","4","5.8","115","205"
+"1","5","6.5","130","250"
+"1","6","6.2","125","240"
+"1","7","7.0","140","280"
+"1","8","6.8","135","270"
+"1","9","7.5","150","300"
+"1","10","7.2","145","290"
+"2","1","4.2","80","180"
+"2","2","4.5","90","190"
+"2","3","5.0","100","200"
+"2","4","4.8","95","185"
+"2","5","5.5","110","230"
+"2","6","5.2","105","220"
+"2","7","6.0","120","260"
+"2","8","5.8","115","250"
+"2","9","6.5","130","280"
+"2","10","6.2","125","270"
+"3","1","6.2","120","220"
+"3","2","6.5","130","230"
+"3","3","7.0","140","240"
+"3","4","6.8","135","225"
+"3","5","7.5","150","270"
+"3","6","7.2","145","260"
+"3","7","8.0","160","300"
+"3","8","7.8","155","290"
+"3","9","8.5","170","320"
+"3","10","8.2","165","310"
+"4","1","3.2","60","160"
+"4","2","3.5","70","170"
+"4","3","4.0","80","180"
+"4","4","3.8","75","165"
+"4","5","4.5","90","210"
+"4","6","4.2","85","200"
+"4","7","5.0","100","240"
+"4","8","4.8","95","230"
+"4","9","5.5","110","260"
+"4","10","5.2","105","250"
+"5","1","5.0","95","190"
+"5","2","5.3","105","200"
+"5","3","5.8","115","210"
+"5","4","5.6","110","195"
+"5","5","6.3","125","240"
+"5","6","6.0","120","230"
+"5","7","6.8","135","270"
+"5","8","6.6","130","260"
+"5","9","7.3","145","290"
+"5","10","7.0","140","280"
+              </textarea>
+            </div>
+        </section>
         <div class="container mt-5">
           <div class="accordion" id="accordionp15">
             <div class="accordion-item">
@@ -4402,147 +4784,6 @@ ls d(Y) c d(X) resid01(-1)
           <li>Analisis data sesuai dengan materi yang telah diberikan di kelas.</li>
           <li>Simpulkan dan berikan saran yang sesuai.</li>
         </ol>
-        <!--         <button id="tombol_uas_es4d" type="button" class="btn btn-primary" onclick="validateUASes4d()">Mulai UAS</button> -->
-        <!--         <button type="button" class="btn btn-primary" onclick="closeValidateUASes4d()">Kirim Jawaban</button> -->
-        <script>
-          const mulaiUASes4d = new Date("July 1, 2025 10:20:00").getTime();
-          const akhirUASes4d = new Date("August 1, 2025 11:20:00").getTime();
-          function validateUASes4d() {
-          	let sekarang = new Date().getTime();
-          	document.getElementById('timerUAS').style.display="block";
-          
-          	if (sekarang-mulaiUASes4d < 0){
-          		alert("Belum waktunya");
-          	}
-          	else {
-          		if (sekarang-akhirUASes4d < 0) {
-          			 let person = prompt("Masukkan Password", "isi di sini");
-          			 if (person === "mata") {
-          				document.getElementById("tombol_uas_es4d").style.display="none";
-          				document.getElementById("berhasilValidateUAS").style.display = "block";
-          				let validNIM = false;
-          				let nim;
-          				while (!validNIM) {
-          						nim = prompt("Masukkan NIM:");
-          						konfirmasi = confirm('Apakah NIM Anda sudah benar: '+nim.toString()+'?' );
-          						if (konfirmasi) {
-          								validNIM = true;
-          						} else {
-          								alert("Silakan ulangi dan masukkan NIM yang benar.");
-          						}
-          				}
-          				let b = (nim*5)% 6;
-          				let c = [
-          					['soal1uas', 'soal4uas', 'soal7uas'],
-          					['soal1uas', 'soal5uas', 'soal9uas'],
-          					['soal2uas', 'soal4uas', 'soal8uas'],
-          					['soal2uas', 'soal6uas', 'soal9uas'],
-          					['soal3uas', 'soal5uas', 'soal7uas'],
-          					['soal3uas', 'soal6uas', 'soal8uas']
-          				];
-          				let d = c[b];
-          				for (i = 1; i < 4; i++) {
-          					let e = document.getElementById(d[i-1]);
-          					document.getElementById('nomer'+i+'uas').appendChild(e);
-          					e.style.display="block";
-          					document.getElementById('nomer'+i+'uas').style.display="block";
-          				}
-          			 }
-          			 else {
-          				 alert("Maaf, password yang Anda masukkan salah.");
-          			}
-          		}
-          		else{
-          			alert("Sudah selesai");
-          		}
-          	}
-          	// Update the count down every 1 second
-          	let x = setInterval(function() {	
-          		let sekarang = new Date().getTime();
-          
-          		// Find the distance between now and the count down date
-          		let distanceUASes4d = akhirUASes4d - sekarang;
-          			
-          		// Time calculations for days, hours, minutes and seconds
-          		let daysUASes4d = Math.floor(distanceUASes4d / (1000 * 60 * 60 * 24));
-          		let hoursUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-          		let minutesUASes4d = Math.floor((distanceUASes4d % (1000 * 60 * 60)) / (1000 * 60));
-          		let secondsUASes4d = Math.floor((distanceUASes4d % (1000 * 60)) / 1000);
-          			
-          		// Output the result in an element with id="demo"
-          		document.getElementById("timerUAS").innerHTML = "WAKTU TERSISA <br>" + daysUASes4d + "hari " + hoursUASes4d + "jam "
-          		+ minutesUASes4d + "menit " + secondsUASes4d + "detik ";
-          			
-          		// If the count down is over, write some text 
-          		if (distanceUASes4d < 0) {
-          			clearInterval(x);
-          			document.getElementById("timerUAS").innerHTML = "WAKTU HABIS";
-          			document.getElementById("berhasilValidateUAS").style.display = "none";
-          		}
-          	}, 1000);
-          	// Update the count down every 1 second
-          }
-          
-          function closeValidateUASes4d() {
-          	let sekarang = new Date().getTime();
-          	if (sekarang - mulaiUASes4d > 1000*60*60*5){
-          				alert("Terkunci");
-          		} else {
-          			setTimeout(function() {
-          				window.open("https://forms.gle/qJ3BTzUdKwtv1ank7", "_blank");
-          			}, 500);
-          		}
-          }
-          
-        </script>
-        <h3 id="timerUAS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
-        <div id="berhasilValidateUAS" style="display: none">
-          <div id="soal1uas" style='display:none;'>
-            <p>Berdasarkan studi, waktu rata-rata untuk menyiapkan, menyalin, dan mengirimkan formulir pajak 1040 secara elektronik adalah <strong>330 menit</strong>, dengan simpangan baku <strong>80 menit</strong>. Distribusi waktu ini mengikuti distribusi normal. Sebuah lembaga pengawas memilih sampel acak sebanyak <strong>40 wajib pajak</strong>.</p>
-            <ol type="a">
-              <li>Berapa <em>standard error</em> dari rata-rata sampel dalam kasus ini?</li>
-              <li>Berapa probabilitas bahwa <em>rata-rata sampel</em> berada antara 320 dan 350 menit?</li>
-            </ol>
-          </div>
-          <div id="soal2uas" style='display:none;'>
-
-          </div>
-          <div id="soal3uas" style='display:none;'>
-
-          </div>
-          <!-- ======================= -->
-          <div id="soal4uas" style='display:none;'>
-
-          </div>
-          <div id="soal5uas" style='display:none;'>
-
-          </div>
-          <div id="soal6uas" style='display:none;'>
-
-          </div>
-          <!-- ========================= -->
-          <div id="soal7uas" style='display:none;'>
-
-          </div>
-          <div id="soal8uas" style='display:none;'>
-
-          </div>
-          <div id="soal9uas" style='display:none;'>
-
-          </div>
-          <p class="h1 text-center">Soal UAS</p>
-          <ol id="soalUAS">
-            <li id='nomer1uas'>
-              <h2>Soal 1</h2>
-            </li>
-            <li id='nomer2uas'>
-              <h2>Soal 2</h2>
-            </li>
-            <li id='nomer3uas'>
-              <h2>Soal 3</h2>
-            </li>
-          </ol>
-        </div>
       </div>
     </section>
     <section id="daftar_hadir">
