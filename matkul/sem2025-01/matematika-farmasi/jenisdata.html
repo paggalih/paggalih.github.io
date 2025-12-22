@@ -9,8 +9,27 @@
     <style>
         body {
             font-family: 'Poppins', sans-serif;
-            background-color: #f0fdf4; /* Light green bg */
-            overscroll-behavior: none;
+            background-color: #e2e8f0; /* Latar belakang luar frame */
+            margin: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            overflow: hidden; /* Mencegah scroll pada body utama */
+        }
+
+        /* Frame Aplikasi Fix */
+        #app-frame {
+            width: 375px;
+            height: 640px;
+            background-color: #f0fdf4;
+            position: relative;
+            overflow: hidden;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid #cbd5e1;
+            display: flex;
+            flex-direction: column;
         }
 
         .card-shadow {
@@ -51,92 +70,98 @@
             height: 10px;
             background-color: #f00;
             animation: fall linear forwards;
+            z-index: 50; /* Pastikan di atas elemen lain */
         }
         @keyframes fall {
-            to { transform: translateY(100vh) rotate(720deg); }
+            to { transform: translateY(650px) rotate(720deg); }
         }
     </style>
 </head>
-<body class="h-screen flex flex-col items-center justify-center text-slate-800 overflow-hidden relative">
+<body>
 
-    <!-- Header Section -->
-    <div class="absolute top-0 w-full p-4 flex justify-between items-center bg-white shadow-sm z-10">
-        <div>
-            <h1 class="font-bold text-lg md:text-xl text-green-700">Data Sorter</h1>
-            <p class="text-xs text-slate-500">Statistik Dasar</p>
-        </div>
-        <div class="flex gap-4">
-            <div class="text-right">
-                <p class="text-xs text-slate-500">Skor</p>
-                <p class="font-bold text-xl" id="score">0</p>
-            </div>
-            <div class="text-right">
-                <p class="text-xs text-slate-500">Sisa</p>
-                <p class="font-bold text-xl" id="remaining">0</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- Game Area -->
-    <div id="game-container" class="w-full max-w-md p-4 flex flex-col items-center justify-center h-full pt-20 pb-4">
+    <!-- Wrapper Utama dengan Ukuran Tetap -->
+    <div id="app-frame">
         
-        <!-- Question Card -->
-        <div id="question-area" class="w-full flex-grow flex flex-col justify-center items-center mb-6 relative">
-            <div id="card" class="bg-white w-full aspect-[3/2] flex flex-col items-center justify-center rounded-2xl card-shadow p-6 text-center border-2 border-slate-100 relative pop-in z-20">
-                <div class="mb-2">
-                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Contoh Data</span>
+        <!-- Header Section -->
+        <div class="absolute top-0 left-0 w-full p-4 flex justify-between items-center bg-white shadow-sm z-10">
+            <div>
+                <h1 class="font-bold text-lg text-green-700">Data Sorter</h1>
+                <p class="text-xs text-slate-500">Statistik Dasar</p>
+            </div>
+            <div class="flex gap-3">
+                <div class="text-right">
+                    <p class="text-xs text-slate-500">Skor</p>
+                    <p class="font-bold text-xl leading-none" id="score">0</p>
                 </div>
-                <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Loading...</h2>
-                <p id="feedback-text" class="text-sm text-red-500 font-semibold h-5 opacity-0 transition-opacity">Jawaban Salah!</p>
+                <div class="text-right">
+                    <p class="text-xs text-slate-500">Sisa</p>
+                    <p class="font-bold text-xl leading-none" id="remaining">0</p>
+                </div>
             </div>
         </div>
 
-        <!-- Feedback Overlay (hidden by default) -->
-        <div id="explanation-modal" class="hidden absolute inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
-            <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-2xl pop-in">
-                <div id="modal-icon" class="text-4xl mb-2 text-center">❌</div>
-                <h3 id="modal-title" class="text-xl font-bold text-center mb-2">Kurang Tepat</h3>
-                <p id="modal-desc" class="text-sm text-slate-600 text-center mb-6">Penjelasan akan muncul di sini.</p>
-                <button onclick="closeModal()" class="w-full bg-slate-800 text-white py-3 rounded-lg font-semibold hover:bg-slate-700 transition">Lanjut</button>
+        <!-- Game Area -->
+        <div id="game-container" class="w-full h-full p-4 flex flex-col items-center justify-center pt-20 pb-4">
+            
+            <!-- Question Card -->
+            <div id="question-area" class="w-full flex-grow flex flex-col justify-center items-center mb-4 relative">
+                <div id="card" class="bg-white w-full aspect-[3/2] flex flex-col items-center justify-center rounded-2xl card-shadow p-5 text-center border-2 border-slate-100 relative pop-in z-20">
+                    <div class="mb-2">
+                        <span class="bg-indigo-100 text-indigo-700 text-[10px] font-bold px-2 py-1 rounded-full uppercase tracking-wide">Contoh Data</span>
+                    </div>
+                    <h2 id="question-text" class="text-xl md:text-2xl font-bold text-slate-800 mb-1 leading-tight">Loading...</h2>
+                    <p id="feedback-text" class="text-xs text-red-500 font-semibold h-4 opacity-0 transition-opacity">Jawaban Salah!</p>
+                </div>
+            </div>
+
+            <!-- Feedback Overlay (hidden by default) -->
+            <div id="explanation-modal" class="hidden absolute inset-0 z-50 bg-black/50 flex items-center justify-center p-6">
+                <div class="bg-white rounded-xl p-6 w-full shadow-2xl pop-in relative">
+                    <div id="modal-icon" class="text-4xl mb-2 text-center">❌</div>
+                    <h3 id="modal-title" class="text-xl font-bold text-center mb-2">Kurang Tepat</h3>
+                    <p id="modal-desc" class="text-sm text-slate-600 text-center mb-6 leading-relaxed">Penjelasan akan muncul di sini.</p>
+                    <button onclick="closeModal()" class="w-full bg-slate-800 text-white py-3 rounded-lg font-semibold hover:bg-slate-700 transition shadow-md">Lanjut</button>
+                </div>
+            </div>
+
+            <!-- Buttons Grid -->
+            <div class="grid grid-cols-2 gap-3 w-full shrink-0">
+                <button onclick="checkAnswer('nominal')" class="category-btn bg-red-100 border-2 border-red-200 hover:bg-red-200 text-red-800 p-3 rounded-xl flex flex-col items-center justify-center gap-1 h-24">
+                    <span class="text-2xl">🏷️</span>
+                    <span class="font-bold text-sm">NOMINAL</span>
+                    <span class="text-[10px] opacity-75">Hanya Label</span>
+                </button>
+
+                <button onclick="checkAnswer('ordinal')" class="category-btn bg-yellow-100 border-2 border-yellow-200 hover:bg-yellow-200 text-yellow-800 p-3 rounded-xl flex flex-col items-center justify-center gap-1 h-24">
+                    <span class="text-2xl">📊</span>
+                    <span class="font-bold text-sm">ORDINAL</span>
+                    <span class="text-[10px] opacity-75">Ada Urutan</span>
+                </button>
+
+                <button onclick="checkAnswer('interval')" class="category-btn bg-blue-100 border-2 border-blue-200 hover:bg-blue-200 text-blue-800 p-3 rounded-xl flex flex-col items-center justify-center gap-1 h-24">
+                    <span class="text-2xl">🌡️</span>
+                    <span class="font-bold text-sm">INTERVAL</span>
+                    <span class="text-[10px] opacity-75">Jarak, 0 Semu</span>
+                </button>
+
+                <button onclick="checkAnswer('rasio')" class="category-btn bg-green-100 border-2 border-green-200 hover:bg-green-200 text-green-800 p-3 rounded-xl flex flex-col items-center justify-center gap-1 h-24">
+                    <span class="text-2xl">⚖️</span>
+                    <span class="font-bold text-sm">RASIO</span>
+                    <span class="text-[10px] opacity-75">Nol Mutlak</span>
+                </button>
             </div>
         </div>
 
-        <!-- Buttons Grid -->
-        <div class="grid grid-cols-2 gap-3 w-full h-auto">
-            <button onclick="checkAnswer('nominal')" class="category-btn bg-red-100 border-2 border-red-200 hover:bg-red-200 text-red-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
-                <span class="text-2xl">🏷️</span>
-                <span class="font-bold">NOMINAL</span>
-                <span class="text-[10px] opacity-75">Hanya Label</span>
-            </button>
-
-            <button onclick="checkAnswer('ordinal')" class="category-btn bg-yellow-100 border-2 border-yellow-200 hover:bg-yellow-200 text-yellow-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
-                <span class="text-2xl">📊</span>
-                <span class="font-bold">ORDINAL</span>
-                <span class="text-[10px] opacity-75">Ada Urutan</span>
-            </button>
-
-            <button onclick="checkAnswer('interval')" class="category-btn bg-blue-100 border-2 border-blue-200 hover:bg-blue-200 text-blue-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
-                <span class="text-2xl">🌡️</span>
-                <span class="font-bold">INTERVAL</span>
-                <span class="text-[10px] opacity-75">Jarak Pasti, Nol Semu</span>
-            </button>
-
-            <button onclick="checkAnswer('rasio')" class="category-btn bg-green-100 border-2 border-green-200 hover:bg-green-200 text-green-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
-                <span class="text-2xl">⚖️</span>
-                <span class="font-bold">RASIO</span>
-                <span class="text-[10px] opacity-75">Nol Mutlak</span>
-            </button>
+        <!-- End Game Screen -->
+        <div id="end-screen" class="hidden absolute inset-0 bg-white z-50 flex flex-col items-center justify-center p-8 text-center">
+            <div class="text-6xl mb-4">🏆</div>
+            <h2 class="text-2xl font-bold text-slate-800 mb-2">Permainan Selesai!</h2>
+            <p class="text-slate-500 mb-4">Skor Akhir Kamu:</p>
+            <div class="text-6xl font-bold text-green-600 mb-6" id="final-score">0</div>
+            <p id="final-message" class="mb-8 text-sm font-medium px-4 py-2 bg-slate-100 rounded-lg">Hebat!</p>
+            <button onclick="restartGame()" class="bg-green-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1 w-full max-w-xs">Main Lagi</button>
         </div>
-    </div>
 
-    <!-- End Game Screen -->
-    <div id="end-screen" class="hidden absolute inset-0 bg-white z-50 flex flex-col items-center justify-center p-8 text-center">
-        <div class="text-6xl mb-4">🏆</div>
-        <h2 class="text-3xl font-bold text-slate-800 mb-2">Permainan Selesai!</h2>
-        <p class="text-slate-500 mb-6">Skor Akhir Kamu:</p>
-        <div class="text-6xl font-bold text-green-600 mb-8" id="final-score">0</div>
-        <p id="final-message" class="mb-8 text-sm font-medium px-4 py-2 bg-slate-100 rounded-lg">Hebat!</p>
-        <button onclick="restartGame()" class="bg-green-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1">Main Lagi</button>
     </div>
 
     <script>
@@ -173,6 +198,7 @@
         let currentIndex = 0;
         let isProcessing = false;
 
+        const appFrame = document.getElementById('app-frame'); // Reference to the frame
         const cardEl = document.getElementById('card');
         const questionTextEl = document.getElementById('question-text');
         const scoreEl = document.getElementById('score');
@@ -314,10 +340,10 @@
             for (let i = 0; i < 50; i++) {
                 const confetti = document.createElement('div');
                 confetti.classList.add('confetti');
-                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.left = Math.random() * 100 + '%'; // Use % relative to frame
                 confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
                 confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
-                document.body.appendChild(confetti);
+                appFrame.appendChild(confetti); // Append to appFrame instead of body
                 
                 setTimeout(() => confetti.remove(), 5000);
             }
