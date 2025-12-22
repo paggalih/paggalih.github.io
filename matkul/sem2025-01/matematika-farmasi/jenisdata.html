@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Sorter Challenge: Statistik</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #f0fdf4; /* Light green bg */
+            overscroll-behavior: none;
+        }
+
+        .card-shadow {
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+        }
+
+        .shake {
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-4px, 0, 0); }
+            40%, 60% { transform: translate3d(4px, 0, 0); }
+        }
+
+        .pop-in {
+            animation: popIn 0.3s ease-out forwards;
+        }
+
+        @keyframes popIn {
+            0% { opacity: 0; transform: scale(0.5); }
+            100% { opacity: 1; transform: scale(1); }
+        }
+
+        .category-btn {
+            transition: all 0.2s;
+        }
+        .category-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* Confetti */
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background-color: #f00;
+            animation: fall linear forwards;
+        }
+        @keyframes fall {
+            to { transform: translateY(100vh) rotate(720deg); }
+        }
+    </style>
+</head>
+<body class="h-screen flex flex-col items-center justify-center text-slate-800 overflow-hidden relative">
+
+    <!-- Header Section -->
+    <div class="absolute top-0 w-full p-4 flex justify-between items-center bg-white shadow-sm z-10">
+        <div>
+            <h1 class="font-bold text-lg md:text-xl text-green-700">Data Sorter</h1>
+            <p class="text-xs text-slate-500">Statistik Dasar</p>
+        </div>
+        <div class="flex gap-4">
+            <div class="text-right">
+                <p class="text-xs text-slate-500">Skor</p>
+                <p class="font-bold text-xl" id="score">0</p>
+            </div>
+            <div class="text-right">
+                <p class="text-xs text-slate-500">Sisa</p>
+                <p class="font-bold text-xl" id="remaining">0</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Game Area -->
+    <div id="game-container" class="w-full max-w-md p-4 flex flex-col items-center justify-center h-full pt-20 pb-4">
+        
+        <!-- Question Card -->
+        <div id="question-area" class="w-full flex-grow flex flex-col justify-center items-center mb-6 relative">
+            <div id="card" class="bg-white w-full aspect-[3/2] flex flex-col items-center justify-center rounded-2xl card-shadow p-6 text-center border-2 border-slate-100 relative pop-in z-20">
+                <div class="mb-2">
+                    <span class="bg-indigo-100 text-indigo-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">Contoh Data</span>
+                </div>
+                <h2 id="question-text" class="text-2xl md:text-3xl font-bold text-slate-800 mb-2">Loading...</h2>
+                <p id="feedback-text" class="text-sm text-red-500 font-semibold h-5 opacity-0 transition-opacity">Jawaban Salah!</p>
+            </div>
+        </div>
+
+        <!-- Feedback Overlay (hidden by default) -->
+        <div id="explanation-modal" class="hidden absolute inset-0 z-50 bg-black/50 flex items-center justify-center p-4">
+            <div class="bg-white rounded-xl p-6 max-w-sm w-full shadow-2xl pop-in">
+                <div id="modal-icon" class="text-4xl mb-2 text-center">❌</div>
+                <h3 id="modal-title" class="text-xl font-bold text-center mb-2">Kurang Tepat</h3>
+                <p id="modal-desc" class="text-sm text-slate-600 text-center mb-6">Penjelasan akan muncul di sini.</p>
+                <button onclick="closeModal()" class="w-full bg-slate-800 text-white py-3 rounded-lg font-semibold hover:bg-slate-700 transition">Lanjut</button>
+            </div>
+        </div>
+
+        <!-- Buttons Grid -->
+        <div class="grid grid-cols-2 gap-3 w-full h-auto">
+            <button onclick="checkAnswer('nominal')" class="category-btn bg-red-100 border-2 border-red-200 hover:bg-red-200 text-red-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
+                <span class="text-2xl">🏷️</span>
+                <span class="font-bold">NOMINAL</span>
+                <span class="text-[10px] opacity-75">Hanya Label</span>
+            </button>
+
+            <button onclick="checkAnswer('ordinal')" class="category-btn bg-yellow-100 border-2 border-yellow-200 hover:bg-yellow-200 text-yellow-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
+                <span class="text-2xl">📊</span>
+                <span class="font-bold">ORDINAL</span>
+                <span class="text-[10px] opacity-75">Ada Urutan</span>
+            </button>
+
+            <button onclick="checkAnswer('interval')" class="category-btn bg-blue-100 border-2 border-blue-200 hover:bg-blue-200 text-blue-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
+                <span class="text-2xl">🌡️</span>
+                <span class="font-bold">INTERVAL</span>
+                <span class="text-[10px] opacity-75">Jarak Pasti, Nol Semu</span>
+            </button>
+
+            <button onclick="checkAnswer('rasio')" class="category-btn bg-green-100 border-2 border-green-200 hover:bg-green-200 text-green-800 p-4 rounded-xl flex flex-col items-center justify-center gap-1 h-24 md:h-32">
+                <span class="text-2xl">⚖️</span>
+                <span class="font-bold">RASIO</span>
+                <span class="text-[10px] opacity-75">Nol Mutlak</span>
+            </button>
+        </div>
+    </div>
+
+    <!-- End Game Screen -->
+    <div id="end-screen" class="hidden absolute inset-0 bg-white z-50 flex flex-col items-center justify-center p-8 text-center">
+        <div class="text-6xl mb-4">🏆</div>
+        <h2 class="text-3xl font-bold text-slate-800 mb-2">Permainan Selesai!</h2>
+        <p class="text-slate-500 mb-6">Skor Akhir Kamu:</p>
+        <div class="text-6xl font-bold text-green-600 mb-8" id="final-score">0</div>
+        <p id="final-message" class="mb-8 text-sm font-medium px-4 py-2 bg-slate-100 rounded-lg">Hebat!</p>
+        <button onclick="restartGame()" class="bg-green-600 text-white px-8 py-3 rounded-full font-bold shadow-lg hover:bg-green-700 transition transform hover:-translate-y-1">Main Lagi</button>
+    </div>
+
+    <script>
+        // Database Soal
+        const questionBank = [
+            { text: "Jenis Kelamin (L/P)", type: "nominal", reason: "Hanya untuk membedakan identitas, tidak ada urutan." },
+            { text: "Agama", type: "nominal", reason: "Kategori setara, tidak ada yang lebih tinggi." },
+            { text: "Warna Mobil", type: "nominal", reason: "Merah tidak lebih tinggi nilainya dari Biru." },
+            { text: "Plat Nomor", type: "nominal", reason: "Angka hanya sebagai kode identitas." },
+            { text: "Suku Bangsa", type: "nominal", reason: "Kategori budaya tanpa tingkatan." },
+            
+            { text: "Tingkat Pendidikan (SD-SMA)", type: "ordinal", reason: "Ada urutan jenjang, tapi jarak kecerdasannya tidak pasti." },
+            { text: "Juara Lomba (1, 2, 3)", type: "ordinal", reason: "Ada peringkat, tapi selisih kemampuan juara 1 & 2 beda dengan 2 & 3." },
+            { text: "Kepuasan (Puas/Tidak Puas)", type: "ordinal", reason: "Skala Likert memiliki urutan perasaan, tapi jaraknya subjektif." },
+            { text: "Pangkat Militer", type: "ordinal", reason: "Jenderal > Kolonel, ada hierarki yang jelas." },
+            { text: "Stadium Penyakit", type: "ordinal", reason: "Stadium 4 lebih parah dari Stadium 1." },
+
+            { text: "Suhu (Celcius)", type: "interval", reason: "Punya jarak pasti, tapi 0°C bukan berarti tidak ada panas." },
+            { text: "Skor IQ", type: "interval", reason: "Jarak poin sama, tapi IQ 0 tidak ada (tidak ada nol mutlak)." },
+            { text: "Tahun Kalender (2024)", type: "interval", reason: "Tahun 0 bukan awal waktu, jarak antar tahun sama." },
+            { text: "Ukuran Sepatu (38, 40)", type: "interval", reason: "Ukuran 0 bukan berarti tidak ada sepatu sama sekali." },
+            { text: "Jam (Waktu Tunjuk)", type: "interval", reason: "Pukul 00:00 adalah penunjuk posisi waktu, bukan jumlah durasi." },
+
+            { text: "Berat Badan", type: "rasio", reason: "0 kg artinya tidak ada berat sama sekali (Nol Mutlak)." },
+            { text: "Tinggi Badan", type: "rasio", reason: "0 cm artinya tidak ada tinggi. Bisa dibanding (2x lebih tinggi)." },
+            { text: "Saldo Tabungan", type: "rasio", reason: "Rp 0 artinya tidak ada uang sama sekali." },
+            { text: "Jarak Tempuh", type: "rasio", reason: "0 km berarti diam. 10km adalah 2x lipat dari 5km." },
+            { text: "Durasi Waktu (Stopwatch)", type: "rasio", reason: "0 detik berarti tidak ada waktu yang berlalu." },
+            { text: "Jumlah Anak", type: "rasio", reason: "Bisa dihitung (discrete) dan 0 berarti tidak punya anak." }
+        ];
+
+        let currentQuestions = [];
+        let score = 0;
+        let currentIndex = 0;
+        let isProcessing = false;
+
+        const cardEl = document.getElementById('card');
+        const questionTextEl = document.getElementById('question-text');
+        const scoreEl = document.getElementById('score');
+        const remainingEl = document.getElementById('remaining');
+        const endScreen = document.getElementById('end-screen');
+        const finalScoreEl = document.getElementById('final-score');
+        const gameContainer = document.getElementById('game-container');
+        
+        // Modal elements
+        const modal = document.getElementById('explanation-modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalDesc = document.getElementById('modal-desc');
+        const modalIcon = document.getElementById('modal-icon');
+
+        function shuffle(array) {
+            for (let i = array.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [array[i], array[j]] = [array[j], array[i]];
+            }
+            return array;
+        }
+
+        function initGame() {
+            // Clone and shuffle questions
+            currentQuestions = shuffle([...questionBank]); 
+            score = 0;
+            currentIndex = 0;
+            scoreEl.innerText = score;
+            remainingEl.innerText = currentQuestions.length;
+            endScreen.classList.add('hidden');
+            gameContainer.classList.remove('hidden');
+            loadQuestion();
+        }
+
+        function loadQuestion() {
+            if (currentIndex >= currentQuestions.length) {
+                endGame();
+                return;
+            }
+            
+            const q = currentQuestions[currentIndex];
+            questionTextEl.innerText = q.text;
+            remainingEl.innerText = currentQuestions.length - currentIndex;
+            
+            // Animation reset
+            cardEl.classList.remove('pop-in');
+            void cardEl.offsetWidth; // trigger reflow
+            cardEl.classList.add('pop-in');
+        }
+
+        function checkAnswer(userChoice) {
+            if (isProcessing) return;
+            isProcessing = true;
+
+            const correctType = currentQuestions[currentIndex].type;
+            const reason = currentQuestions[currentIndex].reason;
+
+            if (userChoice === correctType) {
+                // Correct
+                score += 10;
+                scoreEl.innerText = score;
+                cardEl.style.backgroundColor = "#dcfce7"; // Green tint
+                cardEl.style.borderColor = "#22c55e";
+                
+                setTimeout(() => {
+                    nextCard();
+                }, 600);
+            } else {
+                // Wrong
+                cardEl.classList.add('shake');
+                setTimeout(() => {
+                    cardEl.classList.remove('shake');
+                    showExplanation(false, correctType, userChoice, reason);
+                }, 500);
+            }
+        }
+
+        function showExplanation(isCorrect, correctType, userChoice, reason) {
+            modalTitle.innerText = "Kurang Tepat!";
+            modalIcon.innerText = "😅";
+            
+            // Format types for display
+            const typeLabels = {
+                nominal: "Nominal",
+                ordinal: "Ordinal",
+                interval: "Interval",
+                rasio: "Rasio"
+            };
+
+            modalDesc.innerHTML = `
+                Kamu memilih <b>${typeLabels[userChoice]}</b>.<br>
+                Jawaban yang benar adalah <b class="text-green-600">${typeLabels[correctType]}</b>.<br><br>
+                <span class="italic text-slate-500">"${reason}"</span>
+            `;
+            
+            modal.classList.remove('hidden');
+        }
+
+        function closeModal() {
+            modal.classList.add('hidden');
+            nextCard();
+        }
+
+        function nextCard() {
+            // Reset Styles
+            cardEl.style.backgroundColor = "white";
+            cardEl.style.borderColor = "#f1f5f9";
+            
+            currentIndex++;
+            isProcessing = false;
+            loadQuestion();
+        }
+
+        function endGame() {
+            gameContainer.classList.add('hidden');
+            endScreen.classList.remove('hidden');
+            finalScoreEl.innerText = score;
+            
+            const maxScore = currentQuestions.length * 10;
+            const percentage = score / maxScore;
+            const msgEl = document.getElementById('final-message');
+
+            if (percentage === 1) {
+                msgEl.innerText = "Sempurna! Kamu ahli statistik! 🎓";
+                createConfetti();
+            } else if (percentage > 0.7) {
+                msgEl.innerText = "Kerja bagus! Hampir sempurna. 👍";
+            } else {
+                msgEl.innerText = "Belajar lagi yuk! Semangat! 💪";
+            }
+        }
+
+        function restartGame() {
+            initGame();
+        }
+
+        function createConfetti() {
+            const colors = ['#ef4444', '#3b82f6', '#22c55e', '#eab308', '#a855f7'];
+            for (let i = 0; i < 50; i++) {
+                const confetti = document.createElement('div');
+                confetti.classList.add('confetti');
+                confetti.style.left = Math.random() * 100 + 'vw';
+                confetti.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                confetti.style.animationDuration = Math.random() * 3 + 2 + 's';
+                document.body.appendChild(confetti);
+                
+                setTimeout(() => confetti.remove(), 5000);
+            }
+        }
+
+        // Start
+        initGame();
+
+    </script>
+</body>
+</html>
