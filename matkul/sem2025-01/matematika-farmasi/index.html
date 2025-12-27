@@ -2227,6 +2227,109 @@ flowchart TD
 	        <div class="section-title">
 	          <h2>Pertemuan 15</h2>
 	        </div>
+            <div class="mermaid text-center">
+            graph TD
+    A["Mulai: Kumpulan Data Mentah Farmasi"] --> B["Urutkan Data (Ascending)"]
+    B --> C{"Tentukan Parameter"}
+    
+    C --> D["Hitung Mean (Rata-rata)"]
+    D --> D1["Rumus: Jumlah Semua Data / Banyak Data"]
+    
+    C --> E["Cari Median (Nilai Tengah)"]
+    E --> E1{"Cek Jumlah Data (n)"}
+    E1 -- "Ganjil" --> E2["Ambil data tepat di tengah"]
+    E1 -- "Genap" --> E3["Ambil rata-rata dari 2 data tengah"]
+    
+    C --> F["Tentukan Modus"]
+    F --> F1["Cari frekuensi kemunculan tertinggi"]
+    
+    D1 --> G["Interpretasi Data untuk Keputusan Farmasi"]
+    E2 --> G
+    E3 --> G
+    F1 --> G
+            </div>
+<h1>Latihan Soal: Pengukuran Data Tunggal dalam Farmasi</h1>
+    <p>Berikut adalah kumpulan soal untuk mengasah pemahaman Anda mengenai Mean, Median, dan Modus dalam konteks farmasi.</p>
+
+    <div class="soal-container">
+        <span class="level" style="color: green;">Tingkat: Mudah</span>
+        <p><strong>Soal 1:</strong> Seorang mahasiswa farmasi mengukur pH dari 5 sampel larutan obat tetes mata. Datanya adalah: \(6, 7, 7, 8, 7\). Tentukan modus dari data tersebut.</p>
+        <details>
+            <summary>Lihat Jawaban</summary>
+            <div class="jawaban">
+                <p>Angka 7 muncul sebanyak 3 kali (frekuensi tertinggi).</p>
+                <p><strong>Modus = 7</strong></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="soal-container">
+        <span class="level" style="color: green;">Tingkat: Mudah</span>
+        <p><strong>Soal 2:</strong> Berat badan 4 orang pasien anak di poli anak adalah: \(20\) kg, \(22\) kg, \(21\) kg, dan \(25\) kg. Hitunglah rata-rata (\(\bar{x}\)) berat badan mereka.</p>
+        <details>
+            <summary>Lihat Jawaban</summary>
+            <div class="jawaban">
+                <p>\[ \bar{x} = \frac{20 + 22 + 21 + 25}{4} = \frac{88}{4} = 22 \text{ kg} \]</p>
+            </div>
+        </details>
+    </div>
+
+    <div class="soal-container">
+        <span class="level" style="color: orange;">Tingkat: Sedang</span>
+        <p><strong>Soal 3:</strong> Diketahui data waktu hancur tablet (dalam menit) sebagai berikut: \(15, 12, 14, 18, 15, 20\). Tentukan median dari data tersebut.</p>
+        <details>
+            <summary>Lihat Jawaban</summary>
+            <div class="jawaban">
+                <ol>
+                    <li>Urutkan data: \(12, 14, 15, 15, 18, 20\)</li>
+                    <li>Jumlah data (\(n=6\)) genap, ambil dua data tengah.</li>
+                    <li>\[ Me = \frac{15 + 15}{2} = 15 \text{ menit} \]</li>
+                </ol>
+            </div>
+        </details>
+    </div>
+
+    <div class="soal-container">
+        <span class="level" style="color: orange;">Tingkat: Sedang</span>
+        <p><strong>Soal 4:</strong> Dalam sebuah resep racikan, terdapat 5 bungkus puyer. Rata-rata berat puyer tersebut adalah \(300\) mg. Jika berat 4 bungkus pertama adalah \(290, 310, 295,\) dan \(300\) mg, berapakah berat bungkus ke-5?</p>
+        <details>
+            <summary>Lihat Jawaban</summary>
+            <div class="jawaban">
+                <p>\[ 300 = \frac{290 + 310 + 295 + 300 + x}{5} \]</p>
+                <p>\[ 1500 = 1195 + x \]</p>
+                <p><strong>\[ x = 305 \text{ mg} \]</strong></p>
+            </div>
+        </details>
+    </div>
+
+    <div class="soal-container">
+        <span class="level" style="color: red;">Tingkat: Susah</span>
+        <p><strong>Soal 5:</strong> Seorang Apoteker sedang menguji keseragaman bobot 10 tablet. Rata-rata bobot awal adalah \(500\) mg. Ternyata, satu tablet yang bobotnya \(450\) mg terjatuh dan pecah, sehingga tidak diikutkan dalam perhitungan ulang. Berapakah rata-rata bobot 9 tablet sisanya?</p>
+        <details>
+            <summary>Lihat Jawaban</summary>
+            <div class="jawaban">
+                <p>Total bobot awal: \(10 \times 500 = 5000\) mg.</p>
+                <p>Total bobot sisa: \(5000 - 450 = 4550\) mg.</p>
+                <p>Rata-rata baru: \[ \bar{x}_{baru} = \frac{4550}{9} \approx 505,56 \text{ mg} \]</p>
+            </div>
+        </details>
+    </div>
+
+    <div class="soal-container">
+        <span class="level" style="color: red;">Tingkat: Susah</span>
+        <p><strong>Soal 6:</strong> Data kadar zat aktif (mg) pada 5 tablet generik adalah: \(48, 52, 50, x, y\). Diketahui Modus data tersebut adalah \(50\) dan Rata-ratanya adalah \(51\). Tentukan nilai \(x\) dan \(y\) jika \(x < y\)!</p>
+        <details>
+            <summary>Lihat Jawaban</summary>
+            <div class="jawaban">
+                <p>Karena Modus = 50, asumsikan salah satu variabel bernilai 50. Misal \(x=50\).</p>
+                <p>Rumus Mean: \[ 51 = \frac{48 + 52 + 50 + 50 + y}{5} \]</p>
+                <p>\[ 255 = 200 + y \]</p>
+                <p>\[ y = 55 \]</p>
+                <p>Cek syarat \(x < y \rightarrow 50 < 55\) (Memenuhi).</p>
+                <p><strong>Jadi, \(x=50\) dan \(y=55\).</strong></p>
+            </div>
+        </details>
+    </div>
 
 	        <div class="container mt-5">
 	          <div class="accordion" id="accordionp15">
