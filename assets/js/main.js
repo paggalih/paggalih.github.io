@@ -353,9 +353,9 @@
         const creditsSection = document.createElement('div');
         creditsSection.className = 'credits';
         
-        const creditsTitle = document.createElement('h5');
-        creditsTitle.textContent = 'My Best Regards';
-        creditsSection.appendChild(creditsTitle);
+        // const creditsTitle = document.createElement('h5');
+        // creditsTitle.textContent = 'My Best Regards';
+        // creditsSection.appendChild(creditsTitle);
         
         const creditsList = document.createElement('ul');
         
@@ -619,6 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //         handleVisibilityChange();
 //     }
 // });
+
 
 
 
