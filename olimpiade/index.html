@@ -6,7 +6,6 @@
     <title>Koleksi Soal Olimpiade Matematika</title>
     
     <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
-    
     <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
     <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
 
@@ -20,7 +19,6 @@
             background-color: #f4f7f6;
         }
         
-        /* Gaya untuk area Pencarian & Filter */
         .kontrol-panel {
             background: #fff;
             padding: 15px 20px;
@@ -36,16 +34,10 @@
             border: 1px solid #ccc;
             border-radius: 5px;
             font-size: 1em;
-            flex: 1; /* Membuat kotak input memanjang otomatis */
+            flex: 1; 
             min-width: 200px;
         }
-        .kontrol-panel input[type="text"]:focus, .kontrol-panel select:focus {
-            outline: none;
-            border-color: #0056b3;
-            box-shadow: 0 0 5px rgba(0,86,179,0.3);
-        }
 
-        /* Gaya Kartu Soal */
         .soal-card { 
             background: #fff; 
             border: 1px solid #ddd; 
@@ -61,6 +53,12 @@
             border-bottom: 1px solid #eee;
             padding-bottom: 10px;
         }
+        
+        /* Gaya untuk label kategori yang berjejer */
+        .kategori-wrapper {
+            margin-left: 5px;
+            display: inline-block;
+        }
         .kategori { 
             display: inline-block; 
             background: #0056b3; 
@@ -69,7 +67,10 @@
             border-radius: 15px; 
             font-size: 0.85em;
             font-weight: bold;
+            margin-right: 5px; /* Jarak antar label kategori */
+            margin-bottom: 5px;
         }
+        
         .soal-text { 
             font-size: 1.1em;
             margin-bottom: 15px; 
@@ -123,9 +124,8 @@
     </div>
 
     <script>
-        let semuaDataSoal = []; // Variabel global untuk menyimpan data CSV
+        let semuaDataSoal = [];
 
-        // Membaca file CSV
         Papa.parse("soal_olimpiade.csv", {
             download: true,
             header: true,
@@ -133,27 +133,33 @@
             complete: function(results) {
                 semuaDataSoal = results.data;
                 siapkanFilterKategori(semuaDataSoal);
-                tampilkanSoal(semuaDataSoal); // Tampilkan semua soal saat pertama kali dimuat
+                tampilkanSoal(semuaDataSoal); 
             },
             error: function(err) {
-                document.getElementById('soal-container').innerHTML = '<p class="pesan-kosong">Gagal memuat file CSV. Pastikan nama file adalah soal_olimpiade.csv</p>';
+                document.getElementById('soal-container').innerHTML = '<p class="pesan-kosong">Gagal memuat file CSV.</p>';
             }
         });
 
-        // Fungsi untuk mengambil kategori unik dari CSV dan memasukkannya ke Dropdown
         function siapkanFilterKategori(data) {
             const dropdown = document.getElementById('filterKategori');
             const kategoriUnik = new Set();
             
-            // Kumpulkan semua kategori yang ada
             data.forEach(baris => {
                 if(baris.Kategori) {
-                    kategoriUnik.add(baris.Kategori.trim());
+                    // Pecah kategori berdasarkan koma dan hilangkan spasi berlebih
+                    const multiKategori = baris.Kategori.split(',');
+                    multiKategori.forEach(kat => {
+                        if(kat.trim() !== '') {
+                            kategoriUnik.add(kat.trim());
+                        }
+                    });
                 }
             });
 
-            // Masukkan ke dalam dropdown
-            kategoriUnik.forEach(kategori => {
+            // Urutkan kategori sesuai abjad (opsional agar lebih rapi)
+            const arrayKategori = Array.from(kategoriUnik).sort();
+
+            arrayKategori.forEach(kategori => {
                 const elemenOption = document.createElement('option');
                 elemenOption.value = kategori;
                 elemenOption.textContent = kategori;
@@ -161,10 +167,9 @@
             });
         }
 
-        // Fungsi utama untuk merender HTML Kartu Soal
         function tampilkanSoal(data) {
             const container = document.getElementById('soal-container');
-            container.innerHTML = ''; // Kosongkan layar
+            container.innerHTML = ''; 
 
             if(data.length === 0) {
                 container.innerHTML = '<p class="pesan-kosong">Maaf, tidak ada soal yang cocok dengan pencarian Anda.</p>';
@@ -172,12 +177,24 @@
             }
 
             data.forEach(function(row) {
-                if(!row.Nomor) return; // Abaikan baris kosong
+                if(!row.Nomor) return; 
                 
+                // Proses pemisahan label multi-kategori menjadi badge HTML
+                let badgeKategoriHTML = '';
+                if(row.Kategori) {
+                    const multiKategori = row.Kategori.split(',');
+                    multiKategori.forEach(kat => {
+                        if(kat.trim() !== '') {
+                            badgeKategoriHTML += `<span class="kategori">${kat.trim()}</span>`;
+                        }
+                    });
+                }
+
                 const cardHTML = `
                     <div class="soal-card">
                         <div class="meta-info">
-                            <strong>Soal No. ${row.Nomor}</strong> | Tanggal: ${row.Tanggal} | <span class="kategori">${row.Kategori}</span>
+                            <strong>Soal No. ${row.Nomor}</strong> | Tanggal: ${row.Tanggal} 
+                            <div class="kategori-wrapper">${badgeKategoriHTML}</div>
                         </div>
                         <div class="soal-text">
                             ${row.Soal}
@@ -192,27 +209,24 @@
                 container.innerHTML += cardHTML;
             });
 
-            // Beritahu MathJax untuk merender ulang rumus setelah soal difilter
             if (window.MathJax) {
                 MathJax.typesetPromise();
             }
         }
 
-        // Fungsi yang dipicu saat mengetik atau memilih kategori
         function jalankanFilter() {
             const kataKunci = document.getElementById('inputCari').value.toLowerCase();
             const kategoriDipilih = document.getElementById('filterKategori').value;
 
             const dataTersaring = semuaDataSoal.filter(row => {
-                // Pastikan baris memiliki data
                 if (!row.Soal || !row.Kategori) return false;
 
-                // Cek apakah kata kunci ada di dalam Soal atau Jawaban
                 const teksGabungan = (row.Soal + " " + row.Jawaban).toLowerCase();
                 const cocokKataKunci = teksGabungan.includes(kataKunci);
 
-                // Cek apakah kategori cocok (atau jika memilih "Semua Kategori")
-                const cocokKategori = (kategoriDipilih === "Semua") || (row.Kategori.trim() === kategoriDipilih);
+                // Cek apakah kategori yang dipilih ada di dalam baris CSV tersebut
+                const arrayKategori = row.Kategori.split(',').map(kat => kat.trim());
+                const cocokKategori = (kategoriDipilih === "Semua") || arrayKategori.includes(kategoriDipilih);
 
                 return cocokKataKunci && cocokKategori;
             });
@@ -220,7 +234,6 @@
             tampilkanSoal(dataTersaring);
         }
 
-        // Fungsi interaktif tombol jawaban
         function toggleJawaban(button) {
             var jawaban = button.nextElementSibling;
             if (jawaban.style.display === "none" || jawaban.style.display === "") {
