@@ -1,0 +1,2 @@
+Nomor,Tanggal,Kategori,Soal,Jawaban
+3,16 Februari 2026,Aljabar Linear,Tentukan nilai x dan y dari sistem persamaan berikut: \[ \begin{cases} 2x + 3y = 8 \\ 5x - y = 3 \end{cases} \] <br> Gunakan metode substitusi atau eliminasi.,"Dengan metode eliminasi, kita kalikan persamaan kedua dengan 3: <br> \[ \begin{cases} 2x + 3y = 8 \\ 15x - 3y = 9 \end{cases} \] <br> Jumlahkan kedua persamaan: <br> \( 17x = 17 \implies x = 1 \). <br><br> Substitusikan nilai x ke persamaan pertama: <br> \( 2(1) + 3y = 8 \implies 3y = 6 \implies y = 2 \)."
