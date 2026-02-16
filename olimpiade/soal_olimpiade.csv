@@ -2,3 +2,4 @@ Nomor,Tanggal,Kategori,Soal,Jawaban
 1,16 Februari 2026,"Kalkulus, Kuliah",Tentukan turunan pertama dari persamaan \( f(x) = 3x^2 + 5x - 2 \).,
 2,16 Februari 2026,"Matematika Ekonomi, SMK",Diberikan fungsi pendapatan \( R(x) = 100x - x^2 \) dan fungsi biaya \( C(x) = 20x + 500 \). Tentukan jumlah barang \( x \) yang harus diproduksi agar keuntungan mencapai maksimum!,
 3,16 Februari 2026,Aljabar Linear,Tentukan nilai x dan y dari sistem persamaan berikut: \[ \begin{cases} 2x + 3y = 8 \\ 5x - y = 3 \end{cases} \] <br> Gunakan metode substitusi atau eliminasi.,Dengan metode eliminasi
+4,16 Februari 2026,Aljabar Linear,Tentukan nilai $x$ dan $y$ dari sistem persamaan berikut: \[ \begin{cases} 2x + 3y = 8 \\ 5x - y = 3 \end{cases} \] <br> Gunakan metode substitusi atau eliminasi.,Dengan metode eliminasi
