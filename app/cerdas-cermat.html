@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerdas Cermat - Sistem Amplop</title>
+    
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #2c3e50; --accent: #2980b9; --danger: #c0392b;
+            --success: #27ae60; --warning: #f39c12; --bg: #ecf0f1;
+            --card-bg: #ffffff;
+        }
+
+        /* --- GLOBAL RESET --- */
+        * { box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg); margin: 0; padding: 10px; 
+            height: 100vh; width: 100vw; overflow: hidden;
+            display: flex; flex-direction: column; gap: 8px;
+        }
+
+        /* --- HEADER --- */
+        .top-bar {
+            flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;
+            background: var(--card-bg); padding: 5px 15px; border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .btn-action {
+            padding: 5px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; border: none; color: white;
+            font-size: 0.85rem; transition: 0.2s; white-space: nowrap;
+        }
+        .btn-dark { background: var(--primary); } .btn-dark:hover { background: #1a252f; }
+        .file-upload { position: relative; overflow: hidden; display: inline-block; }
+        .btn-upload {
+            border: 1px dashed var(--accent); color: var(--accent); background: white;
+            padding: 4px 10px; border-radius: 4px; font-weight: bold; cursor: pointer; font-size: 0.8rem;
+        }
+        input[type=file] { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; width: 100%;}
+
+        /* --- LAYOUT GRID --- */
+        .main-grid { 
+            flex: 1; display: grid; grid-template-columns: 70% 30%; gap: 10px; min-height: 0;
+        }
+
+        /* --- KOLOM KIRI (SOAL & AMPLOP) --- */
+        .question-section {
+            background: var(--card-bg); border-radius: 12px; padding: 10px;
+            display: flex; flex-direction: column; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center;
+            height: 100%; position: relative; overflow: hidden; /* Penting untuk amplop */
+        }
+        .round-badge {
+            flex: 0 0 auto; align-self: center;
+            background: var(--accent); color: white; padding: 4px 15px; border-radius: 15px;
+            font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; font-weight: bold;
+        }
+        .timer-big {
+            flex: 0 0 auto; font-size: 14vh; font-weight: 800; color: var(--primary);
+            line-height: 1; margin: 0; font-variant-numeric: tabular-nums;
+        }
+        .timer-big.critical { color: var(--danger); animation: pulse 1s infinite; }
+        @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
+
+        /* --- LAYAR AMPLOP (GRID) --- */
+        .envelope-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 10;
+            display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start;
+            gap: 15px; padding: 20px; overflow-y: auto;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        .envelope-container.hidden {
+            transform: scale(1.5); opacity: 0; pointer-events: none;
+        }
+        
+        .envelope-card {
+            width: 80px; height: 60px;
+            background: linear-gradient(135deg, #f39c12, #e67e22);
+            border-radius: 8px;
+            display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; font-weight: bold; color: white;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+            transition: transform 0.2s, background 0.2s;
+            position: relative;
+        }
+        .envelope-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: 2px dashed rgba(255,255,255,0.3); border-radius: 8px; pointer-events: none;
+        }
+        .envelope-card:hover { transform: translateY(-5px); box-shadow: 0 6px 10px rgba(0,0,0,0.3); }
+        
+        /* Amplop yang sudah dibuka */
+        .envelope-card.opened {
+            background: #95a5a6; color: #ecf0f1; box-shadow: none; transform: none;
+            opacity: 0.6;
+        }
+
+        /* --- AREA SOAL --- */
+        .question-view {
+            flex: 1; display: flex; flex-direction: column; height: 100%; opacity: 0; transition: opacity 0.5s 0.3s;
+        }
+        .question-view.active { opacity: 1; }
+
+        .question-area-wrapper {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            overflow-y: auto; margin: 5px 0; padding: 0 20px;
+        }
+        .question-text {
+            font-size: clamp(1.5rem, 3.5vh, 2.8rem);
+            color: #333; line-height: 1.4; font-weight: 600;
+            white-space: pre-wrap; 
+        }
+        .answer-box {
+            flex: 0 0 auto; padding: 8px; background: #fff3cd; border: 1px solid #ffeeba;
+            border-radius: 6px; color: #856404; font-size: 1.1rem; display: none;
+            width: 90%; margin: 0 auto 5px auto; white-space: pre-wrap;
+        }
+
+        /* Kontrol Soal */
+        .controls { 
+            flex: 0 0 auto; display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; 
+            padding-top: 5px; border-top: 1px solid #eee; align-items: center;
+        }
+        .btn-ctrl { 
+            padding: 8px 15px; font-size: 0.9rem; flex: 1; max-width: 140px; 
+            border:none; border-radius:6px; color:white; font-weight:bold; cursor:pointer;
+        }
+        .btn-ctrl:active { transform: scale(0.96); }
+        .btn-blue { background: var(--accent); } .btn-green { background: var(--success); }
+        .btn-red { background: var(--danger); } .btn-yellow { background: var(--warning); color: #333; }
+        .btn-orange { background: #d35400; } /* Tombol Back */
+
+        /* --- KOLOM KANAN (SCOREBOARD) --- */
+        .scoreboard-container { 
+            display: flex; flex-direction: column; gap: 6px; height: 100%; overflow-y: auto;
+            padding-right: 2px;
+        }
+        .team-card {
+            background: var(--card-bg); border-radius: 8px; padding: 5px; text-align: center;
+            border-left: 5px solid var(--accent); 
+            display: flex; flex-direction: column; justify-content: center;
+            flex: 1; min-height: 80px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .team-header { display: flex; justify-content: space-between; align-items: center; padding: 0 5px; }
+        .team-name { 
+            border: none; font-weight: bold; font-size: 1rem; color: #555; width: 60%; background: transparent;
+        }
+        .team-score { 
+            font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 0; line-height: 1;
+        }
+        .score-grid { 
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 5px; 
+        }
+        .btn-score { 
+            padding: 4px 0; font-size: 0.75rem; cursor: pointer; font-weight: bold;
+            border: 1px solid #ddd; border-radius: 4px; 
+        }
+        .btn-plus { background: #e8f8f5; color: #27ae60; border-color: #27ae60; }
+        .btn-plus:hover { background: #27ae60; color: white; }
+        .btn-min { background: #fdedec; color: #c0392b; border-color: #c0392b; }
+        .btn-min:hover { background: #c0392b; color: white; }
+
+    </style>
+</head>
+<body>
+
+    <div class="top-bar">
+        <div style="display:flex; align-items:center; gap:10px;">
+            <h3 style="margin:0; color: var(--primary);">🏆 FINAL Cerdas Cermat</h3>
+            <button onclick="toggleFullScreen()" class="btn-action btn-dark">⛶ Full Screen</button>
+        </div>
+
+        <div style="display:flex; gap:10px; align-items:center;">
+            <select id="roundSelector" onchange="changeRound()" style="padding:5px; border-radius:4px; border:1px solid #ccc;">
+                <option value="wajib">Sesi 1: Wajib (15s)</option>
+                <option value="lemparan">Sesi 2: Lemparan (10s)</option>
+                <option value="cepat">Sesi 3: Adu Cepat (10s)</option>
+            </select>
+            <div class="file-upload">
+                <button class="btn-upload">📂 Upload Excel</button>
+                <input type="file" onchange="loadExcel(this)" accept=".xlsx, .xls">
+            </div>
+        </div>
+    </div>
+
+    <div class="main-grid">
+        <div class="question-section">
+            
+            <div id="envelopeGrid" class="envelope-container">
+                <div style="width:100%; text-align:center; color:#777; margin-top:50px;">
+                    <h3>Silakan Upload Excel Soal Terlebih Dahulu</h3>
+                </div>
+            </div>
+
+            <div id="questionView" class="question-view">
+                <div id="roundLabel" class="round-badge">Sesi 1: Babak Putaran (Wajib)</div>
+                
+                <div id="timer" class="timer-big">00</div>
+                
+                <div class="question-area-wrapper">
+                    <div id="questionText" class="question-text"></div>
+                </div>
+                
+                <div id="answerText" class="answer-box"></div>
+
+                <div class="controls">
+                    <button class="btn-ctrl btn-green" onclick="startTimer()">▶ MULAI</button>
+                    <button class="btn-ctrl btn-red" onclick="stopTimer()">⏹ STOP</button>
+                    <button class="btn-ctrl btn-yellow" onclick="resetTimer()">🔄 RESET</button>
+                    
+                    <div style="width: 10px;"></div>
+                    
+                    <button class="btn-ctrl btn-yellow" onclick="toggleAnswer()">👁 JAWAB</button>
+                    <button class="btn-ctrl btn-orange" onclick="backToEnvelopes()">🔙 KEMBALI KE AMPLOP</button>
+                </div>
+                
+                <div style="position: absolute; top: 10px; right: 15px; color:#ccc; font-size:0.8rem;">
+                    Amplop No: <span id="qIndex">0</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="scoreboard-container" id="scoreboard"></div>
+    </div>
+
+<script>
+    // --- KONFIGURASI ---
+    const TIME_CONFIG = { 
+        wajib: 15,    
+        lemparan: 10, 
+        cepat: 10     
+    };
+    
+    let questions = []; 
+    let openedStatus = []; // Menyimpan status amplop yg sudah dibuka
+    let currIdx = 0;
+    let timerInterval, timeLeft;
+    let currentRound = 'wajib';
+
+    // --- GENERATE SCOREBOARD ---
+    const scoreContainer = document.getElementById('scoreboard');
+    for(let i=1; i<=5; i++) {
+        scoreContainer.innerHTML += `
+            <div class="team-card">
+                <div class="team-header">
+                    <input type="text" class="team-name" value="Tim ${String.fromCharCode(64+i)}">
+                    <div class="team-score" id="score${i}">0</div>
+                </div>
+                <div class="score-grid">
+                    <button class="btn-score btn-plus" onclick="addScore(${i}, 100)">+100</button>
+                    <button class="btn-score btn-plus" onclick="addScore(${i}, 80)">+80</button>
+                    <button class="btn-score btn-plus" onclick="addScore(${i}, 50)">+50</button>
+                    <button class="btn-score btn-min" onclick="addScore(${i}, -50)">-50</button>
+                    <button class="btn-score btn-min" onclick="addScore(${i}, -40)">-40</button>
+                    <button class="btn-score btn-min" onclick="addScore(${i}, -25)">-25</button>
+                </div>
+            </div>`;
+    }
+
+    function addScore(id, val) {
+        let el = document.getElementById(`score${id}`);
+        el.innerText = parseInt(el.innerText) + val;
+    }
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(err => { alert(`Error: ${err.message}`); });
+        } else {
+            if (document.exitFullscreen) document.exitFullscreen();
+        }
+    }
+
+    // --- LOGIKA EXCEL & AMPLOP ---
+    function loadExcel(input) {
+        let file = input.files[0];
+        if(!file) return;
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let data = new Uint8Array(e.target.result);
+            let workbook = XLSX.read(data, {type: 'array'});
+            let jsonData = XLSX.utils.sheet_to_json(workbook.Sheets[workbook.SheetNames[0]], {header: 1});
+            
+            questions = [];
+            openedStatus = [];
+            for(let i=1; i<jsonData.length; i++){
+                let qVal = jsonData[i][0] ? String(jsonData[i][0]) : "";
+                let aVal = jsonData[i][1] ? String(jsonData[i][1]) : "";
+                if(qVal) {
+                    questions.push({q: qVal, a: aVal});
+                    openedStatus.push(false); // Inisialisasi belum dibuka
+                }
+            }
+            
+            generateEnvelopes(); // Buat tampilan amplop
+            alert("✅ Data Soal Siap: " + questions.length + " Amplop");
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    function generateEnvelopes() {
+        const grid = document.getElementById('envelopeGrid');
+        grid.innerHTML = ''; // Clear previous
+        grid.classList.remove('hidden'); // Show grid
+
+        questions.forEach((q, index) => {
+            let card = document.createElement('div');
+            card.className = 'envelope-card';
+            card.innerText = index + 1;
+            card.id = `env-${index}`;
+            
+            // Cek jika sudah dibuka sebelumnya (opsional jika reset)
+            if(openedStatus[index]) {
+                card.classList.add('opened');
+            }
+
+            card.onclick = function() {
+                openEnvelope(index);
+            };
+            grid.appendChild(card);
+        });
+        
+        // Sembunyikan view soal
+        document.getElementById('questionView').classList.remove('active');
+    }
+
+    function openEnvelope(index) {
+        // Animasi "Open"
+        const grid = document.getElementById('envelopeGrid');
+        grid.classList.add('hidden'); // Efek zoom out grid
+
+        // Set Soal
+        currIdx = index;
+        openedStatus[index] = true; // Tandai sudah dibuka
+        document.getElementById(`env-${index}`).classList.add('opened'); // Update UI amplop
+        
+        // Tampilkan Soal setelah delay sedikit (biar animasi amplop selesai)
+        setTimeout(() => {
+            renderQuestion();
+            document.getElementById('questionView').classList.add('active');
+        }, 300);
+    }
+
+    function backToEnvelopes() {
+        // Stop timer jika masih jalan
+        stopTimer();
+        
+        // Animasi balik
+        document.getElementById('questionView').classList.remove('active');
+        document.getElementById('envelopeGrid').classList.remove('hidden');
+    }
+
+    function renderQuestion() {
+        let qDiv = document.getElementById('questionText');
+        let aDiv = document.getElementById('answerText');
+        
+        qDiv.innerHTML = questions[currIdx].q.replace(/\n/g, "<br>");
+        aDiv.innerHTML = questions[currIdx].a.replace(/\n/g, "<br>");
+        
+        document.getElementById('qIndex').innerText = currIdx + 1;
+        aDiv.style.display = 'none'; 
+        
+        if(window.MathJax) MathJax.typesetPromise([qDiv, aDiv]);
+        resetTimer();
+    }
+
+    function toggleAnswer() {
+        let x = document.getElementById('answerText');
+        x.style.display = x.style.display === 'none' ? 'block' : 'none';
+        if(x.style.display === 'block' && window.MathJax) MathJax.typesetPromise([x]);
+    }
+
+    // --- TIMER & ROUND LOGIC ---
+    function changeRound() {
+        let sel = document.getElementById('roundSelector');
+        currentRound = sel.value;
+        document.getElementById('roundLabel').innerText = sel.options[sel.selectedIndex].text;
+        
+        // Jika pindah babak, mungkin mau reset amplop atau tetap?
+        // Di sini kita asumsikan amplop tetap, hanya waktu berubah
+        resetTimer();
+    }
+
+    function startTimer() {
+        if(timerInterval) return;
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            if(timeLeft <= 0) stopTimer();
+        }, 1000);
+    }
+
+    function stopTimer() { clearInterval(timerInterval); timerInterval = null; }
+    
+    function resetTimer() {
+        stopTimer();
+        timeLeft = TIME_CONFIG[currentRound];
+        updateTimerDisplay();
+        document.getElementById('answerText').style.display = 'none';
+        document.getElementById('timer').classList	.remove('critical');
+    }
+
+    function updateTimerDisplay() {
+        let el = document.getElementById('timer');
+        el.innerText = timeLeft < 10 ? "0" + timeLeft : timeLeft;
+        if(timeLeft <= 5 && timeLeft > 0) el.classList.add('critical');
+        else el.classList.remove('critical');
+    }
+
+    resetTimer(); 
+</script>
+</body>
+</html>
