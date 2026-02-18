@@ -1,4 +1,5 @@
 Nomor,Tanggal,Kategori,Soal,Jawaban
-3,18 Februari 2026,"Aljabar,Barisan Teleskoping",Carilah nilai $$\dfrac{1}{C_2^5}+\dfrac{1}{C_2^6}+\dfrac{1}C_2^7}+\cdots$$,Jabarkan saja. $$\boxed{\dfrac{1}{2}}$$
+4,18 Februari 2026,"Kombinatorika, Bintang dan Batang","Berapa banyak cara kita dapat memilih bilangan bulat non-negatif $x_1,x_2,x_3$ sehingga $x_1+x_2+x_3<4?$",Gunakan rumus star and bar. Bintang dan Batang. $$x_1+x_2+\cdots+x_m=n\text{ memiliki solusi }\binom{n+m-1}{m-1}$$ $$\binom{2}{2}+\binom{3}{2}+\cdots+\binom{35}{2}=\binom{36}{3}$$ $$\boxed{7140}$$
+3,18 Februari 2026,"Aljabar,Barisan Teleskoping",Carilah nilai $$\dfrac{1}{C_2^5}+\dfrac{1}{C_2^6}+\dfrac{1}{C_2^7}+\cdots$$,Jabarkan saja. $$\boxed{\dfrac{1}{2}}$$
 2,18 Februari 2026,"Aljabar,Sistem Persamaan","Diberikan tiga kurva berikut bersamaan, yang mana mereka melewati titik yang sama. $$\begin{align} C1&: y = x^3 + (k-1)x^2 + (3k-4)x - 5k \\ C2&: y = x^3 +(k+1)x^2 +(5k-1)x +(3-k) \\ C3&: y = x^3 +kx^2 +(4k-6)x -3k \end{align}$$ Berapakah nilai bilangan real $k?$","Eliminasi sepasang-sepasang. $C1-C2, C2-C3, C3-C1$ Eliminasi kembali. Ketemu $x.$ Ketemu $k.$ $$\boxed{k=-\dfrac{-51}{76}}$$"
 1,16 Februari 2026,"Aljabar,Pertidaksamaan Kuadrat",Berapa nilai maksimum pernyataan $\sqrt{x+5}+\sqrt{7-x}$ untuk bilangan asli $x?$,Kuadratkan. Cari maksimum dari kuadrat yang ada di akar. $$\boxed{2\sqrt{6}}$$.
