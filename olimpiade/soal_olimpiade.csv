@@ -1,3 +1,3 @@
 Nomor,Tanggal,Kategori,Soal,Jawaban
-1,16 Februari 2026,"Aljabar, SMA","Berapa nilai maksimum pernyataan $\sqrt{x+5}+\sqrt{7-x}$ untuk bilangan asli $x?$","Kuadratkan. Maksimum dari kuadrat yang ada di akar. $2\sqrt{6}$."
-2,16 Februari 2026,"Aljabar, SMA","Soal nomor dua diletakkan di sini...","Jawaban nomor dua di sini."
+2,18 Februari 2026,"Aljabar,SMP","Diberikan tiga kurva berikut bersamaan, yang mana mereka melewati titik yang sama. $$\begin{align} C1&: y = x^3 + (k-1)x^2 + (3k-4)x - 5k \\ C2&: y = x^3 +(k+1)x^2 +(5k-1)x +(3-k) \\ C3&: y = x^3 +kx^2 +(4k-6)x -3k \end{align}$$ Berapakah nilai bilangan real $k?$","Eliminasi sepasang-sepasang. $C1-C2, C2-C3, C3-C1$ Eliminasi kembali. Ketemu $x.$ Ketemu $k.$ $$\boxed{k=-\dfrac{-51}{76}}$$"
+1,16 Februari 2026,"Aljabar,SMA",Berapa nilai maksimum pernyataan $\sqrt{x+5}+\sqrt{7-x}$ untuk bilangan asli $x?$,Kuadratkan. Cari maksimum dari kuadrat yang ada di akar. $$\boxed{2\sqrt{6}}$$.
