@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cerdas Cermat - Sistem Amplop</title>
+    <title>Cerdas Cermat Final - UIN SATU</title>
     
     <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
     <script>
@@ -34,7 +34,7 @@
         .top-bar {
             flex: 0 0 auto; display: flex; justify-content: space-between; align-items: center;
             background: var(--card-bg); padding: 5px 15px; border-radius: 8px;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05); z-index: 50;
         }
         .btn-action {
             padding: 5px 12px; border-radius: 4px; font-weight: bold; cursor: pointer; border: none; color: white;
@@ -53,17 +53,65 @@
             flex: 1; display: grid; grid-template-columns: 70% 30%; gap: 10px; min-height: 0;
         }
 
-        /* --- KOLOM KIRI (SOAL & AMPLOP) --- */
+        /* --- KOLOM KIRI (LAYER UTAMA) --- */
         .question-section {
             background: var(--card-bg); border-radius: 12px; padding: 10px;
             display: flex; flex-direction: column; 
             box-shadow: 0 4px 6px rgba(0,0,0,0.05); text-align: center;
-            height: 100%; position: relative; overflow: hidden; /* Penting untuk amplop */
+            height: 100%; position: relative; overflow: hidden;
         }
+
+        /* --- LAYER 0: HALAMAN ATURAN MAIN --- */
+        .rules-view {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--card-bg); z-index: 30; /* Paling Atas */
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px; text-align: left; transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .rules-view.hidden { opacity: 0; pointer-events: none; transform: translateY(-20px); }
+        .rules-title { font-size: 2.8rem; color: var(--primary); margin-bottom: 20px; text-align: center; border-bottom: 4px solid var(--accent); padding-bottom: 10px;}
+        .rules-list { font-size: 1.4rem; line-height: 1.6; color: #333; max-width: 90%; margin-bottom: 40px; padding-left: 20px; }
+        .rules-list li { margin-bottom: 12px; }
+        .btn-start-round {
+            background: var(--success); color: white; border: none; padding: 15px 40px;
+            font-size: 1.5rem; font-weight: bold; border-radius: 8px; cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: 0.2s;
+        }
+        .btn-start-round:hover { transform: scale(1.05); background: #219a52; }
+
+        /* --- LAYER 1: GRID AMPLOP --- */
+        .envelope-container {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: var(--bg); z-index: 20;
+            display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start;
+            gap: 15px; padding: 20px; overflow-y: auto;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        .envelope-container.hidden { transform: scale(1.5); opacity: 0; pointer-events: none; }
+        
+        .envelope-card {
+            width: 80px; height: 60px; background: linear-gradient(135deg, #f39c12, #e67e22);
+            border-radius: 8px; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; font-weight: bold; color: white; cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.2); transition: transform 0.2s, background 0.2s; position: relative;
+        }
+        .envelope-card::after {
+            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            border: 2px dashed rgba(255,255,255,0.3); border-radius: 8px; pointer-events: none;
+        }
+        .envelope-card:hover { transform: translateY(-5px); box-shadow: 0 6px 10px rgba(0,0,0,0.3); }
+        .envelope-card.opened { background: #95a5a6; color: #ecf0f1; box-shadow: none; transform: none; opacity: 0.6; }
+
+        /* --- LAYER 2: AREA SOAL --- */
+        .question-view {
+            flex: 1; display: flex; flex-direction: column; height: 100%; opacity: 0; transition: opacity 0.5s 0.3s;
+            z-index: 10;
+        }
+        .question-view.active { opacity: 1; }
+        
         .round-badge {
-            flex: 0 0 auto; align-self: center;
-            background: var(--accent); color: white; padding: 4px 15px; border-radius: 15px;
-            font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; font-weight: bold;
+            flex: 0 0 auto; align-self: center; background: var(--accent); color: white; padding: 4px 15px; 
+            border-radius: 15px; font-size: 0.8rem; text-transform: uppercase; margin-bottom: 5px; font-weight: bold;
         }
         .timer-big {
             flex: 0 0 auto; font-size: 14vh; font-weight: 800; color: var(--primary);
@@ -72,63 +120,17 @@
         .timer-big.critical { color: var(--danger); animation: pulse 1s infinite; }
         @keyframes pulse { 0% {transform: scale(1);} 50% {transform: scale(1.05);} 100% {transform: scale(1);} }
 
-        /* --- LAYAR AMPLOP (GRID) --- */
-        .envelope-container {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: var(--bg); z-index: 10;
-            display: flex; flex-wrap: wrap; justify-content: center; align-content: flex-start;
-            gap: 15px; padding: 20px; overflow-y: auto;
-            transition: transform 0.5s ease, opacity 0.5s ease;
-        }
-        .envelope-container.hidden {
-            transform: scale(1.5); opacity: 0; pointer-events: none;
-        }
-        
-        .envelope-card {
-            width: 80px; height: 60px;
-            background: linear-gradient(135deg, #f39c12, #e67e22);
-            border-radius: 8px;
-            display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; font-weight: bold; color: white;
-            cursor: pointer;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-            transition: transform 0.2s, background 0.2s;
-            position: relative;
-        }
-        .envelope-card::after {
-            content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            border: 2px dashed rgba(255,255,255,0.3); border-radius: 8px; pointer-events: none;
-        }
-        .envelope-card:hover { transform: translateY(-5px); box-shadow: 0 6px 10px rgba(0,0,0,0.3); }
-        
-        /* Amplop yang sudah dibuka */
-        .envelope-card.opened {
-            background: #95a5a6; color: #ecf0f1; box-shadow: none; transform: none;
-            opacity: 0.6;
-        }
-
-        /* --- AREA SOAL --- */
-        .question-view {
-            flex: 1; display: flex; flex-direction: column; height: 100%; opacity: 0; transition: opacity 0.5s 0.3s;
-        }
-        .question-view.active { opacity: 1; }
-
         .question-area-wrapper {
-            flex: 1; display: flex; align-items: center; justify-content: center;
-            overflow-y: auto; margin: 5px 0; padding: 0 20px;
+            flex: 1; display: flex; align-items: center; justify-content: center; overflow-y: auto; margin: 5px 0; padding: 0 20px;
         }
         .question-text {
-            font-size: clamp(1.5rem, 3.5vh, 2.8rem);
-            color: #333; line-height: 1.4; font-weight: 600;
-            white-space: pre-wrap; 
+            font-size: clamp(1.5rem, 3.5vh, 2.8rem); color: #333; line-height: 1.4; font-weight: 600; white-space: pre-wrap; 
         }
         .answer-box {
             flex: 0 0 auto; padding: 8px; background: #fff3cd; border: 1px solid #ffeeba;
-            border-radius: 6px; color: #856404; font-size: 1.1rem; display: none;
-            width: 90%; margin: 0 auto 5px auto; white-space: pre-wrap;
+            border-radius: 6px; color: #856404; font-size: 1.1rem; display: none; width: 90%; margin: 0 auto 5px auto; white-space: pre-wrap;
         }
 
-        /* Kontrol Soal */
         .controls { 
             flex: 0 0 auto; display: flex; gap: 5px; flex-wrap: wrap; justify-content: center; 
             padding-top: 5px; border-top: 1px solid #eee; align-items: center;
@@ -140,33 +142,22 @@
         .btn-ctrl:active { transform: scale(0.96); }
         .btn-blue { background: var(--accent); } .btn-green { background: var(--success); }
         .btn-red { background: var(--danger); } .btn-yellow { background: var(--warning); color: #333; }
-        .btn-orange { background: #d35400; } /* Tombol Back */
+        .btn-orange { background: #d35400; }
 
         /* --- KOLOM KANAN (SCOREBOARD) --- */
         .scoreboard-container { 
-            display: flex; flex-direction: column; gap: 6px; height: 100%; overflow-y: auto;
-            padding-right: 2px;
+            display: flex; flex-direction: column; gap: 6px; height: 100%; overflow-y: auto; padding-right: 2px;
         }
         .team-card {
             background: var(--card-bg); border-radius: 8px; padding: 5px; text-align: center;
-            border-left: 5px solid var(--accent); 
-            display: flex; flex-direction: column; justify-content: center;
+            border-left: 5px solid var(--accent); display: flex; flex-direction: column; justify-content: center;
             flex: 1; min-height: 80px; box-shadow: 0 2px 4px rgba(0,0,0,0.05);
         }
         .team-header { display: flex; justify-content: space-between; align-items: center; padding: 0 5px; }
-        .team-name { 
-            border: none; font-weight: bold; font-size: 1rem; color: #555; width: 60%; background: transparent;
-        }
-        .team-score { 
-            font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 0; line-height: 1;
-        }
-        .score-grid { 
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 5px; 
-        }
-        .btn-score { 
-            padding: 4px 0; font-size: 0.75rem; cursor: pointer; font-weight: bold;
-            border: 1px solid #ddd; border-radius: 4px; 
-        }
+        .team-name { border: none; font-weight: bold; font-size: 1rem; color: #555; width: 60%; background: transparent; }
+        .team-score { font-size: 1.8rem; font-weight: 800; color: var(--primary); margin: 0; line-height: 1; }
+        .score-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 5px; }
+        .btn-score { padding: 4px 0; font-size: 0.75rem; cursor: pointer; font-weight: bold; border: 1px solid #ddd; border-radius: 4px; }
         .btn-plus { background: #e8f8f5; color: #27ae60; border-color: #27ae60; }
         .btn-plus:hover { background: #27ae60; color: white; }
         .btn-min { background: #fdedec; color: #c0392b; border-color: #c0392b; }
@@ -183,10 +174,10 @@
         </div>
 
         <div style="display:flex; gap:10px; align-items:center;">
-            <select id="roundSelector" onchange="changeRound()" style="padding:5px; border-radius:4px; border:1px solid #ccc;">
-                <option value="wajib">Sesi 1: Wajib (15s)</option>
-                <option value="lemparan">Sesi 2: Lemparan (10s)</option>
-                <option value="cepat">Sesi 3: Adu Cepat (10s)</option>
+            <select id="roundSelector" onchange="changeRound()" style="padding:5px; border-radius:4px; border:1px solid #ccc; font-weight: bold;">
+                <option value="wajib">Sesi 1: Babak Putaran (Wajib)</option>
+                <option value="lemparan">Sesi 2: Babak Lemparan</option>
+                <option value="cepat">Sesi 3: Babak Adu Cepat</option>
             </select>
             <div class="file-upload">
                 <button class="btn-upload">📂 Upload Excel</button>
@@ -198,9 +189,17 @@
     <div class="main-grid">
         <div class="question-section">
             
-            <div id="envelopeGrid" class="envelope-container">
-                <div style="width:100%; text-align:center; color:#777; margin-top:50px;">
-                    <h3>Silakan Upload Excel Soal Terlebih Dahulu</h3>
+            <div id="rulesView" class="rules-view">
+                <h2 id="rulesTitle" class="rules-title">Selamat Datang di Babak Final</h2>
+                <ul id="rulesList" class="rules-list" style="list-style-type: none; text-align: center;">
+                    <li>Silakan upload file Excel soal Anda terlebih dahulu menggunakan tombol di pojok kanan atas.</li>
+                </ul>
+                <button id="btnRulesLanjut" class="btn-start-round" onclick="closeRules()" style="display: none;">Lanjut ke Amplop ➡</button>
+            </div>
+
+            <div id="envelopeGrid" class="envelope-container hidden">
+                <div style="width:100%; text-align:center; color:#777; margin-top:50px;" id="envelopeMsg">
+                    <h3>Memuat Amplop...</h3>
                 </div>
             </div>
 
@@ -216,13 +215,13 @@
                 <div id="answerText" class="answer-box"></div>
 
                 <div class="controls">
-                    <button class="btn-ctrl btn-green" onclick="startTimer()">▶ MULAI</button>
+                    <button class="btn-ctrl btn-green" onclick="startTimer()">▶ MULAI WAKTU</button>
                     <button class="btn-ctrl btn-red" onclick="stopTimer()">⏹ STOP</button>
                     <button class="btn-ctrl btn-yellow" onclick="resetTimer()">🔄 RESET</button>
                     
                     <div style="width: 10px;"></div>
                     
-                    <button class="btn-ctrl btn-yellow" onclick="toggleAnswer()">👁 JAWAB</button>
+                    <button class="btn-ctrl btn-yellow" onclick="toggleAnswer()">👁 CEK JAWABAN</button>
                     <button class="btn-ctrl btn-orange" onclick="backToEnvelopes()">🔙 KEMBALI KE AMPLOP</button>
                 </div>
                 
@@ -236,18 +235,49 @@
     </div>
 
 <script>
-    // --- KONFIGURASI ---
-    const TIME_CONFIG = { 
-        wajib: 15,    
-        lemparan: 10, 
-        cepat: 10     
+    // --- DATA ATURAN MAIN ---
+    const RULES_DATA = {
+        wajib: {
+            title: "Sesi 1: Babak Putaran (Soal Wajib)",
+            time: 15,
+            rules: [
+                "1. Setiap finalis memilih 2 amplop soal secara bergiliran.",
+                "2. Soal dibacakan oleh juri.",
+                "3. Waktu menjawab: <b>15 detik</b> setelah soal selesai dibacakan.",
+                "4. Jika finalis menjawab BENAR: <b>Nilai +100</b>.",
+                "5. Jika menjawab SALAH/TIDAK MENJAWAB: <b>Nilai 0</b> (Soal gugur, tidak dilempar)."
+            ]
+        },
+        lemparan: {
+            title: "Sesi 2: Babak Lemparan (Rebutan Bertingkat)",
+            time: 10,
+            rules: [
+                "1. Setiap finalis memilih 2 amplop soal secara bergiliran.",
+                "2. Soal dibacakan oleh juri. Finalis utama memiliki hak jawab utama.",
+                "3. Jika finalis utama menjawab SALAH atau TIDAK BISA (dalam waktu <b>10 detik</b>), soal akan dilempar kepada finalis lain yang menekan bel tercepat.",
+                "4. Poin Finalis Utama: Benar <b>+100</b>, Salah <b>0</b>.",
+                "5. Poin Penjawab Lemparan: Benar <b>+80</b>, Salah <b>-40</b>."
+            ]
+        },
+        cepat: {
+            title: "Sesi 3: Babak Adu Cepat (Rebutan Murni)",
+            time: 10,
+            rules: [
+                "1. Terdapat 10 soal yang diperebutkan oleh seluruh finalis.",
+                "2. Peserta <b>wajib menekan bel terlebih dahulu</b> sebelum menjawab.",
+                "3. Waktu tunggu: <b>10 detik</b>. Menjawab sebelum ditunjuk: <b>-50</b>.",
+                "4. Poin: Jawaban Benar <b>+100</b>, Jawaban Salah <b>-50</b>.",
+                "5. Jika salah, soal dilempar 1 kali dengan poin Benar <b>+50</b> dan Salah <b>-25</b>."
+            ]
+        }
     };
-    
+
+    // --- KONFIGURASI ---
     let questions = []; 
-    let openedStatus = []; // Menyimpan status amplop yg sudah dibuka
+    let openedStatus = []; 
     let currIdx = 0;
     let timerInterval, timeLeft;
-    let currentRound = 'wajib';
+    let currentRound = 'wajib'; // Default
 
     // --- GENERATE SCOREBOARD ---
     const scoreContainer = document.getElementById('scoreboard');
@@ -282,6 +312,56 @@
         }
     }
 
+    // --- LOGIKA HALAMAN ATURAN ---
+    function showRules(roundKey) {
+        let data = RULES_DATA[roundKey];
+        document.getElementById('rulesTitle').innerText = data.title;
+        
+        let listHtml = "";
+        data.rules.forEach(rule => { listHtml += `<li>${rule}</li>`; });
+        document.getElementById('rulesList').innerHTML = listHtml;
+        document.getElementById('rulesList').style.textAlign = 'left';
+        document.getElementById('rulesList').style.listStyleType = 'none';
+
+        // Tampilkan tombol Lanjut
+        document.getElementById('btnRulesLanjut').style.display = 'block';
+        
+        // Atur UI
+        document.getElementById('rulesView').classList.remove('hidden');
+        document.getElementById('envelopeGrid').classList.add('hidden');
+        document.getElementById('questionView').classList.remove('active');
+        
+        // Reset Timer sesuai babak
+        timeLeft = data.time;
+        updateTimerDisplay();
+    }
+
+    function closeRules() {
+        if(questions.length === 0) {
+            alert("Harap Upload Excel Soal terlebih dahulu di pojok kanan atas.");
+            return;
+        }
+        // Hilangkan Aturan, Munculkan Amplop
+        document.getElementById('rulesView').classList.add('hidden');
+        document.getElementById('envelopeGrid').classList.remove('hidden');
+    }
+
+    // Trigger saat dropdown babak diubah
+    function changeRound() {
+        let sel = document.getElementById('roundSelector');
+        currentRound = sel.value;
+        document.getElementById('roundLabel').innerText = sel.options[sel.selectedIndex].text;
+        
+        // Reset state soal ke awal jika pindah babak
+        openedStatus = openedStatus.map(() => false);
+        let cards = document.querySelectorAll('.envelope-card');
+        cards.forEach(card => card.classList.remove('opened'));
+        
+        // Tampilkan Aturan Babak tsb
+        showRules(currentRound);
+    }
+
+
     // --- LOGIKA EXCEL & AMPLOP ---
     function loadExcel(input) {
         let file = input.files[0];
@@ -299,20 +379,21 @@
                 let aVal = jsonData[i][1] ? String(jsonData[i][1]) : "";
                 if(qVal) {
                     questions.push({q: qVal, a: aVal});
-                    openedStatus.push(false); // Inisialisasi belum dibuka
+                    openedStatus.push(false);
                 }
             }
             
-            generateEnvelopes(); // Buat tampilan amplop
-            alert("✅ Data Soal Siap: " + questions.length + " Amplop");
+            generateEnvelopes(); 
+            // Langsung tampilkan Aturan Babak 1 (Wajib)
+            changeRound();
+            alert("✅ " + questions.length + " Soal Siap digunakan!");
         };
         reader.readAsArrayBuffer(file);
     }
 
     function generateEnvelopes() {
         const grid = document.getElementById('envelopeGrid');
-        grid.innerHTML = ''; // Clear previous
-        grid.classList.remove('hidden'); // Show grid
+        grid.innerHTML = ''; 
 
         questions.forEach((q, index) => {
             let card = document.createElement('div');
@@ -320,32 +401,26 @@
             card.innerText = index + 1;
             card.id = `env-${index}`;
             
-            // Cek jika sudah dibuka sebelumnya (opsional jika reset)
-            if(openedStatus[index]) {
-                card.classList.add('opened');
-            }
+            if(openedStatus[index]) card.classList.add('opened');
 
-            card.onclick = function() {
-                openEnvelope(index);
-            };
+            card.onclick = function() { openEnvelope(index); };
             grid.appendChild(card);
         });
-        
-        // Sembunyikan view soal
-        document.getElementById('questionView').classList.remove('active');
     }
 
     function openEnvelope(index) {
-        // Animasi "Open"
-        const grid = document.getElementById('envelopeGrid');
-        grid.classList.add('hidden'); // Efek zoom out grid
+        if(openedStatus[index]) {
+            let confirmOpen = confirm("Amplop ini sudah pernah dibuka. Buka lagi?");
+            if(!confirmOpen) return;
+        }
 
-        // Set Soal
+        const grid = document.getElementById('envelopeGrid');
+        grid.classList.add('hidden'); 
+
         currIdx = index;
-        openedStatus[index] = true; // Tandai sudah dibuka
-        document.getElementById(`env-${index}`).classList.add('opened'); // Update UI amplop
+        openedStatus[index] = true; 
+        document.getElementById(`env-${index}`).classList.add('opened'); 
         
-        // Tampilkan Soal setelah delay sedikit (biar animasi amplop selesai)
         setTimeout(() => {
             renderQuestion();
             document.getElementById('questionView').classList.add('active');
@@ -353,10 +428,7 @@
     }
 
     function backToEnvelopes() {
-        // Stop timer jika masih jalan
         stopTimer();
-        
-        // Animasi balik
         document.getElementById('questionView').classList.remove('active');
         document.getElementById('envelopeGrid').classList.remove('hidden');
     }
@@ -381,17 +453,7 @@
         if(x.style.display === 'block' && window.MathJax) MathJax.typesetPromise([x]);
     }
 
-    // --- TIMER & ROUND LOGIC ---
-    function changeRound() {
-        let sel = document.getElementById('roundSelector');
-        currentRound = sel.value;
-        document.getElementById('roundLabel').innerText = sel.options[sel.selectedIndex].text;
-        
-        // Jika pindah babak, mungkin mau reset amplop atau tetap?
-        // Di sini kita asumsikan amplop tetap, hanya waktu berubah
-        resetTimer();
-    }
-
+    // --- TIMER LOGIC ---
     function startTimer() {
         if(timerInterval) return;
         timerInterval = setInterval(() => {
@@ -405,10 +467,10 @@
     
     function resetTimer() {
         stopTimer();
-        timeLeft = TIME_CONFIG[currentRound];
+        timeLeft = RULES_DATA[currentRound].time;
         updateTimerDisplay();
         document.getElementById('answerText').style.display = 'none';
-        document.getElementById('timer').classList	.remove('critical');
+        document.getElementById('timer').classList.remove('critical');
     }
 
     function updateTimerDisplay() {
@@ -418,7 +480,6 @@
         else el.classList.remove('critical');
     }
 
-    resetTimer(); 
 </script>
 </body>
 </html>
