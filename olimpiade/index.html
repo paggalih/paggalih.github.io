@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Koleksi Soal Olimpiade Matematika</title>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/PapaParse/5.4.1/papaparse.min.js"></script>
+    
+    <script>
+        window.MathJax = {
+            tex: {
+                inlineMath: [['$', '$'], ['\\(', '\\)']],
+                displayMath: [['$$', '$$'], ['\\[', '\\]']]
+            }
+        };
+    </script>
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=es6"></script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        body { 
+            font-family: Arial, sans-serif; 
+            line-height: 1.6; 
+            max-width: 800px; 
+            margin: 0 auto; 
+            padding: 20px; 
+            background-color: #f4f7f6;
+        }
+        
+        .kontrol-panel {
+            background: #fff;
+            padding: 15px 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            margin-bottom: 25px;
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+        .kontrol-panel input[type="text"], .kontrol-panel select {
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 1em;
+            flex: 1; 
+            min-width: 150px;
+        }
+        
+        .kontrol-tampil {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9em;
+            color: #555;
+            flex: 0 1 auto;
+        }
+
+        .soal-card { 
+            background: #fff; 
+            border: 1px solid #ddd; 
+            border-radius: 8px; 
+            padding: 20px; 
+            margin-bottom: 20px; 
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05); 
+        }
+        .meta-info { 
+            font-size: 0.9em; 
+            color: #666; 
+            margin-bottom: 15px; 
+            border-bottom: 1px solid #eee;
+            padding-bottom: 10px;
+        }
+        
+        .kategori-wrapper {
+            margin-left: 5px;
+            display: inline-block;
+        }
+        .kategori { 
+            display: inline-block; 
+            background: #0056b3; 
+            color: white; 
+            padding: 3px 10px; 
+            border-radius: 15px; 
+            font-size: 0.85em;
+            font-weight: bold;
+            margin-right: 5px; 
+            margin-bottom: 5px;
+        }
+        
+        .soal-text { 
+            font-size: 1.1em;
+            margin-bottom: 15px; 
+            color: #333;
+        }
+        .btn-jawaban { 
+            background-color: #28a745; 
+            color: white; 
+            border: none; 
+            padding: 10px 18px; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 0.9em; 
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+        .btn-jawaban:hover { background-color: #218838; }
+        
+        .jawaban-content { 
+            display: none; 
+            margin-top: 15px; 
+            padding: 15px; 
+            background-color: #e9f7ef; 
+            border-left: 5px solid #28a745; 
+            border-radius: 0 5px 5px 0;
+            color: #155724;
+        }
+        .pesan-kosong {
+            text-align: center;
+            color: #dc3545;
+            font-style: italic;
+            padding: 20px;
+            background: #fff;
+            border-radius: 8px;
+        }
+
+        .pagination-container {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 25px;
+            margin-bottom: 50px;
+            flex-wrap: wrap;
+        }
+        .pagination-container button {
+            padding: 8px 15px;
+            border: 1px solid #0056b3;
+            background-color: white;
+            color: #0056b3;
+            cursor: pointer;
+            border-radius: 5px;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .pagination-container button.aktif {
+            background-color: #0056b3;
+            color: white;
+        }
+        .pagination-container button:hover:not(:disabled) {
+            background-color: #e6f0fa;
+        }
+        .pagination-container button:disabled {
+            border-color: #ccc;
+            color: #ccc;
+            cursor: not-allowed;
+            background-color: #f9f9f9;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>Arsip Soal Olimpiade Matematika</h1>
+    
+    <div class="kontrol-panel" id="panel-atas">
+        <input type="text" id="inputCari" placeholder="Cari soal atau kata kunci..." onkeyup="jalankanFilter()">
+        
+        <select id="filterKategori" onchange="jalankanFilter()">
+            </select>
+
+        <div class="kontrol-tampil">
+            <label>Tampilkan:</label>
+            <select id="pilihJumlah" onchange="ubahJumlahPerHalaman()">
+                <option value="10">10 Soal</option>
+                <option value="20">20 Soal</option>
+                <option value="50">50 Soal</option>
+                <option value="Semua">Semua</option>
+            </select>
+        </div>
+    </div>
+
+    <div id="soal-container">
+        <p style="text-align:center; color:#666;">Memuat data dari CSV...</p>
+    </div>
+
+    <div class="pagination-container" id="pagination-container"></div>
+
+    <script>
+        let semuaDataSoal = [];
+        let dataTersaringSaatIni = []; 
+        let halamanSaatIni = 1;
+        let jumlahPerHalaman = 10; 
+
+        Papa.parse("soal_olimpiade.csv", {
+            download: true,
+            header: true,
+            skipEmptyLines: true,
+            complete: function(results) {
+                semuaDataSoal = results.data.filter(row => row.Nomor); 
+                dataTersaringSaatIni = [...semuaDataSoal];
+                
+                siapkanFilterKategori(semuaDataSoal);
+                renderHalaman(); 
+            },
+            error: function(err) {
+                document.getElementById('soal-container').innerHTML = '<p class="pesan-kosong">Gagal memuat file CSV.</p>';
+            }
+        });
+
+        // FUNGSI BARU: Menyusun Hierarki Kategori
+        function siapkanFilterKategori(data) {
+            const dropdown = document.getElementById('filterKategori');
+            dropdown.innerHTML = '<option value="Semua">Semua Kategori</option>';
+
+            const kategoriTree = {};
+            
+            // 1. Membangun struktur pohon dari urutan kategori di CSV
+            data.forEach(baris => {
+                if(baris.Kategori) {
+                    const multiKategori = baris.Kategori.split(',').map(k => k.trim()).filter(k => k !== '');
+                    let currentNode = kategoriTree;
+                    
+                    multiKategori.forEach(kat => {
+                        if (!currentNode[kat]) {
+                            currentNode[kat] = {};
+                        }
+                        currentNode = currentNode[kat];
+                    });
+                }
+            });
+
+            // 2. Mencetak pohon ke dalam Dropdown dengan spasi (&nbsp;) untuk indentasi
+            function renderTree(node, level) {
+                const keys = Object.keys(node).sort(); // Urutkan sesuai abjad
+                
+                keys.forEach(key => {
+                    const elemenOption = document.createElement('option');
+                    elemenOption.value = key; 
+                    
+                    // Menambahkan spasi berdasarkan level kedalaman
+                    const spasi = '&nbsp;&nbsp;&nbsp;&nbsp;'.repeat(level);
+                    const panah = level > 0 ? '↳ ' : ''; // Tambahan panah visual untuk sub-kategori
+                    
+                    elemenOption.innerHTML = spasi + panah + key;
+                    dropdown.appendChild(elemenOption);
+
+                    // Memanggil kembali fungsi untuk level selanjutnya (rekursif)
+                    renderTree(node[key], level + 1);
+                });
+            }
+
+            renderTree(kategoriTree, 0);
+        }
+
+        function jalankanFilter() {
+            const kataKunci = document.getElementById('inputCari').value.toLowerCase();
+            const kategoriDipilih = document.getElementById('filterKategori').value;
+
+            dataTersaringSaatIni = semuaDataSoal.filter(row => {
+                if (!row.Soal || !row.Kategori) return false;
+
+                const teksGabungan = (row.Soal + " " + row.Jawaban).toLowerCase();
+                const cocokKataKunci = teksGabungan.includes(kataKunci);
+
+                const arrayKategori = row.Kategori.split(',').map(kat => kat.trim());
+                const cocokKategori = (kategoriDipilih === "Semua") || arrayKategori.includes(kategoriDipilih);
+
+                return cocokKataKunci && cocokKategori;
+            });
+
+            halamanSaatIni = 1;
+            renderHalaman();
+        }
+
+        function ubahJumlahPerHalaman() {
+            const pilihan = document.getElementById('pilihJumlah').value;
+            if (pilihan === "Semua") {
+                jumlahPerHalaman = dataTersaringSaatIni.length || 1; 
+            } else {
+                jumlahPerHalaman = parseInt(pilihan);
+            }
+            halamanSaatIni = 1; 
+            renderHalaman();
+        }
+
+        function renderHalaman() {
+            const container = document.getElementById('soal-container');
+            container.innerHTML = ''; 
+
+            if(dataTersaringSaatIni.length === 0) {
+                container.innerHTML = '<p class="pesan-kosong">Maaf, tidak ada soal yang cocok dengan pencarian Anda.</p>';
+                document.getElementById('pagination-container').innerHTML = ''; 
+                return;
+            }
+
+            let totalItem = dataTersaringSaatIni.length;
+            let totalHalaman = Math.ceil(totalItem / jumlahPerHalaman);
+            if(totalHalaman < 1) totalHalaman = 1;
+
+            let startIndex = (halamanSaatIni - 1) * jumlahPerHalaman;
+            let endIndex = startIndex + jumlahPerHalaman;
+            let dataDitampilkan = dataTersaringSaatIni.slice(startIndex, endIndex);
+
+            dataDitampilkan.forEach(function(row) {
+                let badgeKategoriHTML = '';
+                if(row.Kategori) {
+                    const multiKategori = row.Kategori.split(',');
+                    multiKategori.forEach(kat => {
+                        if(kat.trim() !== '') {
+                            badgeKategoriHTML += `<span class="kategori">${kat.trim()}</span>`;
+                        }
+                    });
+                }
+
+                const cardHTML = `
+                    <div class="soal-card">
+                        <div class="meta-info">
+                            <strong>Soal No. ${row.Nomor}</strong> | Tanggal: ${row.Tanggal} 
+                            <div class="kategori-wrapper">${badgeKategoriHTML}</div>
+                        </div>
+                        <div class="soal-text">
+                            ${row.Soal}
+                        </div>
+                        <button class="btn-jawaban" onclick="toggleJawaban(this)">Tampilkan Jawaban</button>
+                        <div class="jawaban-content">
+                            <strong>Jawaban:</strong><br>
+                            ${row.Jawaban}
+                        </div>
+                    </div>
+                `;
+                container.innerHTML += cardHTML;
+            });
+
+            if (window.MathJax) {
+                MathJax.typesetPromise();
+            }
+
+            renderTombolPagination(totalHalaman);
+        }
+
+        function renderTombolPagination(totalHalaman) {
+            const pagContainer = document.getElementById('pagination-container');
+            pagContainer.innerHTML = '';
+
+            if (totalHalaman <= 1) return;
+
+            const btnPrev = document.createElement('button');
+            btnPrev.textContent = '« Sebelumnya';
+            btnPrev.disabled = halamanSaatIni === 1;
+            btnPrev.onclick = () => gantiHalaman(halamanSaatIni - 1);
+            pagContainer.appendChild(btnPrev);
+
+            for (let i = 1; i <= totalHalaman; i++) {
+                const btnAngka = document.createElement('button');
+                btnAngka.textContent = i;
+                if (i === halamanSaatIni) {
+                    btnAngka.classList.add('aktif');
+                }
+                btnAngka.onclick = () => gantiHalaman(i);
+                pagContainer.appendChild(btnAngka);
+            }
+
+            const btnNext = document.createElement('button');
+            btnNext.textContent = 'Selanjutnya »';
+            btnNext.disabled = halamanSaatIni === totalHalaman;
+            btnNext.onclick = () => gantiHalaman(halamanSaatIni + 1);
+            pagContainer.appendChild(btnNext);
+        }
+
+        function gantiHalaman(halamanTujuan) {
+            halamanSaatIni = halamanTujuan;
+            renderHalaman();
+            document.getElementById('panel-atas').scrollIntoView({ behavior: 'smooth' });
+        }
+
+        function toggleJawaban(button) {
+            var jawaban = button.nextElementSibling;
+            if (jawaban.style.display === "none" || jawaban.style.display === "") {
+                jawaban.style.display = "block";
+                button.textContent = "Sembunyikan Jawaban";
+                button.style.backgroundColor = "#dc3545"; 
+            } else {
+                jawaban.style.display = "none";
+                button.textContent = "Tampilkan Jawaban";
+                button.style.backgroundColor = "#28a745"; 
+            }
+        }
+    </script>
+</body>
+</html>
