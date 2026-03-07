@@ -1,0 +1,582 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Gradien: Sang Rajawali (Taktik Blokir)</title>
+    <style>
+        /* === STYLE DASAR & LATAR === */
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: radial-gradient(circle at top, #e0f7fa 0%, #81d4fa 60%, #4fc3f7 100%);
+            margin: 0;
+            padding: 15px;
+            background-attachment: fixed;
+            min-height: 100vh;
+        }
+
+        h1 {
+            color: #01579b;
+            margin-bottom: 5px;
+            text-align: center;
+            font-size: 24px;
+            text-shadow: 1px 1px 2px rgba(255,255,255,0.8);
+            text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        .panel {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px;
+            border-radius: 12px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+            text-align: center;
+            margin-bottom: 15px;
+            width: 100%;
+            max-width: 600px;
+            border: 2px solid #b3e5fc;
+            position: relative; 
+            min-height: 100px; 
+        }
+
+        /* === TOMBOL & BADGE PEMAIN === */
+        button {
+            padding: 10px 18px;
+            margin: 4px;
+            cursor: pointer;
+            border: none;
+            border-radius: 6px;
+            font-weight: bold;
+            font-size: 14px;
+            transition: 0.2s;
+            box-shadow: 0 3px 6px rgba(0,0,0,0.15);
+        }
+
+        button:hover:not(:disabled) {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 10px rgba(0,0,0,0.2);
+        }
+
+        .btn-player { background-color: #009688; color: white; }
+        #btn-pos { background-color: #0288d1; color: white; }
+        #btn-neg { background-color: #d32f2f; color: white; }
+        #btn-roll { background-color: #ff8f00; color: white; font-size: 16px; width: 100%; margin-top: 10px; padding: 12px; }
+        button:disabled { opacity: 0.5; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .player-badge {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 20px;
+            color: white;
+            font-weight: bold;
+            text-shadow: 1px 1px 1px rgba(0,0,0,0.5);
+            margin-bottom: 8px;
+        }
+
+        /* === PENGATURAN GRID PAPAN === */
+        #board {
+            display: grid;
+            grid-template-columns: repeat(30, 16px);
+            grid-template-rows: repeat(30, 16px);
+            gap: 1px;
+            margin-top: 5px;
+            padding: 15px;
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+        }
+
+        .cell {
+            width: 16px;
+            height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 2px;
+            position: relative;
+            transition: 0.1s;
+        }
+
+        /* === PEWARNAAN ELANG & TUJUAN === */
+        .empty { background-color: transparent; }
+        .wing { background: linear-gradient(135deg, #8d6e63 0%, #5d4037 100%); border: 1px solid #4e342e; }
+        .body-part { background: linear-gradient(to bottom, #4e342e 0%, #3e2723 100%); border: 1px solid #212121; }
+        .head { background: radial-gradient(circle, #ffffff 0%, #e0e0e0 100%); border: 1px solid #9e9e9e; }
+        .eye { background: radial-gradient(circle at 30% 30%, #ffeb3b 10%, #000000 50%); border: 1px solid #000; border-radius: 50%; }
+        .beak { background: linear-gradient(to bottom, #ffa000, #e65100); border: 1px solid #bf360c; border-radius: 0 0 4px 4px; }
+        .claw { background: linear-gradient(135deg, #fbc02d, #f57f17); border: 1px solid #e65100; border-radius: 0 0 4px 4px; }
+        .tail { background: linear-gradient(to bottom, #5d4037 30%, #f5f5f5 100%); border: 1px solid #3e2723; }
+
+        .start-node {
+            background: radial-gradient(circle, #76ff03, #1b5e20);
+            border: 1px dashed #b2ff59;
+            cursor: pointer;
+            animation: pulse-start 1.5s infinite;
+        }
+        .start-node:hover { transform: scale(1.3); z-index: 2; box-shadow: 0 0 10px #76ff03; }
+        @keyframes pulse-start { 0% { box-shadow: 0 0 5px #76ff03; } 50% { box-shadow: 0 0 15px #76ff03; } 100% { box-shadow: 0 0 5px #76ff03; } }
+
+        .goal {
+            background: radial-gradient(circle, #00e5ff 0%, #00b0ff 100%);
+            border: 1px solid #0091ea;
+            box-shadow: 0 0 12px #00e5ff, inset 0 0 5px #fff;
+            animation: glow-goal 1s infinite alternate;
+            z-index: 2;
+        }
+        .goal::after { content: '👑'; font-size: 10px; color: gold; text-shadow: 0 1px 2px rgba(0,0,0,0.5); }
+        @keyframes glow-goal { from { box-shadow: 0 0 5px #00e5ff, inset 0 0 2px #fff; } to { box-shadow: 0 0 15px #00e5ff, inset 0 0 8px #fff; } }
+
+        .highlight {
+            background: linear-gradient(135deg, #ff9800, #ff5722) !important;
+            cursor: pointer; border: 1px solid #dd2c00; animation: pulse-move 0.8s infinite; z-index: 5; border-radius: 50%; 
+        }
+        @keyframes pulse-move { 0% { transform: scale(1); box-shadow: 0 0 5px #ff9800;} 50% { transform: scale(1.15); box-shadow: 0 0 15px #ff9800;} 100% { transform: scale(1); box-shadow: 0 0 5px #ff9800;} }
+
+        /* PION PEMAIN KINI SELALU DI TENGAH (Karena 1 kotak = 1 pemain) */
+        .player-pawn {
+            border-radius: 50%;
+            width: 12px; /* Dibuat sedikit lebih besar */
+            height: 12px;
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 10;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
+        }
+        .p0 { background-color: #ffffff; border-color:#81d4fa; } 
+        .p1 { background-color: #ffeb3b; border-color:#f57f17; } 
+        .p2 { background-color: #f44336; border-color:#b71c1c; } 
+        .p3 { background-color: #4caf50; border-color:#1b5e20; } 
+
+        #status-msg { font-size: 16px; font-weight: bold; color: #01579b; margin-bottom: 8px; min-height: 24px;}
+        
+        /* === STYLE ANIMASI DADU 3D === */
+        #dice-container {
+            display: none; 
+            perspective: 600px; 
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 20;
+        }
+
+        #cube {
+            width: 60px;
+            height: 60px;
+            position: relative;
+            transform-style: preserve-3d; 
+            transition: transform 0.5s ease-out; 
+        }
+
+        .rolling {
+            animation: rotateCube 1.5s linear infinite;
+        }
+
+        .face {
+            position: absolute;
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #fff 0%, #eee 100%);
+            border: 2px solid #ccc;
+            border-radius: 8px;
+            box-shadow: inset 0 0 10px rgba(0,0,0,0.1);
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            grid-template-rows: repeat(3, 1fr);
+            padding: 5px;
+            box-sizing: border-box;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            background-color: #333;
+            border-radius: 50%;
+            align-self: center;
+            justify-self: center;
+        }
+
+        .face1  { transform: rotateY(0deg) translateZ(30px); }
+        .face2  { transform: rotateY(180deg) translateZ(30px); }
+        .face3  { transform: rotateY(90deg) translateZ(30px); }
+        .face4  { transform: rotateY(-90deg) translateZ(30px); }
+        .face5  { transform: rotateX(90deg) translateZ(30px); }
+        .face6  { transform: rotateX(-90deg) translateZ(30px); }
+
+        @keyframes rotateCube {
+            0% { transform: rotateX(0deg) rotateY(0deg); }
+            100% { transform: rotateX(360deg) rotateY(360deg); }
+        }
+
+        .face1 .dot:nth-child(1) { grid-area: 2 / 2; } 
+        .face2 .dot:nth-child(1) { grid-area: 1 / 1; } 
+        .face2 .dot:nth-child(2) { grid-area: 3 / 3; } 
+        .face3 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face3 .dot:nth-child(2) { grid-area: 2 / 2; }
+        .face3 .dot:nth-child(3) { grid-area: 3 / 3; }
+        .face4 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face4 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face4 .dot:nth-child(3) { grid-area: 3 / 1; }
+        .face4 .dot:nth-child(4) { grid-area: 3 / 3; }
+        .face5 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face5 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face5 .dot:nth-child(3) { grid-area: 2 / 2; }
+        .face5 .dot:nth-child(4) { grid-area: 3 / 1; }
+        .face5 .dot:nth-child(5) { grid-area: 3 / 3; }
+        .face6 .dot:nth-child(1) { grid-area: 1 / 1; }
+        .face6 .dot:nth-child(2) { grid-area: 1 / 3; }
+        .face6 .dot:nth-child(3) { grid-area: 2 / 1; }
+        .face6 .dot:nth-child(4) { grid-area: 2 / 3; }
+        .face6 .dot:nth-child(5) { grid-area: 3 / 1; }
+        .face6 .dot:nth-child(6) { grid-area: 3 / 3; }
+
+    </style>
+</head>
+<body>
+
+    <h1>Misi Sang Rajawali</h1>
+    
+    <div class="panel">
+        
+        <div id="setup-controls">
+            <div id="status-msg">Selamat datang! Berapa orang yang akan bermain?</div>
+            <button class="btn-player" onclick="initGame(1)">1 Pemain</button>
+            <button class="btn-player" onclick="initGame(2)">2 Pemain</button>
+            <button class="btn-player" onclick="initGame(3)">3 Pemain</button>
+            <button class="btn-player" onclick="initGame(4)">4 Pemain</button>
+        </div>
+
+        <div id="game-controls" style="display: none;">
+            <div id="player-indicator" class="player-badge">Giliran Pemain 1</div>
+            <div id="game-status-msg" style="font-weight:bold; color:#01579b; margin-bottom: 10px;">Fase 1: Pilih Titik Awal</div>
+            
+            <div id="action-controls" style="display: none; border-top: 1px solid #eee; padding-top: 10px;">
+                <div style="margin-bottom: 8px;">Arah Gradien: <span id="current-sign" style="font-weight:bold; padding: 2px 8px; border-radius:4px;">Belum dipilih</span></div>
+                <button id="btn-pos" onclick="setSign(1)">Biru (+)</button>
+                <button id="btn-neg" onclick="setSign(-1)">Merah (-)</button>
+                <button id="btn-roll" onclick="animateDiceRoll()" disabled>Lempar Dadu!</button>
+            </div>
+        </div>
+
+        <div id="dice-container">
+            <div id="cube">
+                <div class="face face1"><div class="dot"></div></div>
+                <div class="face face2"><div class="dot"></div><div class="dot"></div></div>
+                <div class="face face3"><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                <div class="face face4"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                <div class="face face5"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+                <div class="face face6"><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div><div class="dot"></div></div>
+            </div>
+        </div>
+    </div>
+
+    <div id="board" style="display:none;"></div>
+
+    <script>
+        const layout = [
+            "W                            W", 
+            "WWWW                      WWWW", 
+            "WWWWWW                  WWWWWW", 
+            "WWWWWWWW              WWWWWWWW", 
+            " WWWWWWWW            WWWWWWWW ", 
+            " WWWWWWWWW          WWWWWWWWW ", 
+            "  WWWWWWWWW        WWWWWWWWW  ", 
+            "  WWWWWWWWWW      WWWWWWWWWW  ", 
+            "   WWWWWWWWWW    WWWWWWWWWW   ", 
+            "   WWWWWWWWWWW  WWWWWWWWWWW   ", 
+            "    WWWWWWWWW HH WWWWWWWWW    ", 
+            "     WWWWWWW HHHH WWWWWWW     ", 
+            "     WWWWWWWHEGGEHWWWWWWW     ", 
+            "      WWWWWWWHGGHWWWWWWW      ", 
+            "      WWWWWWWPPPPWWWWWWW      ", 
+            "      WWWWWWWBBBBWWWWWWW      ", 
+            "      WWWWWWBBBBBBWWWWWW      ", 
+            "       WWWWBBBBBBBBWWWW       ", 
+            "       WWWBBBBBBBBBBWWW       ", 
+            "        WWBBBBBBBBBBWW        ", 
+            "          BBBBBBBBBB          ", 
+            "          BBBBBBBBBB          ", 
+            "          BBBBBBBBBB          ", 
+            "          BBBBBBBBBB          ", 
+            "         CCBBBBBBBBCC         ", 
+            "        CCCTTTTTTTTCCC        ", 
+            "        CCTTTTTTTTTTCC        ", 
+            "           TTTTTTTT           ", 
+            "          TTTTSSTTTT          ", 
+            "          TTTTSSTTTT          "  
+        ];
+
+        const boardSize = 30;
+        let gameState = 'SETUP'; 
+        
+        let numPlayers = 1;
+        let players = []; 
+        let currentPlayerIndex = 0; 
+
+        const colors = [
+            { text: 'Pemain 1 (Putih)', badge: '#0288d1' },
+            { text: 'Pemain 2 (Kuning)', badge: '#f57f17' },
+            { text: 'Pemain 3 (Merah)', badge: '#b71c1c' },
+            { text: 'Pemain 4 (Hijau)', badge: '#1b5e20' }
+        ];
+        
+        let currentSign = 0;
+        let diceValue = 0;
+
+        const boardEl = document.getElementById('board');
+        const setupDiv = document.getElementById('setup-controls');
+        const gameControlsDiv = document.getElementById('game-controls');
+        const actionControlsDiv = document.getElementById('action-controls');
+        const statusMsg = document.getElementById('game-status-msg');
+        const playerIndicator = document.getElementById('player-indicator');
+        const rollBtn = document.getElementById('btn-roll');
+        const signSpan = document.getElementById('current-sign');
+        
+        const diceContainer = document.getElementById('dice-container');
+        const cube = document.getElementById('cube');
+        const btnPos = document.getElementById('btn-pos');
+        const btnNeg = document.getElementById('btn-neg');
+
+        function initGame(n) {
+            numPlayers = n;
+            players = Array(n).fill(null);
+            currentPlayerIndex = 0;
+            gameState = 'SELECT_START';
+            
+            setupDiv.style.display = 'none';
+            gameControlsDiv.style.display = 'block';
+            boardEl.style.display = 'grid';
+            
+            updateTurnUI();
+            renderBoard();
+        }
+
+        function updateTurnUI() {
+            if(gameState === 'FINISHED') return;
+            const pColor = colors[currentPlayerIndex];
+            playerIndicator.style.backgroundColor = pColor.badge;
+            playerIndicator.innerText = `Giliran: ${pColor.text}`;
+
+            if(gameState === 'SELECT_START') {
+                statusMsg.innerText = `Silakan klik area ekor paling bawah (hijau menyala) untuk posisi mula-mula.`;
+            } else if(gameState === 'PLAYING') {
+                statusMsg.innerText = `Pilih arah (+ atau -) lalu lempar dadu!`;
+            }
+        }
+
+        function renderBoard() {
+            boardEl.innerHTML = '';
+            
+            for (let y = boardSize - 1; y >= 0; y--) {
+                for (let x = 0; x < boardSize; x++) {
+                    const char = layout[boardSize - 1 - y][x];
+                    
+                    const cell = document.createElement('div');
+                    cell.classList.add('cell');
+                    cell.id = `cell-${x}-${y}`;
+
+                    if (char === ' ' || !char) {
+                        cell.classList.add('empty');
+                    } else if (char === 'G') {
+                        cell.classList.add('goal');
+                    } else if (char === 'S') {
+                        if (gameState === 'SELECT_START') {
+                            cell.classList.add('start-node');
+                            cell.onclick = () => setPlayerStart(x, y);
+                        } else {
+                            cell.classList.add('tail');
+                        }
+                    } else if (char === 'W') { cell.classList.add('wing'); }
+                      else if (char === 'H') { cell.classList.add('head'); }
+                      else if (char === 'E') { cell.classList.add('eye'); }
+                      else if (char === 'B') { cell.classList.add('body-part'); }
+                      else if (char === 'P') { cell.classList.add('beak'); }
+                      else if (char === 'C') { cell.classList.add('claw'); }
+                      else if (char === 'T') { cell.classList.add('tail'); }
+
+                    for(let i = 0; i < numPlayers; i++) {
+                        if(players[i] && players[i].x === x && players[i].y === y) {
+                            const p = document.createElement('div');
+                            p.classList.add('player-pawn');
+                            p.classList.add(`p${i}`); 
+                            cell.appendChild(p);
+                        }
+                    }
+
+                    boardEl.appendChild(cell);
+                }
+            }
+        }
+
+        function isOccupied(x, y) {
+            for (let i = 0; i < players.length; i++) {
+                if (players[i] && players[i].x === x && players[i].y === y) {
+                    return true;
+                }
+            }
+            return false;
+        }
+
+        function setPlayerStart(x, y) {
+            if (gameState !== 'SELECT_START') return;
+            
+            // Cek Tabrakan di Awal Permainan
+            if (isOccupied(x, y)) {
+                statusMsg.innerText = "🚨 Kotak ini sudah diisi pemain lain! Cari kotak lain.";
+                statusMsg.style.color = "#c62828";
+                setTimeout(() => {
+                    statusMsg.style.color = "#01579b";
+                    updateTurnUI();
+                }, 1500);
+                return;
+            }
+
+            players[currentPlayerIndex] = { x: x, y: y };
+            currentPlayerIndex++; 
+
+            if (currentPlayerIndex >= numPlayers) {
+                gameState = 'PLAYING';
+                currentPlayerIndex = 0; 
+                actionControlsDiv.style.display = 'block';
+            }
+            
+            updateTurnUI();
+            renderBoard();
+        }
+
+        function setSign(sign) {
+            if (gameState !== 'PLAYING' || document.querySelector('.highlight')) return;
+            
+            currentSign = sign;
+            signSpan.innerText = sign === 1 ? "Biru / Positif (+)" : "Merah / Negatif (-)";
+            signSpan.style.backgroundColor = sign === 1 ? "#e1f5fe" : "#ffebee";
+            signSpan.style.color = sign === 1 ? "#0288d1" : "#c62828";
+            
+            rollBtn.disabled = false;
+        }
+
+        function animateDiceRoll() {
+            if (currentSign === 0 || gameState !== 'PLAYING') return;
+
+            rollBtn.disabled = true;
+            btnPos.disabled = true;
+            btnNeg.disabled = true;
+            statusMsg.innerText = ""; 
+
+            diceContainer.style.display = "block";
+            cube.classList.add('rolling');
+
+            diceValue = Math.floor(Math.random() * 6) + 1;
+
+            setTimeout(() => {
+                cube.classList.remove('rolling'); 
+                showDiceFace(diceValue);
+
+                setTimeout(() => {
+                    diceContainer.style.display = "none"; 
+                    
+                    btnPos.disabled = false;
+                    btnNeg.disabled = false;
+
+                    const gradient = currentSign * diceValue;
+                    statusMsg.innerText = `Dadu: ${diceValue} | m = ${gradient}. Klik jalur oranye!`;
+                    highlightValidMoves(gradient);
+                }, 800); 
+
+            }, 1500); 
+        }
+
+        function showDiceFace(value) {
+            const transforms = {
+                1: 'rotateY(0deg) rotateX(0deg)',
+                2: 'rotateY(180deg) rotateX(0deg)',
+                3: 'rotateY(-90deg) rotateX(0deg)',
+                4: 'rotateY(90deg) rotateX(0deg)',  
+                5: 'rotateX(-90deg) rotateY(0deg)', 
+                6: 'rotateX(90deg) rotateY(0deg)'   
+            };
+            cube.style.transform = transforms[value];
+        }
+
+        function highlightValidMoves(m) {
+            let hasValidMove = false;
+            const currPlayer = players[currentPlayerIndex];
+
+            for (let y = 0; y < boardSize; y++) {
+                for (let x = 0; x < boardSize; x++) {
+                    const char = layout[boardSize - 1 - y][x];
+                    
+                    // Lewati posisi pemain itu sendiri
+                    if (x === currPlayer.x && y === currPlayer.y) continue;
+                    
+                    // Hanya bisa menginjak area elang
+                    if (char === ' ' || !char) continue;
+
+                    // Hitung gradien m = (y2 - y1) / (x2 - x1)
+                    if (y - currPlayer.y === m * (x - currPlayer.x)) {
+                        
+                        // Cek Tabrakan di tengah permainan (apakah kotak sudah diisi lawan?)
+                        if (!isOccupied(x, y)) {
+                            const cell = document.getElementById(`cell-${x}-${y}`);
+                            cell.classList.add('highlight');
+                            cell.onclick = () => movePlayer(x, y, char);
+                            hasValidMove = true;
+                        }
+                    }
+                }
+            }
+
+            if (!hasValidMove) {
+                statusMsg.innerText = `Arah m=${m} terhalang pemain lain atau angin! Giliran hangus.`;
+                setTimeout(endTurn, 2500); 
+            }
+        }
+
+        function movePlayer(newX, newY, targetChar) {
+            players[currentPlayerIndex].x = newX;
+            players[currentPlayerIndex].y = newY;
+            
+            renderBoard();
+            
+            if (targetChar === 'G') {
+                gameState = 'FINISHED';
+                const pColor = colors[currentPlayerIndex];
+                playerIndicator.innerText = `👑 PEMENANG: ${pColor.text.toUpperCase()} 👑`;
+                playerIndicator.style.backgroundColor = "#ff8f00";
+                playerIndicator.style.padding = "10px 20px";
+                statusMsg.innerText = "Luar biasa! Berhasil menaklukkan Mahkota Rajawali melalui taktik Zig-Zag!";
+                statusMsg.style.color = "#d84315";
+                actionControlsDiv.style.display = 'none';
+                return;
+            }
+
+            endTurn();
+        }
+
+        function endTurn() {
+            if (gameState === 'FINISHED') return;
+            
+            currentPlayerIndex = (currentPlayerIndex + 1) % numPlayers;
+            
+            currentSign = 0;
+            diceValue = 0;
+            signSpan.innerText = "Belum dipilih";
+            signSpan.style.backgroundColor = "transparent";
+            signSpan.style.color = "black";
+            rollBtn.disabled = true;
+            
+            updateTurnUI();
+            renderBoard(); 
+        }
+
+    </script>
+</body>
+</html>
