@@ -510,7 +510,7 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
 
         // Tambahkan cloud ke dalam body
-        document.footer.insertAdjacentHTML("beforeend", cloudHTML);
+        document.body.insertAdjacentHTML("beforeend", cloudHTML);
     }
 
     // Ambil quotes dari `https://paggalih.github.io/speaker/quotes/`
@@ -619,6 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //         handleVisibilityChange();
 //     }
 // });
+
 
 
 
