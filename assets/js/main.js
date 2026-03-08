@@ -499,7 +499,7 @@ MathJax = {
 // ==================================================
 document.addEventListener("DOMContentLoaded", function() {
     // Cek apakah cloud quotes sudah ada, jika belum buat elemen secara otomatis
-    if (!document.getElementById("quotesCloud")) {
+    // if (!document.getElementById("quotesCloud")) {
         let cloudHTML = `
             <div id="quotesOverlay">
                 <div id="quotesCloud" class="cloud-container">
@@ -510,8 +510,8 @@ document.addEventListener("DOMContentLoaded", function() {
         `;
 
         // Tambahkan cloud ke dalam body
-        document.body.insertAdjacentHTML("beforeend", cloudHTML);
-    }
+        document.body.insertAdjacentHTML("afterbegin", cloudHTML);
+    // }
 
     // Ambil quotes dari `https://paggalih.github.io/speaker/quotes/`
     fetch("https://paggalih.github.io/speaker/quotes/")
@@ -619,6 +619,7 @@ document.addEventListener("DOMContentLoaded", () => {
 //         handleVisibilityChange();
 //     }
 // });
+
 
 
 
