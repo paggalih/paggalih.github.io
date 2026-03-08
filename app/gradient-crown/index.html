@@ -398,6 +398,9 @@
                     const cell = document.createElement('div');
                     cell.classList.add('cell');
                     cell.id = `cell-${x}-${y}`;
+if (char !== ' ') {
+    cell.title = `Koordinat: (${x}, ${y})`; 
+}
 
                     if (char === ' ' || !char) {
                         cell.classList.add('empty');
