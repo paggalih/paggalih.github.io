@@ -92,7 +92,7 @@
         }
 
         /* === PENGATURAN GRID PAPAN === */
-        #board {
+/*         #board {
             display: grid;
             grid-template-columns: repeat(30, 16px);
             grid-template-rows: repeat(30, 16px);
@@ -103,11 +103,38 @@
             border-radius: 15px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             backdrop-filter: blur(5px);
+        } */
+#board {
+            display: grid;
+            /* UBAH KE UKURAN RESPONSIF: Otomatis mengecil di HP, maksimal 16px di PC */
+            grid-template-columns: repeat(30, min(16px, 2.7vw));
+            grid-template-rows: repeat(30, min(16px, 2.7vw));
+            justify-content: center; /* Memaksa grid elang ke tepat di tengah */
+            gap: 1px;
+            margin-top: 5px;
+            padding: min(15px, 3vw);
+            background-color: rgba(255,255,255,0.3);
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            backdrop-filter: blur(5px);
+            max-width: 100%; /* Mencegah papan melebihi layar */
+            box-sizing: border-box;
         }
 
-        .cell {
+/*         .cell {
             width: 16px;
             height: 16px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 2px;
+            position: relative;
+            transition: 0.1s;
+        } */
+.cell {
+            /* Width dan height diubah menjadi 100% agar mengikuti kolom grid di atas */
+            width: 100%;
+            height: 100%;
             display: flex;
             justify-content: center;
             align-items: center;
@@ -152,9 +179,9 @@
         @keyframes pulse-move { 0% { transform: scale(1); box-shadow: 0 0 5px #ff9800;} 50% { transform: scale(1.15); box-shadow: 0 0 15px #ff9800;} 100% { transform: scale(1); box-shadow: 0 0 5px #ff9800;} }
 
         /* PION PEMAIN KINI SELALU DI TENGAH (Karena 1 kotak = 1 pemain) */
-        .player-pawn {
+/*         .player-pawn {
             border-radius: 50%;
-            width: 12px; /* Dibuat sedikit lebih besar */
+            width: 12px; 
             height: 12px;
             border: 2px solid #fff;
             box-shadow: 0 2px 5px rgba(0,0,0,0.5);
@@ -164,7 +191,23 @@
             left: 50%;
             transform: translate(-50%, -50%);
             transition: all 0.3s ease;
+        } */
+/* PION PEMAIN KINI SELALU DI TENGAH (Karena 1 kotak = 1 pemain) */
+        .player-pawn {
+            border-radius: 50%;
+            /* Ukuran pion juga dibuat responsif agar tidak kebesaran di HP */
+            width: min(12px, 2vw); 
+            height: min(12px, 2vw);
+            border: 2px solid #fff;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.5);
+            z-index: 10;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.3s ease;
         }
+      
         .p0 { background-color: #ffffff; border-color:#81d4fa; } 
         .p1 { background-color: #ffeb3b; border-color:#f57f17; } 
         .p2 { background-color: #f44336; border-color:#b71c1c; } 
