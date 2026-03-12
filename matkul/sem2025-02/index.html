@@ -218,7 +218,7 @@
         let halamanSaatIni = 1;
         let jumlahPerHalaman = 5; 
 
-        Papa.parse("https://paggalih.github.io/olimpiade/soal_olimpiade.csv", {
+        Papa.parse("https://paggalih.github.io/matkul/sem2025-02/matkul-2025-genap.csv", {
             download: true,
             header: true,
             skipEmptyLines: true,
@@ -348,7 +348,7 @@
                         <div class="soal-text">
                             ${row.Soal}
                         </div>
-                        <button class="btn-jawaban" onclick="toggleJawaban(this)">Tampilkan Jawaban</button>
+                        <button class="btn-jawaban" onclick="toggleJawaban(this)">Tampilkan</button>
                         <div class="jawaban-content">
                             <strong>Jawaban:</strong><br>
                             ${row.Jawaban}
