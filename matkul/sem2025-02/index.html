@@ -4,10 +4,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Koleksi Soal Olimpiade Matematika</title>
+    <title>Daftar Nilai</title>
 
-	  <meta content="koleksi soal olimpiade matematika dari galih pradananta" name="description">
-	  <meta content="olimpiade matematika" name="keywords">
+	  <meta content="daftar nilai akhir semester genap 2025 dari galih pradananta" name="description">
+	  <meta content="daftar nilai akhir" name="keywords">
 	  <meta name="author" content="Galih Pradananta">
 	  <!-- Favicons -->
 	  <link href="https://paggalih.github.io/assets/img/letter-g.gif" rel="icon">
@@ -187,10 +187,10 @@
 </head>
 <body>
 
-    <h1>Arsip Soal Olimpiade Matematika</h1>
+    <h1>Arsip Nilai Semester Genap Tahun Akademik 2025/2026</h1>
     
     <div class="kontrol-panel" id="panel-atas">
-        <input type="text" id="inputCari" placeholder="Cari soal atau kata kunci..." onkeyup="jalankanFilter()">
+        <input type="text" id="inputCari" placeholder="Cari kelas atau kata kunci..." onkeyup="jalankanFilter()">
         
         <select id="filterKategori" onchange="jalankanFilter()">
             </select>
@@ -198,9 +198,9 @@
         <div class="kontrol-tampil">
             <label>Tampilkan:</label>
             <select id="pilihJumlah" onchange="ubahJumlahPerHalaman()">
+                <option value="5">5 Soal</option>
                 <option value="10">10 Soal</option>
                 <option value="20">20 Soal</option>
-                <option value="50">50 Soal</option>
                 <option value="Semua">Semua</option>
             </select>
         </div>
@@ -216,7 +216,7 @@
         let semuaDataSoal = [];
         let dataTersaringSaatIni = []; 
         let halamanSaatIni = 1;
-        let jumlahPerHalaman = 10; 
+        let jumlahPerHalaman = 5; 
 
         Papa.parse("https://paggalih.github.io/olimpiade/soal_olimpiade.csv", {
             download: true,
@@ -237,7 +237,7 @@
         // FUNGSI BARU: Menyusun Hierarki Kategori
         function siapkanFilterKategori(data) {
             const dropdown = document.getElementById('filterKategori');
-            dropdown.innerHTML = '<option value="Semua">Semua Kategori</option>';
+            dropdown.innerHTML = '<option value="Semua">Semua Kelas</option>';
 
             const kategoriTree = {};
             
@@ -342,7 +342,7 @@
                 const cardHTML = `
                     <div class="soal-card">
                         <div class="meta-info">
-                            <strong>Soal No. ${row.Nomor}</strong> | Tanggal: ${row.Tanggal} 
+                            <strong>Kelas No. ${row.Nomor}</strong> | Tanggal: ${row.Tanggal} 
                             <div class="kategori-wrapper">${badgeKategoriHTML}</div>
                         </div>
                         <div class="soal-text">
