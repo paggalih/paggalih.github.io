@@ -198,9 +198,9 @@
         <div class="kontrol-tampil">
             <label>Tampilkan:</label>
             <select id="pilihJumlah" onchange="ubahJumlahPerHalaman()">
-                <option value="5">5 Soal</option>
-                <option value="10">10 Soal</option>
-                <option value="20">20 Soal</option>
+                <option value="5">5 Kelas</option>
+                <option value="10">10 Kelas</option>
+                <option value="20">20 Kelas</option>
                 <option value="Semua">Semua</option>
             </select>
         </div>
@@ -342,7 +342,7 @@
                 const cardHTML = `
                     <div class="soal-card">
                         <div class="meta-info">
-                            <strong>Kelas No. ${row.Nomor}</strong> | Tanggal: ${row.Tanggal} 
+                            <strong>Kelas No. ${row.Nomor}</strong> | Diperbarui: ${row.Tanggal} 
                             <div class="kategori-wrapper">${badgeKategoriHTML}</div>
                         </div>
                         <div class="soal-text">
