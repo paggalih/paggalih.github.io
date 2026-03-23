@@ -1,4 +1,5 @@
 Nomor,Tanggal,Kategori,Soal,Jawaban
+44,23 Maret 2026,"Geometri,Vektor","Make three points $P,$ $Q,$ and $R$ not collinear, and $$(s-2)\hat{PQ} + (2s+t)\hat{QR} + (s+t+3)\hat{RP} = 0. $$ Find $3s-t.$ <br> a. 12 <br> b. 14 <br> c. 13 <br> d. 15",Kita tahu $$\overline{PQ} + \overline{QR} + \overline{RP}  = 0$$ $$\boxed{14} $$
 43,22 Maret 2026,"Aljabar,Trigonometri",$$18\sin \theta \cos \theta = 5 + 11\sin^2 \theta.$$ Find $\tan \theta.$,Temukan $\sin (2\theta + x) = \frac{21}{\sqrt{18^2 + 11^2}}.$ Perhatikan $\tan x = \frac{11}{18}.$ Gas kan $\tan \theta.$
 42,22 Maret 2026,"Geometri,Sudut","The regular heptagon on the right is formed by $AB,$ $BC,$ $CD,$ $DE,$ $EF,$ $FG,$ and $GA.$ If $DE$ is perpendicular to $y-$axis, which of the seven lines has the smallest slope?",Hitung total sudut segitujuh beraturan. Slope adalah tangent. $$\boxed{GA}$$
 41,22 Maret 2026,"Aljabar,Pertidaksamaan",$\sqrt{19+5\sqrt{19}}$ is between two successive positive integers. What is the smallest of the two positive integers? <br>a. 5 <br>b. 6 <br>c. 7 <br>d. 8,$$x < \sqrt{19+5\sqrt{19}} < x+1$$ dan $$x^2 (x^2 - 38) < 114$$ $$\boxed{6}$$
