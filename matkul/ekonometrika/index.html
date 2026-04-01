@@ -231,6 +231,51 @@
     button:hover {
     background:#e0e0e0;
     }
+
+        .command-box { background-color: #333; color: #fff; padding: 15px; border-radius: 5px; font-family: monospace; }
+
+    /* Mengatur kontainer sebagai patokan posisi */
+.textarea-container {
+  position: relative;
+  display: inline-block; 
+  width: 100%; /* Sesuaikan dengan kebutuhan layout Anda */
+}
+    
+/* Membuat tulisan "Data" di kiri atas */
+.textarea-container::before {
+  content: "DATA";
+  position: absolute;
+  top: -15px; /* Menarik teks ke atas menimpa garis border */
+  left: 0px; /* Menggeser teks ke kanan sedikit agar tidak terlalu mepet sudut */
+  background-color: #ffffff; /* Wajib sama dengan warna background halaman Anda agar border tertutupi */
+  padding: 0 2px; /* Memberi jarak antara teks dan garis border yang terpotong */
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  color: #555555; /* Warna teks label */
+  font-weight: bold;
+}
+
+        /* Mengatur kontainer sebagai patokan posisi */
+.soal-latihan {
+  position: relative;
+  display: inline-block; 
+  width: 100%; /* Sesuaikan dengan kebutuhan layout Anda */
+  margin-top: 30px; /* Memberikan ruang agar label tidak terpotong elemen di atasnya */
+}
+    
+/* Membuat tulisan "Data" di kiri atas */
+.soal-latihan::before {
+  content: "SOAL LATIHAN";
+  position: absolute;
+  top: -15px; /* Menarik teks ke atas menimpa garis border */
+  left: 0px; /* Menggeser teks ke kanan sedikit agar tidak terlalu mepet sudut */
+  background-color: #ffffff; /* Wajib sama dengan warna background halaman Anda agar border tertutupi */
+  padding: 0 2px; /* Memberi jarak antara teks dan garis border yang terpotong */
+  font-family: Arial, sans-serif;
+  font-size: 15px;
+  color: #555555; /* Warna teks label */
+  font-weight: bold;
+}
   </style>
 </head>
 
@@ -364,108 +409,6 @@
         <div class="section-title">
           <h2>Pertemuan 1</h2>
         </div>
-        <h3 class="text-center">RPS</h3>
-        <div class="text-center overflow-auto">
-          <iframe src="RPS-Matematika-Keuangan.pdf" class="pdf-frame" allowfullscreen></iframe>
-        </div>
-        <table class="datatable table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Minggu</th>
-              <th>Materi Pembelajaran</th>
-              <th>Pustaka</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>Pengantar Ekonometrika dan Model Regresi Linear</td>
-              <td>Bab 1: The Linear Regression Model: An Overview</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>Bentuk Fungsional Model Regresi</td>
-              <td>Bab 2: Functional Forms of Regression Models</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>Variabel Dummy dalam Regresi</td>
-              <td>Bab 3: Qualitative Explanatory Variables Regression Models</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>Multikolinearitas dalam Model Regresi</td>
-              <td>Bab 4: Regression Diagnostic I: Multicollinearity</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>Heteroskedastisitas dalam Regresi</td>
-              <td>Bab 5: Regression Diagnostic II: Heteroscedasticity</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>Autokorelasi dalam Regresi</td>
-              <td>Bab 6: Regression Diagnostic III: Autocorrelation</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>Kesalahan Spesifikasi Model Regresi</td>
-              <td>Bab 7: Regression Diagnostic IV: Model Specification Errors</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td><b>Ujian Tengah Semester (UTS)</b></td>
-              <td>-</td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>Model Logit dan Probit untuk Data Kategorikal</td>
-              <td>Bab 8: The Logit and Probit Models</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>Model Multinomial dan Ordinal dalam Regresi</td>
-              <td>Bab 9-10: Multinomial & Ordinal Regression Models</td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>Model Data Terbatas dan Poisson Regression</td>
-              <td>Bab 11-12: Limited Dependent Variable & Poisson Models</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>Analisis Deret Waktu</td>
-              <td>Bab 13: Stationary and Nonstationary Time Series</td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>Kointegrasi dan Model Koreksi Kesalahan (ECM)</td>
-              <td>Bab 14: Cointegration and Error Correction Models</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>Model Volatilitas (ARCH dan GARCH)</td>
-              <td>Bab 15: Asset Price Volatility: The ARCH and GARCH Models</td>
-            </tr>
-            <tr>
-              <td>15</td>
-              <td>Model Data Panel dan Survival Analysis</td>
-              <td>Bab 17-18: Panel Data Regression & Survival Analysis</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td><b>Ujian Akhir Semester (UAS)</b></td>
-              <td>-</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-    </section>
-    <section id="p2">
-      <div class="container aos-init aos-animate" data-aos="fade-up">
-        <div class="section-title">
-          <h2>Pertemuan 2</h2>
-        </div>
 
         <div class="mermaid text-center">
           graph TD
@@ -492,199 +435,350 @@
           E --> E2
           E --> E3
         </div>
-        <div class="container">
-          <h3>Bab 2: Functional Forms of Regression Models</h3>
-          <div class="tabs">
-            <div class="tab active" data-target="#wrap1">Kasus 1 – Financial Inclusion</div>
-            <div class="tab" data-target="#wrap2">Kasus 2 – Banking Assets</div>
-          </div>
-          <div id="wrap1" class="card">
-            <div class="actions"><button id="dl1">Unduh CSV</button></div>
-            <table id="tbl1" class="display nowrap" style="width:100%">
-              <thead></thead>
-              <tbody></tbody>
-            </table>
-          </div>
-          <div id="wrap2" class="card" style="display:none;">
-            <div class="actions"><button id="dl2">Unduh CSV (Kasus 2)</button></div>
-            <table id="tbl2" class="display nowrap" style="width:100%">
-              <thead></thead>
-              <tbody></tbody>
-            </table>
-          </div>
+        
+      </div>
+    </section>
+    <section id="p2">
+      <div class="container aos-init aos-animate" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Pertemuan 2</h2>
         </div>
-        <!-- DATA & GENERATOR TERTANAM (tanpa file eksternal) -->
-        <script>
-          // Parameter panel
-          const YEARS = Array.from({length:30}, (_,i)=>1995+i); // 1995–2024
-          const LOCS  = ["Jakarta","Surabaya","Medan"];
-          const locFE = {Jakarta: 0.00, Surabaya: -0.20, Medan: -0.35}; // fixed effects ringan
-          const tOf   = y => (y - 1995) / (2024 - 1995); // skala tren 0..1
-          
-          // Generator noise deterministik (biar konsisten setiap load) — tanpa RNG eksternal
-          function noise(seed){
-            // simple xorshift-like
-            let x = Math.imul(seed, 2654435761) >>> 0;
-            x ^= x << 13; x ^= x >>> 17; x ^= x << 5;
-            // map ke ~N(0,1) kasar via Box-Muller deterministik pseudo
-            const u = ((x>>>1) % 10000 + 1) / 10001; // (0,1)
-            const v = ((x>>>9) % 10000 + 1) / 10001;
-            const z = Math.sqrt(-2*Math.log(u)) * Math.cos(2*Math.PI*v);
-            return z;
-          }
-          
-          // -------------------
-          // CASE 1 (Y = Islamic_Financial_Inclusion_Index)
-          // X1 = Sharia_Investment_Growth (%)
-          // X2 = Islamic_Banking_Assets_Growth (%)
-          // X3 = Halal_MSME_Share (%)
-          // -------------------
-          const CASE1 = [];
-          LOCS.forEach((loc, li)=>{
-            YEARS.forEach((yr, yi)=>{
-              const t = tOf(yr), fe = locFE[loc];
-              const seedBase = 1000 + li*100 + yi;
-          
-              const Sharia_Investment_Growth = +(3 + 5*t + 1.2*noise(seedBase+11)).toFixed(2); // ~3→8
-              const Islamic_Banking_Assets_Growth = +(4 + 3*t + 1.0*noise(seedBase+22)).toFixed(2); // ~4→7
-              const Halal_MSME_Share = +(10 + 25*t + 5*fe + 2.5*noise(seedBase+33)).toFixed(2); // ~10→35, efek lokasi
-          
-              // Y (dibatasi 0..100)
-              let y = 40
-                + 0.7*Halal_MSME_Share
-                + 0.9*Sharia_Investment_Growth
-                + 0.5*Islamic_Banking_Assets_Growth
-                + 5*fe
-                + 3.0*noise(seedBase+44);
-              y = Math.min(100, Math.max(0, y));
-              const Islamic_Financial_Inclusion_Index = +y.toFixed(2);
-          
-              CASE1.push({
-                Location: loc,
-                Year: yr,
-                Sharia_Investment_Growth,
-                Islamic_Banking_Assets_Growth,
-                Halal_MSME_Share,
-                Islamic_Financial_Inclusion_Index
-              });
-            });
-          });
-          
-          // -------------------
-          // CASE 2 (Y = Islamic_Banking_Assets_TrnIDR)
-          // X1 = PSF_Share (% bagi hasil)
-          // X2 = NPF_Rate (%)
-          // X3 = Digital_Adoption (%)
-          // -------------------
-          const CASE2 = [];
-          LOCS.forEach((loc, li)=>{
-            YEARS.forEach((yr, yi)=>{
-              const t = tOf(yr), fe = locFE[loc];
-              const seedBase = 2000 + li*100 + yi;
-          
-              const PSF_Share = +(18 + 8*t + 3*fe + 1.5*noise(seedBase+55)).toFixed(2); // ~18→26
-              const NPF_Rate = +(4.5 - 1.5*t + 0.7*noise(seedBase+66)).toFixed(2); // ~4.5→3
-              const Digital_Adoption = +(12 + 60*t + 5*fe + 3.0*noise(seedBase+77)).toFixed(2); // ~12→72
-          
-              let assets = 150
-                + 60*t                    // tren jangka panjang
-                + 3.0*PSF_Share
-                - 4.5*NPF_Rate
-                + 1.8*Digital_Adoption
-                + 12*fe
-                + 10.0*noise(seedBase+88);
-              assets = Math.max(50, assets); // lantai
-              const Islamic_Banking_Assets_TrnIDR = +assets.toFixed(2);
-          
-              CASE2.push({
-                Location: loc,
-                Year: yr,
-                PSF_Share,
-                NPF_Rate,
-                Digital_Adoption,
-                Islamic_Banking_Assets_TrnIDR
-              });
-            });
-          });
-        </script>
-        <script>
-          let dt1=null, dt2=null;
-          
-          function setActiveTab(el){
-            document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
-            el.classList.add('active');
-            const tgt = el.getAttribute('data-target');
-            document.querySelectorAll('#wrap1,#wrap2').forEach(x=>x.style.display='none');
-            document.querySelector(tgt).style.display='block';
-          }
-          document.querySelectorAll('.tab').forEach(tab=>{
-            tab.addEventListener('click',()=>setActiveTab(tab));
-          });
-          
-          function buildTable($table, data){
-            if(!data || !data.length){
-              $table.find('thead').html('');
-              $table.find('tbody').html('<tr><td>Tidak ada data</td></tr>');
-              return null;
-            }
-            const cols = Object.keys(data[0]);
-            const thead = '<tr>'+cols.map(c=>`<th>${c}</th>`).join('')+'</tr>';
-            const rows = data.map(r=>'<tr>'+cols.map(c=>`<td>${r[c]}</td>`).join('')+'</tr>').join('');
-            $table.find('thead').html(thead);
-            $table.find('tbody').html(rows);
-            return $table.DataTable({ responsive:true, pageLength:10, scrollX:true });
-          }
-          
-          function tableToCSV(dt){
-            const headers = dt.columns().header().toArray().map(h=>h.textContent);
-            const data = dt.rows({ search:'applied' }).data().toArray();
-            const csvRows = [headers.join(',')];
-            for(const row of data){
-              const escaped = row.map(v=>{
-                const s = String(v??'');
-                return s.includes(',')||s.includes('"')||s.includes('\n') ? '"'+s.replace(/"/g,'""')+'"' : s;
-              });
-              csvRows.push(escaped.join(','));
-            }
-            return csvRows.join('\n');
-          }
-          
-          function triggerDownload(filename, content){
-            const blob = new Blob([content], {type:'text/csv;charset=utf-8;'});
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a'); a.href = url; a.download = filename; a.click();
-            URL.revokeObjectURL(url);
-          }
-          
-          $(document).ready(function(){
-            dt1 = buildTable($('#tbl1'), CASE1);
-            dt2 = buildTable($('#tbl2'), CASE2);
-          
-            document.getElementById('dl1').addEventListener('click', ()=>{
-              if(!dt1){ alert('Tabel belum siap'); return; }
-              triggerDownload('Case1_FinancialInclusion.csv', tableToCSV(dt1));
-            });
-            document.getElementById('dl2').addEventListener('click', ()=>{
-              if(!dt2){ alert('Tabel belum siap'); return; }
-              triggerDownload('Case2_BankingAssets.csv', tableToCSV(dt2));
-            });
-          });
-        </script>
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp2">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp2">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep2" aria-expanded="true" aria-controls="collapsep2">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep2" class="accordion-collapse collapse" aria-labelledby="headingp2" data-bs-parent="#accordionp2">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
+
+        <div class="trigger">
+        <strong>Konsep: Digunakan ketika variabel berubah dalam bentuk persentase atau memiliki efek diminishing returns (kenaikan yang semakin lama semakin kecil).</strong>
+          <p>Analogi: Makan Martabak. Potongan pertama memberikan tingkat kepuasan yang luar biasa tinggi. Potongan kedua memuaskan, tapi tidak setinggi yang pertama. Saat mencapai potongan ke-10, kepuasan yang bertambah hampir tidak ada (bahkan bisa mual). Peningkatannya ada, tapi melandai.</p>
+          <strong>Konsep: Digunakan saat hubungan variabel memiliki titik balik (maksimum atau minimum). Terdapat variabel independen yang dipangkatkan (misal: $X^2$ atau $X^3$).</strong>
+          <p>Analogi: Siklus Hidup Atlet. Saat remaja (usia muda), stamina dan performa terus naik. Mencapai puncak kejayaan di usia 25-28 tahun. Setelah melewati usia 30, performa mulai menurun. Jika digambar, grafiknya berbentuk huruf "U" terbalik.</p>
+          <strong>Konsep: Digunakan saat variabel $Y$ menurun (atau meningkat) seiring kenaikan $X$, tetapi $Y$ tidak akan pernah melewati batas tertentu (asimtot).</strong>
+          <p>Analogi: Patungan Sewa Vila. Harga sewa vila adalah Rp 1.000.000. Jika disewa 1 orang, biayanya Rp 1.000.000. Jika 2 orang, biayanya turun drastis jadi Rp 500.000. Jika 100 orang, biayanya Rp 10.000. Semakin banyak orang, biaya per orang makin mendekati nol, tapi tidak akan pernah menjadi negatif.</p>
         </div>
+        <div class="mermaid text-center">
+        graph TD
+    A["1. Kumpulkan Data (X dan Y)"] --> B["2. Buat Scatter Plot"]
+    B --> C{"3. Identifikasi Pola Hubungan"}
+    C -->|"Pola melengkung tapi searah"| D["regresi logaritma<br>$\log Y = B_1+B_2\log X_1 + B_3\log X_2$"]
+    C -->|"Pola berbelok (U atau U-terbalik)"| E["regresi polinom<br>$Y = B_1+B_2X^2+B_3X+B_4$"]
+    C -->|"Pola menurun mendekati asimtot"| F["regresi reciprocal<br>$Y = B_1+B_2\left(\dfrac{1}{X}\right)$"]
+    D --> G["4. Spesifikasi Model di Eviews"]
+    E --> G
+    F --> G
+    G --> H["5. Estimasi OLS & Cek Signifikansi (Uji t & F)"]
+    H --> I["6. Uji Asumsi Klasik (Normalitas, Heteroskedastisitas, dll)"]
+    I --> J["7. Interpretasi Koefisien Ekonomika"]
+        </div>
+
+    <h2>1. Model Regresi Logaritma (Log-Linear)</h2>
+    <p>Model ini berguna untuk melihat elastisitas atau efek persentase. Bentuk persamaannya (misal Log-Log) adalah:</p>
+    <p>$$ \ln(Y_i) = \beta_0 + \beta_1 \ln(X_i) + u_i $$</p>
+    <p><strong>Cara di Eviews:</strong> Pada menu Eviews, ketikkan perintah berikut di kotak <em>Command</em>:</p>
+    <div class="command-box">ls log(y) c log(x)</div>
+    <p><em>Catatan:</em> Fungsi <code>log()</code> di Eviews secara default adalah logaritma natural (Ln).</p>
+
+    <h2>2. Model Regresi Polinomial (Kuadratik)</h2>
+    <p>Digunakan jika data memiliki titik puncak atau lembah (seperti kurva U). Persamaannya adalah:</p>
+    <p>$$ Y_i = \beta_0 + \beta_1 X_i + \beta_2 X_i^2 + u_i $$</p>
+    <p><strong>Cara di Eviews:</strong> Untuk menambahkan variabel kuadrat tanpa harus membuat variabel baru di worksheet, ketik:</p>
+    <div class="command-box">ls y c x x^2</div>
+    <p>Jika ingin sampai pangkat tiga (Kubik), cukup tambahkan <code>x^3</code> di belakangnya.</p>
+
+    <h2>3. Model Regresi Resiprokal</h2>
+    <p>Digunakan untuk hubungan yang mendekati titik asimtot tertentu seiring bertambahnya X (contoh: Kurva Phillips). Persamaannya:</p>
+    <p>$$ Y_i = \beta_0 + \beta_1 \left( \frac{1}{X_i} \right) + u_i $$</p>
+    <p><strong>Cara di Eviews:</strong> Gunakan operasi matematika pembagian langsung di dalam persamaan:</p>
+    <div class="command-box">ls y c 1/x</div>
+    
+    <h2>Langkah Selanjutnya</h2>
+    <p>Setelah menekan Enter pada perintah di atas, jendela <em>Equation Output</em> akan muncul. Silakan cek nilai <strong>Prob (F-statistic)</strong> untuk kelayakan model, dan nilai <strong>Prob</strong> pada masing-masing variabel independen untuk melihat signifikansi secara parsial (Uji-t).</p>
+        
+        <p class="soal-latihan">Konteks: Hubungan antara Harga ("Harga") dan Kuantitas yang Diminta ("Demand"). Keduanya ditransformasikan ke logaritma untuk mengukur elastisitas harga terhadap permintaan.</p>
+        
+        <div class="textarea-container">
+        <textarea>
+"Harga","Demand"
+"10","99"
+"11","89"
+"12","82"
+"13","75"
+"14","70"
+"15","65"
+"16","61"
+"17","57"
+"18","54"
+"19","51"
+"20","48"
+"21","46"
+"22","43"
+"23","41"
+"24","39"
+"25","38"
+"26","36"
+"27","34"
+"28","33"
+"29","32"
+"30","31"
+"31","30"
+"32","29"
+"33","28"
+"34","27"
+"35","26"
+"36","25"
+"37","24"
+"38","23"
+"39","22"
+"40","22"
+"41","21"
+"42","20"
+"43","20"
+"44","19"
+"45","19"
+"46","18"
+"47","18"
+"48","17"
+"49","17"
+"50","16"
+"51","16"
+"52","15"
+"53","15"
+"54","14"
+"55","14"
+"56","14"
+"57","13"
+"58","13"
+          "59","13"</textarea>
+        </div>
+        
+        <p class="soal-latihan">
+Konteks: Pengeluaran konsumsi makanan ("PengeluaranMakanan") sering kali meningkat seiring pendapatan ("Pendapatan"), namun peningkatannya melambat di tingkat pendapatan tinggi.
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Pendapatan","PengeluaranMakanan"
+"1000","20"
+"1200","23"
+"1400","26"
+"1600","28"
+"1800","30"
+"2000","32"
+"2200","34"
+"2400","35"
+"2600","36"
+"2800","37"
+"3000","38"
+"3200","39"
+"3400","40"
+"3600","41"
+"3800","42"
+"4000","43"
+"4200","44"
+"4400","44"
+"4600","45"
+"4800","46"
+"5000","47"
+"5200","47"
+"5400","48"
+"5600","49"
+"5800","49"
+"6000","50"
+"6200","51"
+"6400","51"
+"6600","52"
+"6800","52"
+"7000","53"
+"7200","53"
+"7400","54"
+"7600","54"
+"7800","55"
+"8000","55"
+"8200","55"
+"8400","56"
+"8600","56"
+"8800","57"
+"9000","57"
+"9200","57"
+"9400","58"
+"9600","58"
+"9800","58"
+"10000","59"
+"10200","59"
+"10400","59"
+"10600","60"
+"10800","60"</textarea>
+        </div>
+        
+        <p class="soal-latihan">
+Konteks: Gaji ("Gaji") meningkat seiring Usia ("Usia"), mencapai puncak di usia pertengahan, dan mulai menurun mendekati usia pensiun.
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Usia","Gaji"
+"20","37"
+"21","40"
+"22","43"
+"23","46"
+"24","49"
+"25","52"
+"26","55"
+"27","58"
+"28","61"
+"29","64"
+"30","66"
+"31","68"
+"32","71"
+"33","73"
+"34","75"
+"35","77"
+"36","79"
+"37","81"
+"38","82"
+"39","84"
+"40","85"
+"41","86"
+"42","87"
+"43","88"
+"44","89"
+"45","89"
+"46","90"
+"47","90"
+"48","90"
+"49","90"
+"50","89"
+"51","89"
+"52","88"
+"53","87"
+"54","86"
+"55","85"
+"56","84"
+"57","82"
+"58","81"
+"59","79"
+"60","77"
+"61","75"
+"62","73"
+"63","71"
+"64","68"
+"65","66"
+"66","64"
+"67","61"
+"68","58"
+"69","55"</textarea>
+        </div>
+        
+        <p class="soal-latihan">
+Konteks: Kurva Biaya Total ("TotalCost") dari suatu produksi ("Output") biasanya memiliki bentuk huruf "S" (naik, mendatar sedikit karena efisiensi, lalu naik tajam karena kapasistas penuh).
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Output","TotalCost"
+"1","10"
+"2","18"
+"3","25"
+"4","30"
+"5","35"
+"6","39"
+"7","43"
+"8","46"
+"9","48"
+"10","50"
+"11","52"
+"12","53"
+"13","55"
+"14","56"
+"15","57"
+"16","58"
+"17","59"
+"18","60"
+"19","61"
+"20","62"
+"21","63"
+"22","64"
+"23","66"
+"24","68"
+"25","70"
+"26","72"
+"27","75"
+"28","78"
+"29","81"
+"30","85"
+"31","89"
+"32","93"
+"33","98"
+"34","103"
+"35","108"
+"36","114"
+"37","120"
+"38","126"
+"39","133"
+"40","140"
+"41","148"
+"42","156"
+"43","164"
+"44","173"
+"45","182"
+"46","192"
+"47","202"
+"48","213"
+"49","224"
+"50","236"</textarea>
+        </div>
+        
+        <p class="soal-latihan">
+Konteks: Tingkat Pengangguran ("Pengangguran") dan Tingkat Inflasi ("Inflasi"). Saat pengangguran tinggi, inflasi sangat rendah (mendekati asimtot), namun saat pengangguran sangat rendah, inflasi bisa melonjak tak terhingga.
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Pengangguran","Inflasi"
+"1","22"
+"1.5","15"
+"2","12"
+"2.5","10"
+"3","8.6"
+"3.5","7.7"
+"4","7"
+"4.5","6.4"
+"5","6"
+"5.5","5.6"
+"6","5.3"
+"6.5","5.0"
+"7","4.8"
+"7.5","4.6"
+"8","4.5"
+"8.5","4.3"
+"9","4.2"
+"9.5","4.1"
+"10","4"
+"10.5","3.9"
+"11","3.8"
+"11.5","3.7"
+"12","3.6"
+"12.5","3.6"
+"13","3.5"
+"13.5","3.4"
+"14","3.4"
+"14.5","3.3"
+"15","3.3"
+"15.5","3.2"
+"16","3.2"
+"16.5","3.2"
+"17","3.1"
+"17.5","3.1"
+"18","3.1"
+"18.5","3.0"
+"19","3.0"
+"19.5","3.0"
+"20","3.0"
+"20.5","2.9"
+"21","2.9"
+"21.5","2.9"
+"22","2.9"
+"22.5","2.8"
+"23","2.8"
+"23.5","2.8"
+"24","2.8"
+"24.5","2.8"
+"25","2.8"
+"25.5","2.7"</textarea>
+        </div>
+        
       </div>
     </section>
     <section id="p3">
@@ -692,606 +786,7 @@
         <div class="section-title">
           <h2>Pertemuan 3</h2>
         </div>
-        <div class="mermaid text-center">
-          graph TD
-          a("Bentuk Regresi Linier")
-          a2("regresi logaritma<br>$\log Y = B_1+B_2\log X_1 + B_3\log X_2$")
-          a1("regresi reciprocal<br>$Y = B_1+B_2\left(\dfrac{1}{X}\right)$")
-          a3("regresi polinom<br>$Y = B_1+B_2X^2+B_3X+B_4$")
-          a --> a1
-          a --> a2
-          a --> a3
-        </div>
-        <h3> Regresi Logaritma</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-log.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-regresi-log"></div>
-        <script>
-          fetch('regresi-log.csv')
-            .then(res => res.text())
-            .then(csv => {
-              const rows = csv.trim().split('\n').map(row => row.split(','));
-          
-              if (rows.length === 0) return;
-          
-              // Ambil baris pertama sebagai header
-              const headers = rows[0];
-              const dataRows = rows.slice(1);
-          
-              let html = `<table class="table table-striped text-center" id="datatable-regresi-log">`;
-          
-              // Buat bagian thead
-              html += '<thead><tr>';
-              headers.forEach(header => {
-                html += `<th>${header}</th>`;
-              });
-              html += '</tr></thead>';
-          
-              // Buat bagian tbody
-              html += '<tbody>';
-              dataRows.forEach(row => {
-                html += '<tr>';
-                row.forEach(cell => {
-                  html += `<td>${cell}</td>`;
-                });
-                html += '</tr>';
-              });
-              html += '</tbody>';
-          
-              html += '</table>';
-              document.getElementById("tabel-regresi-log").innerHTML = html;
-          		
-              // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
-              $(document).ready(function () {
-                $('#datatable-regresi-log').DataTable({
-                  paging: true,
-                  searching: true,
-                  scrollX: true,
-                  pageLength: 5,
-          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                });
-              });
-          		});
-        </script>
-        <h3> Regresi Reciprocal</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-reciprocal.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-regresi-reciprocal"></div>
-        <script>
-          fetch('regresi-reciprocal.csv')
-            .then(res => res.text())
-            .then(csv => {
-              const rows = csv.trim().split('\n').map(row => row.split(','));
-          
-              if (rows.length === 0) return;
-          
-              // Ambil baris pertama sebagai header
-              const headers = rows[0];
-              const dataRows = rows.slice(1);
-          
-              let html = `<table class="table table-striped text-center" id="datatable-regresi-reciprocal">`;
-          
-              // Buat bagian thead
-              html += '<thead><tr>';
-              headers.forEach(header => {
-                html += `<th>${header}</th>`;
-              });
-              html += '</tr></thead>';
-          
-              // Buat bagian tbody
-              html += '<tbody>';
-              dataRows.forEach(row => {
-                html += '<tr>';
-                row.forEach(cell => {
-                  html += `<td>${cell}</td>`;
-                });
-                html += '</tr>';
-              });
-              html += '</tbody>';
-          
-              html += '</table>';
-              document.getElementById("tabel-regresi-reciprocal").innerHTML = html;
-          		
-              // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
-              $(document).ready(function () {
-                $('#datatable-regresi-reciprocal').DataTable({
-                  paging: true,
-                  searching: true,
-                  scrollX: true,
-                  pageLength: 5,
-          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                });
-              });
-          		});
-        </script>
-        <h3> Regresi Polinom</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/regresi-polinom.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-regresi-polinom"></div>
-        <script>
-          fetch('regresi-polinom.csv')
-            .then(res => res.text())
-            .then(csv => {
-              const rows = csv.trim().split('\n').map(row => row.split(','));
-          
-              if (rows.length === 0) return;
-          
-              // Ambil baris pertama sebagai header
-              const headers = rows[0];
-              const dataRows = rows.slice(1);
-          
-              let html = `<table class="table table-striped text-center" id="datatable-regresi-polinom">`;
-          
-              // Buat bagian thead
-              html += '<thead><tr>';
-              headers.forEach(header => {
-                html += `<th>${header}</th>`;
-              });
-              html += '</tr></thead>';
-          
-              // Buat bagian tbody
-              html += '<tbody>';
-              dataRows.forEach(row => {
-                html += '<tr>';
-                row.forEach(cell => {
-                  html += `<td>${cell}</td>`;
-                });
-                html += '</tr>';
-              });
-              html += '</tbody>';
-          
-              html += '</table>';
-              document.getElementById("tabel-regresi-polinom").innerHTML = html;
-          		
-              // Inisialisasi DataTable setelah tabel dimasukkan ke DOM
-              $(document).ready(function () {
-                $('#datatable-regresi-polinom').DataTable({
-                  paging: true,
-                  searching: true,
-                  scrollX: true,
-                          pageLength: 5,
-          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-                });
-              });
-          		});
-        </script>
-        <div class="head">
-          <h3>Soal 1: Data Pendidikan vs. Pendapatan</h3>
-          <p>Seorang peneliti ekonomi ingin memodelkan hubungan antara tingkat pendidikan dan pendapatan tahunan. Data dari 30 responden telah dikumpulkan. Lakukan analisis regresi untuk mengetahui seberapa besar pengaruh setiap tambahan tahun pendidikan terhadap pendapatan. Model apa yang paling sesuai untuk menjelaskan fenomena ini, di mana setiap jenjang pendidikan memberikan dampak persentase, bukan nominal tetap?</p>
-          <p>Analisis hubungan antara tahun pendidikan (X) dan pendapatan tahunan dalam juta Rupiah (Y).</p>
-
-          <div class="tools">
-            <button class="btn-primary" onclick="copyTable('t1p3')">Salin Tabel</button>
-            <button class="btn-primary" onclick="downloadCSV('t1p3','tabel-1-p3.csv')">Unduh CSV</button>
-          </div>
-        </div>
-
-        <table id="t1p3" class="datatable table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Tahun_Pendidikan</th>
-              <th>Pendapatan_Tahunan</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>12</td>
-              <td>95.8</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>221.5</td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>81.2</td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>355.1</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>145.3</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>218.9</td>
-            </tr>
-            <tr>
-              <td>19</td>
-              <td>470.2</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>98.1</td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>115.6</td>
-            </tr>
-            <tr>
-              <td>17</td>
-              <td>280.4</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>70.3</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>225.1</td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>340.7</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>150.8</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>101.4</td>
-            </tr>
-            <tr>
-              <td>19</td>
-              <td>485.6</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>230.2</td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>120.5</td>
-            </tr>
-            <tr>
-              <td>17</td>
-              <td>295.3</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>99.9</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>148.2</td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>360.1</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>222.8</td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>84.5</td>
-            </tr>
-            <tr>
-              <td>20</td>
-              <td>598.7</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>103.1</td>
-            </tr>
-            <tr>
-              <td>17</td>
-              <td>288.0</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>152.9</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>215.7</td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>351.9</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="head">
-          <h3>Soal 2: Data Usia vs. Kinerja Penjualan</h3>
-          <p> Sebuah perusahaan ingin memahami hubungan antara usia tenaga penjualnya dengan kinerja penjualan (dalam unit terjual per bulan). Hipotesisnya adalah kinerja akan meningkat seiring pengalaman (usia), mencapai puncaknya pada usia tertentu, dan kemudian menurun. Buatlah model regresi yang dapat menangkap pola "naik-lalu-turun" ini untuk menemukan usia puncak kinerja.</p>
-          <p>Analisis hubungan antara usia tenaga penjual (X) dan unit terjual per bulan (Y).</p>
-
-          <div class="tools">
-            <button class="btn-primary" onclick="copyTable('t2p3')">Salin Tabel</button>
-            <button class="btn-primary" onclick="downloadCSV('t2p3','tabel-2-p3.csv')">Unduh CSV</button>
-          </div>
-        </div>
-
-        <table id="t2p3" class="datatable table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Usia</th>
-              <th>Unit_Terjual</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>23</td>
-              <td>52.1</td>
-            </tr>
-            <tr>
-              <td>25</td>
-              <td>58.8</td>
-            </tr>
-            <tr>
-              <td>28</td>
-              <td>66.9</td>
-            </tr>
-            <tr>
-              <td>30</td>
-              <td>71.5</td>
-            </tr>
-            <tr>
-              <td>32</td>
-              <td>75.1</td>
-            </tr>
-            <tr>
-              <td>34</td>
-              <td>77.8</td>
-            </tr>
-            <tr>
-              <td>36</td>
-              <td>79.9</td>
-            </tr>
-            <tr>
-              <td>38</td>
-              <td>81.2</td>
-            </tr>
-            <tr>
-              <td>40</td>
-              <td>82.0</td>
-            </tr>
-            <tr>
-              <td>41</td>
-              <td>81.9</td>
-            </tr>
-            <tr>
-              <td>42</td>
-              <td>81.5</td>
-            </tr>
-            <tr>
-              <td>43</td>
-              <td>80.8</td>
-            </tr>
-            <tr>
-              <td>44</td>
-              <td>79.9</td>
-            </tr>
-            <tr>
-              <td>45</td>
-              <td>78.5</td>
-            </tr>
-            <tr>
-              <td>46</td>
-              <td>77.1</td>
-            </tr>
-            <tr>
-              <td>47</td>
-              <td>75.4</td>
-            </tr>
-            <tr>
-              <td>48</td>
-              <td>73.6</td>
-            </tr>
-            <tr>
-              <td>49</td>
-              <td>71.5</td>
-            </tr>
-            <tr>
-              <td>50</td>
-              <td>69.1</td>
-            </tr>
-            <tr>
-              <td>51</td>
-              <td>66.5</td>
-            </tr>
-            <tr>
-              <td>52</td>
-              <td>63.8</td>
-            </tr>
-            <tr>
-              <td>53</td>
-              <td>60.9</td>
-            </tr>
-            <tr>
-              <td>54</td>
-              <td>57.8</td>
-            </tr>
-            <tr>
-              <td>55</td>
-              <td>54.5</td>
-            </tr>
-            <tr>
-              <td>56</td>
-              <td>51.1</td>
-            </tr>
-            <tr>
-              <td>57</td>
-              <td>47.5</td>
-            </tr>
-            <tr>
-              <td>58</td>
-              <td>43.8</td>
-            </tr>
-            <tr>
-              <td>59</td>
-              <td>39.9</td>
-            </tr>
-            <tr>
-              <td>60</td>
-              <td>35.9</td>
-            </tr>
-            <tr>
-              <td>61</td>
-              <td>31.7</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="head">
-          <h3>Soal 3: Data Jam Belajar vs. Skor Ujian</h3>
-          <p>Sebuah lembaga bimbingan belajar ingin membuktikan efektivitas programnya. Mereka mengklaim bahwa penambahan jam belajar akan meningkatkan skor, namun peningkatannya akan semakin kecil saat mendekati skor maksimal (terjadi efek jenuh). Analisislah data berikut untuk menentukan berapa skor maksimal teoretis (asimtot) yang bisa dicapai oleh siswa.</p>
-          <p>Analisis hubungan antara total jam belajar (X) dan skor ujian (Y) untuk menentukan batas skor maksimal.</p>
-
-          <div class="tools">
-            <button class="btn-primary" onclick="copyTable('t3p3')">Salin Tabel</button>
-            <button class="btn-primary" onclick="downloadCSV('t3p3','tabel-3-p3.csv')">Unduh CSV</button>
-          </div>
-        </div>
-
-        <table id="t3p3" class="datatable table table-bordered table-striped">
-          <thead>
-            <tr>
-              <th>Jam_Belajar</th>
-              <th>Skor_Ujian</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td>1</td>
-              <td>18.5</td>
-            </tr>
-            <tr>
-              <td>2</td>
-              <td>57.1</td>
-            </tr>
-            <tr>
-              <td>3</td>
-              <td>71.2</td>
-            </tr>
-            <tr>
-              <td>4</td>
-              <td>78.9</td>
-            </tr>
-            <tr>
-              <td>5</td>
-              <td>82.1</td>
-            </tr>
-            <tr>
-              <td>6</td>
-              <td>85.5</td>
-            </tr>
-            <tr>
-              <td>7</td>
-              <td>87.9</td>
-            </tr>
-            <tr>
-              <td>8</td>
-              <td>89.1</td>
-            </tr>
-            <tr>
-              <td>9</td>
-              <td>90.3</td>
-            </tr>
-            <tr>
-              <td>10</td>
-              <td>91.5</td>
-            </tr>
-            <tr>
-              <td>11</td>
-              <td>92.1</td>
-            </tr>
-            <tr>
-              <td>12</td>
-              <td>92.8</td>
-            </tr>
-            <tr>
-              <td>13</td>
-              <td>93.5</td>
-            </tr>
-            <tr>
-              <td>14</td>
-              <td>94.0</td>
-            </tr>
-            <tr>
-              <td>15</td>
-              <td>94.3</td>
-            </tr>
-            <tr>
-              <td>16</td>
-              <td>94.8</td>
-            </tr>
-            <tr>
-              <td>18</td>
-              <td>95.4</td>
-            </tr>
-            <tr>
-              <td>20</td>
-              <td>95.9</td>
-            </tr>
-            <tr>
-              <td>22</td>
-              <td>96.1</td>
-            </tr>
-            <tr>
-              <td>24</td>
-              <td>96.5</td>
-            </tr>
-            <tr>
-              <td>26</td>
-              <td>96.8</td>
-            </tr>
-            <tr>
-              <td>28</td>
-              <td>97.0</td>
-            </tr>
-            <tr>
-              <td>30</td>
-              <td>97.2</td>
-            </tr>
-            <tr>
-              <td>32</td>
-              <td>97.4</td>
-            </tr>
-            <tr>
-              <td>34</td>
-              <td>97.5</td>
-            </tr>
-            <tr>
-              <td>36</td>
-              <td>97.6</td>
-            </tr>
-            <tr>
-              <td>38</td>
-              <td>97.8</td>
-            </tr>
-            <tr>
-              <td>40</td>
-              <td>97.9</td>
-            </tr>
-            <tr>
-              <td>42</td>
-              <td>98.0</td>
-            </tr>
-            <tr>
-              <td>45</td>
-              <td>98.1</td>
-            </tr>
-          </tbody>
-        </table>
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp3">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp3">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep3" aria-expanded="true" aria-controls="collapsep3">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep3" class="accordion-collapse collapse" aria-labelledby="headingp3" data-bs-parent="#accordionp3">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
     <section id="p4">
