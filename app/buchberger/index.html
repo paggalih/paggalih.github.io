@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Buchberger Algorithm | Gröbner Basis Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .8rem 1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+      color: var(--text2);
+    }
+    .info-box strong { color: var(--text); }
+
+    /* ── Form ── */
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width:580px) { .form-row { grid-template-columns: 1fr; } }
+
+    label.field-label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text2);
+      margin-bottom: .35rem;
+    }
+
+    input[type=text], select {
+      width: 100%;
+      padding: .55rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: .88rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .2s, background .2s;
+    }
+    input[type=text]:focus, select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+    select { font-family: var(--sans); font-size: .88rem; }
+
+    /* ── Generators ── */
+    .gen-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: .35rem;
+    }
+    .btn-add {
+      background: none;
+      border: 1px dashed var(--accent);
+      color: var(--accent);
+      padding: .2rem .55rem;
+      border-radius: 4px;
+      cursor: pointer;
+      font-size: .8rem;
+      font-family: var(--sans);
+      transition: all .2s;
+    }
+    .btn-add:hover { background: var(--accent-lt); }
+
+    #generators-list > div {
+      display: flex;
+      align-items: center;
+      gap: .5rem;
+      margin-bottom: .45rem;
+    }
+    #generators-list > div .gen-num {
+      font-family: var(--mono);
+      font-size: .78rem;
+      color: #fff;
+      background: var(--accent);
+      padding: .15rem .4rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .btn-rm {
+      background: none;
+      border: none;
+      color: var(--red);
+      cursor: pointer;
+      font-size: 1.15rem;
+      padding: 0 .25rem;
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .btn-rm:hover { opacity: .7; }
+
+    /* ── Examples ── */
+    .examples { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
+    .btn-ex {
+      background: #fff;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: .3rem .7rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: .82rem;
+      font-family: var(--mono);
+      transition: all .2s;
+    }
+    .btn-ex:hover { background: var(--accent); color: #fff; }
+
+    /* ── Actions ── */
+    .actions {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .btn-compute {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: .72rem 2rem;
+      border-radius: 6px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--sans);
+      letter-spacing: .04em;
+      transition: background .2s, transform .1s;
+    }
+    .btn-compute:hover { background: #152d57; }
+    .btn-compute:active { transform: scale(.98); }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .88rem;
+      color: var(--text2);
+      cursor: pointer;
+    }
+    .checkbox-wrap input { width: auto; }
+
+    /* ── Error ── */
+    .error-msg {
+      background: var(--red-lt);
+      color: var(--red);
+      border: 1px solid #f5c6c6;
+      border-radius: 5px;
+      padding: .7rem .9rem;
+      font-size: .88rem;
+      margin-top: .75rem;
+    }
+
+    /* ── Basis output ── */
+    .basis-list { counter-reset: gc; }
+    .basis-item {
+      counter-increment: gc;
+      display: flex;
+      align-items: baseline;
+      gap: .75rem;
+      padding: .65rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .basis-item:last-child { border-bottom: none; }
+    .basis-item::before {
+      content: "g" counter(gc);
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .18rem .42rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+    }
+    .poly-str {
+      font-family: var(--mono);
+      font-size: .9rem;
+      color: var(--text);
+    }
+
+    /* ── Steps ── */
+    .steps-wrap {
+      max-height: 420px;
+      overflow-y: auto;
+      padding-right: .25rem;
+    }
+    .step-item {
+      padding: .65rem .85rem;
+      border-left: 3px solid var(--border);
+      margin-bottom: .5rem;
+      background: #fafafa;
+      border-radius: 0 5px 5px 0;
+      font-size: .85rem;
+    }
+    .step-item.step-added { border-left-color: var(--green); }
+    .step-head {
+      color: var(--text2);
+      margin-bottom: .3rem;
+      font-size: .82rem;
+    }
+    .step-body { font-family: var(--mono); line-height: 1.7; }
+
+    .badge {
+      display: inline-block;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      font-size: .75rem;
+      font-weight: 600;
+      font-family: var(--sans);
+      vertical-align: middle;
+      margin-left: .35rem;
+    }
+    .badge-ok { background: var(--green-lt); color: var(--green); }
+    .badge-zero { background: #f0f0f0; color: #666; }
+
+    .warn-box {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 5px;
+      padding: .6rem .85rem;
+      font-size: .85rem;
+      color: #7a5800;
+      margin-top: .75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Buchberger Algorithm</h1>
+  <p>Gröbner Basis Calculator for Polynomial Ideals</p>
+</header>
+
+<main>
+
+  <div class="card">
+    <div class="info-box">
+      <strong>Buchberger's Algorithm</strong> (1965) computes a <em>Gröbner basis</em> for an ideal
+      I = ⟨f₁, …, fₛ⟩ ⊆ k[x₁, …, xₙ]. It systematically reduces S-polynomials and adds
+      non-zero remainders to the generating set until all S-polynomial pairs reduce to zero.
+    </div>
+
+    <div class="card-title">Input</div>
+
+    <div class="form-row">
+      <div>
+        <label class="field-label">Variables (comma-separated)</label>
+        <input type="text" id="vars-input" value="x,y" placeholder="e.g. x,y,z">
+      </div>
+      <div>
+        <label class="field-label">Monomial Order</label>
+        <select id="order-input">
+          <option value="lex">Lexicographic (lex)</option>
+          <option value="grlex">Graded Lex (grlex)</option>
+          <option value="grevlex">Graded Reverse Lex (grevlex)</option>
+        </select>
+      </div>
+    </div>
+
+    <div>
+      <div class="gen-header">
+        <label class="field-label" style="margin:0">Generators f₁, f₂, …</label>
+        <button class="btn-add" onclick="addGen()">＋ Add polynomial</button>
+      </div>
+      <div id="generators-list"></div>
+    </div>
+
+    <div style="margin-top:1rem">
+      <label class="field-label">Quick Examples</label>
+      <div class="examples">
+        <button class="btn-ex" onclick="loadEx('e1')">x²+y, xy−1</button>
+        <button class="btn-ex" onclick="loadEx('e2')">x²−y, x³−z (3 vars)</button>
+        <button class="btn-ex" onclick="loadEx('e3')">x²+y²−1, x²−y</button>
+        <button class="btn-ex" onclick="loadEx('e4')">x+y+z, xy+xz+yz, xyz−1</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-compute" onclick="compute()">Compute Gröbner Basis</button>
+      <label class="checkbox-wrap">
+        <input type="checkbox" id="show-steps" checked> Show step-by-step
+      </label>
+    </div>
+
+    <div id="err-box"></div>
+  </div>
+
+  <div id="output" style="display:none">
+    <div class="card">
+      <div class="card-title">Gröbner Basis</div>
+      <div id="basis-out" class="basis-list"></div>
+      <div id="warn-out"></div>
+    </div>
+
+    <div class="card" id="steps-card">
+      <div class="card-title">
+        Algorithm Steps
+        <span id="steps-label" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
+      </div>
+      <div id="steps-out" class="steps-wrap"></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Buchberger, B. (1965). <em>Ein Algorithmus zum Auffinden der Basiselemente des Restklassenringes.</em>
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   MATH ENGINE
+   Polynomial = { coeff: number, mono: number[] }[]
+   mono[i] = exponent of vars[i]
+   sorted descending by monomial order
+════════════════════════════════════════════════════════ */
+
+const EPS = 1e-9;
+
+const isZ = x => Math.abs(x) < EPS;
+
+function roundC(x) {
+  if (isZ(x)) return 0;
+  for (let q = 1; q <= 24; q++) {
+    const p = Math.round(x * q);
+    if (Math.abs(p / q - x) < 1e-9) return p / q;
+  }
+  return x;
+}
+
+/* ─ Orderings ─ */
+function lexCmp(a, b) {
+  for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] > b[i] ? 1 : -1;
+  return 0;
+}
+function grlexCmp(a, b) {
+  const da = a.reduce((s,e)=>s+e,0), db = b.reduce((s,e)=>s+e,0);
+  return da !== db ? (da > db ? 1 : -1) : lexCmp(a, b);
+}
+function grevlexCmp(a, b) {
+  const da = a.reduce((s,e)=>s+e,0), db = b.reduce((s,e)=>s+e,0);
+  if (da !== db) return da > db ? 1 : -1;
+  for (let i = a.length-1; i >= 0; i--)
+    if (a[i] !== b[i]) return a[i] < b[i] ? 1 : -1;
+  return 0;
+}
+function getCmp(o) {
+  return o === 'grlex' ? grlexCmp : o === 'grevlex' ? grevlexCmp : lexCmp;
+}
+
+/* ─ Polynomial basics ─ */
+function psort(p, cmp) { return [...p].sort((a,b)=>-cmp(a.mono,b.mono)); }
+
+function psimp(p, cmp) {
+  const m = new Map();
+  for (const {coeff,mono} of p) {
+    const k = mono.join(',');
+    if (!m.has(k)) m.set(k, {coeff:0, mono:mono.slice()});
+    m.get(k).coeff += coeff;
+  }
+  return psort([...m.values()].map(t=>({coeff:roundC(t.coeff),mono:t.mono})).filter(t=>!isZ(t.coeff)), cmp);
+}
+
+const padd  = (p,q,cmp) => psimp([...p,...q], cmp);
+const psub  = (p,q,cmp) => psimp([...p,...q.map(t=>({coeff:-t.coeff,mono:t.mono}))], cmp);
+const pmul  = (p,t,cmp) => psort(p.map(s=>({coeff:s.coeff*t.coeff,mono:s.mono.map((e,i)=>e+t.mono[i])})), cmp);
+const pzero = p => !p || p.length === 0;
+const lt    = p => p[0];
+const lm    = p => p[0].mono;
+const lc    = p => p[0].coeff;
+
+function monoDiv(a, b) {
+  const r = a.map((e,i)=>e-b[i]);
+  return r.some(e=>e<0) ? null : r;
+}
+function monoLcm(a, b) { return a.map((e,i)=>Math.max(e,b[i])); }
+
+/* ─ S-polynomial ─ */
+function sPoly(f, g, cmp) {
+  if (pzero(f)||pzero(g)) return [];
+  const L = monoLcm(lm(f), lm(g));
+  const tF = {coeff:1/lc(f), mono:L.map((e,i)=>e-lm(f)[i])};
+  const tG = {coeff:1/lc(g), mono:L.map((e,i)=>e-lm(g)[i])};
+  return psub(pmul(f,tF,cmp), pmul(g,tG,cmp), cmp);
+}
+
+/* ─ Multivariate reduction ─ */
+function preduce(f, G, cmp) {
+  let p = [...f], rem = [];
+  while (!pzero(p)) {
+    let hit = false;
+    for (const g of G) {
+      if (pzero(g)) continue;
+      const d = monoDiv(lm(p), lm(g));
+      if (d !== null) {
+        p = psub(p, pmul(g, {coeff:lc(p)/lc(g), mono:d}, cmp), cmp);
+        hit = true; break;
+      }
+    }
+    if (!hit) { rem = padd(rem,[lt(p)],cmp); p = p.slice(1); }
+  }
+  return rem;
+}
+
+/* ─ Buchberger ─ */
+function buchberger(gens, cmp) {
+  let G = gens.map(p=>[...p]);
+  const steps = [];
+  const pairs = [];
+  for (let i=0;i<G.length;i++)
+    for (let j=i+1;j<G.length;j++) pairs.push([i,j]);
+
+  const MAX = 300; let n = 0;
+  while (pairs.length > 0 && n < MAX) {
+    const [i,j] = pairs.shift(); n++;
+    const s = sPoly(G[i], G[j], cmp);
+    const r = preduce(s, G, cmp);
+    const added = !pzero(r);
+    steps.push({pair:[i,j], sp:s, rem:r, added});
+    if (added) {
+      const k = G.length; G.push(r);
+      for (let l=0;l<k;l++) pairs.push([l,k]);
+    }
+  }
+  return {basis:G, steps, truncated: n>=MAX};
+}
+
+/* ════════════════════════════════════════════════════════
+   PARSER
+════════════════════════════════════════════════════════ */
+function tokenize(str) {
+  const T = []; let i = 0;
+  str = str.replace(/\s+/g,'').toLowerCase();
+  while (i < str.length) {
+    if (str[i]==='+') { T.push({t:'+'}); i++; }
+    else if (str[i]==='-') { T.push({t:'-'}); i++; }
+    else if (str[i]==='*') { T.push({t:'*'}); i++; }
+    else if (str[i]==='^') { T.push({t:'^'}); i++; }
+    else if (/[\d.]/.test(str[i])) {
+      let n=''; while(i<str.length&&/[\d.]/.test(str[i])) n+=str[i++];
+      T.push({t:'N', v:parseFloat(n)});
+    } else if (/[a-z]/.test(str[i])) { T.push({t:'V', v:str[i]}); i++; }
+    else i++;
+  }
+  return T;
+}
+
+function parsePoly(str, vars) {
+  const T = tokenize(str);
+  const terms = [];
+  let j = 0;
+
+  function parseTerm(sign) {
+    let coeff = sign;
+    const mono = vars.map(()=>0);
+    if (j<T.length && T[j].t==='N') {
+      coeff *= T[j].v; j++;
+      if (j<T.length && T[j].t==='*') j++;
+    }
+    while (j<T.length && T[j].t==='V') {
+      const v = T[j].v; j++;
+      let exp = 1;
+      if (j<T.length && T[j].t==='^') {
+        j++;
+        if (j<T.length && T[j].t==='N') { exp=Math.round(T[j].v); j++; }
+      }
+      const idx = vars.indexOf(v);
+      if (idx < 0) throw new Error(`Unknown variable '${v}'. Declared: ${vars.join(', ')}`);
+      mono[idx] += exp;
+      if (j<T.length && T[j].t==='*') j++;
+    }
+    terms.push({coeff, mono});
+  }
+
+  let sign = 1;
+  if (j<T.length && T[j].t==='-') { sign=-1; j++; }
+  else if (j<T.length && T[j].t==='+') j++;
+  parseTerm(sign);
+
+  while (j < T.length) {
+    if (T[j].t==='+') { sign=1; j++; }
+    else if (T[j].t==='-') { sign=-1; j++; }
+    else break;
+    parseTerm(sign);
+  }
+  return terms;
+}
+
+/* ════════════════════════════════════════════════════════
+   DISPLAY
+════════════════════════════════════════════════════════ */
+function termHTML(term, vars, first) {
+  const c = term.coeff, mono = term.mono;
+  const neg = c < 0;
+  const abs = Math.abs(c);
+  const hasV = mono.some(e=>e>0);
+  const isInt = isZ(abs - Math.round(abs));
+  const absI = Math.round(abs);
+
+  let vStr = '';
+  for (let i=0;i<vars.length;i++) {
+    if (!mono[i]) continue;
+    vStr += vars[i];
+    if (mono[i]>1) vStr += '<sup>'+mono[i]+'</sup>';
+  }
+
+  let cStr;
+  if (hasV) { cStr = (isInt&&absI===1)?'':(isInt?String(absI):abs.toFixed(4).replace(/\.?0+$/,'')); }
+  else       { cStr = isInt ? String(absI) : abs.toFixed(4).replace(/\.?0+$/,''); }
+
+  if (first) return (neg?'−':'')+cStr+vStr;
+  return (neg?' − ':' + ')+cStr+vStr;
+}
+
+function polyHTML(p, vars) {
+  if (pzero(p)) return '<span style="color:var(--text2)">0</span>';
+  return p.map((t,i)=>termHTML(t,vars,i===0)).join('');
+}
+
+function polyStr(p, vars) {
+  if (pzero(p)) return '0';
+  let s = '';
+  p.forEach((t,i)=>{
+    const c=t.coeff, neg=c<0, abs=Math.abs(c);
+    const hasV = t.mono.some(e=>e>0);
+    const isInt = isZ(abs-Math.round(abs));
+    const absI = Math.round(abs);
+    let vStr='';
+    t.mono.forEach((e,j)=>{ if(e){vStr+=vars[j];if(e>1)vStr+='^'+e;} });
+    let cStr;
+    if(hasV){cStr=(isInt&&absI===1)?'':(isInt?String(absI):abs.toFixed(4).replace(/\.?0+$/,''));}
+    else cStr=isInt?String(absI):abs.toFixed(4).replace(/\.?0+$/,'');
+    if(i===0) s+=(neg?'-':'')+cStr+vStr;
+    else s+=(neg?' - ':' + ')+cStr+vStr;
+  });
+  return s;
+}
+
+/* ════════════════════════════════════════════════════════
+   UI
+════════════════════════════════════════════════════════ */
+const EXAMPLES = {
+  e1: { vars:'x,y',  order:'lex',    gens:['x^2 + y', 'x*y - 1'] },
+  e2: { vars:'x,y,z',order:'lex',    gens:['x^2 - y', 'x^3 - z'] },
+  e3: { vars:'x,y',  order:'grlex',  gens:['x^2 + y^2 - 1', 'x^2 - y'] },
+  e4: { vars:'x,y,z',order:'grlex',  gens:['x + y + z', 'x*y + x*z + y*z', 'x*y*z - 1'] },
+};
+
+let genCount = 0;
+
+function addGen(val) {
+  genCount++;
+  const list = document.getElementById('generators-list');
+  const div = document.createElement('div');
+  div.innerHTML = `
+    <span class="gen-num">f<sub>${genCount}</sub></span>
+    <input type="text" class="gen-input" value="${val||''}" placeholder="e.g. x^2 - 2*x*y + y^2">
+    <button class="btn-rm" onclick="this.parentElement.remove(); renum()">×</button>`;
+  list.appendChild(div);
+}
+
+function renum() {
+  [...document.querySelectorAll('#generators-list .gen-num')].forEach((el,i)=>{
+    el.innerHTML = `f<sub>${i+1}</sub>`;
+  });
+}
+
+function loadEx(name) {
+  const ex = EXAMPLES[name];
+  document.getElementById('vars-input').value  = ex.vars;
+  document.getElementById('order-input').value = ex.order;
+  const list = document.getElementById('generators-list');
+  list.innerHTML = '';
+  genCount = 0;
+  ex.gens.forEach(g=>addGen(g));
+}
+
+function compute() {
+  const errBox = document.getElementById('err-box');
+  errBox.innerHTML = '';
+  try {
+    const vars = document.getElementById('vars-input').value
+      .split(',').map(v=>v.trim().toLowerCase()).filter(Boolean);
+    if (!vars.length) throw new Error('Specify at least one variable.');
+    if (new Set(vars).size !== vars.length) throw new Error('Duplicate variable names.');
+
+    const order = document.getElementById('order-input').value;
+    const cmp   = getCmp(order);
+
+    const genInputs = [...document.querySelectorAll('.gen-input')];
+    const gens = [];
+    for (const inp of genInputs) {
+      const raw = parsePoly(inp.value, vars);
+      const p   = psimp(raw, cmp);
+      if (!pzero(p)) gens.push(p);
+    }
+    if (!gens.length) throw new Error('Enter at least one non-zero polynomial.');
+
+    const { basis, steps, truncated } = buchberger(gens, cmp);
+
+    /* ── render basis ── */
+    const basisOut = document.getElementById('basis-out');
+    basisOut.innerHTML = '';
+    for (const p of basis) {
+      const div = document.createElement('div');
+      div.className = 'basis-item';
+      const span = document.createElement('span');
+      span.className = 'poly-str';
+      span.innerHTML = polyHTML(p, vars);
+      div.appendChild(span);
+      basisOut.appendChild(div);
+    }
+
+    const warnOut = document.getElementById('warn-out');
+    warnOut.innerHTML = truncated
+      ? '<div class="warn-box">⚠ Computation stopped at 300 steps. Basis may be incomplete (ideal may need more generators).</div>' : '';
+
+    /* ── render steps ── */
+    const stepsCard = document.getElementById('steps-card');
+    const showSteps = document.getElementById('show-steps').checked;
+    stepsCard.style.display = showSteps ? 'block' : 'none';
+
+    if (showSteps) {
+      document.getElementById('steps-label').textContent = `${steps.length} pair${steps.length!==1?'s':''} processed`;
+      const stepsOut = document.getElementById('steps-out');
+      stepsOut.innerHTML = '';
+
+      for (const step of steps) {
+        const [i,j] = step.pair;
+        const div = document.createElement('div');
+        div.className = 'step-item' + (step.added ? ' step-added' : '');
+        const badge = step.added
+          ? '<span class="badge badge-ok">✓ added to basis</span>'
+          : '<span class="badge badge-zero">remainder = 0</span>';
+        div.innerHTML = `
+          <div class="step-head">S(g<sub>${i+1}</sub>, g<sub>${j+1}</sub>)</div>
+          <div class="step-body">
+            S&nbsp;=&nbsp;${polyHTML(step.sp, vars)}<br>
+            r&nbsp;=&nbsp;${polyHTML(step.rem, vars)} ${badge}
+          </div>`;
+        stepsOut.appendChild(div);
+      }
+    }
+
+    document.getElementById('output').style.display = 'block';
+    document.getElementById('output').scrollIntoView({behavior:'smooth'});
+
+  } catch(e) {
+    errBox.innerHTML = `<div class="error-msg">⚠ ${e.message}</div>`;
+  }
+}
+
+/* ── initialise with default generators ── */
+(function init() {
+  addGen('x^3 - 2*x*y');
+  addGen('x^2*y - 2*y^2 + x');
+})();
+</script>
+</body>
+</html>
