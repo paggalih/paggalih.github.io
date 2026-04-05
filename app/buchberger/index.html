@@ -89,6 +89,62 @@
       border-bottom: 1px solid var(--border);
     }
 
+    /* ── Formula box ── */
+    .formula-box {
+      background: #fafbff;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 1rem 1.25rem .85rem;
+      margin-bottom: 1.25rem;
+      text-align: center;
+    }
+    .formula-label {
+      font-size: .72rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .08em;
+      color: var(--text2);
+      margin-bottom: .55rem;
+    }
+    .formula-main {
+      font-family: var(--serif);
+      font-size: 1.22rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-wrap: wrap;
+      gap: .3rem .15rem;
+      line-height: 1;
+      margin-bottom: .65rem;
+    }
+    .frac {
+      display: inline-flex;
+      flex-direction: column;
+      align-items: center;
+      vertical-align: middle;
+      margin: 0 .15rem;
+      gap: 2px;
+    }
+    .frac-num, .frac-den {
+      font-size: .82rem;
+      font-family: var(--mono);
+      padding: 0 .25rem;
+      white-space: nowrap;
+    }
+    .frac-num {
+      border-bottom: 1.5px solid var(--accent);
+      color: var(--accent);
+    }
+    .frac-den { color: var(--text2); }
+    .formula-note {
+      font-size: .78rem;
+      color: var(--text2);
+      border-top: 1px dashed var(--border);
+      padding-top: .55rem;
+    }
+    .formula-note strong { color: var(--accent); }
+
     /* ── Info box ── */
     .info-box {
       background: var(--blue-lt);
@@ -342,6 +398,26 @@
       <strong>Buchberger's Algorithm</strong> (1965) computes a <em>Gröbner basis</em> for an ideal
       I = ⟨f₁, …, fₛ⟩ ⊆ k[x₁, …, xₙ]. It systematically reduces S-polynomials and adds
       non-zero remainders to the generating set until all S-polynomial pairs reduce to zero.
+    </div>
+
+    <div class="formula-box">
+      <div class="formula-label">S-Polynomial</div>
+      <div class="formula-main">
+        S(f, g) =
+        <span class="frac">
+          <span class="frac-num">lcm(LM(f), LM(g))</span>
+          <span class="frac-den">LT(f)</span>
+        </span>
+        · f &nbsp;−&nbsp;
+        <span class="frac">
+          <span class="frac-num">lcm(LM(f), LM(g))</span>
+          <span class="frac-den">LT(g)</span>
+        </span>
+        · g
+      </div>
+      <div class="formula-note">
+        where <strong>LT</strong> = leading term &nbsp;·&nbsp; <strong>LM</strong> = leading monomial &nbsp;·&nbsp; <strong>lcm</strong> = least common multiple of monomials
+      </div>
     </div>
 
     <div class="card-title">Input</div>
