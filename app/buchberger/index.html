@@ -1,153 +1,3 @@
-Galih
-/
-
-what is the benefit from connecting claude and github
-08.11
-Synthesized knowledge about Claude-GitHub integration benefits
-
-Connecting Claude with GitHub unlocks a powerful AI-assisted development workflow. Here are the key benefits:
-🔍 Code Understanding
-
-    Claude can read your repositories directly, understanding your codebase's structure, dependencies, and patterns without you having to copy-paste code.
-    Ask questions like "How does authentication work in this repo?" and get accurate, context-aware answers.
-
-✍️ Code Review & Analysis
-
-    Claude can review pull requests, spot bugs, security vulnerabilities, or anti-patterns, and suggest improvements.
-    Get explanations of complex diffs or legacy code you didn't write.
-
-🛠️ Faster Development
-
-    Claude can generate code that matches your existing style and conventions, since it can see how your project is structured.
-    Create new features, write tests, or refactor code with full context of your project.
-
-📄 Documentation
-
-    Automatically generate or update README files, docstrings, changelogs, and API docs based on your actual code.
-
-🐛 Debugging
-
-    Share error logs and Claude can trace issues directly in your source files, rather than working from isolated snippets.
-
-🔄 Issue & PR Management
-
-    Claude can help draft issue descriptions, PR summaries, or triage and categorize existing issues.
-
-🧠 Onboarding & Knowledge Transfer
-
-    New team members (or you, returning to an old project) can ask Claude to explain the codebase without digging through documentation.
-
-In short, connecting GitHub gives Claude the full context of your project, making it far more useful than working with isolated code snippets pasted into chat. It essentially turns Claude into a knowledgeable collaborator who actually knows your codebase.
-
-Would you like help setting up the GitHub integration?
-
-can you implement buchberger algorithm in my github
-08.13
-Identified missing GitHub connection and devised implementation strategy
-Connector search
-10 connectors
-ICD-10 Codes, Exa, Bitly, Razorpay, Ticket Tailor, Microsoft Learn, Figma, Glean, Cloudflare Developer Platform, PayPal
-
-It looks like your GitHub account isn't connected to Claude yet. You'll need to connect it first before I can push code directly to your repository.
-Connectors that could help
-I didn't find a matching connector, but you can browse all connectors.
-
-It seems GitHub isn't currently available as a connector in your Claude interface. Here's what you can do:
-
-Option 1 — Use Claude Code (recommended) Claude Code is a command-line tool that connects Claude directly to your local Git environment, letting it read, write, and commit code to your repos. It's the best way to have Claude implement something like the Buchberger algorithm right into your project.
-Recommended apps and extensions
-Claude Code
-Build, debug, and ship from your terminal.
-Claude Code for VS Code
-Ask Claude to explain, edit, or fix code right in VS Code.
-
-Option 2 — I write the code here, you add it to your repo I can implement the Buchberger algorithm right now in whichever language you prefer, and you can copy it into your repository manually.
-
-Would you like me to go ahead and write the implementation? If so — what language is your repo using (Python, JavaScript, C++, etc.)?
-
-i choose the second option. and maybe i want to state it clear. i want to implement this algorithm in my github page. https://paggalih.github.io
-08.17
-Examined user's GitHub Pages site for algorithm implementation
-
-Let me check your GitHub Pages site first to understand its style and structure!
-Identified site structure and contextualized algorithm implementation approach
-
-Great, let me look at one of your existing apps to match your style!
-Architected interactive Buchberger algorithm implementation for GitHub Pages
-
-Now I have a good picture of your site. You're a math lecturer with an ITB algebra background — Buchberger fits perfectly! Let me build a clean interactive app that matches your site's academic style.
-Created a file, read a file
-
-Here's your Buchberger Algorithm app! It's a fully self-contained HTML file ready to drop into your GitHub Pages site.
-
-To add it to your site:
-
-    In your GitHub repo, create the folder app/buchberger/
-    Place this file inside as index.html
-    It will then live at https://paggalih.github.io/app/buchberger
-
-What it does:
-
-    Accepts any number of polynomial generators (e.g. x^2 - 2*x*y, x*y + y^2 - 1)
-    Supports 3 monomial orderings: lex, grlex, grevlex
-    Shows the full Gröbner basis output
-    Step-by-step breakdown of every S-polynomial and its remainder
-    4 quick-load examples to demo it
-    Back link to your homepage, and a reference to Buchberger's original 1965 paper
-
-The design matches your site's clean academic style. You can also link to it from the Aplikasi section of your main page!
-Buchberger
-Code · HTML 
-
-add the formula for S in the html
-08.38
-Thinking about integrating a mathematical formula for S into HTML code
-
-Now add the CSS for the formula box:
-Edited 3 files, viewed 3 files, read a file
-
-Done! The S-polynomial formula is now displayed as a proper typeset fraction between the description and the input form:
-S(f,g)=lcm(LM(f), LM(g))LT(f)⋅f  −  lcm(LM(f), LM(g))LT(g)⋅g
-S(f,g)=LT(f)lcm(LM(f),LM(g))​⋅f−LT(g)lcm(LM(f),LM(g))​⋅g
-
-The numerator is styled in the accent blue with an underline rule acting as the fraction bar, and a legend below defines LT, LM, and lcm for readers unfamiliar with the notation.
-Buchberger
-Code · HTML 
-
-can you extend the html to find the solution for the simultaneous system by the bases
-08.44
-Orchestrated four strategic code modifications across CSS, HTML, and JavaScript
-
-Good. Now I'll make all four edits in order.
-Edited 3 files
-
-Now wire the solver into compute():
-Edited a file, read a file
-
-Done! A third card — System Solutions — now appears below the algorithm steps. Here's what it does:
-
-Solving method — elimination by back-substitution: With lex order, the Gröbner basis triangulates the system (like row-echelon form for nonlinear systems). The solver:
-
-    Finds the univariate polynomial in the last variable (e.g. y for a 2-var system)
-    Finds all its real roots numerically using Durand-Kerner (finds all complex roots, filters real ones)
-    For each real root, substitutes back and repeats up the variable chain
-    Deduplicates near-identical solutions from floating-point drift
-
-What the card shows:
-
-    Each solution as a numbered box: x = 2, y = −1
-    Friendly values where possible: fractions (1/3), surds (√2, √3/2)
-    A verification table showing each original fᵢ evaluated at each solution (✓ or ✗)
-    A warning if you're not using lex order
-    Handles empty variety (contradiction), infinitely many solutions, and complex-only solutions
-
-Buchberger
-Code · HTML 
-Want to be notified when Claude responds?
-
-
-Claude is AI and can make mistakes. Please double-check responses.
-Buchberger · HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -174,9 +24,9 @@ Buchberger · HTML
       --serif: 'Crimson Pro', Georgia, serif;
       --sans: 'Inter', system-ui, sans-serif;
     }
- 
+
     * { box-sizing: border-box; margin: 0; padding: 0; }
- 
+
     body {
       font-family: var(--sans);
       background: var(--bg);
@@ -184,7 +34,7 @@ Buchberger · HTML
       min-height: 100vh;
       line-height: 1.6;
     }
- 
+
     /* ── Header ── */
     header {
       background: var(--accent);
@@ -213,14 +63,14 @@ Buchberger · HTML
       font-size: .92rem;
       margin-top: .2rem;
     }
- 
+
     /* ── Layout ── */
     main {
       max-width: 860px;
       margin: 2rem auto;
       padding: 0 1.25rem 3rem;
     }
- 
+
     .card {
       background: var(--card);
       border: 1px solid var(--border);
@@ -229,7 +79,7 @@ Buchberger · HTML
       margin-bottom: 1.5rem;
       box-shadow: 0 1px 4px rgba(0,0,0,.05);
     }
- 
+
     .card-title {
       font-family: var(--serif);
       font-size: 1.25rem;
@@ -238,7 +88,7 @@ Buchberger · HTML
       padding-bottom: .6rem;
       border-bottom: 1px solid var(--border);
     }
- 
+
     /* ── Formula box ── */
     .formula-box {
       background: #fafbff;
@@ -294,7 +144,7 @@ Buchberger · HTML
       padding-top: .55rem;
     }
     .formula-note strong { color: var(--accent); }
- 
+
     /* ── Info box ── */
     .info-box {
       background: var(--blue-lt);
@@ -306,7 +156,7 @@ Buchberger · HTML
       color: var(--text2);
     }
     .info-box strong { color: var(--text); }
- 
+
     /* ── Form ── */
     .form-row {
       display: grid;
@@ -315,7 +165,7 @@ Buchberger · HTML
       margin-bottom: 1rem;
     }
     @media (max-width:580px) { .form-row { grid-template-columns: 1fr; } }
- 
+
     label.field-label {
       display: block;
       font-size: .78rem;
@@ -325,7 +175,7 @@ Buchberger · HTML
       color: var(--text2);
       margin-bottom: .35rem;
     }
- 
+
     input[type=text], select {
       width: 100%;
       padding: .55rem .8rem;
@@ -343,7 +193,7 @@ Buchberger · HTML
       background: #fff;
     }
     select { font-family: var(--sans); font-size: .88rem; }
- 
+
     /* ── Generators ── */
     .gen-header {
       display: flex;
@@ -363,7 +213,7 @@ Buchberger · HTML
       transition: all .2s;
     }
     .btn-add:hover { background: var(--accent-lt); }
- 
+
     #generators-list > div {
       display: flex;
       align-items: center;
@@ -390,7 +240,7 @@ Buchberger · HTML
       flex-shrink: 0;
     }
     .btn-rm:hover { opacity: .7; }
- 
+
     /* ── Examples ── */
     .examples { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
     .btn-ex {
@@ -405,7 +255,7 @@ Buchberger · HTML
       transition: all .2s;
     }
     .btn-ex:hover { background: var(--accent); color: #fff; }
- 
+
     /* ── Actions ── */
     .actions {
       margin-top: 1.5rem;
@@ -429,7 +279,7 @@ Buchberger · HTML
     }
     .btn-compute:hover { background: #152d57; }
     .btn-compute:active { transform: scale(.98); }
- 
+
     .checkbox-wrap {
       display: flex;
       align-items: center;
@@ -439,7 +289,7 @@ Buchberger · HTML
       cursor: pointer;
     }
     .checkbox-wrap input { width: auto; }
- 
+
     /* ── Error ── */
     .error-msg {
       background: var(--red-lt);
@@ -450,7 +300,7 @@ Buchberger · HTML
       font-size: .88rem;
       margin-top: .75rem;
     }
- 
+
     /* ── Basis output ── */
     .basis-list { counter-reset: gc; }
     .basis-item {
@@ -477,7 +327,7 @@ Buchberger · HTML
       font-size: .9rem;
       color: var(--text);
     }
- 
+
     /* ── Steps ── */
     .steps-wrap {
       max-height: 420px;
@@ -499,7 +349,7 @@ Buchberger · HTML
       font-size: .82rem;
     }
     .step-body { font-family: var(--mono); line-height: 1.7; }
- 
+
     .badge {
       display: inline-block;
       padding: .1rem .4rem;
@@ -512,7 +362,7 @@ Buchberger · HTML
     }
     .badge-ok { background: var(--green-lt); color: var(--green); }
     .badge-zero { background: #f0f0f0; color: #666; }
- 
+
     .warn-box {
       background: #fff8e1;
       border: 1px solid #ffe082;
@@ -522,7 +372,7 @@ Buchberger · HTML
       color: #7a5800;
       margin-top: .75rem;
     }
- 
+
     /* ── Solutions ── */
     .sol-info {
       background: var(--blue-lt);
@@ -610,7 +460,7 @@ Buchberger · HTML
     }
     .sol-check-ok  { background: var(--green-lt); color: var(--green); }
     .sol-check-err { background: var(--red-lt);   color: var(--red);   }
- 
+
     footer {
       text-align: center;
       padding: 1.5rem;
@@ -622,22 +472,22 @@ Buchberger · HTML
   </style>
 </head>
 <body>
- 
+
 <header>
   <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
   <h1>Buchberger Algorithm</h1>
   <p>Gröbner Basis Calculator for Polynomial Ideals</p>
 </header>
- 
+
 <main>
- 
+
   <div class="card">
     <div class="info-box">
       <strong>Buchberger's Algorithm</strong> (1965) computes a <em>Gröbner basis</em> for an ideal
       I = ⟨f₁, …, fₛ⟩ ⊆ k[x₁, …, xₙ]. It systematically reduces S-polynomials and adds
       non-zero remainders to the generating set until all S-polynomial pairs reduce to zero.
     </div>
- 
+
     <div class="formula-box">
       <div class="formula-label">S-Polynomial</div>
       <div class="formula-main">
@@ -657,9 +507,9 @@ Buchberger · HTML
         where <strong>LT</strong> = leading term &nbsp;·&nbsp; <strong>LM</strong> = leading monomial &nbsp;·&nbsp; <strong>lcm</strong> = least common multiple of monomials
       </div>
     </div>
- 
+
     <div class="card-title">Input</div>
- 
+
     <div class="form-row">
       <div>
         <label class="field-label">Variables (comma-separated)</label>
@@ -674,7 +524,7 @@ Buchberger · HTML
         </select>
       </div>
     </div>
- 
+
     <div>
       <div class="gen-header">
         <label class="field-label" style="margin:0">Generators f₁, f₂, …</label>
@@ -682,7 +532,7 @@ Buchberger · HTML
       </div>
       <div id="generators-list"></div>
     </div>
- 
+
     <div style="margin-top:1rem">
       <label class="field-label">Quick Examples</label>
       <div class="examples">
@@ -692,24 +542,24 @@ Buchberger · HTML
         <button class="btn-ex" onclick="loadEx('e4')">x+y+z, xy+xz+yz, xyz−1</button>
       </div>
     </div>
- 
+
     <div class="actions">
       <button class="btn-compute" onclick="compute()">Compute Gröbner Basis</button>
       <label class="checkbox-wrap">
         <input type="checkbox" id="show-steps" checked> Show step-by-step
       </label>
     </div>
- 
+
     <div id="err-box"></div>
   </div>
- 
+
   <div id="output" style="display:none">
     <div class="card">
       <div class="card-title">Gröbner Basis</div>
       <div id="basis-out" class="basis-list"></div>
       <div id="warn-out"></div>
     </div>
- 
+
     <div class="card" id="steps-card">
       <div class="card-title">
         Algorithm Steps
@@ -717,7 +567,7 @@ Buchberger · HTML
       </div>
       <div id="steps-out" class="steps-wrap"></div>
     </div>
- 
+
     <div class="card" id="solve-card" style="display:none">
       <div class="card-title">
         System Solutions
@@ -726,14 +576,14 @@ Buchberger · HTML
       <div id="solve-out"></div>
     </div>
   </div>
- 
+
 </main>
- 
+
 <footer>
   Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
   Buchberger, B. (1965). <em>Ein Algorithmus zum Auffinden der Basiselemente des Restklassenringes.</em>
 </footer>
- 
+
 <script>
 /* ════════════════════════════════════════════════════════
    MATH ENGINE
@@ -741,11 +591,11 @@ Buchberger · HTML
    mono[i] = exponent of vars[i]
    sorted descending by monomial order
 ════════════════════════════════════════════════════════ */
- 
+
 const EPS = 1e-9;
- 
+
 const isZ = x => Math.abs(x) < EPS;
- 
+
 function roundC(x) {
   if (isZ(x)) return 0;
   for (let q = 1; q <= 24; q++) {
@@ -754,7 +604,7 @@ function roundC(x) {
   }
   return x;
 }
- 
+
 /* ─ Orderings ─ */
 function lexCmp(a, b) {
   for (let i = 0; i < a.length; i++) if (a[i] !== b[i]) return a[i] > b[i] ? 1 : -1;
@@ -774,10 +624,10 @@ function grevlexCmp(a, b) {
 function getCmp(o) {
   return o === 'grlex' ? grlexCmp : o === 'grevlex' ? grevlexCmp : lexCmp;
 }
- 
+
 /* ─ Polynomial basics ─ */
 function psort(p, cmp) { return [...p].sort((a,b)=>-cmp(a.mono,b.mono)); }
- 
+
 function psimp(p, cmp) {
   const m = new Map();
   for (const {coeff,mono} of p) {
@@ -787,7 +637,7 @@ function psimp(p, cmp) {
   }
   return psort([...m.values()].map(t=>({coeff:roundC(t.coeff),mono:t.mono})).filter(t=>!isZ(t.coeff)), cmp);
 }
- 
+
 const padd  = (p,q,cmp) => psimp([...p,...q], cmp);
 const psub  = (p,q,cmp) => psimp([...p,...q.map(t=>({coeff:-t.coeff,mono:t.mono}))], cmp);
 const pmul  = (p,t,cmp) => psort(p.map(s=>({coeff:s.coeff*t.coeff,mono:s.mono.map((e,i)=>e+t.mono[i])})), cmp);
@@ -795,13 +645,13 @@ const pzero = p => !p || p.length === 0;
 const lt    = p => p[0];
 const lm    = p => p[0].mono;
 const lc    = p => p[0].coeff;
- 
+
 function monoDiv(a, b) {
   const r = a.map((e,i)=>e-b[i]);
   return r.some(e=>e<0) ? null : r;
 }
 function monoLcm(a, b) { return a.map((e,i)=>Math.max(e,b[i])); }
- 
+
 /* ─ S-polynomial ─ */
 function sPoly(f, g, cmp) {
   if (pzero(f)||pzero(g)) return [];
@@ -810,7 +660,7 @@ function sPoly(f, g, cmp) {
   const tG = {coeff:1/lc(g), mono:L.map((e,i)=>e-lm(g)[i])};
   return psub(pmul(f,tF,cmp), pmul(g,tG,cmp), cmp);
 }
- 
+
 /* ─ Multivariate reduction ─ */
 function preduce(f, G, cmp) {
   let p = [...f], rem = [];
@@ -828,7 +678,7 @@ function preduce(f, G, cmp) {
   }
   return rem;
 }
- 
+
 /* ─ Buchberger ─ */
 function buchberger(gens, cmp) {
   let G = gens.map(p=>[...p]);
@@ -836,7 +686,7 @@ function buchberger(gens, cmp) {
   const pairs = [];
   for (let i=0;i<G.length;i++)
     for (let j=i+1;j<G.length;j++) pairs.push([i,j]);
- 
+
   const MAX = 300; let n = 0;
   while (pairs.length > 0 && n < MAX) {
     const [i,j] = pairs.shift(); n++;
@@ -851,7 +701,7 @@ function buchberger(gens, cmp) {
   }
   return {basis:G, steps, truncated: n>=MAX};
 }
- 
+
 /* ════════════════════════════════════════════════════════
    PARSER
 ════════════════════════════════════════════════════════ */
@@ -871,12 +721,12 @@ function tokenize(str) {
   }
   return T;
 }
- 
+
 function parsePoly(str, vars) {
   const T = tokenize(str);
   const terms = [];
   let j = 0;
- 
+
   function parseTerm(sign) {
     let coeff = sign;
     const mono = vars.map(()=>0);
@@ -898,12 +748,12 @@ function parsePoly(str, vars) {
     }
     terms.push({coeff, mono});
   }
- 
+
   let sign = 1;
   if (j<T.length && T[j].t==='-') { sign=-1; j++; }
   else if (j<T.length && T[j].t==='+') j++;
   parseTerm(sign);
- 
+
   while (j < T.length) {
     if (T[j].t==='+') { sign=1; j++; }
     else if (T[j].t==='-') { sign=-1; j++; }
@@ -912,7 +762,7 @@ function parsePoly(str, vars) {
   }
   return terms;
 }
- 
+
 /* ════════════════════════════════════════════════════════
    DISPLAY
 ════════════════════════════════════════════════════════ */
@@ -923,27 +773,27 @@ function termHTML(term, vars, first) {
   const hasV = mono.some(e=>e>0);
   const isInt = isZ(abs - Math.round(abs));
   const absI = Math.round(abs);
- 
+
   let vStr = '';
   for (let i=0;i<vars.length;i++) {
     if (!mono[i]) continue;
     vStr += vars[i];
     if (mono[i]>1) vStr += '<sup>'+mono[i]+'</sup>';
   }
- 
+
   let cStr;
   if (hasV) { cStr = (isInt&&absI===1)?'':(isInt?String(absI):abs.toFixed(4).replace(/\.?0+$/,'')); }
   else       { cStr = isInt ? String(absI) : abs.toFixed(4).replace(/\.?0+$/,''); }
- 
+
   if (first) return (neg?'−':'')+cStr+vStr;
   return (neg?' − ':' + ')+cStr+vStr;
 }
- 
+
 function polyHTML(p, vars) {
   if (pzero(p)) return '<span style="color:var(--text2)">0</span>';
   return p.map((t,i)=>termHTML(t,vars,i===0)).join('');
 }
- 
+
 function polyStr(p, vars) {
   if (pzero(p)) return '0';
   let s = '';
@@ -962,7 +812,7 @@ function polyStr(p, vars) {
   });
   return s;
 }
- 
+
 /* ════════════════════════════════════════════════════════
    UI
 ════════════════════════════════════════════════════════ */
@@ -972,9 +822,9 @@ const EXAMPLES = {
   e3: { vars:'x,y',  order:'grlex',  gens:['x^2 + y^2 - 1', 'x^2 - y'] },
   e4: { vars:'x,y,z',order:'grlex',  gens:['x + y + z', 'x*y + x*z + y*z', 'x*y*z - 1'] },
 };
- 
+
 let genCount = 0;
- 
+
 function addGen(val) {
   genCount++;
   const list = document.getElementById('generators-list');
@@ -985,13 +835,13 @@ function addGen(val) {
     <button class="btn-rm" onclick="this.parentElement.remove(); renum()">×</button>`;
   list.appendChild(div);
 }
- 
+
 function renum() {
   [...document.querySelectorAll('#generators-list .gen-num')].forEach((el,i)=>{
     el.innerHTML = `f<sub>${i+1}</sub>`;
   });
 }
- 
+
 function loadEx(name) {
   const ex = EXAMPLES[name];
   document.getElementById('vars-input').value  = ex.vars;
@@ -1001,7 +851,7 @@ function loadEx(name) {
   genCount = 0;
   ex.gens.forEach(g=>addGen(g));
 }
- 
+
 function compute() {
   const errBox = document.getElementById('err-box');
   errBox.innerHTML = '';
@@ -1010,10 +860,10 @@ function compute() {
       .split(',').map(v=>v.trim().toLowerCase()).filter(Boolean);
     if (!vars.length) throw new Error('Specify at least one variable.');
     if (new Set(vars).size !== vars.length) throw new Error('Duplicate variable names.');
- 
+
     const order = document.getElementById('order-input').value;
     const cmp   = getCmp(order);
- 
+
     const genInputs = [...document.querySelectorAll('.gen-input')];
     const gens = [];
     for (const inp of genInputs) {
@@ -1022,9 +872,9 @@ function compute() {
       if (!pzero(p)) gens.push(p);
     }
     if (!gens.length) throw new Error('Enter at least one non-zero polynomial.');
- 
+
     const { basis, steps, truncated } = buchberger(gens, cmp);
- 
+
     /* ── render basis ── */
     const basisOut = document.getElementById('basis-out');
     basisOut.innerHTML = '';
@@ -1037,21 +887,21 @@ function compute() {
       div.appendChild(span);
       basisOut.appendChild(div);
     }
- 
+
     const warnOut = document.getElementById('warn-out');
     warnOut.innerHTML = truncated
       ? '<div class="warn-box">⚠ Computation stopped at 300 steps. Basis may be incomplete (ideal may need more generators).</div>' : '';
- 
+
     /* ── render steps ── */
     const stepsCard = document.getElementById('steps-card');
     const showSteps = document.getElementById('show-steps').checked;
     stepsCard.style.display = showSteps ? 'block' : 'none';
- 
+
     if (showSteps) {
       document.getElementById('steps-label').textContent = `${steps.length} pair${steps.length!==1?'s':''} processed`;
       const stepsOut = document.getElementById('steps-out');
       stepsOut.innerHTML = '';
- 
+
       for (const step of steps) {
         const [i,j] = step.pair;
         const div = document.createElement('div');
@@ -1068,14 +918,14 @@ function compute() {
         stepsOut.appendChild(div);
       }
     }
- 
+
     document.getElementById('output').style.display = 'block';
     document.getElementById('output').scrollIntoView({behavior:'smooth'});
- 
+
     /* ── solve system ── */
     const solveCard = document.getElementById('solve-card');
     solveCard.style.display = 'block';
- 
+
     /* warn if non-lex order: solving works on any basis but lex gives the
        cleanest triangular structure */
     const lexWarnId = 'lex-order-warn';
@@ -1089,20 +939,20 @@ function compute() {
       solveCard.insertBefore(lexWarn, document.getElementById('solve-out'));
     }
     lexWarn.style.display = (order !== 'lex') ? 'block' : 'none';
- 
+
     const solveResult = solveBasis(basis, vars, cmp);
     renderSolutions(solveResult, vars, gens, cmp);
- 
+
   } catch(e) {
     errBox.innerHTML = `<div class="error-msg">⚠ ${e.message}</div>`;
   }
 }
- 
+
 /* ════════════════════════════════════════════════════════
    SOLVER  — back-substitution on the lex Gröbner basis
    Finds all real solutions of f₁=0,…,fₛ=0
 ════════════════════════════════════════════════════════ */
- 
+
 /* ─ Complex arithmetic ─ */
 function cadd(a,b){return{re:a.re+b.re,im:a.im+b.im};}
 function csub(a,b){return{re:a.re-b.re,im:a.im-b.im};}
@@ -1110,14 +960,14 @@ function cmul(a,b){return{re:a.re*b.re-a.im*b.im,im:a.re*b.im+a.im*b.re};}
 function cdiv(a,b){const d=b.re*b.re+b.im*b.im;return{re:(a.re*b.re+a.im*b.im)/d,im:(a.im*b.re-a.re*b.im)/d};}
 function cabs(a){return Math.sqrt(a.re*a.re+a.im*a.im);}
 function cn(r){return{re:r,im:0};}
- 
+
 /* evaluate polynomial (coeff array, index=degree) at complex z */
 function cpeval(c,z){
   let v=cn(c[c.length-1]);
   for(let i=c.length-2;i>=0;i--) v=cadd(cmul(v,z),cn(c[i]));
   return v;
 }
- 
+
 /* Durand-Kerner: all complex roots of polynomial with coeffs[i]=coeff of x^i */
 function findAllRoots(coeffs){
   let deg=coeffs.length-1;
@@ -1152,14 +1002,14 @@ function findAllRoots(coeffs){
   }
   return roots;
 }
- 
+
 /* variable indices that actually appear in poly */
 function varSupport(poly){
   const s=new Set();
   for(const t of poly)t.mono.forEach((e,i)=>{if(e>0)s.add(i);});
   return s;
 }
- 
+
 /* convert to coeff array c[i] = coeff of vars[vi]^i  (poly must be univariate in vi) */
 function toUniCoeffs(poly,vi){
   if(!poly.length)return[0];
@@ -1168,7 +1018,7 @@ function toUniCoeffs(poly,vi){
   for(const t of poly)c[t.mono[vi]]+=t.coeff;
   return c;
 }
- 
+
 /* substitute vars[vi] = val into polynomial */
 function subVar(poly,vi,val,cmp){
   return psimp(poly.map(t=>({
@@ -1176,7 +1026,7 @@ function subVar(poly,vi,val,cmp){
     mono:t.mono.map((e,i)=>i===vi?0:e)
   })),cmp);
 }
- 
+
 /* evaluate polynomial at a complete variable assignment (map varIdx → value) */
 function evalPoly(poly,assignment){
   let sum=0;
@@ -1187,7 +1037,7 @@ function evalPoly(poly,assignment){
   }
   return sum;
 }
- 
+
 /* format a numeric value nicely */
 function fmtVal(v){
   if(isZ(v))return'0';
@@ -1204,17 +1054,17 @@ function fmtVal(v){
   }
   return r.toFixed(6).replace(/\.?0+$/,'');
 }
- 
+
 /* ─ Main solver ─ */
 function solveBasis(basis,vars,cmp){
   const n=vars.length;
   let complexDetected=false;
- 
+
   /* check contradiction */
   for(const p of basis)
     if(p.length===1&&p[0].mono.every(e=>e===0)&&!isZ(p[0].coeff))
       return{type:'empty'};
- 
+
   /*
    * Recursive back-substitution.
    * In LEX order (x > y > z …), the last variable (index n-1) appears alone
@@ -1226,26 +1076,26 @@ function solveBasis(basis,vars,cmp){
    */
   function solveVars(B,remIdxs){
     if(!remIdxs.length)return[[]];
- 
+
     const vi=remIdxs[remIdxs.length-1];
     const rest=remIdxs.slice(0,-1);
- 
+
     /* find univariate polynomials in vars[vi] */
     const uni=B.filter(p=>{
       const s=varSupport(p);
       return!pzero(p)&&(s.size===0||(s.size===1&&s.has(vi)));
     });
     if(!uni.length)return null;   /* free variable → ∞ solutions */
- 
+
     /* choose minimum-degree one */
     uni.sort((a,b)=>Math.max(...a.map(t=>t.mono[vi]))-Math.max(...b.map(t=>t.mono[vi])));
     const coeffs=toUniCoeffs(uni[0],vi);
- 
+
     const allR=findAllRoots(coeffs);
     const realR=allR.filter(r=>Math.abs(r.im)<1e-6).map(r=>roundC(r.re));
     if(allR.filter(r=>Math.abs(r.im)>=1e-6).length)complexDetected=true;
     if(!realR.length)return[];
- 
+
     const res=[];
     for(const rv of realR){
       const newB=B.map(p=>subVar(p,vi,rv,cmp)).filter(p=>!pzero(p));
@@ -1258,24 +1108,24 @@ function solveBasis(basis,vars,cmp){
     }
     return res;
   }
- 
+
   const result=solveVars(basis,Array.from({length:n},(_,i)=>i));
   if(result===null)return{type:'infinite'};
   if(!result.length)return{type:'noreal',complex:complexDetected};
   return{type:'finite',solutions:result};
 }
- 
+
 /* ─ Render solutions ─ */
 function renderSolutions(result,vars,origGens,cmp){
   const out=document.getElementById('solve-out');
   out.innerHTML='';
- 
+
   /* info note */
   const info=document.createElement('div');
   info.className='sol-info';
   info.innerHTML='<strong>Elimination theorem:</strong> with <em>lex</em> order, the Gröbner basis triangulates the system — each variable can be solved in turn by back-substitution, like Gaussian elimination for nonlinear systems.';
   out.appendChild(info);
- 
+
   if(result.type==='empty'){
     out.innerHTML+=`<div class="sol-msg sol-msg-empty"><strong>No solutions.</strong> The ideal contains the constant 1, so the variety is empty — no values satisfy all equations simultaneously.</div>`;
     return;
@@ -1289,9 +1139,9 @@ function renderSolutions(result,vars,origGens,cmp){
     out.innerHTML+=`<div class="sol-msg sol-msg-empty"><strong>No real solutions found.</strong>${c}</div>`;
     return;
   }
- 
+
   const{solutions}=result;
- 
+
   /* deduplicate nearly-identical solutions */
   const uniq=solutions.filter((s,i)=>{
     const map={};s.forEach(e=>map[e.idx]=e.val);
@@ -1300,15 +1150,15 @@ function renderSolutions(result,vars,origGens,cmp){
       return vars.every((_,j)=>Math.abs((map[j]??0)-(m2[j]??0))<1e-5);
     });
   });
- 
+
   const hdr=document.createElement('div');
   hdr.className='sol-hdr';
   hdr.innerHTML=`Found <strong>${uniq.length}</strong> real solution${uniq.length!==1?'s':''}`;
   out.appendChild(hdr);
- 
+
   const grid=document.createElement('div');
   grid.className='sol-grid';
- 
+
   uniq.forEach((sol,si)=>{
     const map={};sol.forEach(s=>map[s.idx]=s.val);
     const div=document.createElement('div');
@@ -1327,7 +1177,7 @@ function renderSolutions(result,vars,origGens,cmp){
     grid.appendChild(div);
   });
   out.appendChild(grid);
- 
+
   /* verification: substitute each solution back into original generators */
   if(origGens.length&&uniq.length){
     const vWrap=document.createElement('div');
@@ -1336,7 +1186,7 @@ function renderSolutions(result,vars,origGens,cmp){
     vtitle.className='sol-verify-title';
     vtitle.textContent='Verification (substitute back into original polynomials)';
     vWrap.appendChild(vtitle);
- 
+
     uniq.forEach((sol,si)=>{
       const map={};sol.forEach(s=>map[s.idx]=s.val);
       origGens.forEach((g,gi)=>{
@@ -1350,13 +1200,13 @@ function renderSolutions(result,vars,origGens,cmp){
     });
     out.appendChild(vWrap);
   }
- 
+
   const note=document.createElement('div');
   note.className='sol-note';
   note.textContent='Solutions are numerical approximations (Durand-Kerner root finding). For exact results, use computer algebra with rational arithmetic.';
   out.appendChild(note);
 }
- 
+
 /* ── initialise with default generators ── */
 (function init() {
   addGen('x^3 - 2*x*y');
@@ -1365,5 +1215,3 @@ function renderSolutions(result,vars,origGens,cmp){
 </script>
 </body>
 </html>
- 
-
