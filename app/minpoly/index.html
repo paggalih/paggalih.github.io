@@ -1,0 +1,754 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Minimal Polynomial | Matrix Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --orange: #7a4000;
+      --orange-lt: #fff0e0;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+
+    header { background: var(--accent); color: #fff; padding: 1.4rem 2rem 1.6rem; }
+    header a.back { color: rgba(255,255,255,.65); text-decoration: none; font-size: .85rem; display: inline-flex; align-items: center; gap: .3rem; margin-bottom: .6rem; transition: color .2s; }
+    header a.back:hover { color: #fff; }
+    header h1 { font-family: var(--serif); font-size: 2rem; font-weight: 600; letter-spacing: -.01em; }
+    header p { color: rgba(255,255,255,.7); font-size: .92rem; margin-top: .2rem; }
+
+    main { max-width: 980px; margin: 2rem auto; padding: 0 1.25rem 3rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+    .card-title { font-family: var(--serif); font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--border); }
+    .section-title { font-family: var(--serif); font-size: 1.05rem; color: var(--accent); margin: 1.2rem 0 .6rem; padding-bottom: .35rem; border-bottom: 1px dashed var(--border); }
+
+    .info-box { background: var(--blue-lt); border-left: 3px solid var(--accent); padding: .8rem 1rem; border-radius: 0 6px 6px 0; font-size: .9rem; margin-bottom: 1.25rem; color: var(--text2); }
+    .info-box strong { color: var(--text); }
+
+    /* Dual panel */
+    .dual-wrap { display: grid; grid-template-columns: 1fr 1fr; gap: 1.25rem; margin-bottom: 1rem; }
+    @media (max-width: 640px) { .dual-wrap { grid-template-columns: 1fr; } }
+    .mat-panel { border: 1px solid var(--border); border-radius: 8px; padding: 1.1rem 1rem 1rem; background: var(--bg); }
+    .panel-header { display: flex; align-items: center; gap: .5rem; margin-bottom: .75rem; }
+    .panel-badge { font-family: var(--serif); font-size: 1.05rem; font-weight: 600; background: var(--accent); color: #fff; width: 27px; height: 27px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+    .panel-badge.b { background: #2e6b3e; }
+    .panel-title { font-family: var(--serif); font-size: 1rem; font-weight: 600; color: var(--accent); }
+    .panel-title.b { color: #2e6b3e; }
+
+    label.field-label { display: block; font-size: .77rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); margin-bottom: .32rem; }
+    .size-btns { display: flex; gap: .28rem; flex-wrap: wrap; margin-bottom: .75rem; }
+    .btn-size { background: #fff; border: 1px solid var(--border); color: var(--text2); padding: .2rem .5rem; border-radius: 4px; cursor: pointer; font-family: var(--mono); font-size: .8rem; transition: all .2s; }
+    .btn-size.active { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-size:hover  { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-size.b.active { background: #2e6b3e; border-color: #2e6b3e; }
+    .btn-size.b:hover  { background: #2e6b3e; border-color: #2e6b3e; }
+
+    .mat-input-wrap { overflow-x: auto; display: flex; justify-content: center; margin: .7rem 0 .65rem; }
+    .mat-input-table { border-collapse: separate; border-spacing: 4px; }
+    .mat-input-table td input {
+      width: 50px; height: 38px; text-align: center;
+      border: 1px solid var(--border); border-radius: 5px;
+      font-family: var(--mono); font-size: .88rem; color: var(--text);
+      background: #fff; padding: 0 .25rem; transition: border-color .2s;
+    }
+    .mat-input-table td input:focus { outline: none; border-color: var(--accent); }
+
+    .row-utils { display: flex; gap: .3rem; margin-bottom: .65rem; }
+    .btn-util { background: var(--bg); border: 1px solid var(--border); color: var(--text2); padding: .2rem .5rem; border-radius: 4px; cursor: pointer; font-size: .77rem; font-family: var(--sans); transition: all .2s; }
+    .btn-util:hover { background: var(--border); }
+
+    .examples { display: flex; flex-wrap: wrap; gap: .28rem; }
+    .btn-ex { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: .2rem .52rem; border-radius: 20px; cursor: pointer; font-size: .75rem; font-family: var(--mono); transition: all .2s; }
+    .btn-ex:hover { background: var(--accent); color: #fff; }
+    .btn-ex.b { border-color: #2e6b3e; color: #2e6b3e; }
+    .btn-ex.b:hover { background: #2e6b3e; color: #fff; }
+
+    /* Ops bar */
+    .ops-card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.1rem 1.4rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+    .ops-groups { display: flex; flex-wrap: wrap; gap: 1.4rem; align-items: flex-end; }
+    .ops-group { display: flex; flex-direction: column; gap: .38rem; }
+    .ops-group-label { font-size: .72rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text2); }
+    .ops-btns { display: flex; flex-wrap: wrap; gap: .38rem; }
+    .btn-op { border: none; padding: .52rem 1.1rem; border-radius: 6px; font-size: .88rem; font-weight: 600; cursor: pointer; font-family: var(--sans); letter-spacing: .02em; transition: background .2s, transform .1s; }
+    .btn-op:active { transform: scale(.97); }
+    .btn-op.a  { background: var(--accent-lt); color: var(--accent); border: 1px solid #c5d5f0; }
+    .btn-op.a:hover  { background: var(--accent); color: #fff; }
+    .btn-op.bg { background: #e3f2e9; color: #2e6b3e; border: 1px solid #b0d9bc; }
+    .btn-op.bg:hover { background: #2e6b3e; color: #fff; }
+    .btn-op.ab { background: var(--orange-lt); color: var(--orange); border: 1px solid #f5d0a8; }
+    .btn-op.ab:hover { background: var(--orange); color: #fff; }
+    .checkbox-wrap { display: flex; align-items: center; gap: .38rem; font-size: .86rem; color: var(--text2); cursor: pointer; }
+    .checkbox-wrap input { width: auto; }
+
+    /* Error */
+    .error-msg { background: var(--red-lt); color: var(--red); border: 1px solid #f5c6c6; border-radius: 5px; padding: .65rem .85rem; font-size: .87rem; margin-top: .75rem; }
+
+    /* Output */
+    .out-header { display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--border); flex-wrap: wrap; }
+    .out-op-tag { font-family: var(--mono); font-size: .8rem; padding: .18rem .5rem; border-radius: 4px; }
+    .out-op-tag.a  { background: var(--accent-lt); color: var(--accent); border: 1px solid #c5d5f0; }
+    .out-op-tag.bg { background: #e3f2e9; color: #2e6b3e; border: 1px solid #b0d9bc; }
+    .out-op-tag.ab { background: var(--orange-lt); color: var(--orange); border: 1px solid #f5d0a8; }
+    .out-title { font-family: var(--serif); font-size: 1.25rem; color: var(--accent); }
+
+    .poly-result { background: var(--accent-lt); border: 1px solid #c5d5f0; border-radius: 8px; padding: .85rem 1.1rem; display: flex; align-items: baseline; gap: .6rem; flex-wrap: wrap; margin-bottom: .45rem; }
+    .poly-label  { font-size: .76rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text2); flex-shrink: 0; }
+    .poly-formula { font-family: var(--mono); font-size: 1rem; color: var(--text); }
+    .badge { display: inline-block; padding: .12rem .42rem; border-radius: 3px; font-size: .73rem; font-weight: 600; font-family: var(--sans); vertical-align: middle; }
+    .badge-ok   { background: var(--green-lt); color: var(--green); }
+    .badge-fail { background: var(--red-lt); color: var(--red); }
+    .badge-info { background: var(--accent-lt); color: var(--accent); }
+
+    .props-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(155px,1fr)); gap: .6rem; }
+    .prop-item  { background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: .58rem .82rem; }
+    .prop-key   { font-size: .71rem; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text2); margin-bottom: .16rem; }
+    .prop-val   { font-family: var(--mono); font-size: .9rem; color: var(--text); }
+
+    /* Matrix display */
+    .mat-display-wrap { overflow-x: auto; }
+    .mat-box { display: inline-flex; align-items: stretch; }
+    .mat-bracket { width: 9px; flex-shrink: 0; }
+    .mat-bracket.left  { border-top: 2px solid var(--text); border-bottom: 2px solid var(--text); border-left: 2px solid var(--text); border-radius: 2px 0 0 2px; }
+    .mat-bracket.right { border-top: 2px solid var(--text); border-bottom: 2px solid var(--text); border-right: 2px solid var(--text); border-radius: 0 2px 2px 0; }
+    .mat-inner { display: grid; padding: 4px 6px; }
+    .mat-cell  { font-family: var(--mono); font-size: .8rem; text-align: center; padding: 3px 7px; }
+    .mat-cell.zero { color: #bbb; }
+
+    /* Verify */
+    .verify-row { display: flex; align-items: center; gap: .85rem; margin-bottom: .65rem; flex-wrap: wrap; }
+    .verify-label { font-family: var(--mono); font-size: .82rem; color: var(--text2); white-space: nowrap; }
+
+    /* Steps */
+    .steps-wrap { max-height: 440px; overflow-y: auto; padding-right: .2rem; }
+    .step-item { padding: .6rem .8rem; border-left: 3px solid var(--border); margin-bottom: .45rem; background: #fafafa; border-radius: 0 5px 5px 0; font-size: .83rem; }
+    .step-item.step-dep { border-left-color: var(--green); }
+    .step-head { color: var(--text2); margin-bottom: .32rem; font-size: .79rem; font-family: var(--mono); }
+    .step-pow-label { font-family: var(--mono); font-size: .76rem; color: var(--accent); font-weight: 500; margin-bottom: .18rem; }
+    .dep-eq { font-family: var(--mono); font-size: .85rem; background: var(--green-lt); border-radius: 4px; padding: .38rem .65rem; margin-top: .45rem; color: var(--green); }
+
+    footer { text-align: center; padding: 1.5rem; color: var(--text2); font-size: .83rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--accent); text-decoration: none; }
+    sup, sub { font-size: .7em; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Minimal Polynomial of a Matrix</h1>
+  <p>Single-matrix analysis · Binary operations on A and B · Exact BigInt arithmetic</p>
+</header>
+
+<main>
+
+<!-- INPUT -->
+<div class="card">
+  <div class="info-box">
+    Enter matrices <strong>A</strong> and <strong>B</strong> below. For single-matrix operations use
+    <em>Analyze A</em> or <em>Analyze B</em>. For binary operations (A×B, B×A, A+B, A−B)
+    both matrices must have the same size. The result C is then fully analysed.
+  </div>
+
+  <div class="card-title">Input Matrices</div>
+
+  <div class="dual-wrap">
+
+    <!-- A -->
+    <div class="mat-panel">
+      <div class="panel-header">
+        <div class="panel-badge">A</div>
+        <span class="panel-title">Matrix A</span>
+      </div>
+      <label class="field-label">Size</label>
+      <div class="size-btns" id="size-btns-a">
+        <button class="btn-size"        onclick="setSize('a',2)">2×2</button>
+        <button class="btn-size active" onclick="setSize('a',3)">3×3</button>
+        <button class="btn-size"        onclick="setSize('a',4)">4×4</button>
+        <button class="btn-size"        onclick="setSize('a',5)">5×5</button>
+        <button class="btn-size"        onclick="setSize('a',6)">6×6</button>
+      </div>
+      <div class="mat-input-wrap">
+        <table class="mat-input-table" id="mat-a"></table>
+      </div>
+      <div class="row-utils">
+        <button class="btn-util" onclick="clearGrid('a')">Clear</button>
+        <button class="btn-util" onclick="randGrid('a')">Random</button>
+      </div>
+      <label class="field-label">Quick load</label>
+      <div class="examples">
+        <button class="btn-ex" onclick="loadEx('a','jordan2')">Jordan</button>
+        <button class="btn-ex" onclick="loadEx('a','nilpotent')">Nilpotent</button>
+        <button class="btn-ex" onclick="loadEx('a','diag')">Diagonal</button>
+        <button class="btn-ex" onclick="loadEx('a','rot')">Rotation</button>
+        <button class="btn-ex" onclick="loadEx('a','companion')">Companion</button>
+      </div>
+    </div>
+
+    <!-- B -->
+    <div class="mat-panel">
+      <div class="panel-header">
+        <div class="panel-badge b">B</div>
+        <span class="panel-title b">Matrix B</span>
+      </div>
+      <label class="field-label">Size</label>
+      <div class="size-btns" id="size-btns-b">
+        <button class="btn-size b"        onclick="setSize('b',2)">2×2</button>
+        <button class="btn-size b active" onclick="setSize('b',3)">3×3</button>
+        <button class="btn-size b"        onclick="setSize('b',4)">4×4</button>
+        <button class="btn-size b"        onclick="setSize('b',5)">5×5</button>
+        <button class="btn-size b"        onclick="setSize('b',6)">6×6</button>
+      </div>
+      <div class="mat-input-wrap">
+        <table class="mat-input-table" id="mat-b"></table>
+      </div>
+      <div class="row-utils">
+        <button class="btn-util" onclick="clearGrid('b')">Clear</button>
+        <button class="btn-util" onclick="randGrid('b')">Random</button>
+      </div>
+      <label class="field-label">Quick load</label>
+      <div class="examples">
+        <button class="btn-ex b" onclick="loadEx('b','sym')">Symmetric</button>
+        <button class="btn-ex b" onclick="loadEx('b','id')">Identity</button>
+        <button class="btn-ex b" onclick="loadEx('b','diag2')">Diagonal 2</button>
+        <button class="btn-ex b" onclick="loadEx('b','nilpotent')">Nilpotent</button>
+        <button class="btn-ex b" onclick="loadEx('b','jordan2')">Jordan</button>
+      </div>
+    </div>
+
+  </div>
+  <div id="err-box"></div>
+</div>
+
+<!-- OPS -->
+<div class="ops-card">
+  <div class="ops-groups">
+    <div class="ops-group">
+      <div class="ops-group-label">Single Matrix</div>
+      <div class="ops-btns">
+        <button class="btn-op a"  onclick="runOp('A')">Analyze A</button>
+        <button class="btn-op bg" onclick="runOp('B')">Analyze B</button>
+      </div>
+    </div>
+    <div class="ops-group">
+      <div class="ops-group-label">Multiplication</div>
+      <div class="ops-btns">
+        <button class="btn-op ab" onclick="runOp('AB')">A × B</button>
+        <button class="btn-op ab" onclick="runOp('BA')">B × A</button>
+      </div>
+    </div>
+    <div class="ops-group">
+      <div class="ops-group-label">Addition / Subtraction</div>
+      <div class="ops-btns">
+        <button class="btn-op ab" onclick="runOp('ADD')">A + B</button>
+        <button class="btn-op ab" onclick="runOp('SUB')">A − B</button>
+      </div>
+    </div>
+    <div class="ops-group" style="margin-left:auto">
+      <div class="ops-group-label">Options</div>
+      <label class="checkbox-wrap"><input type="checkbox" id="show-steps" checked> Show steps</label>
+      <label class="checkbox-wrap"><input type="checkbox" id="show-inv" checked> Show inverse</label>
+    </div>
+  </div>
+</div>
+
+<!-- OUTPUT -->
+<div id="output" style="display:none">
+
+  <!-- Binary result matrix -->
+  <div class="card" id="result-mat-card" style="display:none">
+    <div class="out-header">
+      <div class="out-op-tag ab" id="result-op-tag"></div>
+      <span class="out-title" id="result-mat-title"></span>
+    </div>
+    <div class="mat-display-wrap" id="result-mat-out"></div>
+  </div>
+
+  <!-- Polynomials -->
+  <div class="card">
+    <div class="out-header">
+      <div class="out-op-tag a" id="poly-op-tag"></div>
+      <span class="out-title">Polynomials</span>
+    </div>
+    <div class="section-title">Minimal Polynomial &nbsp;<span id="min-deg" class="badge badge-info"></span></div>
+    <div class="poly-result" id="min-poly-out"></div>
+    <div class="section-title">Characteristic Polynomial &nbsp;<span id="char-deg" class="badge badge-info"></span></div>
+    <div class="poly-result" id="char-poly-out"></div>
+  </div>
+
+  <!-- Properties -->
+  <div class="card">
+    <div class="card-title" id="props-title">Properties</div>
+    <div class="props-grid" id="props-out"></div>
+  </div>
+
+  <!-- Verification -->
+  <div class="card">
+    <div class="card-title">Verification</div>
+    <div class="section-title">m(M) = 0 &nbsp;— minimal polynomial vanishes at M</div>
+    <div class="verify-row">
+      <div class="verify-label" id="vmin-label"></div>
+      <div id="vmin-badge"></div>
+    </div>
+    <div class="mat-display-wrap" id="vmin-mat"></div>
+    <div class="section-title" style="margin-top:1.2rem">p(M) = 0 &nbsp;— Cayley–Hamilton theorem</div>
+    <div class="verify-row">
+      <div class="verify-label" id="vchar-label"></div>
+      <div id="vchar-badge"></div>
+    </div>
+    <div class="mat-display-wrap" id="vchar-mat"></div>
+  </div>
+
+  <!-- Single-matrix ops: transpose + inverse -->
+  <div class="card" id="mat-ops-card">
+    <div class="card-title">Matrix Operations</div>
+    <div class="section-title">Transpose</div>
+    <div class="mat-display-wrap" id="transpose-out"></div>
+    <div id="inverse-section">
+      <div class="section-title">Inverse</div>
+      <div class="mat-display-wrap" id="inverse-out"></div>
+    </div>
+  </div>
+
+  <!-- Steps -->
+  <div class="card" id="steps-card">
+    <div class="card-title">
+      How the Minimal Polynomial Was Found
+      <span id="steps-label" style="font-size:.8rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
+    </div>
+    <div class="info-box" style="margin-bottom:.85rem">
+      Each power M<sup>k</sup> is flattened into a vector in ℝ<sup>n²</sup>.
+      Gaussian elimination finds the first <em>k</em> where M<sup>k</sup> ∈ span{I, M, …, M<sup>k−1</sup>}.
+      That linear relation gives the minimal polynomial directly.
+    </div>
+    <div class="steps-wrap" id="steps-out"></div>
+  </div>
+
+</div><!-- /output -->
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Exact rational arithmetic via BigInt &nbsp;·&nbsp; Krylov / linear-independence method
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════════
+   EXACT RATIONAL ARITHMETIC  (BigInt)
+════════════════════════════════════════════════════════════ */
+function gcd(a,b){if(a<0n)a=-a;if(b<0n)b=-b;while(b){const t=b;b=a%b;a=t;}return a===0n?1n:a;}
+class Frac{
+  constructor(n,d){
+    n=BigInt(n??0);d=BigInt(d??1);
+    if(d===0n)throw new Error('Zero denominator');
+    const s=d<0n?-1n:1n;n*=s;d*=s;
+    const g=gcd(n<0n?-n:n,d);this.n=n/g;this.d=d/g;
+  }
+  static of(n,d=1){return new Frac(n,d);}
+  add(b){return new Frac(this.n*b.d+b.n*this.d,this.d*b.d);}
+  sub(b){return new Frac(this.n*b.d-b.n*this.d,this.d*b.d);}
+  mul(b){return new Frac(this.n*b.n,this.d*b.d);}
+  div(b){if(b.n===0n)throw new Error('Div/0');return new Frac(this.n*b.d,this.d*b.n);}
+  neg(){return new Frac(-this.n,this.d);}
+  isZero(){return this.n===0n;}
+  isOne(){return this.n===1n&&this.d===1n;}
+}
+const F0=new Frac(0),F1=new Frac(1);
+
+/* ════════════════════════════════════════════════════════════
+   MATRIX UTILITIES
+════════════════════════════════════════════════════════════ */
+const matId  =n=>Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>i===j?F1:F0));
+const matZero=n=>Array.from({length:n},()=>Array.from({length:n},()=>F0));
+const matCopy=M=>M.map(r=>r.map(x=>new Frac(x.n,x.d)));
+const matAdd =(A,B)=>A.map((r,i)=>r.map((x,j)=>x.add(B[i][j])));
+const matSub =(A,B)=>A.map((r,i)=>r.map((x,j)=>x.sub(B[i][j])));
+function matMul(A,B){
+  const n=A.length,m=B[0].length,k=B.length;
+  return Array.from({length:n},(_,i)=>Array.from({length:m},(_,j)=>{
+    let s=F0;for(let l=0;l<k;l++)s=s.add(A[i][l].mul(B[l][j]));return s;
+  }));
+}
+const matScale    =(A,c)=>A.map(r=>r.map(x=>x.mul(c)));
+const matTranspose=A=>A.map((_,i)=>A.map(r=>r[i]));
+const matTrace    =A=>A.reduce((s,r,i)=>s.add(r[i]),F0);
+const matFlatten  =M=>M.flatMap(r=>r);
+const matAllZero  =M=>M.every(r=>r.every(x=>x.isZero()));
+
+function matDet(M){
+  const n=M.length;
+  if(n===1)return M[0][0];
+  if(n===2)return M[0][0].mul(M[1][1]).sub(M[0][1].mul(M[1][0]));
+  let d=F0;
+  for(let j=0;j<n;j++){
+    if(M[0][j].isZero())continue;
+    const minor=M.slice(1).map(r=>r.filter((_,k)=>k!==j));
+    const cf=matDet(minor);
+    d=j%2===0?d.add(M[0][j].mul(cf)):d.sub(M[0][j].mul(cf));
+  }
+  return d;
+}
+function matRank(M){
+  let A=M.map(r=>[...r]);let rank=0,row=0;const n=A.length;
+  for(let col=0;col<n&&row<n;col++){
+    let piv=-1;for(let r=row;r<n;r++)if(!A[r][col].isZero()){piv=r;break;}
+    if(piv===-1)continue;
+    [A[row],A[piv]]=[A[piv],A[row]];
+    const pv=A[row][col];A[row]=A[row].map(x=>x.div(pv));
+    for(let r=0;r<n;r++){
+      if(r===row||A[r][col].isZero())continue;
+      const f=A[r][col];A[r]=A[r].map((x,c)=>x.sub(f.mul(A[row][c])));
+    }
+    rank++;row++;
+  }
+  return rank;
+}
+function matInverse(M){
+  const n=M.length;
+  let A=M.map((r,i)=>[...r,...matId(n)[i]]);
+  for(let col=0;col<n;col++){
+    let piv=-1;for(let r=col;r<n;r++)if(!A[r][col].isZero()){piv=r;break;}
+    if(piv===-1)return null;
+    [A[col],A[piv]]=[A[piv],A[col]];
+    const pv=A[col][col];A[col]=A[col].map(x=>x.div(pv));
+    for(let r=0;r<n;r++){
+      if(r===col||A[r][col].isZero())continue;
+      const f=A[r][col];A[r]=A[r].map((x,c)=>x.sub(f.mul(A[col][c])));
+    }
+  }
+  return A.map(r=>r.slice(n));
+}
+
+/* ════════════════════════════════════════════════════════════
+   POLYNOMIAL OPERATIONS  poly[k] = coeff of λ^k
+════════════════════════════════════════════════════════════ */
+function polyClean(p){let d=p.length-1;while(d>0&&p[d].isZero())d--;return p.slice(0,d+1);}
+function polyAdd(p,q){
+  const len=Math.max(p.length,q.length);
+  return polyClean(Array.from({length:len},(_,k)=>(k<p.length?p[k]:F0).add(k<q.length?q[k]:F0)));
+}
+function polySub(p,q){
+  const len=Math.max(p.length,q.length);
+  return polyClean(Array.from({length:len},(_,k)=>(k<p.length?p[k]:F0).sub(k<q.length?q[k]:F0)));
+}
+function polyMul(p,q){
+  if(!p.length||!q.length)return[F0];
+  const res=new Array(p.length+q.length-1).fill(null).map(()=>F0);
+  for(let i=0;i<p.length;i++)for(let j=0;j<q.length;j++)res[i+j]=res[i+j].add(p[i].mul(q[j]));
+  return polyClean(res);
+}
+function polyEvalMat(p,A){
+  const n=A.length;let res=matZero(n),Ak=matId(n);
+  for(let k=0;k<p.length;k++){
+    if(!p[k].isZero())res=matAdd(res,matScale(Ak,p[k]));
+    if(k<p.length-1)Ak=matMul(Ak,A);
+  }
+  return res;
+}
+function polyMatDet(M){
+  const n=M.length;
+  if(n===1)return M[0][0];
+  if(n===2)return polySub(polyMul(M[0][0],M[1][1]),polyMul(M[0][1],M[1][0]));
+  let det=[F0];
+  for(let j=0;j<n;j++){
+    if(M[0][j].length===1&&M[0][j][0].isZero())continue;
+    const minor=M.slice(1).map(r=>r.filter((_,k)=>k!==j));
+    const cf=polyMatDet(minor);
+    const term=polyMul(M[0][j],cf);
+    det=j%2===0?polyAdd(det,term):polySub(det,term);
+  }
+  return polyClean(det);
+}
+
+/* ════════════════════════════════════════════════════════════
+   ALGORITHMS
+════════════════════════════════════════════════════════════ */
+function charPoly(A){
+  const lam=[F0,F1];
+  const M=A.map((row,i)=>row.map((aij,j)=>i===j?polySub(lam,[aij]):[aij.neg()]));
+  return polyClean(polyMatDet(M));
+}
+function minPoly(A){
+  const n=A.length,flatLen=n*n,plen=n+1;
+  const basis=[];let cur=matId(n);const powHistory=[];
+  for(let d=0;d<=n;d++){
+    powHistory.push(matCopy(cur));
+    let v=matFlatten(cur).map(x=>new Frac(x.n,x.d));
+    const combo=Array.from({length:plen},(_,k)=>k===d?F1:F0);
+    for(const {pivot,vec,co}of basis){
+      const factor=v[pivot];if(factor.isZero())continue;
+      for(let i=0;i<flatLen;i++)v[i]=v[i].sub(factor.mul(vec[i]));
+      for(let k=0;k<plen;k++)combo[k]=combo[k].sub(factor.mul(co[k]));
+    }
+    let pivotIdx=-1;
+    for(let i=0;i<flatLen;i++)if(!v[i].isZero()){pivotIdx=i;break;}
+    if(pivotIdx===-1){
+      const poly=polyClean(combo.slice(0,d+1));
+      return{poly,dep:d,powHistory,combo:combo.slice(0,d+1)};
+    }
+    const pv=v[pivotIdx];
+    basis.push({pivot:pivotIdx,vec:v.map(x=>x.div(pv)),co:combo.map(x=>x.div(pv))});
+    if(d<n)cur=matMul(cur,A);
+  }
+  return null;
+}
+
+/* ════════════════════════════════════════════════════════════
+   DISPLAY HELPERS
+════════════════════════════════════════════════════════════ */
+function fracHTML(f){
+  const neg=f.n<0n,an=neg?-f.n:f.n,s=neg?'−':'';
+  return f.d===1n?s+an.toString():`<sup>${f.n}</sup>/<sub>${f.d}</sub>`;
+}
+function polyToHTML(poly,varName='λ'){
+  const p=polyClean(poly),deg=p.length-1;
+  const parts=[];
+  for(let k=deg;k>=0;k--){
+    const c=p[k];if(c.isZero())continue;
+    const neg=c.n<0n,absC=neg?c.neg():c,isOne=absC.n===1n&&absC.d===1n;
+    const varPart=k===0?'':k===1?varName:`${varName}<sup>${k}</sup>`;
+    const cStr=(!isOne||k===0)?(absC.d===1n?absC.n.toString():`<sup>${absC.n}</sup>/<sub>${absC.d}</sub>`):'';
+    parts.push({neg,cStr,varPart});
+  }
+  if(!parts.length)return '<span style="color:var(--text2)">0</span>';
+  return parts.map(({neg,cStr,varPart},i)=>
+    i===0?(neg?'−':'')+cStr+varPart:(neg?' − ':' + ')+cStr+varPart
+  ).join('');
+}
+function matHTML(M,h0=false){
+  const n=M.length;
+  let cells='';
+  for(let i=0;i<n;i++)for(let j=0;j<n;j++){
+    const f=M[i][j];
+    cells+=`<div class="mat-cell${f.isZero()&&h0?' zero':''}">${fracHTML(f)}</div>`;
+  }
+  return `<div class="mat-box"><div class="mat-bracket left"></div><div class="mat-inner" style="grid-template-columns:repeat(${n},auto)">${cells}</div><div class="mat-bracket right"></div></div>`;
+}
+
+/* ════════════════════════════════════════════════════════════
+   RENDER OUTPUT
+════════════════════════════════════════════════════════════ */
+function renderOutput({opTag,tagStyle,resultLabel,M,mLabel,showMatOps}){
+  const n=M.length;
+
+  // Result matrix card (binary ops)
+  const rmc=document.getElementById('result-mat-card');
+  if(resultLabel){
+    rmc.style.display='block';
+    document.getElementById('result-op-tag').textContent=opTag;
+    document.getElementById('result-mat-title').textContent=`C = ${resultLabel}`;
+    document.getElementById('result-mat-out').innerHTML=matHTML(M);
+  }else{rmc.style.display='none';}
+
+  // Poly card header
+  document.getElementById('poly-op-tag').textContent=resultLabel?`Analysing C = ${resultLabel}`:`Analysing ${mLabel}`;
+  document.getElementById('poly-op-tag').className=`out-op-tag ${tagStyle}`;
+
+  // Compute
+  const mpRes=minPoly(M);
+  if(!mpRes)throw new Error('Failed to compute minimal polynomial.');
+  const{poly:mp,dep,powHistory,combo}=mpRes;
+  const cp=charPoly(M);
+
+  // Poly display
+  document.getElementById('min-poly-out').innerHTML=
+    `<span class="poly-label">m<sub>${mLabel}</sub>(λ) =</span>
+     <span class="poly-formula">${polyToHTML(mp)}</span>`;
+  document.getElementById('min-deg').textContent=`deg ${mp.length-1}`;
+  document.getElementById('char-poly-out').innerHTML=
+    `<span class="poly-label">p<sub>${mLabel}</sub>(λ) =</span>
+     <span class="poly-formula">${polyToHTML(cp)}</span>`;
+  document.getElementById('char-deg').textContent=`deg ${cp.length-1}`;
+
+  // Properties
+  document.getElementById('props-title').textContent=`Properties of ${resultLabel||mLabel}`;
+  const det=matDet(M),tr=matTrace(M),rank=matRank(M),inv=matInverse(M);
+  const detStr=det.isZero()?'<span style="color:var(--red)">0 (singular)</span>':fracHTML(det);
+  const invStr=inv?'<span style="color:var(--green)">Yes</span>':'<span style="color:var(--red)">No</span>';
+  document.getElementById('props-out').innerHTML=`
+    <div class="prop-item"><div class="prop-key">Trace</div><div class="prop-val">${fracHTML(tr)}</div></div>
+    <div class="prop-item"><div class="prop-key">Determinant</div><div class="prop-val">${detStr}</div></div>
+    <div class="prop-item"><div class="prop-key">Rank</div><div class="prop-val">${rank}</div></div>
+    <div class="prop-item"><div class="prop-key">Nullity</div><div class="prop-val">${n-rank}</div></div>
+    <div class="prop-item"><div class="prop-key">Invertible</div><div class="prop-val">${invStr}</div></div>
+    <div class="prop-item"><div class="prop-key">Size</div><div class="prop-val">${n} × ${n}</div></div>
+  `;
+
+  // Verification
+  const mA=polyEvalMat(mp,M),mAz=matAllZero(mA);
+  document.getElementById('vmin-label').innerHTML=`m(${mLabel}) = ${polyToHTML(mp,mLabel)} =`;
+  document.getElementById('vmin-badge').innerHTML=mAz
+    ?'<span class="badge badge-ok">✓ Zero matrix</span>'
+    :'<span class="badge badge-fail">✗ Not zero</span>';
+  document.getElementById('vmin-mat').innerHTML=matHTML(mA,true);
+
+  const pA=polyEvalMat(cp,M),pAz=matAllZero(pA);
+  document.getElementById('vchar-label').innerHTML=`p(${mLabel}) =`;
+  document.getElementById('vchar-badge').innerHTML=pAz
+    ?'<span class="badge badge-ok">✓ Zero matrix</span>'
+    :'<span class="badge badge-fail">✗ Not zero</span>';
+  document.getElementById('vchar-mat').innerHTML=matHTML(pA,true);
+
+  // Matrix ops
+  const moc=document.getElementById('mat-ops-card');
+  if(showMatOps){
+    moc.style.display='block';
+    document.getElementById('transpose-out').innerHTML=matHTML(matTranspose(M));
+    const invSec=document.getElementById('inverse-section');
+    if(document.getElementById('show-inv').checked){
+      invSec.style.display='block';
+      document.getElementById('inverse-out').innerHTML=inv
+        ?matHTML(inv)
+        :'<p style="color:var(--red);font-size:.87rem;padding:.4rem 0">Singular matrix — no inverse exists.</p>';
+    }else{invSec.style.display='none';}
+  }else{moc.style.display='none';}
+
+  // Steps
+  const sc=document.getElementById('steps-card');
+  if(document.getElementById('show-steps').checked){
+    sc.style.display='block';
+    document.getElementById('steps-label').textContent=`dependency at degree ${dep}`;
+    const so=document.getElementById('steps-out');so.innerHTML='';
+    const ML=resultLabel?'C':mLabel;
+    powHistory.forEach((Mk,k)=>{
+      const isLast=k===dep;
+      const div=document.createElement('div');
+      div.className='step-item'+(isLast?' step-dep':'');
+      let body=`<div class="step-pow-label">${ML}<sup>${k}</sup>${k===0?' = I':''}</div>`;
+      body+=`<div class="mat-display-wrap">${matHTML(Mk)}</div>`;
+      if(isLast){
+        let eq='';let first=true;
+        for(let j=0;j<k;j++){
+          const c=combo[j];if(c.isZero())continue;
+          const neg=c.n<0n,absC=neg?c.neg():c,isOne=absC.n===1n&&absC.d===1n;
+          const cStr=isOne?'':fracHTML(absC);
+          const aStr=j===0?'I':j===1?ML:`${ML}<sup>${j}</sup>`;
+          if(first){eq+=(neg?'−':'')+cStr+aStr;first=false;}
+          else{eq+=(neg?' − ':' + ')+cStr+aStr;}
+        }
+        body+=`<div class="dep-eq">${ML}<sup>${k}</sup> = ${eq||'0'}<br>∴ m<sub>${ML}</sub>(λ) = <strong>${polyToHTML(mp)}</strong></div>`;
+      }else{
+        body+=`<div style="font-size:.76rem;color:var(--text2);margin-top:.28rem;font-family:var(--mono)">${ML}<sup>${k}</sup> is linearly independent of previous powers</div>`;
+      }
+      div.innerHTML=`<div class="step-head">Step ${k+1}: ${ML}<sup>${k}</sup>${isLast?' — dependency found ✓':''}</div><div class="step-body">${body}</div>`;
+      so.appendChild(div);
+    });
+  }else{sc.style.display='none';}
+
+  document.getElementById('output').style.display='block';
+  document.getElementById('output').scrollIntoView({behavior:'smooth'});
+}
+
+/* ════════════════════════════════════════════════════════════
+   OP DISPATCHER
+════════════════════════════════════════════════════════════ */
+function runOp(op){
+  const err=document.getElementById('err-box');err.innerHTML='';
+  try{
+    const A=getMatrix('a'),B=getMatrix('b');
+    const nA=sizeA,nB=sizeB;
+    if(op==='A'){
+      renderOutput({opTag:'Analyze A',tagStyle:'a',resultLabel:null,M:A,mLabel:'A',showMatOps:true});
+    }else if(op==='B'){
+      renderOutput({opTag:'Analyze B',tagStyle:'bg',resultLabel:null,M:B,mLabel:'B',showMatOps:true});
+    }else{
+      if(nA!==nB)throw new Error(`Size mismatch: A is ${nA}×${nA} but B is ${nB}×${nB}. They must be equal for this operation.`);
+      if(op==='AB'){const C=matMul(A,B);renderOutput({opTag:'A × B',tagStyle:'ab',resultLabel:'A × B',M:C,mLabel:'C',showMatOps:false});}
+      else if(op==='BA'){const C=matMul(B,A);renderOutput({opTag:'B × A',tagStyle:'ab',resultLabel:'B × A',M:C,mLabel:'C',showMatOps:false});}
+      else if(op==='ADD'){const C=matAdd(A,B);renderOutput({opTag:'A + B',tagStyle:'ab',resultLabel:'A + B',M:C,mLabel:'C',showMatOps:false});}
+      else if(op==='SUB'){const C=matSub(A,B);renderOutput({opTag:'A − B',tagStyle:'ab',resultLabel:'A − B',M:C,mLabel:'C',showMatOps:false});}
+    }
+  }catch(e){
+    err.innerHTML=`<div class="error-msg">⚠ ${e.message}</div>`;
+    console.error(e);
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   UI — GRIDS
+════════════════════════════════════════════════════════════ */
+let sizeA=3,sizeB=3;
+
+function setSize(which,n){
+  if(which==='a')sizeA=n;else sizeB=n;
+  document.querySelectorAll(`#size-btns-${which} .btn-size`).forEach((b,i)=>b.classList.toggle('active',i+2===n));
+  buildGrid(which,n);
+}
+function buildGrid(which,n,data){
+  const tbl=document.getElementById(`mat-${which}`);tbl.innerHTML='';
+  for(let i=0;i<n;i++){
+    const tr=document.createElement('tr');
+    for(let j=0;j<n;j++){
+      const td=document.createElement('td');
+      const inp=document.createElement('input');
+      inp.type='text';inp.value=data?data[i][j]:'0';
+      inp.dataset.which=which;inp.dataset.r=i;inp.dataset.c=j;
+      inp.addEventListener('keydown',e=>{
+        const sz=which==='a'?sizeA:sizeB;
+        if(e.key==='ArrowRight')focusCell(which,i,j+1,sz);
+        if(e.key==='ArrowLeft') focusCell(which,i,j-1,sz);
+        if(e.key==='ArrowDown') focusCell(which,i+1,j,sz);
+        if(e.key==='ArrowUp')   focusCell(which,i-1,j,sz);
+      });
+      td.appendChild(inp);tr.appendChild(td);
+    }
+    tbl.appendChild(tr);
+  }
+}
+function focusCell(which,r,c,n){
+  if(r<0||r>=n||c<0||c>=n)return;
+  const inp=document.querySelector(`[data-which="${which}"][data-r="${r}"][data-c="${c}"]`);
+  if(inp){inp.focus();inp.select();}
+}
+function getMatrix(which){
+  const n=which==='a'?sizeA:sizeB;
+  return Array.from({length:n},(_,i)=>Array.from({length:n},(_,j)=>{
+    const v=document.querySelector(`[data-which="${which}"][data-r="${i}"][data-c="${j}"]`)?.value??'0';
+    return parseEntry(v.trim());
+  }));
+}
+function parseEntry(s){
+  if(!s||s===''||s==='-')return F0;
+  if(s.includes('/')){const[num,den]=s.split('/');return new Frac(BigInt(parseInt(num)||0),BigInt(parseInt(den)||1));}
+  const f=parseFloat(s);if(isNaN(f))return F0;
+  for(let q=1;q<=10000;q++){const p=Math.round(f*q);if(Math.abs(p/q-f)<1e-9)return new Frac(BigInt(p),BigInt(q));}
+  return new Frac(BigInt(Math.round(f)));
+}
+function clearGrid(which){document.querySelectorAll(`[data-which="${which}"]`).forEach(inp=>inp.value='0');}
+function randGrid(which){document.querySelectorAll(`[data-which="${which}"]`).forEach(inp=>{inp.value=(Math.floor(Math.random()*7)-3).toString();});}
+
+const EXAMPLES={
+  nilpotent:{size:3,data:[['0','1','0'],['0','0','1'],['0','0','0']]},
+  jordan2:  {size:3,data:[['2','1','0'],['0','2','1'],['0','0','2']]},
+  diag:     {size:3,data:[['1','0','0'],['0','2','0'],['0','0','2']]},
+  diag2:    {size:3,data:[['3','0','0'],['0','1','0'],['0','0','2']]},
+  rot:      {size:2,data:[['0','-1'],['1','0']]},
+  companion:{size:4,data:[['0','0','0','-2'],['1','0','0','1'],['0','1','0','0'],['0','0','1','1']]},
+  sym:      {size:3,data:[['2','1','0'],['1','2','1'],['0','1','2']]},
+  id:       {size:3,data:[['1','0','0'],['0','1','0'],['0','0','1']]},
+};
+function loadEx(which,name){const ex=EXAMPLES[name];setSize(which,ex.size);buildGrid(which,ex.size,ex.data);}
+
+/* Init */
+buildGrid('a',3,[['2','1','0'],['0','2','1'],['0','0','2']]);
+buildGrid('b',3,[['1','0','0'],['0','2','0'],['0','0','2']]);
+</script>
+</body>
+</html>
