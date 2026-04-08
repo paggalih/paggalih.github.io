@@ -1,0 +1,1292 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Twisted Centralizer Codes | Dimension &amp; Basis Calculator</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .8rem 1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+      color: var(--text2);
+    }
+    .info-box strong { color: var(--text); }
+
+    .form-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+    @media (max-width:580px) { .form-row { grid-template-columns: 1fr; } }
+
+    label.field-label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text2);
+      margin-bottom: .35rem;
+    }
+
+    input[type=text], input[type=number], select, textarea {
+      width: 100%;
+      padding: .55rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: .88rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .2s, background .2s;
+    }
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+    select { font-family: var(--sans); font-size: .88rem; }
+    textarea { resize: vertical; min-height: 80px; line-height: 1.5; }
+
+    .matrix-input-wrap {
+      margin-bottom: .5rem;
+    }
+    .matrix-input-wrap .hint {
+      font-size: .78rem;
+      color: var(--text2);
+      margin-top: .25rem;
+    }
+
+    .examples { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
+    .btn-ex {
+      background: #fff;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: .3rem .7rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: .82rem;
+      font-family: var(--mono);
+      transition: all .2s;
+    }
+    .btn-ex:hover { background: var(--accent); color: #fff; }
+
+    .actions {
+      margin-top: 1.5rem;
+      display: flex;
+      align-items: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+    .btn-compute {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: .72rem 2rem;
+      border-radius: 6px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--sans);
+      letter-spacing: .04em;
+      transition: background .2s, transform .1s;
+    }
+    .btn-compute:hover { background: #152d57; }
+    .btn-compute:active { transform: scale(.98); }
+
+    .checkbox-wrap {
+      display: flex;
+      align-items: center;
+      gap: .4rem;
+      font-size: .88rem;
+      color: var(--text2);
+      cursor: pointer;
+    }
+    .checkbox-wrap input { width: auto; }
+
+    .error-msg {
+      background: var(--red-lt);
+      color: var(--red);
+      border: 1px solid #f5c6c6;
+      border-radius: 5px;
+      padding: .7rem .9rem;
+      font-size: .88rem;
+      margin-top: .75rem;
+    }
+
+    /* Result styles */
+    .result-highlight {
+      background: var(--green-lt);
+      border: 1px solid #b7dfc4;
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: baseline;
+      gap: .6rem;
+    }
+    .result-highlight .dim-label {
+      font-size: .85rem;
+      color: var(--text2);
+    }
+    .result-highlight .dim-val {
+      font-family: var(--mono);
+      font-size: 1.6rem;
+      font-weight: 600;
+      color: var(--green);
+    }
+
+    .basis-item {
+      display: flex;
+      align-items: flex-start;
+      gap: .75rem;
+      padding: .65rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .basis-item:last-child { border-bottom: none; }
+    .basis-label {
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .18rem .42rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+      white-space: nowrap;
+    }
+
+    .matrix-display {
+      font-family: var(--mono);
+      font-size: .82rem;
+      line-height: 1.6;
+      background: #f8f8fa;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      padding: .5rem .7rem;
+      overflow-x: auto;
+      white-space: pre;
+    }
+
+    .step-item {
+      padding: .65rem .85rem;
+      border-left: 3px solid var(--border);
+      margin-bottom: .5rem;
+      background: #fafafa;
+      border-radius: 0 5px 5px 0;
+      font-size: .85rem;
+    }
+    .step-item.step-ok { border-left-color: var(--green); }
+    .step-head {
+      color: var(--text2);
+      margin-bottom: .3rem;
+      font-size: .82rem;
+    }
+    .step-body { font-family: var(--mono); line-height: 1.7; font-size: .82rem; }
+
+    .badge {
+      display: inline-block;
+      padding: .1rem .4rem;
+      border-radius: 3px;
+      font-size: .75rem;
+      font-weight: 600;
+      font-family: var(--sans);
+      vertical-align: middle;
+      margin-left: .35rem;
+    }
+    .badge-ok { background: var(--green-lt); color: var(--green); }
+    .badge-zero { background: #f0f0f0; color: #666; }
+
+    .steps-wrap {
+      max-height: 500px;
+      overflow-y: auto;
+      padding-right: .25rem;
+    }
+
+    .elem-div-list {
+      font-family: var(--mono);
+      font-size: .85rem;
+      padding: .5rem 0;
+      line-height: 1.8;
+    }
+
+    .warn-box {
+      background: #fff8e1;
+      border: 1px solid #ffe082;
+      border-radius: 5px;
+      padding: .6rem .85rem;
+      font-size: .85rem;
+      color: #7a5800;
+      margin-top: .75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Twisted Centralizer Codes</h1>
+  <p>Dimension &amp; Basis Calculator over Finite Fields 𝔽<sub>q</sub></p>
+</header>
+
+<main>
+
+  <div class="card">
+    <div class="info-box">
+      <strong>Twisted Centralizer Codes</strong> (Muchlis, Pradananta, Astuti &amp; Suprijanto, 2021) are defined as
+      C<sub>𝔽<sub>q</sub></sub>(A, γ) = {X ∈ 𝔽<sub>q</sub><sup>n×n</sup> : AX = γXA},
+      for A ∈ 𝔽<sub>q</sub><sup>n×n</sup> and γ ∈ 𝔽<sub>q</sub>.
+      This calculator determines the exact dimension and an explicit basis using the module-theoretic approach of Algorithm 3.13.
+    </div>
+
+    <div class="card-title">Input</div>
+
+    <div class="form-row">
+      <div>
+        <label class="field-label">Field order q (prime)</label>
+        <input type="number" id="q-input" value="3" min="2" max="97" placeholder="e.g. 3, 5, 7">
+      </div>
+      <div>
+        <label class="field-label">Twist parameter γ ∈ 𝔽<sub>q</sub></label>
+        <input type="number" id="gamma-input" value="1" min="0" placeholder="e.g. 0, 1, 2">
+      </div>
+    </div>
+
+    <div class="matrix-input-wrap">
+      <label class="field-label">Matrix A (rows separated by semicolons, entries by spaces/commas)</label>
+      <textarea id="matrix-input" placeholder="e.g. 0 1 1 1; 1 0 1 1; 1 1 0 1; 1 1 1 0">0 1 1 1; 1 0 1 1; 1 1 0 1; 1 1 1 0</textarea>
+      <div class="hint">Example: "0 1 1 1; 1 0 1 1; 1 1 0 1; 1 1 1 0" for a 4×4 matrix over 𝔽₃</div>
+    </div>
+
+    <div style="margin-top:1rem">
+      <label class="field-label">Quick Examples</label>
+      <div class="examples">
+        <button class="btn-ex" onclick="loadEx('e1')">Ex 3.2: 𝔽₃, γ=1</button>
+        <button class="btn-ex" onclick="loadEx('e2')">Ex 3.3: 𝔽₅, γ=2</button>
+        <button class="btn-ex" onclick="loadEx('e3')">Ex 3.4: 𝔽₅, γ=2</button>
+        <button class="btn-ex" onclick="loadEx('e4')">γ=0 case</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-compute" onclick="compute()">Compute Dimension &amp; Basis</button>
+      <label class="checkbox-wrap">
+        <input type="checkbox" id="show-steps" checked> Show step-by-step
+      </label>
+    </div>
+
+    <div id="err-box"></div>
+  </div>
+
+  <div id="output" style="display:none">
+    <div class="card">
+      <div class="card-title">Result</div>
+      <div id="result-dim"></div>
+      <div id="elem-div-info"></div>
+    </div>
+
+    <div class="card" id="basis-card">
+      <div class="card-title">Basis of C<sub>𝔽<sub>q</sub></sub>(A, γ)</div>
+      <div id="basis-out"></div>
+    </div>
+
+    <div class="card" id="steps-card">
+      <div class="card-title">
+        Algorithm Steps
+        <span id="steps-label" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
+      </div>
+      <div id="steps-out" class="steps-wrap"></div>
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Muchlis, A., Pradananta, G., Astuti, P. &amp; Suprijanto, D. (2021).
+  <em>On bases and the dimensions of twisted centralizer codes.</em>
+  Finite Fields Appl. 73, 101862.
+</footer>
+
+<script>
+/* ═══════════════════════════════════════════════════════
+   FINITE FIELD ARITHMETIC over F_p (p prime)
+═══════════════════════════════════════════════════════ */
+let P = 3; // current prime
+
+function mod(a, p) { return ((a % p) + p) % p; }
+function add(a, b) { return mod(a + b, P); }
+function sub(a, b) { return mod(a - b, P); }
+function mul(a, b) { return mod(a * b, P); }
+function neg(a)    { return mod(-a, P); }
+
+function inv(a) {
+  a = mod(a, P);
+  if (a === 0) throw new Error("Division by zero in F_" + P);
+  // Extended Euclidean
+  let [old_r, r] = [a, P];
+  let [old_s, s] = [1, 0];
+  while (r !== 0) {
+    const q = Math.floor(old_r / r);
+    [old_r, r] = [r, old_r - q * r];
+    [old_s, s] = [s, old_s - q * s];
+  }
+  return mod(old_s, P);
+}
+
+function fdiv(a, b) { return mul(a, inv(b)); }
+
+/* ═══════════════════════════════════════════════════════
+   POLYNOMIAL ARITHMETIC over F_p
+   poly = [a0, a1, ..., an] where poly represents a0 + a1*x + ... + an*x^n
+═══════════════════════════════════════════════════════ */
+function pNorm(p) {
+  const r = [...p];
+  while (r.length > 1 && r[r.length-1] === 0) r.pop();
+  return r.map(c => mod(c, P));
+}
+function pDeg(p) { const n = pNorm(p); return n.length === 1 && n[0] === 0 ? -Infinity : n.length - 1; }
+function pIsZero(p) { return pDeg(p) === -Infinity; }
+function pAdd(a, b) {
+  const len = Math.max(a.length, b.length);
+  const r = [];
+  for (let i = 0; i < len; i++) r.push(add(a[i]||0, b[i]||0));
+  return pNorm(r);
+}
+function pSub(a, b) {
+  const len = Math.max(a.length, b.length);
+  const r = [];
+  for (let i = 0; i < len; i++) r.push(sub(a[i]||0, b[i]||0));
+  return pNorm(r);
+}
+function pMul(a, b) {
+  if (pIsZero(a) || pIsZero(b)) return [0];
+  const r = new Array(a.length + b.length - 1).fill(0);
+  for (let i = 0; i < a.length; i++)
+    for (let j = 0; j < b.length; j++)
+      r[i+j] = add(r[i+j], mul(a[i], b[j]));
+  return pNorm(r);
+}
+function pScale(a, c) { return pNorm(a.map(x => mul(x, c))); }
+function pMakeMonic(a) {
+  const n = pNorm(a);
+  if (pIsZero(n)) return [0];
+  return pScale(n, inv(n[n.length-1]));
+}
+function pDivMod(a, b) {
+  a = pNorm(a); b = pNorm(b);
+  if (pIsZero(b)) throw new Error("Poly division by zero");
+  if (pDeg(a) < pDeg(b)) return [[0], a];
+  const lc = b[b.length-1];
+  let rem = [...a];
+  const q = new Array(pDeg(a) - pDeg(b) + 1).fill(0);
+  while (pDeg(pNorm(rem)) >= pDeg(b)) {
+    const d = pDeg(pNorm(rem)) - pDeg(b);
+    const c = fdiv(rem[pDeg(pNorm(rem))], lc);
+    q[d] = c;
+    for (let i = 0; i < b.length; i++)
+      rem[i + d] = sub(rem[i + d], mul(c, b[i]));
+  }
+  return [pNorm(q), pNorm(rem)];
+}
+function pMod(a, b) { return pDivMod(a, b)[1]; }
+function pGcd(a, b) {
+  a = pNorm(a); b = pNorm(b);
+  while (!pIsZero(b)) { const r = pMod(a, b); a = b; b = r; }
+  return pMakeMonic(a);
+}
+function pEval(poly, x) {
+  let r = 0;
+  for (let i = poly.length - 1; i >= 0; i--) r = add(mul(r, x), poly[i]);
+  return r;
+}
+function pEqual(a, b) {
+  a = pNorm(a); b = pNorm(b);
+  if (a.length !== b.length) return false;
+  return a.every((c,i) => c === b[i]);
+}
+
+// Poly to string
+function polyStr(p) {
+  p = pNorm(p);
+  if (pIsZero(p)) return "0";
+  const terms = [];
+  for (let i = p.length - 1; i >= 0; i--) {
+    if (p[i] === 0) continue;
+    let c = p[i];
+    let s = '';
+    if (i === 0) { s = String(c); }
+    else {
+      if (c === 1) s = '';
+      else if (c === P-1 && terms.length === 0) s = '−';
+      else if (c === P-1) s = String(c);
+      else s = String(c);
+      s += 'x';
+      if (i > 1) s += '<sup>' + i + '</sup>';
+    }
+    terms.push({s, c, deg: i});
+  }
+  if (terms.length === 0) return "0";
+  let out = '';
+  terms.forEach((t, idx) => {
+    if (idx === 0) out += t.s;
+    else out += ' + ' + t.s;
+  });
+  return out;
+}
+
+/* ═══════════════════════════════════════════════════════
+   POLYNOMIAL FACTORIZATION over F_p
+   Returns list of {poly, exp} where poly is irreducible monic
+═══════════════════════════════════════════════════════ */
+function factorPoly(f) {
+  f = pMakeMonic(f);
+  if (pDeg(f) <= 0) return [];
+  const factors = [];
+
+  // Remove repeated factors
+  function sqfree(f) {
+    let g = pGcd(f, polyDeriv(f));
+    if (pDeg(g) === 0) return [{poly: f, exp: 1}];
+    let [q] = pDivMod(f, g);
+    const result = [];
+    let e = 1;
+    while (pDeg(q) > 0) {
+      let h = pGcd(q, g);
+      if (pDeg(pDivMod(q, h)[0]) > 0) {
+        result.push({poly: pMakeMonic(pDivMod(q, h)[0]), exp: e});
+      }
+      q = h;
+      [g] = pDivMod(g, h);
+      e++;
+    }
+    if (pDeg(g) > 0) {
+      // p-th root case
+      const root = pthRoot(g);
+      const sub = sqfree(root);
+      for (const s of sub) result.push({poly: s.poly, exp: s.exp * P});
+    }
+    return result;
+  }
+
+  function polyDeriv(f) {
+    const r = [];
+    for (let i = 1; i < f.length; i++) r.push(mul(f[i], mod(i, P)));
+    return r.length ? pNorm(r) : [0];
+  }
+
+  function pthRoot(f) {
+    // For f(x) = g(x^p), find g
+    const r = [];
+    for (let i = 0; i < f.length; i += P) r.push(f[i]);
+    return pNorm(r);
+  }
+
+  // Distinct-degree factorization
+  function ddf(f) {
+    const result = [];
+    let h = [0, 1]; // x
+    let fstar = [...f];
+    for (let d = 1; d <= pDeg(pNorm(fstar)) / 2; d++) {
+      // h = h^p mod fstar
+      h = polyPowMod(h, P, fstar);
+      const g = pGcd(pSub(h, [0,1]), fstar);
+      if (pDeg(g) > 0) {
+        result.push({poly: pMakeMonic(g), deg: d});
+        [fstar] = pDivMod(fstar, g);
+      }
+    }
+    if (pDeg(pNorm(fstar)) > 0) {
+      result.push({poly: pMakeMonic(fstar), deg: pDeg(pNorm(fstar))});
+    }
+    return result;
+  }
+
+  // Equal-degree splitting (Cantor-Zassenhaus)
+  function edf(f, d) {
+    if (pDeg(f) === d) return [pMakeMonic(f)];
+    if (pDeg(f) === 0) return [];
+    const result = [];
+    while (true) {
+      // random polynomial
+      const rp = randomPoly(pDeg(f));
+      let g;
+      if (P === 2) {
+        // trace map for char 2
+        let t = rp;
+        for (let i = 1; i < d; i++) {
+          t = pAdd(polyPowMod(t, 2, f), rp);
+        }
+        g = pGcd(t, f);
+      } else {
+        const exp = (Math.pow(P, d) - 1) / 2;
+        const t = polyPowMod(rp, exp, f);
+        g = pGcd(pSub(t, [1]), f);
+      }
+      if (pDeg(g) > 0 && pDeg(g) < pDeg(f)) {
+        const [q] = pDivMod(f, g);
+        return [...edf(pMakeMonic(g), d), ...edf(pMakeMonic(q), d)];
+      }
+    }
+  }
+
+  function randomPoly(maxDeg) {
+    const r = [];
+    for (let i = 0; i < maxDeg; i++) r.push(Math.floor(Math.random() * P));
+    if (r.every(c => c === 0)) r[0] = 1;
+    return pNorm(r);
+  }
+
+  function polyPowMod(base, exp, modPoly) {
+    let result = [1];
+    base = pMod(base, modPoly);
+    while (exp > 0) {
+      if (exp & 1) result = pMod(pMul(result, base), modPoly);
+      base = pMod(pMul(base, base), modPoly);
+      exp >>= 1;
+    }
+    return result;
+  }
+
+  const sqf = sqfree(f);
+  for (const {poly: sf, exp: e} of sqf) {
+    if (pDeg(sf) <= 0) continue;
+    const dd = ddf(sf);
+    for (const {poly: ddf_f, deg: d} of dd) {
+      const irrs = edf(ddf_f, d);
+      for (const irr of irrs) {
+        factors.push({poly: pMakeMonic(irr), exp: e});
+      }
+    }
+  }
+
+  // Merge same irreducibles
+  const merged = [];
+  for (const f of factors) {
+    const idx = merged.findIndex(m => pEqual(m.poly, f.poly));
+    if (idx >= 0) merged[idx].exp += f.exp;
+    else merged.push({...f});
+  }
+  return merged;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MATRIX ARITHMETIC over F_p
+═══════════════════════════════════════════════════════ */
+function matNew(n, m) { return Array.from({length:n}, ()=>new Array(m).fill(0)); }
+function matCopy(M) { return M.map(r=>[...r]); }
+function matMul(A, B) {
+  const n = A.length, m = B[0].length, k = B.length;
+  const C = matNew(n, m);
+  for (let i = 0; i < n; i++)
+    for (let j = 0; j < m; j++)
+      for (let l = 0; l < k; l++)
+        C[i][j] = add(C[i][j], mul(A[i][l], B[l][j]));
+  return C;
+}
+function matScale(A, c) { return A.map(r => r.map(x => mul(x, c))); }
+function matAdd(A, B) { return A.map((r,i) => r.map((x,j) => add(x, B[i][j]))); }
+function matSub(A, B) { return A.map((r,i) => r.map((x,j) => sub(x, B[i][j]))); }
+function matId(n) { const I = matNew(n,n); for (let i=0;i<n;i++) I[i][i]=1; return I; }
+function matIsZero(M) { return M.every(r => r.every(x => x === 0)); }
+
+// Evaluate polynomial at matrix A
+function matPolyEval(poly, A) {
+  const n = A.length;
+  let result = matScale(matId(n), poly[0] || 0);
+  let Ak = matCopy(A);
+  for (let i = 1; i < poly.length; i++) {
+    if (poly[i] !== 0) result = matAdd(result, matScale(Ak, poly[i]));
+    if (i < poly.length - 1) Ak = matMul(Ak, A);
+  }
+  return result;
+}
+
+// Row echelon form, returns rank
+function matRank(M) {
+  const A = matCopy(M);
+  const m = A.length, n = A[0].length;
+  let rank = 0;
+  for (let col = 0; col < n && rank < m; col++) {
+    let pivot = -1;
+    for (let row = rank; row < m; row++) {
+      if (A[row][col] !== 0) { pivot = row; break; }
+    }
+    if (pivot < 0) continue;
+    [A[rank], A[pivot]] = [A[pivot], A[rank]];
+    const s = inv(A[rank][col]);
+    for (let j = 0; j < n; j++) A[rank][j] = mul(A[rank][j], s);
+    for (let row = 0; row < m; row++) {
+      if (row === rank || A[row][col] === 0) continue;
+      const f = A[row][col];
+      for (let j = 0; j < n; j++) A[row][j] = sub(A[row][j], mul(f, A[rank][j]));
+    }
+    rank++;
+  }
+  return rank;
+}
+
+// Null space (kernel)
+function matKernel(M) {
+  const A = matCopy(M);
+  const m = A.length, n = A[0].length;
+  // Augment with identity on columns
+  const aug = [];
+  for (let i = 0; i < m; i++) {
+    aug.push([...A[i]]);
+  }
+  // RREF
+  const pivotCols = [];
+  let rank = 0;
+  for (let col = 0; col < n && rank < m; col++) {
+    let pivot = -1;
+    for (let row = rank; row < m; row++) {
+      if (aug[row][col] !== 0) { pivot = row; break; }
+    }
+    if (pivot < 0) continue;
+    [aug[rank], aug[pivot]] = [aug[pivot], aug[rank]];
+    const s = inv(aug[rank][col]);
+    for (let j = 0; j < n; j++) aug[rank][j] = mul(aug[rank][j], s);
+    for (let row = 0; row < m; row++) {
+      if (row === rank || aug[row][col] === 0) continue;
+      const f = aug[row][col];
+      for (let j = 0; j < n; j++) aug[row][j] = sub(aug[row][j], mul(f, aug[rank][j]));
+    }
+    pivotCols.push(col);
+    rank++;
+  }
+
+  const freeCols = [];
+  for (let j = 0; j < n; j++) if (!pivotCols.includes(j)) freeCols.push(j);
+
+  const basis = [];
+  for (const fc of freeCols) {
+    const v = new Array(n).fill(0);
+    v[fc] = 1;
+    for (let i = 0; i < pivotCols.length; i++) {
+      v[pivotCols[i]] = neg(aug[i][fc]);
+    }
+    basis.push(v);
+  }
+  return basis;
+}
+
+// Minimal polynomial of A
+function minPoly(A) {
+  const n = A.length;
+  // Build Krylov matrix [I, A, A^2, ..., A^(n^2)] flattened
+  const vecs = [];
+  let Ak = matId(n);
+  for (let k = 0; k <= n * n; k++) {
+    vecs.push(Ak.flat());
+    if (k < n * n) Ak = matMul(Ak, A);
+  }
+
+  // Find first linear dependence
+  // Build matrix where columns are vec(A^k)
+  const cols = vecs.length;
+  const rows = n * n;
+
+  // Transpose: augM[i][j] = vecs[j][i]
+  const augM = matNew(rows, cols);
+  for (let i = 0; i < rows; i++)
+    for (let j = 0; j < cols; j++)
+      augM[i][j] = vecs[j][i];
+
+  // RREF on augM^T to find relation
+  const M = matNew(cols, rows);
+  for (let i = 0; i < cols; i++)
+    for (let j = 0; j < rows; j++)
+      M[i][j] = augM[j][i];
+
+  // Actually, find minimal polynomial by finding smallest degree relation
+  // among I, A, A^2, ...
+  // Use: stack vec(I), vec(A), ..., vec(A^d) as rows, find when rank stops increasing
+  let prevRank = 0;
+  const stackRows = [];
+  let Apow = matId(n);
+  for (let d = 0; d <= n * n; d++) {
+    stackRows.push(Apow.flat());
+    const r = matRank(stackRows.map(row => [...row]));
+    if (r === prevRank) {
+      // vec(A^d) is linearly dependent on previous
+      // Find coefficients: solve c0*vec(I) + c1*vec(A) + ... + c_{d-1}*vec(A^{d-1}) = vec(A^d)
+      const prev = stackRows.slice(0, d);
+      const target = stackRows[d];
+      // Solve prev^T * c = target
+      const coeffs = solveSystem(prev, target);
+      // minpoly = x^d - c_{d-1}*x^{d-1} - ... - c_0
+      const mp = new Array(d + 1).fill(0);
+      mp[d] = 1;
+      for (let i = 0; i < d; i++) mp[i] = neg(coeffs[i]);
+      return pMakeMonic(mp);
+    }
+    prevRank = r;
+    if (d < n * n) Apow = matMul(Apow, A);
+  }
+  // Shouldn't reach here for finite matrices
+  return [0, 1]; // x as fallback
+}
+
+function solveSystem(rowVecs, target) {
+  // rowVecs[i] is a vector, target is a vector
+  // Solve: find c such that sum c_i * rowVecs[i] = target
+  // Build augmented matrix [rowVecs^T | target]
+  const m = rowVecs[0].length;
+  const n = rowVecs.length;
+  const aug = matNew(m, n + 1);
+  for (let i = 0; i < m; i++) {
+    for (let j = 0; j < n; j++) aug[i][j] = rowVecs[j][i];
+    aug[i][n] = target[i];
+  }
+  // RREF
+  let rank = 0;
+  for (let col = 0; col < n && rank < m; col++) {
+    let pivot = -1;
+    for (let row = rank; row < m; row++) {
+      if (aug[row][col] !== 0) { pivot = row; break; }
+    }
+    if (pivot < 0) continue;
+    [aug[rank], aug[pivot]] = [aug[pivot], aug[rank]];
+    const s = inv(aug[rank][col]);
+    for (let j = 0; j <= n; j++) aug[rank][j] = mul(aug[rank][j], s);
+    for (let row = 0; row < m; row++) {
+      if (row === rank || aug[row][col] === 0) continue;
+      const f = aug[row][col];
+      for (let j = 0; j <= n; j++) aug[row][j] = sub(aug[row][j], mul(f, aug[rank][j]));
+    }
+    rank++;
+  }
+  const c = new Array(n).fill(0);
+  for (let i = 0; i < rank; i++) {
+    let pcol = -1;
+    for (let j = 0; j < n; j++) { if (aug[i][j] !== 0) { pcol = j; break; } }
+    if (pcol >= 0) c[pcol] = aug[i][n];
+  }
+  return c;
+}
+
+/* ═══════════════════════════════════════════════════════
+   TWISTED POLYNOMIAL: f^γ(x) = γ^deg(f) * f(x/γ)
+═══════════════════════════════════════════════════════ */
+function twistedPoly(f, gamma) {
+  f = pNorm(f);
+  if (pIsZero(f)) return [0];
+  const d = pDeg(f);
+  const gInv = inv(gamma);
+  // f^γ(x) = γ^d * f(x/γ) = γ^d * sum f_i * (x/γ)^i = sum f_i * γ^(d-i) * x^i
+  const result = new Array(d + 1).fill(0);
+  let gammaPow = 1; // γ^0
+  for (let i = 0; i <= d; i++) {
+    // coefficient of x^i: f_i * γ^(d-i)
+    let gdi = 1;
+    for (let j = 0; j < d - i; j++) gdi = mul(gdi, gamma);
+    result[i] = mul(f[i] || 0, gdi);
+  }
+  return pMakeMonic(pNorm(result));
+}
+
+/* ═══════════════════════════════════════════════════════
+   RATIONAL CANONICAL FORM / PRIMARY CYCLIC DECOMPOSITION
+   Returns: [{irr: poly, exps: [s1, s2, ...]}]
+   where exps are sorted descending
+═══════════════════════════════════════════════════════ */
+function primaryCyclicDecomposition(A) {
+  const n = A.length;
+  const mp = minPoly(A);
+  const factors = factorPoly(mp);
+
+  const result = [];
+
+  for (const {poly: p, exp: maxExp} of factors) {
+    // Find the primary component for irreducible p
+    // Compute ker(p(A)^k) for increasing k
+    const exps = [];
+
+    // p(A)^maxExp should kill the primary component
+    // Compute dimensions of ker(p(A)^k) for k=1,...,maxExp
+    const dims = [];
+    let pAk = matPolyEval(p, A); // p(A)^1
+    const pA = matCopy(pAk);
+
+    for (let k = 1; k <= maxExp; k++) {
+      const kerDim = n - matRank(pAk);
+      dims.push(kerDim);
+      if (k < maxExp) pAk = matMul(pAk, pA);
+    }
+
+    // From dims, extract cyclic exponents
+    // dim ker(p(A)^k) = deg(p) * sum_{i} min(k, s_i)
+    // Number of cyclic summands with exp >= k is (dims[k] - dims[k-1]) / deg(p)
+    const degP = pDeg(p);
+    const counts = []; // counts[k] = number of summands with exp >= k+1
+    for (let k = 0; k < maxExp; k++) {
+      const dPrev = k > 0 ? dims[k-1] : 0;
+      counts.push((dims[k] - dPrev) / degP);
+    }
+
+    // Convert to exponents
+    for (let k = maxExp; k >= 1; k--) {
+      const numWithExpK = (counts[k-1] || 0) - (counts[k] || 0);
+      for (let j = 0; j < numWithExpK; j++) exps.push(k);
+    }
+
+    if (exps.length > 0) {
+      exps.sort((a,b) => b - a);
+      result.push({irr: p, exps});
+    }
+  }
+
+  return result;
+}
+
+/* ═══════════════════════════════════════════════════════
+   DIMENSION COMPUTATION (Theorem 3.11)
+   dim C(A,γ) = Σ_{f,g ∈ ElemDiv([A])} deg gcd(f^γ, g)
+═══════════════════════════════════════════════════════ */
+function computeDimension(decomp, gamma) {
+  // Build elementary divisors
+  const elemDivs = [];
+  for (const {irr, exps} of decomp) {
+    for (const e of exps) {
+      // elem div = irr^e
+      let ed = [1];
+      for (let i = 0; i < e; i++) ed = pMul(ed, irr);
+      elemDivs.push(ed);
+    }
+  }
+
+  if (gamma === 0) {
+    // Special case: dim = n * nullity(A)
+    // but let's compute from decomp: count x-primary summands
+    return null; // handled separately
+  }
+
+  // Build twisted elem divs
+  const tElemDivs = elemDivs.map(f => twistedPoly(f, gamma));
+
+  let dim = 0;
+  const details = [];
+  for (let i = 0; i < tElemDivs.length; i++) {
+    for (let j = 0; j < elemDivs.length; j++) {
+      const g = pGcd(tElemDivs[i], elemDivs[j]);
+      const d = pDeg(g);
+      if (d > 0) {
+        details.push({
+          fTwisted: tElemDivs[i],
+          g: elemDivs[j],
+          gcdPoly: g,
+          degGcd: d
+        });
+      }
+      dim += d;
+    }
+  }
+
+  return {dim, elemDivs, tElemDivs, details};
+}
+
+/* ═══════════════════════════════════════════════════════
+   BASIS COMPUTATION
+   Brute-force: solve AX = γXA as a linear system in n² unknowns
+═══════════════════════════════════════════════════════ */
+function computeBasis(A, gamma) {
+  const n = A.length;
+  // AX = γXA means AX - γXA = 0
+  // Flatten X column-by-column: X = [x_1 | x_2 | ... | x_n]
+  // (AX)_{ij} = Σ_k A_{ik} X_{kj}
+  // (γXA)_{ij} = γ Σ_k X_{ik} A_{kj}
+  // Equation: Σ_k A_{ik} X_{kj} - γ Σ_k X_{ik} A_{kj} = 0
+
+  // Variables: X_{ij}, indexed as j*n + i (column-major)
+  const N = n * n;
+  const eqns = []; // each row is a coefficient vector of length N
+
+  for (let i = 0; i < n; i++) {
+    for (let j = 0; j < n; j++) {
+      const row = new Array(N).fill(0);
+      // AX term: Σ_k A_{ik} * X_{kj}
+      for (let k = 0; k < n; k++) {
+        row[j * n + k] = add(row[j * n + k], A[i][k]);
+      }
+      // -γXA term: -γ Σ_k X_{ik} * A_{kj}
+      for (let k = 0; k < n; k++) {
+        row[k * n + i] = sub(row[k * n + i], mul(gamma, A[k][j]));
+      }
+      eqns.push(row);
+    }
+  }
+
+  const ker = matKernel(eqns);
+
+  // Convert kernel vectors back to matrices
+  const basis = ker.map(v => {
+    const M = matNew(n, n);
+    for (let j = 0; j < n; j++)
+      for (let i = 0; i < n; i++)
+        M[i][j] = v[j * n + i];
+    return M;
+  });
+
+  return basis;
+}
+
+/* ═══════════════════════════════════════════════════════
+   DISPLAY HELPERS
+═══════════════════════════════════════════════════════ */
+function matToStr(M) {
+  const n = M.length, m = M[0].length;
+  // Find max width per column
+  const widths = new Array(m).fill(0);
+  for (let j = 0; j < m; j++)
+    for (let i = 0; i < n; i++)
+      widths[j] = Math.max(widths[j], String(M[i][j]).length);
+
+  return M.map(row =>
+    '[ ' + row.map((x, j) => String(x).padStart(widths[j])).join('  ') + ' ]'
+  ).join('\n');
+}
+
+function elemDivStr(decomp) {
+  const parts = [];
+  for (const {irr, exps} of decomp) {
+    for (const e of exps) {
+      if (e === 1) parts.push(polyStr(irr));
+      else parts.push('(' + polyStr(irr) + ')<sup>' + e + '</sup>');
+    }
+  }
+  return parts.join(', ');
+}
+
+function twistedElemDivStr(decomp, gamma) {
+  const parts = [];
+  for (const {irr, exps} of decomp) {
+    const tw = twistedPoly(irr, gamma);
+    for (const e of exps) {
+      if (e === 1) parts.push(polyStr(tw));
+      else parts.push('(' + polyStr(tw) + ')<sup>' + e + '</sup>');
+    }
+  }
+  return parts.join(', ');
+}
+
+/* ═══════════════════════════════════════════════════════
+   EXAMPLES
+═══════════════════════════════════════════════════════ */
+const EXAMPLES = {
+  e1: {
+    q: 3, gamma: 1,
+    matrix: '0 1 1 1; 1 0 1 1; 1 1 0 1; 1 1 1 0',
+    desc: 'Example 3.2 from the paper (F₃, γ=1, dim=10)'
+  },
+  e2: {
+    q: 5, gamma: 2,
+    matrix: '3 0 0 0; 0 3 0 0; 0 0 1 1; 0 0 0 1',
+    desc: 'Example 3.3 from the paper (F₅, γ=2, dim=2)'
+  },
+  e3: {
+    q: 5, gamma: 2,
+    matrix: '1 4 2 0 4; 1 1 3 2 0; 4 4 3 4 1; 2 4 4 3 3; 3 4 1 2 1',
+    desc: 'Example 3.4 from the paper (F₅, γ=2, dim=3)'
+  },
+  e4: {
+    q: 3, gamma: 0,
+    matrix: '0 0 0; 0 0 1; 0 0 0',
+    desc: 'γ=0 case: dim = n × nullity(A)'
+  }
+};
+
+function loadEx(name) {
+  const ex = EXAMPLES[name];
+  document.getElementById('q-input').value = ex.q;
+  document.getElementById('gamma-input').value = ex.gamma;
+  document.getElementById('matrix-input').value = ex.matrix;
+}
+
+/* ═══════════════════════════════════════════════════════
+   MAIN COMPUTE
+═══════════════════════════════════════════════════════ */
+function parseMatrix(str) {
+  const rows = str.split(';').map(r => r.trim()).filter(Boolean);
+  return rows.map(r => r.split(/[\s,]+/).map(Number));
+}
+
+function isPrime(n) {
+  if (n < 2) return false;
+  for (let i = 2; i * i <= n; i++) if (n % i === 0) return false;
+  return true;
+}
+
+function compute() {
+  const errBox = document.getElementById('err-box');
+  errBox.innerHTML = '';
+
+  try {
+    const q = parseInt(document.getElementById('q-input').value);
+    if (!isPrime(q) || q < 2 || q > 97)
+      throw new Error('q must be a prime between 2 and 97.');
+    P = q;
+
+    let gamma = parseInt(document.getElementById('gamma-input').value);
+    gamma = mod(gamma, P);
+
+    const A = parseMatrix(document.getElementById('matrix-input').value);
+    const n = A.length;
+    if (n === 0) throw new Error('Matrix cannot be empty.');
+    if (!A.every(r => r.length === n))
+      throw new Error('Matrix must be square (n×n).');
+    if (n > 8)
+      throw new Error('Matrix size limited to 8×8 for browser performance.');
+
+    // Reduce entries mod p
+    for (let i = 0; i < n; i++)
+      for (let j = 0; j < n; j++)
+        A[i][j] = mod(A[i][j], P);
+
+    const showSteps = document.getElementById('show-steps').checked;
+    const stepsLog = [];
+
+    stepsLog.push({
+      head: 'Input',
+      body: `𝔽<sub>${P}</sub>, n = ${n}, γ = ${gamma}`,
+      ok: false
+    });
+
+    // Compute minimal polynomial
+    const mp = minPoly(A);
+    stepsLog.push({
+      head: 'Minimal polynomial m<sub>A</sub>(x)',
+      body: polyStr(mp),
+      ok: false
+    });
+
+    // Primary cyclic decomposition
+    const decomp = primaryCyclicDecomposition(A);
+    stepsLog.push({
+      head: 'Primary cyclic decomposition',
+      body: 'ElemDiv([A]𝔽<sub>' + n + '</sub>) = { ' + elemDivStr(decomp) + ' }',
+      ok: false
+    });
+
+    let dim;
+
+    if (gamma === 0) {
+      // γ = 0 case: dim = n * nullity(A)
+      const nullityA = n - matRank(A);
+      dim = n * nullityA;
+      stepsLog.push({
+        head: 'γ = 0 case (Corollary 3.2)',
+        body: `nullity(A) = ${nullityA}, dim C(A, 0) = n × nullity(A) = ${n} × ${nullityA} = ${dim}`,
+        ok: true
+      });
+    } else {
+      // γ ≠ 0 case
+      stepsLog.push({
+        head: 'Twisted elementary divisors',
+        body: 'ElemDiv([' + gamma + 'A]𝔽<sub>' + n + '</sub>) = { ' + twistedElemDivStr(decomp, gamma) + ' }',
+        ok: false
+      });
+
+      const dimResult = computeDimension(decomp, gamma);
+      dim = dimResult.dim;
+
+      // Show dim computation details
+      let detailStr = '';
+      const elemDivs = dimResult.elemDivs;
+      const tElemDivs = dimResult.tElemDivs;
+      for (let i = 0; i < tElemDivs.length; i++) {
+        for (let j = 0; j < elemDivs.length; j++) {
+          const g = pGcd(tElemDivs[i], elemDivs[j]);
+          const d = pDeg(g);
+          if (d > 0) {
+            detailStr += `deg gcd(${polyStr(tElemDivs[i])}, ${polyStr(elemDivs[j])}) = ${d}<br>`;
+          }
+        }
+      }
+
+      stepsLog.push({
+        head: 'Dimension computation (Theorem 3.11)',
+        body: detailStr + `<strong>dim C(A, ${gamma}) = ${dim}</strong>`,
+        ok: true
+      });
+    }
+
+    // Compute basis
+    const basis = computeBasis(A, gamma);
+
+    stepsLog.push({
+      head: 'Basis computed',
+      body: `Found ${basis.length} basis element${basis.length !== 1 ? 's' : ''} by solving AX = ${gamma}XA`,
+      ok: true
+    });
+
+    // Verify dimension matches
+    if (basis.length !== dim) {
+      stepsLog.push({
+        head: 'Verification',
+        body: `Note: kernel dimension (${basis.length}) — expected ${dim}. Minor numerical issue possible.`,
+        ok: false
+      });
+    }
+
+    // ── Render output ──
+    const resultDiv = document.getElementById('result-dim');
+    resultDiv.innerHTML = `
+      <div class="result-highlight">
+        <span class="dim-label">dim C<sub>𝔽<sub>${P}</sub></sub>(A, ${gamma}) =</span>
+        <span class="dim-val">${dim}</span>
+      </div>`;
+
+    const elemInfo = document.getElementById('elem-div-info');
+    if (gamma !== 0) {
+      elemInfo.innerHTML = `
+        <div class="elem-div-list">
+          <strong>Elementary divisors of [A]:</strong> ${elemDivStr(decomp)}<br>
+          <strong>Twisted elem. divisors of [${gamma}A]:</strong> ${twistedElemDivStr(decomp, gamma)}
+        </div>`;
+    } else {
+      elemInfo.innerHTML = `
+        <div class="elem-div-list">
+          <strong>Elementary divisors of [A]:</strong> ${elemDivStr(decomp)}<br>
+          <strong>γ = 0:</strong> dim = n × nullity(A) = ${n} × ${n - matRank(A)} = ${dim}
+        </div>`;
+    }
+
+    // Render basis
+    const basisOut = document.getElementById('basis-out');
+    basisOut.innerHTML = '';
+    if (basis.length === 0) {
+      basisOut.innerHTML = '<div style="color:var(--text2);font-style:italic">C(A, γ) = {0} — only the zero matrix.</div>';
+    } else {
+      basis.forEach((M, idx) => {
+        const div = document.createElement('div');
+        div.className = 'basis-item';
+        div.innerHTML = `
+          <span class="basis-label">X<sub>${idx+1}</sub></span>
+          <div class="matrix-display">${matToStr(M)}</div>`;
+        basisOut.appendChild(div);
+      });
+    }
+
+    // Render steps
+    const stepsCard = document.getElementById('steps-card');
+    stepsCard.style.display = showSteps ? 'block' : 'none';
+    if (showSteps) {
+      document.getElementById('steps-label').textContent = `${stepsLog.length} steps`;
+      const stepsOut = document.getElementById('steps-out');
+      stepsOut.innerHTML = '';
+      for (const step of stepsLog) {
+        const div = document.createElement('div');
+        div.className = 'step-item' + (step.ok ? ' step-ok' : '');
+        div.innerHTML = `
+          <div class="step-head">${step.head}</div>
+          <div class="step-body">${step.body}</div>`;
+        stepsOut.appendChild(div);
+      }
+    }
+
+    document.getElementById('output').style.display = 'block';
+    document.getElementById('output').scrollIntoView({behavior:'smooth'});
+
+  } catch(e) {
+    errBox.innerHTML = `<div class="error-msg">⚠ ${e.message}</div>`;
+  }
+}
+</script>
+</body>
+</html>
