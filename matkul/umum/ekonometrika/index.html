@@ -786,6 +786,341 @@ Konteks: Tingkat Pengangguran ("Pengangguran") dan Tingkat Inflasi ("Inflasi"). 
         <div class="section-title">
           <h2>Pertemuan 3</h2>
         </div>
+        <div class="trigger">
+        <p class="fw-bold">Variabel kualitatif adalah data yang menunjukkan kategori, bukan angka ukur (contoh: Gender, Lokasi, Musim). Agar bisa dimasukkan ke dalam model regresi matematis, kita mengubahnya menjadi "Variabel Dummy" yang bernilai 1 atau 0.</p>
+          <p>Analogi: Bayangkan Anda sedang antre masuk ke sebuah konser. Variabel Dummy itu seperti Tiket VIP. Anda hanya punya dua pilihan: Punya tiket VIP (bernilai 1) atau Tidak punya (bernilai 0). Jika Anda punya (1), Anda mendapatkan fasilitas tambahan (dampak pada variabel Y). Model regresi mengukur seberapa besar "fasilitas tambahan" (perbedaan nilai) antara kelompok VIP dan kelompok Reguler.</p>
+          <p class="fw-bold">Dalam regresi OLS (Ordinary Least Squares), kita berasumsi bahwa residual (selisih antara data asli dan prediksi model) berdistribusi normal. Ini penting agar uji statistik (Uji t, Uji F) valid.</p>
+          <p>Analogi: Bayangkan sekelompok pemanah amatir menembakkan panah ke papan target (dimana titik tengah adalah garis regresi prediksi kita). Mayoritas panah akan menancap di dekat titik tengah (error kecil), dan semakin sedikit yang menancap jauh melenceng ke pinggir (error besar). Jika bentuk sebaran panah ini simetris seperti lonceng, maka asumsi normalitas terpenuhi. Jika panahnya lebih banyak melenceng ke satu sisi (miring/skewed), berarti ada masalah dengan bidikan (model) kita.</p>
+        </div>
+        <div class="mermaid text-center">
+graph TD
+    A["Mulai Analisis Data"] --> B["Impor Data ke EViews"]
+    B --> C["Ubah Variabel Kualitatif menjadi Dummy (0 dan 1)"]
+    C --> D["Estimasi Model Regresi (Metode OLS)"]
+    D --> E["Lakukan Uji Normalitas (Histogram-Normality Test)"]
+    E --> F{"Apakah Residual Berdistribusi Normal?"}
+    F -- "Ya (Prob. Jarque-Bera &gt; 0.05)" --> G["Interpretasi Koefisien & Selesai"]
+    F -- "Tidak (Prob. Jarque-Bera &le; 0.05)" --> H["Evaluasi Outlier atau Transformasi Data"]
+    H --> D
+        </div>
+    
+    <p>$$ Y_i = \beta_0 + \beta_1 X_{1i} + \beta_2 D_{1i} + \epsilon_i $$</p>
+    
+    <p>Di mana \( D_{1i} \) adalah variabel dummy (1 atau 0) dan \( \epsilon_i \) diasumsikan berdistribusi normal: \( \epsilon_i \sim N(0, \sigma^2) \).</p>
+
+    <h2>Langkah-langkah Analisis di EViews</h2>
+
+    <div class="eviews-step">
+        <strong>Langkah 1: Import Data</strong><br>
+        Buka EViews. Klik <code>File > Import > Import from file...</code> dan pilih file CSV Anda. Ikuti *wizard* hingga data masuk ke *workfile*.
+    </div>
+
+    <div class="eviews-step">
+        <strong>Langkah 2: Membuat Variabel Dummy (Jika data masih berbentuk teks)</strong><br>
+        Jika variabel kategori Anda (misal: "Lokasi") masih berupa teks ("Kota", "Desa"), buat variabel baru di *Command Window*: <br>
+        <code>genr d_kota = @recode(lokasi="Kota", 1, 0)</code>
+    </div>
+
+    <div class="eviews-step">
+        <strong>Langkah 3: Estimasi Model (OLS)</strong><br>
+        Di *Command Window*, ketikkan perintah regresi *Least Squares* (LS) dengan format <code>ls y c x dummy</code>. Contoh:<br>
+        <code>ls gaji c pengalaman d_kota</code><br>
+        Tekan Enter. Jendela hasil estimasi akan muncul.
+    </div>
+
+    <div class="eviews-step">
+        <strong>Langkah 4: Uji Asumsi Normalitas</strong><br>
+        Pada jendela hasil estimasi regresi (Equation), klik <code>View > Residual Diagnostics > Histogram - Normality Test</code>.<br>
+        Lihat nilai probabilitas <strong>Jarque-Bera</strong>. Jika nilai Prob. > 0.05, maka kita gagal menolak H0, yang artinya <strong>residual berdistribusi normal</strong>.
+    </div>
+        <p class="soal-latihan">
+Kasus 1: Dampak Pengalaman (X) dan Gender (D) terhadap Gaji (Y)        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Gaji","Pengalaman","Gender_Pria"
+"1","5.2","2","1"
+"2","4.8","2","0"
+"3","6.1","4","1"
+"4","5.5","4","0"
+"5","7.3","6","1"
+"6","6.8","6","0"
+"7","8.5","8","1"
+"8","7.9","8","0"
+"9","9.2","10","1"
+"10","8.8","10","0"
+"11","4.5","1","1"
+"12","4.2","1","0"
+"13","6.5","5","1"
+"14","5.9","5","0"
+"15","7.8","7","1"
+"16","7.1","7","0"
+"17","8.9","9","1"
+"18","8.3","9","0"
+"19","10.1","11","1"
+"20","9.5","11","0"
+"21","5.0","2","1"
+"22","4.6","2","0"
+"23","5.8","3","1"
+"24","5.3","3","0"
+"25","6.9","5","1"
+"26","6.4","5","0"
+"27","7.5","6","1"
+"28","7.0","6","0"
+"29","8.1","7","1"
+"30","7.6","7","0"
+"31","9.5","10","1"
+"32","9.1","10","0"
+"33","10.5","12","1"
+"34","9.8","12","0"
+"35","11.2","14","1"
+"36","10.6","14","0"
+"37","12.1","15","1"
+"38","11.5","15","0"
+"39","4.9","1","1"
+"40","4.1","1","0"
+"41","6.2","4","1"
+"42","5.7","4","0"
+"43","7.4","6","1"
+"44","6.9","6","0"
+"45","8.6","8","1"
+"46","8.1","8","0"
+"47","9.7","10","1"
+"48","9.0","10","0"
+"49","11.0","13","1"
+"50","10.2","13","0"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 2: Dampak Biaya Iklan (X) dan Jenis Promosi (D) terhadap Penjualan (Y)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Penjualan","Iklan","FlashSale"
+"1","150","10","1"
+"2","120","10","0"
+"3","180","12","1"
+"4","145","12","0"
+"5","210","15","1"
+"6","170","15","0"
+"7","250","18","1"
+"8","200","18","0"
+"9","280","20","1"
+"10","230","20","0"
+"11","160","11","1"
+"12","125","11","0"
+"13","190","13","1"
+"14","150","13","0"
+"15","220","16","1"
+"16","180","16","0"
+"17","260","19","1"
+"18","210","19","0"
+"19","300","22","1"
+"20","250","22","0"
+"21","140","9","1"
+"22","110","9","0"
+"23","175","12","1"
+"24","135","12","0"
+"25","205","14","1"
+"26","165","14","0"
+"27","235","17","1"
+"28","195","17","0"
+"29","275","20","1"
+"30","225","20","0"
+"31","155","10","1"
+"32","115","10","0"
+"33","185","13","1"
+"34","140","13","0"
+"35","215","15","1"
+"36","175","15","0"
+"37","245","18","1"
+"38","205","18","0"
+"39","290","21","1"
+"40","240","21","0"
+"41","165","11","1"
+"42","130","11","0"
+"43","195","14","1"
+"44","155","14","0"
+"45","225","16","1"
+"46","185","16","0"
+"47","265","19","1"
+"48","215","19","0"
+"49","310","23","1"
+"50","260","23","0"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 3: Dampak Luas Bangunan (X) dan Lokasi (D) terhadap Harga Rumah (Y)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Harga","Luas","Kota"
+"1","5.0","50","1"
+"2","3.5","50","0"
+"3","6.5","70","1"
+"4","4.8","70","0"
+"5","8.2","90","1"
+"6","6.0","90","0"
+"7","10.0","110","1"
+"8","7.5","110","0"
+"9","11.8","130","1"
+"10","8.9","130","0"
+"11","5.5","60","1"
+"12","4.0","60","0"
+"13","7.0","80","1"
+"14","5.2","80","0"
+"15","9.0","100","1"
+"16","6.8","100","0"
+"17","10.8","120","1"
+"18","8.1","120","0"
+"19","12.5","140","1"
+"20","9.5","140","0"
+"21","4.8","45","1"
+"22","3.2","45","0"
+"23","6.0","65","1"
+"24","4.5","65","0"
+"25","7.8","85","1"
+"26","5.8","85","0"
+"27","9.5","105","1"
+"28","7.2","105","0"
+"29","11.2","125","1"
+"30","8.5","125","0"
+"31","5.2","55","1"
+"32","3.8","55","0"
+"33","6.8","75","1"
+"34","5.0","75","0"
+"35","8.5","95","1"
+"36","6.3","95","0"
+"37","10.2","115","1"
+"38","7.8","115","0"
+"39","12.0","135","1"
+"40","9.2","135","0"
+"41","5.8","65","1"
+"42","4.2","65","0"
+"43","7.5","85","1"
+"44","5.5","85","0"
+"45","9.2","105","1"
+"46","7.0","105","0"
+"47","11.0","125","1"
+"48","8.3","125","0"
+"49","13.0","150","1"
+"50","10.0","150","0"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 4: Dampak Jam Belajar (X) dan Keikutsertaan Bimbel (D) terhadap Nilai Ujian (Y)        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Nilai","Jam_Belajar","Bimbel"
+"1","65","5","1"
+"2","55","5","0"
+"3","72","8","1"
+"4","62","8","0"
+"5","80","12","1"
+"6","70","12","0"
+"7","88","15","1"
+"8","78","15","0"
+"9","95","20","1"
+"10","85","20","0"
+"11","68","6","1"
+"12","58","6","0"
+"13","75","10","1"
+"14","65","10","0"
+"15","82","13","1"
+"16","72","13","0"
+"17","90","18","1"
+"18","80","18","0"
+"19","98","22","1"
+"20","88","22","0"
+"21","62","4","1"
+"22","52","4","0"
+"23","70","7","1"
+"24","60","7","0"
+"25","78","11","1"
+"26","68","11","0"
+"27","85","14","1"
+"28","75","14","0"
+"29","92","19","1"
+"30","82","19","0"
+"31","66","6","1"
+"32","56","6","0"
+"33","73","9","1"
+"34","63","9","0"
+"35","81","12","1"
+"36","71","12","0"
+"37","89","16","1"
+"38","79","16","0"
+"39","96","21","1"
+"40","86","21","0"
+"41","69","7","1"
+"42","59","7","0"
+"43","76","10","1"
+"44","66","10","0"
+"45","83","13","1"
+"46","73","13","0"
+"47","91","17","1"
+"48","81","17","0"
+"49","99","23","1"
+"50","89","23","0"</textarea>
+        </div>
+        <p class="soal-latihan">Kasus 5: Dampak Volume Air (X) dan Jenis Varietas (D) terhadap Hasil Panen (Y)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Panen","Air","Varietas_Unggul"
+"1","4.5","20","1"
+"2","3.2","20","0"
+"3","5.2","30","1"
+"4","3.9","30","0"
+"5","6.1","40","1"
+"6","4.7","40","0"
+"7","7.0","50","1"
+"8","5.6","50","0"
+"9","8.2","60","1"
+"10","6.5","60","0"
+"11","4.8","25","1"
+"12","3.5","25","0"
+"13","5.6","35","1"
+"14","4.2","35","0"
+"15","6.4","45","1"
+"16","5.0","45","0"
+"17","7.5","55","1"
+"18","6.0","55","0"
+"19","8.6","65","1"
+"20","7.0","65","0"
+"21","4.2","18","1"
+"22","2.9","18","0"
+"23","5.0","28","1"
+"24","3.7","28","0"
+"25","5.9","38","1"
+"26","4.5","38","0"
+"27","6.8","48","1"
+"28","5.4","48","0"
+"29","8.0","58","1"
+"30","6.2","58","0"
+"31","4.6","22","1"
+"32","3.3","22","0"
+"33","5.4","32","1"
+"34","4.1","32","0"
+"35","6.2","42","1"
+"36","4.8","42","0"
+"37","7.2","52","1"
+"38","5.8","52","0"
+"39","8.4","62","1"
+"40","6.7","62","0"
+"41","4.9","26","1"
+"42","3.6","26","0"
+"43","5.7","36","1"
+"44","4.4","36","0"
+"45","6.6","46","1"
+"46","5.2","46","0"
+"47","7.7","56","1"
+"48","6.3","56","0"
+"49","8.9","68","1"
+"50","7.3","68","0"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
         
       </div>
     </section>
