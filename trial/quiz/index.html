@@ -1,0 +1,697 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kuis Mata Kuliah | paggalih.github.io</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --orange: #b45309;
+      --orange-lt: #fef3c7;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+
+    main {
+      max-width: 720px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .8rem 1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+      color: var(--text2);
+    }
+    .info-box strong { color: var(--text); }
+
+    .warn-box {
+      background: var(--orange-lt);
+      border-left: 3px solid var(--orange);
+      padding: .8rem 1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+      color: var(--orange);
+    }
+
+    label.field-label {
+      display: block;
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text2);
+      margin-bottom: .35rem;
+    }
+
+    input[type=text] {
+      width: 100%;
+      padding: .55rem .8rem;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      font-family: var(--mono);
+      font-size: .88rem;
+      color: var(--text);
+      background: var(--bg);
+      transition: border-color .2s, background .2s;
+    }
+    input[type=text]:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: #fff;
+    }
+    input[type=text]:disabled {
+      opacity: .6;
+      cursor: not-allowed;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: .72rem 2rem;
+      border-radius: 6px;
+      font-size: .95rem;
+      font-weight: 600;
+      cursor: pointer;
+      font-family: var(--sans);
+      letter-spacing: .04em;
+      transition: background .2s, transform .1s;
+    }
+    .btn-primary:hover { background: #152d57; }
+    .btn-primary:active { transform: scale(.98); }
+    .btn-primary:disabled { opacity: .5; cursor: not-allowed; }
+
+    #nim-section .nim-row {
+      display: flex;
+      gap: .75rem;
+      align-items: flex-end;
+    }
+    #nim-section .nim-row > div { flex: 1; }
+    #nim-section .nim-row > div:last-child { flex: 0 0 auto; }
+    .nim-input-wrap { position: relative; }
+    .nim-input-wrap input { padding-right: 2.5rem; }
+    .nim-icon {
+      position: absolute;
+      right: .6rem;
+      top: 50%;
+      transform: translateY(-50%);
+      font-size: 1.1rem;
+      opacity: .4;
+    }
+
+    .loading-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(245,244,240,.85);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      z-index: 999;
+      backdrop-filter: blur(2px);
+    }
+    .loading-box {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 2rem 2.5rem;
+      text-align: center;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+    }
+    .loading-spinner {
+      width: 32px; height: 32px;
+      border: 3px solid var(--border);
+      border-top-color: var(--accent);
+      border-radius: 50%;
+      animation: spin .7s linear infinite;
+      margin: 0 auto .75rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading-text { font-size: .9rem; color: var(--text2); }
+
+    .timer-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      background: var(--accent);
+      color: #fff;
+      padding: .5rem 1rem;
+      border-radius: 6px;
+      font-family: var(--mono);
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+    }
+    .timer-bar .timer-clock {
+      font-size: 1.1rem;
+      font-weight: 500;
+      letter-spacing: .05em;
+    }
+    .timer-bar.warn { background: var(--red); animation: pulse 1s infinite; }
+    @keyframes pulse {
+      0%,100% { opacity: 1; }
+      50% { opacity: .85; }
+    }
+
+    .question-item {
+      padding: 1.1rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .question-item:last-child { border-bottom: none; }
+
+    .q-number {
+      display: inline-block;
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .18rem .5rem;
+      border-radius: 3px;
+      margin-bottom: .5rem;
+    }
+
+    .q-text {
+      font-size: .95rem;
+      margin-bottom: .6rem;
+      line-height: 1.65;
+    }
+    .q-text code {
+      font-family: var(--mono);
+      background: var(--accent-lt);
+      padding: .1rem .35rem;
+      border-radius: 3px;
+      font-size: .85rem;
+    }
+
+    .q-answer-input { max-width: 400px; }
+
+    .result-summary { text-align: center; padding: 1.5rem 0; }
+    .result-score {
+      font-family: var(--serif);
+      font-size: 3rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+    .result-label { font-size: .9rem; color: var(--text2); margin-top: .25rem; }
+    .result-saved { margin-top: .5rem; font-size: .82rem; color: var(--green); }
+    .result-save-fail { margin-top: .5rem; font-size: .82rem; color: var(--orange); }
+
+    .result-item {
+      padding: .75rem 0;
+      border-bottom: 1px dashed var(--border);
+    }
+    .result-item:last-child { border-bottom: none; }
+    .result-item .q-number.correct { background: var(--green); }
+    .result-item .q-number.wrong { background: var(--red); }
+
+    .answer-row {
+      display: flex;
+      gap: 1rem;
+      font-size: .85rem;
+      margin-top: .35rem;
+      flex-wrap: wrap;
+    }
+    .answer-tag {
+      font-family: var(--mono);
+      padding: .2rem .5rem;
+      border-radius: 4px;
+      font-size: .82rem;
+    }
+    .answer-tag.yours { background: #f0f0f0; color: var(--text2); }
+    .answer-tag.key { background: var(--green-lt); color: var(--green); }
+
+    .blocked-msg { text-align: center; padding: 2rem 1rem; }
+    .blocked-msg .icon { font-size: 2.5rem; margin-bottom: .75rem; }
+    .blocked-msg h2 {
+      font-family: var(--serif);
+      font-size: 1.4rem;
+      color: var(--red);
+      margin-bottom: .5rem;
+    }
+    .blocked-msg p { color: var(--text2); font-size: .92rem; }
+
+    .fade-in { animation: fadeIn .4s ease; }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .error-msg {
+      background: var(--red-lt);
+      color: var(--red);
+      border: 1px solid #f5c6c6;
+      border-radius: 5px;
+      padding: .7rem .9rem;
+      font-size: .88rem;
+      margin-top: .75rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 500px) {
+      header h1 { font-size: 1.5rem; }
+      main { padding: 0 .75rem 2rem; }
+      .card { padding: 1.1rem; }
+      #nim-section .nim-row { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Kuis Mata Kuliah</h1>
+  <p>Aljabar Linear — Pertemuan 7</p>
+</header>
+
+<main>
+  <div id="nim-section" class="card fade-in">
+    <div class="card-title">Identitas Mahasiswa</div>
+    <div class="info-box">
+      <strong>Perhatian:</strong> Kuis ini hanya dapat dikerjakan <strong>satu kali</strong>.
+      Pastikan NIM Anda benar sebelum memulai. Waktu pengerjaan: <strong>15 menit</strong>.
+    </div>
+    <div class="nim-row">
+      <div>
+        <label class="field-label">Nomor Induk Mahasiswa (NIM)</label>
+        <div class="nim-input-wrap">
+          <input type="text" id="nim-input" placeholder="Contoh: 2410101001" maxlength="20">
+          <span class="nim-icon">🎓</span>
+        </div>
+      </div>
+      <div>
+        <label class="field-label">&nbsp;</label>
+        <button class="btn-primary" id="btn-start" onclick="startQuiz()">Mulai Kuis</button>
+      </div>
+    </div>
+    <div id="nim-error"></div>
+  </div>
+
+  <div id="quiz-section" style="display:none">
+    <div class="timer-bar" id="timer-bar">
+      <span>⏱ Sisa Waktu</span>
+      <span class="timer-clock" id="timer-clock">15:00</span>
+    </div>
+    <div class="card fade-in">
+      <div class="card-title">Soal Kuis <span id="nim-display" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span></div>
+      <div class="warn-box">
+        Jawab semua pertanyaan di bawah ini. Kuis akan otomatis tersubmit ketika waktu habis.
+      </div>
+      <div id="questions-container"></div>
+      <div style="margin-top:1.5rem; text-align:right;">
+        <button class="btn-primary" id="btn-submit" onclick="submitQuiz()">Submit Jawaban</button>
+      </div>
+    </div>
+  </div>
+
+  <div id="result-section" style="display:none">
+    <div class="card fade-in">
+      <div class="card-title">Hasil Kuis</div>
+      <div id="result-summary" class="result-summary"></div>
+      <div id="result-details"></div>
+    </div>
+  </div>
+
+  <div id="blocked-section" style="display:none">
+    <div class="card fade-in">
+      <div class="blocked-msg">
+        <div class="icon">🔒</div>
+        <h2>Kuis Sudah Dikerjakan</h2>
+        <p id="blocked-text"></p>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a>
+</footer>
+
+<div class="loading-overlay" id="loading-overlay" style="display:none">
+  <div class="loading-box">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">Memverifikasi NIM…</div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   KONFIGURASI KUIS
+   ────────────────
+   Edit bagian ini untuk mengubah soal, jawaban, dan
+   pengaturan kuis.
+════════════════════════════════════════════════════════ */
+
+const QUIZ_CONFIG = {
+  title: "Aljabar Linear — Pertemuan 7",
+  duration_minutes: 15,
+
+  // ┌──────────────────────────────────────────────────────┐
+  // │  PENTING: Ganti URL di bawah dengan Web App URL      │
+  // │  dari Google Apps Script Anda.                       │
+  // │  Lihat panduan setup di file PANDUAN_SETUP.md        │
+  // └──────────────────────────────────────────────────────┘
+  googleScriptURL: "PASTE_YOUR_GOOGLE_APPS_SCRIPT_WEB_APP_URL_HERE",
+
+  questions: [
+    {
+      q: "Apa nama operasi baris elementer yang menukar dua baris pada matriks?",
+      a: ["pertukaran baris", "swap", "interchange", "tukar baris"]
+    },
+    {
+      q: "Berapakah determinan dari matriks identitas 3×3?",
+      a: ["1"]
+    },
+    {
+      q: "Jika <code>det(A) = 0</code>, maka matriks A disebut matriks …?",
+      a: ["singular", "singulir"]
+    },
+    {
+      q: "Suatu sistem persamaan linear yang tidak memiliki solusi disebut sistem …?",
+      a: ["inkonsisten", "inconsistent"]
+    },
+    {
+      q: "Bentuk eselon baris tereduksi (reduced row echelon form) mengharuskan elemen pivot bernilai …?",
+      a: ["1", "satu"]
+    },
+    {
+      q: "Apa nama matriks yang didapat dari menulis koefisien dan konstanta suatu SPL ke dalam bentuk matriks?",
+      a: ["matriks augmentasi", "augmented matrix", "matriks diperbesar", "augmentasi"]
+    },
+    {
+      q: "Jika A adalah matriks 3×3 dan <code>det(A) = 5</code>, berapakah <code>det(2A)</code>?",
+      a: ["40"]
+    },
+    {
+      q: "Transpose dari matriks A dinotasikan sebagai …?",
+      a: ["A^T", "AT", "A'", "A^t", "At"]
+    }
+  ]
+};
+
+/* ════════════════════════════════════════════════════════ */
+
+const STORAGE_PREFIX = "quiz_aljabar7_";
+let currentNIM = "";
+let timerInterval = null;
+let timeLeft = QUIZ_CONFIG.duration_minutes * 60;
+
+const API = QUIZ_CONFIG.googleScriptURL;
+const hasAPI = API && !API.includes("PASTE_YOUR");
+
+/* ─ Local Storage (backup) ─ */
+function hasCompletedLocal(nim) {
+  try { return localStorage.getItem(STORAGE_PREFIX + nim) !== null; }
+  catch(e) { return false; }
+}
+function markCompletedLocal(nim, score, total) {
+  try {
+    localStorage.setItem(STORAGE_PREFIX + nim, JSON.stringify({
+      nim, score, total, timestamp: new Date().toISOString()
+    }));
+  } catch(e) {}
+}
+function getCompletionDataLocal(nim) {
+  try {
+    const raw = localStorage.getItem(STORAGE_PREFIX + nim);
+    return raw ? JSON.parse(raw) : null;
+  } catch(e) { return null; }
+}
+
+/* ─ Google Sheets API ─ */
+function showLoading(msg) {
+  document.getElementById('loading-text').textContent = msg;
+  document.getElementById('loading-overlay').style.display = 'flex';
+}
+function hideLoading() {
+  document.getElementById('loading-overlay').style.display = 'none';
+}
+
+async function checkNIMOnServer(nim) {
+  if (!hasAPI) return { found: false };
+  try {
+    const res = await fetch(`${API}?action=check&nim=${encodeURIComponent(nim)}`);
+    return await res.json();
+  } catch(e) {
+    console.warn("Server check failed:", e);
+    return { found: false, error: true };
+  }
+}
+
+async function sendToSheet(payload) {
+  if (!hasAPI) return { success: false, reason: "no_api" };
+  try {
+    const res = await fetch(API, {
+      method: "POST",
+      headers: { "Content-Type": "text/plain" },
+      body: JSON.stringify(payload)
+    });
+    return await res.json();
+  } catch(e) {
+    console.warn("Send to sheet failed:", e);
+    return { success: false, reason: "network" };
+  }
+}
+
+/* ─ Start Quiz ─ */
+async function startQuiz() {
+  const errBox = document.getElementById('nim-error');
+  errBox.innerHTML = '';
+  const nim = document.getElementById('nim-input').value.trim();
+
+  if (!nim) {
+    errBox.innerHTML = '<div class="error-msg">⚠ Masukkan NIM Anda terlebih dahulu.</div>';
+    return;
+  }
+  if (nim.length < 5) {
+    errBox.innerHTML = '<div class="error-msg">⚠ NIM terlalu pendek. Periksa kembali.</div>';
+    return;
+  }
+
+  // Check localStorage first
+  if (hasCompletedLocal(nim)) {
+    showBlocked(nim, getCompletionDataLocal(nim));
+    return;
+  }
+
+  // Check server (Google Sheets)
+  if (hasAPI) {
+    showLoading("Memverifikasi NIM…");
+    const check = await checkNIMOnServer(nim);
+    hideLoading();
+    if (check.found) {
+      markCompletedLocal(nim, check.score, check.total);
+      showBlocked(nim, { score: check.score, total: check.total, timestamp: check.timestamp });
+      return;
+    }
+  }
+
+  currentNIM = nim;
+  document.getElementById('nim-section').style.display = 'none';
+  document.getElementById('quiz-section').style.display = 'block';
+  document.getElementById('nim-display').textContent = `NIM: ${nim}`;
+  renderQuestions();
+  startTimer();
+}
+
+function showBlocked(nim, data) {
+  document.getElementById('nim-section').style.display = 'none';
+  document.getElementById('blocked-section').style.display = 'block';
+  const dt = data?.timestamp ? new Date(data.timestamp) : null;
+  const timeStr = dt ? dt.toLocaleString('id-ID', { dateStyle:'long', timeStyle:'short' }) : '';
+  const scoreStr = data?.score != null ? `Skor: ${data.score}/${data.total}` : '';
+  document.getElementById('blocked-text').innerHTML =
+    `NIM <strong style="font-family:var(--mono)">${nim}</strong> sudah mengerjakan kuis ini.<br>${timeStr}<br>${scoreStr}`;
+}
+
+/* ─ Render ─ */
+function renderQuestions() {
+  const c = document.getElementById('questions-container');
+  c.innerHTML = '';
+  QUIZ_CONFIG.questions.forEach((item, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-item';
+    div.innerHTML = `
+      <span class="q-number">Soal ${i+1}</span>
+      <div class="q-text">${item.q}</div>
+      <input type="text" class="q-answer-input" id="answer-${i}"
+             placeholder="Ketik jawaban Anda…" autocomplete="off">`;
+    c.appendChild(div);
+  });
+}
+
+/* ─ Timer ─ */
+function startTimer() {
+  timeLeft = QUIZ_CONFIG.duration_minutes * 60;
+  updateTimerDisplay();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimerDisplay();
+    if (timeLeft <= 60) document.getElementById('timer-bar').classList.add('warn');
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(true); }
+  }, 1000);
+}
+function updateTimerDisplay() {
+  const m = Math.floor(Math.max(0,timeLeft)/60);
+  const s = Math.max(0,timeLeft)%60;
+  document.getElementById('timer-clock').textContent =
+    String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+/* ─ Submit ─ */
+async function submitQuiz(autoSubmit) {
+  if (!autoSubmit) {
+    const empty = QUIZ_CONFIG.questions.filter((_,i) =>
+      !document.getElementById(`answer-${i}`).value.trim()).length;
+    if (empty > 0 && !confirm(`Ada ${empty} soal belum dijawab. Yakin submit?`)) return;
+  }
+  clearInterval(timerInterval);
+  document.getElementById('btn-submit').disabled = true;
+
+  const answers = QUIZ_CONFIG.questions.map((item, i) => {
+    const ua = document.getElementById(`answer-${i}`).value.trim();
+    const ok = item.a.some(a => a.toLowerCase() === ua.toLowerCase());
+    return { userAnswer: ua, isCorrect: ok, correctAnswers: item.a };
+  });
+
+  const score = answers.filter(a => a.isCorrect).length;
+  const total = QUIZ_CONFIG.questions.length;
+  const timeUsed = QUIZ_CONFIG.duration_minutes * 60 - timeLeft;
+
+  markCompletedLocal(currentNIM, score, total);
+
+  showLoading("Menyimpan jawaban…");
+  const sheetResult = await sendToSheet({
+    action: "submit",
+    nim: currentNIM,
+    score, total, timeUsed,
+    autoSubmit: !!autoSubmit,
+    timestamp: new Date().toISOString(),
+    answers: answers.map((a,i) => ({
+      soal: i+1, jawaban: a.userAnswer, benar: a.isCorrect
+    }))
+  });
+  hideLoading();
+
+  document.getElementById('quiz-section').style.display = 'none';
+  document.getElementById('result-section').style.display = 'block';
+
+  const pct = Math.round((score/total)*100);
+  let savedMsg = '';
+  if (sheetResult.success)
+    savedMsg = '<div class="result-saved">✓ Jawaban tersimpan ke server dosen.</div>';
+  else if (hasAPI)
+    savedMsg = '<div class="result-save-fail">⚠ Gagal menyimpan ke server. Hubungi dosen.</div>';
+
+  document.getElementById('result-summary').innerHTML = `
+    <div class="result-score">${score}/${total}</div>
+    <div class="result-label">Skor: ${pct}% ${autoSubmit?'(waktu habis)':''}</div>
+    ${savedMsg}`;
+
+  const det = document.getElementById('result-details');
+  det.innerHTML = '';
+  QUIZ_CONFIG.questions.forEach((item, i) => {
+    const a = answers[i];
+    const div = document.createElement('div');
+    div.className = 'result-item';
+    div.innerHTML = `
+      <span class="q-number ${a.isCorrect?'correct':'wrong'}">Soal ${i+1} ${a.isCorrect?'✓':'✗'}</span>
+      <div class="q-text">${item.q}</div>
+      <div class="answer-row">
+        <span class="answer-tag yours">Jawaban: <strong>${a.userAnswer||'(kosong)'}</strong></span>
+        <span class="answer-tag key">Kunci: <strong>${a.correctAnswers[0]}</strong></span>
+      </div>`;
+    det.appendChild(div);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+  document.getElementById('nim-input').addEventListener('keydown', e => {
+    if (e.key === 'Enter') startQuiz();
+  });
+});
+</script>
+</body>
+</html>
