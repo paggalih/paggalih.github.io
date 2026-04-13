@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <title>Peserta — Cerdas Cermat Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --surface: #151b2e;
+      --surface2: #1e2744;
+      --border: #2a3456;
+      --text: #e8ecf4;
+      --muted: #7a8bb5;
+      --accent: #4f7cff;
+      --accent2: #7c5cfc;
+      --gold: #f5c542;
+      --green: #2dd4a0;
+      --red: #f05a5a;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      -webkit-user-select: none;
+      user-select: none;
+    }
+
+    /* Top bar */
+    .topbar {
+      padding: 8px 14px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .topbar .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .conn {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.72rem; color: var(--muted);
+    }
+    .conn-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--red);
+    }
+    .conn-dot.on { background: var(--green); }
+
+    /* Team select screen */
+    .team-select {
+      flex: 1; display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 24px; gap: 16px;
+    }
+    .team-select h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2rem; color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .team-select p { color: var(--muted); font-size: 0.9rem; }
+    .team-btn-list {
+      display: flex; flex-direction: column; gap: 10px;
+      width: 100%; max-width: 320px;
+    }
+    .team-btn {
+      padding: 14px 20px;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-family: 'Nunito', sans-serif;
+      font-size: 1.1rem; font-weight: 800;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s;
+      text-align: center;
+    }
+    .team-btn:hover { border-color: var(--accent); background: var(--surface2); }
+    .team-btn:active { transform: scale(0.96); background: var(--accent); color: #fff; }
+
+    /* Main screen */
+    .main-screen {
+      flex: 1; display: none; flex-direction: column;
+      overflow: hidden;
+    }
+    .main-screen.active { display: flex; }
+
+    /* Info bar */
+    .info-bar {
+      padding: 8px 14px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: space-between;
+      flex-shrink: 0;
+    }
+    .my-team {
+      font-weight: 900; font-size: 0.95rem;
+      color: var(--gold);
+    }
+    .round-badge {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; padding: 3px 12px; border-radius: 12px;
+      font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+    }
+
+    /* Timer */
+    .timer-section {
+      text-align: center; padding: 8px 0;
+      flex-shrink: 0;
+    }
+    .timer-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(3rem, 10vh, 6rem);
+      line-height: 1; color: var(--text);
+      letter-spacing: 4px;
+      transition: color 0.3s;
+    }
+    .timer-val.critical { color: var(--red); animation: pulse 0.8s infinite; }
+    .timer-val.done { color: var(--muted); }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.05)} }
+
+    /* Question */
+    .question-section {
+      flex: 1; overflow-y: auto;
+      display: flex; align-items: center; justify-content: center;
+      padding: 12px 20px;
+    }
+    .q-text {
+      font-size: clamp(1.1rem, 2.5vh, 1.8rem);
+      font-weight: 700; text-align: center;
+      line-height: 1.5; white-space: pre-wrap;
+    }
+    .waiting-msg {
+      font-size: 1.2rem; color: var(--muted);
+      text-align: center;
+    }
+
+    /* Buzzer area */
+    .buzzer-area {
+      flex-shrink: 0;
+      padding: 16px;
+      display: flex; flex-direction: column;
+      align-items: center; gap: 10px;
+    }
+
+    .buzzer-btn {
+      width: 85%;
+      max-width: 340px;
+      aspect-ratio: 1;
+      border-radius: 50%;
+      border: none;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(1.8rem, 5vw, 3rem);
+      letter-spacing: 3px;
+      cursor: pointer;
+      transition: all 0.15s;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .buzzer-btn .buzzer-icon {
+      font-size: clamp(2.5rem, 8vw, 4.5rem);
+    }
+
+    /* States */
+    .buzzer-btn.locked {
+      background: var(--surface2);
+      color: var(--muted);
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+    }
+    .buzzer-btn.ready {
+      background: radial-gradient(circle at 40% 35%, #ff5f5f, #cc2222);
+      color: #fff;
+      box-shadow:
+        0 0 30px rgba(255,50,50,0.4),
+        0 8px 30px rgba(0,0,0,0.3),
+        inset 0 -4px 10px rgba(0,0,0,0.3),
+        inset 0 4px 10px rgba(255,255,255,0.15);
+      animation: breathe 1.5s ease-in-out infinite;
+    }
+    .buzzer-btn.ready:active {
+      transform: scale(0.92);
+      box-shadow: 0 0 10px rgba(255,50,50,0.3), 0 2px 10px rgba(0,0,0,0.3);
+    }
+    @keyframes breathe {
+      0%,100% { box-shadow: 0 0 30px rgba(255,50,50,0.4), 0 8px 30px rgba(0,0,0,0.3), inset 0 -4px 10px rgba(0,0,0,0.3), inset 0 4px 10px rgba(255,255,255,0.15); }
+      50% { box-shadow: 0 0 50px rgba(255,50,50,0.6), 0 8px 30px rgba(0,0,0,0.3), inset 0 -4px 10px rgba(0,0,0,0.3), inset 0 4px 10px rgba(255,255,255,0.15); }
+    }
+    .buzzer-btn.won {
+      background: radial-gradient(circle at 40% 35%, var(--green), #16a085);
+      color: #fff;
+      box-shadow: 0 0 40px rgba(45,212,160,0.5), 0 8px 30px rgba(0,0,0,0.3);
+      animation: none;
+    }
+    .buzzer-btn.lost {
+      background: var(--surface2);
+      color: var(--muted);
+      animation: none;
+    }
+
+    .buzzer-status {
+      font-size: 0.82rem; color: var(--muted);
+      text-align: center; font-weight: 700;
+      min-height: 20px;
+    }
+    .buzzer-status.highlight { color: var(--gold); font-size: 0.95rem; }
+
+    /* Turn indicator */
+    .turn-banner {
+      display: none;
+      background: rgba(245,197,66,0.12);
+      border: 2px solid var(--gold);
+      border-radius: 10px;
+      padding: 12px 16px;
+      text-align: center;
+      font-weight: 800;
+      font-size: 1.1rem;
+      color: var(--gold);
+      animation: turnPulse 1.5s infinite;
+    }
+    .turn-banner.show { display: block; }
+    @keyframes turnPulse {
+      0%,100% { box-shadow: 0 0 0 0 rgba(245,197,66,0.3); }
+      50% { box-shadow: 0 0 0 8px rgba(245,197,66,0); }
+    }
+
+    /* Scoreboard mini */
+    .scores-mini {
+      padding: 8px 14px;
+      background: var(--surface);
+      border-top: 1px solid var(--border);
+      display: flex; gap: 6px; justify-content: center; flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .sm-item {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      padding: 4px 10px;
+      text-align: center;
+      min-width: 60px;
+    }
+    .sm-item.me { border-color: var(--gold); background: rgba(245,197,66,0.08); }
+    .sm-name { font-size: 0.68rem; color: var(--muted); font-weight: 700; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 80px; }
+    .sm-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.2rem; color: var(--gold);
+    }
+    .sm-score.neg { color: var(--red); }
+
+    /* Flash overlay */
+    .flash-overlay {
+      position: fixed; inset: 0; z-index: 100;
+      pointer-events: none; opacity: 0;
+      transition: opacity 0.15s;
+    }
+    .flash-overlay.green { background: rgba(45,212,160,0.25); }
+    .flash-overlay.red { background: rgba(240,90,90,0.25); }
+    .flash-overlay.show { opacity: 1; animation: flashFade 0.6s forwards; }
+    @keyframes flashFade { 0%{opacity:1} 100%{opacity:0} }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 16px; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--surface2); color: var(--text);
+      padding: 10px 24px; border-radius: 8px;
+      font-weight: 700; font-size: 0.88rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      z-index: 999;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0; border: 1px solid var(--border);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <span class="logo">🏆 CERDAS CERMAT</span>
+    <div class="conn">
+      <span class="conn-dot" id="connDot"></span>
+      <span id="connLabel">Menghubungkan...</span>
+    </div>
+  </div>
+
+  <!-- TEAM SELECT -->
+  <div class="team-select" id="teamSelect">
+    <h2>Pilih Tim Kamu</h2>
+    <p>Pilih tim untuk bergabung dalam pertandingan</p>
+    <div class="team-btn-list" id="teamList">
+      <p style="color:var(--muted);text-align:center;font-style:italic">Menunggu juri menyiapkan tim...</p>
+    </div>
+  </div>
+
+  <!-- MAIN SCREEN -->
+  <div class="main-screen" id="mainScreen">
+    <div class="info-bar">
+      <span class="my-team" id="myTeamName">—</span>
+      <span class="round-badge" id="roundBadge">WAJIB</span>
+    </div>
+
+    <div class="timer-section">
+      <div class="timer-val" id="timerVal">15</div>
+    </div>
+
+    <div class="question-section">
+      <div class="q-text" id="qText">
+        <span class="waiting-msg">Menunggu juri memilih soal...</span>
+      </div>
+    </div>
+
+    <!-- Turn banner -->
+    <div class="turn-banner" id="turnBanner">⭐ GILIRAN TIM KAMU!</div>
+
+    <!-- Buzzer -->
+    <div class="buzzer-area" id="buzzerArea">
+      <button class="buzzer-btn locked" id="buzzerBtn" onclick="pressBuzzer()">
+        <span class="buzzer-icon">🔔</span>
+        <span>BEL</span>
+      </button>
+      <div class="buzzer-status" id="buzzerStatus">Bel terkunci</div>
+    </div>
+
+    <!-- Scoreboard -->
+    <div class="scores-mini" id="scoresMini"></div>
+  </div>
+
+  <div class="flash-overlay" id="flashOverlay"></div>
+  <div class="toast" id="toast"></div>
+
+<script>
+const socket = io({ query: { role: 'peserta' } });
+let S = {};
+let myTeamId = null;
+let myTeamName = '';
+
+// Audio
+const AudioCtx = window.AudioContext || window.webkitAudioContext;
+let audioCtx = null;
+function getAudio() { if (!audioCtx) audioCtx = new AudioCtx(); return audioCtx; }
+
+function playBeep(freq, dur, vol) {
+  try {
+    const ctx = getAudio();
+    const osc = ctx.createOscillator();
+    const gain = ctx.createGain();
+    osc.connect(gain); gain.connect(ctx.destination);
+    osc.type = 'sine'; osc.frequency.setValueAtTime(freq, ctx.currentTime);
+    gain.gain.setValueAtTime(vol, ctx.currentTime);
+    gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+    osc.start(); osc.stop(ctx.currentTime + dur);
+  } catch(e) {}
+}
+
+function playBuzzerSound() {
+  try {
+    const ctx = getAudio();
+    [523, 659, 784, 1047].forEach((f, i) => {
+      const osc = ctx.createOscillator();
+      const gain = ctx.createGain();
+      osc.connect(gain); gain.connect(ctx.destination);
+      osc.type = 'triangle'; osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.06);
+      gain.gain.setValueAtTime(0.5, ctx.currentTime + i * 0.06);
+      gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.06 + 0.3);
+      osc.start(ctx.currentTime + i * 0.06);
+      osc.stop(ctx.currentTime + i * 0.06 + 0.3);
+    });
+  } catch(e) {}
+}
+
+// Connection
+socket.on('connect', () => {
+  document.getElementById('connDot').classList.add('on');
+  document.getElementById('connLabel').textContent = 'Terhubung';
+});
+socket.on('disconnect', () => {
+  document.getElementById('connDot').classList.remove('on');
+  document.getElementById('connLabel').textContent = 'Terputus!';
+});
+
+socket.on('state:update', (s) => {
+  S = s;
+  render();
+});
+
+socket.on('buzzer:open', () => {
+  if (myTeamId) {
+    playBeep(880, 0.15, 0.3);
+    toast('🔔 Bel TERBUKA! Tekan sekarang!');
+  }
+});
+
+socket.on('buzzer:winner', ({ teamId, teamName }) => {
+  if (teamId === myTeamId) {
+    playBuzzerSound();
+    flash('green');
+    toast('✅ Kamu yang pertama menekan bel!');
+  } else {
+    playBeep(330, 0.2, 0.3);
+    flash('red');
+    toast(`🔔 ${teamName} menekan bel duluan!`);
+  }
+});
+
+socket.on('turn:set', ({ teamId, teamName }) => {
+  if (teamId === myTeamId) {
+    playBeep(660, 0.2, 0.4);
+    toast('⭐ Giliran tim kamu!');
+  }
+});
+
+socket.on('score:added', ({ teamId, teamName, delta, after }) => {
+  if (teamId === myTeamId) {
+    const sign = delta > 0 ? '+' : '';
+    toast(`${sign}${delta} poin! Total: ${after}`);
+    flash(delta > 0 ? 'green' : 'red');
+  }
+});
+
+socket.on('timer:end', () => {
+  playBeep(440, 0.5, 0.4);
+});
+
+// Render
+function render() {
+  if (!S.teams || S.teams.length === 0) return;
+
+  // Team select
+  if (!myTeamId) {
+    document.getElementById('teamSelect').style.display = '';
+    document.getElementById('mainScreen').classList.remove('active');
+
+    const list = document.getElementById('teamList');
+    list.innerHTML = '';
+    S.teams.forEach(t => {
+      const btn = document.createElement('button');
+      btn.className = 'team-btn';
+      btn.textContent = t.name;
+      btn.onclick = () => selectTeam(t.id, t.name);
+      list.appendChild(btn);
+    });
+    return;
+  }
+
+  // Main screen
+  document.getElementById('teamSelect').style.display = 'none';
+  document.getElementById('mainScreen').classList.add('active');
+
+  document.getElementById('myTeamName').textContent = myTeamName;
+  document.getElementById('roundBadge').textContent = S.roundBadge || 'WAJIB';
+
+  // Timer
+  const tv = document.getElementById('timerVal');
+  tv.textContent = S.timeLeft < 10 ? '0' + S.timeLeft : S.timeLeft;
+  tv.classList.toggle('critical', S.timeLeft <= 5 && S.timeLeft > 0);
+  tv.classList.toggle('done', S.timeLeft <= 0);
+
+  // Question
+  const qt = document.getElementById('qText');
+  if (S.phase === 'question' && S.currentQuestion) {
+    qt.innerHTML = S.currentQuestion.q.replace(/\n/g, '<br>');
+  } else if (S.phase === 'envelopes') {
+    qt.innerHTML = '<span class="waiting-msg">Juri sedang memilih soal...</span>';
+  } else {
+    qt.innerHTML = '<span class="waiting-msg">Menunggu babak dimulai...</span>';
+  }
+
+  // Turn banner
+  const tb = document.getElementById('turnBanner');
+  tb.classList.toggle('show', S.activeTeam === myTeamId && S.turnLocked);
+
+  // Buzzer
+  const btn = document.getElementById('buzzerBtn');
+  const status = document.getElementById('buzzerStatus');
+  const buzzerArea = document.getElementById('buzzerArea');
+
+  // Show buzzer only in adu cepat
+  if (S.round === 'cepat' && S.phase === 'question') {
+    buzzerArea.style.display = '';
+
+    if (S.buzzerWinner === myTeamId) {
+      btn.className = 'buzzer-btn won';
+      status.textContent = '✅ Kamu yang pertama!';
+      status.className = 'buzzer-status highlight';
+    } else if (S.buzzerWinner) {
+      const wn = S.teams.find(t => t.id === S.buzzerWinner);
+      btn.className = 'buzzer-btn lost';
+      status.textContent = `${wn ? wn.name : '?'} menekan duluan`;
+      status.className = 'buzzer-status';
+    } else if (!S.buzzerLocked) {
+      btn.className = 'buzzer-btn ready';
+      status.textContent = '⚡ TEKAN SEKARANG!';
+      status.className = 'buzzer-status highlight';
+    } else {
+      btn.className = 'buzzer-btn locked';
+      status.textContent = 'Bel terkunci — tunggu juri';
+      status.className = 'buzzer-status';
+    }
+  } else {
+    buzzerArea.style.display = 'none';
+  }
+
+  // Scores
+  const sm = document.getElementById('scoresMini');
+  sm.innerHTML = '';
+  S.teams.forEach(t => {
+    const score = S.scores[t.id] || 0;
+    const isMe = t.id === myTeamId;
+    sm.innerHTML += `
+      <div class="sm-item ${isMe ? 'me' : ''}">
+        <div class="sm-name">${t.name}</div>
+        <div class="sm-score ${score < 0 ? 'neg' : ''}">${score}</div>
+      </div>`;
+  });
+}
+
+function selectTeam(id, name) {
+  myTeamId = id;
+  myTeamName = name;
+  // Init audio on user interaction
+  getAudio();
+  render();
+  toast(`✅ Bergabung sebagai ${name}`);
+}
+
+function pressBuzzer() {
+  if (!myTeamId || S.buzzerLocked || S.buzzerWinner) return;
+  socket.emit('peserta:buzzer', { teamId: myTeamId });
+}
+
+function flash(color) {
+  const el = document.getElementById('flashOverlay');
+  el.className = 'flash-overlay ' + color;
+  void el.offsetWidth;
+  el.classList.add('show');
+}
+
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+</script>
+</body>
+</html>

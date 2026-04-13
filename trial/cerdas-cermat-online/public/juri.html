@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Panel Juri — Cerdas Cermat Online</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+  <script src="/socket.io/socket.io.js"></script>
+  <style>
+    :root {
+      --bg: #0b0f1a;
+      --surface: #151b2e;
+      --surface2: #1e2744;
+      --border: #2a3456;
+      --text: #e8ecf4;
+      --muted: #7a8bb5;
+      --accent: #4f7cff;
+      --accent2: #7c5cfc;
+      --gold: #f5c542;
+      --green: #2dd4a0;
+      --red: #f05a5a;
+      --orange: #f5943a;
+      --warning: #f5c542;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* ── TOPBAR ── */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 8px 16px;
+      background: var(--surface);
+      border-bottom: 1px solid var(--border);
+      flex-shrink: 0;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .topbar-left {
+      display: flex; align-items: center; gap: 10px;
+    }
+    .logo {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.3rem;
+      color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .logo small { font-size: 0.7rem; color: var(--muted); letter-spacing: 1px; display: block; font-family: 'Nunito', sans-serif; }
+    .badge-juri {
+      background: var(--red);
+      color: #fff;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.7rem;
+      font-weight: 800;
+      letter-spacing: 1px;
+    }
+    .topbar-controls {
+      display: flex; gap: 8px; align-items: center; flex-wrap: wrap;
+    }
+    select, .btn {
+      padding: 6px 14px;
+      border-radius: 6px;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700;
+      font-size: 0.82rem;
+      cursor: pointer;
+      border: 1px solid var(--border);
+      transition: all 0.15s;
+    }
+    select {
+      background: var(--surface2);
+      color: var(--text);
+    }
+    .btn {
+      background: var(--surface2);
+      color: var(--muted);
+    }
+    .btn:hover { border-color: var(--accent); color: var(--accent); }
+    .btn-primary { background: var(--accent); color: #fff; border-color: var(--accent); }
+    .btn-primary:hover { background: #3d6ae0; }
+    .btn-upload {
+      border: 1px dashed var(--accent);
+      color: var(--accent);
+      background: transparent;
+      position: relative;
+      overflow: hidden;
+    }
+    .btn-upload input[type=file] {
+      position: absolute; inset: 0; opacity: 0; cursor: pointer;
+    }
+    .conn-status {
+      display: flex; align-items: center; gap: 5px;
+      font-size: 0.75rem; color: var(--muted);
+    }
+    .conn-dot {
+      width: 8px; height: 8px; border-radius: 50%;
+      background: var(--red);
+    }
+    .conn-dot.on { background: var(--green); }
+
+    /* ── MAIN GRID ── */
+    .main {
+      flex: 1;
+      display: grid;
+      grid-template-columns: 1fr 320px;
+      gap: 8px;
+      padding: 8px;
+      min-height: 0;
+      overflow: hidden;
+    }
+
+    /* ── LEFT: Question Area ── */
+    .question-panel {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* Phase: Rules */
+    .phase-rules {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      align-items: center; justify-content: center;
+      padding: 30px; text-align: center;
+      z-index: 10;
+      transition: opacity 0.3s;
+    }
+    .phase-rules.hidden { opacity: 0; pointer-events: none; }
+    .phase-rules h2 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 2.4rem; color: var(--gold);
+      letter-spacing: 2px; margin-bottom: 16px;
+    }
+    .rules-list {
+      list-style: none;
+      text-align: left; font-size: 0.95rem;
+      line-height: 1.8; max-width: 550px;
+      margin-bottom: 24px;
+    }
+    .rules-list li {
+      padding: 4px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .rules-list li:last-child { border-bottom: none; }
+
+    .btn-start-round {
+      background: linear-gradient(135deg, var(--green), #16a085);
+      color: #fff; border: none;
+      padding: 14px 40px;
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.5rem; letter-spacing: 2px;
+      border-radius: 8px; cursor: pointer;
+      transition: 0.2s;
+    }
+    .btn-start-round:hover { transform: scale(1.05); }
+    .btn-start-round:disabled { background: var(--surface2); color: var(--muted); cursor: not-allowed; transform: none; }
+    .upload-hint {
+      margin-top: 12px; font-size: 0.82rem; color: var(--muted);
+    }
+
+    /* Phase: Envelopes */
+    .phase-envelopes {
+      position: absolute; inset: 0;
+      display: flex; flex-wrap: wrap;
+      justify-content: center; align-content: flex-start;
+      gap: 10px; padding: 16px;
+      overflow-y: auto; z-index: 5;
+      transition: opacity 0.3s;
+    }
+    .phase-envelopes.hidden { opacity: 0; pointer-events: none; }
+    .env-header {
+      width: 100%; text-align: center;
+      padding-bottom: 8px; border-bottom: 1px solid var(--border);
+      margin-bottom: 4px;
+    }
+    .env-header h3 {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.4rem; color: var(--gold);
+      letter-spacing: 2px;
+    }
+    .env-card {
+      width: 70px; height: 58px;
+      background: linear-gradient(145deg, #f5a623, #d4891a);
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 900; font-size: 1.2rem; color: #fff;
+      cursor: pointer;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+      transition: transform 0.15s, box-shadow 0.15s;
+      border: 2px solid rgba(255,255,255,0.15);
+    }
+    .env-card:hover:not(.opened) {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 16px rgba(245,166,35,0.4);
+    }
+    .env-card.opened {
+      background: var(--surface2);
+      opacity: 0.4; cursor: default;
+    }
+
+    /* Phase: Question */
+    .phase-question {
+      position: absolute; inset: 0;
+      display: flex; flex-direction: column;
+      padding: 12px;
+      z-index: 3;
+      transition: opacity 0.3s;
+    }
+    .phase-question.hidden { opacity: 0; pointer-events: none; }
+
+    .q-toprow {
+      display: flex; align-items: center; justify-content: space-between;
+      margin-bottom: 6px;
+    }
+    .round-badge {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff; padding: 3px 14px;
+      border-radius: 16px; font-size: 0.72rem;
+      font-weight: 700; letter-spacing: 1px; text-transform: uppercase;
+    }
+    .q-meta { font-size: 0.78rem; color: var(--muted); }
+
+    .timer-display {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: clamp(4rem, 12vh, 8rem);
+      text-align: center; line-height: 1;
+      color: var(--text);
+      letter-spacing: 4px;
+      transition: color 0.3s;
+      flex-shrink: 0;
+    }
+    .timer-display.critical { color: var(--red); animation: pulse 0.8s infinite; }
+    .timer-display.done { color: var(--muted); }
+    @keyframes pulse { 0%,100%{transform:scale(1)} 50%{transform:scale(1.04)} }
+
+    .question-area {
+      flex: 1; display: flex;
+      align-items: center; justify-content: center;
+      overflow-y: auto; padding: 8px 20px;
+    }
+    .question-text {
+      font-size: clamp(1.2rem, 2.8vh, 2.2rem);
+      font-weight: 700; text-align: center;
+      line-height: 1.5; white-space: pre-wrap;
+    }
+
+    .answer-box {
+      background: rgba(245,197,66,0.1);
+      border: 1px solid rgba(245,197,66,0.3);
+      border-radius: 8px;
+      padding: 10px 16px;
+      color: var(--gold);
+      font-size: 1rem; font-weight: 700;
+      text-align: center;
+      white-space: pre-wrap;
+      flex-shrink: 0;
+    }
+    .answer-box.hidden { display: none; }
+
+    /* Buzzer info */
+    .buzzer-info {
+      background: rgba(79,124,255,0.12);
+      border: 1px solid rgba(79,124,255,0.3);
+      border-radius: 8px;
+      padding: 8px 12px;
+      margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px;
+      flex-shrink: 0;
+    }
+    .buzzer-info.hidden { display: none; }
+    .buzzer-info .label { font-size: 0.78rem; color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; }
+    .buzzer-info .winner-name {
+      font-weight: 900; font-size: 1.1rem; color: var(--gold);
+    }
+
+    /* Lemparan panel */
+    .lemparan-panel {
+      background: rgba(240,90,90,0.1);
+      border: 1px solid rgba(240,90,90,0.3);
+      border-radius: 8px;
+      padding: 8px 12px; margin-bottom: 6px;
+      display: flex; align-items: center; gap: 8px; flex-wrap: wrap;
+      flex-shrink: 0;
+    }
+    .lemparan-panel.hidden { display: none; }
+    .lemparan-panel .label { font-size: 0.78rem; color: var(--red); font-weight: 700; text-transform: uppercase; letter-spacing: 1px; white-space: nowrap; }
+    .btn-lempar {
+      padding: 4px 12px; border-radius: 5px;
+      font-size: 0.78rem; font-weight: 700;
+      border: 1px solid rgba(240,90,90,0.4);
+      background: transparent; color: var(--text);
+      cursor: pointer; transition: 0.15s;
+    }
+    .btn-lempar:hover { background: var(--red); border-color: var(--red); color: #fff; }
+
+    /* Controls */
+    .q-controls {
+      display: flex; gap: 6px; flex-wrap: wrap;
+      justify-content: center;
+      padding-top: 8px;
+      border-top: 1px solid var(--border);
+      flex-shrink: 0;
+    }
+    .btn-ctrl {
+      padding: 8px 14px;
+      font-size: 0.82rem;
+      font-family: 'Nunito', sans-serif;
+      font-weight: 800;
+      border: none; border-radius: 7px;
+      color: #fff; cursor: pointer;
+      transition: all 0.15s;
+      flex: 1; max-width: 150px;
+      text-align: center;
+    }
+    .btn-ctrl:hover { filter: brightness(1.15); transform: translateY(-1px); }
+    .btn-ctrl:active { transform: scale(0.96); }
+    .c-green  { background: var(--green); color: #0b0f1a; }
+    .c-red    { background: var(--red); }
+    .c-yellow { background: var(--warning); color: #0b0f1a; }
+    .c-blue   { background: var(--accent); }
+    .c-orange { background: var(--orange); }
+    .c-purple { background: var(--accent2); }
+    .c-muted  { background: var(--surface2); color: var(--muted); border: 1px solid var(--border); }
+
+    /* ── RIGHT PANEL ── */
+    .right-panel {
+      display: flex; flex-direction: column;
+      gap: 6px; min-height: 0; overflow: hidden;
+    }
+    .panel-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .panel-header {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 6px 10px;
+      border-bottom: 1px solid var(--border);
+      background: rgba(255,255,255,0.02);
+    }
+    .panel-title {
+      font-size: 0.72rem; font-weight: 800;
+      color: var(--muted);
+      letter-spacing: 1px; text-transform: uppercase;
+    }
+
+    /* Teams setup */
+    .teams-setup {
+      padding: 10px;
+    }
+    .team-row {
+      display: flex; align-items: center; gap: 6px; margin-bottom: 6px;
+    }
+    .team-row input {
+      flex: 1; padding: 5px 8px;
+      border: 1px solid var(--border);
+      border-radius: 5px;
+      background: var(--surface2);
+      color: var(--text);
+      font-family: 'Nunito', sans-serif;
+      font-weight: 700; font-size: 0.85rem;
+    }
+    .team-row input:focus { outline: none; border-color: var(--accent); }
+    .btn-sm {
+      padding: 4px 8px; font-size: 0.72rem; font-weight: 700;
+      border-radius: 4px; cursor: pointer; border: none;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    /* Scoreboard */
+    .scoreboard {
+      flex: 1; overflow-y: auto; min-height: 0;
+    }
+    .score-item {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 10px;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+      transition: background 0.2s;
+    }
+    .score-item.active {
+      background: rgba(245,197,66,0.08);
+      border-left: 3px solid var(--gold);
+    }
+    .score-item .s-name {
+      font-weight: 800; font-size: 0.88rem;
+      flex: 1; min-width: 0;
+      white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+    }
+    .score-item .s-score {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.6rem; color: var(--gold);
+      letter-spacing: 1px; min-width: 50px;
+      text-align: right;
+    }
+    .score-item .s-score.negative { color: var(--red); }
+    .score-item .btn-giliran {
+      padding: 3px 8px; font-size: 0.68rem;
+      font-weight: 700; border-radius: 4px;
+      background: rgba(245,197,66,0.12);
+      border: 1px solid rgba(245,197,66,0.3);
+      color: var(--gold); cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+      margin-left: 6px; white-space: nowrap;
+    }
+    .score-item .btn-giliran:hover { background: rgba(245,197,66,0.25); }
+
+    /* Scoring panel */
+    .scoring-body { padding: 8px; }
+    .scoring-empty {
+      text-align: center; color: var(--muted);
+      font-size: 0.78rem; padding: 10px; font-style: italic;
+    }
+    .scoring-grid {
+      display: grid; gap: 5px;
+    }
+    .btn-score {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 8px 12px; border-radius: 7px; cursor: pointer;
+      border: 1px solid transparent; font-family: 'Nunito', sans-serif;
+      font-weight: 800; font-size: 0.82rem;
+      transition: all 0.15s; gap: 8px;
+    }
+    .btn-score:active { transform: scale(0.97); }
+    .btn-score .s-label { flex: 1; text-align: left; }
+    .btn-score .s-val {
+      font-family: 'Bebas Neue', sans-serif;
+      font-size: 1.1rem; letter-spacing: 1px;
+    }
+    .btn-score-plus {
+      background: rgba(45,212,160,0.1);
+      color: var(--green);
+      border-color: rgba(45,212,160,0.3);
+    }
+    .btn-score-plus:hover { background: var(--green); color: #0b0f1a; }
+    .btn-score-minus {
+      background: rgba(240,90,90,0.1);
+      color: var(--red);
+      border-color: rgba(240,90,90,0.3);
+    }
+    .btn-score-minus:hover { background: var(--red); color: #fff; }
+
+    /* History */
+    .history-log {
+      max-height: 120px; overflow-y: auto;
+    }
+    .hist-item {
+      display: flex; align-items: center; gap: 6px;
+      padding: 4px 10px; font-size: 0.74rem;
+      border-bottom: 1px solid rgba(255,255,255,0.04);
+    }
+    .hist-item:first-child { background: rgba(245,197,66,0.06); }
+    .hist-team { font-weight: 800; flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .hist-delta { font-weight: 900; }
+    .hist-delta.pos { color: var(--green); }
+    .hist-delta.neg { color: var(--red); }
+    .hist-result { color: var(--muted); font-size: 0.68rem; white-space: nowrap; }
+    .btn-undo-single {
+      background: none; border: 1px solid rgba(245,197,66,0.25);
+      color: var(--gold); border-radius: 3px; padding: 1px 6px;
+      font-size: 0.66rem; font-weight: 700; cursor: pointer;
+      font-family: 'Nunito', sans-serif;
+    }
+    .btn-undo-single:hover { background: rgba(245,197,66,0.15); }
+
+    /* Toast */
+    .toast {
+      position: fixed; bottom: 16px; left: 50%;
+      transform: translateX(-50%) translateY(60px);
+      background: var(--surface2); color: var(--text);
+      padding: 10px 24px; border-radius: 8px;
+      font-weight: 700; font-size: 0.88rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.5);
+      z-index: 999;
+      transition: transform 0.3s, opacity 0.3s;
+      opacity: 0; border: 1px solid var(--border);
+    }
+    .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+    /* Buzzer flash */
+    .buzzer-flash {
+      position: fixed; inset: 0; z-index: 200;
+      pointer-events: none; opacity: 0;
+      border: 6px solid var(--accent2);
+      border-radius: 4px;
+    }
+    .buzzer-flash.show { opacity: 1; animation: flashOut 0.6s forwards; }
+    @keyframes flashOut { 0%{opacity:1} 100%{opacity:0} }
+
+    ::-webkit-scrollbar { width: 4px; }
+    ::-webkit-scrollbar-track { background: transparent; }
+    ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+  </style>
+</head>
+<body>
+
+  <!-- TOPBAR -->
+  <div class="topbar">
+    <div class="topbar-left">
+      <div class="logo">
+        🏆 CERDAS CERMAT ONLINE
+        <small>PANEL JURI</small>
+      </div>
+      <span class="badge-juri">JURI</span>
+      <div class="conn-status">
+        <span class="conn-dot" id="connDot"></span>
+        <span id="connLabel">Menghubungkan...</span>
+      </div>
+    </div>
+    <div class="topbar-controls">
+      <select id="roundSel">
+        <option value="wajib">Sesi 1: Babak Wajib</option>
+        <option value="lemparan">Sesi 2: Babak Lemparan</option>
+        <option value="cepat">Sesi 3: Adu Cepat</option>
+      </select>
+      <div class="btn-upload btn">
+        📂 Upload Excel
+        <input type="file" id="fileInput" accept=".xlsx,.xls">
+      </div>
+    </div>
+  </div>
+
+  <!-- MAIN -->
+  <div class="main">
+    <!-- LEFT: Question panel -->
+    <div class="question-panel">
+
+      <!-- Rules phase -->
+      <div class="phase-rules" id="phaseRules">
+        <div class="round-badge" id="rulesBadge" style="margin-bottom:12px">BABAK WAJIB</div>
+        <h2 id="rulesTitle">Babak Wajib</h2>
+        <ul class="rules-list" id="rulesList"></ul>
+        <button class="btn-start-round" id="btnStartRound" onclick="startRound()" disabled>
+          Lanjut ke Amplop ➡
+        </button>
+        <div class="upload-hint" id="uploadHint">⚠️ Upload file Excel soal terlebih dahulu</div>
+      </div>
+
+      <!-- Envelopes phase -->
+      <div class="phase-envelopes hidden" id="phaseEnvelopes">
+        <div class="env-header">
+          <h3 id="envTitle">PILIH AMPLOP</h3>
+        </div>
+        <div id="envGrid"></div>
+      </div>
+
+      <!-- Question phase -->
+      <div class="phase-question hidden" id="phaseQuestion">
+        <div class="q-toprow">
+          <span class="round-badge" id="qRoundBadge">WAJIB</span>
+          <span class="q-meta">Soal #<b id="qIndex">1</b></span>
+        </div>
+
+        <div class="timer-display" id="timerDisplay">15</div>
+
+        <div class="question-area">
+          <div class="question-text" id="questionText"></div>
+        </div>
+
+        <div class="answer-box hidden" id="answerBox">
+          <span style="opacity:0.6;font-size:0.75rem">JAWABAN:</span><br>
+          <span id="answerContent"></span>
+        </div>
+
+        <!-- Buzzer info (adu cepat) -->
+        <div class="buzzer-info hidden" id="buzzerInfo">
+          <span class="label">🔔 BEL:</span>
+          <span class="winner-name" id="buzzerWinnerName">—</span>
+        </div>
+
+        <!-- Lemparan panel -->
+        <div class="lemparan-panel hidden" id="lemparanPanel">
+          <span class="label">🎯 Lempar ke:</span>
+          <div id="lemparanBtns"></div>
+        </div>
+
+        <div class="q-controls">
+          <button class="btn-ctrl c-green" onclick="doStartTimer()">▶ MULAI</button>
+          <button class="btn-ctrl c-red" onclick="doStopTimer()">⏹ STOP</button>
+          <button class="btn-ctrl c-yellow" onclick="doResetTimer()">↺ RESET</button>
+          <button class="btn-ctrl c-blue" onclick="doToggleAnswer()">👁 JAWABAN</button>
+          <button class="btn-ctrl c-purple" id="btnBuzzer" onclick="doOpenBuzzer()" style="display:none">🔔 BUKA BEL</button>
+          <button class="btn-ctrl c-muted" onclick="doSkip()">⏭ LEWATI</button>
+          <button class="btn-ctrl c-orange" onclick="doBackToEnvelopes()">🔙 AMPLOP</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- RIGHT PANEL -->
+    <div class="right-panel">
+
+      <!-- Setup Tim -->
+      <div class="panel-card" id="setupCard">
+        <div class="panel-header">
+          <span class="panel-title">⚙ Setup Tim</span>
+          <button class="btn-sm" style="background:var(--accent);color:#fff" onclick="saveTeams()">💾 Simpan</button>
+        </div>
+        <div class="teams-setup" id="teamsSetup">
+          <div class="team-row"><input type="text" value="Tim A" class="team-input"><button class="btn-sm" style="background:var(--red);color:#fff" onclick="this.parentElement.remove()">✕</button></div>
+          <div class="team-row"><input type="text" value="Tim B" class="team-input"><button class="btn-sm" style="background:var(--red);color:#fff" onclick="this.parentElement.remove()">✕</button></div>
+          <div class="team-row"><input type="text" value="Tim C" class="team-input"><button class="btn-sm" style="background:var(--red);color:#fff" onclick="this.parentElement.remove()">✕</button></div>
+          <div class="team-row"><input type="text" value="Tim D" class="team-input"><button class="btn-sm" style="background:var(--red);color:#fff" onclick="this.parentElement.remove()">✕</button></div>
+          <div class="team-row"><input type="text" value="Tim E" class="team-input"><button class="btn-sm" style="background:var(--red);color:#fff" onclick="this.parentElement.remove()">✕</button></div>
+          <button class="btn" style="width:100%;margin-top:4px;font-size:0.78rem" onclick="addTeamRow()">＋ Tambah Tim</button>
+        </div>
+      </div>
+
+      <!-- Scoreboard -->
+      <div class="panel-card" style="flex:1;display:flex;flex-direction:column;min-height:0">
+        <div class="panel-header">
+          <span class="panel-title">🏆 Skor</span>
+        </div>
+        <div class="scoreboard" id="scoreboard"></div>
+      </div>
+
+      <!-- Scoring panel -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <span class="panel-title" id="scoringTeamLabel">📝 Penilaian — Pilih tim</span>
+          <span class="panel-title" id="scoringRoundLabel" style="color:var(--accent)">WAJIB</span>
+        </div>
+        <div class="scoring-body" id="scoringBody">
+          <div class="scoring-empty">Tekan ⭐ Giliran pada tim</div>
+        </div>
+      </div>
+
+      <!-- History -->
+      <div class="panel-card">
+        <div class="panel-header">
+          <span class="panel-title">📋 Riwayat</span>
+          <button class="btn-undo-single" id="btnUndoLast" onclick="undoLast()" style="opacity:0.4">↩ Undo</button>
+        </div>
+        <div class="history-log" id="historyLog">
+          <div class="scoring-empty" id="histEmpty">Belum ada riwayat</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+  <div class="buzzer-flash" id="buzzerFlash"></div>
+
+<script>
+// ════════════════════════════════════════
+// SOCKET CONNECTION
+// ════════════════════════════════════════
+const socket = io({ query: { role: 'juri' } });
+let S = {}; // current state from server
+
+socket.on('connect', () => {
+  document.getElementById('connDot').classList.add('on');
+  document.getElementById('connLabel').textContent = 'Terhubung';
+});
+socket.on('disconnect', () => {
+  document.getElementById('connDot').classList.remove('on');
+  document.getElementById('connLabel').textContent = 'Terputus!';
+});
+
+socket.on('state:update', (s) => {
+  S = s;
+  render();
+});
+
+socket.on('buzzer:winner', ({ teamName }) => {
+  toast(`🔔 BEL: ${teamName}!`);
+  triggerFlash();
+});
+
+socket.on('score:added', ({ teamName, delta, after }) => {
+  toast(`${teamName}: ${delta > 0 ? '+' : ''}${delta} → Total: ${after}`);
+});
+
+socket.on('timer:end', () => {
+  toast('⏱ Waktu habis!');
+});
+
+// ════════════════════════════════════════
+// RULES DATA (for local display)
+// ════════════════════════════════════════
+const RULES = {
+  wajib: {
+    title: 'Sesi 1: Babak Putaran (Soal Wajib)',
+    badge: 'BABAK WAJIB',
+    rules: [
+      'Setiap finalis memilih <b>2 amplop soal</b> secara bergiliran.',
+      'Soal dibacakan oleh juri.',
+      'Waktu menjawab: <b>15 detik</b>.',
+      'Jawaban BENAR: <b style="color:var(--green)">+100 poin</b>.',
+      'Salah / Tidak Menjawab: <b>0 poin</b>. Soal gugur.',
+    ]
+  },
+  lemparan: {
+    title: 'Sesi 2: Babak Lemparan',
+    badge: 'BABAK LEMPARAN',
+    rules: [
+      'Setiap finalis memilih <b>2 amplop soal</b> secara bergiliran.',
+      'Hak jawab pertama dalam <b>10 detik</b>.',
+      'Jika salah/tidak bisa, soal dilempar ke finalis lain.',
+      'Utama: Benar <b style="color:var(--green)">+100</b>, Salah <b>0</b>.',
+      'Lemparan: Benar <b style="color:var(--green)">+80</b>, Salah <b style="color:var(--red)">−40</b>.',
+    ]
+  },
+  cepat: {
+    title: 'Sesi 3: Adu Cepat (Rebutan)',
+    badge: 'ADU CEPAT',
+    rules: [
+      'Soal diperebutkan seluruh finalis.',
+      'Peserta <b>wajib menekan bel</b> dari perangkat masing-masing.',
+      'Menjawab sebelum ditunjuk: <b style="color:var(--red)">−50 poin</b>.',
+      'Jawaban Benar: <b style="color:var(--green)">+100</b>.',
+      'Jawaban Salah: <b style="color:var(--red)">−50</b>. Lemparan 1x: Benar +50, Salah −25.',
+    ]
+  }
+};
+
+const SCORING = {
+  wajib: [
+    { label: 'Jawaban Benar', val: +100, type: 'plus' },
+  ],
+  lemparan: [
+    { label: 'Utama Benar',    val: +100, type: 'plus' },
+    { label: 'Lemparan Benar', val: +80,  type: 'plus' },
+    { label: 'Lemparan Salah', val: -40,  type: 'minus' },
+  ],
+  cepat: [
+    { label: 'Jawaban Benar',          val: +100, type: 'plus' },
+    { label: 'Jawaban Salah',          val: -50,  type: 'minus' },
+    { label: 'Lemparan Benar',         val: +50,  type: 'plus' },
+    { label: 'Lemparan Salah',         val: -25,  type: 'minus' },
+    { label: 'Jawab Sebelum Ditunjuk', val: -50,  type: 'minus' },
+  ],
+};
+
+// ════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════
+function render() {
+  if (!S.teams) return;
+
+  const round = S.round || 'wajib';
+  const rule = RULES[round];
+
+  // Round selector
+  document.getElementById('roundSel').value = round;
+
+  // ── Phase visibility ──
+  const isRules = S.phase === 'rules';
+  const isEnv   = S.phase === 'envelopes';
+  const isQ     = S.phase === 'question';
+
+  document.getElementById('phaseRules').classList.toggle('hidden', !isRules);
+  document.getElementById('phaseEnvelopes').classList.toggle('hidden', !isEnv);
+  document.getElementById('phaseQuestion').classList.toggle('hidden', !isQ);
+
+  // ── Rules ──
+  document.getElementById('rulesBadge').textContent = rule.badge;
+  document.getElementById('rulesTitle').textContent = rule.title;
+  document.getElementById('rulesList').innerHTML = rule.rules.map(r => `<li>${r}</li>`).join('');
+  const hasQ = S.questionCount > 0;
+  document.getElementById('btnStartRound').disabled = !hasQ;
+  document.getElementById('uploadHint').style.display = hasQ ? 'none' : 'block';
+
+  // ── Envelopes ──
+  if (isEnv) {
+    document.getElementById('envTitle').textContent = `PILIH AMPLOP — ${rule.badge}`;
+    const grid = document.getElementById('envGrid');
+    // Only rebuild if count changed
+    const count = S.questionCount || 0;
+    if (grid.children.length !== count) {
+      grid.innerHTML = '';
+      for (let i = 0; i < count; i++) {
+        const card = document.createElement('div');
+        card.className = 'env-card';
+        card.textContent = i + 1;
+        card.onclick = () => socket.emit('juri:openEnvelope', i);
+        grid.appendChild(card);
+      }
+    }
+    // Mark opened
+    grid.querySelectorAll('.env-card').forEach((c, i) => {
+      c.classList.toggle('opened', S.openedEnvelopes[i]);
+    });
+  }
+
+  // ── Question ──
+  if (isQ && S.currentQuestion) {
+    document.getElementById('qRoundBadge').textContent = rule.badge;
+    document.getElementById('qIndex').textContent = S.currentQuestionIndex + 1;
+    document.getElementById('questionText').innerHTML = S.currentQuestion.q.replace(/\n/g, '<br>');
+
+    // Timer
+    const td = document.getElementById('timerDisplay');
+    td.textContent = S.timeLeft < 10 ? '0' + S.timeLeft : S.timeLeft;
+    td.classList.toggle('critical', S.timeLeft <= 5 && S.timeLeft > 0);
+    td.classList.toggle('done', S.timeLeft <= 0);
+
+    // Answer
+    const ab = document.getElementById('answerBox');
+    ab.classList.toggle('hidden', !S.showAnswer);
+    document.getElementById('answerContent').innerHTML = S.currentQuestion.a.replace(/\n/g, '<br>');
+
+    // Buzzer info (adu cepat)
+    const bi = document.getElementById('buzzerInfo');
+    const btnBuzzer = document.getElementById('btnBuzzer');
+    if (round === 'cepat') {
+      btnBuzzer.style.display = '';
+      if (S.buzzerWinner) {
+        bi.classList.remove('hidden');
+        const wn = S.teams.find(t => t.id === S.buzzerWinner);
+        document.getElementById('buzzerWinnerName').textContent = wn ? wn.name : S.buzzerWinner;
+        btnBuzzer.textContent = '🔒 BEL TERKUNCI';
+      } else if (!S.buzzerLocked) {
+        bi.classList.add('hidden');
+        btnBuzzer.textContent = '🔒 KUNCI BEL';
+      } else {
+        bi.classList.add('hidden');
+        btnBuzzer.textContent = '🔔 BUKA BEL';
+      }
+    } else {
+      btnBuzzer.style.display = 'none';
+      bi.classList.add('hidden');
+    }
+
+    // Lemparan panel
+    const lp = document.getElementById('lemparanPanel');
+    if (round === 'lemparan') {
+      lp.classList.remove('hidden');
+      const btns = document.getElementById('lemparanBtns');
+      btns.innerHTML = '';
+      S.teams.forEach(t => {
+        const b = document.createElement('button');
+        b.className = 'btn-lempar';
+        b.textContent = t.name;
+        b.onclick = () => socket.emit('juri:setActiveTeam', t.id);
+        btns.appendChild(b);
+      });
+    } else {
+      lp.classList.add('hidden');
+    }
+  }
+
+  // ── Scoreboard ──
+  const sb = document.getElementById('scoreboard');
+  sb.innerHTML = '';
+  S.teams.forEach(t => {
+    const score = S.scores[t.id] || 0;
+    const isActive = S.activeTeam === t.id;
+    sb.innerHTML += `
+      <div class="score-item ${isActive ? 'active' : ''}">
+        <span class="s-name">${t.name}</span>
+        <button class="btn-giliran" onclick="setGiliran('${t.id}')">⭐</button>
+        <span class="s-score ${score < 0 ? 'negative' : ''}">${score}</span>
+      </div>`;
+  });
+
+  // ── Scoring panel ──
+  const scoringLabel = document.getElementById('scoringTeamLabel');
+  const scoringBody = document.getElementById('scoringBody');
+  const scoringRound = document.getElementById('scoringRoundLabel');
+  scoringRound.textContent = rule.badge;
+
+  if (S.activeTeam) {
+    const at = S.teams.find(t => t.id === S.activeTeam);
+    scoringLabel.textContent = `📝 ${at ? at.name : '?'}`;
+
+    const btns = SCORING[round] || [];
+    const cols = btns.length <= 2 ? 1 : 2;
+    let html = `<div class="scoring-grid" style="grid-template-columns:repeat(${cols},1fr)">`;
+    btns.forEach(b => {
+      const sign = b.val > 0 ? '+' : '';
+      const cls = b.type === 'plus' ? 'btn-score-plus' : 'btn-score-minus';
+      html += `<button class="btn-score ${cls}" onclick="addScore('${S.activeTeam}', ${b.val}, '${b.label}')">
+        <span class="s-label">${b.label}</span>
+        <span class="s-val">${sign}${b.val}</span>
+      </button>`;
+    });
+    html += '</div>';
+    scoringBody.innerHTML = html;
+  } else {
+    scoringLabel.textContent = '📝 Penilaian — Pilih tim';
+    scoringBody.innerHTML = '<div class="scoring-empty">Tekan ⭐ Giliran pada tim</div>';
+  }
+
+  // ── History ──
+  const hl = document.getElementById('historyLog');
+  const he = document.getElementById('histEmpty');
+  const hist = S.scoreHistory || [];
+  if (hist.length === 0) {
+    he.style.display = 'block';
+    hl.querySelectorAll('.hist-item').forEach(e => e.remove());
+  } else {
+    he.style.display = 'none';
+    hl.innerHTML = '';
+    hist.forEach((h, i) => {
+      const sign = h.delta > 0 ? '+' : '';
+      const cls = h.delta > 0 ? 'pos' : 'neg';
+      hl.innerHTML += `
+        <div class="hist-item">
+          <span class="hist-team">${h.teamName}</span>
+          <span class="hist-delta ${cls}">${sign}${h.delta}</span>
+          <span class="hist-result">${h.before}→${h.after}</span>
+          <button class="btn-undo-single" onclick="undoAt(${i})">↩</button>
+        </div>`;
+    });
+  }
+  document.getElementById('btnUndoLast').style.opacity = hist.length ? '1' : '0.4';
+}
+
+// ════════════════════════════════════════
+// ACTIONS
+// ════════════════════════════════════════
+function saveTeams() {
+  const inputs = document.querySelectorAll('.team-input');
+  const teams = [];
+  inputs.forEach((inp, i) => {
+    const name = inp.value.trim() || `Tim ${i + 1}`;
+    teams.push({ id: `team_${i}`, name });
+  });
+  socket.emit('juri:setTeams', teams);
+  toast(`✅ ${teams.length} tim disimpan!`);
+  document.getElementById('setupCard').style.display = 'none';
+}
+
+function addTeamRow() {
+  const setup = document.getElementById('teamsSetup');
+  const row = document.createElement('div');
+  row.className = 'team-row';
+  row.innerHTML = `<input type="text" value="" class="team-input" placeholder="Nama Tim"><button class="btn-sm" style="background:var(--red);color:#fff" onclick="this.parentElement.remove()">✕</button>`;
+  setup.insertBefore(row, setup.lastElementChild);
+}
+
+document.getElementById('roundSel').addEventListener('change', (e) => {
+  socket.emit('juri:changeRound', e.target.value);
+});
+
+function startRound() { socket.emit('juri:startRound'); }
+
+function doStartTimer() { socket.emit('juri:startTimer'); }
+function doStopTimer()  { socket.emit('juri:stopTimer'); }
+function doResetTimer() { socket.emit('juri:resetTimer'); }
+function doToggleAnswer(){ socket.emit('juri:toggleAnswer'); }
+function doBackToEnvelopes() { socket.emit('juri:backToEnvelopes'); }
+function doSkip() { socket.emit('juri:skip'); toast('⏭ Soal dilewati'); }
+
+function doOpenBuzzer() {
+  if (!S.buzzerLocked) {
+    socket.emit('juri:lockBuzzer');
+  } else {
+    socket.emit('juri:openBuzzer');
+    toast('🔔 Bel dibuka! Peserta bisa menekan bel.');
+  }
+}
+
+function setGiliran(teamId) { socket.emit('juri:setActiveTeam', teamId); }
+
+function addScore(teamId, val, label) { socket.emit('juri:addScore', { teamId, delta: val, label }); }
+
+function undoAt(i) { socket.emit('juri:undoScore', i); }
+function undoLast() { if (S.scoreHistory?.length) undoAt(0); }
+
+// ── Upload Excel ──
+document.getElementById('fileInput').addEventListener('change', async (e) => {
+  const file = e.target.files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('file', file);
+
+  try {
+    const res = await fetch('/upload', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (data.ok) {
+      toast(`✅ ${data.wajib} Wajib · ${data.lemparan} Lemparan · ${data.cepat} Cepat`);
+    } else {
+      toast(`❌ Error: ${data.error}`);
+    }
+  } catch (err) {
+    toast('❌ Gagal upload file');
+  }
+});
+
+// ── Toast ──
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2800);
+}
+
+function triggerFlash() {
+  const el = document.getElementById('buzzerFlash');
+  el.classList.remove('show');
+  void el.offsetWidth;
+  el.classList.add('show');
+}
+</script>
+</body>
+</html>
