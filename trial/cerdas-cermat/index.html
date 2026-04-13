@@ -1,0 +1,1010 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cerdas Cermat Final - UIN SATU</title>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+    <script src="https://cdn.sheetjs.com/xlsx-latest/package/dist/xlsx.full.min.js"></script>
+    <script>
+    window.MathJax = {
+      tex: { inlineMath: [['$', '$'], ['\\(', '\\)']] },
+      svg: { fontCache: 'global' }
+    };
+    </script>
+    <script id="MathJax-script" async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+    <style>
+        :root {
+            --primary: #0f172a;
+            --accent: #3b82f6;
+            --accent2: #6366f1;
+            --danger: #ef4444;
+            --success: #22c55e;
+            --warning: #f59e0b;
+            --orange: #f97316;
+            --bg: #0f172a;
+            --surface: #1e293b;
+            --surface2: #334155;
+            --text: #f1f5f9;
+            --text-muted: #94a3b8;
+            --border: #334155;
+            --gold: #fbbf24;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+
+        body {
+            font-family: 'Nunito', sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            height: 100vh; width: 100vw;
+            overflow: hidden;
+            display: flex; flex-direction: column; gap: 8px;
+            padding: 8px;
+        }
+
+        /* ── HEADER ── */
+        .top-bar {
+            flex: 0 0 auto;
+            display: flex; justify-content: space-between; align-items: center;
+            background: var(--surface);
+            padding: 6px 16px; border-radius: 10px;
+            border: 1px solid var(--border);
+        }
+        .logo { display: flex; align-items: center; gap: 10px; }
+        .logo-icon { font-size: 1.5rem; }
+        .logo-text { font-family: 'Bebas Neue', sans-serif; font-size: 1.4rem; letter-spacing: 2px; color: var(--gold); }
+        .logo-sub { font-size: 0.7rem; color: var(--text-muted); letter-spacing: 1px; }
+
+        .top-controls { display: flex; gap: 8px; align-items: center; flex-wrap: wrap; }
+        .btn-action {
+            padding: 5px 12px; border-radius: 6px; font-weight: 700; cursor: pointer;
+            border: none; font-family: 'Nunito', sans-serif; font-size: 0.8rem;
+            transition: all 0.2s; white-space: nowrap;
+        }
+        .btn-ghost { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
+        .btn-ghost:hover { border-color: var(--accent); color: var(--accent); }
+        .btn-accent { background: var(--accent); color: white; }
+        .btn-accent:hover { background: #2563eb; }
+
+        select {
+            padding: 5px 10px; border-radius: 6px; font-family: 'Nunito', sans-serif;
+            font-weight: 700; font-size: 0.8rem; background: var(--surface2);
+            border: 1px solid var(--border); color: var(--text); cursor: pointer;
+        }
+        select:focus { outline: none; border-color: var(--accent); }
+
+        .file-upload { position: relative; overflow: hidden; display: inline-block; }
+        .btn-upload {
+            border: 1px dashed var(--accent); color: var(--accent); background: transparent;
+            padding: 5px 12px; border-radius: 6px; font-family: 'Nunito', sans-serif;
+            font-weight: 700; cursor: pointer; font-size: 0.8rem; transition: 0.2s;
+        }
+        .btn-upload:hover { background: rgba(59,130,246,0.1); }
+        input[type=file] { position: absolute; left: 0; top: 0; opacity: 0; cursor: pointer; height: 100%; width: 100%; }
+
+        /* ── MAIN GRID ── */
+        .main-grid {
+            flex: 1; display: grid; grid-template-columns: 1fr 280px;
+            gap: 8px; min-height: 0;
+        }
+
+        /* ── QUESTION SECTION ── */
+        .question-section {
+            background: var(--surface); border-radius: 12px;
+            border: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            position: relative; overflow: hidden;
+        }
+
+        /* ── LAYER: RULES ── */
+        .rules-view {
+            position: absolute; inset: 0; background: var(--surface); z-index: 30;
+            display: flex; flex-direction: column; align-items: center; justify-content: center;
+            padding: 40px; text-align: center;
+            transition: opacity 0.4s ease, transform 0.4s ease;
+        }
+        .rules-view.hidden { opacity: 0; pointer-events: none; transform: translateY(-20px); }
+        .rules-badge {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white; padding: 4px 16px; border-radius: 20px;
+            font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase; margin-bottom: 16px;
+        }
+        .rules-title {
+            font-family: 'Bebas Neue', sans-serif; font-size: 2.8rem;
+            color: var(--gold); margin-bottom: 24px; letter-spacing: 2px;
+        }
+        .rules-list {
+            font-size: 1.1rem; line-height: 1.8; color: var(--text);
+            max-width: 600px; margin-bottom: 32px; list-style: none; text-align: left;
+        }
+        .rules-list li {
+            padding: 6px 0; border-bottom: 1px solid var(--border);
+            display: flex; gap: 10px; align-items: flex-start;
+        }
+        .rules-list li:last-child { border-bottom: none; }
+        .rules-list li b { color: var(--gold); }
+        .btn-start-round {
+            background: linear-gradient(135deg, var(--success), #16a34a);
+            color: white; border: none; padding: 14px 40px;
+            font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+            letter-spacing: 2px; border-radius: 8px; cursor: pointer;
+            box-shadow: 0 4px 20px rgba(34,197,94,0.4); transition: 0.2s;
+        }
+        .btn-start-round:hover { transform: scale(1.05); box-shadow: 0 6px 24px rgba(34,197,94,0.6); }
+        .btn-start-round:disabled { background: var(--surface2); color: var(--text-muted); box-shadow: none; cursor: not-allowed; transform: none; }
+        .upload-hint {
+            margin-top: 12px; font-size: 0.85rem; color: var(--text-muted);
+            display: flex; align-items: center; gap: 6px;
+        }
+
+        /* ── LAYER: ENVELOPES ── */
+        .envelope-container {
+            position: absolute; inset: 0; z-index: 20;
+            background: var(--bg);
+            display: flex; flex-wrap: wrap;
+            justify-content: center; align-content: flex-start;
+            gap: 14px; padding: 20px; overflow-y: auto;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+        .envelope-container.hidden { transform: scale(1.1); opacity: 0; pointer-events: none; }
+
+        .envelope-header {
+            width: 100%; text-align: center; padding-bottom: 8px;
+            border-bottom: 1px solid var(--border); margin-bottom: 4px;
+        }
+        .envelope-header h3 {
+            font-family: 'Bebas Neue', sans-serif; font-size: 1.6rem;
+            letter-spacing: 2px; color: var(--gold);
+        }
+        .envelope-progress {
+            font-size: 0.8rem; color: var(--text-muted); margin-top: 4px;
+        }
+        .progress-bar-wrap {
+            height: 4px; background: var(--surface2); border-radius: 2px;
+            margin-top: 6px; overflow: hidden;
+        }
+        .progress-bar-fill {
+            height: 100%; background: linear-gradient(90deg, var(--accent), var(--accent2));
+            border-radius: 2px; transition: width 0.5s ease;
+        }
+
+        .envelope-card {
+            width: 80px; height: 66px;
+            background: linear-gradient(145deg, #f59e0b, #d97706);
+            border-radius: 10px; display: flex; flex-direction: column;
+            justify-content: center; align-items: center;
+            font-weight: 900; color: white; cursor: pointer;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.4);
+            transition: transform 0.2s, box-shadow 0.2s;
+            position: relative; font-size: 1.4rem;
+            border: 2px solid rgba(255,255,255,0.15);
+        }
+        .envelope-card::before {
+            content: '✉'; position: absolute; top: 4px; font-size: 0.7rem; opacity: 0.6;
+        }
+        .envelope-card:hover:not(.opened) {
+            transform: translateY(-6px) scale(1.05);
+            box-shadow: 0 10px 20px rgba(245,158,11,0.5);
+        }
+        .envelope-card.opened {
+            background: linear-gradient(145deg, #374151, #1f2937);
+            opacity: 0.5; cursor: default; transform: none;
+            box-shadow: none; border-color: var(--border);
+        }
+        .envelope-card.opened::before { content: '✓'; color: var(--success); opacity: 0.8; }
+
+        /* shuffle btn in envelope */
+        .btn-shuffle {
+            position: absolute; bottom: 12px; right: 12px;
+            background: var(--surface2); border: 1px solid var(--border);
+            color: var(--text-muted); padding: 6px 12px; border-radius: 6px;
+            font-size: 0.8rem; font-weight: 700; cursor: pointer; transition: 0.2s;
+        }
+        .btn-shuffle:hover { color: var(--accent); border-color: var(--accent); }
+
+        /* ── LAYER: QUESTION VIEW ── */
+        .question-view {
+            position: absolute; inset: 0; z-index: 10;
+            display: flex; flex-direction: column; padding: 14px;
+            opacity: 0; pointer-events: none; transition: opacity 0.4s;
+        }
+        .question-view.active { opacity: 1; pointer-events: auto; }
+
+        .qv-header {
+            display: flex; align-items: center; justify-content: space-between;
+            margin-bottom: 8px; flex: 0 0 auto;
+        }
+        .round-badge {
+            background: linear-gradient(135deg, var(--accent), var(--accent2));
+            color: white; padding: 3px 14px; border-radius: 20px;
+            font-size: 0.75rem; font-weight: 700; letter-spacing: 1px;
+            text-transform: uppercase;
+        }
+        .qv-meta { font-size: 0.8rem; color: var(--text-muted); }
+
+        .timer-big {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: clamp(5rem, 14vh, 10rem);
+            line-height: 1; color: var(--text);
+            text-align: center; flex: 0 0 auto;
+            letter-spacing: 4px;
+            text-shadow: 0 0 40px rgba(255,255,255,0.1);
+            transition: color 0.3s;
+        }
+        .timer-big.critical {
+            color: var(--danger);
+            animation: pulse 0.8s infinite;
+            text-shadow: 0 0 40px rgba(239,68,68,0.5);
+        }
+        .timer-big.done { color: var(--text-muted); }
+        @keyframes pulse { 0%,100% { transform: scale(1); } 50% { transform: scale(1.06); } }
+
+        .question-area-wrapper {
+            flex: 1; display: flex; align-items: center; justify-content: center;
+            overflow-y: auto; padding: 8px 24px;
+        }
+        .question-text {
+            font-size: clamp(1.4rem, 3.2vh, 2.6rem);
+            color: var(--text); line-height: 1.5;
+            font-weight: 700; text-align: center; white-space: pre-wrap;
+        }
+
+        .answer-box {
+            flex: 0 0 auto; padding: 10px 16px;
+            background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3);
+            border-radius: 8px; color: var(--gold);
+            font-size: 1rem; font-weight: 700;
+            display: none; width: 90%; margin: 0 auto 8px auto;
+            white-space: pre-wrap; text-align: center;
+        }
+
+        /* ── LEMPARAN PANEL ── */
+        .lemparan-panel {
+            flex: 0 0 auto; display: none;
+            background: rgba(239,68,68,0.1); border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;
+            align-items: center; gap: 8px; flex-wrap: wrap;
+        }
+        .lemparan-panel.active { display: flex; }
+        .lemparan-label {
+            font-size: 0.8rem; color: var(--danger); font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+        }
+        .btn-lempar {
+            padding: 4px 12px; border-radius: 5px; font-size: 0.78rem; font-weight: 700;
+            border: 1px solid rgba(239,68,68,0.4); background: transparent;
+            color: var(--text); cursor: pointer; transition: 0.2s;
+        }
+        .btn-lempar:hover { background: var(--danger); border-color: var(--danger); color: white; }
+
+        /* ── BEL PANEL (Adu Cepat) ── */
+        .bel-panel {
+            flex: 0 0 auto; display: none;
+            background: rgba(99,102,241,0.1); border: 1px solid rgba(99,102,241,0.3);
+            border-radius: 8px; padding: 8px 12px; margin-bottom: 6px;
+            align-items: center; gap: 8px; flex-wrap: wrap;
+        }
+        .bel-panel.active { display: flex; }
+        .bel-label {
+            font-size: 0.8rem; color: var(--accent2); font-weight: 700;
+            letter-spacing: 1px; text-transform: uppercase; white-space: nowrap;
+        }
+        .btn-bel {
+            padding: 5px 14px; border-radius: 5px; font-size: 0.8rem; font-weight: 800;
+            border: 1px solid rgba(99,102,241,0.4); background: transparent;
+            color: var(--text); cursor: pointer; transition: 0.2s;
+        }
+        .btn-bel:hover { background: var(--accent2); border-color: var(--accent2); color: white; }
+        .btn-bel.buzzing {
+            background: var(--accent2); border-color: var(--accent2); color: white;
+            animation: buzzing 0.4s 3;
+        }
+        @keyframes buzzing { 0%,100%{transform:scale(1)} 50%{transform:scale(1.15)} }
+
+        /* ── CONTROLS ── */
+        .controls {
+            flex: 0 0 auto; display: flex; gap: 6px; flex-wrap: wrap;
+            justify-content: center; padding-top: 8px;
+            border-top: 1px solid var(--border); align-items: center;
+        }
+        .btn-ctrl {
+            padding: 7px 14px; font-size: 0.82rem; font-family: 'Nunito', sans-serif;
+            font-weight: 800; border: none; border-radius: 7px;
+            color: white; cursor: pointer; transition: all 0.15s; flex: 1; max-width: 140px;
+        }
+        .btn-ctrl:hover { filter: brightness(1.15); transform: translateY(-1px); }
+        .btn-ctrl:active { transform: scale(0.96); filter: brightness(0.9); }
+        .btn-green  { background: var(--success); }
+        .btn-red    { background: var(--danger); }
+        .btn-yellow { background: var(--warning); color: #1a1a1a; }
+        .btn-blue   { background: var(--accent); }
+        .btn-orange { background: var(--orange); }
+        .btn-muted  { background: var(--surface2); color: var(--text-muted); border: 1px solid var(--border); }
+
+        /* ── SCOREBOARD ── */
+        .scoreboard-container {
+            display: flex; flex-direction: column; gap: 6px;
+            height: 100%; overflow-y: auto; padding-right: 2px;
+        }
+
+        .team-card {
+            background: var(--surface); border-radius: 10px; padding: 8px 10px;
+            border: 1px solid var(--border);
+            display: flex; flex-direction: column;
+            flex: 1; min-height: 90px; position: relative;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+        .team-card.active-team {
+            border-color: var(--gold);
+            box-shadow: 0 0 0 2px rgba(251,191,36,0.3);
+        }
+        .team-header {
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;
+        }
+        .team-name {
+            border: none; font-weight: 800; font-size: 0.9rem;
+            color: var(--text); width: 60%; background: transparent;
+            font-family: 'Nunito', sans-serif; outline: none;
+        }
+        .team-name:focus { border-bottom: 1px solid var(--accent); }
+        .team-score {
+            font-family: 'Bebas Neue', sans-serif;
+            font-size: 2.2rem; color: var(--gold);
+            line-height: 1; letter-spacing: 1px;
+        }
+        .team-score.negative { color: var(--danger); }
+
+        .score-grid {
+            display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 4px;
+        }
+        .btn-score {
+            padding: 3px 0; font-size: 0.72rem; cursor: pointer; font-weight: 800;
+            border: 1px solid transparent; border-radius: 5px;
+            font-family: 'Nunito', sans-serif; transition: 0.15s;
+        }
+        .btn-plus { background: rgba(34,197,94,0.1); color: var(--success); border-color: rgba(34,197,94,0.3); }
+        .btn-plus:hover { background: var(--success); color: white; }
+        .btn-min { background: rgba(239,68,68,0.1); color: var(--danger); border-color: rgba(239,68,68,0.3); }
+        .btn-min:hover { background: var(--danger); color: white; }
+
+        .team-footer {
+            display: flex; gap: 4px; margin-top: 5px;
+        }
+        .btn-team-action {
+            flex: 1; padding: 3px 0; font-size: 0.7rem; font-weight: 700;
+            border-radius: 4px; cursor: pointer; border: none;
+            font-family: 'Nunito', sans-serif; transition: 0.15s;
+        }
+        .btn-set-giliran { background: rgba(251,191,36,0.15); color: var(--gold); }
+        .btn-set-giliran:hover { background: rgba(251,191,36,0.3); }
+        .btn-reset-score { background: rgba(239,68,68,0.1); color: var(--danger); }
+        .btn-reset-score:hover { background: rgba(239,68,68,0.2); }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%) translateY(80px);
+            background: var(--surface2); color: var(--text); padding: 10px 24px;
+            border-radius: 8px; font-weight: 700; font-size: 0.9rem;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.4); z-index: 9999;
+            transition: transform 0.3s ease, opacity 0.3s;
+            opacity: 0; border: 1px solid var(--border);
+        }
+        .toast.show { transform: translateX(-50%) translateY(0); opacity: 1; }
+
+        /* ── BEL FLASH OVERLAY ── */
+        .bel-flash {
+            position: fixed; inset: 0; z-index: 200;
+            pointer-events: none; opacity: 0; transition: opacity 0.2s;
+            border: 6px solid var(--accent2);
+            border-radius: 4px;
+        }
+        .bel-flash.show { opacity: 1; animation: flashOut 0.6s forwards; }
+        @keyframes flashOut { 0%{opacity:1} 100%{opacity:0} }
+
+        /* ── SCROLLBAR ── */
+        ::-webkit-scrollbar { width: 4px; }
+        ::-webkit-scrollbar-track { background: transparent; }
+        ::-webkit-scrollbar-thumb { background: var(--surface2); border-radius: 2px; }
+
+        /* ── EXCEL TEMPLATE INFO ── */
+        .template-info {
+            display: flex; gap: 6px; align-items: center; flex-wrap: wrap;
+            padding: 6px 12px; background: rgba(251,191,36,0.08);
+            border: 1px solid rgba(251,191,36,0.2); border-radius: 6px;
+            font-size: 0.75rem; color: var(--gold); margin-top: 8px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- HEADER -->
+    <div class="top-bar">
+        <div class="logo">
+            <span class="logo-icon">🏆</span>
+            <div>
+                <div class="logo-text">CERDAS CERMAT FINAL</div>
+                <div class="logo-sub">UIN SATU · SISTEM PERTANDINGAN</div>
+            </div>
+        </div>
+        <div class="top-controls">
+            <select id="roundSelector" onchange="changeRound()">
+                <option value="wajib">Sesi 1: Babak Wajib</option>
+                <option value="lemparan">Sesi 2: Babak Lemparan</option>
+                <option value="cepat">Sesi 3: Adu Cepat</option>
+            </select>
+            <div class="file-upload">
+                <button class="btn-upload">📂 Upload Excel</button>
+                <input type="file" onchange="loadExcel(this)" accept=".xlsx, .xls">
+            </div>
+            <button onclick="toggleFullScreen()" class="btn-action btn-ghost">⛶ Layar Penuh</button>
+        </div>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main-grid">
+        <div class="question-section">
+
+            <!-- LAYER 0: RULES -->
+            <div id="rulesView" class="rules-view">
+                <div class="rules-badge" id="rulesBadge">BABAK WAJIB</div>
+                <h2 id="rulesTitle" class="rules-title">Selamat Datang di Babak Final</h2>
+                <ul id="rulesList" class="rules-list"></ul>
+
+                <div id="uploadHint" class="template-info">
+                    📋 Format Excel: 3 Sheet → <b>"Wajib"</b>, <b>"Lemparan"</b>, <b>"Cepat"</b> · Kolom A = Soal, Kolom B = Jawaban
+                </div>
+
+                <button id="btnRulesLanjut" class="btn-start-round" onclick="closeRules()" style="margin-top: 24px;" disabled>
+                    Lanjut ke Amplop &nbsp;➡
+                </button>
+                <div class="upload-hint" id="uploadHintMsg">
+                    ⚠️ Upload file Excel soal terlebih dahulu untuk melanjutkan
+                </div>
+            </div>
+
+            <!-- LAYER 1: ENVELOPES -->
+            <div id="envelopeGrid" class="envelope-container hidden">
+                <div class="envelope-header" id="envelopeHeader">
+                    <h3 id="envelopeTitle">PILIH AMPLOP</h3>
+                    <div class="envelope-progress" id="envelopeProgress">0 dari 0 soal telah dibuka</div>
+                    <div class="progress-bar-wrap">
+                        <div class="progress-bar-fill" id="progressFill" style="width:0%"></div>
+                    </div>
+                </div>
+                <button class="btn-shuffle" onclick="shuffleEnvelopes()">🔀 Acak Urutan</button>
+            </div>
+
+            <!-- LAYER 2: QUESTION VIEW -->
+            <div id="questionView" class="question-view">
+                <div class="qv-header">
+                    <div id="roundLabel" class="round-badge">Sesi 1: Babak Wajib</div>
+                    <div class="qv-meta">Amplop No: <b id="qIndex">—</b></div>
+                </div>
+
+                <div id="timer" class="timer-big">00</div>
+
+                <div class="question-area-wrapper">
+                    <div id="questionText" class="question-text"></div>
+                </div>
+
+                <div id="answerText" class="answer-box">
+                    <span style="opacity:0.6;font-size:0.75rem;">JAWABAN:</span><br>
+                    <span id="answerContent"></span>
+                </div>
+
+                <!-- LEMPARAN PANEL -->
+                <div id="lemparanPanel" class="lemparan-panel">
+                    <span class="lemparan-label">🎯 Lempar ke:</span>
+                    <div id="lemparanButtons"></div>
+                </div>
+
+                <!-- BEL PANEL (Adu Cepat) -->
+                <div id="belPanel" class="bel-panel">
+                    <span class="bel-label">🔔 Bel:</span>
+                    <div id="belButtons"></div>
+                </div>
+
+                <div class="controls">
+                    <button class="btn-ctrl btn-green" onclick="startTimer()">▶ MULAI</button>
+                    <button class="btn-ctrl btn-red" onclick="stopTimer()">⏹ STOP</button>
+                    <button class="btn-ctrl btn-yellow" onclick="resetTimer()">↺ RESET</button>
+                    <button class="btn-ctrl btn-blue" onclick="toggleAnswer()">👁 JAWABAN</button>
+                    <button class="btn-ctrl btn-orange" onclick="backToEnvelopes()">🔙 AMPLOP</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- SCOREBOARD -->
+        <div class="scoreboard-container" id="scoreboard"></div>
+    </div>
+
+    <!-- TOAST -->
+    <div class="toast" id="toast"></div>
+
+    <!-- BEL FLASH -->
+    <div class="bel-flash" id="belFlash"></div>
+
+<script>
+    // ─── AUDIO ENGINE (Web Audio API) ───
+    const AudioCtx = window.AudioContext || window.webkitAudioContext;
+    let audioCtx = null;
+
+    function getAudioCtx() {
+        if (!audioCtx) audioCtx = new AudioCtx();
+        return audioCtx;
+    }
+
+    function playBeep(freq = 880, dur = 0.15, vol = 0.4, type = 'sine') {
+        try {
+            const ctx = getAudioCtx();
+            const osc = ctx.createOscillator();
+            const gain = ctx.createGain();
+            osc.connect(gain); gain.connect(ctx.destination);
+            osc.type = type; osc.frequency.setValueAtTime(freq, ctx.currentTime);
+            gain.gain.setValueAtTime(vol, ctx.currentTime);
+            gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + dur);
+            osc.start(ctx.currentTime); osc.stop(ctx.currentTime + dur);
+        } catch(e) {}
+    }
+
+    function playTimerEnd() {
+        // 3 beep keras saat waktu habis
+        [0, 0.22, 0.44].forEach(t => {
+            try {
+                const ctx = getAudioCtx();
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain); gain.connect(ctx.destination);
+                osc.type = 'sawtooth'; osc.frequency.setValueAtTime(440, ctx.currentTime + t);
+                gain.gain.setValueAtTime(0.5, ctx.currentTime + t);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + t + 0.2);
+                osc.start(ctx.currentTime + t); osc.stop(ctx.currentTime + t + 0.2);
+            } catch(e) {}
+        });
+    }
+
+    function playBel() {
+        try {
+            const ctx = getAudioCtx();
+            [523, 659, 784, 1047].forEach((f, i) => {
+                const osc = ctx.createOscillator();
+                const gain = ctx.createGain();
+                osc.connect(gain); gain.connect(ctx.destination);
+                osc.type = 'triangle'; osc.frequency.setValueAtTime(f, ctx.currentTime + i * 0.08);
+                gain.gain.setValueAtTime(0.4, ctx.currentTime + i * 0.08);
+                gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + i * 0.08 + 0.4);
+                osc.start(ctx.currentTime + i * 0.08);
+                osc.stop(ctx.currentTime + i * 0.08 + 0.4);
+            });
+        } catch(e) {}
+    }
+
+    // ─── RULES DATA ───
+    const RULES_DATA = {
+        wajib: {
+            title: "Sesi 1: Babak Putaran (Soal Wajib)",
+            badge: "BABAK WAJIB",
+            time: 15,
+            rules: [
+                "Setiap finalis memilih <b>2 amplop soal</b> secara bergiliran.",
+                "Soal dibacakan oleh juri.",
+                "Waktu menjawab: <b>15 detik</b> setelah soal selesai dibacakan.",
+                "Jawaban BENAR: <b style='color:var(--success)'>+100 poin</b>.",
+                "Salah / Tidak Menjawab: <b>0 poin</b>. Soal gugur, tidak dilempar."
+            ]
+        },
+        lemparan: {
+            title: "Sesi 2: Babak Lemparan (Rebutan Bertingkat)",
+            badge: "BABAK LEMPARAN",
+            time: 10,
+            rules: [
+                "Setiap finalis memilih <b>2 amplop soal</b> secara bergiliran.",
+                "Finalis utama memiliki hak jawab pertama dalam <b>10 detik</b>.",
+                "Jika finalis utama <b>salah / tidak bisa</b>, soal dilempar ke finalis lain (tekan bel).",
+                "Finalis Utama: Benar <b style='color:var(--success)'>+100</b>, Salah <b>0 poin</b>.",
+                "Penjawab Lemparan: Benar <b style='color:var(--success)'>+80</b>, Salah <b style='color:var(--danger)'>-40 poin</b>."
+            ]
+        },
+        cepat: {
+            title: "Sesi 3: Babak Adu Cepat (Rebutan Murni)",
+            badge: "ADU CEPAT",
+            time: 10,
+            rules: [
+                "Terdapat <b>10 soal</b> yang diperebutkan seluruh finalis.",
+                "Peserta <b>wajib menekan bel</b> terlebih dahulu sebelum menjawab.",
+                "Menjawab sebelum ditunjuk: <b style='color:var(--danger)'>-50 poin</b>.",
+                "Jawaban Benar: <b style='color:var(--success)'>+100 poin</b>.",
+                "Jawaban Salah: <b style='color:var(--danger)'>-50 poin</b>. Soal dilempar 1x: Benar <b style='color:var(--success)'>+50</b>, Salah <b style='color:var(--danger)'>-25</b>."
+            ]
+        }
+    };
+
+    // ─── STATE ───
+    let questionsDB   = { wajib: [], lemparan: [], cepat: [] };
+    let questionsShown = [];   // array soal aktif (bisa diacak)
+    let openedStatus  = [];
+    let currIdx       = 0;
+    let timerInterval = null;
+    let timeLeft      = 15;
+    let currentRound  = 'wajib';
+    let activeTeam    = null;
+    const NUM_TEAMS   = 5;
+
+    // ─── GENERATE SCOREBOARD ───
+    const scoreContainer = document.getElementById('scoreboard');
+    const savedNames = JSON.parse(localStorage.getItem('ccTeamNames') || '[]');
+    const savedScores = JSON.parse(localStorage.getItem('ccTeamScores') || '[]');
+
+    for (let i = 1; i <= NUM_TEAMS; i++) {
+        const defName = savedNames[i-1] || `Tim ${String.fromCharCode(64+i)}`;
+        const defScore = 0; // Skor selalu mulai 0
+        scoreContainer.innerHTML += `
+        <div class="team-card" id="teamCard${i}">
+            <div class="team-header">
+                <input type="text" class="team-name" id="teamName${i}" value="${defName}" 
+                    onchange="saveTeamNames()" placeholder="Nama Tim">
+                <div class="team-score" id="score${i}">0</div>
+            </div>
+            <div class="score-grid">
+                <button class="btn-score btn-plus" onclick="addScore(${i}, 100)">+100</button>
+                <button class="btn-score btn-plus" onclick="addScore(${i}, 80)">+80</button>
+                <button class="btn-score btn-plus" onclick="addScore(${i}, 50)">+50</button>
+                <button class="btn-score btn-min"  onclick="addScore(${i}, -25)">−25</button>
+                <button class="btn-score btn-min"  onclick="addScore(${i}, -40)">−40</button>
+                <button class="btn-score btn-min"  onclick="addScore(${i}, -50)">−50</button>
+            </div>
+            <div class="team-footer">
+                <button class="btn-team-action btn-set-giliran" onclick="setActiveTeam(${i})">⭐ Giliran</button>
+                <button class="btn-team-action btn-reset-score" onclick="resetScore(${i})">↺ Reset</button>
+            </div>
+        </div>`;
+    }
+
+    function getTeamName(i) {
+        return document.getElementById(`teamName${i}`)?.value || `Tim ${String.fromCharCode(64+i)}`;
+    }
+
+    function saveTeamNames() {
+        const names = [];
+        for (let i = 1; i <= NUM_TEAMS; i++) names.push(getTeamName(i));
+        localStorage.setItem('ccTeamNames', JSON.stringify(names));
+        refreshLemparanButtons();
+        refreshBelButtons();
+    }
+
+    function addScore(id, val) {
+        let el = document.getElementById(`score${id}`);
+        let cur = parseInt(el.innerText) || 0;
+        let newVal = cur + val;
+        el.innerText = newVal;
+        el.classList.toggle('negative', newVal < 0);
+        playBeep(val > 0 ? 660 : 330, 0.2, 0.3);
+        showToast(`${getTeamName(id)}: ${val > 0 ? '+' : ''}${val} → Total: ${newVal}`);
+    }
+
+    function resetScore(id) {
+        if (!confirm(`Reset skor ${getTeamName(id)} ke 0?`)) return;
+        let el = document.getElementById(`score${id}`);
+        el.innerText = '0';
+        el.classList.remove('negative');
+        showToast(`Skor ${getTeamName(id)} direset ke 0`);
+    }
+
+    function setActiveTeam(id) {
+        activeTeam = id;
+        document.querySelectorAll('.team-card').forEach((c, i) => {
+            c.classList.toggle('active-team', i + 1 === id);
+        });
+        showToast(`${getTeamName(id)} mendapat giliran menjawab`);
+    }
+
+    // ─── LEMPARAN & BEL BUTTONS ───
+    function refreshLemparanButtons() {
+        const wrap = document.getElementById('lemparanButtons');
+        wrap.innerHTML = '';
+        for (let i = 1; i <= NUM_TEAMS; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'btn-lempar';
+            btn.textContent = getTeamName(i);
+            btn.onclick = () => { setActiveTeam(i); showToast(`Soal dilempar ke ${getTeamName(i)}`); playBeep(550, 0.15, 0.3); };
+            wrap.appendChild(btn);
+        }
+    }
+
+    function refreshBelButtons() {
+        const wrap = document.getElementById('belButtons');
+        wrap.innerHTML = '';
+        for (let i = 1; i <= NUM_TEAMS; i++) {
+            const btn = document.createElement('button');
+            btn.className = 'btn-bel';
+            btn.id = `belBtn${i}`;
+            btn.textContent = `🔔 ${getTeamName(i)}`;
+            btn.onclick = () => {
+                document.querySelectorAll('.btn-bel').forEach(b => b.classList.remove('buzzing'));
+                btn.classList.add('buzzing');
+                setActiveTeam(i);
+                playBel();
+                triggerBelFlash();
+                stopTimer();
+                setTimeout(() => btn.classList.remove('buzzing'), 1200);
+            };
+            wrap.appendChild(btn);
+        }
+    }
+
+    function triggerBelFlash() {
+        const el = document.getElementById('belFlash');
+        el.classList.remove('show');
+        void el.offsetWidth;
+        el.classList.add('show');
+    }
+
+    // ─── RULES ───
+    function showRules(roundKey) {
+        const data = RULES_DATA[roundKey];
+        document.getElementById('rulesBadge').innerText = data.badge;
+        document.getElementById('rulesTitle').innerText = data.title;
+
+        let html = '';
+        data.rules.forEach(r => { html += `<li>${r}</li>`; });
+        document.getElementById('rulesList').innerHTML = html;
+
+        const hasQ = questionsShown.length > 0;
+        document.getElementById('btnRulesLanjut').disabled = !hasQ;
+        document.getElementById('uploadHintMsg').style.display = hasQ ? 'none' : 'flex';
+
+        document.getElementById('rulesView').classList.remove('hidden');
+        document.getElementById('envelopeGrid').classList.add('hidden');
+        document.getElementById('questionView').classList.remove('active');
+
+        timeLeft = data.time;
+        updateTimerDisplay();
+        updateRoundUI();
+    }
+
+    function closeRules() {
+        if (questionsShown.length === 0) {
+            showToast('⚠️ Upload file Excel soal terlebih dahulu!');
+            return;
+        }
+        document.getElementById('rulesView').classList.add('hidden');
+        document.getElementById('envelopeGrid').classList.remove('hidden');
+        updateEnvelopeProgress();
+    }
+
+    function changeRound() {
+        const sel = document.getElementById('roundSelector');
+        currentRound = sel.value;
+
+        // Ambil soal sesuai babak
+        questionsShown = [...questionsDB[currentRound]];
+        openedStatus   = questionsShown.map(() => false);
+
+        generateEnvelopes();
+        showRules(currentRound);
+    }
+
+    function updateRoundUI() {
+        const sel = document.getElementById('roundSelector');
+        const label = sel.options[sel.selectedIndex]?.text || '';
+        document.getElementById('roundLabel').innerText = label;
+
+        // Tampilkan/sembunyikan panel sesuai babak
+        const lemP = document.getElementById('lemparanPanel');
+        const belP = document.getElementById('belPanel');
+
+        if (currentRound === 'lemparan') {
+            lemP.classList.add('active');
+            belP.classList.remove('active');
+            refreshLemparanButtons();
+        } else if (currentRound === 'cepat') {
+            belP.classList.add('active');
+            lemP.classList.remove('active');
+            refreshBelButtons();
+        } else {
+            lemP.classList.remove('active');
+            belP.classList.remove('active');
+        }
+    }
+
+    // ─── EXCEL ───
+    function loadExcel(input) {
+        const file = input.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const data = new Uint8Array(e.target.result);
+            const wb = XLSX.read(data, { type: 'array' });
+
+            // Reset DB
+            questionsDB = { wajib: [], lemparan: [], cepat: [] };
+
+            const sheetMap = {
+                'wajib': 'wajib', 'babak wajib': 'wajib', 'wajib1': 'wajib', 'sheet1': 'wajib',
+                'lemparan': 'lemparan', 'babak lemparan': 'lemparan', 'sheet2': 'lemparan',
+                'cepat': 'cepat', 'adu cepat': 'cepat', 'babak cepat': 'cepat', 'sheet3': 'cepat'
+            };
+
+            wb.SheetNames.forEach((name, idx) => {
+                const key = sheetMap[name.toLowerCase().trim()];
+                const target = key || (idx === 0 ? 'wajib' : idx === 1 ? 'lemparan' : 'cepat');
+                const rows = XLSX.utils.sheet_to_json(wb.Sheets[name], { header: 1 });
+                for (let i = 1; i < rows.length; i++) {
+                    const q = rows[i][0] ? String(rows[i][0]).trim() : '';
+                    const a = rows[i][1] ? String(rows[i][1]).trim() : '';
+                    if (q) questionsDB[target].push({ q, a });
+                }
+            });
+
+            const total = questionsDB.wajib.length + questionsDB.lemparan.length + questionsDB.cepat.length;
+            if (total === 0) { showToast('⚠️ File tidak memiliki data soal!'); return; }
+
+            // Load soal sesuai babak aktif
+            changeRound();
+
+            showToast(`✅ ${questionsDB.wajib.length} Wajib · ${questionsDB.lemparan.length} Lemparan · ${questionsDB.cepat.length} Adu Cepat`);
+        };
+        reader.readAsArrayBuffer(file);
+    }
+
+    // ─── ENVELOPES ───
+    function generateEnvelopes() {
+        const grid = document.getElementById('envelopeGrid');
+        // Hapus kartu lama saja, header tetap
+        const oldCards = grid.querySelectorAll('.envelope-card');
+        oldCards.forEach(c => c.remove());
+
+        document.getElementById('envelopeTitle').innerText =
+            `PILIH AMPLOP — ${(RULES_DATA[currentRound]?.badge || '')}`;
+
+        questionsShown.forEach((q, index) => {
+            const card = document.createElement('div');
+            card.className = 'envelope-card' + (openedStatus[index] ? ' opened' : '');
+            card.innerText = index + 1;
+            card.id = `env-${index}`;
+            card.onclick = () => openEnvelope(index);
+            grid.appendChild(card);
+        });
+
+        updateEnvelopeProgress();
+    }
+
+    function updateEnvelopeProgress() {
+        const opened = openedStatus.filter(Boolean).length;
+        const total  = openedStatus.length;
+        const pct    = total > 0 ? Math.round(opened / total * 100) : 0;
+        document.getElementById('envelopeProgress').innerText = `${opened} dari ${total} soal telah dibuka`;
+        document.getElementById('progressFill').style.width = pct + '%';
+    }
+
+    function shuffleEnvelopes() {
+        if (!confirm('Acak urutan amplop? Status "sudah dibuka" akan di-reset.')) return;
+        for (let i = questionsShown.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [questionsShown[i], questionsShown[j]] = [questionsShown[j], questionsShown[i]];
+        }
+        openedStatus = questionsShown.map(() => false);
+        generateEnvelopes();
+        showToast('🔀 Soal sudah diacak!');
+    }
+
+    function openEnvelope(index) {
+        if (openedStatus[index]) {
+            if (!confirm('Amplop ini sudah dibuka. Buka lagi?')) return;
+        }
+        const grid = document.getElementById('envelopeGrid');
+        grid.classList.add('hidden');
+
+        currIdx = index;
+        openedStatus[index] = true;
+        document.getElementById(`env-${index}`)?.classList.add('opened');
+
+        setTimeout(() => {
+            renderQuestion();
+            document.getElementById('questionView').classList.add('active');
+            updateRoundUI();
+        }, 300);
+    }
+
+    function backToEnvelopes() {
+        stopTimer();
+        resetTimerDisplay();
+        document.getElementById('questionView').classList.remove('active');
+        document.getElementById('envelopeGrid').classList.remove('hidden');
+        document.getElementById('answerText').style.display = 'none';
+        updateEnvelopeProgress();
+    }
+
+    function renderQuestion() {
+        const qDiv = document.getElementById('questionText');
+        const aEl  = document.getElementById('answerContent');
+        qDiv.innerHTML = questionsShown[currIdx].q.replace(/\n/g, '<br>');
+        aEl.innerHTML  = questionsShown[currIdx].a.replace(/\n/g, '<br>');
+        document.getElementById('qIndex').innerText = currIdx + 1;
+        document.getElementById('answerText').style.display = 'none';
+        if (window.MathJax) MathJax.typesetPromise([qDiv, aEl]);
+        resetTimerDisplay();
+    }
+
+    function toggleAnswer() {
+        const x = document.getElementById('answerText');
+        x.style.display = x.style.display === 'none' ? 'block' : 'none';
+        if (x.style.display === 'block' && window.MathJax) {
+            MathJax.typesetPromise([document.getElementById('answerContent')]);
+        }
+    }
+
+    // ─── TIMER ───
+    function startTimer() {
+        if (timerInterval) return;
+        // Aktifkan AudioContext dari interaksi user
+        getAudioCtx();
+        timerInterval = setInterval(() => {
+            timeLeft--;
+            updateTimerDisplay();
+            if (timeLeft <= 5 && timeLeft > 0) playBeep(880, 0.1, 0.3);
+            if (timeLeft <= 0) {
+                stopTimer();
+                playTimerEnd();
+            }
+        }, 1000);
+    }
+
+    function stopTimer() {
+        clearInterval(timerInterval);
+        timerInterval = null;
+    }
+
+    function resetTimer() {
+        stopTimer();
+        resetTimerDisplay();
+        document.getElementById('answerText').style.display = 'none';
+    }
+
+    function resetTimerDisplay() {
+        timeLeft = RULES_DATA[currentRound]?.time ?? 15;
+        updateTimerDisplay();
+        const el = document.getElementById('timer');
+        el.classList.remove('critical', 'done');
+    }
+
+    function updateTimerDisplay() {
+        const el = document.getElementById('timer');
+        el.innerText = timeLeft < 10 ? '0' + timeLeft : timeLeft;
+        if (timeLeft <= 5 && timeLeft > 0) {
+            el.classList.add('critical');
+            el.classList.remove('done');
+        } else if (timeLeft <= 0) {
+            el.classList.remove('critical');
+            el.classList.add('done');
+        } else {
+            el.classList.remove('critical', 'done');
+        }
+    }
+
+    // ─── UTILS ───
+    function showToast(msg) {
+        const t = document.getElementById('toast');
+        t.innerText = msg;
+        t.classList.add('show');
+        setTimeout(() => t.classList.remove('show'), 2800);
+    }
+
+    function toggleFullScreen() {
+        if (!document.fullscreenElement) {
+            document.documentElement.requestFullscreen().catch(() => {});
+        } else {
+            document.exitFullscreen && document.exitFullscreen();
+        }
+    }
+
+    // ─── INIT ───
+    (function init() {
+        showRules('wajib');
+    })();
+</script>
+</body>
+</html>
