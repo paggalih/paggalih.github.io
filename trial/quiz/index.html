@@ -393,6 +393,14 @@ async function startQuiz() {
     hideLoading();
 
     if (data.error) { err.innerHTML = `<div class="error-msg">⚠ ${data.error}</div>`; return; }
+// SESUDAH:
+if (data.error) {
+  const msg = data.error === "nim_not_registered"
+    ? "NIM tidak terdaftar. Hubungi dosen Anda."
+    : data.error;
+  err.innerHTML = `<div class="error-msg">⚠ ${msg}</div>`;
+  return;
+}
     if (data.blocked) {
       markCompletedLocal(selectedKuis, nim);
       showBlocked(nim, data.timestamp);
@@ -405,6 +413,10 @@ async function startQuiz() {
 
     document.getElementById('quiz-title').textContent = data.nama || 'Soal Kuis';
     document.getElementById('nim-display').textContent = `NIM: ${nim}`;
+if (data.namaMahasiswa) {
+  document.getElementById('nim-display').textContent = 
+    `NIM: ${nim} · ${data.namaMahasiswa}`;
+}
     document.getElementById('header-sub').textContent = data.nama || '';
 
     showSection('quiz-section');
