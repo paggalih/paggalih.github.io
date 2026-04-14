@@ -321,7 +321,7 @@ function renderKuisList() {
     const div = document.createElement('div');
     div.className = 'kuis-card' + (selectedKuis === q.id ? ' selected' : '');
     div.onclick = () => selectKuis(q.id);
-    div.innerHTML = `<h3>${q.nama}</h3><div class="meta">${q.durasi} menit · ${q.jmlVarian} varian</div>`;
+div.innerHTML = `<h3>${q.nama}</h3><div class="meta">${q.durasi} menit</div>`;
     grid.appendChild(div);
   });
 }
@@ -482,11 +482,10 @@ function renderQuestions() {
     }
 
     div.innerHTML = `
-      <div class="q-header">
-        <span class="q-number">Soal ${i+1}</span>
-        <span class="q-badge ${tipeCls}">${tipeLabel}</span>
-        <span class="q-variant">Varian ${s.varian}</span>
-      </div>
+  <div class="q-header">
+    <span class="q-number">Soal ${i+1}</span>
+    <span class="q-badge ${tipeCls}">${tipeLabel}</span>
+  </div>
       <div class="q-text">${s.soal}</div>
       ${answerHTML}`;
     c.appendChild(div);
@@ -644,7 +643,6 @@ function renderResult(result, answers, auto) {
           <div class="q-header">
             <span class="q-number">Soal ${i+1}</span>
             <span class="q-badge ${s.tipe}">${s.tipe.toUpperCase()}</span>
-            <span class="q-variant">Varian ${s.varian}</span>
           </div>
           <div class="answer-row">
             <span class="answer-tag yours">Jawaban: ${s.tipe==='uraian'?(answers[i].fileName||'(tidak diupload)'):userAns}</span>
