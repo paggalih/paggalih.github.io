@@ -1129,237 +1129,236 @@ Kasus 4: Dampak Jam Belajar (X) dan Keikutsertaan Bimbel (D) terhadap Nilai Ujia
         <div class="section-title">
           <h2>Pertemuan 4</h2>
         </div>
-        <div class="mermaid text-center">
-          graph TD
-          a("Asumsi Regresi Linier")
-          a2("normalitas")
-          a1(("multikolinieritas"))
-          a3("heteroskedastisitas")
-          a4("autokorelasi")
-          a --> a1
-          a --> a2
-          a --> a3
-          a --> a4
-        </div>
-        <h3>(a) Regresi Dummy</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-dummy-1.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-dummy-1"></div>
-
-        <script>
-          fetch('latihan-dummy-1.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-dummy-1">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-dummy-1").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-dummy-1').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                                	"columnDefs": [{ "className": "dt-center", "targets": [ 3, 4 ] } ]
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <h3>(b) Regresi Dummy</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-dummy-2.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-dummy-2"></div>
-        <script>
-          fetch('latihan-dummy-2.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-dummy-2">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-dummy-2").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-dummy-2').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <h3>(c) Asumsi Multikolinieritas</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-multikolinieritas-1.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-multikolinieritas-1"></div>
-        <script>
-          fetch('latihan-multikolinieritas-1.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-multikolinieritas-1">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-multikolinieritas-1").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-multikolinieritas-1').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <h3>(d) Asumsi Multikolinieritas</h3>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-multikolinieritas-2.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-multikolinieritas-2"></div>
-        <script>
-          fetch('latihan-multikolinieritas-2.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-multikolinieritas-2">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-multikolinieritas-2").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-multikolinieritas-2').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-          	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp4">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp4">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep4" aria-expanded="true" aria-controls="collapsep4">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep4" class="accordion-collapse collapse" aria-labelledby="headingp4" data-bs-parent="#accordionp4">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
+          <div class="trigger">
+<div class="fw-bold">Apa itu Multikolinearitas? (Analogi Tim Sukses)</div>
+            Bayangkan kamu sedang mewawancarai dua orang untuk posisi tim sukses.<div>Si A sangat ahli dalam kampanye media sosial.</div><div>Si B ternyata adalah kembaran Si A yang punya keahlian, jaringan, dan cara bicara yang sama persis dengan Si A.</div> Jika kamu memasukkan keduanya ke dalam tim, kamu akan kesulitan menentukan siapa sebenarnya yang paling berjasa menaikkan elektabilitasmu. Mereka "rebutan panggung". Dalam regresi, jika variabel independen ($X_1$ dan $X_2$) terlalu mirip, model akan bingung menentukan kontribusi masing-masing terhadap $Y$. Akibatnya? Standar error membengkak, dan variabel yang seharusnya signifikan malah terlihat tidak signifikan.
           </div>
+        <div class="mermaid text-center">
+graph TD
+    A["Mulai Analisis Regresi"] --> B["Estimasi Model OLS"]
+    B --> C["Cek Matriks Korelasi & VIF"]
+    C --> D{"Apakah VIF > 10?"}
+    D -- "Ya (Ada Multikol)" --> E["Solusi: Drop Variabel / Transformasi / Tambah Data"]
+    D -- "Tidak (Aman)" --> F["Interpretasi Model"]
+    E --> B
+    F --> G["Selesai"]
         </div>
+        <article>
+    <h2>Mendeteksi Multikolinearitas dengan EViews</h2>
+    <p>Multikolinearitas terjadi ketika terdapat hubungan linear yang kuat antar variabel independen dalam model regresi linear berganda.</p>
+    
+    <h3>1. Uji Variance Inflation Factor (VIF)</h3>
+    <p>Cara paling umum adalah melihat nilai VIF. Rumus VIF adalah:</p>
+    <p>$$VIF_j = \frac{1}{1 - R_j^2}$$</p>
+    <p>Di mana $R_j^2$ adalah koefisien determinasi dari regresi variabel $X_j$ terhadap variabel bebas lainnya.</p>
+
+    <h3>Langkah-langkah di EViews:</h3>
+    <ol>
+        <li>Buka file kerja (Workfile) Anda dan estimasi model: <strong>Quick > Estimate Equation</strong>.</li>
+        <li>Ketik persamaan, contoh: <code>y c x1 x2 x3</code> lalu klik OK.</li>
+        <li>Pada jendela Equation, klik menu <strong>View > Coefficient Diagnostics > Variance Inflation Factors</strong>.</li>
+        <li>Perhatikan kolom <strong>Centered VIF</strong>. Jika nilainya <strong>> 10</strong>, maka terdapat masalah multikolinearitas yang serius.</li>
+    </ol>
+
+    <h3>2. Solusi Praktis</h3>
+    <ul>
+        <li><strong>Mengeluarkan Variabel:</strong> Buang salah satu variabel yang memiliki korelasi tinggi.</li>
+        <li><strong>Transformasi Data:</strong> Ubah data menjadi bentuk Logaritma Natural (LN) atau First Difference.</li>
+        <li><strong>Menambah Sampel:</strong> Terkadang ukuran sampel yang kecil memperparah multikolinearitas.</li>
+    </ul>
+</article>
+        <p class="soal-latihan">
+Kasus 1: Pendidikan (Skor Ujian)
+<br>Y: Skor Ujian Akhir
+
+<br>X1: Jam Belajar
+
+<br>X2: Skor Tryout (Sangat berkorelasi dengan jam belajar)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X1","X2"
+"71","1","11"
+"72","2","12"
+"73","3","13"
+"74","4","14"
+"75","5","15"
+"76","6","16"
+"77","7","17"
+"78","8","18"
+"79","9","19"
+"80","10","20"
+"81","11","21"
+"82","12","22"
+"83","13","23"
+"84","14","24"
+"85","15","25"
+"86","16","26"
+"87","17","27"
+"88","18","28"
+"89","19","29"
+"90","20","30"
+"91","21","31"
+"92","22","32"
+"93","23","33"
+"94","24","34"
+"95","25","35"
+"96","26","36"
+"97","27","37"
+"98","28","38"
+"99","29","39"
+"100","30","40"
+"101","31","41"
+"102","32","42"
+"103","33","43"
+"104","34","44"
+"105","35","45"
+"106","36","46"
+"107","37","47"
+"108","38","48"
+"109","39","49"
+"110","40","50"
+"111","41","51"
+"112","42","52"
+"113","43","53"
+"114","44","54"
+"115","45","55"
+"116","46","56"
+"117","47","57"
+"118","48","58"
+"119","49","59"
+"120","50","60"</textarea>
+        <p class="soal-latihan">
+Kasus 2: Makroekonomi (Konsumsi)
+<br>Y: Tingkat Konsumsi
+
+<br>X1: Pendapatan Bulanan
+
+<br>X2: Total Kekayaan (Sangat dipengaruhi pendapatan)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X1","X2"
+"58","10","60"
+"66","20","70"
+"74","30","80"
+"82","40","90"
+"90","50","100"
+"98","60","110"
+"106","70","120"
+"114","80","130"
+"122","90","140"
+"130","100","150"
+"138","110","160"
+"146","120","170"
+"154","130","180"
+"162","140","190"
+"170","150","200"
+"178","160","210"
+"186","170","220"
+"194","180","230"
+"202","190","240"
+"210","200","250"
+"218","210","260"
+"226","220","270"
+"234","230","280"
+"242","240","290"
+"250","250","300"
+"258","260","310"
+"266","270","320"
+"274","280","330"
+"282","290","340"
+"290","300","350"
+"298","310","360"
+"306","320","370"
+"314","330","380"
+"322","340","390"
+"330","350","400"
+"338","360","410"
+"346","370","420"
+"354","380","430"
+"362","390","440"
+"370","400","450"
+"378","410","460"
+"386","420","470"
+"394","430","480"
+"402","440","490"
+"410","450","500"
+"418","460","510"
+"426","470","520"
+"434","480","530"
+"442","490","540"
+"450","500","550"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 3: Kesehatan (Kenaikan Berat Badan)
+<br>Y: Berat Badan Naik
+
+<br>X1: Total Kalori Harian
+
+<br>X2: Total Karbohidrat (Komponen terbesar dari kalori total)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X1","X2"
+"60.5","2010","251"
+"61.0","2020","252"
+"61.5","2030","253"
+"62.0","2040","254"
+"62.5","2050","255"
+"63.0","2060","256"
+"63.5","2070","257"
+"64.0","2080","258"
+"64.5","2090","259"
+"65.0","2100","260"
+"65.5","2110","261"
+"66.0","2120","262"
+"66.5","2130","263"
+"67.0","2140","264"
+"67.5","2150","265"
+"68.0","2160","266"
+"68.5","2170","267"
+"69.0","2180","268"
+"69.5","2190","269"
+"70.0","2200","270"
+"70.5","2210","271"
+"71.0","2220","272"
+"71.5","2230","273"
+"72.0","2240","274"
+"72.5","2250","275"
+"73.0","2260","276"
+"73.5","2270","277"
+"74.0","2280","278"
+"74.5","2290","279"
+"75.0","2300","280"
+"75.5","2310","281"
+"76.0","2320","282"
+"76.5","2330","283"
+"77.0","2340","284"
+"77.5","2350","285"
+"78.0","2360","286"
+"78.5","2370","287"
+"79.0","2380","288"
+"79.5","2390","289"
+"80.0","2400","290"
+"80.5","2410","291"
+"81.0","2420","292"
+"81.5","2430","293"
+"82.0","2440","294"
+"82.5","2450","295"
+"83.0","2460","296"
+"83.5","2470","297"
+"84.0","2480","298"
+"84.5","2490","299"
+"85.0","2500","300"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
+          
       </div>
     </section>
     <section id="p5">
