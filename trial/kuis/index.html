@@ -39,8 +39,8 @@
     .success-box{background:var(--green-lt);border-left:3px solid var(--green);padding:.8rem 1rem;border-radius:0 6px 6px 0;font-size:.9rem;margin-bottom:1.25rem;color:var(--green)}
 
     label.field-label{display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:.35rem}
-    input[type=text]{width:100%;padding:.55rem .8rem;border:1px solid var(--border);border-radius:5px;font-family:var(--mono);font-size:.88rem;color:var(--text);background:var(--bg);transition:border-color .2s,background .2s}
-    input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
+    input[type=text],input[type=password]{width:100%;padding:.55rem .8rem;border:1px solid var(--border);border-radius:5px;font-family:var(--mono);font-size:.88rem;color:var(--text);background:var(--bg);transition:border-color .2s,background .2s}
+    input[type=text]:focus,input[type=password]:focus{outline:none;border-color:var(--accent);background:#fff}
 
     .btn-primary{background:var(--accent);color:#fff;border:none;padding:.72rem 2rem;border-radius:6px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:var(--sans);letter-spacing:.04em;transition:background .2s,transform .1s}
     .btn-primary:hover{background:#152d57}
@@ -195,7 +195,13 @@
     <!-- DOSEN -->
     <div id="mode-dosen" style="display:none">
       <div class="info-box">
-        Masukkan NIM untuk melihat soal yang didapat mahasiswa beserta jawaban yang diupload.
+        Masukkan <strong>kode akses dosen</strong> (nomor khusus yang tersimpan di spreadsheet) dan NIM mahasiswa yang ingin dicek.
+      </div>
+      <div class="nim-row" style="margin-bottom:.75rem">
+        <div>
+          <label class="field-label">Kode Akses Dosen</label>
+          <input type="password" id="dosen-password" placeholder="Masukkan kode akses dosen" maxlength="50" autocomplete="off">
+        </div>
       </div>
       <div class="nim-row">
         <div>
@@ -289,6 +295,7 @@ const STORAGE_PREFIX = "kuis_";
 document.addEventListener('DOMContentLoaded', async () => {
   document.getElementById('nim-input').addEventListener('keydown', e => { if(e.key==='Enter') startQuiz(); });
   document.getElementById('dosen-nim').addEventListener('keydown', e => { if(e.key==='Enter') dosenCheck(); });
+  document.getElementById('dosen-password').addEventListener('keydown', e => { if(e.key==='Enter') dosenCheck(); });
 
   if (!hasAPI) {
     document.getElementById('kuis-grid').innerHTML = '<div class="error-msg">⚠ URL Apps Script belum dikonfigurasi. Lihat panduan setup.</div>';
@@ -356,7 +363,10 @@ function showSection(id) {
   });
 }
 
-function backToLogin() { showSection('login-section'); }
+function backToLogin() {
+  document.getElementById('dosen-password').value = '';
+  showSection('login-section');
+}
 
 async function apiFetch(url, opts) {
   const res = await fetch(url, opts);
@@ -672,15 +682,33 @@ function fileToBase64(file) {
 async function dosenCheck() {
   const err = document.getElementById('login-error');
   err.innerHTML = '';
+  const kode = document.getElementById('dosen-password').value.trim();
   const nim = document.getElementById('dosen-nim').value.trim();
 
   if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih ujian terlebih dahulu.</div>'; return; }
-  if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM.</div>'; return; }
+  if (!kode) { err.innerHTML = '<div class="error-msg">⚠ Masukkan kode akses dosen.</div>'; return; }
+  if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM mahasiswa.</div>'; return; }
 
-  showLoading("Mengambil data…");
+  showLoading("Memverifikasi akses dosen…");
   try {
-    const data = await apiFetch(`${API_URL}?action=dosen&kuis=${encodeURIComponent(selectedKuis)}&nim=${encodeURIComponent(nim)}`);
+    const data = await apiFetch(`${API_URL}?action=dosen&kuis=${encodeURIComponent(selectedKuis)}&nim=${encodeURIComponent(nim)}&dosenKode=${encodeURIComponent(kode)}`);
     hideLoading();
+
+    // Backend tolak: kode bukan dosen
+    if (data.error === 'unauthorized') {
+      err.innerHTML = '<div class="error-msg">⚠ Akses ditolak. Kode bukan milik dosen.</div>';
+      document.getElementById('dosen-password').value = '';
+      document.getElementById('dosen-password').focus();
+      return;
+    }
+
+    // Backend tolak: kode tidak ditemukan di spreadsheet
+    if (data.error === 'kode_not_found') {
+      err.innerHTML = '<div class="error-msg">⚠ Kode akses tidak ditemukan.</div>';
+      document.getElementById('dosen-password').value = '';
+      document.getElementById('dosen-password').focus();
+      return;
+    }
 
     showSection('dosen-section');
     const sec = document.getElementById('dosen-section');
