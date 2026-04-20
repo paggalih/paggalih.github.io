@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Ujian | paggalih.github.io</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <script>
+    MathJax = { tex: { inlineMath: [['$','$'],['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] }, startup: { typeset: false } };
+  </script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
+  <style>
+    :root {
+      --bg:#f5f4f0;--card:#fff;--text:#1a1a2e;--text2:#5a5a7a;
+      --accent:#1e3a6e;--accent-lt:#e8edf8;--border:#dde0e8;
+      --green:#1a6b3c;--green-lt:#d4edda;--red:#8b1a1a;--red-lt:#fde8e8;
+      --blue-lt:#e8f0fd;--orange:#b45309;--orange-lt:#fef3c7;
+      --mono:'JetBrains Mono','Courier New',monospace;
+      --serif:'Crimson Pro',Georgia,serif;
+      --sans:'Inter',system-ui,sans-serif;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);min-height:100vh;line-height:1.6}
+
+    header{background:var(--accent);color:#fff;padding:1.4rem 2rem 1.6rem}
+    header a.back{color:rgba(255,255,255,.65);text-decoration:none;font-size:.85rem;display:inline-flex;align-items:center;gap:.3rem;margin-bottom:.6rem;transition:color .2s}
+    header a.back:hover{color:#fff}
+    header h1{font-family:var(--serif);font-size:2rem;font-weight:600;letter-spacing:-.01em}
+    header p{color:rgba(255,255,255,.7);font-size:.92rem;margin-top:.2rem}
+    #header-sub{color:rgba(255,255,255,.7);font-size:.92rem;margin-top:.2rem}
+
+    main{max-width:760px;margin:2rem auto;padding:0 1.25rem 3rem}
+    .card{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:1.5rem;margin-bottom:1.5rem;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+    .card-title{font-family:var(--serif);font-size:1.25rem;color:var(--accent);margin-bottom:1rem;padding-bottom:.6rem;border-bottom:1px solid var(--border)}
+    .info-box{background:var(--blue-lt);border-left:3px solid var(--accent);padding:.8rem 1rem;border-radius:0 6px 6px 0;font-size:.9rem;margin-bottom:1.25rem;color:var(--text2)}
+    .info-box strong{color:var(--text)}
+    .warn-box{background:var(--orange-lt);border-left:3px solid var(--orange);padding:.8rem 1rem;border-radius:0 6px 6px 0;font-size:.9rem;margin-bottom:1.25rem;color:var(--orange)}
+    .success-box{background:var(--green-lt);border-left:3px solid var(--green);padding:.8rem 1rem;border-radius:0 6px 6px 0;font-size:.9rem;margin-bottom:1.25rem;color:var(--green)}
+
+    label.field-label{display:block;font-size:.78rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em;color:var(--text2);margin-bottom:.35rem}
+    input[type=text]{width:100%;padding:.55rem .8rem;border:1px solid var(--border);border-radius:5px;font-family:var(--mono);font-size:.88rem;color:var(--text);background:var(--bg);transition:border-color .2s,background .2s}
+    input[type=text]:focus{outline:none;border-color:var(--accent);background:#fff}
+
+    .btn-primary{background:var(--accent);color:#fff;border:none;padding:.72rem 2rem;border-radius:6px;font-size:.95rem;font-weight:600;cursor:pointer;font-family:var(--sans);letter-spacing:.04em;transition:background .2s,transform .1s}
+    .btn-primary:hover{background:#152d57}
+    .btn-primary:active{transform:scale(.98)}
+    .btn-primary:disabled{opacity:.5;cursor:not-allowed}
+    .btn-secondary{background:#fff;color:var(--accent);border:1px solid var(--accent);padding:.55rem 1.2rem;border-radius:6px;font-size:.88rem;font-weight:500;cursor:pointer;font-family:var(--sans);transition:all .2s}
+    .btn-secondary:hover{background:var(--accent-lt)}
+
+    .nim-row{display:flex;gap:.75rem;align-items:flex-end}
+    .nim-row>div{flex:1}
+    .nim-row>div:last-child{flex:0 0 auto}
+
+    .mode-tabs{display:flex;gap:.5rem;margin-bottom:1.25rem}
+    .mode-tab{padding:.45rem 1.2rem;border-radius:20px;font-size:.85rem;font-weight:500;cursor:pointer;border:1px solid var(--border);background:#fff;color:var(--text2);transition:all .2s}
+    .mode-tab.active{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .mode-tab:hover:not(.active){background:var(--accent-lt)}
+
+    /* Kuis selector */
+    .kuis-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.75rem;margin-bottom:1.25rem}
+    .kuis-card{border:1px solid var(--border);border-radius:8px;padding:1rem;cursor:pointer;transition:all .2s;background:#fff}
+    .kuis-card:hover{border-color:var(--accent);background:var(--accent-lt)}
+    .kuis-card.selected{border-color:var(--accent);background:var(--accent-lt);box-shadow:0 0 0 2px var(--accent)}
+    .kuis-card h3{font-family:var(--serif);font-size:1rem;color:var(--accent);margin-bottom:.25rem}
+    .kuis-card .meta{font-size:.8rem;color:var(--text2);font-family:var(--mono)}
+
+    /* Timer */
+    .timer-bar{display:flex;align-items:center;justify-content:space-between;background:var(--accent);color:#fff;padding:.5rem 1rem;border-radius:6px;font-family:var(--mono);font-size:.9rem;margin-bottom:1.25rem}
+    .timer-bar .timer-clock{font-size:1.1rem;font-weight:500;letter-spacing:.05em}
+    .timer-bar.warn{background:var(--red);animation:pulse 1s infinite}
+    @keyframes pulse{0%,100%{opacity:1}50%{opacity:.85}}
+
+    /* Questions */
+    .question-item{padding:1.25rem 0;border-bottom:1px dashed var(--border)}
+    .question-item:last-child{border-bottom:none}
+    .q-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.6rem;flex-wrap:wrap}
+    .q-number{display:inline-block;font-family:var(--mono);font-size:.75rem;background:var(--accent);color:#fff;padding:.18rem .5rem;border-radius:3px}
+    .q-badge{display:inline-block;font-family:var(--mono);font-size:.7rem;padding:.15rem .4rem;border-radius:3px;font-weight:500}
+    .q-badge.pg{background:#e0e7ff;color:#3730a3}
+    .q-badge.isian{background:#fef3c7;color:#92400e}
+    .q-badge.uraian{background:#fce7f3;color:#9d174d}
+    .q-variant{font-family:var(--mono);font-size:.72rem;color:var(--text2)}
+    .q-text{font-size:.95rem;margin-bottom:.85rem;line-height:1.75}
+
+    /* PG options */
+    .pg-options{display:flex;flex-direction:column;gap:.4rem}
+    .pg-option{display:flex;align-items:center;gap:.6rem;padding:.5rem .75rem;border:1px solid var(--border);border-radius:6px;cursor:pointer;transition:all .15s;background:#fff;font-size:.9rem}
+    .pg-option:hover{background:var(--accent-lt);border-color:var(--accent)}
+    .pg-option.selected{background:var(--accent);color:#fff;border-color:var(--accent)}
+    .pg-option input[type=radio]{display:none}
+    .pg-bullet{width:20px;height:20px;border-radius:50%;border:2px solid var(--border);flex-shrink:0;display:flex;align-items:center;justify-content:center;transition:all .15s}
+    .pg-option.selected .pg-bullet{border-color:#fff;background:rgba(255,255,255,.3)}
+    .pg-option.selected .pg-bullet::after{content:'';width:8px;height:8px;border-radius:50%;background:#fff}
+    .pg-label{font-family:var(--mono);font-size:.78rem;font-weight:600;flex-shrink:0;width:20px}
+
+    /* Isian */
+    .isian-input{max-width:400px}
+
+    /* Upload */
+    .upload-area{border:2px dashed var(--border);border-radius:8px;padding:1.2rem;text-align:center;cursor:pointer;transition:all .2s;position:relative;background:var(--bg)}
+    .upload-area:hover{border-color:var(--accent);background:var(--accent-lt)}
+    .upload-area.has-file{border-color:var(--green);background:var(--green-lt)}
+    .upload-area input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer}
+    .upload-icon{font-size:1.5rem;margin-bottom:.3rem}
+    .upload-label{font-size:.85rem;color:var(--text2)}
+    .upload-filename{font-family:var(--mono);font-size:.82rem;color:var(--green);margin-top:.3rem}
+    .upload-preview{max-width:200px;max-height:150px;margin-top:.5rem;border-radius:4px;border:1px solid var(--border)}
+
+    /* Results */
+    .result-summary{text-align:center;padding:1.5rem 0}
+    .result-icon{font-size:3rem;margin-bottom:.5rem}
+    .result-score{font-family:var(--serif);font-size:2.5rem;font-weight:600;color:var(--accent)}
+    .result-sub{font-size:.9rem;color:var(--text2);margin-top:.3rem}
+    .result-saved{margin-top:.5rem;font-size:.82rem;color:var(--green)}
+    .result-save-fail{margin-top:.5rem;font-size:.82rem;color:var(--orange)}
+    .result-item{padding:.75rem 0;border-bottom:1px dashed var(--border)}
+    .result-item:last-child{border-bottom:none}
+    .answer-row{display:flex;gap:.75rem;font-size:.85rem;margin-top:.35rem;flex-wrap:wrap}
+    .answer-tag{font-family:var(--mono);padding:.2rem .5rem;border-radius:4px;font-size:.82rem}
+    .answer-tag.yours{background:#f0f0f0;color:var(--text2)}
+    .answer-tag.key{background:var(--green-lt);color:var(--green)}
+    .answer-tag.correct{background:var(--green-lt);color:var(--green)}
+    .answer-tag.wrong{background:var(--red-lt);color:var(--red)}
+
+    /* Blocked */
+    .blocked-msg{text-align:center;padding:2rem 1rem}
+    .blocked-msg .icon{font-size:2.5rem;margin-bottom:.75rem}
+    .blocked-msg h2{font-family:var(--serif);font-size:1.4rem;color:var(--red);margin-bottom:.5rem}
+    .blocked-msg p{color:var(--text2);font-size:.92rem;line-height:1.7}
+
+    /* Loading */
+    .loading-overlay{position:fixed;inset:0;background:rgba(245,244,240,.85);display:flex;align-items:center;justify-content:center;z-index:999;backdrop-filter:blur(2px)}
+    .loading-box{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:2rem 2.5rem;text-align:center;box-shadow:0 4px 20px rgba(0,0,0,.1)}
+    .loading-spinner{width:32px;height:32px;border:3px solid var(--border);border-top-color:var(--accent);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto .75rem}
+    @keyframes spin{to{transform:rotate(360deg)}}
+    .loading-text{font-size:.9rem;color:var(--text2)}
+
+    .error-msg{background:var(--red-lt);color:var(--red);border:1px solid #f5c6c6;border-radius:5px;padding:.7rem .9rem;font-size:.88rem;margin-top:.75rem}
+    .fade-in{animation:fadeIn .4s ease}
+    @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+    footer{text-align:center;padding:1.5rem;color:var(--text2);font-size:.83rem;border-top:1px solid var(--border)}
+    footer a{color:var(--accent);text-decoration:none}
+
+    @media(max-width:500px){
+      header h1{font-size:1.5rem} main{padding:0 .75rem 2rem}
+      .card{padding:1.1rem} .nim-row{flex-direction:column}
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Ujian Mata Kuliah</h1>
+  <p id="header-sub">Memuat daftar kuis…</p>
+</header>
+
+<main>
+  <!-- LOGIN -->
+  <div id="login-section" class="card fade-in">
+    <div class="card-title">Masuk</div>
+    <div class="mode-tabs">
+      <div class="mode-tab active" onclick="setMode('mhs')">🎓 Mahasiswa</div>
+      <div class="mode-tab" onclick="setMode('dosen')">📋 Dosen</div>
+    </div>
+
+    <!-- Pilih kuis -->
+    <label class="field-label">Pilih Kuis</label>
+    <div id="kuis-grid" class="kuis-grid">
+      <div style="color:var(--text2);font-size:.88rem;">Memuat daftar kuis…</div>
+    </div>
+
+    <!-- MHS -->
+    <div id="mode-mhs">
+      <div class="info-box">
+        <strong>Perhatian:</strong> Kuis hanya dapat dikerjakan <strong>satu kali</strong>.
+        Setiap mahasiswa mendapat <strong>soal varian acak</strong>.
+        Upload foto/scan jawaban untuk soal uraian.
+      </div>
+      <div class="nim-row">
+        <div>
+          <label class="field-label">NIM</label>
+          <input type="text" id="nim-input" placeholder="Contoh: 2410101001" maxlength="20">
+        </div>
+        <div>
+          <label class="field-label">&nbsp;</label>
+          <button class="btn-primary" id="btn-start" onclick="startQuiz()">Mulai Kuis</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- DOSEN -->
+    <div id="mode-dosen" style="display:none">
+      <div class="info-box">
+        Masukkan NIM untuk melihat soal yang didapat mahasiswa beserta jawaban yang diupload.
+      </div>
+      <div class="nim-row">
+        <div>
+          <label class="field-label">NIM Mahasiswa</label>
+          <input type="text" id="dosen-nim" placeholder="NIM yang ingin dicek" maxlength="20">
+        </div>
+        <div>
+          <label class="field-label">&nbsp;</label>
+          <button class="btn-primary" onclick="dosenCheck()">Cek</button>
+        </div>
+      </div>
+    </div>
+
+    <div id="login-error"></div>
+  </div>
+
+  <!-- QUIZ -->
+  <div id="quiz-section" style="display:none">
+    <div class="timer-bar" id="timer-bar">
+      <span id="timer-label">⏱ Sisa Waktu</span>
+      <span class="timer-clock" id="timer-clock">00:00</span>
+    </div>
+    <div class="card fade-in">
+      <div class="card-title">
+        <span id="quiz-title">Soal Kuis</span>
+        <span id="nim-display" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
+      </div>
+      <div class="warn-box" id="quiz-warn">Jawab semua soal. Ujian otomatis tersubmit saat waktu habis.</div>
+      <div id="questions-container"></div>
+      <div style="margin-top:1.5rem;text-align:right">
+        <button class="btn-primary" id="btn-submit" onclick="submitQuiz()">Submit Jawaban</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div id="result-section" style="display:none"></div>
+
+  <!-- BLOCKED -->
+  <div id="blocked-section" style="display:none">
+    <div class="card fade-in">
+      <div class="blocked-msg">
+        <div class="icon">🔒</div>
+        <h2>Ujian Sudah Dikerjakan</h2>
+        <p id="blocked-text"></p>
+      </div>
+    </div>
+  </div>
+
+  <!-- DOSEN VIEW -->
+  <div id="dosen-section" style="display:none"></div>
+
+</main>
+
+<footer>Part of <a href="https://paggalih.github.io">paggalih.github.io</a></footer>
+
+<div class="loading-overlay" id="loading-overlay" style="display:none">
+  <div class="loading-box">
+    <div class="loading-spinner"></div>
+    <div class="loading-text" id="loading-text">Memproses…</div>
+  </div>
+</div>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   KONFIGURASI
+════════════════════════════════════════════════════════ */
+
+// ┌──────────────────────────────────────────────────────┐
+// │  GANTI URL ini dengan Web App URL Apps Script Anda   │
+// └──────────────────────────────────────────────────────┘
+const API_URL = "https://script.google.com/macros/s/AKfycbzXPd8jvZCOYs4hRdtsJhLb1dVRkd-NBVXJg_XGyBTRDiQ2zovu8JOxzbZGy2Iyt7Fp2A/exec";
+const hasAPI = API_URL && !API_URL.includes("PASTE_YOUR");
+
+/* ════════════════════════════════════════════════════════
+   STATE
+════════════════════════════════════════════════════════ */
+
+let quizzes = [];
+let selectedKuis = null;
+let currentNIM = "";
+let currentSoal = [];
+let timerInterval = null;
+let timeLeft = 0;
+const STORAGE_PREFIX = "kuis_";
+
+/* ════════════════════════════════════════════════════════
+   INIT — Load kuis list on page load
+════════════════════════════════════════════════════════ */
+
+document.addEventListener('DOMContentLoaded', async () => {
+  document.getElementById('nim-input').addEventListener('keydown', e => { if(e.key==='Enter') startQuiz(); });
+  document.getElementById('dosen-nim').addEventListener('keydown', e => { if(e.key==='Enter') dosenCheck(); });
+
+  if (!hasAPI) {
+    document.getElementById('kuis-grid').innerHTML = '<div class="error-msg">⚠ URL Apps Script belum dikonfigurasi. Lihat panduan setup.</div>';
+    document.getElementById('header-sub').textContent = 'Belum terhubung ke server';
+    return;
+  }
+
+  try {
+    showLoading("Memuat daftar kuis…");
+    const res = await apiFetch(`${API_URL}?action=config`);
+    hideLoading();
+    if (res.quizzes && res.quizzes.length > 0) {
+      quizzes = res.quizzes;
+      renderKuisList();
+      document.getElementById('header-sub').textContent = `${quizzes.length} ujian tersedia`;
+    } else {
+      document.getElementById('kuis-grid').innerHTML = '<div class="warn-box">Belum ada ujian aktif. Isi sheet "Konfigurasi" terlebih dahulu.</div>';
+      document.getElementById('header-sub').textContent = 'Tidak ada ujian aktif';
+    }
+  } catch(e) {
+    hideLoading();
+    document.getElementById('kuis-grid').innerHTML = `<div class="error-msg">⚠ Gagal memuat daftar kuis: ${e.message}</div>`;
+  }
+});
+
+function renderKuisList() {
+  const grid = document.getElementById('kuis-grid');
+  grid.innerHTML = '';
+  quizzes.forEach(q => {
+    const div = document.createElement('div');
+    div.className = 'kuis-card' + (selectedKuis === q.id ? ' selected' : '');
+    div.onclick = () => selectKuis(q.id);
+div.innerHTML = `<h3>${q.nama}</h3><div class="meta">${q.durasi} menit</div>`;
+    grid.appendChild(div);
+  });
+}
+
+function selectKuis(id) {
+  selectedKuis = id;
+  renderKuisList();
+}
+
+/* ════════════════════════════════════════════════════════
+   UI HELPERS
+════════════════════════════════════════════════════════ */
+
+function showLoading(msg) {
+  document.getElementById('loading-text').textContent = msg;
+  document.getElementById('loading-overlay').style.display = 'flex';
+}
+function hideLoading() { document.getElementById('loading-overlay').style.display = 'none'; }
+
+function setMode(mode) {
+  document.querySelectorAll('.mode-tab').forEach((t,i) => {
+    t.classList.toggle('active', (mode==='mhs'&&i===0)||(mode==='dosen'&&i===1));
+  });
+  document.getElementById('mode-mhs').style.display = mode==='mhs'?'block':'none';
+  document.getElementById('mode-dosen').style.display = mode==='dosen'?'block':'none';
+  document.getElementById('login-error').innerHTML = '';
+}
+
+function showSection(id) {
+  ['login-section','quiz-section','result-section','blocked-section','dosen-section'].forEach(s => {
+    document.getElementById(s).style.display = s===id ? 'block' : 'none';
+  });
+}
+
+function backToLogin() { showSection('login-section'); }
+
+async function apiFetch(url, opts) {
+  const res = await fetch(url, opts);
+  if (!res.ok) throw new Error(`HTTP ${res.status}`);
+  return res.json();
+}
+
+function typeset(el) {
+  if (window.MathJax && MathJax.typesetPromise) MathJax.typesetPromise([el]).catch(()=>{});
+}
+
+/* ════════════════════════════════════════════════════════
+   START QUIZ
+════════════════════════════════════════════════════════ */
+
+async function startQuiz() {
+  const err = document.getElementById('login-error');
+  err.innerHTML = '';
+  const nim = document.getElementById('nim-input').value.trim();
+
+  if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih ujian terlebih dahulu.</div>'; return; }
+  if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM Anda.</div>'; return; }
+  if (nim.length < 5) { err.innerHTML = '<div class="error-msg">⚠ NIM terlalu pendek.</div>'; return; }
+
+  // Local check
+  if (hasCompletedLocal(selectedKuis, nim)) {
+    showBlocked(nim);
+    return;
+  }
+
+  showLoading("Mengambil soal…");
+  try {
+    const data = await apiFetch(`${API_URL}?action=soal&kuis=${encodeURIComponent(selectedKuis)}&nim=${encodeURIComponent(nim)}`);
+    hideLoading();
+
+    if (data.error) { err.innerHTML = `<div class="error-msg">⚠ ${data.error}</div>`; return; }
+// SESUDAH:
+if (data.error) {
+  const msg = data.error === "nim_not_registered"
+    ? "NIM tidak terdaftar. Hubungi dosen Anda."
+    : data.error;
+  err.innerHTML = `<div class="error-msg">⚠ ${msg}</div>`;
+  return;
+}
+    if (data.blocked) {
+      markCompletedLocal(selectedKuis, nim);
+      showBlocked(nim, data.timestamp);
+      return;
+    }
+
+    currentNIM = nim;
+    currentSoal = data.soal;
+    timeLeft = (data.durasi || 30) * 60;
+
+    document.getElementById('quiz-title').textContent = data.nama || 'Soal Kuis';
+    document.getElementById('nim-display').textContent = `NIM: ${nim}`;
+if (data.namaMahasiswa) {
+  document.getElementById('nim-display').textContent = 
+    `NIM: ${nim} · ${data.namaMahasiswa}`;
+}
+    document.getElementById('header-sub').textContent = data.nama || '';
+
+    showSection('quiz-section');
+    renderQuestions();
+    startTimer();
+
+  } catch(e) {
+    hideLoading();
+    err.innerHTML = `<div class="error-msg">⚠ Gagal mengambil soal: ${e.message}</div>`;
+  }
+}
+
+function showBlocked(nim, timestamp) {
+  showSection('blocked-section');
+  const ts = timestamp ? new Date(timestamp).toLocaleString('id-ID',{dateStyle:'long',timeStyle:'short'}) : '';
+  document.getElementById('blocked-text').innerHTML =
+    `NIM <strong style="font-family:var(--mono)">${nim}</strong> sudah mengerjakan ujian ini.${ts?'<br>'+ts:''}`;
+}
+
+/* ════════════════════════════════════════════════════════
+   RENDER QUESTIONS
+════════════════════════════════════════════════════════ */
+
+function renderQuestions() {
+  const c = document.getElementById('questions-container');
+  c.innerHTML = '';
+
+  currentSoal.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'question-item';
+
+    const tipeLabel = s.tipe === 'pg' ? 'Pilihan Ganda' : s.tipe === 'isian' ? 'Isian Singkat' : 'Uraian';
+    const tipeCls = s.tipe;
+
+    let answerHTML = '';
+
+    if (s.tipe === 'pg') {
+      const opts = (s.opsiPG || []).map((opt, oi) => {
+        const letter = String.fromCharCode(65 + oi); // A, B, C, ...
+        return `
+          <div class="pg-option" onclick="selectPG(${i}, '${letter}', this)">
+            <input type="radio" name="pg-${i}" value="${letter}">
+            <div class="pg-bullet"></div>
+            <span class="pg-label">${letter}.</span>
+            <span>${opt}</span>
+          </div>`;
+      }).join('');
+      answerHTML = `<div class="pg-options" id="pg-${i}">${opts}</div>`;
+
+    } else if (s.tipe === 'isian') {
+      answerHTML = `<input type="text" class="isian-input" id="isian-${i}" placeholder="Ketik jawaban…" autocomplete="off">`;
+
+    } else { // uraian
+      answerHTML = `
+        <label class="field-label">Upload jawaban (foto/scan)</label>
+        <div class="upload-area" id="upload-area-${i}" onclick="document.getElementById('file-${i}').click()">
+          <input type="file" id="file-${i}" accept="image/*" onchange="handleFile(${i},this)" style="display:none">
+          <div class="upload-icon">📷</div>
+          <div class="upload-label">Klik atau tap untuk upload gambar</div>
+          <div class="upload-filename" id="filename-${i}"></div>
+          <div id="preview-${i}"></div>
+        </div>`;
+    }
+
+    div.innerHTML = `
+  <div class="q-header">
+    <span class="q-number">Soal ${i+1}</span>
+    <span class="q-badge ${tipeCls}">${tipeLabel}</span>
+  </div>
+      <div class="q-text">${s.soal}</div>
+      ${answerHTML}`;
+    c.appendChild(div);
+  });
+
+  typeset(c);
+}
+
+function selectPG(qIdx, letter, el) {
+  el.closest('.pg-options').querySelectorAll('.pg-option').forEach(o => o.classList.remove('selected'));
+  el.classList.add('selected');
+  el.querySelector('input').checked = true;
+}
+
+function handleFile(idx, input) {
+  const file = input.files[0];
+  if (!file) return;
+  document.getElementById(`upload-area-${idx}`).classList.add('has-file');
+  document.getElementById(`filename-${idx}`).textContent = file.name;
+  const reader = new FileReader();
+  reader.onload = e => {
+    document.getElementById(`preview-${idx}`).innerHTML = `<img class="upload-preview" src="${e.target.result}">`;
+  };
+  reader.readAsDataURL(file);
+}
+
+/* ════════════════════════════════════════════════════════
+   TIMER
+════════════════════════════════════════════════════════ */
+
+function startTimer() {
+  updateTimer();
+  timerInterval = setInterval(() => {
+    timeLeft--;
+    updateTimer();
+    if (timeLeft <= 120) document.getElementById('timer-bar').classList.add('warn');
+    if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(true); }
+  }, 1000);
+}
+
+function updateTimer() {
+  const m = Math.floor(Math.max(0,timeLeft)/60);
+  const s = Math.max(0,timeLeft)%60;
+  document.getElementById('timer-clock').textContent = String(m).padStart(2,'0')+':'+String(s).padStart(2,'0');
+}
+
+/* ════════════════════════════════════════════════════════
+   SUBMIT
+════════════════════════════════════════════════════════ */
+
+async function submitQuiz(auto) {
+  if (!auto) {
+    let missing = 0;
+    currentSoal.forEach((s,i) => {
+      if (s.tipe==='pg' && !document.querySelector(`input[name="pg-${i}"]:checked`)) missing++;
+      if (s.tipe==='isian' && !document.getElementById(`isian-${i}`).value.trim()) missing++;
+      if (s.tipe==='uraian' && !document.getElementById(`file-${i}`).files[0]) missing++;
+    });
+    if (missing > 0 && !confirm(`Ada ${missing} soal belum dijawab. Yakin submit?`)) return;
+  }
+
+  clearInterval(timerInterval);
+  document.getElementById('btn-submit').disabled = true;
+  showLoading("Mengirim jawaban…");
+
+  const timeUsed = (currentSoal.length > 0 ? (selectedKuisData()?.durasi || 30) * 60 : 0) - timeLeft;
+
+  const answers = [];
+  for (let i = 0; i < currentSoal.length; i++) {
+    const s = currentSoal[i];
+    const ans = { nomor: s.nomor, varian: s.varian, tipe: s.tipe };
+
+    if (s.tipe === 'pg') {
+      const checked = document.querySelector(`input[name="pg-${i}"]:checked`);
+      // Ambil teks opsi yang dipilih (bukan huruf A/B/C)
+      if (checked) {
+        const optIdx = 'ABCDEFGHIJ'.indexOf(checked.value);
+        ans.jawaban = s.opsiPG[optIdx] || checked.value;
+      } else {
+        ans.jawaban = '';
+      }
+    } else if (s.tipe === 'isian') {
+      ans.jawaban = document.getElementById(`isian-${i}`).value.trim();
+    } else {
+      ans.jawaban = '(uraian)';
+      const file = document.getElementById(`file-${i}`).files[0];
+      if (file) {
+        ans.base64 = await fileToBase64(file);
+        ans.fileName = file.name;
+        ans.mimeType = file.type;
+      }
+    }
+    answers.push(ans);
+  }
+
+  let result = { success: false };
+  try {
+    result = await apiFetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action: 'submit',
+        kuisId: selectedKuis,
+        nim: currentNIM,
+        timeUsed, autoSubmit: !!auto,
+        timestamp: new Date().toISOString(),
+        answers
+      })
+    });
+  } catch(e) { console.warn('Submit error:', e); }
+
+  markCompletedLocal(selectedKuis, currentNIM);
+  hideLoading();
+
+  renderResult(result, answers, auto);
+}
+
+function renderResult(result, answers, auto) {
+  showSection('result-section');
+  const sec = document.getElementById('result-section');
+
+  let savedMsg = result.success
+    ? '<div class="result-saved">✓ Jawaban tersimpan ke server dosen.</div>'
+    : '<div class="result-save-fail">⚠ Gagal menyimpan ke server. Hubungi dosen Anda.</div>';
+
+  const skor = result.skor || { benar:0, total:0 };
+  const hasGradable = skor.total > 0;
+
+  let html = `<div class="card fade-in"><div class="card-title">Hasil Kuis</div><div class="result-summary">`;
+
+  if (hasGradable) {
+    html += `
+      <div class="result-score">${skor.benar}/${skor.total}</div>
+      <div class="result-sub">Skor PG & Isian (uraian dikoreksi manual)${auto?' · waktu habis':''}</div>`;
+  } else {
+    html += `
+      <div class="result-icon">✅</div>
+      <div class="result-sub">Jawaban terkirim${auto?' (waktu habis)':''}</div>`;
+  }
+  html += savedMsg + '</div>';
+
+  // Detail per soal
+  if (result.results) {
+    result.results.forEach((r, i) => {
+      const s = currentSoal[i];
+      const userAns = answers[i].jawaban || '(kosong)';
+      let statusHTML = '';
+
+      if (r.benar === true) statusHTML = '<span class="answer-tag correct">✓ Benar</span>';
+      else if (r.benar === false) statusHTML = `<span class="answer-tag wrong">✗ Salah</span><span class="answer-tag key">Kunci: ${r.kunci}</span>`;
+      else statusHTML = '<span class="answer-tag" style="background:#fce7f3;color:#9d174d">Dikoreksi manual</span>';
+
+      html += `
+        <div class="result-item">
+          <div class="q-header">
+            <span class="q-number">Soal ${i+1}</span>
+            <span class="q-badge ${s.tipe}">${s.tipe.toUpperCase()}</span>
+          </div>
+          <div class="answer-row">
+            <span class="answer-tag yours">Jawaban: ${s.tipe==='uraian'?(answers[i].fileName||'(tidak diupload)'):userAns}</span>
+            ${statusHTML}
+          </div>
+        </div>`;
+    });
+  }
+
+  html += '</div>';
+  sec.innerHTML = html;
+}
+
+function fileToBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+/* ════════════════════════════════════════════════════════
+   DOSEN CHECK
+════════════════════════════════════════════════════════ */
+
+async function dosenCheck() {
+  const err = document.getElementById('login-error');
+  err.innerHTML = '';
+  const nim = document.getElementById('dosen-nim').value.trim();
+
+  if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih ujian terlebih dahulu.</div>'; return; }
+  if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM.</div>'; return; }
+
+  showLoading("Mengambil data…");
+  try {
+    const data = await apiFetch(`${API_URL}?action=dosen&kuis=${encodeURIComponent(selectedKuis)}&nim=${encodeURIComponent(nim)}`);
+    hideLoading();
+
+    showSection('dosen-section');
+    const sec = document.getElementById('dosen-section');
+    let html = `<div class="card fade-in"><div class="card-title">Verifikasi — NIM: <span style="font-family:var(--mono)">${nim}</span></div>`;
+
+    if (data.found && data.jawaban) {
+      const j = data.jawaban;
+      const ts = j.timestamp ? new Date(j.timestamp).toLocaleString('id-ID',{dateStyle:'long',timeStyle:'short'}) : '—';
+      html += `<div class="success-box"><strong>Sudah submit</strong> pada ${ts}. Durasi: ${formatDur(j.timeUsed)}${j.autoSubmit==='Ya'?' (auto submit)':''}</div>`;
+    } else {
+      html += `<div class="warn-box">Mahasiswa ini belum submit jawaban.</div>`;
+    }
+
+    // Soal + jawaban
+    if (data.soal) {
+      data.soal.forEach((s, i) => {
+        const tipeLabel = s.tipe==='pg'?'PG':s.tipe==='isian'?'Isian':'Uraian';
+        html += `<div class="question-item">
+          <div class="q-header">
+            <span class="q-number">Soal ${i+1}</span>
+            <span class="q-badge ${s.tipe}">${tipeLabel}</span>
+            <span class="q-variant">Varian ${s.varian}</span>
+          </div>
+          <div class="q-text">${s.soal}</div>`;
+
+        // Kunci jawaban (untuk dosen)
+        if (s.kunci) {
+          html += `<div style="font-size:.85rem;margin-bottom:.4rem"><strong>Kunci:</strong> <span style="font-family:var(--mono);color:var(--green)">${s.kunci}</span></div>`;
+        }
+
+        // Jawaban mahasiswa
+        if (data.found && data.jawaban) {
+          const ans = data.jawaban.answers.find(a => String(a.nomor) === String(s.nomor));
+          if (ans) {
+            html += `<div class="answer-row">
+              <span class="answer-tag yours">Jawaban: ${ans.jawaban || '(kosong)'}</span>
+              <span class="answer-tag ${ans.benar==='✓'?'correct':ans.benar==='✗'?'wrong':''}">${ans.benar}</span>
+            </div>`;
+            if (ans.link) {
+              const fidMatch = String(ans.link).match(/\/d\/(.+?)\//);
+              const thumb = fidMatch ? `https://drive.google.com/thumbnail?id=${fidMatch[1]}&sz=w400` : '';
+              html += `<div style="margin-top:.5rem">
+                <a href="${ans.link}" target="_blank" style="color:var(--accent);font-size:.85rem">📎 Buka gambar jawaban</a>
+                ${thumb ? `<div style="margin-top:.4rem"><img src="${thumb}" style="max-width:300px;border-radius:4px;border:1px solid var(--border)" onerror="this.style.display='none'"></div>` : ''}
+              </div>`;
+            }
+          }
+        }
+
+        html += '</div>';
+      });
+    }
+
+    html += '</div><div style="text-align:center;margin-top:.5rem"><button class="btn-secondary" onclick="backToLogin()">← Kembali</button></div>';
+    sec.innerHTML = html;
+    typeset(sec);
+
+  } catch(e) {
+    hideLoading();
+    err.innerHTML = `<div class="error-msg">⚠ ${e.message}</div>`;
+  }
+}
+
+function formatDur(s) {
+  if(!s) return '—';
+  return Math.floor(s/60)+'m '+s%60+'s';
+}
+
+/* ════════════════════════════════════════════════════════
+   LOCAL STORAGE
+════════════════════════════════════════════════════════ */
+
+function hasCompletedLocal(kuisId, nim) {
+  try { return localStorage.getItem(STORAGE_PREFIX+kuisId+'_'+nim) !== null; } catch(e) { return false; }
+}
+function markCompletedLocal(kuisId, nim) {
+  try { localStorage.setItem(STORAGE_PREFIX+kuisId+'_'+nim, new Date().toISOString()); } catch(e) {}
+}
+function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
+</script>
+</body>
+</html>
