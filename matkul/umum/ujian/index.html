@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Kuis | paggalih.github.io</title>
+  <title>Ujian | paggalih.github.io</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
   <script>
@@ -154,7 +154,7 @@
 
 <header>
   <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
-  <h1>Kuis Mata Kuliah</h1>
+  <h1>Ujian Mata Kuliah</h1>
   <p id="header-sub">Memuat daftar kuis…</p>
 </header>
 
@@ -223,7 +223,7 @@
         <span id="quiz-title">Soal Kuis</span>
         <span id="nim-display" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
       </div>
-      <div class="warn-box" id="quiz-warn">Jawab semua soal. Kuis otomatis tersubmit saat waktu habis.</div>
+      <div class="warn-box" id="quiz-warn">Jawab semua soal. Ujian otomatis tersubmit saat waktu habis.</div>
       <div id="questions-container"></div>
       <div style="margin-top:1.5rem;text-align:right">
         <button class="btn-primary" id="btn-submit" onclick="submitQuiz()">Submit Jawaban</button>
@@ -239,7 +239,7 @@
     <div class="card fade-in">
       <div class="blocked-msg">
         <div class="icon">🔒</div>
-        <h2>Kuis Sudah Dikerjakan</h2>
+        <h2>Ujian Sudah Dikerjakan</h2>
         <p id="blocked-text"></p>
       </div>
     </div>
@@ -303,10 +303,10 @@ document.addEventListener('DOMContentLoaded', async () => {
     if (res.quizzes && res.quizzes.length > 0) {
       quizzes = res.quizzes;
       renderKuisList();
-      document.getElementById('header-sub').textContent = `${quizzes.length} kuis tersedia`;
+      document.getElementById('header-sub').textContent = `${quizzes.length} ujian tersedia`;
     } else {
-      document.getElementById('kuis-grid').innerHTML = '<div class="warn-box">Belum ada kuis aktif. Isi sheet "Konfigurasi" terlebih dahulu.</div>';
-      document.getElementById('header-sub').textContent = 'Tidak ada kuis aktif';
+      document.getElementById('kuis-grid').innerHTML = '<div class="warn-box">Belum ada ujian aktif. Isi sheet "Konfigurasi" terlebih dahulu.</div>';
+      document.getElementById('header-sub').textContent = 'Tidak ada ujian aktif';
     }
   } catch(e) {
     hideLoading();
@@ -377,7 +377,7 @@ async function startQuiz() {
   err.innerHTML = '';
   const nim = document.getElementById('nim-input').value.trim();
 
-  if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih kuis terlebih dahulu.</div>'; return; }
+  if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih ujian terlebih dahulu.</div>'; return; }
   if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM Anda.</div>'; return; }
   if (nim.length < 5) { err.innerHTML = '<div class="error-msg">⚠ NIM terlalu pendek.</div>'; return; }
 
@@ -433,7 +433,7 @@ function showBlocked(nim, timestamp) {
   showSection('blocked-section');
   const ts = timestamp ? new Date(timestamp).toLocaleString('id-ID',{dateStyle:'long',timeStyle:'short'}) : '';
   document.getElementById('blocked-text').innerHTML =
-    `NIM <strong style="font-family:var(--mono)">${nim}</strong> sudah mengerjakan kuis ini.${ts?'<br>'+ts:''}`;
+    `NIM <strong style="font-family:var(--mono)">${nim}</strong> sudah mengerjakan ujian ini.${ts?'<br>'+ts:''}`;
 }
 
 /* ════════════════════════════════════════════════════════
@@ -674,7 +674,7 @@ async function dosenCheck() {
   err.innerHTML = '';
   const nim = document.getElementById('dosen-nim').value.trim();
 
-  if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih kuis terlebih dahulu.</div>'; return; }
+  if (!selectedKuis) { err.innerHTML = '<div class="error-msg">⚠ Pilih ujian terlebih dahulu.</div>'; return; }
   if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM.</div>'; return; }
 
   showLoading("Mengambil data…");
