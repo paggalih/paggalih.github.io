@@ -144,6 +144,16 @@
     footer{text-align:center;padding:1.5rem;color:var(--text2);font-size:.83rem;border-top:1px solid var(--border)}
     footer a{color:var(--accent);text-decoration:none}
 
+    /* ── Lightbox ── */
+    .zoomable{cursor:zoom-in}
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
+    #lightbox img{max-width:92vw;max-height:88vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.6);transition:transform .25s;cursor:zoom-out;user-select:none}
+    #lightbox-toolbar{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:10000}
+    #lightbox-toolbar button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:.45rem 1rem;border-radius:6px;font-size:.88rem;cursor:pointer;backdrop-filter:blur(4px);transition:background .15s}
+    #lightbox-toolbar button:hover{background:rgba(255,255,255,.28)}
+    #lightbox-close{position:fixed;top:1rem;right:1rem;background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);width:2.2rem;height:2.2rem;border-radius:50%;font-size:1.1rem;cursor:pointer;display:flex;align-items:center;justify-content:center;z-index:10000;backdrop-filter:blur(4px)}
+    #lightbox-close:hover{background:rgba(255,255,255,.28)}
+
     @media(max-width:500px){
       header h1{font-size:1.5rem} main{padding:0 .75rem 2rem}
       .card{padding:1.1rem} .nim-row{flex-direction:column}
@@ -257,6 +267,20 @@
 </main>
 
 <footer>Part of <a href="https://paggalih.github.io">paggalih.github.io</a></footer>
+
+<!-- LIGHTBOX -->
+<div id="lightbox" style="display:none" onclick="closeLightbox(event)">
+  <button id="lightbox-close" onclick="closeLightbox()">✕</button>
+  <img id="lightbox-img" src="" alt="Zoom">
+  <div id="lightbox-toolbar">
+    <button onclick="lbRotate(-90)">↺ Kiri</button>
+    <button onclick="lbRotate(90)">↻ Kanan</button>
+    <button onclick="lbZoom(-0.2)">🔍−</button>
+    <button onclick="lbZoom(0.2)">🔍+</button>
+    <button onclick="lbReset()">↺ Reset</button>
+    <button onclick="window.open(document.getElementById('lightbox-img').dataset.orig,'_blank')">⬡ Buka asli</button>
+  </div>
+</div>
 
 <div class="loading-overlay" id="loading-overlay" style="display:none">
   <div class="loading-box">
@@ -431,6 +455,18 @@ if (data.namaMahasiswa) {
 
     showSection('quiz-section');
     renderQuestions();
+
+    // Coba restore draft sebelumnya (jika ada)
+    const draft = loadDraft(selectedKuis, nim);
+    if (draft) {
+      restoreDraft(draft);
+      // Resume sisa waktu dari draft jika lebih kecil dari durasi penuh
+      if (draft.timeLeft && draft.timeLeft > 0 && draft.timeLeft < timeLeft) {
+        timeLeft = draft.timeLeft;
+      }
+      showDraftBanner();
+    }
+
     startTimer();
 
   } catch(e) {
@@ -508,18 +544,83 @@ function selectPG(qIdx, letter, el) {
   el.closest('.pg-options').querySelectorAll('.pg-option').forEach(o => o.classList.remove('selected'));
   el.classList.add('selected');
   el.querySelector('input').checked = true;
+  saveDraft();
 }
+
+const MAX_IMG_SIZE_MB = 1.5;   // batas ukuran setelah kompresi (MB)
+const IMG_MAX_PX     = 1280;   // sisi terpanjang gambar setelah resize (px)
+const IMG_QUALITY    = 0.82;   // kualitas JPEG (0–1)
+
+// Cache blob terkompresi agar submit tidak perlu kompresi ulang
+const _compressedBlobs = {};
 
 function handleFile(idx, input) {
   const file = input.files[0];
   if (!file) return;
-  document.getElementById(`upload-area-${idx}`).classList.add('has-file');
-  document.getElementById(`filename-${idx}`).textContent = file.name;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById(`preview-${idx}`).innerHTML = `<img class="upload-preview" src="${e.target.result}">`;
-  };
-  reader.readAsDataURL(file);
+
+  const area     = document.getElementById(`upload-area-${idx}`);
+  const nameEl   = document.getElementById(`filename-${idx}`);
+  const prevEl   = document.getElementById(`preview-${idx}`);
+
+  nameEl.textContent = '⏳ Memproses gambar…';
+  area.classList.remove('has-file');
+
+  compressImage(file, IMG_MAX_PX, IMG_QUALITY).then(blob => {
+    const sizeMB = (blob.size / 1048576).toFixed(2);
+    const origMB = (file.size  / 1048576).toFixed(2);
+
+    _compressedBlobs[idx] = blob;
+
+    if (blob.size / 1048576 > MAX_IMG_SIZE_MB) {
+      area.classList.add('has-file');
+      area.style.borderColor = 'var(--orange)';
+      area.style.background  = 'var(--orange-lt)';
+      nameEl.innerHTML = `<span style="color:var(--orange)">⚠ Gambar masih terlalu besar (${sizeMB} MB). Coba foto ulang dengan resolusi lebih rendah.</span>`;
+      _compressedBlobs[idx] = null;
+      prevEl.innerHTML = '';
+      return;
+    }
+
+    area.classList.add('has-file');
+    area.style.borderColor = '';
+    area.style.background  = '';
+    nameEl.innerHTML = `${file.name} <span style="color:var(--text2);font-size:.75rem">(${origMB}MB → ${sizeMB}MB)</span>`;
+    const url = URL.createObjectURL(blob);
+    prevEl.innerHTML = `<img class="upload-preview zoomable" src="${url}" onclick="openLightbox('${url}','')">`;
+    saveDraft();
+  }).catch(() => {
+    nameEl.textContent = file.name;
+    area.classList.add('has-file');
+    // fallback: pakai file asli
+    const reader = new FileReader();
+    reader.onload = e => {
+      prevEl.innerHTML = `<img class="upload-preview" src="${e.target.result}">`;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function compressImage(file, maxPx, quality) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.naturalWidth, h = img.naturalHeight;
+      if (w > maxPx || h > maxPx) {
+        if (w >= h) { h = Math.round(h * maxPx / w); w = maxPx; }
+        else        { w = Math.round(w * maxPx / h); h = maxPx; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width  = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('toBlob failed')),
+        'image/jpeg', quality);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
 }
 
 /* ════════════════════════════════════════════════════════
@@ -533,6 +634,8 @@ function startTimer() {
     updateTimer();
     if (timeLeft <= 120) document.getElementById('timer-bar').classList.add('warn');
     if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(true); }
+    // Auto-save draft setiap 30 detik
+    if (timeLeft % 30 === 0) saveDraft();
   }, 1000);
 }
 
@@ -583,9 +686,23 @@ async function submitQuiz(auto) {
       ans.jawaban = '(uraian)';
       const file = document.getElementById(`file-${i}`).files[0];
       if (file) {
-        ans.base64 = await fileToBase64(file);
-        ans.fileName = file.name;
-        ans.mimeType = file.type;
+        // Pakai blob terkompresi jika tersedia, fallback ke file asli
+        const blob = (_compressedBlobs[i] instanceof Blob)
+          ? _compressedBlobs[i]
+          : file;
+
+        // Blok submit jika gambar terlalu besar
+        if (blob.size / 1048576 > MAX_IMG_SIZE_MB) {
+          hideLoading();
+          document.getElementById('btn-submit').disabled = false;
+          document.getElementById('login-error').innerHTML =
+            `<div class="error-msg">⚠ Gambar soal ${i+1} terlalu besar. Ganti dengan foto beresolusi lebih rendah.</div>`;
+          return;
+        }
+
+        ans.base64   = await blobToBase64(blob);
+        ans.fileName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+        ans.mimeType = 'image/jpeg';
       }
     }
     answers.push(ans);
@@ -608,6 +725,7 @@ async function submitQuiz(auto) {
   } catch(e) { console.warn('Submit error:', e); }
 
   markCompletedLocal(selectedKuis, currentNIM);
+  clearDraft(selectedKuis, currentNIM);
   hideLoading();
 
   renderResult(result, answers, auto);
@@ -666,14 +784,17 @@ function renderResult(result, answers, auto) {
   sec.innerHTML = html;
 }
 
-function fileToBase64(file) {
+function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onload  = () => resolve(reader.result.split(',')[1]);
     reader.onerror = reject;
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(blob);
   });
 }
+
+// kept for backward-compat but now unused
+function fileToBase64(file) { return blobToBase64(file); }
 
 /* ════════════════════════════════════════════════════════
    DOSEN CHECK
@@ -750,9 +871,23 @@ async function dosenCheck() {
             if (ans.link) {
               const fidMatch = String(ans.link).match(/\/d\/(.+?)\//);
               const thumb = fidMatch ? `https://drive.google.com/thumbnail?id=${fidMatch[1]}&sz=w400` : '';
+              const imgId = `img-ans-${i}-${ans.nomor}`;
               html += `<div style="margin-top:.5rem">
                 <a href="${ans.link}" target="_blank" style="color:var(--accent);font-size:.85rem">📎 Buka gambar jawaban</a>
-                ${thumb ? `<div style="margin-top:.4rem"><img src="${thumb}" style="max-width:300px;border-radius:4px;border:1px solid var(--border)" onerror="this.style.display='none'"></div>` : ''}
+                ${thumb ? `
+                <div style="margin-top:.6rem">
+                  <img id="${imgId}" src="${thumb}"
+                    class="zoomable"
+                    style="max-width:300px;border-radius:4px;border:1px solid var(--border);display:block;transition:transform .3s;transform-origin:center center"
+                    onclick="openLightbox('${thumb}','${ans.link}')"
+                    onerror="this.parentElement.style.display='none'">
+                  <div style="margin-top:.4rem;display:flex;gap:.4rem;align-items:center">
+                    <button class="btn-secondary" onclick="rotateImg('${imgId}',-90)"
+                      style="padding:.3rem .7rem;font-size:.8rem">↺ Kiri</button>
+                    <button class="btn-secondary" onclick="rotateImg('${imgId}',90)"
+                      style="padding:.3rem .7rem;font-size:.8rem">↻ Kanan</button>
+                  </div>
+                </div>` : ''}
               </div>`;
             }
           }
@@ -772,6 +907,81 @@ async function dosenCheck() {
   }
 }
 
+/* ════════════════════════════════════════════════════════
+   LIGHTBOX
+════════════════════════════════════════════════════════ */
+
+let _lbScale = 1;
+let _lbRot   = 0;
+
+function openLightbox(src, orig) {
+  const lb  = document.getElementById('lightbox');
+  const img = document.getElementById('lightbox-img');
+  _lbScale  = 1;
+  _lbRot    = 0;
+  img.src         = src;
+  img.dataset.orig = orig || src;
+  img.style.transform = '';
+  lb.style.display = 'flex';
+  document.body.style.overflow = 'hidden';
+}
+
+function closeLightbox(e) {
+  // Tutup hanya jika klik backdrop atau tombol close (bukan toolbar/gambar)
+  if (e && e.target !== document.getElementById('lightbox') &&
+           e.target !== document.getElementById('lightbox-close')) return;
+  document.getElementById('lightbox').style.display = 'none';
+  document.body.style.overflow = '';
+}
+
+function lbApply() {
+  document.getElementById('lightbox-img').style.transform =
+    `rotate(${_lbRot}deg) scale(${_lbScale})`;
+}
+function lbRotate(deg) { _lbRot = (_lbRot + deg + 360) % 360; lbApply(); }
+function lbZoom(delta) { _lbScale = Math.min(5, Math.max(0.3, _lbScale + delta)); lbApply(); }
+function lbReset()     { _lbScale = 1; _lbRot = 0; lbApply(); }
+
+// Tutup dengan Escape
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape') {
+    document.getElementById('lightbox').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+});
+
+// Pinch-to-zoom (mobile)
+(function(){
+  let startDist = 0;
+  const lb = () => document.getElementById('lightbox');
+  document.addEventListener('touchstart', e => {
+    if (lb().style.display === 'none') return;
+    if (e.touches.length === 2)
+      startDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                             e.touches[0].clientY - e.touches[1].clientY);
+  }, { passive: true });
+  document.addEventListener('touchmove', e => {
+    if (lb().style.display === 'none' || e.touches.length !== 2) return;
+    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
+                            e.touches[0].clientY - e.touches[1].clientY);
+    if (startDist > 0) lbZoom((dist - startDist) / 300);
+    startDist = dist;
+  }, { passive: true });
+})();
+
+const _imgRotation = {};
+function rotateImg(id, deg) {
+  _imgRotation[id] = ((_imgRotation[id] || 0) + deg + 360) % 360;
+  const img = document.getElementById(id);
+  if (!img) return;
+  const r = _imgRotation[id];
+  // Saat 90/270 tukar lebar-tinggi agar tidak terpotong
+  const isLandscape = r === 90 || r === 270;
+  img.style.transform = `rotate(${r}deg)`;
+  img.style.maxWidth  = isLandscape ? '300px' : '300px';
+  img.style.margin    = isLandscape ? '2rem auto' : '0';
+}
+
 function formatDur(s) {
   if(!s) return '—';
   return Math.floor(s/60)+'m '+s%60+'s';
@@ -788,6 +998,77 @@ function markCompletedLocal(kuisId, nim) {
   try { localStorage.setItem(STORAGE_PREFIX+kuisId+'_'+nim, new Date().toISOString()); } catch(e) {}
 }
 function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
+
+/* ════════════════════════════════════════════════════════
+   DRAFT — auto-save & restore jawaban PG + isian
+════════════════════════════════════════════════════════ */
+
+function draftKey(kuisId, nim) {
+  return STORAGE_PREFIX + 'draft_' + kuisId + '_' + nim;
+}
+
+function saveDraft() {
+  if (!currentNIM || !selectedKuis || currentSoal.length === 0) return;
+  try {
+    const answers = {};
+    currentSoal.forEach((s, i) => {
+      if (s.tipe === 'pg') {
+        const checked = document.querySelector(`input[name="pg-${i}"]:checked`);
+        if (checked) answers[i] = { tipe: 'pg', val: checked.value };
+      } else if (s.tipe === 'isian') {
+        const val = document.getElementById(`isian-${i}`)?.value?.trim();
+        if (val) answers[i] = { tipe: 'isian', val };
+      }
+      // gambar tidak disimpan (terlalu besar untuk localStorage)
+    });
+    const draft = { answers, timeLeft, savedAt: Date.now() };
+    localStorage.setItem(draftKey(selectedKuis, currentNIM), JSON.stringify(draft));
+  } catch(e) {}
+}
+
+function loadDraft(kuisId, nim) {
+  try {
+    const raw = localStorage.getItem(draftKey(kuisId, nim));
+    if (!raw) return null;
+    const draft = JSON.parse(raw);
+    // Abaikan draft lebih dari 24 jam
+    if (Date.now() - draft.savedAt > 86400000) { clearDraft(kuisId, nim); return null; }
+    return draft;
+  } catch(e) { return null; }
+}
+
+function clearDraft(kuisId, nim) {
+  try { localStorage.removeItem(draftKey(kuisId, nim)); } catch(e) {}
+}
+
+function restoreDraft(draft) {
+  if (!draft?.answers) return;
+  Object.entries(draft.answers).forEach(([i, ans]) => {
+    i = Number(i);
+    if (ans.tipe === 'pg') {
+      const opt = document.querySelector(`#pg-${i} .pg-option input[value="${ans.val}"]`);
+      if (opt) opt.closest('.pg-option').click();
+    } else if (ans.tipe === 'isian') {
+      const el = document.getElementById(`isian-${i}`);
+      if (el) el.value = ans.val;
+    }
+  });
+}
+
+function showDraftBanner() {
+  // Hapus banner lama jika ada
+  document.getElementById('draft-banner')?.remove();
+  const banner = document.createElement('div');
+  banner.id = 'draft-banner';
+  banner.className = 'warn-box';
+  banner.style.cssText = 'display:flex;align-items:center;justify-content:space-between;gap:.5rem;margin-bottom:1rem';
+  banner.innerHTML = `
+    <span>📋 <strong>Jawaban sebelumnya dipulihkan.</strong> Gambar uraian perlu diupload ulang.</span>
+    <button class="btn-secondary" onclick="this.parentElement.remove()"
+      style="flex-shrink:0;padding:.25rem .6rem;font-size:.8rem">✕</button>`;
+  const container = document.getElementById('questions-container');
+  container.parentElement.insertBefore(banner, container);
+}
 </script>
 </body>
 </html>
