@@ -510,16 +510,79 @@ function selectPG(qIdx, letter, el) {
   el.querySelector('input').checked = true;
 }
 
+const MAX_IMG_SIZE_MB = 1.5;   // batas ukuran setelah kompresi (MB)
+const IMG_MAX_PX     = 1280;   // sisi terpanjang gambar setelah resize (px)
+const IMG_QUALITY    = 0.82;   // kualitas JPEG (0–1)
+
+// Cache blob terkompresi agar submit tidak perlu kompresi ulang
+const _compressedBlobs = {};
+
 function handleFile(idx, input) {
   const file = input.files[0];
   if (!file) return;
-  document.getElementById(`upload-area-${idx}`).classList.add('has-file');
-  document.getElementById(`filename-${idx}`).textContent = file.name;
-  const reader = new FileReader();
-  reader.onload = e => {
-    document.getElementById(`preview-${idx}`).innerHTML = `<img class="upload-preview" src="${e.target.result}">`;
-  };
-  reader.readAsDataURL(file);
+
+  const area     = document.getElementById(`upload-area-${idx}`);
+  const nameEl   = document.getElementById(`filename-${idx}`);
+  const prevEl   = document.getElementById(`preview-${idx}`);
+
+  nameEl.textContent = '⏳ Memproses gambar…';
+  area.classList.remove('has-file');
+
+  compressImage(file, IMG_MAX_PX, IMG_QUALITY).then(blob => {
+    const sizeMB = (blob.size / 1048576).toFixed(2);
+    const origMB = (file.size  / 1048576).toFixed(2);
+
+    _compressedBlobs[idx] = blob;
+
+    if (blob.size / 1048576 > MAX_IMG_SIZE_MB) {
+      area.classList.add('has-file');
+      area.style.borderColor = 'var(--orange)';
+      area.style.background  = 'var(--orange-lt)';
+      nameEl.innerHTML = `<span style="color:var(--orange)">⚠ Gambar masih terlalu besar (${sizeMB} MB). Coba foto ulang dengan resolusi lebih rendah.</span>`;
+      _compressedBlobs[idx] = null;
+      prevEl.innerHTML = '';
+      return;
+    }
+
+    area.classList.add('has-file');
+    area.style.borderColor = '';
+    area.style.background  = '';
+    nameEl.innerHTML = `${file.name} <span style="color:var(--text2);font-size:.75rem">(${origMB}MB → ${sizeMB}MB)</span>`;
+    const url = URL.createObjectURL(blob);
+    prevEl.innerHTML = `<img class="upload-preview" src="${url}">`;
+  }).catch(() => {
+    nameEl.textContent = file.name;
+    area.classList.add('has-file');
+    // fallback: pakai file asli
+    const reader = new FileReader();
+    reader.onload = e => {
+      prevEl.innerHTML = `<img class="upload-preview" src="${e.target.result}">`;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function compressImage(file, maxPx, quality) {
+  return new Promise((resolve, reject) => {
+    const img = new Image();
+    const url = URL.createObjectURL(file);
+    img.onload = () => {
+      URL.revokeObjectURL(url);
+      let w = img.naturalWidth, h = img.naturalHeight;
+      if (w > maxPx || h > maxPx) {
+        if (w >= h) { h = Math.round(h * maxPx / w); w = maxPx; }
+        else        { w = Math.round(w * maxPx / h); h = maxPx; }
+      }
+      const canvas = document.createElement('canvas');
+      canvas.width  = w;
+      canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      canvas.toBlob(blob => blob ? resolve(blob) : reject(new Error('toBlob failed')),
+        'image/jpeg', quality);
+    };
+    img.onerror = reject;
+    img.src = url;
+  });
 }
 
 /* ════════════════════════════════════════════════════════
@@ -583,9 +646,23 @@ async function submitQuiz(auto) {
       ans.jawaban = '(uraian)';
       const file = document.getElementById(`file-${i}`).files[0];
       if (file) {
-        ans.base64 = await fileToBase64(file);
-        ans.fileName = file.name;
-        ans.mimeType = file.type;
+        // Pakai blob terkompresi jika tersedia, fallback ke file asli
+        const blob = (_compressedBlobs[i] instanceof Blob)
+          ? _compressedBlobs[i]
+          : file;
+
+        // Blok submit jika gambar terlalu besar
+        if (blob.size / 1048576 > MAX_IMG_SIZE_MB) {
+          hideLoading();
+          document.getElementById('btn-submit').disabled = false;
+          document.getElementById('login-error').innerHTML =
+            `<div class="error-msg">⚠ Gambar soal ${i+1} terlalu besar. Ganti dengan foto beresolusi lebih rendah.</div>`;
+          return;
+        }
+
+        ans.base64   = await blobToBase64(blob);
+        ans.fileName = file.name.replace(/\.[^.]+$/, '') + '.jpg';
+        ans.mimeType = 'image/jpeg';
       }
     }
     answers.push(ans);
@@ -666,14 +743,17 @@ function renderResult(result, answers, auto) {
   sec.innerHTML = html;
 }
 
-function fileToBase64(file) {
+function blobToBase64(blob) {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
-    reader.onload = () => resolve(reader.result.split(',')[1]);
+    reader.onload  = () => resolve(reader.result.split(',')[1]);
     reader.onerror = reject;
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(blob);
   });
 }
+
+// kept for backward-compat but now unused
+function fileToBase64(file) { return blobToBase64(file); }
 
 /* ════════════════════════════════════════════════════════
    DOSEN CHECK
