@@ -547,9 +547,9 @@ function selectPG(qIdx, letter, el) {
   saveDraft();
 }
 
-const MAX_IMG_SIZE_MB = 1.5;   // batas ukuran setelah kompresi (MB)
-const IMG_MAX_PX     = 1280;   // sisi terpanjang gambar setelah resize (px)
-const IMG_QUALITY    = 0.82;   // kualitas JPEG (0–1)
+const MAX_IMG_SIZE_MB = 0.8;   // batas ukuran setelah kompresi (MB)
+const IMG_MAX_PX     = 1024;   // sisi terpanjang gambar setelah resize (px)
+const IMG_QUALITY    = 0.78;   // kualitas JPEG (0–1)
 
 // Cache blob terkompresi agar submit tidak perlu kompresi ulang
 const _compressedBlobs = {};
@@ -727,6 +727,18 @@ async function submitQuiz(auto) {
   markCompletedLocal(selectedKuis, currentNIM);
   clearDraft(selectedKuis, currentNIM);
   hideLoading();
+
+  // Cek apakah ada gambar yang gagal upload ke Drive
+  const failedUploads = (result.results || []).filter(r => r.uploadFailed);
+  if (failedUploads.length > 0) {
+    const nomors = failedUploads.map(r => 'Soal ' + r.nomor).join(', ');
+    document.getElementById('login-error').innerHTML =
+      `<div class="error-msg" style="margin-bottom:.75rem">
+        ⚠ Gambar untuk <strong>${nomors}</strong> gagal tersimpan ke server
+        (ukuran terlalu besar atau koneksi terputus).<br>
+        Jawaban teks sudah tersimpan. Hubungi dosen untuk upload ulang gambar.
+      </div>`;
+  }
 
   renderResult(result, answers, auto);
 }
