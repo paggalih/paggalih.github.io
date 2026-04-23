@@ -716,11 +716,11 @@ async function submitQuiz(auto) {
       .map((s, i) => ({ s, i }))
       .filter(({ s }) => s.tipe === 'uraian');
 
-    if (uraianList.length > 0) {
+if (uraianList.length > 0) {
       const now = Date.now();
-      let msg = '📷 Konfirmasi gambar jawaban uraian:
-
-';
+      
+      // FIX: Menggunakan \n\n untuk baris baru alih-alih enter literal
+      let msg = '📷 Konfirmasi gambar jawaban uraian:\n\n';
       let hasOld = false;
 
       uraianList.forEach(({ s, i }) => {
@@ -729,32 +729,28 @@ async function submitQuiz(auto) {
         const minsAgo = ts ? Math.floor((now - ts) / 60000) : null;
 
         if (!file) {
-          msg += `• Soal ${i+1}: ✗ BELUM DIUPLOAD
-`;
+          // FIX: Mengganti enter literal dengan \n
+          msg += `• Soal ${i+1}: ✗ BELUM DIUPLOAD\n`;
         } else if (minsAgo !== null && minsAgo >= 5) {
-          msg += `• Soal ${i+1}: ⚠ Diupload ${minsAgo} menit lalu — disarankan upload ulang
-`;
+          // FIX: Mengganti enter literal dengan \n
+          msg += `• Soal ${i+1}: ⚠ Diupload ${minsAgo} menit lalu — disarankan upload ulang\n`;
           hasOld = true;
         } else {
-          msg += `• Soal ${i+1}: ✓ Siap (${file.name})
-`;
+          // FIX: Mengganti enter literal dengan \n
+          msg += `• Soal ${i+1}: ✓ Siap (${file.name})\n`;
         }
       });
 
       if (hasOld) {
-        msg += '
-⚠ Gambar yang diupload lama mungkin gagal terkirim.
-Sangat disarankan upload ulang gambar tersebut sebelum submit.
-
-Lanjutkan submit sekarang?';
+        // FIX: Menyambung string menjadi satu baris dan memakai \n
+        msg += '\n⚠ Gambar yang diupload lama mungkin gagal terkirim.\nSangat disarankan upload ulang gambar tersebut sebelum submit.\n\nLanjutkan submit sekarang?';
       } else {
-        msg += '
-Semua gambar siap. Lanjutkan submit?';
+        // FIX: Menyambung string menjadi satu baris dan memakai \n
+        msg += '\nSemua gambar siap. Lanjutkan submit?';
       }
 
       if (!confirm(msg)) return;
     }
-  }
 
   _watchingQuiz = false;   // matikan watcher
   releaseWakeLock();
