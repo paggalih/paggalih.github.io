@@ -146,8 +146,10 @@
 
     /* ── Lightbox ── */
     .zoomable{cursor:zoom-in}
-    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px)}
-    #lightbox img{max-width:92vw;max-height:88vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.6);transition:transform .25s;cursor:zoom-out;user-select:none}
+    #lightbox{position:fixed;inset:0;background:rgba(0,0,0,.88);z-index:9999;display:flex;align-items:center;justify-content:center;backdrop-filter:blur(3px);overflow:hidden}
+    #lightbox img{max-width:92vw;max-height:88vh;border-radius:6px;box-shadow:0 8px 40px rgba(0,0,0,.6);cursor:grab;user-select:none;touch-action:none}
+    #lightbox img.dragging{cursor:grabbing;transition:none}
+    #lightbox img.lb-anim{transition:transform .22s}
     #lightbox-toolbar{position:fixed;bottom:1.5rem;left:50%;transform:translateX(-50%);display:flex;gap:.5rem;z-index:10000}
     #lightbox-toolbar button{background:rgba(255,255,255,.15);color:#fff;border:1px solid rgba(255,255,255,.3);padding:.45rem 1rem;border-radius:6px;font-size:.88rem;cursor:pointer;backdrop-filter:blur(4px);transition:background .15s}
     #lightbox-toolbar button:hover{background:rgba(255,255,255,.28)}
@@ -923,61 +925,158 @@ async function dosenCheck() {
    LIGHTBOX
 ════════════════════════════════════════════════════════ */
 
-let _lbScale = 1;
-let _lbRot   = 0;
+// ── Lightbox state ──────────────────────────────────────────
+let _lbScale  = 1;
+let _lbRot    = 0;
+let _lbX      = 0;   // pan offset X (px)
+let _lbY      = 0;   // pan offset Y (px)
 
-function openLightbox(src, orig) {
-  const lb  = document.getElementById('lightbox');
+// ── Apply transform ──────────────────────────────────────────
+function lbApply(animate) {
   const img = document.getElementById('lightbox-img');
-  _lbScale  = 1;
-  _lbRot    = 0;
-  img.src         = src;
+  img.classList.toggle('lb-anim', !!animate);
+  img.style.transform = `translate(${_lbX}px,${_lbY}px) rotate(${_lbRot}deg) scale(${_lbScale})`;
+}
+
+// ── Open / close ─────────────────────────────────────────────
+function openLightbox(src, orig) {
+  const img = document.getElementById('lightbox-img');
+  _lbScale = 1; _lbRot = 0; _lbX = 0; _lbY = 0;
+  img.src = src;
   img.dataset.orig = orig || src;
   img.style.transform = '';
-  lb.style.display = 'flex';
+  img.classList.remove('lb-anim','dragging');
+  document.getElementById('lightbox').style.display = 'flex';
   document.body.style.overflow = 'hidden';
 }
 
-function closeLightbox(e) {
-  // Tutup hanya jika klik backdrop atau tombol close (bukan toolbar/gambar)
-  if (e && e.target !== document.getElementById('lightbox') &&
-           e.target !== document.getElementById('lightbox-close')) return;
+function _lbClose() {
   document.getElementById('lightbox').style.display = 'none';
   document.body.style.overflow = '';
 }
 
-function lbApply() {
-  document.getElementById('lightbox-img').style.transform =
-    `rotate(${_lbRot}deg) scale(${_lbScale})`;
+function closeLightbox(e) {
+  if (e && e.target !== document.getElementById('lightbox') &&
+           e.target !== document.getElementById('lightbox-close')) return;
+  _lbClose();
 }
-function lbRotate(deg) { _lbRot = (_lbRot + deg + 360) % 360; lbApply(); }
-function lbZoom(delta) { _lbScale = Math.min(5, Math.max(0.3, _lbScale + delta)); lbApply(); }
-function lbReset()     { _lbScale = 1; _lbRot = 0; lbApply(); }
 
-// Tutup dengan Escape
+// ── Toolbar controls ─────────────────────────────────────────
+function lbRotate(deg) { _lbRot = (_lbRot + deg + 360) % 360; lbApply(true); }
+function lbZoom(delta) {
+  _lbScale = Math.min(8, Math.max(0.2, _lbScale + delta));
+  lbApply(true);
+}
+function lbReset() {
+  _lbScale = 1; _lbRot = 0; _lbX = 0; _lbY = 0;
+  lbApply(true);
+}
+
+// ── Keyboard ─────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
-  if (e.key === 'Escape') {
-    document.getElementById('lightbox').style.display = 'none';
-    document.body.style.overflow = '';
-  }
+  const lb = document.getElementById('lightbox');
+  if (lb.style.display === 'none') return;
+  const STEP = 40;
+  if (e.key === 'Escape')      { _lbClose(); }
+  else if (e.key === '+' || e.key === '=') { lbZoom(0.2); }
+  else if (e.key === '-')      { lbZoom(-0.2); }
+  else if (e.key === 'ArrowLeft')  { _lbX -= STEP; lbApply(); }
+  else if (e.key === 'ArrowRight') { _lbX += STEP; lbApply(); }
+  else if (e.key === 'ArrowUp')    { _lbY -= STEP; lbApply(); }
+  else if (e.key === 'ArrowDown')  { _lbY += STEP; lbApply(); }
+  else if (e.key === '0')      { lbReset(); }
 });
 
-// Pinch-to-zoom (mobile)
+// ── Mouse drag (desktop) ─────────────────────────────────────
 (function(){
-  let startDist = 0;
-  const lb = () => document.getElementById('lightbox');
+  let dragging = false, startX = 0, startY = 0, ox = 0, oy = 0;
+  const img = () => document.getElementById('lightbox-img');
+
+  document.addEventListener('mousedown', e => {
+    if (document.getElementById('lightbox').style.display === 'none') return;
+    if (e.target !== img()) return;
+    dragging = true;
+    startX = e.clientX; startY = e.clientY;
+    ox = _lbX; oy = _lbY;
+    img().classList.add('dragging');
+    e.preventDefault();
+  });
+
+  document.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    _lbX = ox + (e.clientX - startX);
+    _lbY = oy + (e.clientY - startY);
+    lbApply();
+  });
+
+  document.addEventListener('mouseup', () => {
+    if (!dragging) return;
+    dragging = false;
+    img().classList.remove('dragging');
+  });
+})();
+
+// ── Mouse wheel zoom (desktop) ───────────────────────────────
+document.addEventListener('wheel', e => {
+  if (document.getElementById('lightbox').style.display === 'none') return;
+  if (!e.target.closest('#lightbox')) return;
+  e.preventDefault();
+  lbZoom(e.deltaY < 0 ? 0.15 : -0.15);
+}, { passive: false });
+
+// ── Touch: drag (1 finger) + pinch zoom (2 fingers) ─────────
+(function(){
+  let lastTouches = null;
+  let startDist   = 0;
+  let startScale  = 1;
+  let ox = 0, oy = 0;
+
+  const lb  = () => document.getElementById('lightbox');
+  const img = () => document.getElementById('lightbox-img');
+
   document.addEventListener('touchstart', e => {
     if (lb().style.display === 'none') return;
-    if (e.touches.length === 2)
-      startDist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
-                             e.touches[0].clientY - e.touches[1].clientY);
+    if (!e.target.closest('#lightbox')) return;
+    lastTouches = e.touches;
+
+    if (e.touches.length === 1) {
+      ox = _lbX; oy = _lbY;
+    } else if (e.touches.length === 2) {
+      startDist  = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      startScale = _lbScale;
+    }
   }, { passive: true });
+
   document.addEventListener('touchmove', e => {
-    if (lb().style.display === 'none' || e.touches.length !== 2) return;
-    const dist = Math.hypot(e.touches[0].clientX - e.touches[1].clientX,
-                            e.touches[0].clientY - e.touches[1].clientY);
-    if (startDist > 0) lbZoom((dist - startDist) / 300);
-    startDist = dist;
+    if (lb().style.display === 'none') return;
+    if (!e.target.closest('#lightbox')) return;
+    e.preventDefault();
+
+    if (e.touches.length === 1 && lastTouches?.length === 1) {
+      // Single-finger pan
+      _lbX = ox + (e.touches[0].clientX - lastTouches[0].clientX);
+      _lbY = oy + (e.touches[0].clientY - lastTouches[0].clientY);
+      lbApply();
+
+    } else if (e.touches.length === 2) {
+      // Two-finger pinch zoom
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      if (startDist > 0) {
+        _lbScale = Math.min(8, Math.max(0.2, startScale * (dist / startDist)));
+        lbApply();
+      }
+    }
+  }, { passive: false });
+
+  document.addEventListener('touchend', e => {
+    lastTouches = e.touches;
+    if (e.touches.length === 0) startDist = 0;
   }, { passive: true });
 })();
 
