@@ -558,6 +558,7 @@ function renderQuestions() {
           <input type="file" id="file-${i}" accept="image/*" capture="environment" onchange="handleFile(${i},this)" style="display:none">
           <div class="upload-icon">📷</div>
           <div class="upload-label">Klik atau tap untuk upload gambar</div>
+          <div style="font-size:.75rem;color:var(--text2);margin-top:.2rem">⚠ Hanya <strong>satu gambar</strong> per soal. Upload ulang = gambar lama terganti.</div>
           <div class="upload-filename" id="filename-${i}"></div>
           <div id="preview-${i}"></div>
         </div>`;
@@ -588,7 +589,8 @@ const IMG_MAX_PX     = 1024;   // sisi terpanjang gambar setelah resize (px)
 const IMG_QUALITY    = 0.78;   // kualitas JPEG (0–1)
 
 // Cache blob terkompresi agar submit tidak perlu kompresi ulang
-const _compressedBlobs = {};
+const _compressedBlobs  = {};
+const _uploadTimestamps = {};  // idx → Date.now() saat upload selesai
 
 function openCamera(idx) {
   _cameraOpen = true;  // suspend cheat detection
@@ -621,6 +623,7 @@ function handleFile(idx, input) {
       area.style.background  = 'var(--orange-lt)';
       nameEl.innerHTML = `<span style="color:var(--orange)">⚠ Gambar masih terlalu besar (${sizeMB} MB). Coba foto ulang dengan resolusi lebih rendah.</span>`;
       _compressedBlobs[idx] = null;
+      delete _uploadTimestamps[idx];
       prevEl.innerHTML = '';
       return;
     }
@@ -631,6 +634,7 @@ function handleFile(idx, input) {
     nameEl.innerHTML = `${file.name} <span style="color:var(--text2);font-size:.75rem">(${origMB}MB → ${sizeMB}MB)</span>`;
     const url = URL.createObjectURL(blob);
     prevEl.innerHTML = `<img class="upload-preview zoomable" src="${url}" onclick="openLightbox('${url}','')">`;
+    _uploadTimestamps[idx] = Date.now();  // catat waktu upload
     saveDraft();
   }).catch(() => {
     nameEl.textContent = file.name;
@@ -698,13 +702,58 @@ function updateTimer() {
 
 async function submitQuiz(auto) {
   if (!auto) {
+    // ── Cek soal kosong ──────────────────────────────────
     let missing = 0;
     currentSoal.forEach((s,i) => {
-      if (s.tipe==='pg' && !document.querySelector(`input[name="pg-${i}"]:checked`)) missing++;
-      if (s.tipe==='isian' && !document.getElementById(`isian-${i}`).value.trim()) missing++;
+      if (s.tipe==='pg'     && !document.querySelector(`input[name="pg-${i}"]:checked`)) missing++;
+      if (s.tipe==='isian'  && !document.getElementById(`isian-${i}`).value.trim()) missing++;
       if (s.tipe==='uraian' && !document.getElementById(`file-${i}`).files[0]) missing++;
     });
     if (missing > 0 && !confirm(`Ada ${missing} soal belum dijawab. Yakin submit?`)) return;
+
+    // ── Konfirmasi ulang gambar uraian ───────────────────
+    const uraianList = currentSoal
+      .map((s, i) => ({ s, i }))
+      .filter(({ s }) => s.tipe === 'uraian');
+
+    if (uraianList.length > 0) {
+      const now = Date.now();
+      let msg = '📷 Konfirmasi gambar jawaban uraian:
+
+';
+      let hasOld = false;
+
+      uraianList.forEach(({ s, i }) => {
+        const file    = document.getElementById(`file-${i}`).files[0];
+        const ts      = _uploadTimestamps[i];
+        const minsAgo = ts ? Math.floor((now - ts) / 60000) : null;
+
+        if (!file) {
+          msg += `• Soal ${i+1}: ✗ BELUM DIUPLOAD
+`;
+        } else if (minsAgo !== null && minsAgo >= 5) {
+          msg += `• Soal ${i+1}: ⚠ Diupload ${minsAgo} menit lalu — disarankan upload ulang
+`;
+          hasOld = true;
+        } else {
+          msg += `• Soal ${i+1}: ✓ Siap (${file.name})
+`;
+        }
+      });
+
+      if (hasOld) {
+        msg += '
+⚠ Gambar yang diupload lama mungkin gagal terkirim.
+Sangat disarankan upload ulang gambar tersebut sebelum submit.
+
+Lanjutkan submit sekarang?';
+      } else {
+        msg += '
+Semua gambar siap. Lanjutkan submit?';
+      }
+
+      if (!confirm(msg)) return;
+    }
   }
 
   _watchingQuiz = false;   // matikan watcher
@@ -735,12 +784,16 @@ async function submitQuiz(auto) {
       ans.jawaban = '(uraian)';
       const file = document.getElementById(`file-${i}`).files[0];
       if (file) {
-        // Pakai blob terkompresi jika tersedia, fallback ke file asli
-        const blob = (_compressedBlobs[i] instanceof Blob)
-          ? _compressedBlobs[i]
-          : file;
+        // Re-kompresi ulang dari file asli saat submit
+        // (hindari blob lama yang mungkin sudah stale di memori)
+        let blob;
+        try {
+          blob = await compressImage(file, IMG_MAX_PX, IMG_QUALITY);
+        } catch(e) {
+          blob = _compressedBlobs[i] instanceof Blob ? _compressedBlobs[i] : file;
+        }
 
-        // Blok submit jika gambar terlalu besar
+        // Blok submit jika gambar masih terlalu besar
         if (blob.size / 1048576 > MAX_IMG_SIZE_MB) {
           hideLoading();
           document.getElementById('btn-submit').disabled = false;
