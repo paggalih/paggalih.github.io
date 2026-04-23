@@ -199,9 +199,12 @@
     <!-- MHS -->
     <div id="mode-mhs">
       <div class="info-box">
-        <strong>Perhatian:</strong> Kuis hanya dapat dikerjakan <strong>satu kali</strong>.
-        Setiap mahasiswa mendapat <strong>soal varian acak</strong>.
-        Upload foto/scan jawaban untuk soal uraian.
+        <strong>Perhatian:</strong> 
+        <ul>
+          <li>Kuis hanya dapat dikerjakan <strong>satu kali</strong>.</li>
+          <li>Setiap mahasiswa mendapat <strong>soal varian acak</strong>.</li>
+          <li>Tidak diperkenankan <strong>pindah</strong> dari halaman ujan</li>
+        </ul>
       </div>
       <div class="nim-row">
         <div>
@@ -338,7 +341,7 @@ let timeLeft = 0;
 const STORAGE_PREFIX = "kuis_";
 
 // ── Anti-cheat: deteksi pindah tab/aplikasi ───────────────
-const MAX_VIOLATIONS  = 10;  // berapa kali toleransi sebelum auto-submit
+const MAX_VIOLATIONS  = 15;  // berapa kali toleransi sebelum auto-submit
 let   _violations     = 0;
 let   _watchingQuiz   = false; // aktif hanya saat kuis berjalan
 
@@ -798,7 +801,7 @@ async function submitQuiz(auto) {
       });
 
       if (hasOld) {
-        msg += '\n⚠ Gambar yang diupload lama mungkin gagal terkirim.\nSangat disarankan upload ulang gambar tersebut sebelum submit.\n\nLanjutkan submit sekarang?';
+        msg += '\n⚠ Gambar yang diupload lama mungkin gagal terkirim.\nCancel dan upload ulang gambar tersebut sebelum submit.\n\nLanjutkan submit sekarang?';
       } else {
         msg += '\nSemua gambar siap. Lanjutkan submit?';
       }
