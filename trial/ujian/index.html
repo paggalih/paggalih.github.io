@@ -345,6 +345,9 @@ let   _watchingQuiz   = false; // aktif hanya saat kuis berjalan
 // ── Wake Lock: cegah standby ──────────────────────────────
 let _wakeLock = null;
 
+// ── Flag: sedang buka kamera/file picker ─────────────────
+let _cameraOpen = false;
+
 /* ════════════════════════════════════════════════════════
    INIT — Load kuis list on page load
 ════════════════════════════════════════════════════════ */
@@ -551,8 +554,8 @@ function renderQuestions() {
     } else { // uraian
       answerHTML = `
         <label class="field-label">Upload jawaban (foto/scan)</label>
-        <div class="upload-area" id="upload-area-${i}" onclick="document.getElementById('file-${i}').click()">
-          <input type="file" id="file-${i}" accept="image/*" onchange="handleFile(${i},this)" style="display:none">
+        <div class="upload-area" id="upload-area-${i}" onclick="openCamera(${i})">
+          <input type="file" id="file-${i}" accept="image/*" capture="environment" onchange="handleFile(${i},this)" style="display:none">
           <div class="upload-icon">📷</div>
           <div class="upload-label">Klik atau tap untuk upload gambar</div>
           <div class="upload-filename" id="filename-${i}"></div>
@@ -587,7 +590,15 @@ const IMG_QUALITY    = 0.78;   // kualitas JPEG (0–1)
 // Cache blob terkompresi agar submit tidak perlu kompresi ulang
 const _compressedBlobs = {};
 
+function openCamera(idx) {
+  _cameraOpen = true;  // suspend cheat detection
+  document.getElementById('file-' + idx).click();
+  // Fallback: clear flag after 60 detik jika tidak ada file dipilih
+  setTimeout(() => { _cameraOpen = false; }, 60000);
+}
+
 function handleFile(idx, input) {
+  _cameraOpen = false;  // kamera/picker sudah ditutup
   const file = input.files[0];
   if (!file) return;
 
@@ -1297,15 +1308,27 @@ function resumeFromCheat() {
 
 // ── Page Visibility API (pindah tab, minimize, layar mati) ──
 document.addEventListener('visibilitychange', () => {
-  if (document.hidden) _onCheatDetected('meninggalkan halaman ujian');
+  if (document.hidden) {
+    if (_cameraOpen) return;  // buka kamera = bukan pelanggaran
+    _onCheatDetected('meninggalkan halaman ujian');
+  } else {
+    // Halaman kembali → pastikan flag kamera direset
+    _cameraOpen = false;
+  }
 });
 
 // ── Window blur (alt-tab, klik aplikasi lain) ───────────────
 window.addEventListener('blur', () => {
-  // Cek blur bukan dari dalam halaman (misal klik input file)
+  if (_cameraOpen) return;  // buka kamera/file picker → skip
+  // Cek blur dari input file yang masih aktif
   if (document.activeElement?.tagName === 'INPUT' &&
       document.activeElement.type === 'file') return;
   _onCheatDetected('berpindah aplikasi / jendela');
+});
+
+// ── Window focus kembali → reset camera flag ─────────────────
+window.addEventListener('focus', () => {
+  _cameraOpen = false;
 });
 
 /* ════════════════════════════════════════════════════════
