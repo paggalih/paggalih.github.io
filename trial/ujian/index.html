@@ -160,6 +160,17 @@
       header h1{font-size:1.5rem} main{padding:0 .75rem 2rem}
       .card{padding:1.1rem} .nim-row{flex-direction:column}
     }
+
+    /* ── Anti-cheat overlay ── */
+    #anticheat-overlay{position:fixed;inset:0;background:rgba(139,26,26,.96);z-index:99998;display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;color:#fff;padding:2rem;backdrop-filter:blur(4px)}
+    #anticheat-overlay .ac-icon{font-size:3.5rem;margin-bottom:1rem}
+    #anticheat-overlay h2{font-family:var(--serif);font-size:1.8rem;margin-bottom:.5rem}
+    #anticheat-overlay p{font-size:.95rem;opacity:.85;line-height:1.7;max-width:400px}
+    #anticheat-overlay .ac-count{font-size:3rem;font-weight:700;margin:1rem 0;font-family:var(--mono)}
+    #anticheat-overlay .ac-bar{width:200px;height:8px;background:rgba(255,255,255,.2);border-radius:4px;overflow:hidden;margin:0 auto .5rem}
+    #anticheat-overlay .ac-bar-fill{height:100%;background:#fff;border-radius:4px;transition:width .4s}
+    #anticheat-overlay .ac-resume{margin-top:1.5rem;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.4);color:#fff;padding:.6rem 1.6rem;border-radius:6px;font-size:.95rem;cursor:pointer;font-family:var(--sans)}
+    #anticheat-overlay .ac-resume:hover{background:rgba(255,255,255,.25)}
   </style>
 </head>
 <body>
@@ -270,6 +281,17 @@
 
 <footer>Part of <a href="https://paggalih.github.io">paggalih.github.io</a></footer>
 
+<!-- ANTI-CHEAT OVERLAY -->
+<div id="anticheat-overlay">
+  <div class="ac-icon">⚠️</div>
+  <h2>Keluar dari Halaman Terdeteksi!</h2>
+  <p id="ac-message"></p>
+  <div class="ac-count" id="ac-count"></div>
+  <div class="ac-bar"><div class="ac-bar-fill" id="ac-bar-fill"></div></div>
+  <p id="ac-sub" style="font-size:.82rem;opacity:.7"></p>
+  <button class="ac-resume" id="ac-resume-btn" onclick="resumeFromCheat()">Kembali ke Ujian</button>
+</div>
+
 <!-- LIGHTBOX -->
 <div id="lightbox" style="display:none" onclick="closeLightbox(event)">
   <button id="lightbox-close" onclick="closeLightbox()">✕</button>
@@ -313,6 +335,11 @@ let currentSoal = [];
 let timerInterval = null;
 let timeLeft = 0;
 const STORAGE_PREFIX = "kuis_";
+
+// ── Anti-cheat: deteksi pindah tab/aplikasi ───────────────
+const MAX_VIOLATIONS  = 3;  // berapa kali toleransi sebelum auto-submit
+let   _violations     = 0;
+let   _watchingQuiz   = false; // aktif hanya saat kuis berjalan
 
 /* ════════════════════════════════════════════════════════
    INIT — Load kuis list on page load
@@ -630,6 +657,8 @@ function compressImage(file, maxPx, quality) {
 ════════════════════════════════════════════════════════ */
 
 function startTimer() {
+  _violations    = 0;
+  _watchingQuiz  = true;
   updateTimer();
   timerInterval = setInterval(() => {
     timeLeft--;
@@ -662,6 +691,7 @@ async function submitQuiz(auto) {
     if (missing > 0 && !confirm(`Ada ${missing} soal belum dijawab. Yakin submit?`)) return;
   }
 
+  _watchingQuiz = false;   // matikan watcher
   clearInterval(timerInterval);
   document.getElementById('btn-submit').disabled = true;
   showLoading("Mengirim jawaban…");
@@ -1109,6 +1139,76 @@ function markCompletedLocal(kuisId, nim) {
   try { localStorage.setItem(STORAGE_PREFIX+kuisId+'_'+nim, new Date().toISOString()); } catch(e) {}
 }
 function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
+
+/* ════════════════════════════════════════════════════════
+   ANTI-CHEAT — deteksi pindah tab / aplikasi
+════════════════════════════════════════════════════════ */
+
+function _onCheatDetected(reason) {
+  if (!_watchingQuiz) return;
+  _violations++;
+  saveDraft();
+
+  const remaining = MAX_VIOLATIONS - _violations;
+  const overlay   = document.getElementById('anticheat-overlay');
+  const msgEl     = document.getElementById('ac-message');
+  const countEl   = document.getElementById('ac-count');
+  const subEl     = document.getElementById('ac-sub');
+  const barFill   = document.getElementById('ac-bar-fill');
+  const resumeBtn = document.getElementById('ac-resume-btn');
+
+  const pct = Math.round((_violations / MAX_VIOLATIONS) * 100);
+  barFill.style.width = pct + '%';
+  countEl.textContent = `Pelanggaran ${_violations} / ${MAX_VIOLATIONS}`;
+
+  if (remaining <= 0) {
+    // Habis toleransi → auto submit
+    msgEl.innerHTML = `Anda terdeteksi keluar dari halaman sebanyak <strong>${_violations} kali</strong>.<br>Ujian dihentikan dan jawaban dikirim otomatis.`;
+    subEl.textContent = 'Mengirim jawaban…';
+    resumeBtn.style.display = 'none';
+    overlay.style.display   = 'flex';
+    _watchingQuiz = false;
+    setTimeout(() => {
+      overlay.style.display = 'none';
+      submitQuiz(true);
+    }, 2500);
+  } else {
+    // Masih ada toleransi → tampilkan peringatan, bisa kembali
+    msgEl.innerHTML = `Anda terdeteksi <strong>${reason}</strong>.<br>Ini dianggap pelanggaran integritas ujian.`;
+    subEl.textContent = remaining === 1
+      ? '⚠ Pelanggaran berikutnya akan langsung submit jawaban Anda!'
+      : `Sisa toleransi: ${remaining} kali lagi`;
+    resumeBtn.style.display = 'inline-block';
+    overlay.style.display   = 'flex';
+
+    // Update warn bar di timer
+    document.getElementById('timer-bar').classList.add('warn');
+    const warnEl = document.getElementById('quiz-warn');
+    if (warnEl) {
+      warnEl.style.background  = 'var(--red-lt)';
+      warnEl.style.borderColor = 'var(--red)';
+      warnEl.style.color       = 'var(--red)';
+      warnEl.innerHTML = `⚠ Peringatan ${_violations}/${MAX_VIOLATIONS}: keluar halaman terdeteksi. Pelanggaran ke-${MAX_VIOLATIONS} akan auto-submit.`;
+    }
+  }
+}
+
+function resumeFromCheat() {
+  document.getElementById('anticheat-overlay').style.display = 'none';
+}
+
+// ── Page Visibility API (pindah tab, minimize, layar mati) ──
+document.addEventListener('visibilitychange', () => {
+  if (document.hidden) _onCheatDetected('meninggalkan halaman ujian');
+});
+
+// ── Window blur (alt-tab, klik aplikasi lain) ───────────────
+window.addEventListener('blur', () => {
+  // Cek blur bukan dari dalam halaman (misal klik input file)
+  if (document.activeElement?.tagName === 'INPUT' &&
+      document.activeElement.type === 'file') return;
+  _onCheatDetected('berpindah aplikasi / jendela');
+});
 
 /* ════════════════════════════════════════════════════════
    DRAFT — auto-save & restore jawaban PG + isian
