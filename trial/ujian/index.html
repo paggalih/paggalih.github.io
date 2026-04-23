@@ -1150,36 +1150,91 @@ function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
    WAKE LOCK — cegah layar standby saat ujian
 ════════════════════════════════════════════════════════ */
 
+// ── Tiny silent video sebagai fallback (bekerja di mode Privat) ──
+// Data URI: video MP4 1x1px, 0.1 detik, tidak ada suara
+const NOSLEEP_VIDEO_SRC = 'data:video/mp4;base64,AAAAIGZ0eXBtcDQyAAAAAG1wNDJpc29tAAACTm1vb3YAAABsbXZoZAAAAADaBlwX2gZcFwAAASwAAAH0AAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAB+HRyYWsAAABcdGtoZAAAAAHaBlwX2gZcFwAAAAEAAAAAAAAB9AAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHQAAANhtZGlhAAAAIG1kaGQAAAAA2gZcF9oGXBcAAEAAAABAVcQAAAAAAC1oZGxyAAAAAAAAAAAhdmlkZQAAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABg21pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAVdzdGJsAAAAnXN0c2QAAAAAAAAAAQAAAIVhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAQAASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY//wAAADFhdmNDAWQAH//hABhZ2gAbINlAoD2wEQAAAwAEAAADAGDxYtlgAQAEaM4yyAAAABhzdHRzAAAAAAAAAAEAAAABAAAAQAAAABRzdHNzAAAAAAAAAAEAAAABAAAAGGN0dHMAAAAAAAAAAQAAAAEAAAABAAAAGHN0c2MAAAAAAAAAAQAAAAEAAAABAAAAAQAAABBzdHN6AAAAAAAAAMIAAAABAAAAFHN0Y28AAAAAAAAAAQAAAAQAAAAYc21oZAAAAAAAAAAAAAAAAAAAAAA=';
+
+let _noSleepVideo  = null;
+let _noSleepActive = false;
+
+function _startNoSleep() {
+  if (_noSleepActive) return;
+  if (!_noSleepVideo) {
+    _noSleepVideo = document.createElement('video');
+    _noSleepVideo.setAttribute('playsinline', '');
+    _noSleepVideo.setAttribute('muted', '');
+    _noSleepVideo.loop   = true;
+    _noSleepVideo.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;top:0;left:0';
+    _noSleepVideo.src = NOSLEEP_VIDEO_SRC;
+    document.body.appendChild(_noSleepVideo);
+  }
+  _noSleepVideo.play().then(() => {
+    _noSleepActive = true;
+    _setWlIndicator('🔆', 'Layar terkunci aktif — tidak akan standby');
+  }).catch(() => {
+    // Autoplay diblokir → fallback: setInterval dummy agar browser tetap aktif
+    _startDummyInterval();
+  });
+}
+
+function _stopNoSleep() {
+  if (_noSleepVideo) { _noSleepVideo.pause(); }
+  _noSleepActive = false;
+  _stopDummyInterval();
+}
+
+// Dummy interval fallback jika video autoplay diblokir
+let _dummyInterval = null;
+function _startDummyInterval() {
+  if (_dummyInterval) return;
+  _setWlIndicator('🔆', 'Layar terkunci (mode fallback)');
+  _dummyInterval = setInterval(() => {
+    // Akses localStorage setiap 20 detik agar browser tahu halaman masih aktif
+    try { localStorage.setItem('_wl_ping', Date.now()); } catch(e) {}
+  }, 20000);
+}
+function _stopDummyInterval() {
+  if (_dummyInterval) { clearInterval(_dummyInterval); _dummyInterval = null; }
+}
+
+function _setWlIndicator(icon, title) {
+  const el = document.getElementById('wakelock-indicator');
+  if (el) { el.textContent = icon; el.title = title; el.style.display = ''; }
+}
+
 async function requestWakeLock() {
-  if (!('wakeLock' in navigator)) {
-    const el = document.getElementById('wakelock-indicator');
-    if (el) el.style.display = 'none';
-    return;
+  // Coba Wake Lock API dulu (tidak bekerja di mode privat Chrome)
+  if ('wakeLock' in navigator) {
+    try {
+      _wakeLock = await navigator.wakeLock.request('screen');
+      _setWlIndicator('🔆', 'Layar terkunci (Wake Lock API)');
+      _wakeLock.addEventListener('release', () => {
+        _wakeLock = null;
+        // API dilepas → aktifkan video fallback
+        if (_watchingQuiz) _startNoSleep();
+      });
+      return; // berhasil pakai API — tidak perlu video
+    } catch(e) {
+      // API gagal (mode privat dll) → lanjut ke video fallback
+    }
   }
-  try {
-    _wakeLock = await navigator.wakeLock.request('screen');
-    const el = document.getElementById('wakelock-indicator');
-    if (el) { el.textContent = '🔆'; el.title = 'Layar terkunci — tidak akan standby'; }
-    _wakeLock.addEventListener('release', () => {
-      const el = document.getElementById('wakelock-indicator');
-      if (el) { el.textContent = '🔅'; el.title = 'Wake lock dilepas sementara'; }
-      if (_watchingQuiz) requestWakeLock(); // minta lagi otomatis
-    });
-  } catch(e) {
-    const el = document.getElementById('wakelock-indicator');
-    if (el) { el.textContent = '🔅'; el.title = 'Gagal kunci layar: ' + e.message; }
-  }
+  // Fallback: video silent
+  _startNoSleep();
 }
 
 function releaseWakeLock() {
   if (_wakeLock) { _wakeLock.release(); _wakeLock = null; }
+  _stopNoSleep();
   const el = document.getElementById('wakelock-indicator');
   if (el) el.style.display = 'none';
 }
 
 // Re-acquire saat tab aktif kembali
 document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && _watchingQuiz && !_wakeLock) requestWakeLock();
+  if (!document.hidden && _watchingQuiz) {
+    if (!_wakeLock) requestWakeLock();
+    if (_noSleepVideo && !_noSleepActive) _startNoSleep();
+  }
 });
 
 /* ════════════════════════════════════════════════════════
