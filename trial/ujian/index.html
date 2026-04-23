@@ -246,6 +246,7 @@
     <div class="timer-bar" id="timer-bar">
       <span id="timer-label">⏱ Sisa Waktu</span>
       <span class="timer-clock" id="timer-clock">00:00</span>
+      <span id="wakelock-indicator" style="font-size:.72rem;opacity:.7;margin-left:.5rem" title="Layar terkunci agar tidak standby">🔆</span>
     </div>
     <div class="card fade-in">
       <div class="card-title">
@@ -340,6 +341,9 @@ const STORAGE_PREFIX = "kuis_";
 const MAX_VIOLATIONS  = 10;  // berapa kali toleransi sebelum auto-submit
 let   _violations     = 0;
 let   _watchingQuiz   = false; // aktif hanya saat kuis berjalan
+
+// ── Wake Lock: cegah standby ──────────────────────────────
+let _wakeLock = null;
 
 /* ════════════════════════════════════════════════════════
    INIT — Load kuis list on page load
@@ -659,6 +663,7 @@ function compressImage(file, maxPx, quality) {
 function startTimer() {
   _violations    = 0;
   _watchingQuiz  = true;
+  requestWakeLock();
   updateTimer();
   timerInterval = setInterval(() => {
     timeLeft--;
@@ -692,6 +697,7 @@ async function submitQuiz(auto) {
   }
 
   _watchingQuiz = false;   // matikan watcher
+  releaseWakeLock();
   clearInterval(timerInterval);
   document.getElementById('btn-submit').disabled = true;
   showLoading("Mengirim jawaban…");
@@ -1141,6 +1147,42 @@ function markCompletedLocal(kuisId, nim) {
 function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
 
 /* ════════════════════════════════════════════════════════
+   WAKE LOCK — cegah layar standby saat ujian
+════════════════════════════════════════════════════════ */
+
+async function requestWakeLock() {
+  if (!('wakeLock' in navigator)) {
+    const el = document.getElementById('wakelock-indicator');
+    if (el) el.style.display = 'none';
+    return;
+  }
+  try {
+    _wakeLock = await navigator.wakeLock.request('screen');
+    const el = document.getElementById('wakelock-indicator');
+    if (el) { el.textContent = '🔆'; el.title = 'Layar terkunci — tidak akan standby'; }
+    _wakeLock.addEventListener('release', () => {
+      const el = document.getElementById('wakelock-indicator');
+      if (el) { el.textContent = '🔅'; el.title = 'Wake lock dilepas sementara'; }
+      if (_watchingQuiz) requestWakeLock(); // minta lagi otomatis
+    });
+  } catch(e) {
+    const el = document.getElementById('wakelock-indicator');
+    if (el) { el.textContent = '🔅'; el.title = 'Gagal kunci layar: ' + e.message; }
+  }
+}
+
+function releaseWakeLock() {
+  if (_wakeLock) { _wakeLock.release(); _wakeLock = null; }
+  const el = document.getElementById('wakelock-indicator');
+  if (el) el.style.display = 'none';
+}
+
+// Re-acquire saat tab aktif kembali
+document.addEventListener('visibilitychange', () => {
+  if (!document.hidden && _watchingQuiz && !_wakeLock) requestWakeLock();
+});
+
+/* ════════════════════════════════════════════════════════
    ANTI-CHEAT — deteksi pindah tab / aplikasi
 ════════════════════════════════════════════════════════ */
 
@@ -1168,6 +1210,7 @@ function _onCheatDetected(reason) {
     resumeBtn.style.display = 'none';
     overlay.style.display   = 'flex';
     _watchingQuiz = false;
+    releaseWakeLock();
     setTimeout(() => {
       overlay.style.display = 'none';
       submitQuiz(true);
