@@ -322,9 +322,6 @@
    KONFIGURASI
 ════════════════════════════════════════════════════════ */
 
-// ┌──────────────────────────────────────────────────────┐
-// │  GANTI URL ini dengan Web App URL Apps Script Anda   │
-// └──────────────────────────────────────────────────────┘
 const API_URL = "https://script.google.com/macros/s/AKfycbzXPd8jvZCOYs4hRdtsJhLb1dVRkd-NBVXJg_XGyBTRDiQ2zovu8JOxzbZGy2Iyt7Fp2A/exec";
 const hasAPI = API_URL && !API_URL.includes("PASTE_YOUR");
 
@@ -340,19 +337,15 @@ let timerInterval = null;
 let timeLeft = 0;
 const STORAGE_PREFIX = "kuis_";
 
-// ── Anti-cheat: deteksi pindah tab/aplikasi ───────────────
-const MAX_VIOLATIONS  = 15;  // berapa kali toleransi sebelum auto-submit
+const MAX_VIOLATIONS  = 15;
 let   _violations     = 0;
-let   _watchingQuiz   = false; // aktif hanya saat kuis berjalan
+let   _watchingQuiz   = false;
 
-// ── Wake Lock: cegah standby ──────────────────────────────
 let _wakeLock = null;
-
-// ── Flag: sedang buka kamera/file picker ─────────────────
 let _cameraOpen = false;
 
 /* ════════════════════════════════════════════════════════
-   INIT — Load kuis list on page load
+   INIT
 ════════════════════════════════════════════════════════ */
 
 document.addEventListener('DOMContentLoaded', async () => {
@@ -391,7 +384,7 @@ function renderKuisList() {
     const div = document.createElement('div');
     div.className = 'kuis-card' + (selectedKuis === q.id ? ' selected' : '');
     div.onclick = () => selectKuis(q.id);
-div.innerHTML = `<h3>${q.nama}</h3><div class="meta">${q.durasi} menit</div>`;
+    div.innerHTML = `<h3>${q.nama}</h3><div class="meta">${q.durasi} menit</div>`;
     grid.appendChild(div);
   });
 }
@@ -454,7 +447,6 @@ async function startQuiz() {
   if (!nim) { err.innerHTML = '<div class="error-msg">⚠ Masukkan NIM Anda.</div>'; return; }
   if (nim.length < 5) { err.innerHTML = '<div class="error-msg">⚠ NIM terlalu pendek.</div>'; return; }
 
-  // Local check
   if (hasCompletedLocal(selectedKuis, nim)) {
     showBlocked(nim);
     return;
@@ -465,15 +457,14 @@ async function startQuiz() {
     const data = await apiFetch(`${API_URL}?action=soal&kuis=${encodeURIComponent(selectedKuis)}&nim=${encodeURIComponent(nim)}`);
     hideLoading();
 
-    if (data.error) { err.innerHTML = `<div class="error-msg">⚠ ${data.error}</div>`; return; }
-// SESUDAH:
-if (data.error) {
-  const msg = data.error === "nim_not_registered"
-    ? "NIM tidak terdaftar. Hubungi dosen Anda."
-    : data.error;
-  err.innerHTML = `<div class="error-msg">⚠ ${msg}</div>`;
-  return;
-}
+    if (data.error) {
+      const msg = data.error === "nim_not_registered"
+        ? "NIM tidak terdaftar. Hubungi dosen Anda."
+        : data.error;
+      err.innerHTML = `<div class="error-msg">⚠ ${msg}</div>`;
+      return;
+    }
+
     if (data.blocked) {
       markCompletedLocal(selectedKuis, nim);
       showBlocked(nim, data.timestamp);
@@ -486,20 +477,18 @@ if (data.error) {
 
     document.getElementById('quiz-title').textContent = data.nama || 'Soal Kuis';
     document.getElementById('nim-display').textContent = `NIM: ${nim}`;
-if (data.namaMahasiswa) {
-  document.getElementById('nim-display').textContent = 
-    `NIM: ${nim} · ${data.namaMahasiswa}`;
-}
+    if (data.namaMahasiswa) {
+      document.getElementById('nim-display').textContent = 
+        `NIM: ${nim} · ${data.namaMahasiswa}`;
+    }
     document.getElementById('header-sub').textContent = data.nama || '';
 
     showSection('quiz-section');
     renderQuestions();
 
-    // Coba restore draft sebelumnya (jika ada)
     const draft = loadDraft(selectedKuis, nim);
     if (draft) {
       restoreDraft(draft);
-      // Resume sisa waktu dari draft jika lebih kecil dari durasi penuh
       if (draft.timeLeft && draft.timeLeft > 0 && draft.timeLeft < timeLeft) {
         timeLeft = draft.timeLeft;
       }
@@ -540,7 +529,7 @@ function renderQuestions() {
 
     if (s.tipe === 'pg') {
       const opts = (s.opsiPG || []).map((opt, oi) => {
-        const letter = String.fromCharCode(65 + oi); // A, B, C, ...
+        const letter = String.fromCharCode(65 + oi);
         return `
           <div class="pg-option" onclick="selectPG(${i}, '${letter}', this)">
             <input type="radio" name="pg-${i}" value="${letter}">
@@ -554,29 +543,43 @@ function renderQuestions() {
     } else if (s.tipe === 'isian') {
       answerHTML = `<input type="text" class="isian-input" id="isian-${i}" placeholder="Ketik jawaban…" autocomplete="off">`;
 
-    } else { // uraian
+    } else {
+      // ═══ URAIAN — kamera + galeri terpisah ═══
       answerHTML = `
         <label class="field-label">Upload jawaban (foto/scan)</label>
         <div style="font-size:.78rem;color:var(--text2);margin-bottom:.4rem">
           📎 Bisa upload <strong>beberapa gambar</strong> jika jawaban panjang. Semua akan digabung otomatis menjadi satu file.
         </div>
         <div id="preview-${i}" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem"></div>
+
+        <!-- Input file tersembunyi — dipakai oleh kedua tombol -->
+        <input type="file" id="file-${i}" accept="image/*" onchange="handleFile(${i},this)" style="display:none">
+
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
-          <div class="upload-area" id="upload-area-${i}" onclick="openCamera(${i})"
-            style="flex:0 0 auto;width:80px;height:80px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.2rem">
-            <input type="file" id="file-${i}" accept="image/*" onchange="handleFile(${i},this)" style="display:none">
-            <div style="font-size:1.4rem">📷</div>
-            <div style="font-size:.7rem;text-align:center;color:var(--text2)">Tambah foto</div>
+
+          <!-- Tombol Kamera (paksa buka kamera) -->
+          <div class="upload-area" onclick="openCamera(${i})"
+            style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem">
+            <div style="font-size:1.5rem">📷</div>
+            <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2">Kamera</div>
           </div>
+
+          <!-- Tombol Galeri (buka file picker / galeri) -->
+          <div class="upload-area" onclick="openGallery(${i})"
+            style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem">
+            <div style="font-size:1.5rem">🖼️</div>
+            <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2">Galeri</div>
+          </div>
+
           <div id="filename-${i}" style="font-size:.8rem;color:var(--text2)"></div>
         </div>`;
     }
 
     div.innerHTML = `
-  <div class="q-header">
-    <span class="q-number">Soal ${i+1}</span>
-    <span class="q-badge ${tipeCls}">${tipeLabel}</span>
-  </div>
+      <div class="q-header">
+        <span class="q-number">Soal ${i+1}</span>
+        <span class="q-badge ${tipeCls}">${tipeLabel}</span>
+      </div>
       <div class="q-text">${s.soal}</div>
       ${answerHTML}`;
     c.appendChild(div);
@@ -592,21 +595,39 @@ function selectPG(qIdx, letter, el) {
   saveDraft();
 }
 
-const MAX_IMG_SIZE_MB = 0.8;   // batas ukuran setelah kompresi (MB)
-const IMG_MAX_PX     = 1024;   // sisi terpanjang gambar setelah resize (px)
-const IMG_QUALITY    = 0.78;   // kualitas JPEG (0–1)
+const MAX_IMG_SIZE_MB = 0.8;
+const IMG_MAX_PX     = 1024;
+const IMG_QUALITY    = 0.78;
 
-// Cache blob terkompresi agar submit tidak perlu kompresi ulang
 const _compressedBlobs  = {};
-const _uploadTimestamps = {};  // idx → Date.now() saat upload selesai
-const _multiFiles       = {};  // idx → File[] semua gambar soal itu
+const _uploadTimestamps = {};
+const _multiFiles       = {};
 
+/* ════════════════════════════════════════════════════════
+   KAMERA & GALERI — dua tombol terpisah
+════════════════════════════════════════════════════════ */
+
+/**
+ * Tombol 📷 Kamera — set capture="environment" agar HP
+ * langsung membuka kamera belakang, bukan galeri.
+ */
 function openCamera(idx) {
-  _cameraOpen = true;  // suspend cheat detection
+  _cameraOpen = true;
   const inp = document.getElementById('file-' + idx);
-  inp.removeAttribute('capture'); // allow gallery or camera choice
+  inp.setAttribute('capture', 'environment'); // paksa kamera belakang
   inp.click();
-  // Fallback: clear flag after 60 detik jika tidak ada file dipilih
+  setTimeout(() => { _cameraOpen = false; }, 60000);
+}
+
+/**
+ * Tombol 🖼️ Galeri — hapus capture agar muncul file picker
+ * atau galeri foto, bukan langsung kamera.
+ */
+function openGallery(idx) {
+  _cameraOpen = true;
+  const inp = document.getElementById('file-' + idx);
+  inp.removeAttribute('capture'); // buka galeri / file picker
+  inp.click();
   setTimeout(() => { _cameraOpen = false; }, 60000);
 }
 
@@ -614,11 +635,10 @@ function handleFile(idx, input) {
   _cameraOpen = false;
   const file = input.files[0];
   if (!file) return;
-  // Reset input agar file yang sama bisa dipilih lagi
   input.value = '';
 
   const nameEl = document.getElementById(`filename-${idx}`);
-  const area   = document.getElementById(`upload-area-${idx}`);
+  const areaEls = document.querySelectorAll(`#upload-area-${idx}, [onclick="openCamera(${idx})"], [onclick="openGallery(${idx})"]`);
 
   nameEl.textContent = '⏳ Memproses…';
 
@@ -630,13 +650,11 @@ function handleFile(idx, input) {
       return;
     }
 
-    // Tambah ke array
     if (!_multiFiles[idx]) _multiFiles[idx] = [];
     const fileIdx = _multiFiles[idx].length;
     _multiFiles[idx].push(blob);
     _uploadTimestamps[idx] = Date.now();
 
-    // Render thumbnail dengan tombol hapus
     const url    = URL.createObjectURL(blob);
     const prevEl = document.getElementById(`preview-${idx}`);
     const thumb  = document.createElement('div');
@@ -654,7 +672,6 @@ function handleFile(idx, input) {
 
     const total = _multiFiles[idx].filter(Boolean).length;
     nameEl.innerHTML = `<span style="color:var(--green)">✓ ${total} gambar siap</span>`;
-    area.classList.add('has-file');
     saveDraft();
   }).catch(() => {
     nameEl.textContent = '⚠ Gagal memproses gambar.';
@@ -667,10 +684,8 @@ function removeThumb(idx, fileIdx) {
   if (thumb) thumb.remove();
   const total = (_multiFiles[idx] || []).filter(Boolean).length;
   const nameEl = document.getElementById(`filename-${idx}`);
-  const area   = document.getElementById(`upload-area-${idx}`);
   if (total === 0) {
     nameEl.textContent = '';
-    area.classList.remove('has-file');
     delete _uploadTimestamps[idx];
   } else {
     nameEl.innerHTML = `<span style="color:var(--green)">✓ ${total} gambar siap</span>`;
@@ -678,9 +693,7 @@ function removeThumb(idx, fileIdx) {
   saveDraft();
 }
 
-// Gabungkan array blob gambar menjadi satu canvas vertikal
 async function mergeImages(blobs, quality) {
-  // Load semua jadi HTMLImageElement
   const imgs = await Promise.all(blobs.filter(Boolean).map(blob => new Promise((res, rej) => {
     const img = new Image();
     img.onload = () => res(img);
@@ -749,7 +762,6 @@ function startTimer() {
     updateTimer();
     if (timeLeft <= 120) document.getElementById('timer-bar').classList.add('warn');
     if (timeLeft <= 0) { clearInterval(timerInterval); submitQuiz(true); }
-    // Auto-save draft setiap 30 detik
     if (timeLeft % 30 === 0) saveDraft();
   }, 1000);
 }
@@ -766,7 +778,6 @@ function updateTimer() {
 
 async function submitQuiz(auto) {
   if (!auto) {
-    // ── Cek soal kosong ──────────────────────────────────
     let missing = 0;
     currentSoal.forEach((s,i) => {
       if (s.tipe==='pg'     && !document.querySelector(`input[name="pg-${i}"]:checked`)) missing++;
@@ -775,7 +786,6 @@ async function submitQuiz(auto) {
     });
     if (missing > 0 && !confirm(`Ada ${missing} soal belum dijawab. Yakin submit?`)) return;
 
-    // ── Konfirmasi ulang gambar uraian ───────────────────
     const uraianList = currentSoal
       .map((s, i) => ({ s, i }))
       .filter(({ s }) => s.tipe === 'uraian');
@@ -810,7 +820,7 @@ async function submitQuiz(auto) {
     }
   }
 
-  _watchingQuiz = false;   // matikan watcher
+  _watchingQuiz = false;
   releaseWakeLock();
   clearInterval(timerInterval);
   document.getElementById('btn-submit').disabled = true;
@@ -825,7 +835,6 @@ async function submitQuiz(auto) {
 
     if (s.tipe === 'pg') {
       const checked = document.querySelector(`input[name="pg-${i}"]:checked`);
-      // Ambil teks opsi yang dipilih (bukan huruf A/B/C)
       if (checked) {
         const optIdx = 'ABCDEFGHIJ'.indexOf(checked.value);
         ans.jawaban = s.opsiPG[optIdx] || checked.value;
@@ -841,15 +850,13 @@ async function submitQuiz(auto) {
         showLoading(`Menggabungkan gambar soal ${i+1}…`);
         let blob;
         try {
-          // Gabungkan semua gambar jadi satu → satu link di spreadsheet
           blob = files.length === 1
             ? files[0]
             : await mergeImages(files, IMG_QUALITY);
         } catch(e) {
-          blob = files[0]; // fallback gambar pertama saja
+          blob = files[0];
         }
 
-        // Blok submit jika hasil gabungan masih terlalu besar
         const MAX_MERGED_MB = MAX_IMG_SIZE_MB * (files.length > 1 ? 3 : 1);
         if (blob.size / 1048576 > MAX_MERGED_MB) {
           hideLoading();
@@ -887,7 +894,6 @@ async function submitQuiz(auto) {
   clearDraft(selectedKuis, currentNIM);
   hideLoading();
 
-  // Cek apakah ada gambar yang gagal upload ke Drive
   const failedUploads = (result.results || []).filter(r => r.uploadFailed);
   if (failedUploads.length > 0) {
     const nomors = failedUploads.map(r => 'Soal ' + r.nomor).join(', ');
@@ -926,7 +932,6 @@ function renderResult(result, answers, auto) {
   }
   html += savedMsg + '</div>';
 
-  // Detail per soal
   if (result.results) {
     result.results.forEach((r, i) => {
       const s = currentSoal[i];
@@ -964,7 +969,6 @@ function blobToBase64(blob) {
   });
 }
 
-// kept for backward-compat but now unused
 function fileToBase64(file) { return blobToBase64(file); }
 
 /* ════════════════════════════════════════════════════════
@@ -986,7 +990,6 @@ async function dosenCheck() {
     const data = await apiFetch(`${API_URL}?action=dosen&kuis=${encodeURIComponent(selectedKuis)}&nim=${encodeURIComponent(nim)}&dosenKode=${encodeURIComponent(kode)}`);
     hideLoading();
 
-    // Backend tolak: kode bukan dosen
     if (data.error === 'unauthorized') {
       err.innerHTML = '<div class="error-msg">⚠ Akses ditolak. Kode bukan milik dosen.</div>';
       document.getElementById('dosen-password').value = '';
@@ -994,7 +997,6 @@ async function dosenCheck() {
       return;
     }
 
-    // Backend tolak: kode tidak ditemukan di spreadsheet
     if (data.error === 'kode_not_found') {
       err.innerHTML = '<div class="error-msg">⚠ Kode akses tidak ditemukan.</div>';
       document.getElementById('dosen-password').value = '';
@@ -1014,7 +1016,6 @@ async function dosenCheck() {
       html += `<div class="warn-box">Mahasiswa ini belum submit jawaban.</div>`;
     }
 
-    // Soal + jawaban
     if (data.soal) {
       data.soal.forEach((s, i) => {
         const tipeLabel = s.tipe==='pg'?'PG':s.tipe==='isian'?'Isian':'Uraian';
@@ -1026,12 +1027,10 @@ async function dosenCheck() {
           </div>
           <div class="q-text">${s.soal}</div>`;
 
-        // Kunci jawaban (untuk dosen)
         if (s.kunci) {
           html += `<div style="font-size:.85rem;margin-bottom:.4rem"><strong>Kunci:</strong> <span style="font-family:var(--mono);color:var(--green)">${s.kunci}</span></div>`;
         }
 
-        // Jawaban mahasiswa
         if (data.found && data.jawaban) {
           const ans = data.jawaban.answers.find(a => String(a.nomor) === String(s.nomor));
           if (ans) {
@@ -1082,20 +1081,17 @@ async function dosenCheck() {
    LIGHTBOX
 ════════════════════════════════════════════════════════ */
 
-// ── Lightbox state ──────────────────────────────────────────
 let _lbScale  = 1;
 let _lbRot    = 0;
-let _lbX      = 0;   // pan offset X (px)
-let _lbY      = 0;   // pan offset Y (px)
+let _lbX      = 0;
+let _lbY      = 0;
 
-// ── Apply transform ──────────────────────────────────────────
 function lbApply(animate) {
   const img = document.getElementById('lightbox-img');
   img.classList.toggle('lb-anim', !!animate);
   img.style.transform = `translate(${_lbX}px,${_lbY}px) rotate(${_lbRot}deg) scale(${_lbScale})`;
 }
 
-// ── Open / close ─────────────────────────────────────────────
 function openLightbox(src, orig) {
   const img = document.getElementById('lightbox-img');
   _lbScale = 1; _lbRot = 0; _lbX = 0; _lbY = 0;
@@ -1118,7 +1114,6 @@ function closeLightbox(e) {
   _lbClose();
 }
 
-// ── Toolbar controls ─────────────────────────────────────────
 function lbRotate(deg) { _lbRot = (_lbRot + deg + 360) % 360; lbApply(true); }
 function lbZoom(delta) {
   _lbScale = Math.min(8, Math.max(0.2, _lbScale + delta));
@@ -1129,7 +1124,6 @@ function lbReset() {
   lbApply(true);
 }
 
-// ── Keyboard ─────────────────────────────────────────────────
 document.addEventListener('keydown', e => {
   const lb = document.getElementById('lightbox');
   if (lb.style.display === 'none') return;
@@ -1144,7 +1138,6 @@ document.addEventListener('keydown', e => {
   else if (e.key === '0')      { lbReset(); }
 });
 
-// ── Mouse drag (desktop) ─────────────────────────────────────
 (function(){
   let dragging = false, startX = 0, startY = 0, ox = 0, oy = 0;
   const img = () => document.getElementById('lightbox-img');
@@ -1173,7 +1166,6 @@ document.addEventListener('keydown', e => {
   });
 })();
 
-// ── Mouse wheel zoom (desktop) ───────────────────────────────
 document.addEventListener('wheel', e => {
   if (document.getElementById('lightbox').style.display === 'none') return;
   if (!e.target.closest('#lightbox')) return;
@@ -1181,7 +1173,6 @@ document.addEventListener('wheel', e => {
   lbZoom(e.deltaY < 0 ? 0.15 : -0.15);
 }, { passive: false });
 
-// ── Touch: drag (1 finger) + pinch zoom (2 fingers) ─────────
 (function(){
   let lastTouches = null;
   let startDist   = 0;
@@ -1213,13 +1204,11 @@ document.addEventListener('wheel', e => {
     e.preventDefault();
 
     if (e.touches.length === 1 && lastTouches?.length === 1) {
-      // Single-finger pan
       _lbX = ox + (e.touches[0].clientX - lastTouches[0].clientX);
       _lbY = oy + (e.touches[0].clientY - lastTouches[0].clientY);
       lbApply();
 
     } else if (e.touches.length === 2) {
-      // Two-finger pinch zoom
       const dist = Math.hypot(
         e.touches[0].clientX - e.touches[1].clientX,
         e.touches[0].clientY - e.touches[1].clientY
@@ -1243,7 +1232,6 @@ function rotateImg(id, deg) {
   const img = document.getElementById(id);
   if (!img) return;
   const r = _imgRotation[id];
-  // Saat 90/270 tukar lebar-tinggi agar tidak terpotong
   const isLandscape = r === 90 || r === 270;
   img.style.transform = `rotate(${r}deg)`;
   img.style.maxWidth  = isLandscape ? '300px' : '300px';
@@ -1268,11 +1256,9 @@ function markCompletedLocal(kuisId, nim) {
 function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
 
 /* ════════════════════════════════════════════════════════
-   WAKE LOCK — cegah layar standby saat ujian
+   WAKE LOCK
 ════════════════════════════════════════════════════════ */
 
-// ── Tiny silent video sebagai fallback (bekerja di mode Privat) ──
-// Data URI: video MP4 1x1px, 0.1 detik, tidak ada suara
 const NOSLEEP_VIDEO_SRC = 'data:video/mp4;base64,AAAAIGZ0eXBtcDQyAAAAAG1wNDJpc29tAAACTm1vb3YAAABsbXZoZAAAAADaBlwX2gZcFwAAASwAAAH0AAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAB+HRyYWsAAABcdGtoZAAAAAHaBlwX2gZcFwAAAAEAAAAAAAAB9AAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHQAAANhtZGlhAAAAIG1kaGQAAAAA2gZcF9oGXBcAAEAAAABAVcQAAAAAAC1oZGxyAAAAAAAAAAAhdmlkZQAAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABg21pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAVdzdGJsAAAAnXN0c2QAAAAAAAAAAQAAAIVhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAQAASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY//wAAADFhdmNDAWQAH//hABhZ2gAbINlAoD2wEQAAAwAEAAADAGDxYtlgAQAEaM4yyAAAABhzdHRzAAAAAAAAAAEAAAABAAAAQAAAABRzdHNzAAAAAAAAAAEAAAABAAAAGGN0dHMAAAAAAAAAAQAAAAEAAAABAAAAGHN0c2MAAAAAAAAAAQAAAAEAAAABAAAAAQAAABBzdHN6AAAAAAAAAMIAAAABAAAAFHN0Y28AAAAAAAAAAQAAAAQAAAAYc21oZAAAAAAAAAAAAAAAAAAAAAA=';
 
 let _noSleepVideo  = null;
@@ -1293,7 +1279,6 @@ function _startNoSleep() {
     _noSleepActive = true;
     _setWlIndicator('🔆', 'Layar terkunci aktif — tidak akan standby');
   }).catch(() => {
-    // Autoplay diblokir → fallback: setInterval dummy agar browser tetap aktif
     _startDummyInterval();
   });
 }
@@ -1304,13 +1289,11 @@ function _stopNoSleep() {
   _stopDummyInterval();
 }
 
-// Dummy interval fallback jika video autoplay diblokir
 let _dummyInterval = null;
 function _startDummyInterval() {
   if (_dummyInterval) return;
   _setWlIndicator('🔆', 'Layar terkunci (mode fallback)');
   _dummyInterval = setInterval(() => {
-    // Akses localStorage setiap 20 detik agar browser tahu halaman masih aktif
     try { localStorage.setItem('_wl_ping', Date.now()); } catch(e) {}
   }, 20000);
 }
@@ -1324,22 +1307,17 @@ function _setWlIndicator(icon, title) {
 }
 
 async function requestWakeLock() {
-  // Coba Wake Lock API dulu (tidak bekerja di mode privat Chrome)
   if ('wakeLock' in navigator) {
     try {
       _wakeLock = await navigator.wakeLock.request('screen');
       _setWlIndicator('🔆', 'Layar terkunci (Wake Lock API)');
       _wakeLock.addEventListener('release', () => {
         _wakeLock = null;
-        // API dilepas → aktifkan video fallback
         if (_watchingQuiz) _startNoSleep();
       });
-      return; // berhasil pakai API — tidak perlu video
-    } catch(e) {
-      // API gagal (mode privat dll) → lanjut ke video fallback
-    }
+      return;
+    } catch(e) {}
   }
-  // Fallback: video silent
   _startNoSleep();
 }
 
@@ -1350,7 +1328,6 @@ function releaseWakeLock() {
   if (el) el.style.display = 'none';
 }
 
-// Re-acquire saat tab aktif kembali
 document.addEventListener('visibilitychange', () => {
   if (!document.hidden && _watchingQuiz) {
     if (!_wakeLock) requestWakeLock();
@@ -1359,7 +1336,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 /* ════════════════════════════════════════════════════════
-   ANTI-CHEAT — deteksi pindah tab / aplikasi
+   ANTI-CHEAT
 ════════════════════════════════════════════════════════ */
 
 function _onCheatDetected(reason) {
@@ -1380,7 +1357,6 @@ function _onCheatDetected(reason) {
   countEl.textContent = `Pelanggaran ${_violations} / ${MAX_VIOLATIONS}`;
 
   if (remaining <= 0) {
-    // Habis toleransi → auto submit
     msgEl.innerHTML = `Anda terdeteksi keluar dari halaman sebanyak <strong>${_violations} kali</strong>.<br>Ujian dihentikan dan jawaban dikirim otomatis.`;
     subEl.textContent = 'Mengirim jawaban…';
     resumeBtn.style.display = 'none';
@@ -1392,7 +1368,6 @@ function _onCheatDetected(reason) {
       submitQuiz(true);
     }, 2500);
   } else {
-    // Masih ada toleransi → tampilkan peringatan, bisa kembali
     msgEl.innerHTML = `Anda terdeteksi <strong>${reason}</strong>.<br>Ini dianggap pelanggaran integritas ujian.`;
     subEl.textContent = remaining === 1
       ? '⚠ Pelanggaran berikutnya akan langsung submit jawaban Anda!'
@@ -1400,7 +1375,6 @@ function _onCheatDetected(reason) {
     resumeBtn.style.display = 'inline-block';
     overlay.style.display   = 'flex';
 
-    // Update warn bar di timer
     document.getElementById('timer-bar').classList.add('warn');
     const warnEl = document.getElementById('quiz-warn');
     if (warnEl) {
@@ -1416,33 +1390,28 @@ function resumeFromCheat() {
   document.getElementById('anticheat-overlay').style.display = 'none';
 }
 
-// ── Page Visibility API (pindah tab, minimize, layar mati) ──
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    if (_cameraOpen) return;  // buka kamera = bukan pelanggaran
+    if (_cameraOpen) return;
     _onCheatDetected('meninggalkan halaman ujian');
   } else {
-    // Halaman kembali → pastikan flag kamera direset
     _cameraOpen = false;
   }
 });
 
-// ── Window blur (alt-tab, klik aplikasi lain) ───────────────
 window.addEventListener('blur', () => {
-  if (_cameraOpen) return;  // buka kamera/file picker → skip
-  // Cek blur dari input file yang masih aktif
+  if (_cameraOpen) return;
   if (document.activeElement?.tagName === 'INPUT' &&
       document.activeElement.type === 'file') return;
   _onCheatDetected('berpindah aplikasi / jendela');
 });
 
-// ── Window focus kembali → reset camera flag ─────────────────
 window.addEventListener('focus', () => {
   _cameraOpen = false;
 });
 
 /* ════════════════════════════════════════════════════════
-   DRAFT — auto-save & restore jawaban PG + isian
+   DRAFT
 ════════════════════════════════════════════════════════ */
 
 function draftKey(kuisId, nim) {
@@ -1461,7 +1430,6 @@ function saveDraft() {
         const val = document.getElementById(`isian-${i}`)?.value?.trim();
         if (val) answers[i] = { tipe: 'isian', val };
       }
-      // gambar tidak disimpan (terlalu besar untuk localStorage)
     });
     const draft = { answers, timeLeft, savedAt: Date.now() };
     localStorage.setItem(draftKey(selectedKuis, currentNIM), JSON.stringify(draft));
@@ -1473,7 +1441,6 @@ function loadDraft(kuisId, nim) {
     const raw = localStorage.getItem(draftKey(kuisId, nim));
     if (!raw) return null;
     const draft = JSON.parse(raw);
-    // Abaikan draft lebih dari 24 jam
     if (Date.now() - draft.savedAt > 86400000) { clearDraft(kuisId, nim); return null; }
     return draft;
   } catch(e) { return null; }
@@ -1498,7 +1465,6 @@ function restoreDraft(draft) {
 }
 
 function showDraftBanner() {
-  // Hapus banner lama jika ada
   document.getElementById('draft-banner')?.remove();
   const banner = document.createElement('div');
   banner.id = 'draft-banner';
