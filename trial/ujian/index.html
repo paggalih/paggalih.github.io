@@ -560,23 +560,28 @@ function renderQuestions() {
         </div>
         <div id="preview-${i}" style="display:flex;flex-wrap:wrap;gap:.5rem;margin-bottom:.5rem"></div>
 
-        <!-- Input file tersembunyi — dipakai oleh kedua tombol -->
-        <input type="file" id="file-${i}" accept="image/*" onchange="handleFile(${i},this)" style="display:none">
-
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
 
-          <!-- Tombol Kamera (paksa buka kamera) -->
-          <div class="upload-area" onclick="openCamera(${i})"
-            style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem">
-            <div style="font-size:1.5rem">📷</div>
-            <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2">Kamera</div>
+          <!-- Tombol Kamera: input DEDICATED dengan capture=environment -->
+          <div class="upload-area"
+            style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;position:relative;overflow:hidden">
+            <input type="file" accept="image/*" capture="environment"
+              onchange="handleFile(${i},this);_cameraOpen=false"
+              onclick="_cameraOpen=true"
+              style="position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0">
+            <div style="font-size:1.5rem;pointer-events:none">📷</div>
+            <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2;pointer-events:none">Kamera</div>
           </div>
 
-          <!-- Tombol Galeri (buka file picker / galeri) -->
-          <div class="upload-area" onclick="openGallery(${i})"
-            style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem">
-            <div style="font-size:1.5rem">🖼️</div>
-            <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2">Galeri</div>
+          <!-- Tombol Galeri: input DEDICATED TANPA capture -->
+          <div class="upload-area"
+            style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;position:relative;overflow:hidden">
+            <input type="file" accept="image/*"
+              onchange="handleFile(${i},this);_cameraOpen=false"
+              onclick="_cameraOpen=true"
+              style="position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0">
+            <div style="font-size:1.5rem;pointer-events:none">🖼️</div>
+            <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2;pointer-events:none">Galeri</div>
           </div>
 
           <div id="filename-${i}" style="font-size:.8rem;color:var(--text2)"></div>
@@ -612,38 +617,14 @@ const _uploadTimestamps = {};
 const _multiFiles       = {};
 
 /* ════════════════════════════════════════════════════════
-   KAMERA & GALERI — dua tombol terpisah
+   IMAGE PROCESSING
 ════════════════════════════════════════════════════════ */
-
-/**
- * Tombol 📷 Kamera — set capture="environment" agar HP
- * langsung membuka kamera belakang, bukan galeri.
- */
-function openCamera(idx) {
-  _cameraOpen = true;
-  const inp = document.getElementById('file-' + idx);
-  inp.setAttribute('capture', 'environment'); // paksa kamera belakang
-  inp.click();
-  setTimeout(() => { _cameraOpen = false; }, 60000);
-}
-
-/**
- * Tombol 🖼️ Galeri — hapus capture agar muncul file picker
- * atau galeri foto, bukan langsung kamera.
- */
-function openGallery(idx) {
-  _cameraOpen = true;
-  const inp = document.getElementById('file-' + idx);
-  inp.removeAttribute('capture'); // buka galeri / file picker
-  inp.click();
-  setTimeout(() => { _cameraOpen = false; }, 60000);
-}
 
 function handleFile(idx, input) {
   _cameraOpen = false;
   const file = input.files[0];
   if (!file) return;
-  input.value = '';
+  input.value = ''; // reset agar file yang sama bisa dipilih lagi
 
   const nameEl = document.getElementById(`filename-${idx}`);
   const areaEls = document.querySelectorAll(`#upload-area-${idx}, [onclick="openCamera(${idx})"], [onclick="openGallery(${idx})"]`);
