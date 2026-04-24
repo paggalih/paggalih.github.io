@@ -343,6 +343,14 @@ let   _watchingQuiz   = false;
 
 let _wakeLock = null;
 let _cameraOpen = false;
+let _confirmOpen = false;
+
+function safeConfirm(msg) {
+  _confirmOpen = true;
+  const result = confirm(msg);
+  setTimeout(() => { _confirmOpen = false; }, 300);
+  return result;
+}
 
 /* ════════════════════════════════════════════════════════
    INIT
@@ -784,7 +792,7 @@ async function submitQuiz(auto) {
       if (s.tipe==='isian'  && !document.getElementById(`isian-${i}`).value.trim()) missing++;
       if (s.tipe==='uraian' && (!_multiFiles[i] || !_multiFiles[i].filter(Boolean).length)) missing++;
     });
-    if (missing > 0 && !confirm(`Ada ${missing} soal belum dijawab. Yakin submit?`)) return;
+    if (missing > 0 && !safeConfirm(`Ada ${missing} soal belum dijawab. Yakin submit?`)) return;
 
     const uraianList = currentSoal
       .map((s, i) => ({ s, i }))
@@ -816,7 +824,7 @@ async function submitQuiz(auto) {
         msg += '\nSemua gambar siap. Lanjutkan submit?';
       }
 
-      if (!confirm(msg)) return;
+      if (!safeConfirm(msg)) return;
     }
   }
 
@@ -1392,7 +1400,7 @@ function resumeFromCheat() {
 
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    if (_cameraOpen) return;
+    if (_cameraOpen || _confirmOpen) return;
     _onCheatDetected('meninggalkan halaman ujian');
   } else {
     _cameraOpen = false;
@@ -1400,7 +1408,7 @@ document.addEventListener('visibilitychange', () => {
 });
 
 window.addEventListener('blur', () => {
-  if (_cameraOpen) return;
+  if (_cameraOpen || _confirmOpen) return;
   if (document.activeElement?.tagName === 'INPUT' &&
       document.activeElement.type === 'file') return;
   _onCheatDetected('berpindah aplikasi / jendela');
