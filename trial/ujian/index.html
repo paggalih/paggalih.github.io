@@ -612,28 +612,27 @@ const MAX_IMG_SIZE_MB = 0.8;
 const IMG_MAX_PX     = 1024;
 const IMG_QUALITY    = 0.78;
 
-const _compressedBlobs  = {};
-const _uploadTimestamps = {};
-const _multiFiles       = {};
+const _multiFiles = {};   // idx → Blob[]  (blobs lokal)
+
+// State upload background per soal uraian
+// _qUpload[idx] = { status:'idle'|'uploading'|'done'|'failed', fileId, link, timer }
+const _qUpload = {};
 
 /* ════════════════════════════════════════════════════════
-   IMAGE PROCESSING
+   IMAGE PROCESSING + BACKGROUND UPLOAD
 ════════════════════════════════════════════════════════ */
 
 function handleFile(idx, input) {
   _cameraOpen = false;
   const file = input.files[0];
   if (!file) return;
-  input.value = ''; // reset agar file yang sama bisa dipilih lagi
+  input.value = '';
 
   const nameEl = document.getElementById(`filename-${idx}`);
-  const areaEls = document.querySelectorAll(`#upload-area-${idx}, [onclick="openCamera(${idx})"], [onclick="openGallery(${idx})"]`);
-
   nameEl.textContent = '⏳ Memproses…';
 
   compressImage(file, IMG_MAX_PX, IMG_QUALITY).then(blob => {
     const sizeMB = (blob.size / 1048576).toFixed(2);
-
     if (blob.size / 1048576 > MAX_IMG_SIZE_MB) {
       nameEl.innerHTML = `<span style="color:var(--orange)">⚠ Gambar terlalu besar (${sizeMB} MB). Foto ulang dengan resolusi lebih rendah.</span>`;
       return;
@@ -642,7 +641,6 @@ function handleFile(idx, input) {
     if (!_multiFiles[idx]) _multiFiles[idx] = [];
     const fileIdx = _multiFiles[idx].length;
     _multiFiles[idx].push(blob);
-    _uploadTimestamps[idx] = Date.now();
 
     const url    = URL.createObjectURL(blob);
     const prevEl = document.getElementById(`preview-${idx}`);
@@ -653,16 +651,23 @@ function handleFile(idx, input) {
       <img src="${url}" class="upload-preview zoomable"
         style="width:80px;height:80px;object-fit:cover;margin:0"
         onclick="openLightbox('${url}','')">
+      <div id="thumb-status-${idx}-${fileIdx}"
+        style="position:absolute;bottom:0;left:0;right:0;text-align:center;
+               font-size:.6rem;padding:1px 2px;background:rgba(0,0,0,.55);color:#fff;
+               border-radius:0 0 4px 4px">⏳</div>
       <button onclick="removeThumb(${idx},${fileIdx})"
         style="position:absolute;top:-6px;right:-6px;width:18px;height:18px;border-radius:50%;
                background:var(--red);color:#fff;border:none;cursor:pointer;font-size:.7rem;
                display:flex;align-items:center;justify-content:center;line-height:1">✕</button>`;
     prevEl.appendChild(thumb);
 
-    const total = _multiFiles[idx].filter(Boolean).length;
-    nameEl.innerHTML = `<span style="color:var(--green)">✓ ${total} gambar siap</span>`;
+    _updateFilenameLabel(idx);
     saveDraft();
+
+    // Jadwalkan background upload untuk soal ini
+    scheduleUpload(idx);
   }).catch(() => {
+    const nameEl = document.getElementById(`filename-${idx}`);
     nameEl.textContent = '⚠ Gagal memproses gambar.';
   });
 }
@@ -671,15 +676,129 @@ function removeThumb(idx, fileIdx) {
   if (_multiFiles[idx]) _multiFiles[idx][fileIdx] = null;
   const thumb = document.getElementById(`thumb-${idx}-${fileIdx}`);
   if (thumb) thumb.remove();
-  const total = (_multiFiles[idx] || []).filter(Boolean).length;
-  const nameEl = document.getElementById(`filename-${idx}`);
-  if (total === 0) {
-    nameEl.textContent = '';
-    delete _uploadTimestamps[idx];
-  } else {
-    nameEl.innerHTML = `<span style="color:var(--green)">✓ ${total} gambar siap</span>`;
-  }
+  _updateFilenameLabel(idx);
   saveDraft();
+
+  const total = (_multiFiles[idx] || []).filter(Boolean).length;
+  if (total === 0) {
+    // Tidak ada gambar lagi — hapus file di server jika ada
+    _deleteServerFile(idx);
+    if (_qUpload[idx]) _qUpload[idx] = { status:'idle', fileId:null, link:null, timer:null };
+  } else {
+    // Masih ada gambar — re-upload yang digabung
+    scheduleUpload(idx);
+  }
+}
+
+function _updateFilenameLabel(idx) {
+  const nameEl = document.getElementById(`filename-${idx}`);
+  if (!nameEl) return;
+  const total  = (_multiFiles[idx] || []).filter(Boolean).length;
+  const st     = _qUpload[idx]?.status;
+  if (total === 0) { nameEl.textContent = ''; return; }
+  if (st === 'uploading') {
+    nameEl.innerHTML = `<span style="color:var(--accent)">⏫ Mengunggah ${total} gambar…</span>`;
+  } else if (st === 'done') {
+    nameEl.innerHTML = `<span style="color:var(--green)">✓ ${total} gambar tersimpan di server</span>`;
+  } else if (st === 'failed') {
+    nameEl.innerHTML = `<span style="color:var(--orange)">⚠ ${total} gambar (gagal unggah, akan dicoba saat submit)</span>`;
+  } else {
+    nameEl.innerHTML = `<span style="color:var(--text2)">${total} gambar — menunggu unggah…</span>`;
+  }
+}
+
+/** Jadwalkan upload soal ini setelah jeda singkat (debounce 1.5 detik) */
+function scheduleUpload(idx) {
+  if (!_qUpload[idx]) _qUpload[idx] = { status:'idle', fileId:null, link:null, timer:null };
+  const q = _qUpload[idx];
+
+  // Batalkan timer lama jika ada
+  if (q.timer) { clearTimeout(q.timer); q.timer = null; }
+
+  q.status = 'idle';
+  _updateFilenameLabel(idx);
+
+  q.timer = setTimeout(() => { _doUpload(idx); }, 1500);
+}
+
+/** Upload (merge jika perlu) gambar soal idx ke server */
+async function _doUpload(idx) {
+  const blobs = (_multiFiles[idx] || []).filter(Boolean);
+  if (!blobs.length) return;
+
+  if (!_qUpload[idx]) _qUpload[idx] = { status:'idle', fileId:null, link:null, timer:null };
+  const q = _qUpload[idx];
+
+  // Hapus file lama di server sebelum upload baru
+  const oldFileId = q.fileId;
+  q.status = 'uploading';
+  q.fileId = null;
+  q.link   = null;
+  _updateFilenameLabel(idx);
+  _setAllThumbStatus(idx, '⏫');
+
+  try {
+    // Gabungkan jika lebih dari 1 gambar
+    let blob;
+    try {
+      blob = blobs.length === 1 ? blobs[0] : await mergeImages(blobs, IMG_QUALITY);
+    } catch(e) { blob = blobs[0]; }
+
+    const soalData = currentSoal[idx];
+    const base64   = await blobToBase64(blob);
+
+    const res = await apiFetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({
+        action    : 'uploadImage',
+        kuisId    : selectedKuis,
+        nim       : currentNIM,
+        nomor     : soalData?.nomor ?? (idx + 1),
+        base64,
+        fileName  : `soal${(soalData?.nomor ?? idx+1)}_nim${currentNIM}.jpg`,
+        mimeType  : 'image/jpeg',
+        oldFileId               // kirim ID lama agar backend hapus
+      })
+    });
+
+    if (res.success && res.fileId) {
+      q.status = 'done';
+      q.fileId = res.fileId;
+      q.link   = res.link || '';
+      _setAllThumbStatus(idx, '✓');
+    } else {
+      throw new Error(res.error || 'upload failed');
+    }
+  } catch(e) {
+    q.status = 'failed';
+    _setAllThumbStatus(idx, '✗');
+    console.warn(`BG upload soal ${idx+1} gagal:`, e);
+  }
+
+  _updateFilenameLabel(idx);
+}
+
+/** Hapus file di server (fire-and-forget) */
+async function _deleteServerFile(idx) {
+  const fileId = _qUpload[idx]?.fileId;
+  if (!fileId) return;
+  try {
+    await apiFetch(API_URL, {
+      method: 'POST',
+      headers: { 'Content-Type': 'text/plain' },
+      body: JSON.stringify({ action: 'deleteImage', fileId })
+    });
+  } catch(e) { /* non-critical */ }
+}
+
+/** Update label status di semua thumbnail soal ini */
+function _setAllThumbStatus(idx, icon) {
+  (_multiFiles[idx] || []).forEach((b, fi) => {
+    if (!b) return;
+    const el = document.getElementById(`thumb-status-${idx}-${fi}`);
+    if (el) el.textContent = icon;
+  });
 }
 
 async function mergeImages(blobs, quality) {
@@ -780,32 +899,39 @@ async function submitQuiz(auto) {
       .filter(({ s }) => s.tipe === 'uraian');
 
     if (uraianList.length > 0) {
-      const now = Date.now();
-      let msg = '📷 Konfirmasi gambar jawaban uraian:\n\n';
-      let hasOld = false;
+      let msg = '📷 Status gambar jawaban uraian:\n\n';
+      let hasUploading = false;
+      let hasFailed = false;
 
       uraianList.forEach(({ s, i }) => {
-        const files   = (_multiFiles[i] || []).filter(Boolean);
-        const ts      = _uploadTimestamps[i];
-        const minsAgo = ts ? Math.floor((now - ts) / 60000) : null;
-
+        const files = (_multiFiles[i] || []).filter(Boolean);
+        const st    = _qUpload[i]?.status;
         if (!files.length) {
           msg += `• Soal ${i+1}: ✗ BELUM DIUPLOAD\n`;
-        } else if (minsAgo !== null && minsAgo >= 5) {
-          msg += `• Soal ${i+1}: ⚠ ${files.length} gambar, diupload ${minsAgo} menit lalu — disarankan upload ulang\n`;
-          hasOld = true;
+        } else if (st === 'done') {
+          msg += `• Soal ${i+1}: ✓ Sudah tersimpan di server (${files.length} gambar)\n`;
+        } else if (st === 'uploading') {
+          msg += `• Soal ${i+1}: ⏫ Sedang mengunggah…\n`;
+          hasUploading = true;
+        } else if (st === 'failed') {
+          msg += `• Soal ${i+1}: ⚠ Gagal unggah — akan dicoba ulang saat submit\n`;
+          hasFailed = true;
         } else {
-          msg += `• Soal ${i+1}: ✓ Siap (${files.length} gambar)\n`;
+          msg += `• Soal ${i+1}: ⏳ Menunggu unggah…\n`;
+          hasUploading = true;
         }
       });
 
-      if (hasOld) {
-        msg += '\n⚠ Gambar yang diupload lama mungkin gagal terkirim.\nCancel dan upload ulang gambar tersebut sebelum submit.\n\nLanjutkan submit sekarang?';
-      } else {
-        msg += '\nSemua gambar siap. Lanjutkan submit?';
+      if (hasUploading) {
+        msg += '\n⚠ Ada gambar yang masih diunggah. Tunggu sebentar lalu coba lagi.';
+        alert(msg); return;
       }
-
-      if (!safeConfirm(msg)) return;
+      if (hasFailed) {
+        msg += '\n⚠ Gambar yang gagal akan dicoba ulang saat submit.\nLanjutkan?';
+        if (!safeConfirm(msg)) return;
+      } else {
+        if (!safeConfirm(msg + '\nLanjutkan submit?')) return;
+      }
     }
   }
 
@@ -835,29 +961,35 @@ async function submitQuiz(auto) {
     } else {
       ans.jawaban = '(uraian)';
       const files = (_multiFiles[i] || []).filter(Boolean);
+      const q     = _qUpload[i];
+
       if (files.length > 0) {
-        showLoading(`Menggabungkan gambar soal ${i+1}…`);
-        let blob;
-        try {
-          blob = files.length === 1
-            ? files[0]
-            : await mergeImages(files, IMG_QUALITY);
-        } catch(e) {
-          blob = files[0];
-        }
+        if (q?.status === 'done' && q.fileId) {
+          // ✅ Sudah terunggah di background — cukup kirim referensi
+          ans.fileId   = q.fileId;
+          ans.fileLink = q.link;
+          ans.fileName = `soal${currentSoal[i]?.nomor ?? i+1}_nim${currentNIM}.jpg`;
+          ans.preUploaded = true;
+        } else {
+          // ⚠ Fallback: upload saat submit (background upload gagal / belum selesai)
+          showLoading(`Mengunggah gambar soal ${i+1}…`);
+          let blob;
+          try {
+            blob = files.length === 1 ? files[0] : await mergeImages(files, IMG_QUALITY);
+          } catch(e) { blob = files[0]; }
 
-        const MAX_MERGED_MB = MAX_IMG_SIZE_MB * (files.length > 1 ? 3 : 1);
-        if (blob.size / 1048576 > MAX_MERGED_MB) {
-          hideLoading();
-          document.getElementById('btn-submit').disabled = false;
-          document.getElementById('login-error').innerHTML =
-            `<div class="error-msg">⚠ Gabungan gambar soal ${i+1} terlalu besar. Kurangi jumlah gambar atau gunakan foto dengan resolusi lebih rendah.</div>`;
-          return;
+          const MAX_MERGED_MB = MAX_IMG_SIZE_MB * (files.length > 1 ? 3 : 1);
+          if (blob.size / 1048576 > MAX_MERGED_MB) {
+            hideLoading();
+            document.getElementById('btn-submit').disabled = false;
+            document.getElementById('login-error').innerHTML =
+              `<div class="error-msg">⚠ Gabungan gambar soal ${i+1} terlalu besar.</div>`;
+            return;
+          }
+          ans.base64   = await blobToBase64(blob);
+          ans.fileName = `soal${i+1}_gabungan.jpg`;
+          ans.mimeType = 'image/jpeg';
         }
-
-        ans.base64   = await blobToBase64(blob);
-        ans.fileName = `soal${i+1}_gabungan.jpg`;
-        ans.mimeType = 'image/jpeg';
       }
     }
     answers.push(ans);
