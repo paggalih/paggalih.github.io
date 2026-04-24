@@ -862,6 +862,7 @@ function compressImage(file, maxPx, quality) {
 ════════════════════════════════════════════════════════ */
 
 function startTimer() {
+  requestFullscreen(); 
   _violations    = 0;
   _watchingQuiz  = true;
   requestWakeLock();
@@ -1015,6 +1016,7 @@ async function submitQuiz(auto) {
   markCompletedLocal(selectedKuis, currentNIM);
   clearDraft(selectedKuis, currentNIM);
   hideLoading();
+  exitFullscreen();
 
   const failedUploads = (result.results || []).filter(r => r.uploadFailed);
   if (failedUploads.length > 0) {
@@ -1599,6 +1601,33 @@ function showDraftBanner() {
   const container = document.getElementById('questions-container');
   container.parentElement.insertBefore(banner, container);
 }
+
+/* ════════════════════════════════════════════════════════
+   FULLSCREEN — minta saat pertama kali mulai kuis
+════════════════════════════════════════════════════════ */
+
+function requestFullscreen() {
+  const el = document.documentElement;
+  const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
+  if (fn) fn.call(el).catch(() => {});
+}
+
+function exitFullscreen() {
+  const fn = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen;
+  if (fn) fn.call(document).catch(() => {});
+}
+
+function isFullscreen() {
+  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
+}
+
+document.addEventListener('fullscreenchange', () => {
+  if (!isFullscreen() && _watchingQuiz) {
+    requestFullscreen(); // paksa masuk lagi
+    _onCheatDetected('keluar dari mode layar penuh');
+  }
+});
+
 </script>
 </body>
 </html>
