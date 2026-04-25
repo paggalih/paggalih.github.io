@@ -184,7 +184,7 @@ document.addEventListener("DOMContentLoaded", function() {
         container.appendChild(creditsSection);
 
         // Append the container to the footer
-        document.getElementById('footer').appendChild(container);
+        document.querySelector('footer').appendChild(container);
 
         // Initialize Bootstrap tooltips
         var tooltipTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="tooltip"]'));
