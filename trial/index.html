@@ -3,477 +3,233 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GitHub HTML Scanner</title>
-<style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@400;700;800&display=swap');
-
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-
-  :root {
-    --bg: #0a0a0f;
-    --surface: #111118;
-    --border: #1e1e2e;
-    --accent: #7efff5;
-    --accent2: #ff6b6b;
-    --text: #e0e0f0;
-    --muted: #555570;
-    --mono: 'JetBrains Mono', monospace;
-    --sans: 'Syne', sans-serif;
-  }
-
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--sans);
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 40px 20px 80px;
-    background-image: radial-gradient(ellipse at 20% 20%, #0d1a2a 0%, transparent 50%),
-                      radial-gradient(ellipse at 80% 80%, #1a0d1a 0%, transparent 50%);
-  }
-
-  header {
-    text-align: center;
-    margin-bottom: 40px;
-    animation: fadeUp 0.6s ease both;
-  }
-
-  header h1 {
-    font-size: clamp(1.8rem, 5vw, 3rem);
-    font-weight: 800;
-    letter-spacing: -1px;
-    background: linear-gradient(135deg, var(--accent), #4fc3f7, var(--accent));
-    background-size: 200% auto;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    animation: shimmer 3s linear infinite;
-  }
-
-  header p {
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 0.78rem;
-    margin-top: 8px;
-    letter-spacing: 0.05em;
-  }
-
-  @keyframes shimmer { to { background-position: 200% center; } }
-  @keyframes fadeUp { from { opacity:0; transform: translateY(20px); } to { opacity:1; transform: none; } }
-
-  .card {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    padding: 28px;
-    width: 100%;
-    max-width: 700px;
-    animation: fadeUp 0.6s 0.1s ease both;
-  }
-
-  label {
-    display: block;
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--accent);
-    text-transform: uppercase;
-    letter-spacing: 0.12em;
-    margin-bottom: 8px;
-  }
-
-  input[type="text"] {
-    width: 100%;
-    background: var(--bg);
-    border: 1px solid var(--border);
-    border-radius: 8px;
-    color: var(--text);
-    font-family: var(--mono);
-    font-size: 0.9rem;
-    padding: 12px 16px;
-    outline: none;
-    transition: border-color 0.2s;
-    margin-bottom: 16px;
-  }
-
-  input[type="text"]:focus { border-color: var(--accent); }
-  input[type="text"]::placeholder { color: var(--muted); }
-
-  .row { display: flex; gap: 12px; }
-  .row input { flex: 1; }
-
-  button {
-    background: var(--accent);
-    color: #000;
-    border: none;
-    border-radius: 8px;
-    font-family: var(--sans);
-    font-weight: 700;
-    font-size: 0.95rem;
-    padding: 12px 28px;
-    cursor: pointer;
-    transition: transform 0.15s, opacity 0.15s;
-    white-space: nowrap;
-  }
-
-  button:hover { opacity: 0.85; transform: translateY(-1px); }
-  button:active { transform: scale(0.97); }
-  button:disabled { opacity: 0.4; cursor: not-allowed; transform: none; }
-
-  .btn-dl {
-    background: #1a2a1a;
-    color: var(--accent);
-    border: 1px solid var(--accent);
-    margin-top: 16px;
-    width: 100%;
-    font-size: 0.85rem;
-  }
-
-  .hint {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--muted);
-    margin-top: -10px;
-    margin-bottom: 16px;
-  }
-
-  #status {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    padding: 10px 14px;
-    border-radius: 6px;
-    margin-top: 16px;
-    display: none;
-  }
-
-  #status.info { background: #0d1a2a; color: #4fc3f7; border: 1px solid #1a3a5a; display: block; }
-  #status.error { background: #2a0d0d; color: var(--accent2); border: 1px solid #5a1a1a; display: block; }
-  #status.ok { background: #0d2a0d; color: #6fff6f; border: 1px solid #1a5a1a; display: block; }
-
-  .results {
-    width: 100%;
-    max-width: 700px;
-    margin-top: 24px;
-    animation: fadeUp 0.4s ease both;
-    display: none;
-  }
-
-  .results-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .results-header h2 {
-    font-size: 0.85rem;
-    font-family: var(--mono);
-    color: var(--muted);
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
-  }
-
-  .count-badge {
-    background: var(--border);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    padding: 3px 10px;
-    border-radius: 20px;
-  }
-
-  .file-list {
-    background: var(--surface);
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    overflow: hidden;
-  }
-
-  .file-item {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    padding: 11px 16px;
-    border-bottom: 1px solid var(--border);
-    transition: background 0.15s;
-  }
-
-  .file-item:last-child { border-bottom: none; }
-  .file-item:hover { background: #16161f; }
-
-  .file-icon { color: var(--accent); font-size: 0.9rem; flex-shrink: 0; }
-
-  .file-path {
-    font-family: var(--mono);
-    font-size: 0.8rem;
-    color: var(--text);
-    flex: 1;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    white-space: nowrap;
-  }
-
-  .file-path span { color: var(--muted); }
-
-  .open-link {
-    font-family: var(--mono);
-    font-size: 0.72rem;
-    color: var(--accent);
-    text-decoration: none;
-    opacity: 0;
-    transition: opacity 0.15s;
-    flex-shrink: 0;
-  }
-
-  .file-item:hover .open-link { opacity: 1; }
-</style>
-</head>
-<body>
-
-<header>
-  <h1>⬡ GitHub HTML Scanner</h1>
-  <p>// scan repo folder → detect all HTML → generate index</p>
-</header>
-
-<div class="card">
-  <label>GitHub Repo URL or owner/repo</label>
-  <input type="text" id="repoInput" placeholder="https://github.com/username/repo  or  username/repo" />
-
-  <label>Folder path (leave empty for root)</label>
-  <input type="text" id="folderInput" placeholder="folder-A  or  projects/apps/folder-A" />
-  <div class="hint">// use forward slash. case-sensitive.</div>
-
-  <label>Branch (optional)</label>
-  <div class="row">
-    <input type="text" id="branchInput" placeholder="main" />
-    <button id="scanBtn" onclick="scan()">Scan →</button>
-  </div>
-
-  <div id="status"></div>
-  <button class="btn-dl" id="dlBtn" onclick="downloadIndex()" style="display:none">⬇ Download index.html</button>
-</div>
-
-<div class="results" id="results">
-  <div class="results-header">
-    <h2>HTML Files Found</h2>
-    <span class="count-badge" id="countBadge">0 files</span>
-  </div>
-  <div class="file-list" id="fileList"></div>
-</div>
-
-<script>
-let foundFiles = [];
-let repoInfo = {};
-
-function parseRepo(raw) {
-  raw = raw.trim();
-  const m = raw.match(/github\.com\/([^\/]+)\/([^\/?\s]+)/);
-  if (m) return { owner: m[1], repo: m[2].replace(/\.git$/, '') };
-  const parts = raw.split('/');
-  if (parts.length >= 2) return { owner: parts[0], repo: parts[1] };
-  return null;
-}
-
-function setStatus(msg, type = 'info') {
-  const el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = type;
-}
-
-async function getDefaultBranch(owner, repo) {
-  const r = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-  if (!r.ok) throw new Error(`Repo not found or rate limited`);
-  const d = await r.json();
-  return d.default_branch;
-}
-
-async function getTree(owner, repo, branch) {
-  const url = `https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`;
-  const r = await fetch(url);
-  if (!r.ok) {
-    const e = await r.json();
-    throw new Error(e.message || 'Failed to fetch tree');
-  }
-  const d = await r.json();
-  if (d.truncated) setStatus('⚠ Tree truncated (large repo). Results may be incomplete.', 'info');
-  return d.tree || [];
-}
-
-async function scan() {
-  const btn = document.getElementById('scanBtn');
-  const dlBtn = document.getElementById('dlBtn');
-  const resultsEl = document.getElementById('results');
-
-  const repoRaw = document.getElementById('repoInput').value;
-  const folder = document.getElementById('folderInput').value.trim().replace(/^\/|\/$/g, '');
-  let branch = document.getElementById('branchInput').value.trim();
-
-  foundFiles = [];
-  dlBtn.style.display = 'none';
-  resultsEl.style.display = 'none';
-  document.getElementById('fileList').innerHTML = '';
-
-  const parsed = parseRepo(repoRaw);
-  if (!parsed) { setStatus('❌ Invalid repo URL or format', 'error'); return; }
-
-  repoInfo = { ...parsed, folder, branch };
-
-  btn.disabled = true;
-  setStatus('Fetching repo info…');
-
-  try {
-    if (!branch) {
-      setStatus('Getting default branch…');
-      branch = await getDefaultBranch(parsed.owner, parsed.repo);
-      document.getElementById('branchInput').value = branch;
-      repoInfo.branch = branch;
-    }
-
-    setStatus('Scanning file tree…');
-    const tree = await getTree(parsed.owner, parsed.repo, branch);
-
-    const prefix = folder ? folder + '/' : '';
-
-    foundFiles = tree
-      .filter(f => f.type === 'blob')
-      .filter(f => f.path.endsWith('.html') || f.path.endsWith('.htm'))
-      .filter(f => folder === '' || f.path.startsWith(prefix))
-      .map(f => ({
-        path: f.path,
-        relativePath: folder ? f.path.slice(prefix.length) : f.path,
-        url: `https://github.com/${parsed.owner}/${parsed.repo}/blob/${branch}/${f.path}`,
-        rawUrl: `https://raw.githubusercontent.com/${parsed.owner}/${parsed.repo}/${branch}/${f.path}`,
-        pagesUrl: `https://${parsed.owner}.github.io/${parsed.repo}/${f.path}`
-      }));
-
-    if (foundFiles.length === 0) {
-      setStatus(`No HTML files found in ${folder || 'root'} on branch "${branch}"`, 'error');
-      btn.disabled = false;
-      return;
-    }
-
-    setStatus(`✓ Found ${foundFiles.length} HTML file(s)`, 'ok');
-
-    // Render list
-    document.getElementById('countBadge').textContent = `${foundFiles.length} files`;
-    const listEl = document.getElementById('fileList');
-    listEl.innerHTML = '';
-    foundFiles.forEach(f => {
-      const div = document.createElement('div');
-      div.className = 'file-item';
-      const parts = f.relativePath.split('/');
-      const filename = parts.pop();
-      const dirPart = parts.length ? parts.join('/') + '/' : '';
-      div.innerHTML = `
-        <span class="file-icon">◈</span>
-        <span class="file-path"><span>${dirPart}</span>${filename}</span>
-        <a class="open-link" href="${f.url}" target="_blank">↗ github</a>
-      `;
-      listEl.appendChild(div);
-    });
-
-    resultsEl.style.display = 'block';
-    dlBtn.style.display = 'block';
-
-  } catch (err) {
-    setStatus(`❌ ${err.message}`, 'error');
-  }
-
-  btn.disabled = false;
-}
-
-function downloadIndex() {
-  const { owner, repo, folder, branch } = repoInfo;
-  const baseUrl = `https://${owner}.github.io/${repo}/`;
-  const folderDisplay = folder || '(root)';
-
-  const items = foundFiles.map(f => {
-    const label = f.relativePath;
-    const githubLink = f.url;
-    const pagesLink = `${baseUrl}${f.path}`;
-    const rawLink = f.rawUrl;
-    return `
-    <li>
-      <div class="file-name">${label}</div>
-      <div class="links">
-        <a href="${pagesLink}" target="_blank">🌐 Pages</a>
-        <a href="${githubLink}" target="_blank">⬡ GitHub</a>
-        <a href="${rawLink}" target="_blank">📄 Raw</a>
-      </div>
-    </li>`;
-  }).join('\n');
-
-  const html = `<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Index — ${repo}/${folder}</title>
+<title>Loading…</title>
 <style>
   @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
   :root {
     --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
     --accent: #7efff5; --text: #e0e0f0; --muted: #555570;
+    --ok: #6fff6f; --err: #ff6b6b;
   }
-  body { background: var(--bg); color: var(--text); font-family: 'JetBrains Mono', monospace;
-    min-height: 100vh; padding: 40px 20px;
-    background-image: radial-gradient(ellipse at 20% 10%, #0d1a2a 0%, transparent 50%); }
-  header { max-width: 720px; margin: 0 auto 32px; }
-  header h1 { font-family: 'Syne', sans-serif; font-size: 2rem; font-weight: 800;
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh; padding: 40px 20px 80px;
+    background-image:
+      radial-gradient(ellipse at 15% 15%, #0d1a2a 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 85%, #1a0d1a 0%, transparent 50%);
+  }
+  header { max-width: 720px; margin: 0 auto 28px; }
+  h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.6rem,4vw,2.4rem);
     background: linear-gradient(135deg, #7efff5, #4fc3f7);
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-  header p { color: var(--muted); font-size: 0.75rem; margin-top: 6px; }
-  .meta { font-size: 0.7rem; color: var(--muted); margin-top: 4px; }
-  .search-wrap { max-width: 720px; margin: 0 auto 20px; }
-  #search { width: 100%; background: var(--surface); border: 1px solid var(--border);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .meta { color: var(--muted); font-size: 0.72rem; margin-top: 6px; line-height: 1.7; }
+  .meta span { color: var(--accent); }
+  .search-wrap { max-width: 720px; margin: 0 auto 16px; }
+  #search {
+    width: 100%; background: var(--surface); border: 1px solid var(--border);
     border-radius: 8px; color: var(--text); font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem; padding: 10px 16px; outline: none; }
+    font-size: 0.85rem; padding: 10px 16px; outline: none; transition: border-color 0.2s;
+  }
   #search:focus { border-color: var(--accent); }
-  ul { list-style: none; max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 8px; }
-  li { background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 14px 18px; display: flex; justify-content: space-between; align-items: center;
-    gap: 12px; transition: border-color 0.2s; }
-  li:hover { border-color: var(--accent); }
-  .file-name { font-size: 0.82rem; flex: 1; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-  .links { display: flex; gap: 10px; flex-shrink: 0; }
-  .links a { color: var(--accent); text-decoration: none; font-size: 0.72rem;
-    padding: 4px 10px; border: 1px solid var(--accent); border-radius: 4px;
-    transition: background 0.15s; white-space: nowrap; }
-  .links a:hover { background: rgba(126,255,245,0.1); }
-  li.hidden { display: none; }
+  #search::placeholder { color: var(--muted); }
+  #status {
+    max-width: 720px; margin: 0 auto 16px;
+    font-size: 0.75rem; padding: 10px 14px; border-radius: 6px; display: none;
+  }
+  #status.info { background:#0d1a2a; color:#4fc3f7; border:1px solid #1a3a5a; display:block; }
+  #status.error { background:#2a0d0d; color:var(--err); border:1px solid #5a1a1a; display:block; }
+  #status.ok { background:#0d2a0d; color:var(--ok); border:1px solid #1a5a1a; display:block; }
+  ul { list-style: none; max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
+  li {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 16px; display: flex; align-items: center; gap: 12px;
+    transition: border-color 0.2s, background 0.2s; animation: fadeIn 0.3s ease both;
+  }
+  li:hover { border-color: var(--accent); background: #14141e; }
+  li.hidden { display: none !important; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .icon { color: var(--accent); flex-shrink: 0; }
+  .info-block { flex: 1; overflow: hidden; }
+  .fname {
+    font-size: 0.85rem; color: var(--text); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .fpath { font-size: 0.68rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .open-btn {
+    color: var(--accent); text-decoration: none; font-size: 0.72rem;
+    padding: 5px 12px; border: 1px solid var(--accent); border-radius: 5px;
+    flex-shrink: 0; transition: background 0.15s; white-space: nowrap;
+  }
+  .open-btn:hover { background: rgba(126,255,245,0.12); }
+  .self-item { border-color: #333 !important; opacity: 0.4; }
+  .self-item .fname::after { content: '  ← you are here'; color: var(--muted); font-size: 0.68rem; }
   footer { max-width: 720px; margin: 32px auto 0; color: var(--muted); font-size: 0.68rem; }
+  #spinner {
+    max-width: 720px; margin: 40px auto; text-align: center;
+    color: var(--muted); font-size: 0.8rem;
+  }
+  .dot { animation: blink 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
 </style>
 </head>
 <body>
+
 <header>
-  <h1>◈ ${repo}</h1>
-  <p>📁 ${folderDisplay} · branch: ${branch}</p>
-  <p class="meta">Generated: ${new Date().toLocaleString()} · ${foundFiles.length} HTML files</p>
+  <h1>◈ Folder Index</h1>
+  <div class="meta" id="meta">Detecting location<span id="dots">…</span></div>
 </header>
-<div class="search-wrap">
-  <input type="text" id="search" placeholder="Filter files…" oninput="filterFiles(this.value)" />
+
+<div id="spinner">
+  <span class="dot">▪</span><span class="dot">▪</span><span class="dot">▪</span>
 </div>
-<ul id="fileList">
-${items}
-</ul>
-<footer>// auto-generated index · github-html-scanner</footer>
+
+<div id="status"></div>
+<div class="search-wrap" id="searchWrap" style="display:none">
+  <input type="text" id="search" placeholder="filter files…" oninput="filter(this.value)" />
+</div>
+<ul id="list"></ul>
+<footer id="footer"></footer>
+
 <script>
-function filterFiles(q) {
-  document.querySelectorAll('#fileList li').forEach(li => {
-    const name = li.querySelector('.file-name').textContent.toLowerCase();
-    li.classList.toggle('hidden', !name.includes(q.toLowerCase()));
+(async () => {
+  const loc = window.location;
+  const hostname = loc.hostname; // e.g. paggalih.github.io
+  const pathname = loc.pathname; // e.g. /trial/index.html
+
+  // ── Parse GitHub Pages URL ──────────────────────────────────────────
+  // Case A: username.github.io          → repo = username.github.io, folder = root
+  // Case B: username.github.io/repo/... → repo = repo, folder = rest of path
+  const parts = hostname.split('.');
+  const isGhPages = parts.includes('github') && parts.includes('io');
+
+  if (!isGhPages) {
+    showErr(`Not a GitHub Pages URL (detected: ${hostname}). This file only works on *.github.io`);
+    return;
+  }
+
+  const owner = parts[0]; // username
+
+  // path segments (strip leading slash, split)
+  const segments = pathname.replace(/^\//, '').split('/').filter(Boolean);
+  // remove the file itself (index.html etc.)
+  const lastSeg = segments[segments.length - 1];
+  if (lastSeg && lastSeg.includes('.')) segments.pop();
+
+  let repo, folderPath;
+
+  if (hostname === `${owner}.github.io` && segments.length === 0) {
+    // root of username.github.io
+    repo = `${owner}.github.io`;
+    folderPath = '';
+  } else if (hostname === `${owner}.github.io`) {
+    // first segment is repo name
+    repo = segments[0];
+    folderPath = segments.slice(1).join('/');
+  } else {
+    // org pages or custom domain — fallback, try repo = hostname
+    repo = hostname;
+    folderPath = segments.join('/');
+  }
+
+  const currentFileUrl = loc.href;
+  const folderDisplay = folderPath ? `/${folderPath}/` : '/';
+
+  document.title = `Index — ${folderDisplay}`;
+  document.getElementById('meta').innerHTML =
+    `<span>${owner}/${repo}</span> · folder: <span>${folderDisplay || 'root'}</span>`;
+
+  setStatus('Fetching file tree from GitHub API…', 'info');
+
+  try {
+    // Get default branch
+    const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+    if (!repoRes.ok) throw new Error(`Repo "${owner}/${repo}" not found or is private (HTTP ${repoRes.status})`);
+    const repoData = await repoRes.json();
+    const branch = repoData.default_branch;
+
+    // Get full tree
+    const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
+    if (!treeRes.ok) throw new Error(`Failed to fetch tree (HTTP ${treeRes.status})`);
+    const treeData = await treeRes.json();
+
+    const prefix = folderPath ? folderPath + '/' : '';
+
+    // Filter: only HTML in same folder (not subfolders)
+    const htmlFiles = treeData.tree.filter(f => {
+      if (f.type !== 'blob') return false;
+      if (!f.path.match(/\.(html|htm)$/i)) return false;
+      // must start with folder prefix
+      if (!f.path.startsWith(prefix)) return false;
+      // must not be in a subfolder (no extra slash after prefix)
+      const rel = f.path.slice(prefix.length);
+      return !rel.includes('/');
+    }).map(f => ({
+      path: f.path,
+      filename: f.path.split('/').pop(),
+      url: `${loc.protocol}//${hostname}/${f.path}`,
+      isSelf: `${loc.protocol}//${hostname}/${f.path}` === currentFileUrl.split('?')[0].split('#')[0]
+    }));
+
+    document.getElementById('spinner').style.display = 'none';
+
+    if (htmlFiles.length === 0) {
+      showErr(`No HTML files found in ${folderDisplay} on branch "${branch}"`);
+      return;
+    }
+
+    setStatus(`✓ ${htmlFiles.length} HTML file(s) in ${folderDisplay}`, 'ok');
+    setTimeout(() => document.getElementById('status').style.display = 'none', 2500);
+
+    document.getElementById('searchWrap').style.display = 'block';
+    document.getElementById('footer').textContent =
+      `// branch: ${branch} · generated: ${new Date().toLocaleString()}`;
+
+    const ul = document.getElementById('list');
+    htmlFiles.forEach((f, i) => {
+      const li = document.createElement('li');
+      if (f.isSelf) li.classList.add('self-item');
+      li.style.animationDelay = `${i * 0.04}s`;
+      li.innerHTML = `
+        <span class="icon">◈</span>
+        <div class="info-block">
+          <div class="fname">${f.filename}</div>
+          <div class="fpath">${f.url}</div>
+        </div>
+        ${f.isSelf ? '' : `<a class="open-btn" href="${f.url}">Open →</a>`}
+      `;
+      ul.appendChild(li);
+    });
+
+  } catch (err) {
+    document.getElementById('spinner').style.display = 'none';
+    showErr(err.message);
+  }
+})();
+
+function filter(q) {
+  document.querySelectorAll('#list li').forEach(li => {
+    const txt = li.textContent.toLowerCase();
+    li.classList.toggle('hidden', !txt.includes(q.toLowerCase()));
   });
 }
-<\/script>
-</body>
-</html>`;
 
-  const blob = new Blob([html], { type: 'text/html' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = `index-${repo}-${folder.replace(/\//g, '-') || 'root'}.html`;
-  a.click();
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = type;
+}
+
+function showErr(msg) {
+  document.getElementById('spinner').style.display = 'none';
+  setStatus('❌ ' + msg, 'error');
+  document.getElementById('meta').innerHTML = `<span style="color:var(--err)">Error</span>`;
 }
 </script>
 </body>
