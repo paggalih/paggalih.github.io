@@ -158,17 +158,14 @@
 
     const prefix = folderPath ? folderPath + '/' : '';
 
-    // Filter: only HTML in same folder (not subfolders)
+    // Filter: all HTML inside folder AND subfolders
     const htmlFiles = treeData.tree.filter(f => {
       if (f.type !== 'blob') return false;
       if (!f.path.match(/\.(html|htm)$/i)) return false;
-      // must start with folder prefix
-      if (!f.path.startsWith(prefix)) return false;
-      // must not be in a subfolder (no extra slash after prefix)
-      const rel = f.path.slice(prefix.length);
-      return !rel.includes('/');
+      return f.path.startsWith(prefix);
     }).map(f => ({
       path: f.path,
+      rel: f.path.slice(prefix.length),
       filename: f.path.split('/').pop(),
       url: `${loc.protocol}//${hostname}/${f.path}`,
       isSelf: `${loc.protocol}//${hostname}/${f.path}` === currentFileUrl.split('?')[0].split('#')[0]
@@ -193,10 +190,12 @@
       const li = document.createElement('li');
       if (f.isSelf) li.classList.add('self-item');
       li.style.animationDelay = `${i * 0.04}s`;
+      const rel = f.rel;
+      const subdir = rel.includes('/') ? rel.substring(0, rel.lastIndexOf('/') + 1) : '';
       li.innerHTML = `
         <span class="icon">◈</span>
         <div class="info-block">
-          <div class="fname">${f.filename}</div>
+          <div class="fname"><span style="color:var(--muted)">${subdir}</span>${f.filename}</div>
           <div class="fpath">${f.url}</div>
         </div>
         ${f.isSelf ? '' : `<a class="open-btn" href="${f.url}">Open →</a>`}
