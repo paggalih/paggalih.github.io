@@ -1,0 +1,948 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>HSSA Algorithm | Multi-Objective VRP Solver</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --orange: #b45309;
+      --orange-lt: #fef3c7;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); min-height: 100vh; line-height: 1.6; }
+
+    /* ── Header ── */
+    header { background: var(--accent); color: #fff; padding: 1.4rem 2rem 1.6rem; }
+    header a.back { color: rgba(255,255,255,.65); text-decoration: none; font-size: .85rem; display: inline-flex; align-items: center; gap: .3rem; margin-bottom: .6rem; transition: color .2s; }
+    header a.back:hover { color: #fff; }
+    header h1 { font-family: var(--serif); font-size: 2rem; font-weight: 600; letter-spacing: -.01em; }
+    header p { color: rgba(255,255,255,.7); font-size: .92rem; margin-top: .2rem; }
+
+    /* ── Layout ── */
+    main { max-width: 920px; margin: 2rem auto; padding: 0 1.25rem 3rem; }
+    .card { background: var(--card); border: 1px solid var(--border); border-radius: 10px; padding: 1.5rem; margin-bottom: 1.5rem; box-shadow: 0 1px 4px rgba(0,0,0,.05); }
+    .card-title { font-family: var(--serif); font-size: 1.25rem; color: var(--accent); margin-bottom: 1rem; padding-bottom: .6rem; border-bottom: 1px solid var(--border); }
+
+    .info-box { background: var(--blue-lt); border-left: 3px solid var(--accent); padding: .8rem 1rem; border-radius: 0 6px 6px 0; font-size: .9rem; margin-bottom: 1.25rem; color: var(--text2); }
+    .info-box strong { color: var(--text); }
+
+    /* ── Form ── */
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    .form-row-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem; }
+    @media (max-width:640px) { .form-row, .form-row-3 { grid-template-columns: 1fr; } }
+
+    label.field-label { display: block; font-size: .78rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); margin-bottom: .35rem; }
+    input[type=text], input[type=number], select, textarea {
+      width: 100%; padding: .55rem .8rem; border: 1px solid var(--border); border-radius: 5px;
+      font-family: var(--mono); font-size: .85rem; color: var(--text); background: var(--bg); transition: border-color .2s, background .2s;
+    }
+    input:focus, select:focus, textarea:focus { outline: none; border-color: var(--accent); background: #fff; }
+    select { font-family: var(--sans); font-size: .88rem; }
+    textarea { resize: vertical; min-height: 80px; }
+
+    /* ── Buttons ── */
+    .btn-compute { background: var(--accent); color: #fff; border: none; padding: .72rem 2rem; border-radius: 6px; font-size: .95rem; font-weight: 600; cursor: pointer; font-family: var(--sans); letter-spacing: .04em; transition: background .2s, transform .1s; }
+    .btn-compute:hover { background: #152d57; }
+    .btn-compute:active { transform: scale(.98); }
+    .btn-compute:disabled { opacity: .5; cursor: not-allowed; }
+
+    .examples { display: flex; flex-wrap: wrap; gap: .4rem; margin-top: .4rem; }
+    .btn-ex { background: #fff; border: 1px solid var(--accent); color: var(--accent); padding: .3rem .7rem; border-radius: 20px; cursor: pointer; font-size: .82rem; font-family: var(--sans); transition: all .2s; }
+    .btn-ex:hover { background: var(--accent); color: #fff; }
+
+    .actions { margin-top: 1.5rem; display: flex; align-items: center; gap: 1.25rem; flex-wrap: wrap; }
+    .checkbox-wrap { display: flex; align-items: center; gap: .4rem; font-size: .88rem; color: var(--text2); cursor: pointer; }
+    .checkbox-wrap input { width: auto; }
+
+    .error-msg { background: var(--red-lt); color: var(--red); border: 1px solid #f5c6c6; border-radius: 5px; padding: .7rem .9rem; font-size: .88rem; margin-top: .75rem; }
+
+    /* ── Canvas ── */
+    .canvas-wrap { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    canvas { display: block; width: 100%; }
+
+    /* ── Results ── */
+    .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
+    @media (max-width:580px) { .result-grid { grid-template-columns: 1fr; } }
+    .result-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
+    .result-card .label { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); margin-bottom: .3rem; }
+    .result-card .value { font-family: var(--mono); font-size: 1.4rem; font-weight: 500; color: var(--accent); }
+    .result-card .unit { font-size: .78rem; color: var(--text2); }
+
+    /* ── Routes ── */
+    .route-item { padding: .65rem .85rem; border-left: 3px solid var(--border); margin-bottom: .5rem; background: #fafafa; border-radius: 0 5px 5px 0; font-size: .85rem; }
+    .route-item.ev { border-left-color: var(--green); }
+    .route-item.cv { border-left-color: var(--orange); }
+    .route-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: .2rem; }
+    .route-label { font-weight: 600; font-size: .82rem; }
+    .badge { display: inline-block; padding: .1rem .4rem; border-radius: 3px; font-size: .72rem; font-weight: 600; font-family: var(--sans); }
+    .badge-ev { background: var(--green-lt); color: var(--green); }
+    .badge-cv { background: var(--orange-lt); color: var(--orange); }
+    .badge-owned { background: var(--blue-lt); color: var(--accent); }
+    .badge-rented { background: #f3e8ff; color: #7c3aed; }
+    .route-body { font-family: var(--mono); font-size: .82rem; color: var(--text2); }
+
+    /* ── Steps log ── */
+    .steps-wrap { max-height: 350px; overflow-y: auto; padding-right: .25rem; }
+    .step-item { padding: .5rem .75rem; border-left: 3px solid var(--border); margin-bottom: .4rem; background: #fafafa; border-radius: 0 5px 5px 0; font-size: .82rem; }
+    .step-item.improved { border-left-color: var(--green); }
+    .step-head { color: var(--text2); font-size: .78rem; margin-bottom: .15rem; }
+    .step-body { font-family: var(--mono); font-size: .8rem; }
+
+    /* ── Progress ── */
+    .progress-wrap { margin-top: .75rem; display: none; }
+    .progress-bar { height: 6px; background: var(--border); border-radius: 3px; overflow: hidden; }
+    .progress-fill { height: 100%; background: var(--accent); border-radius: 3px; transition: width .15s; width: 0; }
+    .progress-text { font-size: .78rem; color: var(--text2); margin-top: .3rem; font-family: var(--mono); }
+
+    /* ── Legend ── */
+    .legend { display: flex; flex-wrap: wrap; gap: 1rem; margin-top: .75rem; font-size: .8rem; color: var(--text2); }
+    .legend-item { display: flex; align-items: center; gap: .35rem; }
+    .legend-dot { width: 10px; height: 10px; border-radius: 50%; }
+
+    footer { text-align: center; padding: 1.5rem; color: var(--text2); font-size: .83rem; border-top: 1px solid var(--border); }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── Pareto chart ── */
+    .pareto-wrap { position: relative; background: #fff; border: 1px solid var(--border); border-radius: 8px; overflow: hidden; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Huashan Swords Algorithm</h1>
+  <p>Multi-Objective VRP Solver for Heterogeneous Fleet with Time Windows</p>
+</header>
+
+<main>
+  <div class="card">
+    <div class="info-box">
+      <strong>HSSA</strong> (Zhang et al., 2026) solves multi-objective Vehicle Routing Problems with time windows
+      using heterogeneous fleets (owned/rented, EV/CV). Inspired by the ancient Chinese <em>Huashan Martial Arts Convention</em>,
+      it uses hierarchical search with regional leaders, skill transfer, and peer competition to optimize
+      distribution cost, CO₂ emissions, and vehicle count simultaneously.
+    </div>
+
+    <div class="card-title">Problem Configuration</div>
+
+    <div class="form-row-3">
+      <div>
+        <label class="field-label">Number of Customers</label>
+        <input type="number" id="num-customers" value="20" min="5" max="100">
+      </div>
+      <div>
+        <label class="field-label">Map Size (km)</label>
+        <input type="number" id="map-size" value="50" min="10" max="200">
+      </div>
+      <div>
+        <label class="field-label">Max Iterations</label>
+        <input type="number" id="max-iter" value="100" min="20" max="500">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label class="field-label">Depot Location (x, y)</label>
+        <input type="text" id="depot-loc" value="25, 25" placeholder="e.g. 25, 25">
+      </div>
+      <div>
+        <label class="field-label">Rental Return Depot (x, y)</label>
+        <input type="text" id="rental-depot" value="40, 40" placeholder="e.g. 40, 40">
+      </div>
+    </div>
+
+    <div class="form-row">
+      <div>
+        <label class="field-label">Fleet: Owned EVs / Owned CVs</label>
+        <input type="text" id="owned-fleet" value="4, 2" placeholder="e.g. 4, 2">
+      </div>
+      <div>
+        <label class="field-label">Rental Limit (EVs / CVs)</label>
+        <input type="text" id="rental-fleet" value="6, 4" placeholder="e.g. 6, 4">
+      </div>
+    </div>
+
+    <div class="form-row-3">
+      <div>
+        <label class="field-label">EV Capacity (kg)</label>
+        <input type="number" id="ev-cap" value="3000" min="500">
+      </div>
+      <div>
+        <label class="field-label">CV Capacity (kg)</label>
+        <input type="number" id="cv-cap" value="3600" min="500">
+      </div>
+      <div>
+        <label class="field-label">EV Range (km)</label>
+        <input type="number" id="ev-range" value="350" min="50">
+      </div>
+    </div>
+
+    <div style="margin-top:1rem">
+      <label class="field-label">Quick Examples</label>
+      <div class="examples">
+        <button class="btn-ex" onclick="loadExample('small')">Small (10 customers)</button>
+        <button class="btn-ex" onclick="loadExample('medium')">Medium (25 customers)</button>
+        <button class="btn-ex" onclick="loadExample('large')">Large (50 customers)</button>
+        <button class="btn-ex" onclick="loadExample('peak')">Peak Season (75)</button>
+      </div>
+    </div>
+
+    <div class="actions">
+      <button class="btn-compute" id="btn-run" onclick="runHSSA()">Run HSSA Optimization</button>
+      <label class="checkbox-wrap">
+        <input type="checkbox" id="show-steps" checked> Show iteration log
+      </label>
+      <label class="checkbox-wrap">
+        <input type="checkbox" id="show-pareto" checked> Show Pareto front
+      </label>
+    </div>
+
+    <div class="progress-wrap" id="progress-wrap">
+      <div class="progress-bar"><div class="progress-fill" id="progress-fill"></div></div>
+      <div class="progress-text" id="progress-text">Initializing...</div>
+    </div>
+
+    <div id="err-box"></div>
+  </div>
+
+  <!-- ── Output ── -->
+  <div id="output" style="display:none">
+
+    <div class="card">
+      <div class="card-title">Optimization Results</div>
+      <div class="result-grid">
+        <div class="result-card">
+          <div class="label">Total Cost</div>
+          <div class="value" id="res-cost">—</div>
+          <div class="unit">CNY</div>
+        </div>
+        <div class="result-card">
+          <div class="label">CO₂ Emissions</div>
+          <div class="value" id="res-emission">—</div>
+          <div class="unit">kg CO₂</div>
+        </div>
+        <div class="result-card">
+          <div class="label">Vehicles Used</div>
+          <div class="value" id="res-vehicles">—</div>
+          <div class="unit">total</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Route Map</div>
+      <div class="canvas-wrap">
+        <canvas id="route-canvas" width="860" height="500"></canvas>
+      </div>
+      <div class="legend" id="legend"></div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Vehicle Routes</div>
+      <div id="routes-out"></div>
+    </div>
+
+    <div class="card" id="pareto-card" style="display:none">
+      <div class="card-title">Pareto Front <span style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem">Cost vs Emissions</span></div>
+      <div class="pareto-wrap">
+        <canvas id="pareto-canvas" width="860" height="350"></canvas>
+      </div>
+    </div>
+
+    <div class="card" id="steps-card">
+      <div class="card-title">
+        HSSA Iteration Log
+        <span id="steps-label" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
+      </div>
+      <div id="steps-out" class="steps-wrap"></div>
+    </div>
+
+  </div>
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Zhang, Y. et al. (2026). <em>Multi-objective optimization of multi-endpoint VRP with time window.</em> Expert Systems With Applications, 298, 129595.
+</footer>
+
+<script>
+/* ════════════════════════════════════════════════════════
+   HSSA – Huashan Swords Algorithm for Multi-Objective VRP
+   Based on: Zhang et al. (2026), Expert Systems With Applications
+════════════════════════════════════════════════════════ */
+
+// ── Vehicle parameters (from paper Table 6 & 21) ──
+const VEH_PARAMS = {
+  ev: { opCostKm: 0.185, energyPerKm: 0.32, co2PerKm: 0, acqCostDaily: 95.89 },
+  cv: { opCostKm: 0.32, energyPerKm: 0.80, co2PerKm: 2.31, acqCostDaily: 84.38 },
+  rentalEV: { fixedCost: 1000, perKm: 6, co2PerKm: 0 },
+  rentalCV: { fixedCost: 1300, perKm: 10, co2PerKm: 2.31 }
+};
+
+const ROUTE_COLORS = [
+  '#e63946','#457b9d','#2a9d8f','#e9c46a','#f4a261',
+  '#264653','#6a4c93','#1982c4','#8ac926','#ff595e',
+  '#6d6875','#b5838d','#e07a5f','#3d405b','#81b29a',
+  '#f28482','#84a98c','#52796f','#bc6c25','#606c38'
+];
+
+// ── Utility ──
+const dist = (a, b) => Math.sqrt((a.x-b.x)**2 + (a.y-b.y)**2);
+const randInt = (lo, hi) => lo + Math.floor(Math.random()*(hi-lo+1));
+const randFloat = (lo, hi) => lo + Math.random()*(hi-lo);
+const shuffle = arr => { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=randInt(0,i);[a[i],a[j]]=[a[j],a[i]];} return a; };
+
+// ── Generate problem instance ──
+function generateProblem(nCust, mapSize, depotXY, rentalXY) {
+  const depot = { id: 0, x: depotXY[0], y: depotXY[1], demand: 0, tw: [0, 480] };
+  const rentalDepot = { id: -1, x: rentalXY[0], y: rentalXY[1] };
+  const customers = [];
+  for (let i = 1; i <= nCust; i++) {
+    const x = randFloat(1, mapSize-1);
+    const y = randFloat(1, mapSize-1);
+    const demand = randInt(150, 1080); // 5-30% of 3600
+    const twStart = randInt(0, 300);
+    const twEnd = twStart + randInt(60, 180);
+    customers.push({ id: i, x, y, demand, tw: [twStart, Math.min(twEnd, 480)], serviceTime: randInt(5,15) });
+  }
+  return { depot, rentalDepot, customers };
+}
+
+// ── Build available fleet ──
+function buildFleet(ownedEV, ownedCV, rentalEVLimit, rentalCVLimit, evCap, cvCap, evRange) {
+  const fleet = [];
+  let id = 0;
+  for (let i = 0; i < ownedEV; i++)
+    fleet.push({ id: id++, type:'ev', owned:true, capacity:evCap, range:evRange, label:`OEV-${i+1}` });
+  for (let i = 0; i < ownedCV; i++)
+    fleet.push({ id: id++, type:'cv', owned:true, capacity:cvCap, range:1000, label:`OCV-${i+1}` });
+  for (let i = 0; i < rentalEVLimit; i++)
+    fleet.push({ id: id++, type:'ev', owned:false, capacity:evCap, range:evRange, label:`REV-${i+1}` });
+  for (let i = 0; i < rentalCVLimit; i++)
+    fleet.push({ id: id++, type:'cv', owned:false, capacity:cvCap, range:1000, label:`RCV-${i+1}` });
+  return fleet;
+}
+
+// ── Evaluate a route's feasibility & cost ──
+function evalRoute(route, vehicle, depot, rentalDepot) {
+  if (route.length === 0) return { feasible: true, cost: 0, emission: 0, distance: 0 };
+
+  let load = 0, time = 0, energy = vehicle.range;
+  let totalDist = 0;
+  let prev = depot;
+
+  for (const c of route) {
+    const d = dist(prev, c);
+    totalDist += d;
+    time += d; // ~1 min per km simplified
+    energy -= d;
+    load += c.demand;
+
+    if (load > vehicle.capacity || energy < 0) return { feasible: false };
+    if (time > c.tw[1]) return { feasible: false };
+    if (time < c.tw[0]) time = c.tw[0];
+    time += c.serviceTime;
+    prev = c;
+  }
+
+  // Return to depot
+  const endDepot = vehicle.owned ? depot : rentalDepot;
+  const dReturn = dist(prev, endDepot);
+  totalDist += dReturn;
+  energy -= dReturn;
+  if (energy < 0 && vehicle.type === 'ev') return { feasible: false };
+
+  // Cost calculation (from paper formulas 2-4)
+  let cost = 0, emission = 0;
+  const params = vehicle.type === 'ev'
+    ? (vehicle.owned ? VEH_PARAMS.ev : VEH_PARAMS.rentalEV)
+    : (vehicle.owned ? VEH_PARAMS.cv : VEH_PARAMS.rentalCV);
+
+  if (vehicle.owned) {
+    cost = params.opCostKm * totalDist + params.acqCostDaily;
+    emission = params.co2PerKm * totalDist;
+  } else {
+    if (params.fixedCost) cost = params.fixedCost;
+    else cost = params.perKm * totalDist;
+    emission = params.co2PerKm * totalDist;
+  }
+
+  return { feasible: true, cost, emission, distance: totalDist };
+}
+
+// ── Construct solution from customer permutation (paper §4.4) ──
+function constructSolution(perm, fleet, depot, rentalDepot) {
+  const routes = [];
+  const assigned = new Set();
+  const availableVehicles = fleet.map(v => ({...v}));
+
+  // Sort fleet: owned EVs first (paper finding)
+  availableVehicles.sort((a,b) => {
+    if (a.owned !== b.owned) return a.owned ? -1 : 1;
+    if (a.type !== b.type) return a.type === 'ev' ? -1 : 1;
+    return 0;
+  });
+
+  for (const veh of availableVehicles) {
+    if (assigned.size >= perm.length) break;
+    const route = [];
+    let load = 0, time = 0, energy = veh.range;
+    let prev = depot;
+
+    for (const c of perm) {
+      if (assigned.has(c.id)) continue;
+      const d = dist(prev, c);
+      const endDepot = veh.owned ? depot : rentalDepot;
+      const dReturn = dist(c, endDepot);
+
+      if (load + c.demand > veh.capacity) continue;
+      if (energy - d - dReturn < 0 && veh.type === 'ev') continue;
+
+      let arrTime = time + d;
+      if (arrTime > c.tw[1]) continue;
+      if (arrTime < c.tw[0]) arrTime = c.tw[0];
+
+      route.push(c);
+      assigned.add(c.id);
+      load += c.demand;
+      time = arrTime + c.serviceTime;
+      energy -= d;
+      prev = c;
+    }
+
+    if (route.length > 0) {
+      const ev = evalRoute(route, veh, depot, rentalDepot);
+      if (ev.feasible) {
+        routes.push({ vehicle: veh, customers: route, ...ev });
+      } else {
+        // Unassign
+        route.forEach(c => assigned.delete(c.id));
+      }
+    }
+  }
+
+  // Check all assigned
+  const unassigned = perm.filter(c => !assigned.has(c.id));
+  return { routes, unassigned, feasible: unassigned.length === 0 };
+}
+
+// ── Evaluate solution objectives ──
+function evalSolution(sol) {
+  if (!sol.feasible) return { cost: Infinity, emission: Infinity, vehicles: Infinity };
+  let cost = 0, emission = 0;
+  for (const r of sol.routes) { cost += r.cost; emission += r.emission; }
+  return { cost, emission, vehicles: sol.routes.length };
+}
+
+// ── Pareto dominance ──
+function dominates(a, b) {
+  return (a.cost <= b.cost && a.emission <= b.emission && a.vehicles <= b.vehicles) &&
+         (a.cost < b.cost || a.emission < b.emission || a.vehicles < b.vehicles);
+}
+
+// ── Comprehensive fitness (weighted sum for ranking, paper §4.2) ──
+function fitness(obj, ideal) {
+  if (obj.cost === Infinity) return -Infinity;
+  const nc = ideal.cost > 0 ? obj.cost / ideal.cost : 1;
+  const ne = ideal.emission > 0 ? obj.emission / ideal.emission : 1;
+  const nv = ideal.vehicles > 0 ? obj.vehicles / ideal.vehicles : 1;
+  return -(0.4 * nc + 0.35 * ne + 0.25 * nv); // higher = better
+}
+
+// ── Crossover: Order Crossover (OX) for skill learning ──
+function orderCrossover(p1, p2) {
+  const n = p1.length;
+  if (n < 3) return [...p1];
+  const [a, b] = [randInt(0, n-2), randInt(1, n-1)].sort((x,y)=>x-y);
+  const child = new Array(n).fill(null);
+  const used = new Set();
+  for (let i = a; i <= b; i++) { child[i] = p1[i]; used.add(p1[i].id); }
+  let j = 0;
+  for (let i = 0; i < n; i++) {
+    if (child[i] !== null) continue;
+    while (used.has(p2[j].id)) j++;
+    child[i] = p2[j]; used.add(p2[j].id); j++;
+  }
+  return child;
+}
+
+// ── Mutation: swap, reverse, insert ──
+function mutate(perm) {
+  const p = [...perm];
+  const n = p.length;
+  const op = randInt(0, 2);
+  if (op === 0) { // swap
+    const [i, j] = [randInt(0,n-1), randInt(0,n-1)];
+    [p[i],p[j]] = [p[j],p[i]];
+  } else if (op === 1) { // reverse segment
+    const [a, b] = [randInt(0,n-2), randInt(1,n-1)].sort((x,y)=>x-y);
+    let l = a, r = b;
+    while (l < r) { [p[l],p[r]] = [p[r],p[l]]; l++; r--; }
+  } else { // insert
+    const from = randInt(0,n-1);
+    const to = randInt(0,n-1);
+    const [el] = p.splice(from, 1);
+    p.splice(to, 0, el);
+  }
+  return p;
+}
+
+// ── HSSA Main Loop (paper §4.2, Algorithm 1-3) ──
+function runHSSAAlgorithm(problem, fleet, maxIter, onProgress) {
+  const { depot, rentalDepot, customers } = problem;
+  const N_REGIONS = 5;
+  const M_INITIAL = 50;
+  const a1 = 0.1, a2 = 0.3, a3 = 0.2;
+
+  const log = [];
+  const paretoArchive = [];
+
+  // ── Step 1: Initialize M solutions, pick top 5 as regional leaders ──
+  let solutions = [];
+  for (let i = 0; i < M_INITIAL; i++) {
+    const perm = shuffle(customers);
+    const sol = constructSolution(perm, fleet, depot, rentalDepot);
+    const obj = evalSolution(sol);
+    solutions.push({ perm, sol, obj });
+  }
+
+  // Ideal point for normalization
+  const feasible = solutions.filter(s => s.obj.cost < Infinity);
+  if (feasible.length === 0) return { error: 'No feasible solution found. Try adding more vehicles or increasing capacity.' };
+
+  let ideal = {
+    cost: Math.min(...feasible.map(s => s.obj.cost)),
+    emission: Math.min(...feasible.map(s => s.obj.emission)),
+    vehicles: Math.min(...feasible.map(s => s.obj.vehicles))
+  };
+
+  solutions.sort((a,b) => fitness(b.obj, ideal) - fitness(a.obj, ideal));
+
+  // Select top 5 as leaders (with heterogeneity check)
+  const leaders = [];
+  for (const s of solutions) {
+    if (leaders.length >= N_REGIONS) break;
+    const isDiff = leaders.every(l => Math.abs(l.obj.cost - s.obj.cost) > 10 || Math.abs(l.obj.emission - s.obj.emission) > 1);
+    if (isDiff || leaders.length === 0) leaders.push({ ...s });
+  }
+  while (leaders.length < N_REGIONS) leaders.push({ ...solutions[randInt(0, solutions.length-1)] });
+
+  const regionScores = leaders.map(() => 100);
+  let globalBest = { ...leaders[0] };
+
+  log.push({ iter: 0, type: 'init', msg: `Initialized ${N_REGIONS} regional leaders from ${M_INITIAL} solutions`, obj: globalBest.obj });
+
+  // ── Step 2-9: Main loop ──
+  for (let iter = 1; iter <= maxIter; iter++) {
+    // Roulette wheel selection for target region
+    const totalScore = regionScores.reduce((s,v) => s+v, 0);
+    let r = Math.random() * totalScore, targetRegion = 0;
+    for (let i = 0; i < N_REGIONS; i++) {
+      r -= regionScores[i];
+      if (r <= 0) { targetRegion = i; break; }
+    }
+
+    // Generate challenger via mutation of leader
+    let challengerPerm = mutate(leaders[targetRegion].perm);
+
+    // Skill learning from regional leader (crossover, paper §4.5)
+    challengerPerm = orderCrossover(challengerPerm, leaders[targetRegion].perm);
+
+    // Peer competition: learn from random other region's leader
+    const otherRegion = randInt(0, N_REGIONS - 2);
+    const peerIdx = otherRegion >= targetRegion ? otherRegion + 1 : otherRegion;
+    challengerPerm = orderCrossover(challengerPerm, leaders[peerIdx].perm);
+
+    // Self-cultivation: additional mutation
+    if (Math.random() < 0.3) challengerPerm = mutate(challengerPerm);
+
+    // Evaluate challenger
+    const challengerSol = constructSolution(challengerPerm, fleet, depot, rentalDepot);
+    const challengerObj = evalSolution(challengerSol);
+
+    if (challengerObj.cost === Infinity) {
+      if (iter % 20 === 0) onProgress(iter / maxIter, `Iter ${iter}: infeasible challenger`);
+      continue;
+    }
+
+    // Update ideal
+    ideal.cost = Math.min(ideal.cost, challengerObj.cost);
+    ideal.emission = Math.min(ideal.emission, challengerObj.emission);
+    ideal.vehicles = Math.min(ideal.vehicles, challengerObj.vehicles);
+
+    const challengerFit = fitness(challengerObj, ideal);
+    const leaderFit = fitness(leaders[targetRegion].obj, ideal);
+    let improved = false;
+
+    // Challenge regional leader
+    if (challengerFit > leaderFit || dominates(challengerObj, leaders[targetRegion].obj)) {
+      leaders[targetRegion] = { perm: challengerPerm, sol: challengerSol, obj: challengerObj };
+      regionScores[targetRegion] += a1;
+      improved = true;
+
+      // Challenge global leader
+      const globalFit = fitness(globalBest.obj, ideal);
+      if (challengerFit > globalFit || dominates(challengerObj, globalBest.obj)) {
+        globalBest = { perm: challengerPerm, sol: challengerSol, obj: challengerObj };
+        regionScores[targetRegion] += a2;
+        log.push({ iter, type: 'global', msg: `New global best! Region ${targetRegion+1}`, obj: challengerObj });
+      }
+
+      // Challenge other leaders
+      for (let k = 0; k < N_REGIONS; k++) {
+        if (k === targetRegion) continue;
+        if (dominates(challengerObj, leaders[k].obj)) {
+          regionScores[targetRegion] += a3;
+        }
+      }
+    }
+
+    // Archive Pareto solutions
+    if (challengerObj.cost < Infinity) {
+      const dominated = paretoArchive.some(p => dominates(p, challengerObj));
+      if (!dominated) {
+        // Remove dominated from archive
+        for (let i = paretoArchive.length - 1; i >= 0; i--) {
+          if (dominates(challengerObj, paretoArchive[i])) paretoArchive.splice(i, 1);
+        }
+        paretoArchive.push({ ...challengerObj });
+      }
+    }
+
+    if (improved && iter % 5 === 0) {
+      log.push({ iter, type: 'improve', msg: `Region ${targetRegion+1} improved`, obj: challengerObj });
+    }
+
+    if (iter % 10 === 0) {
+      onProgress(iter / maxIter, `Iter ${iter}/${maxIter} · Cost: ${globalBest.obj.cost.toFixed(0)} · Vehicles: ${globalBest.obj.vehicles}`);
+    }
+  }
+
+  log.push({ iter: maxIter, type: 'done', msg: `Optimization complete`, obj: globalBest.obj });
+
+  return { best: globalBest, leaders, regionScores, log, paretoArchive };
+}
+
+
+/* ════════════════════════════════════════════════════════
+   UI
+════════════════════════════════════════════════════════ */
+
+function loadExample(name) {
+  const presets = {
+    small:  { n: 10, map: 30, iter: 80,  depot:'15,15', rental:'25,25', owned:'3,1', rent:'3,2' },
+    medium: { n: 25, map: 50, iter: 120, depot:'25,25', rental:'40,40', owned:'4,2', rent:'6,4' },
+    large:  { n: 50, map: 60, iter: 200, depot:'30,30', rental:'50,50', owned:'5,3', rent:'8,5' },
+    peak:   { n: 75, map: 80, iter: 300, depot:'40,40', rental:'65,65', owned:'7,3', rent:'10,6' },
+  };
+  const p = presets[name];
+  document.getElementById('num-customers').value = p.n;
+  document.getElementById('map-size').value = p.map;
+  document.getElementById('max-iter').value = p.iter;
+  document.getElementById('depot-loc').value = p.depot;
+  document.getElementById('rental-depot').value = p.rental;
+  document.getElementById('owned-fleet').value = p.owned;
+  document.getElementById('rental-fleet').value = p.rent;
+}
+
+function parseIntPair(s) {
+  return s.split(',').map(v => parseFloat(v.trim()));
+}
+
+async function runHSSA() {
+  const errBox = document.getElementById('err-box');
+  errBox.innerHTML = '';
+
+  try {
+    const nCust = parseInt(document.getElementById('num-customers').value);
+    const mapSize = parseInt(document.getElementById('map-size').value);
+    const maxIter = parseInt(document.getElementById('max-iter').value);
+    const depotXY = parseIntPair(document.getElementById('depot-loc').value);
+    const rentalXY = parseIntPair(document.getElementById('rental-depot').value);
+    const [ownedEV, ownedCV] = parseIntPair(document.getElementById('owned-fleet').value).map(Math.round);
+    const [rentEV, rentCV] = parseIntPair(document.getElementById('rental-fleet').value).map(Math.round);
+    const evCap = parseInt(document.getElementById('ev-cap').value);
+    const cvCap = parseInt(document.getElementById('cv-cap').value);
+    const evRange = parseInt(document.getElementById('ev-range').value);
+
+    if (nCust < 3) throw new Error('Need at least 3 customers.');
+    if (depotXY.length !== 2 || rentalXY.length !== 2) throw new Error('Invalid depot coordinates.');
+
+    const problem = generateProblem(nCust, mapSize, depotXY, rentalXY);
+    const fleet = buildFleet(ownedEV, ownedCV, rentEV, rentCV, evCap, cvCap, evRange);
+
+    const btn = document.getElementById('btn-run');
+    btn.disabled = true;
+    btn.textContent = 'Running...';
+    const pw = document.getElementById('progress-wrap');
+    pw.style.display = 'block';
+
+    // Run async to not block UI
+    await new Promise(resolve => setTimeout(resolve, 50));
+
+    const result = runHSSAAlgorithm(problem, fleet, maxIter, (pct, msg) => {
+      document.getElementById('progress-fill').style.width = (pct*100)+'%';
+      document.getElementById('progress-text').textContent = msg;
+    });
+
+    btn.disabled = false;
+    btn.textContent = 'Run HSSA Optimization';
+    pw.style.display = 'none';
+
+    if (result.error) throw new Error(result.error);
+
+    renderResults(result, problem, mapSize);
+
+  } catch(e) {
+    errBox.innerHTML = `<div class="error-msg">⚠ ${e.message}</div>`;
+    document.getElementById('btn-run').disabled = false;
+    document.getElementById('btn-run').textContent = 'Run HSSA Optimization';
+    document.getElementById('progress-wrap').style.display = 'none';
+  }
+}
+
+function renderResults(result, problem, mapSize) {
+  const { best, log, paretoArchive, regionScores } = result;
+  const obj = best.obj;
+
+  // ── Objective cards ──
+  document.getElementById('res-cost').textContent = obj.cost.toFixed(1);
+  document.getElementById('res-emission').textContent = obj.emission.toFixed(2);
+  document.getElementById('res-vehicles').textContent = obj.vehicles;
+
+  // ── Route list ──
+  const routesOut = document.getElementById('routes-out');
+  routesOut.innerHTML = '';
+  best.sol.routes.forEach((r, idx) => {
+    const isEV = r.vehicle.type === 'ev';
+    const div = document.createElement('div');
+    div.className = 'route-item ' + (isEV ? 'ev' : 'cv');
+    const custList = r.customers.map(c => `C${c.id}`).join(' → ');
+    const badges = `
+      <span class="badge ${isEV?'badge-ev':'badge-cv'}">${isEV?'EV':'CV'}</span>
+      <span class="badge ${r.vehicle.owned?'badge-owned':'badge-rented'}">${r.vehicle.owned?'Owned':'Rented'}</span>`;
+    div.innerHTML = `
+      <div class="route-head">
+        <span class="route-label" style="color:${ROUTE_COLORS[idx%ROUTE_COLORS.length]}">${r.vehicle.label}</span>
+        <span>${badges}</span>
+      </div>
+      <div class="route-body">
+        Depot → ${custList} → ${r.vehicle.owned?'Depot':'Rental'} &nbsp;
+        <span style="color:var(--text2)">|</span> ${r.distance.toFixed(1)} km · ¥${r.cost.toFixed(0)} · ${r.emission.toFixed(1)} kg CO₂ · ${r.customers.reduce((s,c)=>s+c.demand,0)} kg load
+      </div>`;
+    routesOut.appendChild(div);
+  });
+
+  // ── Route map ──
+  drawRouteMap(best.sol, problem, mapSize);
+
+  // ── Pareto chart ──
+  const showPareto = document.getElementById('show-pareto').checked;
+  const paretoCard = document.getElementById('pareto-card');
+  if (showPareto && paretoArchive.length > 1) {
+    paretoCard.style.display = 'block';
+    drawPareto(paretoArchive, obj);
+  } else {
+    paretoCard.style.display = 'none';
+  }
+
+  // ── Steps ──
+  const stepsCard = document.getElementById('steps-card');
+  const showSteps = document.getElementById('show-steps').checked;
+  stepsCard.style.display = showSteps ? 'block' : 'none';
+  if (showSteps) {
+    document.getElementById('steps-label').textContent = `${log.length} events · Regions: [${regionScores.map(s=>s.toFixed(1)).join(', ')}]`;
+    const stepsOut = document.getElementById('steps-out');
+    stepsOut.innerHTML = '';
+    for (const entry of log) {
+      const div = document.createElement('div');
+      div.className = 'step-item' + (entry.type === 'global' ? ' improved' : '');
+      div.innerHTML = `
+        <div class="step-head">Iter ${entry.iter} — ${entry.type}</div>
+        <div class="step-body">${entry.msg} · Cost: ${entry.obj.cost.toFixed(0)} · CO₂: ${entry.obj.emission.toFixed(1)} · Vehicles: ${entry.obj.vehicles}</div>`;
+      stepsOut.appendChild(div);
+    }
+  }
+
+  document.getElementById('output').style.display = 'block';
+  document.getElementById('output').scrollIntoView({ behavior: 'smooth' });
+}
+
+function drawRouteMap(sol, problem, mapSize) {
+  const canvas = document.getElementById('route-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = 50;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#fafafa';
+  ctx.fillRect(0, 0, W, H);
+
+  const scale = (pt) => ({
+    sx: pad + (pt.x / mapSize) * (W - 2*pad),
+    sy: H - pad - (pt.y / mapSize) * (H - 2*pad)
+  });
+
+  // Grid
+  ctx.strokeStyle = '#eee';
+  ctx.lineWidth = 0.5;
+  for (let i = 0; i <= 10; i++) {
+    const x = pad + (i/10)*(W-2*pad);
+    const y = pad + (i/10)*(H-2*pad);
+    ctx.beginPath(); ctx.moveTo(x, pad); ctx.lineTo(x, H-pad); ctx.stroke();
+    ctx.beginPath(); ctx.moveTo(pad, y); ctx.lineTo(W-pad, y); ctx.stroke();
+  }
+
+  // Draw routes
+  const legendItems = [];
+  sol.routes.forEach((r, idx) => {
+    const color = ROUTE_COLORS[idx % ROUTE_COLORS.length];
+    const points = [problem.depot, ...r.customers, r.vehicle.owned ? problem.depot : problem.rentalDepot];
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.setLineDash(r.vehicle.owned ? [] : [6, 4]);
+    ctx.globalAlpha = 0.7;
+    ctx.beginPath();
+    for (let i = 0; i < points.length; i++) {
+      const { sx, sy } = scale(points[i]);
+      if (i === 0) ctx.moveTo(sx, sy); else ctx.lineTo(sx, sy);
+    }
+    ctx.stroke();
+    ctx.setLineDash([]);
+    ctx.globalAlpha = 1;
+    legendItems.push({ label: r.vehicle.label, color, type: r.vehicle.type, owned: r.vehicle.owned });
+  });
+
+  // Draw customers
+  for (const c of problem.customers) {
+    const { sx, sy } = scale(c);
+    ctx.fillStyle = '#5a5a7a';
+    ctx.beginPath(); ctx.arc(sx, sy, 4, 0, Math.PI*2); ctx.fill();
+    ctx.fillStyle = '#1a1a2e';
+    ctx.font = '10px Inter, sans-serif';
+    ctx.fillText(c.id, sx+6, sy-4);
+  }
+
+  // Depot
+  const ds = scale(problem.depot);
+  ctx.fillStyle = '#e63946';
+  ctx.beginPath(); ctx.arc(ds.sx, ds.sy, 8, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 9px Inter';
+  ctx.textAlign = 'center';
+  ctx.fillText('D', ds.sx, ds.sy+3);
+  ctx.textAlign = 'left';
+
+  // Rental depot
+  const rs = scale(problem.rentalDepot);
+  ctx.fillStyle = '#7c3aed';
+  ctx.beginPath(); ctx.arc(rs.sx, rs.sy, 8, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#fff';
+  ctx.font = 'bold 9px Inter';
+  ctx.textAlign = 'center';
+  ctx.fillText('R', rs.sx, rs.sy+3);
+  ctx.textAlign = 'left';
+
+  // Legend
+  const legendEl = document.getElementById('legend');
+  legendEl.innerHTML = `
+    <div class="legend-item"><div class="legend-dot" style="background:#e63946"></div> Depot</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#7c3aed"></div> Rental Return</div>
+    <div class="legend-item"><div class="legend-dot" style="background:#5a5a7a"></div> Customer</div>
+    <div class="legend-item" style="font-size:.75rem;color:var(--text2)">— Owned &nbsp; ‐ ‐ Rented</div>
+  `;
+}
+
+function drawPareto(archive, best) {
+  const canvas = document.getElementById('pareto-canvas');
+  const ctx = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const pad = 60;
+
+  ctx.clearRect(0, 0, W, H);
+  ctx.fillStyle = '#fafafa';
+  ctx.fillRect(0, 0, W, H);
+
+  const costs = archive.map(p => p.cost);
+  const emissions = archive.map(p => p.emission);
+  const minC = Math.min(...costs)*0.9, maxC = Math.max(...costs)*1.1;
+  const minE = Math.min(...emissions)*0.9, maxE = Math.max(...emissions)*1.1;
+
+  const sx = c => pad + ((c - minC)/(maxC - minC))*(W - 2*pad);
+  const sy = e => H - pad - ((e - minE)/(maxE - minE))*(H - 2*pad);
+
+  // Axes
+  ctx.strokeStyle = '#ccc';
+  ctx.lineWidth = 1;
+  ctx.beginPath(); ctx.moveTo(pad, pad); ctx.lineTo(pad, H-pad); ctx.lineTo(W-pad, H-pad); ctx.stroke();
+
+  ctx.fillStyle = '#5a5a7a';
+  ctx.font = '11px Inter';
+  ctx.textAlign = 'center';
+  ctx.fillText('Cost (CNY)', W/2, H-15);
+  ctx.save();
+  ctx.translate(15, H/2);
+  ctx.rotate(-Math.PI/2);
+  ctx.fillText('Emissions (kg CO₂)', 0, 0);
+  ctx.restore();
+
+  // Points
+  archive.sort((a,b) => a.cost - b.cost);
+  ctx.strokeStyle = 'rgba(30,58,110,0.3)';
+  ctx.lineWidth = 1.5;
+  ctx.beginPath();
+  for (let i = 0; i < archive.length; i++) {
+    const x = sx(archive[i].cost), y = sy(archive[i].emission);
+    if (i === 0) ctx.moveTo(x, y); else ctx.lineTo(x, y);
+  }
+  ctx.stroke();
+
+  for (const p of archive) {
+    const x = sx(p.cost), y = sy(p.emission);
+    ctx.fillStyle = 'rgba(30,58,110,0.6)';
+    ctx.beginPath(); ctx.arc(x, y, 4, 0, Math.PI*2); ctx.fill();
+  }
+
+  // Highlight best
+  const bx = sx(best.cost), by = sy(best.emission);
+  ctx.fillStyle = '#e63946';
+  ctx.beginPath(); ctx.arc(bx, by, 6, 0, Math.PI*2); ctx.fill();
+  ctx.fillStyle = '#e63946';
+  ctx.font = 'bold 10px Inter';
+  ctx.fillText('Best', bx+10, by-6);
+
+  // Tick labels
+  ctx.fillStyle = '#999';
+  ctx.font = '10px JetBrains Mono';
+  ctx.textAlign = 'center';
+  for (let i = 0; i <= 4; i++) {
+    const v = minC + (maxC-minC)*i/4;
+    ctx.fillText(v.toFixed(0), sx(v), H-pad+15);
+  }
+  ctx.textAlign = 'right';
+  for (let i = 0; i <= 4; i++) {
+    const v = minE + (maxE-minE)*i/4;
+    ctx.fillText(v.toFixed(1), pad-8, sy(v)+4);
+  }
+}
+</script>
+</body>
+</html>
