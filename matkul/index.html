@@ -60,6 +60,9 @@
     overflow: hidden; text-overflow: ellipsis;
   }
   .fpath { font-size: 0.68rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fdate { font-size: 0.67rem; color: var(--muted); margin-top: 3px; }
+  .fdate.fresh { color: #4fc3f7; }
+  .fdate.loading { opacity: 0.35; }
   .open-btn {
     color: var(--accent); text-decoration: none; font-size: 0.72rem;
     padding: 5px 12px; border: 1px solid var(--accent); border-radius: 5px;
@@ -178,36 +181,108 @@
       return;
     }
 
-    setStatus(`✓ ${htmlFiles.length} HTML file(s) in ${folderDisplay}`, 'ok');
-    setTimeout(() => document.getElementById('status').style.display = 'none', 2500);
-
+    setStatus(`✓ ${htmlFiles.length} file(s) found — fetching commit dates…`, 'info');
     document.getElementById('searchWrap').style.display = 'block';
     document.getElementById('footer').textContent =
       `// branch: ${branch} · generated: ${new Date().toLocaleString()}`;
 
     const ul = document.getElementById('list');
+
+    // Render placeholders first (unsorted)
     htmlFiles.forEach((f, i) => {
       const li = document.createElement('li');
+      li.id = `fi-${i}`;
       if (f.isSelf) li.classList.add('self-item');
       li.style.animationDelay = `${i * 0.04}s`;
-      const rel = f.rel;
-      const subdir = rel.includes('/') ? rel.substring(0, rel.lastIndexOf('/') + 1) : '';
+      const subdir = f.rel.includes('/') ? f.rel.substring(0, f.rel.lastIndexOf('/') + 1) : '';
       li.innerHTML = `
         <span class="icon">◈</span>
         <div class="info-block">
           <div class="fname"><span style="color:var(--muted)">${subdir}</span>${f.filename}</div>
           <div class="fpath">${f.url}</div>
+          <div class="fdate loading" id="date-${i}">loading commit date…</div>
         </div>
         ${f.isSelf ? '' : `<a class="open-btn" href="${f.url}">Open →</a>`}
       `;
       ul.appendChild(li);
+      f._liId = i;
     });
+
+    // Fetch commit dates with concurrency limit = 4
+    async function fetchCommitDate(file) {
+      try {
+        const r = await fetch(
+          `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(file.path)}&per_page=1&sha=${branch}`
+        );
+        if (!r.ok) return null;
+        const d = await r.json();
+        if (!d.length) return null;
+        return d[0].commit.committer.date; // ISO string
+      } catch { return null; }
+    }
+
+    async function pool(items, fn, concurrency) {
+      let i = 0;
+      const results = new Array(items.length);
+      async function worker() {
+        while (i < items.length) {
+          const idx = i++;
+          results[idx] = await fn(items[idx], idx);
+        }
+      }
+      await Promise.all(Array.from({ length: concurrency }, worker));
+      return results;
+    }
+
+    let done = 0;
+    const dates = await pool(htmlFiles, async (f, idx) => {
+      const date = await fetchCommitDate(f);
+      done++;
+      setStatus(`Fetching commit dates… ${done}/${htmlFiles.length}`, 'info');
+
+      const dateEl = document.getElementById(`date-${idx}`);
+      if (dateEl) {
+        if (date) {
+          const d = new Date(date);
+          const ago = timeAgo(d);
+          const isRecent = (Date.now() - d) < 7 * 24 * 3600 * 1000;
+          dateEl.textContent = `🕐 ${d.toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric'})} — ${ago}`;
+          dateEl.className = 'fdate' + (isRecent ? ' fresh' : '');
+        } else {
+          dateEl.textContent = 'date unknown';
+          dateEl.className = 'fdate';
+        }
+      }
+      return date ? new Date(date).getTime() : 0;
+    }, 4);
+
+    // Sort DOM nodes by date descending
+    htmlFiles.forEach((f, i) => f._ts = dates[i]);
+    const sorted = [...htmlFiles].sort((a, b) => b._ts - a._ts);
+    sorted.forEach(f => ul.appendChild(document.getElementById(`fi-${f._liId}`)));
+
+    setStatus(`✓ Sorted by latest commit`, 'ok');
+    setTimeout(() => document.getElementById('status').style.display = 'none', 2000);
 
   } catch (err) {
     document.getElementById('spinner').style.display = 'none';
     showErr(err.message);
   }
 })();
+
+function timeAgo(date) {
+  const diff = Date.now() - date;
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 30) return `${d}d ago`;
+  const mo = Math.floor(d / 30);
+  if (mo < 12) return `${mo} bulan lalu`;
+  return `${Math.floor(mo / 12)} tahun lalu`;
+}
 
 function filter(q) {
   document.querySelectorAll('#list li').forEach(li => {
