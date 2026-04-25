@@ -196,6 +196,29 @@
     </div>
 
     <div style="margin-top:1rem">
+      <label class="field-label">Distance Mode</label>
+      <div class="form-row">
+        <div>
+          <select id="dist-mode" onchange="toggleDistMatrix()">
+            <option value="euclidean">Euclidean (from coordinates)</option>
+            <option value="matrix">Custom Distance Matrix</option>
+          </select>
+        </div>
+        <div style="display:flex;align-items:end">
+          <button class="btn-ex" onclick="generateMatrixTemplate()" id="btn-gen-matrix" style="display:none">Generate template from current settings</button>
+        </div>
+      </div>
+      <div id="matrix-wrap" style="display:none; margin-top:.5rem">
+        <label class="field-label">Distance Matrix (CSV)</label>
+        <div class="info-box" style="font-size:.8rem; margin-bottom:.5rem">
+          Rows &amp; columns: <strong>0</strong> = depot, <strong>1…n</strong> = customers, <strong>last</strong> = rental depot.
+          Symmetric matrix, comma-separated. Diagonal = 0. Units = km.
+        </div>
+        <textarea id="dist-matrix" placeholder="0, 10.5, 8.2, 15.0&#10;10.5, 0, 6.3, 12.1&#10;8.2, 6.3, 0, 9.8&#10;15.0, 12.1, 9.8, 0" style="min-height:120px; font-size:.78rem;"></textarea>
+      </div>
+    </div>
+
+    <div style="margin-top:1rem">
       <label class="field-label">Quick Examples</label>
       <div class="examples">
         <button class="btn-ex" onclick="loadExample('small')">Small (10 customers)</button>
@@ -305,7 +328,20 @@ const ROUTE_COLORS = [
 ];
 
 // ── Utility ──
-const dist = (a, b) => Math.sqrt((a.x-b.x)**2 + (a.y-b.y)**2);
+let DIST_MATRIX = null; // null = use Euclidean, otherwise DIST_MATRIX[i][j]
+let NODE_INDEX = {};    // maps node id → matrix row/col index
+
+function dist(a, b) {
+  if (DIST_MATRIX) {
+    const i = NODE_INDEX[a.id];
+    const j = NODE_INDEX[b.id];
+    if (i !== undefined && j !== undefined && DIST_MATRIX[i] && DIST_MATRIX[i][j] !== undefined) {
+      return DIST_MATRIX[i][j];
+    }
+  }
+  return Math.sqrt((a.x - b.x) ** 2 + (a.y - b.y) ** 2);
+}
+
 const randInt = (lo, hi) => lo + Math.floor(Math.random()*(hi-lo+1));
 const randFloat = (lo, hi) => lo + Math.random()*(hi-lo);
 const shuffle = arr => { const a=[...arr]; for(let i=a.length-1;i>0;i--){const j=randInt(0,i);[a[i],a[j]]=[a[j],a[i]];} return a; };
@@ -661,6 +697,60 @@ function loadExample(name) {
   document.getElementById('rental-depot').value = p.rental;
   document.getElementById('owned-fleet').value = p.owned;
   document.getElementById('rental-fleet').value = p.rent;
+  // Reset to Euclidean when loading example
+  document.getElementById('dist-mode').value = 'euclidean';
+  toggleDistMatrix();
+}
+
+// ── Distance matrix UI ──
+function toggleDistMatrix() {
+  const mode = document.getElementById('dist-mode').value;
+  document.getElementById('matrix-wrap').style.display = mode === 'matrix' ? 'block' : 'none';
+  document.getElementById('btn-gen-matrix').style.display = mode === 'matrix' ? 'inline-block' : 'none';
+}
+
+function generateMatrixTemplate() {
+  const nCust = parseInt(document.getElementById('num-customers').value);
+  const mapSize = parseInt(document.getElementById('map-size').value);
+  const depotXY = parseIntPair(document.getElementById('depot-loc').value);
+  const rentalXY = parseIntPair(document.getElementById('rental-depot').value);
+  // Size = depot + customers + rental = nCust + 2
+  const size = nCust + 2;
+  // Generate random positions for template Euclidean distances
+  const nodes = [{ x: depotXY[0], y: depotXY[1] }]; // index 0 = depot
+  for (let i = 0; i < nCust; i++) {
+    nodes.push({ x: randFloat(1, mapSize-1), y: randFloat(1, mapSize-1) });
+  }
+  nodes.push({ x: rentalXY[0], y: rentalXY[1] }); // last = rental depot
+  const rows = [];
+  for (let i = 0; i < size; i++) {
+    const cols = [];
+    for (let j = 0; j < size; j++) {
+      if (i === j) cols.push('0');
+      else cols.push(Math.sqrt((nodes[i].x-nodes[j].x)**2 + (nodes[i].y-nodes[j].y)**2).toFixed(1));
+    }
+    rows.push(cols.join(', '));
+  }
+  document.getElementById('dist-matrix').value = rows.join('\n');
+}
+
+function parseDistMatrix(nCust) {
+  const raw = document.getElementById('dist-matrix').value.trim();
+  if (!raw) throw new Error('Distance matrix is empty.');
+  const rows = raw.split('\n').map(r => r.split(',').map(v => parseFloat(v.trim())));
+  const expectedSize = nCust + 2; // depot + customers + rental
+  if (rows.length !== expectedSize) {
+    throw new Error(`Matrix needs ${expectedSize} rows (depot + ${nCust} customers + rental). Got ${rows.length}.`);
+  }
+  for (let i = 0; i < rows.length; i++) {
+    if (rows[i].length !== expectedSize) {
+      throw new Error(`Row ${i} has ${rows[i].length} columns, expected ${expectedSize}.`);
+    }
+    if (rows[i].some(v => isNaN(v) || v < 0)) {
+      throw new Error(`Row ${i} has invalid values. All distances must be non-negative numbers.`);
+    }
+  }
+  return rows;
 }
 
 function parseIntPair(s) {
@@ -685,6 +775,20 @@ async function runHSSA() {
 
     if (nCust < 3) throw new Error('Need at least 3 customers.');
     if (depotXY.length !== 2 || rentalXY.length !== 2) throw new Error('Invalid depot coordinates.');
+
+    // ── Distance mode ──
+    const distMode = document.getElementById('dist-mode').value;
+    if (distMode === 'matrix') {
+      DIST_MATRIX = parseDistMatrix(nCust);
+      // Build node index: 0=depot, 1..n=customers, n+1=rental
+      NODE_INDEX = {};
+      NODE_INDEX[0] = 0;        // depot id=0 → row 0
+      for (let i = 1; i <= nCust; i++) NODE_INDEX[i] = i;  // customer ids
+      NODE_INDEX[-1] = nCust + 1; // rental depot id=-1 → last row
+    } else {
+      DIST_MATRIX = null;
+      NODE_INDEX = {};
+    }
 
     const problem = generateProblem(nCust, mapSize, depotXY, rentalXY);
     const fleet = buildFleet(ownedEV, ownedCV, rentEV, rentCV, evCap, cvCap, evRange);
