@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Loading…</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  :root {
+    --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
+    --accent: #7efff5; --text: #e0e0f0; --muted: #555570;
+    --ok: #6fff6f; --err: #ff6b6b;
+  }
+  body {
+    background: var(--bg); color: var(--text);
+    font-family: 'JetBrains Mono', monospace;
+    min-height: 100vh; padding: 40px 20px 80px;
+    background-image:
+      radial-gradient(ellipse at 15% 15%, #0d1a2a 0%, transparent 50%),
+      radial-gradient(ellipse at 85% 85%, #1a0d1a 0%, transparent 50%);
+  }
+  header { max-width: 720px; margin: 0 auto 28px; }
+  h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.6rem,4vw,2.4rem);
+    background: linear-gradient(135deg, #7efff5, #4fc3f7);
+    -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+    letter-spacing: -0.5px;
+  }
+  .meta { color: var(--muted); font-size: 0.72rem; margin-top: 6px; line-height: 1.7; }
+  .meta span { color: var(--accent); }
+  .search-wrap { max-width: 720px; margin: 0 auto 16px; }
+  #search {
+    width: 100%; background: var(--surface); border: 1px solid var(--border);
+    border-radius: 8px; color: var(--text); font-family: 'JetBrains Mono', monospace;
+    font-size: 0.85rem; padding: 10px 16px; outline: none; transition: border-color 0.2s;
+  }
+  #search:focus { border-color: var(--accent); }
+  #search::placeholder { color: var(--muted); }
+  #status {
+    max-width: 720px; margin: 0 auto 16px;
+    font-size: 0.75rem; padding: 10px 14px; border-radius: 6px; display: none;
+  }
+  #status.info { background:#0d1a2a; color:#4fc3f7; border:1px solid #1a3a5a; display:block; }
+  #status.error { background:#2a0d0d; color:var(--err); border:1px solid #5a1a1a; display:block; }
+  #status.ok { background:#0d2a0d; color:var(--ok); border:1px solid #1a5a1a; display:block; }
+  ul { list-style: none; max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
+  li {
+    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
+    padding: 13px 16px; display: flex; align-items: center; gap: 12px;
+    transition: border-color 0.2s, background 0.2s; animation: fadeIn 0.3s ease both;
+  }
+  li:hover { border-color: var(--accent); background: #14141e; }
+  li.hidden { display: none !important; }
+  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
+  .icon { color: var(--accent); flex-shrink: 0; }
+  .info-block { flex: 1; overflow: hidden; }
+  .fname {
+    font-size: 0.85rem; color: var(--text); white-space: nowrap;
+    overflow: hidden; text-overflow: ellipsis;
+  }
+  .fpath { font-size: 0.68rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .fdate { font-size: 0.67rem; color: var(--muted); margin-top: 3px; }
+  .fdate.fresh { color: #4fc3f7; }
+  .fdate.loading { opacity: 0.35; }
+  .open-btn {
+    color: var(--accent); text-decoration: none; font-size: 0.72rem;
+    padding: 5px 12px; border: 1px solid var(--accent); border-radius: 5px;
+    flex-shrink: 0; transition: background 0.15s; white-space: nowrap;
+  }
+  .open-btn:hover { background: rgba(126,255,245,0.12); }
+  .self-item { border-color: #333 !important; opacity: 0.4; }
+  .self-item .fname::after { content: '  ← you are here'; color: var(--muted); font-size: 0.68rem; }
+  footer { max-width: 720px; margin: 32px auto 0; color: var(--muted); font-size: 0.68rem; }
+  #spinner {
+    max-width: 720px; margin: 40px auto; text-align: center;
+    color: var(--muted); font-size: 0.8rem;
+  }
+  .dot { animation: blink 1.2s infinite; }
+  .dot:nth-child(2) { animation-delay: 0.2s; }
+  .dot:nth-child(3) { animation-delay: 0.4s; }
+  @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>◈ Folder Index</h1>
+  <div class="meta" id="meta">Detecting location<span id="dots">…</span></div>
+</header>
+
+<div id="spinner">
+  <span class="dot">▪</span><span class="dot">▪</span><span class="dot">▪</span>
+</div>
+
+<div id="status"></div>
+<div class="search-wrap" id="searchWrap" style="display:none">
+  <input type="text" id="search" placeholder="filter files…" oninput="filter(this.value)" />
+</div>
+<ul id="list"></ul>
+<footer id="footer"></footer>
+
+<script>
+(async () => {
+  const loc = window.location;
+  const hostname = loc.hostname; // e.g. paggalih.github.io
+  const pathname = loc.pathname; // e.g. /trial/index.html
+
+  // ── Parse GitHub Pages URL ──────────────────────────────────────────
+  // Case A: username.github.io          → repo = username.github.io, folder = root
+  // Case B: username.github.io/repo/... → repo = repo, folder = rest of path
+  const parts = hostname.split('.');
+  const isGhPages = parts.includes('github') && parts.includes('io');
+
+  if (!isGhPages) {
+    showErr(`Not a GitHub Pages URL (detected: ${hostname}). This file only works on *.github.io`);
+    return;
+  }
+
+  const owner = parts[0]; // username
+
+  // path segments (strip leading slash, split)
+  const segments = pathname.replace(/^\//, '').split('/').filter(Boolean);
+  // remove the file itself (index.html etc.)
+  const lastSeg = segments[segments.length - 1];
+  if (lastSeg && lastSeg.includes('.')) segments.pop();
+
+  let repo, folderPath;
+
+  // username.github.io → repo is ALWAYS username.github.io
+  // all path segments are just folders inside that repo
+  if (hostname === `${owner}.github.io`) {
+    repo = `${owner}.github.io`;
+    folderPath = segments.join('/');
+  } else {
+    // org pages or custom domain
+    repo = hostname;
+    folderPath = segments.join('/');
+  }
+
+  const currentFileUrl = loc.href;
+  const folderDisplay = folderPath ? `/${folderPath}/` : '/';
+
+  document.title = `Index — ${folderDisplay}`;
+  document.getElementById('meta').innerHTML =
+    `<span>${owner}/${repo}</span> · folder: <span>${folderDisplay || 'root'}</span>`;
+
+  setStatus('Fetching file tree from GitHub API…', 'info');
+
+  try {
+    // Get default branch
+    const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+    if (!repoRes.ok) throw new Error(`Repo "${owner}/${repo}" not found or is private (HTTP ${repoRes.status})`);
+    const repoData = await repoRes.json();
+    const branch = repoData.default_branch;
+
+    // Get full tree
+    const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
+    if (!treeRes.ok) throw new Error(`Failed to fetch tree (HTTP ${treeRes.status})`);
+    const treeData = await treeRes.json();
+
+    const prefix = folderPath ? folderPath + '/' : '';
+
+    // Filter: all HTML inside folder AND subfolders
+    const htmlFiles = treeData.tree.filter(f => {
+      if (f.type !== 'blob') return false;
+      if (!f.path.match(/\.(html|htm)$/i)) return false;
+      return f.path.startsWith(prefix);
+    }).map(f => ({
+      path: f.path,
+      rel: f.path.slice(prefix.length),
+      filename: f.path.split('/').pop(),
+      url: `${loc.protocol}//${hostname}/${f.path}`,
+      isSelf: `${loc.protocol}//${hostname}/${f.path}` === currentFileUrl.split('?')[0].split('#')[0]
+    }));
+
+    document.getElementById('spinner').style.display = 'none';
+
+    if (htmlFiles.length === 0) {
+      showErr(`No HTML files found in ${folderDisplay} on branch "${branch}"`);
+      return;
+    }
+
+    setStatus(`✓ ${htmlFiles.length} file(s) found — fetching commit dates…`, 'info');
+    document.getElementById('searchWrap').style.display = 'block';
+    document.getElementById('footer').textContent =
+      `// branch: ${branch} · generated: ${new Date().toLocaleString()}`;
+
+    const ul = document.getElementById('list');
+
+    // Render placeholders first (unsorted)
+    htmlFiles.forEach((f, i) => {
+      const li = document.createElement('li');
+      li.id = `fi-${i}`;
+      if (f.isSelf) li.classList.add('self-item');
+      li.style.animationDelay = `${i * 0.04}s`;
+      const subdir = f.rel.includes('/') ? f.rel.substring(0, f.rel.lastIndexOf('/') + 1) : '';
+      li.innerHTML = `
+        <span class="icon">◈</span>
+        <div class="info-block">
+          <div class="fname"><span style="color:var(--muted)">${subdir}</span>${f.filename}</div>
+          <div class="fpath">${f.url}</div>
+          <div class="fdate loading" id="date-${i}">loading commit date…</div>
+        </div>
+        ${f.isSelf ? '' : `<a class="open-btn" href="${f.url}">Open →</a>`}
+      `;
+      ul.appendChild(li);
+      f._liId = i;
+    });
+
+    // Fetch commit dates with concurrency limit = 4
+    async function fetchCommitDate(file) {
+      try {
+        const r = await fetch(
+          `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(file.path)}&per_page=1&sha=${branch}`
+        );
+        if (!r.ok) return null;
+        const d = await r.json();
+        if (!d.length) return null;
+        return d[0].commit.committer.date; // ISO string
+      } catch { return null; }
+    }
+
+    async function pool(items, fn, concurrency) {
+      let i = 0;
+      const results = new Array(items.length);
+      async function worker() {
+        while (i < items.length) {
+          const idx = i++;
+          results[idx] = await fn(items[idx], idx);
+        }
+      }
+      await Promise.all(Array.from({ length: concurrency }, worker));
+      return results;
+    }
+
+    let done = 0;
+    const dates = await pool(htmlFiles, async (f, idx) => {
+      const date = await fetchCommitDate(f);
+      done++;
+      setStatus(`Fetching commit dates… ${done}/${htmlFiles.length}`, 'info');
+
+      const dateEl = document.getElementById(`date-${idx}`);
+      if (dateEl) {
+        if (date) {
+          const d = new Date(date);
+          const ago = timeAgo(d);
+          const isRecent = (Date.now() - d) < 7 * 24 * 3600 * 1000;
+          dateEl.textContent = `🕐 ${d.toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric'})} — ${ago}`;
+          dateEl.className = 'fdate' + (isRecent ? ' fresh' : '');
+        } else {
+          dateEl.textContent = 'date unknown';
+          dateEl.className = 'fdate';
+        }
+      }
+      return date ? new Date(date).getTime() : 0;
+    }, 4);
+
+    // Sort DOM nodes by date descending
+    htmlFiles.forEach((f, i) => f._ts = dates[i]);
+    const sorted = [...htmlFiles].sort((a, b) => b._ts - a._ts);
+    sorted.forEach(f => ul.appendChild(document.getElementById(`fi-${f._liId}`)));
+
+    setStatus(`✓ Sorted by latest commit`, 'ok');
+    setTimeout(() => document.getElementById('status').style.display = 'none', 2000);
+
+  } catch (err) {
+    document.getElementById('spinner').style.display = 'none';
+    showErr(err.message);
+  }
+})();
+
+function timeAgo(date) {
+  const diff = Date.now() - date;
+  const m = Math.floor(diff / 60000);
+  if (m < 1) return 'just now';
+  if (m < 60) return `${m}m ago`;
+  const h = Math.floor(m / 60);
+  if (h < 24) return `${h}h ago`;
+  const d = Math.floor(h / 24);
+  if (d < 30) return `${d}d ago`;
+  const mo = Math.floor(d / 30);
+  if (mo < 12) return `${mo} bulan lalu`;
+  return `${Math.floor(mo / 12)} tahun lalu`;
+}
+
+function filter(q) {
+  document.querySelectorAll('#list li').forEach(li => {
+    const txt = li.textContent.toLowerCase();
+    li.classList.toggle('hidden', !txt.includes(q.toLowerCase()));
+  });
+}
+
+function setStatus(msg, type) {
+  const el = document.getElementById('status');
+  el.textContent = msg;
+  el.className = type;
+}
+
+function showErr(msg) {
+  document.getElementById('spinner').style.display = 'none';
+  setStatus('❌ ' + msg, 'error');
+  document.getElementById('meta').innerHTML = `<span style="color:var(--err)">Error</span>`;
+}
+</script>
+</body>
+</html>
