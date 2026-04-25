@@ -124,16 +124,13 @@
 
   let repo, folderPath;
 
-  if (hostname === `${owner}.github.io` && segments.length === 0) {
-    // root of username.github.io
+  // username.github.io → repo is ALWAYS username.github.io
+  // all path segments are just folders inside that repo
+  if (hostname === `${owner}.github.io`) {
     repo = `${owner}.github.io`;
-    folderPath = '';
-  } else if (hostname === `${owner}.github.io`) {
-    // first segment is repo name
-    repo = segments[0];
-    folderPath = segments.slice(1).join('/');
+    folderPath = segments.join('/');
   } else {
-    // org pages or custom domain — fallback, try repo = hostname
+    // org pages or custom domain
     repo = hostname;
     folderPath = segments.join('/');
   }
