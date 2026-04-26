@@ -1,0 +1,783 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahan Ajar Olimpiade — Aljabar KSN-K | paggalih</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --yellow-lt: #fff8e1;
+      --yellow-br: #ffe082;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    /* ── Header ── */
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .meta {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      font-family: var(--mono);
+    }
+
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .card .session-meta {
+      font-size: .82rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-bottom: 1.1rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 1.5rem 0 .6rem;
+      font-weight: 600;
+    }
+
+    .card h4 {
+      font-size: 1.0rem;
+      color: var(--text2);
+      margin: 1.2rem 0 .5rem;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: .7rem; }
+
+    /* ── Info / Callout boxes ── */
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .93rem;
+      margin: 1rem 0;
+      color: var(--text);
+    }
+    .info-box strong { color: var(--accent); }
+
+    .tip-box {
+      background: var(--yellow-lt);
+      border: 1px solid var(--yellow-br);
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .93rem;
+    }
+    .tip-box strong { color: #7a5800; }
+
+    .theorem {
+      background: var(--accent-lt);
+      border: 1px solid #b8c6e3;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+    }
+    .theorem .label {
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      margin-bottom: .2rem;
+    }
+
+    .fact {
+      background: var(--green-lt);
+      border: 1px solid #9ed1ac;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    /* ── Identity table ── */
+    table.identity {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .95rem;
+    }
+    table.identity th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      padding: .55rem .8rem;
+      font-family: var(--sans);
+    }
+    table.identity td {
+      padding: .55rem .8rem;
+      border-bottom: 1px solid var(--border);
+    }
+    table.identity tr:last-child td { border-bottom: none; }
+    table.identity tr:nth-child(even) td { background: #fafafa; }
+
+    /* ── Example blocks ── */
+    .example {
+      border-left: 3px solid var(--text2);
+      padding: .4rem 0 .4rem 1rem;
+      margin: 1.2rem 0;
+    }
+    .example .ex-label {
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-bottom: .3rem;
+    }
+    .example .ex-tag {
+      display: inline-block;
+      font-size: .7rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .1rem .5rem;
+      border-radius: 3px;
+      font-family: var(--mono);
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
+
+    /* ── Exercise list ── */
+    .exercises {
+      counter-reset: ex;
+      list-style: none;
+      padding-left: 0;
+      margin: .5rem 0;
+    }
+    .exercises li {
+      padding: .65rem 0 .65rem 2.3rem;
+      border-bottom: 1px dashed var(--border);
+      position: relative;
+      counter-increment: ex;
+    }
+    .exercises li:last-child { border-bottom: none; }
+    .exercises li::before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 0;
+      top: .72rem;
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .12rem .38rem;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    /* ── Answer key (collapsible) ── */
+    details.answer {
+      margin-top: .4rem;
+    }
+    details.answer > summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.answer > summary::-webkit-details-marker { display: none; }
+    details.answer > summary::before {
+      content: "▶ ";
+      display: inline-block;
+      transition: transform .2s;
+      font-size: .7rem;
+    }
+    details.answer[open] > summary::before {
+      transform: rotate(90deg);
+    }
+    details.answer[open] > summary { color: var(--green); }
+    details.answer .ans-body {
+      margin-top: .5rem;
+      padding: .7rem .9rem;
+      background: #fafafa;
+      border-left: 2px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: .93rem;
+    }
+
+    /* ── Table of contents ── */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .toc .toc-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: .25rem 0;
+      font-size: .92rem;
+    }
+    .toc ol li::before {
+      content: counter(toc) ". ";
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-right: .4rem;
+    }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border-color .2s, color .2s;
+    }
+    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .toc .dur {
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: .82rem;
+      margin-left: .4rem;
+    }
+
+    /* ── Bullets ── */
+    ul.tips {
+      margin: .5rem 0 .5rem 1.25rem;
+    }
+    ul.tips li {
+      margin-bottom: .35rem;
+    }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── Small screens ── */
+    @media (max-width: 580px) {
+      header { padding: 1.2rem 1.25rem 1.4rem; }
+      header h1 { font-size: 1.55rem; }
+      .card { padding: 1.2rem; }
+      .card h2 { font-size: 1.3rem; }
+      table.identity { font-size: .85rem; }
+      table.identity td, table.identity th { padding: .4rem .5rem; }
+    }
+
+    /* MathJax tweaks */
+    mjx-container { line-height: 0; }
+    mjx-container[jax="SVG"][display="true"] {
+      margin: .6em 0 !important;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Bahan Ajar Olimpiade Matematika</h1>
+  <p>Aljabar — Tingkat Kabupaten/Kota (KSN-K) · Pertemuan Pertama</p>
+  <div class="meta">SMAN 1 Boyolangu · 3 jam pelajaran</div>
+</header>
+
+<main>
+
+  <!-- ═══════════ TOC ═══════════ -->
+  <div class="toc">
+    <div class="toc-title">Struktur Materi</div>
+    <ol>
+      <li><a href="#tujuan">Tujuan Pembelajaran</a></li>
+      <li><a href="#sesi1">Sesi 1 — Identitas Aljabar &amp; Manipulasi</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi2">Sesi 2 — Polinomial &amp; Teorema Vieta</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi3">Sesi 3 — Pertidaksamaan AM-GM</a><span class="dur">40 min</span></li>
+      <li><a href="#gabungan">Latihan Gabungan</a><span class="dur">20 min</span></li>
+      <li><a href="#panduan">Panduan untuk Guru</a></li>
+    </ol>
+  </div>
+
+  <!-- ═══════════ TUJUAN ═══════════ -->
+  <div class="card" id="tujuan">
+    <h2>Tujuan Pembelajaran</h2>
+    <div class="session-meta">Prasyarat: operasi aljabar, pemfaktoran kuadrat, persamaan kuadrat</div>
+
+    <p>Setelah 3 jam pelajaran, siswa mampu:</p>
+    <ol style="margin-left:1.3rem">
+      <li>Mengenali &amp; menggunakan identitas aljabar dasar untuk memfaktorkan dan menyederhanakan.</li>
+      <li>Menerapkan Teorema Vieta untuk akar-akar polinomial derajat 2 dan 3.</li>
+      <li>Menggunakan ketaksamaan AM-GM untuk mencari nilai ekstrem dan bukti sederhana.</li>
+      <li>Mengenali pola-pola umum soal olimpiade tingkat KSN-K.</li>
+    </ol>
+  </div>
+
+  <!-- ═══════════ SESI 1 ═══════════ -->
+  <div class="card" id="sesi1">
+    <h2>Sesi 1 — Identitas Aljabar &amp; Manipulasi</h2>
+    <div class="session-meta">60 menit · Teori 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>1.1 Identitas Wajib Hafal</h3>
+    <p>Sebagian besar soal aljabar KSN-K dapat diselesaikan hanya dengan kombinasi identitas berikut. Minta siswa menyalin tabel ini ke buku catatan.</p>
+
+    <table class="identity">
+      <thead>
+        <tr><th style="width:45%">Bentuk</th><th>Faktorisasi / Ekspansi</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>$(a+b)^2$</td><td>$a^2 + 2ab + b^2$</td></tr>
+        <tr><td>$(a-b)^2$</td><td>$a^2 - 2ab + b^2$</td></tr>
+        <tr><td>$a^2 - b^2$</td><td>$(a-b)(a+b)$</td></tr>
+        <tr><td>$(a+b+c)^2$</td><td>$a^2+b^2+c^2+2(ab+bc+ca)$</td></tr>
+        <tr><td>$(a+b)^3$</td><td>$a^3 + 3a^2b + 3ab^2 + b^3$</td></tr>
+        <tr><td>$(a-b)^3$</td><td>$a^3 - 3a^2b + 3ab^2 - b^3$</td></tr>
+        <tr><td>$a^3 + b^3$</td><td>$(a+b)(a^2 - ab + b^2)$</td></tr>
+        <tr><td>$a^3 - b^3$</td><td>$(a-b)(a^2 + ab + b^2)$</td></tr>
+        <tr><td>$a^3 + b^3 + c^3 - 3abc$</td><td>$(a+b+c)(a^2+b^2+c^2 - ab - bc - ca)$</td></tr>
+        <tr><td>$a^4 + 4b^4$ <em style="color:var(--text2)">(Sophie Germain)</em></td><td>$(a^2 + 2b^2 + 2ab)(a^2 + 2b^2 - 2ab)$</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>💡 Tips mengajar:</strong> Tanyakan "Ada berapa cara menulis $a^2 - b^2$?" Biarkan siswa menjawab sebelum menulis faktorisasi. Ini membangun intuisi.
+    </div>
+
+    <h3>1.2 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 1</span>Kapan $n^4 + 4$ prima?</div>
+      <p><strong>Soal.</strong> Tentukan semua bilangan bulat positif $n$ sehingga $n^4 + 4$ adalah bilangan prima.</p>
+      <p><strong>Penyelesaian.</strong> Gunakan identitas Sophie Germain dengan $b = 1$:</p>
+      $$n^4 + 4 = (n^2 + 2n + 2)(n^2 - 2n + 2).$$
+      <p>Agar prima, salah satu faktor harus bernilai $1$. Perhatikan $n^2 + 2n + 2 = (n+1)^2 + 1 \ge 2$ untuk $n \ge 0$. Maka faktor yang mungkin sama dengan $1$ adalah</p>
+      $$n^2 - 2n + 2 = (n-1)^2 + 1 = 1 \;\;\Rightarrow\;\; n = 1.$$
+      <p>Cek: $n = 1 \Rightarrow 1 + 4 = 5$ (prima). ✓ Jadi <strong>$n = 1$</strong> adalah satu-satunya jawaban.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 2</span>Jumlah pangkat tiga saat $a+b+c=0$</div>
+      <p><strong>Soal.</strong> Jika $a + b + c = 0$, buktikan $a^3 + b^3 + c^3 = 3abc$.</p>
+      <p><strong>Penyelesaian.</strong> Gunakan identitas</p>
+      $$a^3 + b^3 + c^3 - 3abc = (a+b+c)(a^2+b^2+c^2-ab-bc-ca).$$
+      <p>Karena $a + b + c = 0$, ruas kanan bernilai $0$, sehingga $a^3 + b^3 + c^3 = 3abc$. $\blacksquare$</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 3</span>Teleskop</div>
+      <p><strong>Soal.</strong> Hitung $S = (2+1)(2^2+1)(2^4+1)(2^8+1)(2^{16}+1)$.</p>
+      <p><strong>Penyelesaian.</strong> Kalikan dan bagi dengan $(2 - 1) = 1$, lalu terapkan $a^2 - b^2 = (a-b)(a+b)$ secara berulang:</p>
+      $$S = (2-1)(2+1)(2^2+1)(2^4+1)(2^8+1)(2^{16}+1).$$
+      $$(2-1)(2+1) = 2^2-1;\quad (2^2-1)(2^2+1) = 2^4-1;\; \ldots$$
+      <p>Jadi $\boxed{S = 2^{32} - 1}$.</p>
+    </div>
+
+    <h3>1.3 Latihan Mandiri</h3>
+    <p style="font-size:.9rem;color:var(--text2)"><em>20 menit. Siswa kerjakan di buku, lalu 2 siswa menuliskan jawaban di papan.</em></p>
+
+    <ul class="exercises">
+      <li data-tag="L1.1">
+        Faktorkan $x^4 + x^2 + 1$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Tambah &amp; kurangi $x^2$: $x^4 + 2x^2 + 1 - x^2 = (x^2+1)^2 - x^2 = (x^2+x+1)(x^2-x+1)$.</div>
+        </details>
+      </li>
+      <li data-tag="L1.2">
+        Jika $x + y = 3$ dan $xy = 1$, hitung $x^3 + y^3$ dan $x^5 + y^5$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $x^3+y^3 = (x+y)^3 - 3xy(x+y) = 27 - 9 = 18$.<br>
+            Rekursi $s_{n+1} = (x+y)s_n - xy\,s_{n-1}$: $s_1=3,\ s_2=7,\ s_3=18,\ s_4=47,\ s_5=\mathbf{123}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.3">
+        Sederhanakan $(a-b)^3 + (b-c)^3 + (c-a)^3$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Karena $(a-b)+(b-c)+(c-a)=0$, gunakan $x^3+y^3+z^3=3xyz$ saat $x+y+z=0$. Hasilnya $3(a-b)(b-c)(c-a)$.</div>
+        </details>
+      </li>
+      <li data-tag="L1.4">
+        Hitung $\displaystyle\left(1-\tfrac{1}{4}\right)\left(1-\tfrac{1}{9}\right)\left(1-\tfrac{1}{16}\right)\cdots\left(1-\tfrac{1}{100}\right)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$1 - \tfrac{1}{k^2} = \tfrac{(k-1)(k+1)}{k^2}$. Produk teleskop menghasilkan $\displaystyle\frac{1}{2}\cdot\frac{11}{10} = \frac{101}{200}$.</div>
+        </details>
+      </li>
+      <li data-tag="L1.5">
+        Tunjukkan $\displaystyle\frac{a^2+b^2}{ab} \ge 2$ untuk $a, b > 0$, dengan kesamaan iff $a = b$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$\dfrac{a^2+b^2}{ab} - 2 = \dfrac{a^2 - 2ab + b^2}{ab} = \dfrac{(a-b)^2}{ab} \ge 0$. Sama dengan $0$ saat $a=b$. $\blacksquare$</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 2 ═══════════ -->
+  <div class="card" id="sesi2">
+    <h2>Sesi 2 — Polinomial &amp; Teorema Vieta</h2>
+    <div class="session-meta">60 menit · Konsep 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>2.1 Teorema Sisa, Teorema Faktor, dan Vieta</h3>
+
+    <div class="theorem">
+      <div class="label">Teorema Sisa</div>
+      Jika polinomial $P(x)$ dibagi $(x - a)$, sisanya adalah $P(a)$.
+    </div>
+
+    <div class="theorem">
+      <div class="label">Teorema Faktor</div>
+      $(x - a)$ adalah faktor dari $P(x)$ jika dan hanya jika $P(a) = 0$.
+    </div>
+
+    <h4>Vieta — Kuadrat</h4>
+    <p>Untuk $ax^2 + bx + c = 0$ dengan akar $\alpha, \beta$:</p>
+    $$\alpha + \beta = -\frac{b}{a}, \qquad \alpha\beta = \frac{c}{a}.$$
+
+    <h4>Vieta — Kubik</h4>
+    <p>Untuk $ax^3 + bx^2 + cx + d = 0$ dengan akar $\alpha, \beta, \gamma$:</p>
+    $$\alpha+\beta+\gamma = -\frac{b}{a}, \quad \alpha\beta + \alpha\gamma + \beta\gamma = \frac{c}{a}, \quad \alpha\beta\gamma = -\frac{d}{a}.$$
+
+    <div class="tip-box">
+      <strong>Power sums (Newton sederhana):</strong>
+      $$\alpha^2 + \beta^2 = (\alpha+\beta)^2 - 2\alpha\beta$$
+      $$\alpha^3 + \beta^3 = (\alpha+\beta)^3 - 3\alpha\beta(\alpha+\beta)$$
+      $$\frac{1}{\alpha} + \frac{1}{\beta} = \frac{\alpha+\beta}{\alpha\beta}, \qquad \frac{1}{\alpha^2} + \frac{1}{\beta^2} = \frac{\alpha^2+\beta^2}{(\alpha\beta)^2}$$
+    </div>
+
+    <h3>2.2 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 4</span>Dari akar ke bentuk simetrik</div>
+      <p><strong>Soal.</strong> $\alpha$ dan $\beta$ adalah akar $x^2 - 5x + 3 = 0$. Hitung:
+        (a) $\alpha^2 + \beta^2$; (b) $\alpha^3 + \beta^3$; (c) $\dfrac{1}{\alpha} + \dfrac{1}{\beta}$.</p>
+      <p><strong>Penyelesaian.</strong> Dari Vieta: $\alpha + \beta = 5,\ \alpha\beta = 3$.</p>
+      <p>(a) $\alpha^2 + \beta^2 = 5^2 - 2(3) = \mathbf{19}$.</p>
+      <p>(b) $\alpha^3 + \beta^3 = 5^3 - 3(3)(5) = 125 - 45 = \mathbf{80}$.</p>
+      <p>(c) $\dfrac{1}{\alpha} + \dfrac{1}{\beta} = \dfrac{\alpha+\beta}{\alpha\beta} = \dfrac{5}{3}$.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 5</span>Membentuk polinomial baru</div>
+      <p><strong>Soal.</strong> $\alpha, \beta, \gamma$ adalah akar $x^3 - 3x + 1 = 0$. Carilah polinomial berderajat 3 yang akar-akarnya $2\alpha, 2\beta, 2\gamma$.</p>
+      <p><strong>Penyelesaian.</strong> Jika $y$ akar baru, maka $y/2$ akar lama. Substitusi $x \to x/2$:</p>
+      $$\left(\frac{x}{2}\right)^3 - 3\left(\frac{x}{2}\right) + 1 = 0 \;\Longleftrightarrow\; \frac{x^3}{8} - \frac{3x}{2} + 1 = 0.$$
+      <p>Kali dengan $8$: $\quad\boxed{x^3 - 12x + 8 = 0}$.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 6</span>Jumlah kebalikan akar</div>
+      <p><strong>Soal.</strong> Akar-akar $x^3 - 6x^2 + 11x - 6 = 0$ adalah $a, b, c$. Hitung $\dfrac{1}{a} + \dfrac{1}{b} + \dfrac{1}{c}$.</p>
+      <p><strong>Penyelesaian.</strong> Dari Vieta: $a+b+c = 6,\ ab+ac+bc = 11,\ abc = 6$.</p>
+      $$\frac{1}{a} + \frac{1}{b} + \frac{1}{c} = \frac{ab+ac+bc}{abc} = \frac{11}{6}.$$
+    </div>
+
+    <h3>2.3 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L2.1">
+        Akar $x^3 - 2x^2 + 3x - 4 = 0$ adalah $p, q, r$. Hitung $p^2 + q^2 + r^2$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$p+q+r = 2,\ pq+pr+qr = 3$. Jadi $p^2+q^2+r^2 = 2^2 - 2(3) = \mathbf{-2}$.</div>
+        </details>
+      </li>
+      <li data-tag="L2.2">
+        Akar $2x^2 - 7x + 5 = 0$ adalah $\alpha, \beta$. Bentuk persamaan kuadrat dengan akar $\alpha^2, \beta^2$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$\alpha+\beta = \tfrac{7}{2},\ \alpha\beta = \tfrac{5}{2}$. Jadi $\alpha^2+\beta^2 = \tfrac{29}{4}$ dan $\alpha^2\beta^2 = \tfrac{25}{4}$. Persamaannya $\mathbf{4x^2 - 29x + 25 = 0}$.</div>
+        </details>
+      </li>
+      <li data-tag="L2.3">
+        Tentukan semua bilangan $a, b, c$ dengan $a+b+c=6,\ ab+bc+ca=11,\ abc=6$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Polinomial dengan akar $a,b,c$: $t^3 - 6t^2 + 11t - 6 = (t-1)(t-2)(t-3)$. Jadi $\{a,b,c\} = \mathbf{\{1,2,3\}}$.</div>
+        </details>
+      </li>
+      <li data-tag="L2.4">
+        $P(x) = x^3 + ax^2 + bx + c$. Jika $P(1)=1, P(2)=4, P(3)=9$, carilah $P(4)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Definisikan $Q(x) = P(x) - x^2$. $Q$ kubik dengan $Q(1)=Q(2)=Q(3)=0$ dan koefisien utama $1$, jadi $Q(x) = (x-1)(x-2)(x-3)$. Maka $P(4) = Q(4) + 16 = 6 + 16 = \mathbf{22}$.</div>
+        </details>
+      </li>
+      <li data-tag="L2.5">
+        Jika $\alpha$ akar $x^2 - x - 1 = 0$, buktikan $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$ untuk setiap $n \ge 0$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Dari $\alpha^2 - \alpha - 1 = 0$: $\alpha^2 = \alpha + 1$. Kalikan kedua ruas dengan $\alpha^n$: $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$. $\blacksquare$ <em>(Identitas Fibonacci dari rasio emas.)</em></div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 3 ═══════════ -->
+  <div class="card" id="sesi3">
+    <h2>Sesi 3 — Pertidaksamaan AM-GM</h2>
+    <div class="session-meta">40 menit · Konsep 12' → Contoh 15' → Latihan 13'</div>
+
+    <h3>3.1 Prinsip Dasar</h3>
+    <p>Semua ketaksamaan olimpiade berakar pada satu fakta:</p>
+
+    <div class="fact">
+      $x^2 \ge 0$ untuk setiap bilangan real $x$.<br>
+      <span style="font-size:.9rem;color:var(--text2)">Kesamaan iff $x = 0$.</span>
+    </div>
+
+    <h4>AM-GM (Aritmetik–Geometrik)</h4>
+    <p>Untuk $a, b \ge 0$:</p>
+    $$\frac{a+b}{2} \ge \sqrt{ab}, \qquad \text{kesamaan iff } a = b.$$
+    <p><strong>Bukti.</strong> $(\sqrt{a}-\sqrt{b})^2 \ge 0 \Rightarrow a - 2\sqrt{ab} + b \ge 0 \Rightarrow \frac{a+b}{2} \ge \sqrt{ab}$. $\blacksquare$</p>
+
+    <p>Versi tiga variabel ($a, b, c \ge 0$):</p>
+    $$\frac{a+b+c}{3} \ge \sqrt[3]{abc}.$$
+
+    <p>Versi umum $n$ variabel non-negatif:</p>
+    $$\frac{a_1 + a_2 + \cdots + a_n}{n} \ge \sqrt[n]{a_1 a_2 \cdots a_n}.$$
+
+    <div class="tip-box">
+      <strong>💡 Strategi:</strong> Bila soal mencampur jumlah dan hasil kali, curigai AM-GM. Tanyakan: <em>"Berapa variabel? Kapan sama dengan?"</em>
+    </div>
+
+    <h3>3.2 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 7</span>Minimum klasik</div>
+      <p><strong>Soal.</strong> Untuk $x > 0$, carilah nilai minimum dari $x + \dfrac{1}{x}$.</p>
+      <p><strong>Penyelesaian.</strong> AM-GM pada $x$ dan $1/x$:</p>
+      $$x + \frac{1}{x} \ge 2\sqrt{x \cdot \tfrac{1}{x}} = 2.$$
+      <p>Kesamaan saat $x = 1/x$, yaitu $x = 1$. Jadi minimum $= \mathbf{2}$ saat $x = 1$.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 8</span>Bukti sederhana</div>
+      <p><strong>Soal.</strong> Untuk $a, b, c > 0$ dengan $abc = 1$, buktikan $a + b + c \ge 3$.</p>
+      <p><strong>Penyelesaian.</strong> AM-GM tiga variabel:</p>
+      $$\frac{a+b+c}{3} \ge \sqrt[3]{abc} = \sqrt[3]{1} = 1.$$
+      <p>Jadi $a+b+c \ge 3$, kesamaan saat $a = b = c = 1$. $\blacksquare$</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 9</span>Sum of Squares (SOS)</div>
+      <p><strong>Soal.</strong> Buktikan $a^2 + b^2 + c^2 \ge ab + bc + ca$ untuk $a, b, c \in \mathbb{R}$.</p>
+      <p><strong>Penyelesaian.</strong></p>
+      $$2(a^2+b^2+c^2) - 2(ab+bc+ca) = (a-b)^2 + (b-c)^2 + (c-a)^2 \ge 0. \quad\blacksquare$$
+      <p style="font-size:.9rem;color:var(--text2)"><em>Catatan: valid untuk semua real, tidak perlu syarat non-negatif.</em></p>
+    </div>
+
+    <h3>3.3 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L3.1">
+        $a, b, c > 0$. Buktikan $(a+b)(b+c)(c+a) \ge 8abc$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">AM-GM tiap pasangan: $a+b \ge 2\sqrt{ab}$, dst. Kalikan ketiganya: $(a+b)(b+c)(c+a) \ge 8\sqrt{a^2b^2c^2} = 8abc$. $\blacksquare$</div>
+        </details>
+      </li>
+      <li data-tag="L3.2">
+        $x + y = 10$ dengan $x, y > 0$. Cari nilai maksimum $xy$. Lalu cari maksimum $x^2 y$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            AM-GM: $xy \le \left(\tfrac{x+y}{2}\right)^2 = 25$, maksimum $25$ saat $x=y=5$.<br>
+            Untuk $x^2 y$: terapkan AM-GM pada $\tfrac{x}{2}, \tfrac{x}{2}, y$ (jumlahnya $x+y=10$):
+            $\tfrac{x}{2}\cdot\tfrac{x}{2}\cdot y \le \left(\tfrac{10}{3}\right)^3 = \tfrac{1000}{27}$, jadi $x^2 y \le \mathbf{\tfrac{4000}{27}}$ saat $x=\tfrac{20}{3}, y=\tfrac{10}{3}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.3">
+        $x, y, z > 0$ dan $xyz = 8$. Cari minimum $x + y + z$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">AM-GM: $x+y+z \ge 3\sqrt[3]{xyz} = 3\cdot 2 = \mathbf{6}$, saat $x=y=z=2$.</div>
+        </details>
+      </li>
+      <li data-tag="L3.4">
+        Buktikan $(a+b+c)^2 \ge 3(ab+bc+ca)$ untuk $a, b, c \in \mathbb{R}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$(a+b+c)^2 - 3(ab+bc+ca) = a^2+b^2+c^2 - ab-bc-ca = \tfrac{1}{2}\left[(a-b)^2+(b-c)^2+(c-a)^2\right] \ge 0$. $\blacksquare$</div>
+        </details>
+      </li>
+      <li data-tag="L3.5">
+        $a, b, c > 0$. Buktikan $\dfrac{a}{b} + \dfrac{b}{c} + \dfrac{c}{a} \ge 3$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">AM-GM tiga var: $\dfrac{1}{3}\left(\dfrac{a}{b}+\dfrac{b}{c}+\dfrac{c}{a}\right) \ge \sqrt[3]{\dfrac{a}{b}\cdot\dfrac{b}{c}\cdot\dfrac{c}{a}} = \sqrt[3]{1} = 1$. $\blacksquare$</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ GABUNGAN ═══════════ -->
+  <div class="card" id="gabungan">
+    <h2>Latihan Gabungan — Mini Olimpiade</h2>
+    <div class="session-meta">20 menit · Pilih 3 dari 5 · Individu → diskusi singkat</div>
+
+    <ul class="exercises">
+      <li data-tag="G1">
+        Hitung $\displaystyle\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \frac{1}{3\cdot 4} + \cdots + \frac{1}{99 \cdot 100}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$\dfrac{1}{k(k+1)} = \dfrac{1}{k} - \dfrac{1}{k+1}$. Teleskop: $1 - \dfrac{1}{100} = \mathbf{\dfrac{99}{100}}$.</div>
+        </details>
+      </li>
+      <li data-tag="G2">
+        Faktorkan $x^5 + x + 1$ sebagai produk dua polinomial berkoefisien bulat.
+        <br><em style="color:var(--text2);font-size:.88rem">Hint: $x^2 + x + 1$ adalah salah satu faktor.</em>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $x^5 + x + 1 = x^5 - x^2 + x^2 + x + 1 = x^2(x^3 - 1) + (x^2+x+1)$ $= x^2(x-1)(x^2+x+1) + (x^2+x+1)$ $= \mathbf{(x^2+x+1)(x^3 - x^2 + 1)}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G3">
+        Akar-akar $x^3 - 9x^2 + 23x - 15 = 0$ adalah tiga bilangan bulat positif. Tentukan ketiganya.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Vieta: $a+b+c = 9,\ ab+ac+bc = 23,\ abc = 15$. Faktor bulat positif dari $15$: cek $\{1,3,5\}$: $1+3+5=9\ \checkmark$, $1\cdot3 + 1\cdot5 + 3\cdot 5 = 23\ \checkmark$. Jadi akar-akarnya $\mathbf{1, 3, 5}$.</div>
+        </details>
+      </li>
+      <li data-tag="G4">
+        $a + b + c = 6$ dan $a^2 + b^2 + c^2 = 14$. Carilah $ab + bc + ca$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$(a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca) \Rightarrow 36 = 14 + 2s \Rightarrow s = \mathbf{11}$. (Nilai unik — tidak ada maks/min berbeda.)</div>
+        </details>
+      </li>
+      <li data-tag="G5">
+        $a, b, c > 0$ dengan $a + b + c = 3$. Buktikan $a^2 + b^2 + c^2 \ge 3$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Dari $(a+b+c)^2 \le 3(a^2+b^2+c^2)$ (ekuivalen dengan L3.4): $9 \le 3(a^2+b^2+c^2) \Rightarrow a^2+b^2+c^2 \ge 3$, kesamaan saat $a=b=c=1$. $\blacksquare$</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ PANDUAN GURU ═══════════ -->
+  <div class="card" id="panduan">
+    <h2>Panduan untuk Guru Pemula</h2>
+    <div class="session-meta">Catatan pribadi · baca sebelum &amp; sesudah mengajar</div>
+
+    <h3>Sebelum Mengajar</h3>
+    <ul class="tips">
+      <li>Tulis ulang 10 identitas di papan tulis <strong>di luar kepala</strong> sekali sebelum kelas.</li>
+      <li>Siapkan spidol warna: biru untuk definisi, merah untuk "kunci soal", hitam untuk kerja.</li>
+      <li>Siapkan 1 soal cadangan per sesi — antisipasi waktu lebih cepat dari perkiraan.</li>
+    </ul>
+
+    <h3>Selama Mengajar</h3>
+    <ul class="tips">
+      <li><strong>Aturan 3 menit:</strong> setiap contoh, beri siswa 3 menit mencoba sendiri sebelum Anda menjelaskan.</li>
+      <li>Panggil siswa ke papan bergantian untuk Latihan Mandiri. Kenali nama mereka di minggu pertama.</li>
+      <li>Bila siswa salah, jangan langsung dikoreksi. Tanya: <em>"Dari mana kamu dapat langkah ini?"</em></li>
+      <li>Tiga pertanyaan kunci: <em>"Apa yang sudah kita punya? Apa yang kita cari? Identitas apa yang cocok?"</em></li>
+      <li>Istirahat 10 menit wajib — bukan opsional. Otak siswa olimpiade lelah, bukan fisiknya.</li>
+    </ul>
+
+    <h3>Setelah Mengajar</h3>
+    <ul class="tips">
+      <li>Beri 3 soal PR — cukup. Lebih baik sedikit-sedikit tapi tuntas.</li>
+      <li>Catat siapa yang menonjol. Bentuk grup kecil untuk tanya jawab.</li>
+      <li>Pertemuan berikutnya: lanjut ke Cauchy-Schwarz atau persamaan fungsional sederhana.</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:1.5rem">
+      <strong>Pesan penutup.</strong> Olimpiade bukan tentang menghafal identitas — tapi tentang melihat pola. Pertemuan pertama ini membangun "kamus" mereka. Kesabaran Anda sekarang adalah fondasi mereka nanti.
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Bahan ajar olimpiade · Aljabar KSN-K · SMAN 1 Boyolangu
+</footer>
+
+</body>
+</html>
