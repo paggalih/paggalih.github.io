@@ -6,515 +6,480 @@
   <title>Galih Pradananta — CV</title>
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500&family=Lora:ital,wght@0,400;0,500;1,400&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@300;400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet" />
   <style>
+    :root {
+      --bg:       #f5f4f0;
+      --card:     #ffffff;
+      --text:     #1a1a2e;
+      --text2:    #5a5a7a;
+      --accent:   #1e3a6e;
+      --accent-lt:#e8edf8;
+      --border:   #dde0e8;
+      --green:    #1a6b3c;
+      --green-lt: #d4edda;
+      --red:      #8b1a1a;
+      --red-lt:   #fde8e8;
+      --blue-lt:  #e8f0fd;
+      --mono:     'JetBrains Mono', 'Courier New', monospace;
+      --serif:    'Crimson Pro', Georgia, serif;
+      --sans:     'Inter', system-ui, sans-serif;
+    }
+
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    :root {
-      --bg:        #0c0f14;
-      --surface:   #13181f;
-      --border:    #1f2731;
-      --gold:      #c9a84c;
-      --gold-dim:  #7a5f28;
-      --text:      #d4cfc6;
-      --muted:     #5a6072;
-      --accent:    #3a7bd5;
-      --white:     #eeeae3;
-    }
-
     body {
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--text);
-      font-family: 'Lora', Georgia, serif;
-      font-size: 15px;
-      line-height: 1.7;
       min-height: 100vh;
+      line-height: 1.6;
     }
 
-    /* ── GRID BACKGROUND ── */
-    body::before {
-      content: '';
-      position: fixed; inset: 0;
-      background-image:
-        linear-gradient(rgba(201,168,76,.04) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(201,168,76,.04) 1px, transparent 1px);
-      background-size: 40px 40px;
-      pointer-events: none;
-      z-index: 0;
+    /* ── Header ── */
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
     }
 
-    .cv-wrapper {
-      position: relative;
-      z-index: 1;
-      max-width: 960px;
-      margin: 0 auto;
-      padding: 64px 24px;
-    }
-
-    /* ── HERO ── */
-    .hero {
-      display: grid;
-      grid-template-columns: 1fr auto;
-      gap: 32px;
-      align-items: start;
-      margin-bottom: 56px;
-      padding-bottom: 40px;
-      border-bottom: 1px solid var(--border);
-    }
-
-    .hero-name {
-      font-family: 'DM Serif Display', serif;
-      font-size: clamp(2.4rem, 6vw, 4rem);
-      font-weight: 400;
-      color: var(--white);
-      letter-spacing: -0.01em;
-      line-height: 1.05;
-    }
-
-    .hero-name em {
-      font-style: italic;
-      color: var(--gold);
-    }
-
-    .hero-tagline {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      letter-spacing: 0.15em;
-      text-transform: uppercase;
-      color: var(--gold);
-      margin-top: 10px;
-    }
-
-    .hero-about {
-      margin-top: 18px;
-      font-size: 14.5px;
-      color: var(--text);
-      max-width: 580px;
-      line-height: 1.75;
-    }
-
-    .hero-meta {
-      display: flex;
-      flex-direction: column;
-      gap: 6px;
-      align-items: flex-end;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11.5px;
-      color: var(--muted);
-      white-space: nowrap;
-    }
-
-    .hero-meta a {
-      color: var(--gold-dim);
+    header a.back {
+      color: rgba(255,255,255,.65);
       text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
       transition: color .2s;
     }
-    .hero-meta a:hover { color: var(--gold); }
+    header a.back:hover { color: #fff; }
 
-    /* ── SECTION ── */
-    .section {
-      margin-bottom: 52px;
-      opacity: 0;
-      transform: translateY(18px);
-      animation: fadeUp .6s ease forwards;
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header h1 em {
+      font-style: italic;
+      color: rgba(255,255,255,.75);
     }
 
-    .section:nth-child(2) { animation-delay: .05s; }
-    .section:nth-child(3) { animation-delay: .10s; }
-    .section:nth-child(4) { animation-delay: .15s; }
-    .section:nth-child(5) { animation-delay: .20s; }
-    .section:nth-child(6) { animation-delay: .25s; }
-    .section:nth-child(7) { animation-delay: .30s; }
-
-    @keyframes fadeUp {
-      to { opacity: 1; transform: translateY(0); }
-    }
-
-    .section-label {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .2em;
+    header p.tagline {
+      color: rgba(255,255,255,.7);
+      font-size: .82rem;
+      font-family: var(--mono);
+      letter-spacing: .08em;
       text-transform: uppercase;
-      color: var(--gold);
-      margin-bottom: 20px;
+      margin-top: .3rem;
+    }
+
+    .header-meta {
       display: flex;
-      align-items: center;
-      gap: 12px;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      margin-top: .9rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+    }
+    .header-meta a {
+      color: rgba(255,255,255,.85);
+      text-decoration: none;
+    }
+    .header-meta a:hover { color: #fff; text-decoration: underline; }
+
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 4rem;
     }
 
-    .section-label::after {
-      content: '';
-      flex: 1;
-      height: 1px;
-      background: var(--border);
+    /* ── Card ── */
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
     }
 
-    /* ── ENTRY CARD ── */
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── Info box ── */
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .8rem 1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .9rem;
+      color: var(--text2);
+      line-height: 1.75;
+    }
+    .info-box strong { color: var(--text); }
+    .info-box em { color: var(--text); font-style: italic; }
+
+    /* ── Entry ── */
     .entry {
       display: grid;
-      grid-template-columns: 140px 1fr;
-      gap: 0 28px;
-      padding: 22px 0;
-      border-bottom: 1px solid var(--border);
-      position: relative;
+      grid-template-columns: 130px 1fr;
+      gap: 0 1.25rem;
+      padding: 1.1rem 0;
+      border-bottom: 1px dashed var(--border);
     }
-
     .entry:last-child { border-bottom: none; }
 
     .entry-date {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .72rem;
+      color: var(--text2);
       padding-top: 3px;
-      line-height: 1.5;
+      line-height: 1.6;
     }
-
-    .entry-dot {
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: var(--gold);
-      margin-top: 7px;
-      flex-shrink: 0;
-      box-shadow: 0 0 8px var(--gold-dim);
-    }
-
-    .entry-right { display: flex; gap: 14px; }
-
-    .entry-body { flex: 1; }
 
     .entry-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--serif);
       font-size: 1.08rem;
-      color: var(--white);
-      font-weight: 400;
+      color: var(--text);
+      font-weight: 600;
     }
 
-    .entry-subtitle {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
+    .entry-sub {
+      font-family: var(--mono);
+      font-size: .72rem;
       color: var(--accent);
       margin-top: 3px;
-      letter-spacing: .04em;
+      letter-spacing: .03em;
     }
 
     .entry-desc {
-      margin-top: 8px;
-      font-size: 13.5px;
-      color: var(--text);
+      margin-top: 7px;
+      font-size: .875rem;
+      color: var(--text2);
       line-height: 1.7;
     }
+    .entry-desc ul { list-style: none; padding: 0; margin-top: 5px; }
+    .entry-desc ul li::before { content: '∙ '; color: var(--accent); }
+    .entry-desc em { color: var(--text); font-style: italic; }
 
-    .entry-desc ul {
-      list-style: none;
-      padding: 0;
-      margin-top: 6px;
-    }
-
-    .entry-desc ul li::before {
-      content: '∙ ';
-      color: var(--gold);
+    /* ── Badge ── */
+    .badge {
+      display: inline-block;
+      padding: .1rem .42rem;
+      border-radius: 3px;
+      font-size: .7rem;
+      font-weight: 600;
+      font-family: var(--sans);
+      vertical-align: middle;
+      margin-left: .35rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border: 1px solid #c5d3ec;
     }
 
     .tag {
       display: inline-block;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      letter-spacing: .06em;
-      color: var(--gold);
-      border: 1px solid var(--gold-dim);
-      border-radius: 2px;
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--text2);
+      border: 1px solid var(--border);
+      border-radius: 3px;
       padding: 1px 7px;
       margin-top: 6px;
       margin-right: 4px;
     }
 
-    /* ── PUBLICATIONS ── */
+    /* ── Publications ── */
     .pub-entry {
-      padding: 18px 0;
-      border-bottom: 1px solid var(--border);
+      padding: .9rem 0;
+      border-bottom: 1px dashed var(--border);
     }
-
     .pub-entry:last-child { border-bottom: none; }
 
     .pub-year {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10.5px;
-      color: var(--gold);
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--accent);
       margin-bottom: 4px;
+      letter-spacing: .03em;
     }
 
     .pub-title {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--serif);
       font-size: 1rem;
-      color: var(--white);
+      color: var(--text);
       font-style: italic;
-      font-weight: 400;
+      line-height: 1.45;
     }
 
     .pub-meta {
       margin-top: 4px;
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--text2);
     }
 
-    /* ── SKILLS GRID ── */
-    .skills-grid {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px;
-    }
-
-    .skill-chip {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      padding: 5px 12px;
-      border: 1px solid var(--border);
-      border-radius: 2px;
-      color: var(--text);
-      background: var(--surface);
-      transition: border-color .2s, color .2s;
-    }
-
-    .skill-chip:hover {
-      border-color: var(--gold-dim);
-      color: var(--gold);
-    }
-
-    /* ── AWARDS ── */
+    /* ── Awards ── */
     .award-row {
       display: flex;
       justify-content: space-between;
       align-items: baseline;
-      padding: 10px 0;
-      border-bottom: 1px solid var(--border);
-      gap: 16px;
+      padding: .65rem 0;
+      border-bottom: 1px dashed var(--border);
+      gap: 1rem;
     }
-
     .award-row:last-child { border-bottom: none; }
 
-    .award-name {
-      font-size: 13.5px;
-      color: var(--text);
-    }
+    .award-name { font-size: .875rem; color: var(--text); flex: 1; }
 
     .award-result {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--gold);
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--green);
+      background: var(--green-lt);
+      padding: .15rem .45rem;
+      border-radius: 3px;
       white-space: nowrap;
     }
 
     .award-year {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 10px;
-      color: var(--muted);
+      font-family: var(--mono);
+      font-size: .7rem;
+      color: var(--text2);
       white-space: nowrap;
+      min-width: 36px;
+      text-align: right;
     }
 
-    /* ── LANG ── */
+    /* ── Skills ── */
+    .skills-grid { display: flex; flex-wrap: wrap; gap: .45rem; }
+
+    .skill-chip {
+      font-family: var(--mono);
+      font-size: .75rem;
+      padding: .28rem .75rem;
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text2);
+      background: var(--bg);
+      transition: border-color .2s, color .2s, background .2s;
+      cursor: default;
+    }
+    .skill-chip:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+      background: var(--accent-lt);
+    }
+
+    /* ── Languages ── */
     .lang-row {
       display: flex;
-      gap: 32px;
-      margin-bottom: 12px;
+      align-items: baseline;
+      gap: 1.5rem;
+      padding: .6rem 0;
+      border-bottom: 1px dashed var(--border);
     }
+    .lang-row:last-child { border-bottom: none; }
 
     .lang-name {
-      font-family: 'DM Serif Display', serif;
+      font-family: var(--serif);
       font-size: 1rem;
-      color: var(--white);
-      min-width: 100px;
+      color: var(--text);
+      min-width: 90px;
     }
 
-    .lang-skills {
-      display: flex;
-      gap: 16px;
-      flex-wrap: wrap;
+    .lang-levels { display: flex; flex-wrap: wrap; gap: .35rem; }
+
+    .lang-pill {
+      font-family: var(--mono);
+      font-size: .7rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border: 1px solid #c5d3ec;
+      padding: .12rem .42rem;
+      border-radius: 3px;
     }
 
-    .lang-skill {
-      font-family: 'JetBrains Mono', monospace;
-      font-size: 11px;
-      color: var(--muted);
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .8rem;
+      border-top: 1px solid var(--border);
+      margin-top: 1rem;
     }
+    footer a { color: var(--accent); text-decoration: none; }
 
-    .lang-skill span {
-      color: var(--gold);
-      font-weight: 500;
-    }
-
-    /* ── RESPONSIVE ── */
-    @media (max-width: 600px) {
-      .hero { grid-template-columns: 1fr; }
-      .hero-meta { align-items: flex-start; }
-      .entry { grid-template-columns: 1fr; gap: 4px; }
-      .entry-date { padding-bottom: 6px; }
+    @media (max-width: 580px) {
+      .entry { grid-template-columns: 1fr; gap: 2px; }
+      .entry-date { padding-bottom: 4px; }
+      .award-row { flex-wrap: wrap; }
+      .lang-row { flex-direction: column; gap: .4rem; }
+      header { padding: 1.2rem; }
     }
   </style>
 </head>
 <body>
 
-<div class="cv-wrapper">
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Galih <em>Pradananta</em></h1>
+  <p class="tagline">Mathematician · Lecturer · PhD Candidate</p>
+  <div class="header-meta">
+    <span>Tulungagung, Indonesia</span>
+    <a href="mailto:g.pradananta@uinsatu.ac.id">g.pradananta@uinsatu.ac.id</a>
+    <a href="https://paggalih.github.io/" target="_blank">paggalih.github.io</a>
+    <a href="https://wa.me/6287756321764" target="_blank">WhatsApp</a>
+    <span>Born 24 Aug 1993</span>
+    <span>Passport E3966572</span>
+  </div>
+</header>
 
-  <!-- HERO -->
-  <header class="hero">
-    <div>
-      <h1 class="hero-name">Galih<br><em>Pradananta</em></h1>
-      <p class="hero-tagline">Mathematician · Lecturer · PhD Candidate</p>
-      <p class="hero-about">
-        Algebraist and computational mathematician. Cum laude ITB (M.Sc. 3.88 / B.Sc. 3.74).
-        Published in Elsevier and Springer. Research focus: minimal polynomials under matrix products,
-        algebraic coding theory, and cryptography. Seeking doctoral supervision at the intersection of
-        algebra, algorithms, and cryptography.
-      </p>
-    </div>
-    <div class="hero-meta">
-      <span>Tulungagung, Indonesia</span>
-      <a href="mailto:g.pradananta@uinsatu.ac.id">g.pradananta@uinsatu.ac.id</a>
-      <a href="https://paggalih.github.io/" target="_blank">paggalih.github.io</a>
-      <a href="https://wa.me/6287756321764" target="_blank">WhatsApp</a>
-      <span style="color:var(--muted);margin-top:8px">Born 24 Aug 1993</span>
-      <span style="color:var(--muted)">Passport E3966572</span>
-    </div>
-  </header>
+<main>
 
-  <!-- EDUCATION -->
-  <section class="section">
-    <div class="section-label">Education</div>
+  <div class="card">
+    <div class="card-title">About</div>
+    <div class="info-box">
+      <strong>Algebraist and computational mathematician.</strong> Cum laude degrees from Institut Teknologi Bandung
+      (M.Sc. GPA 3.88 / B.Sc. GPA 3.74). Research published in <em>Finite Fields and Their Applications</em> (Elsevier)
+      and Springer. Current focus: algebraic invariants — particularly minimal polynomials — under matrix products,
+      via both algebraic theory and algorithmic approaches. Seeking a doctoral program at the intersection of
+      <strong>algebra, algorithms, and cryptography</strong>.
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-title">Education</div>
 
     <div class="entry">
       <div class="entry-date">2017 – 2019</div>
-      <div class="entry-right">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-title">Master of Science — Mathematics</div>
-          <div class="entry-subtitle">Institut Teknologi Bandung · Cum Laude · GPA 3.88 / 4.0</div>
-          <div class="entry-desc">
-            Thesis: <em>Bases and Dimension for Twisted Centralizers Code</em>
-            <ul>
-              <li>Ring theory, module theory, group theory</li>
-              <li>Matrix analysis &amp; algebraic graph theory</li>
-              <li>Coding theory &amp; topology</li>
-            </ul>
-          </div>
+      <div>
+        <div class="entry-title">Master of Science — Mathematics <span class="badge">Cum Laude</span></div>
+        <div class="entry-sub">Institut Teknologi Bandung · GPA 3.88 / 4.0 · EQF Level 7</div>
+        <div class="entry-desc">
+          Thesis: <em>Bases and Dimension for Twisted Centralizers Code</em>
+          <ul>
+            <li>Ring theory, module theory, group theory</li>
+            <li>Matrix analysis &amp; algebraic graph theory</li>
+            <li>Coding theory &amp; topology</li>
+          </ul>
         </div>
       </div>
     </div>
 
     <div class="entry">
       <div class="entry-date">2012 – 2016</div>
-      <div class="entry-right">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-title">Bachelor of Science — Mathematics</div>
-          <div class="entry-subtitle">Institut Teknologi Bandung · Cum Laude · GPA 3.74 / 4.0</div>
-          <div class="entry-desc">
-            Thesis: <em>Construction of Cospectral k-Uniform Hypergraph</em>
-            <ul>
-              <li>Algebraic structures, linear algebra, number theory</li>
-              <li>Real &amp; complex analysis, probability, statistics</li>
-              <li>Numerical mathematics &amp; mathematical modelling</li>
-            </ul>
-          </div>
+      <div>
+        <div class="entry-title">Bachelor of Science — Mathematics <span class="badge">Cum Laude</span></div>
+        <div class="entry-sub">Institut Teknologi Bandung · GPA 3.74 / 4.0 · EQF Level 6 · 151 SKS</div>
+        <div class="entry-desc">
+          Thesis: <em>Construction of Cospectral k-Uniform Hypergraph</em>
+          <ul>
+            <li>Algebraic structures, linear algebra, number theory, discrete mathematics</li>
+            <li>Real &amp; complex analysis, multivariable calculus</li>
+            <li>Probability theory, statistics, numerical mathematics</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- WORK -->
-  <section class="section">
-    <div class="section-label">Work Experience</div>
+  <div class="card">
+    <div class="card-title">Work Experience</div>
 
     <div class="entry">
       <div class="entry-date">Dec 2020 – Present</div>
-      <div class="entry-right">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-title">Mathematics Lecturer</div>
-          <div class="entry-subtitle">UIN Sayyid Ali Rahmatullah Tulungagung (UIN SATU)</div>
-          <div class="entry-desc">
-            <ul>
-              <li>Teaches Statistics, Inferential Statistics, Financial Mathematics, Calculus</li>
-              <li>Supervises undergraduate theses and research projects</li>
-              <li>Builds interactive math tools and open educational resources</li>
-              <li>Leads editorial team of <em>Reinforce: Journal of Sharia Management</em></li>
-            </ul>
-          </div>
-          <span class="tag">Faculty of Economics &amp; Islamic Business</span>
+      <div>
+        <div class="entry-title">Mathematics Lecturer</div>
+        <div class="entry-sub">UIN Sayyid Ali Rahmatullah Tulungagung (UIN SATU)</div>
+        <div class="entry-desc">
+          <ul>
+            <li>Delivers lectures in Statistics, Inferential Statistics, Financial Mathematics, Calculus</li>
+            <li>Supervises undergraduate research projects and theses</li>
+            <li>Develops interactive math tools and open educational resources</li>
+            <li>Leads editorial team of <em>Reinforce: Journal of Sharia Management</em></li>
+            <li>Trains national-level mathematics olympiad competitors</li>
+          </ul>
         </div>
+        <span class="tag">Faculty of Economics &amp; Islamic Business</span>
       </div>
     </div>
 
     <div class="entry">
       <div class="entry-date">2017 – 2020</div>
-      <div class="entry-right">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-title">Academic Assistant</div>
-          <div class="entry-subtitle">Institut Teknologi Bandung</div>
-          <div class="entry-desc">
-            <ul>
-              <li>Tutored Calculus I &amp; II, Multivariable Calculus, Linear Algebra</li>
-              <li>Graded Matrix Analysis coursework for graduate students</li>
-              <li>Managed ITB's university-wide Calculus examination system</li>
-              <li>Supported the Mathematical Aids Center (MAC)</li>
-            </ul>
-          </div>
+      <div>
+        <div class="entry-title">Academic Assistant</div>
+        <div class="entry-sub">Institut Teknologi Bandung</div>
+        <div class="entry-desc">
+          <ul>
+            <li>Tutored Calculus I &amp; II, Multivariable Calculus, Linear Algebra, Vector Mathematics</li>
+            <li>Graded Matrix Analysis coursework for graduate students</li>
+            <li>Managed the university-wide Calculus examination system</li>
+            <li>Supported the Mathematical Aids Center (MAC)</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- PUBLICATIONS -->
-  <section class="section">
-    <div class="section-label">Publications</div>
+  <div class="card">
+    <div class="card-title">Publications</div>
 
     <div class="pub-entry">
-      <div class="pub-year">2026 · AIP Conference Proceedings</div>
+      <div class="pub-year">2026 · AIP Conference Proceedings · Vol. 3389, No. 1, p. 020025 · AIP Publishing</div>
       <div class="pub-title">Exploring the relationship between twisted centralizers and stabilizer codes for quantum error correction</div>
-      <div class="pub-meta">Pradananta, G. &amp; Erdkhadifa, R. — Vol. 3389, No. 1, p. 020025 · AIP Publishing</div>
+      <div class="pub-meta">Pradananta, G. &amp; Erdkhadifa, R.</div>
     </div>
 
     <div class="pub-entry">
-      <div class="pub-year">2025 · Riemann: Research of Mathematics and Mathematics Education</div>
+      <div class="pub-year">2025 · Riemann: Research of Mathematics and Mathematics Education · Vol. 7, Issue 1, pp. 20–35</div>
       <div class="pub-title">Data-driven insights for tourism development in East Java using directed graphs</div>
-      <div class="pub-meta">Pradananta, G. &amp; Dana, B.S. — Vol. 7, Issue 1, pp. 20–35</div>
+      <div class="pub-meta">Pradananta, G. &amp; Dana, B.S.</div>
     </div>
 
     <div class="pub-entry">
-      <div class="pub-year">2023 · Springer — Int. Symposium on Mathematical Analysis of Fractals and Dynamical Systems</div>
+      <div class="pub-year">2023 · Springer — Int. Symposium on Mathematical Analysis of Fractals and Dynamical Systems · pp. 307–321</div>
       <div class="pub-title">Neural Network in Elliptic Curve Cryptography</div>
-      <div class="pub-meta">Pradananta, G., Tama, Y.B.W., Muchtadi-Alamsyah, I., Paryasto, M. &amp; Yuliawan, F. — pp. 307–321</div>
+      <div class="pub-meta">Pradananta, G., Tama, Y.B.W., Muchtadi-Alamsyah, I., Paryasto, M. &amp; Yuliawan, F.</div>
     </div>
 
     <div class="pub-entry">
-      <div class="pub-year">2021 · Finite Fields and Their Applications — Elsevier</div>
+      <div class="pub-year">2021 · Finite Fields and Their Applications — Elsevier · Vol. 73, 101862</div>
       <div class="pub-title">On bases and the dimensions of twisted centralizer codes</div>
-      <div class="pub-meta">Muchlis, A., Pradananta, G., Astuti, P. &amp; Suprijanto, D. — Vol. 73, 101862</div>
+      <div class="pub-meta">Muchlis, A., Pradananta, G., Astuti, P. &amp; Suprijanto, D.</div>
     </div>
-  </section>
+  </div>
 
-  <!-- AWARDS -->
-  <section class="section">
-    <div class="section-label">Honours &amp; Awards</div>
+  <div class="card">
+    <div class="card-title">Honours &amp; Awards</div>
 
     <div class="award-row">
-      <span class="award-name">International Mathematics Competition (IMC), Bulgaria</span>
+      <span class="award-name">International Mathematics Competition (IMC), Bulgaria — UCL</span>
       <span class="award-result">Honorable Mention</span>
       <span class="award-year">2016</span>
     </div>
     <div class="award-row">
-      <span class="award-name">International Mathematics Competition (IMC), Bulgaria</span>
+      <span class="award-name">International Mathematics Competition (IMC), Bulgaria — UCL</span>
       <span class="award-result">Third Prize</span>
       <span class="award-year">2015</span>
     </div>
     <div class="award-row">
-      <span class="award-name">ONMIPA — National Mathematics Olympiad</span>
+      <span class="award-name">ONMIPA — National Mathematics &amp; Natural Sciences Olympiad</span>
       <span class="award-result">Silver Medal</span>
       <span class="award-year">2016</span>
     </div>
     <div class="award-row">
-      <span class="award-name">ONMIPA — National Mathematics Olympiad</span>
+      <span class="award-name">ONMIPA — National Mathematics &amp; Natural Sciences Olympiad</span>
       <span class="award-result">Silver Medal</span>
       <span class="award-year">2015</span>
     </div>
@@ -528,76 +493,74 @@
       <span class="award-result">Honorable Mention</span>
       <span class="award-year">2016</span>
     </div>
-  </section>
+  </div>
 
-  <!-- TRAINING -->
-  <section class="section">
-    <div class="section-label">Research Schools &amp; Training</div>
+  <div class="card">
+    <div class="card-title">Research Schools &amp; Training</div>
 
     <div class="entry">
       <div class="entry-date">Feb 2020</div>
-      <div class="entry-right">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-title">CIMPA Research School — Algebraic Geometry</div>
-          <div class="entry-subtitle">Universitas Gadjah Mada, Indonesia · 54 lecture hours</div>
-          <div class="entry-desc">
-            Coding theory, finite fields &amp; number theory, representation theory, Galois theory, modular forms.
-          </div>
+      <div>
+        <div class="entry-title">CIMPA — Algebraic Geometry (SEAMS-IMH-CIMPA)</div>
+        <div class="entry-sub">Universitas Gadjah Mada, Indonesia · 54 lecture hours</div>
+        <div class="entry-desc">
+          Coding theory, finite fields &amp; number theory, representation theory, Galois theory, modular forms.
         </div>
       </div>
     </div>
 
     <div class="entry">
       <div class="entry-date">Mar 2016</div>
-      <div class="entry-right">
-        <div class="entry-dot"></div>
-        <div class="entry-body">
-          <div class="entry-title">CIMPA Research School — Group Actions in Arithmetic and Geometry</div>
-          <div class="entry-subtitle">Vietnam Academy of Science and Technology, Hanoi</div>
-        </div>
+      <div>
+        <div class="entry-title">CIMPA — Group Actions in Arithmetic and Geometry</div>
+        <div class="entry-sub">Vietnam Academy of Science and Technology, Hanoi</div>
       </div>
     </div>
-  </section>
+  </div>
 
-  <!-- SKILLS -->
-  <section class="section">
-    <div class="section-label">Skills</div>
+  <div class="card">
+    <div class="card-title">Skills</div>
     <div class="skills-grid">
       <span class="skill-chip">Algebra &amp; Ring Theory</span>
       <span class="skill-chip">Coding Theory</span>
       <span class="skill-chip">Cryptography</span>
       <span class="skill-chip">Algorithm Design</span>
       <span class="skill-chip">Computational Mathematics</span>
+      <span class="skill-chip">Matrix Analysis</span>
       <span class="skill-chip">Mathematical Analysis</span>
       <span class="skill-chip">Statistics &amp; Econometrics</span>
       <span class="skill-chip">Olympiad Training</span>
-      <span class="skill-chip">Web-based Educational Tools</span>
       <span class="skill-chip">Scientific Publishing</span>
+      <span class="skill-chip">Web-based Educational Tools</span>
       <span class="skill-chip">LaTeX</span>
       <span class="skill-chip">Open Source / Web Dev</span>
+      <span class="skill-chip">Curriculum Development</span>
     </div>
-  </section>
+  </div>
 
-  <!-- LANGUAGE -->
-  <section class="section">
-    <div class="section-label">Languages</div>
+  <div class="card">
+    <div class="card-title">Languages</div>
     <div class="lang-row">
       <div class="lang-name">Indonesian</div>
-      <div class="lang-skills"><span class="lang-skill">Mother tongue</span></div>
+      <div class="lang-levels"><span class="lang-pill">Mother tongue</span></div>
     </div>
     <div class="lang-row">
       <div class="lang-name">English</div>
-      <div class="lang-skills">
-        <span class="lang-skill">Listening <span>C2</span></span>
-        <span class="lang-skill">Reading <span>C1</span></span>
-        <span class="lang-skill">Writing <span>C1</span></span>
-        <span class="lang-skill">Spoken Production <span>C1</span></span>
-        <span class="lang-skill">Spoken Interaction <span>C1</span></span>
+      <div class="lang-levels">
+        <span class="lang-pill">Listening C2</span>
+        <span class="lang-pill">Reading C1</span>
+        <span class="lang-pill">Writing C1</span>
+        <span class="lang-pill">Spoken Production C1</span>
+        <span class="lang-pill">Spoken Interaction C1</span>
       </div>
     </div>
-  </section>
+  </div>
 
-</div>
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a>
+</footer>
+
 </body>
 </html>
