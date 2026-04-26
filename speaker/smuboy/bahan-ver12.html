@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bahan Olimpiade Matematika — SMAN 1 Boyolangu</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+<script>
+MathJax = {
+  tex: {
+    inlineMath: [['$', '$'], ['\\(', '\\)']],
+    displayMath: [['$$', '$$'], ['\\[', '\\]']]
+  },
+  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
+};
+</script>
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
+
+<style>
+  :root {
+    --ink: #0f1117;
+    --paper: #faf9f6;
+    --accent: #c0392b;
+    --gold: #b8860b;
+    --navy: #1a2744;
+    --muted: #6b7080;
+    --rule: #d4cfc6;
+    --highlight: #fff9e6;
+    --code-bg: #f0ede6;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: 'Source Serif 4', Georgia, serif; background: var(--paper); color: var(--ink); font-size: 15px; line-height: 1.75; }
+  mjx-container[display="true"] { margin: 10px 0 !important; overflow-x: auto; }
+
+  .masthead { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
+  .masthead::before { content: ''; position: absolute; top:0; right:0; width:400px; height:100%; background: repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(255,255,255,.03) 18px,rgba(255,255,255,.03) 36px); }
+  .masthead-inner { max-width:860px; margin:0 auto; padding:48px 40px 40px; display:grid; grid-template-columns:1fr auto; align-items:end; gap:24px; }
+  .tag { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#8fa0c8; margin-bottom:12px; }
+  h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:900; line-height:1.1; color:#fff; }
+  h1 span { color:#f0c040; }
+  .meta { font-size:13px; color:#8fa0c8; margin-top:14px; display:flex; gap:24px; flex-wrap:wrap; }
+  .meta b { color:#d4dcf0; }
+  .badge { background:var(--accent); color:#fff; font-family:'JetBrains Mono',monospace; font-size:11px; padding:6px 14px; border-radius:4px; white-space:nowrap; align-self:flex-start; margin-top:4px; letter-spacing:.08em; }
+
+  .schedule-strip { background:var(--accent); color:#fff; display:flex; justify-content:center; }
+  .sched-item { padding:12px 28px; text-align:center; border-right:1px solid rgba(255,255,255,.25); flex:1; max-width:200px; }
+  .sched-item:last-child { border-right:none; }
+  .sched-num { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; display:block; }
+  .sched-label { font-size:10px; opacity:.85; letter-spacing:.1em; text-transform:uppercase; }
+
+  .content { max-width:860px; margin:0 auto; padding:48px 40px 80px; }
+
+  .session { margin-bottom:60px; }
+  .session-header { display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; padding-bottom:16px; border-bottom:2.5px solid var(--navy); }
+  .session-num { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--rule); line-height:1; min-width:64px; }
+  .session-info { flex:1; }
+  .session-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--navy); line-height:1.2; }
+  .session-sub { font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace; letter-spacing:.1em; margin-top:4px; }
+  .session-time { font-family:'JetBrains Mono',monospace; font-size:11px; background:var(--navy); color:#fff; padding:4px 10px; border-radius:3px; white-space:nowrap; align-self:flex-start; margin-top:8px; }
+
+  .topics { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
+  .topic-tag { background:var(--code-bg); border:1px solid var(--rule); padding:4px 12px; border-radius:20px; font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--navy); }
+
+  .theory { background:var(--navy); color:#e8edf8; border-radius:6px; padding:20px 24px; margin-bottom:28px; }
+  .theory h4 { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#8fa0c8; margin-bottom:12px; }
+  .theory ul { padding-left:20px; }
+  .theory li { margin-bottom:8px; font-size:14px; line-height:1.8; }
+  .theory strong { color:#f0c040; }
+  .theory mjx-container { color:#d4e0ff !important; }
+
+  .example-block { margin-bottom:20px; }
+  .example-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
+  .ex-badge { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; background:var(--accent); color:#fff; padding:2px 8px; border-radius:3px; }
+  .example-q { background:#fff; border:1px solid var(--rule); border-left:4px solid var(--accent); padding:14px 18px; border-radius:0 4px 4px 0; font-size:14.5px; }
+  .solution { background:var(--highlight); border:1px solid #e8d98a; border-top:none; padding:14px 18px; font-size:13.5px; color:#3a3000; border-radius:0 0 4px 4px; line-height:1.9; }
+  .solution-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; color:#8a7200; margin-bottom:8px; text-transform:uppercase; }
+
+  .exercise-block { background:#f5f3ef; border:1px solid var(--rule); border-radius:6px; padding:20px 24px; margin-top:24px; }
+  .exercise-block h4 { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
+  .ex-list { counter-reset:ex; list-style:none; padding:0; }
+  .ex-list li { counter-increment:ex; display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:14px; align-items:flex-start; }
+  .ex-list li:last-child { border-bottom:none; }
+  .ex-list li::before { content:counter(ex,decimal-leading-zero); font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); min-width:24px; margin-top:3px; flex-shrink:0; }
+  .difficulty { font-size:10px; font-family:'JetBrains Mono',monospace; padding:2px 6px; border-radius:2px; flex-shrink:0; margin-top:3px; }
+  .easy { background:#d4edda; color:#155724; }
+  .med  { background:#fff3cd; color:#856404; }
+  .hard { background:#f8d7da; color:#721c24; }
+
+  .section-rule { border:none; border-top:1px solid var(--rule); margin:40px 0; }
+
+  .rundown-table { width:100%; border-collapse:collapse; margin-bottom:40px; font-size:13.5px; }
+  .rundown-table th { background:var(--navy); color:#8fa0c8; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:10px 16px; text-align:left; font-weight:400; }
+  .rundown-table td { padding:10px 16px; border-bottom:1px solid var(--rule); vertical-align:top; }
+  .rundown-table tr:nth-child(even) td { background:rgba(0,0,0,.02); }
+  .time-col { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+
+  footer { text-align:center; padding:32px; font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace; border-top:1px solid var(--rule); }
+
+  @media print {
+    .masthead, .schedule-strip, .theory { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
+    .session { page-break-inside:avoid; }
+  }
+</style>
+</head>
+<body>
+
+<header class="masthead">
+  <div class="masthead-inner">
+    <div>
+      <div class="tag">Modul Pembinaan · UIN SATU Tulungagung</div>
+      <h1>Olimpiade<br><span>Matematika</span></h1>
+      <div class="meta">
+        <span><b>Tempat</b> SMAN 1 Boyolangu</span>
+        <span><b>Durasi</b> 3 Jam</span>
+        <span><b>Level</b> Campur (Pemula–Menengah)</span>
+      </div>
+    </div>
+    <div class="badge">OSN · SMA</div>
+  </div>
+</header>
+
+<div class="schedule-strip">
+  <div class="sched-item"><span class="sched-num">60'</span><span class="sched-label">Teori Bilangan</span></div>
+  <div class="sched-item"><span class="sched-num">60'</span><span class="sched-label">Aljabar</span></div>
+  <div class="sched-item"><span class="sched-num">60'</span><span class="sched-label">Kombinatorik</span></div>
+</div>
+
+<div class="content">
+
+  <table class="rundown-table">
+    <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Catatan</th></tr></thead>
+    <tbody>
+      <tr><td class="time-col">00:00–00:10</td><td><b>Pembukaan &amp; ice-breaking soal</b></td><td>Ukur level kelas spontan</td></tr>
+      <tr><td class="time-col">00:10–01:05</td><td><b>Sesi 1 — Teori Bilangan</b></td><td>Teori 15', contoh 25', latihan 15'</td></tr>
+      <tr><td class="time-col">01:05–01:10</td><td>Istirahat singkat</td><td>—</td></tr>
+      <tr><td class="time-col">01:10–02:05</td><td><b>Sesi 2 — Aljabar &amp; Pertidaksamaan</b></td><td>Teori 15', contoh 25', latihan 15'</td></tr>
+      <tr><td class="time-col">02:05–02:10</td><td>Istirahat singkat</td><td>—</td></tr>
+      <tr><td class="time-col">02:10–03:00</td><td><b>Sesi 3 — Kombinatorik</b></td><td>Teori 10', contoh 20', kompetisi mini 20'</td></tr>
+    </tbody>
+  </table>
+
+  <!-- ═══ SESI 1 ═══ -->
+  <div class="session">
+    <div class="session-header">
+      <div class="session-num">01</div>
+      <div class="session-info">
+        <div class="session-title">Teori Bilangan</div>
+        <div class="session-sub">NUMBER THEORY — FONDASI OLIMPIADE</div>
+      </div>
+      <div class="session-time">00:10 – 01:05</div>
+    </div>
+    <div class="topics">
+      <span class="topic-tag">Keterbagian</span>
+      <span class="topic-tag">FPB &amp; KPK</span>
+      <span class="topic-tag">Aritmetika Modular</span>
+      <span class="topic-tag">Bilangan Prima</span>
+    </div>
+    <div class="theory">
+      <h4>Konsep Kunci</h4>
+      <ul>
+        <li><strong>Keterbagian:</strong> $a \mid b \iff \exists\, k \in \mathbb{Z}$ sehingga $b = ka$</li>
+        <li><strong>Algoritma Euclid:</strong> $\gcd(a,b) = \gcd(b,\, a \bmod b)$. &nbsp; Berlaku: $\gcd(a,b) \times \text{lcm}(a,b) = a \times b$</li>
+        <li><strong>Kongruensi:</strong> $a \equiv b \pmod{m} \iff m \mid (a - b)$. Boleh dijumlah, dikurang, dikali — tidak langsung dibagi.</li>
+        <li><strong>Fermat Kecil:</strong> Jika $p$ prima dan $p \nmid a$, maka $a^{p-1} \equiv 1 \pmod{p}$</li>
+        <li><strong>Banyak faktor:</strong> Jika $n = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}$, maka $\tau(n) = (a_1+1)(a_2+1)\cdots(a_k+1)$</li>
+      </ul>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 1</span><span>Mudah — Pembuka kelas</span></div>
+      <div class="example-q">Tunjukkan bahwa untuk setiap bilangan bulat $n$, ekspresi $n^2 + n$ selalu genap.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Faktorkan: $n^2 + n = n(n+1)$.<br>
+        Karena $n$ dan $n+1$ adalah dua bilangan bulat berurutan, salah satunya pasti genap. Hasil kalinya pasti genap. $\blacksquare$
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 2</span><span>Menengah — Aritmetika modular</span></div>
+      <div class="example-q">Tentukan sisa pembagian $2^{100}$ oleh $7$.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Cari pola pangkat $2 \pmod{7}$:
+        $$2^1 \equiv 2,\quad 2^2 \equiv 4,\quad 2^3 \equiv 8 \equiv 1 \pmod{7}$$
+        Periodenya $3$. Karena $100 = 33 \times 3 + 1$:
+        $$2^{100} = (2^3)^{33} \cdot 2^1 \equiv 1^{33} \cdot 2 \equiv \mathbf{2} \pmod{7} \qquad\blacksquare$$
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 3</span><span>OSN level — Bilangan prima</span></div>
+      <div class="example-q">Tentukan semua bilangan prima $p$ sehingga $p^2 + 2$ juga merupakan bilangan prima.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Cek kecil: $p=2 \Rightarrow p^2+2=6$ (bukan prima). $p=3 \Rightarrow p^2+2=11$ ✓<br><br>
+        Untuk $p > 3$: setiap prima $p > 3$ memenuhi $p \equiv 1$ atau $2 \pmod{3}$, sehingga $p^2 \equiv 1 \pmod{3}$, dan:
+        $$p^2 + 2 \equiv 1 + 2 \equiv 0 \pmod{3}$$
+        Jadi $3 \mid (p^2+2)$ dan $p^2+2 > 3$, bukan prima.<br><br>
+        <strong>Jawaban: $p = 3$ satu-satunya.</strong> $\blacksquare$
+      </div>
+    </div>
+
+    <div class="exercise-block">
+      <h4>Soal Latihan Sesi 1</h4>
+      <ul class="ex-list">
+        <li><span class="difficulty easy">★☆☆</span><span>Tentukan digit terakhir dari $7^{2023}$.</span></li>
+        <li><span class="difficulty easy">★☆☆</span><span>Berapa banyak faktor positif dari $360$?&ensp;<em>(Petunjuk: $360 = 2^3 \cdot 3^2 \cdot 5$)</em></span></li>
+        <li><span class="difficulty med">★★☆</span><span>Tentukan semua pasangan bilangan bulat positif $(a,b)$ dengan $\gcd(a,b) = 6$ dan $\text{lcm}(a,b) = 60$.</span></li>
+        <li><span class="difficulty hard">★★★</span><span>Buktikan bahwa $5^n - 4n - 1$ habis dibagi $16$ untuk setiap bilangan bulat positif $n$. <em>(Induksi atau ekspansi binomial)</em></span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ═══ SESI 2 ═══ -->
+  <div class="session">
+    <div class="session-header">
+      <div class="session-num">02</div>
+      <div class="session-info">
+        <div class="session-title">Aljabar &amp; Pertidaksamaan</div>
+        <div class="session-sub">ALGEBRA & INEQUALITIES — SENJATA UTAMA</div>
+      </div>
+      <div class="session-time">01:10 – 02:05</div>
+    </div>
+    <div class="topics">
+      <span class="topic-tag">AM-GM</span>
+      <span class="topic-tag">Manipulasi Aljabar</span>
+      <span class="topic-tag">Substitusi Cerdas</span>
+      <span class="topic-tag">Optimasi</span>
+    </div>
+    <div class="theory">
+      <h4>Konsep Kunci</h4>
+      <ul>
+        <li><strong>AM-GM 2 variabel:</strong> Untuk $a, b \geq 0$,&ensp; $\dfrac{a+b}{2} \geq \sqrt{ab}$,&ensp; kesetaraan saat $a = b$</li>
+        <li><strong>AM-GM 3 variabel:</strong> $\dfrac{a+b+c}{3} \geq \sqrt[3]{abc}$,&ensp; kesetaraan saat $a = b = c$</li>
+        <li><strong>Cauchy-Schwarz:</strong> $(a^2+b^2)(x^2+y^2) \geq (ax+by)^2$</li>
+        <li><strong>Identitas penting:</strong>&ensp;
+          $(a+b)^2 = a^2+2ab+b^2$;&ensp;
+          $a^3+b^3 = (a+b)(a^2-ab+b^2)$;&ensp;
+          $a^2-b^2 = (a+b)(a-b)$
+        </li>
+      </ul>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 1</span><span>Mudah — Substitusi identitas</span></div>
+      <div class="example-q">Jika $x + \dfrac{1}{x} = 3$, tentukan nilai $x^2 + \dfrac{1}{x^2}$.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Kuadratkan kedua ruas:
+        $$\left(x + \frac{1}{x}\right)^2 = 9 \implies x^2 + 2 + \frac{1}{x^2} = 9$$
+        $$\therefore\quad x^2 + \frac{1}{x^2} = \mathbf{7} \qquad\blacksquare$$
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 2</span><span>Menengah — Optimasi dengan AM-GM</span></div>
+      <div class="example-q">Jika $a, b > 0$ dan $a + b = 1$, tentukan nilai minimum $a^2 + b^2$.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        $$a^2 + b^2 = (a+b)^2 - 2ab = 1 - 2ab$$
+        Meminimumkan $a^2+b^2$ ekuivalen memaksimumkan $ab$. Dengan AM-GM:
+        $$ab \leq \left(\frac{a+b}{2}\right)^2 = \frac{1}{4}$$
+        kesetaraan saat $a = b = \tfrac{1}{2}$. Jadi:
+        $$\min(a^2+b^2) = 1 - 2 \cdot \frac{1}{4} = \mathbf{\frac{1}{2}} \qquad\blacksquare$$
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 3</span><span>OSN level — Tiga variabel</span></div>
+      <div class="example-q">Untuk $a, b, c > 0$ dengan $a + b + c = 3$, buktikan bahwa $ab + bc + ca \leq 3$.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Dari identitas $(a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca)$:
+        $$9 = a^2+b^2+c^2 + 2(ab+bc+ca)$$
+        Karena $a^2+b^2+c^2 \geq ab+bc+ca$ (diperoleh dari AM-GM per pasang), maka:
+        $$9 \geq 3(ab+bc+ca) \implies ab+bc+ca \leq 3 \qquad\blacksquare$$
+        <em>Kesetaraan saat $a = b = c = 1$.</em>
+      </div>
+    </div>
+
+    <div class="exercise-block">
+      <h4>Soal Latihan Sesi 2</h4>
+      <ul class="ex-list">
+        <li><span class="difficulty easy">★☆☆</span><span>Jika $a + b = 5$ dan $ab = 6$, tentukan $a^3 + b^3$.</span></li>
+        <li><span class="difficulty easy">★☆☆</span><span>Untuk $x, y > 0$ dengan $xy = 1$, buktikan $x + y \geq 2$.</span></li>
+        <li><span class="difficulty med">★★☆</span><span>Tentukan nilai minimum $x^2 + 4y^2$ jika $x + 2y = 6$ dan $x, y > 0$.</span></li>
+        <li><span class="difficulty hard">★★★</span><span>Untuk bilangan real $a, b, c$ dengan $a+b+c=0$, buktikan $a^3+b^3+c^3 = 3abc$.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <!-- ═══ SESI 3 ═══ -->
+  <div class="session">
+    <div class="session-header">
+      <div class="session-num">03</div>
+      <div class="session-info">
+        <div class="session-title">Kombinatorik</div>
+        <div class="session-sub">COMBINATORICS — SENI MENGHITUNG</div>
+      </div>
+      <div class="session-time">02:10 – 03:00</div>
+    </div>
+    <div class="topics">
+      <span class="topic-tag">Prinsip Dasar</span>
+      <span class="topic-tag">Permutasi &amp; Kombinasi</span>
+      <span class="topic-tag">Pigeonhole</span>
+      <span class="topic-tag">Kompetisi Mini</span>
+    </div>
+    <div class="theory">
+      <h4>Konsep Kunci</h4>
+      <ul>
+        <li><strong>Aturan Perkalian:</strong> Jika langkah 1 ada $m$ cara dan langkah 2 ada $n$ cara (independen), totalnya $mn$ cara.</li>
+        <li><strong>Kombinasi:</strong> $\dbinom{n}{r} = \dfrac{n!}{r!\,(n-r)!}$ — memilih $r$ dari $n$ tanpa urutan.</li>
+        <li><strong>Permutasi:</strong> $P(n,r) = \dfrac{n!}{(n-r)!}$ — memilih $r$ dari $n$ dengan urutan.</li>
+        <li><strong>Prinsip Pigeonhole:</strong> Jika $n+1$ objek dimasukkan ke $n$ kotak, ada minimal satu kotak berisi $\geq 2$ objek.</li>
+        <li><strong>Binomial:</strong> $\displaystyle\sum_{r=0}^{n}\binom{n}{r} = 2^n$</li>
+      </ul>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 1</span><span>Mudah — Kombinasi dasar</span></div>
+      <div class="example-q">Dari 10 orang, berapa cara memilih panitia yang terdiri dari 3 orang?</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        $$\binom{10}{3} = \frac{10!}{3!\cdot 7!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = \mathbf{120} \text{ cara} \qquad\blacksquare$$
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 2</span><span>Menengah — Prinsip Pigeonhole</span></div>
+      <div class="example-q">Dalam sebuah kelas berisi 13 siswa, buktikan bahwa minimal ada 2 siswa yang lahir pada bulan yang sama.</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Ada $12$ bulan (kotak) dan $13$ siswa (objek). Karena $13 > 12$, Prinsip Pigeonhole menjamin setidaknya satu bulan memuat $\geq 2$ siswa. $\blacksquare$
+      </div>
+    </div>
+
+    <div class="example-block">
+      <div class="example-header"><span class="ex-badge">CONTOH 3</span><span>OSN level — Counting dengan syarat</span></div>
+      <div class="example-q">Berapa banyak bilangan 4 digit (angka pertama $\neq 0$) yang semua digit-digitnya berbeda?</div>
+      <div class="solution">
+        <div class="solution-label">Solusi</div>
+        Digit pertama ($1$–$9$): $9$ pilihan. Digit kedua ($0$–$9$ kecuali digit pertama): $9$ pilihan. Digit ke-3: $8$. Digit ke-4: $7$.
+        $$\text{Total} = 9 \times 9 \times 8 \times 7 = \mathbf{4.536} \qquad\blacksquare$$
+      </div>
+    </div>
+
+    <div class="exercise-block" style="border-color:var(--accent); border-width:2px;">
+      <h4 style="color:var(--accent);">🏆 Kompetisi Mini — 20 Menit Terakhir</h4>
+      <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">Kerjakan mandiri. Siapa selesai paling cepat dengan benar, menang.</p>
+      <ul class="ex-list">
+        <li><span class="difficulty easy">★☆☆</span><span>Dalam 25 bilangan bulat, buktikan ada 2 bilangan yang selisihnya habis dibagi $24$.</span></li>
+        <li><span class="difficulty med">★★☆</span><span>Dari 8 titik pada lingkaran (tidak ada 3 yang kolinear dari dalam), berapa banyak segitiga yang dapat dibentuk?</span></li>
+        <li><span class="difficulty med">★★☆</span><span>Berapa banyak susunan huruf dari kata <em>"MATEMATIKA"</em>? (Perhatikan huruf yang berulang)</span></li>
+        <li><span class="difficulty hard">★★★</span><span>Di pesta dengan $n$ orang, setiap dua orang berjabat tangan tepat sekali. Tunjukkan total jabat tangan adalah $\dbinom{n}{2}$. Hitung untuk $n = 10$.</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <hr class="section-rule">
+
+  <div style="background:var(--navy); color:#e8edf8; border-radius:8px; padding:28px 32px;">
+    <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; color:#8fa0c8; margin-bottom:14px; text-transform:uppercase;">Tips untuk Pengajar</div>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13.5px;">
+      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Pembuka yang Kuat</div>Mulai dengan satu soal mudah di papan tulis. Biarkan siswa jawab spontan untuk ukur level kelas.</div>
+      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Kelola Perbedaan Level</div>Soal ★☆☆ untuk semua. Soal ★★☆ untuk yang selesai cepat. Soal ★★★ sebagai tantangan PR.</div>
+      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Pendekatan "Salah itu Bagus"</div>Saat siswa salah, tanya: <em>"Strategimu apa?"</em> Proses berpikir lebih penting dari jawaban akhir.</div>
+      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Kompetisi Mini Penutup</div>Akhiri dengan kompetisi kecil — beri semangat, bukan tekanan. Suasana menyenangkan = siswa mau kembali.</div>
+    </div>
+  </div>
+
+</div>
+
+<footer>OLIMPIADE MATEMATIKA · SMAN 1 BOYOLANGU · UIN SATU TULUNGAGUNG</footer>
+</body>
+</html>
