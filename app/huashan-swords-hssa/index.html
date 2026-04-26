@@ -81,6 +81,7 @@
     /* ── Results ── */
     .result-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-bottom: 1.25rem; }
     @media (max-width:580px) { .result-grid { grid-template-columns: 1fr; } }
+    @media (max-width:640px) { #cost-breakdown { grid-template-columns: repeat(2, 1fr) !important; } }
     .result-card { background: var(--bg); border: 1px solid var(--border); border-radius: 8px; padding: 1rem; text-align: center; }
     .result-card .label { font-size: .75rem; font-weight: 600; text-transform: uppercase; letter-spacing: .06em; color: var(--text2); margin-bottom: .3rem; }
     .result-card .value { font-family: var(--mono); font-size: 1.4rem; font-weight: 500; color: var(--accent); }
@@ -195,6 +196,83 @@
       </div>
     </div>
 
+    <!-- ── Vehicle Cost Parameters ── -->
+    <details style="margin-top:1rem; border:1px solid var(--border); border-radius:8px; padding:.75rem 1rem; background:var(--bg);">
+      <summary style="cursor:pointer; font-size:.78rem; font-weight:600; text-transform:uppercase; letter-spacing:.06em; color:var(--accent); user-select:none;">
+        Vehicle Cost &amp; Emission Parameters ▾
+      </summary>
+      <div style="margin-top:.75rem">
+        <div class="info-box" style="font-size:.8rem; margin-bottom:.75rem">
+          Values from <strong>Table 6 &amp; 21</strong> of the paper. Owned costs = operating + daily acquisition.
+          Rental uses either fixed fee or per-km rate depending on scheme.
+        </div>
+
+        <div style="font-size:.82rem; font-weight:600; color:var(--green); margin-bottom:.4rem;">⚡ Owned Electric Vehicles</div>
+        <div class="form-row-3">
+          <div>
+            <label class="field-label">Op. Cost (CNY/km)</label>
+            <input type="number" id="ev-op-cost" value="0.185" step="0.01" min="0">
+          </div>
+          <div>
+            <label class="field-label">Daily Acq. Cost (CNY)</label>
+            <input type="number" id="ev-acq-cost" value="95.89" step="0.01" min="0">
+          </div>
+          <div>
+            <label class="field-label">CO₂ (kg/km)</label>
+            <input type="number" id="ev-co2" value="0" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div style="font-size:.82rem; font-weight:600; color:var(--orange); margin-top:.75rem; margin-bottom:.4rem;">⛽ Owned Conventional Vehicles</div>
+        <div class="form-row-3">
+          <div>
+            <label class="field-label">Op. Cost (CNY/km)</label>
+            <input type="number" id="cv-op-cost" value="0.32" step="0.01" min="0">
+          </div>
+          <div>
+            <label class="field-label">Daily Acq. Cost (CNY)</label>
+            <input type="number" id="cv-acq-cost" value="84.38" step="0.01" min="0">
+          </div>
+          <div>
+            <label class="field-label">CO₂ (kg/km)</label>
+            <input type="number" id="cv-co2" value="2.31" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div style="font-size:.82rem; font-weight:600; color:#7c3aed; margin-top:.75rem; margin-bottom:.4rem;">🔑 Rental EV (Scheme S1: per-km)</div>
+        <div class="form-row-3">
+          <div>
+            <label class="field-label">Rent Fee (CNY/km)</label>
+            <input type="number" id="rev-perkm" value="6" step="0.1" min="0">
+          </div>
+          <div>
+            <label class="field-label">Fixed Fee (CNY)</label>
+            <input type="number" id="rev-fixed" value="0" step="1" min="0">
+          </div>
+          <div>
+            <label class="field-label">CO₂ (kg/km)</label>
+            <input type="number" id="rev-co2" value="0" step="0.01" min="0">
+          </div>
+        </div>
+
+        <div style="font-size:.82rem; font-weight:600; color:#7c3aed; margin-top:.75rem; margin-bottom:.4rem;">🔑 Rental CV (Scheme S2: fixed fee)</div>
+        <div class="form-row-3">
+          <div>
+            <label class="field-label">Rent Fee (CNY/km)</label>
+            <input type="number" id="rcv-perkm" value="10" step="0.1" min="0">
+          </div>
+          <div>
+            <label class="field-label">Fixed Fee (CNY)</label>
+            <input type="number" id="rcv-fixed" value="1300" step="1" min="0">
+          </div>
+          <div>
+            <label class="field-label">CO₂ (kg/km)</label>
+            <input type="number" id="rcv-co2" value="2.31" step="0.01" min="0">
+          </div>
+        </div>
+      </div>
+    </details>
+
     <div style="margin-top:1rem">
       <label class="field-label">Distance Mode</label>
       <div class="form-row">
@@ -268,6 +346,28 @@
           <div class="unit">total</div>
         </div>
       </div>
+      <div id="cost-breakdown" style="margin-top:1rem; display:grid; grid-template-columns:repeat(4,1fr); gap:.6rem; font-size:.8rem;">
+        <div style="background:var(--green-lt); border-radius:6px; padding:.6rem .75rem; text-align:center;">
+          <div style="font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--green); font-weight:600;">Owned EV</div>
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--green);" id="bd-oev">—</div>
+          <div style="color:var(--text2); font-size:.72rem;" id="bd-oev-n">0 vehicles</div>
+        </div>
+        <div style="background:var(--orange-lt); border-radius:6px; padding:.6rem .75rem; text-align:center;">
+          <div style="font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:var(--orange); font-weight:600;">Owned CV</div>
+          <div style="font-family:var(--mono); font-size:1rem; color:var(--orange);" id="bd-ocv">—</div>
+          <div style="color:var(--text2); font-size:.72rem;" id="bd-ocv-n">0 vehicles</div>
+        </div>
+        <div style="background:#ede9fe; border-radius:6px; padding:.6rem .75rem; text-align:center;">
+          <div style="font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:#7c3aed; font-weight:600;">Rental EV</div>
+          <div style="font-family:var(--mono); font-size:1rem; color:#7c3aed;" id="bd-rev">—</div>
+          <div style="color:var(--text2); font-size:.72rem;" id="bd-rev-n">0 vehicles</div>
+        </div>
+        <div style="background:#fce7f3; border-radius:6px; padding:.6rem .75rem; text-align:center;">
+          <div style="font-size:.7rem; text-transform:uppercase; letter-spacing:.05em; color:#be185d; font-weight:600;">Rental CV</div>
+          <div style="font-family:var(--mono); font-size:1rem; color:#be185d;" id="bd-rcv">—</div>
+          <div style="color:var(--text2); font-size:.72rem;" id="bd-rcv-n">0 vehicles</div>
+        </div>
+      </div>
     </div>
 
     <div class="card">
@@ -312,13 +412,35 @@
    Based on: Zhang et al. (2026), Expert Systems With Applications
 ════════════════════════════════════════════════════════ */
 
-// ── Vehicle parameters (from paper Table 6 & 21) ──
-const VEH_PARAMS = {
-  ev: { opCostKm: 0.185, energyPerKm: 0.32, co2PerKm: 0, acqCostDaily: 95.89 },
-  cv: { opCostKm: 0.32, energyPerKm: 0.80, co2PerKm: 2.31, acqCostDaily: 84.38 },
-  rentalEV: { fixedCost: 1000, perKm: 6, co2PerKm: 0 },
-  rentalCV: { fixedCost: 1300, perKm: 10, co2PerKm: 2.31 }
-};
+// ── Vehicle parameters (defaults from paper Table 6 & 21, overridden by UI) ──
+let VEH_PARAMS = {};
+
+function readVehParams() {
+  VEH_PARAMS = {
+    ev: {
+      opCostKm:    parseFloat(document.getElementById('ev-op-cost').value)  || 0,
+      energyPerKm: 0.32,
+      co2PerKm:    parseFloat(document.getElementById('ev-co2').value)      || 0,
+      acqCostDaily:parseFloat(document.getElementById('ev-acq-cost').value) || 0
+    },
+    cv: {
+      opCostKm:    parseFloat(document.getElementById('cv-op-cost').value)  || 0,
+      energyPerKm: 0.80,
+      co2PerKm:    parseFloat(document.getElementById('cv-co2').value)      || 0,
+      acqCostDaily:parseFloat(document.getElementById('cv-acq-cost').value) || 0
+    },
+    rentalEV: {
+      fixedCost:   parseFloat(document.getElementById('rev-fixed').value)   || 0,
+      perKm:       parseFloat(document.getElementById('rev-perkm').value)   || 0,
+      co2PerKm:    parseFloat(document.getElementById('rev-co2').value)     || 0
+    },
+    rentalCV: {
+      fixedCost:   parseFloat(document.getElementById('rcv-fixed').value)   || 0,
+      perKm:       parseFloat(document.getElementById('rcv-perkm').value)   || 0,
+      co2PerKm:    parseFloat(document.getElementById('rcv-co2').value)     || 0
+    }
+  };
+}
 
 const ROUTE_COLORS = [
   '#e63946','#457b9d','#2a9d8f','#e9c46a','#f4a261',
@@ -416,8 +538,7 @@ function evalRoute(route, vehicle, depot, rentalDepot) {
     cost = params.opCostKm * totalDist + params.acqCostDaily;
     emission = params.co2PerKm * totalDist;
   } else {
-    if (params.fixedCost) cost = params.fixedCost;
-    else cost = params.perKm * totalDist;
+    cost = (params.fixedCost || 0) + (params.perKm || 0) * totalDist;
     emission = params.co2PerKm * totalDist;
   }
 
@@ -776,6 +897,9 @@ async function runHSSA() {
     if (nCust < 3) throw new Error('Need at least 3 customers.');
     if (depotXY.length !== 2 || rentalXY.length !== 2) throw new Error('Invalid depot coordinates.');
 
+    // ── Read vehicle cost params from UI ──
+    readVehParams();
+
     // ── Distance mode ──
     const distMode = document.getElementById('dist-mode').value;
     if (distMode === 'matrix') {
@@ -831,6 +955,22 @@ function renderResults(result, problem, mapSize) {
   document.getElementById('res-cost').textContent = obj.cost.toFixed(1);
   document.getElementById('res-emission').textContent = obj.emission.toFixed(2);
   document.getElementById('res-vehicles').textContent = obj.vehicles;
+
+  // ── Cost breakdown by vehicle category ──
+  const bd = { oev:{cost:0,n:0}, ocv:{cost:0,n:0}, rev:{cost:0,n:0}, rcv:{cost:0,n:0} };
+  for (const r of best.sol.routes) {
+    const key = (r.vehicle.owned ? 'o' : 'r') + (r.vehicle.type === 'ev' ? 'ev' : 'cv');
+    bd[key].cost += r.cost;
+    bd[key].n += 1;
+  }
+  document.getElementById('bd-oev').textContent = '¥' + bd.oev.cost.toFixed(0);
+  document.getElementById('bd-oev-n').textContent = bd.oev.n + ' vehicle' + (bd.oev.n!==1?'s':'');
+  document.getElementById('bd-ocv').textContent = '¥' + bd.ocv.cost.toFixed(0);
+  document.getElementById('bd-ocv-n').textContent = bd.ocv.n + ' vehicle' + (bd.ocv.n!==1?'s':'');
+  document.getElementById('bd-rev').textContent = '¥' + bd.rev.cost.toFixed(0);
+  document.getElementById('bd-rev-n').textContent = bd.rev.n + ' vehicle' + (bd.rev.n!==1?'s':'');
+  document.getElementById('bd-rcv').textContent = '¥' + bd.rcv.cost.toFixed(0);
+  document.getElementById('bd-rcv-n').textContent = bd.rcv.n + ' vehicle' + (bd.rcv.n!==1?'s':'');
 
   // ── Route list ──
   const routesOut = document.getElementById('routes-out');
