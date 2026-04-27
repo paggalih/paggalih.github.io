@@ -1,382 +1,896 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bahan Olimpiade Matematika — SMAN 1 Boyolangu</title>
-<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700;900&family=Source+Serif+4:ital,opsz,wght@0,8..60,300;0,8..60,400;0,8..60,600;1,8..60,400&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahan Ajar Olimpiade — Pertemuan 2 | paggalih</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
-<script>
-MathJax = {
-  tex: {
-    inlineMath: [['$', '$'], ['\\(', '\\)']],
-    displayMath: [['$$', '$$'], ['\\[', '\\]']]
-  },
-  options: { skipHtmlTags: ['script','noscript','style','textarea','pre'] }
-};
-</script>
-<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml.js" async></script>
-      <link href="https://paggalih.github.io/assets/css/style.css" rel="stylesheet">
-	<script src="https://paggalih.github.io/assets/js/main2.js"></script>
-<style>
-  :root {
-    --ink: #0f1117;
-    --paper: #faf9f6;
-    --accent: #c0392b;
-    --gold: #b8860b;
-    --navy: #1a2744;
-    --muted: #6b7080;
-    --rule: #d4cfc6;
-    --highlight: #fff9e6;
-    --code-bg: #f0ede6;
-  }
-  * { margin: 0; padding: 0; box-sizing: border-box; }
-  body { font-family: 'Source Serif 4', Georgia, serif; background: var(--paper); color: var(--ink); font-size: 15px; line-height: 1.75; }
-  mjx-container[display="true"] { margin: 10px 0 !important; overflow-x: auto; }
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
 
-  .masthead { background: var(--navy); color: #fff; position: relative; overflow: hidden; }
-  .masthead::before { content: ''; position: absolute; top:0; right:0; width:400px; height:100%; background: repeating-linear-gradient(-45deg,transparent,transparent 18px,rgba(255,255,255,.03) 18px,rgba(255,255,255,.03) 36px); }
-  .masthead-inner { max-width:860px; margin:0 auto; padding:48px 40px 40px; display:grid; grid-template-columns:1fr auto; align-items:end; gap:24px; }
-  .tag { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#8fa0c8; margin-bottom:12px; }
-  h1 { font-family:'Playfair Display',serif; font-size:42px; font-weight:900; line-height:1.1; color:#fff; }
-  h1 span { color:#f0c040; }
-  .meta { font-size:13px; color:#8fa0c8; margin-top:14px; display:flex; gap:24px; flex-wrap:wrap; }
-  .meta b { color:#d4dcf0; }
-  .badge { background:var(--accent); color:#fff; font-family:'JetBrains Mono',monospace; font-size:11px; padding:6px 14px; border-radius:4px; white-space:nowrap; align-self:flex-start; margin-top:4px; letter-spacing:.08em; }
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --yellow-lt: #fff8e1;
+      --yellow-br: #ffe082;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
 
-  .schedule-strip { background:var(--accent); color:#fff; display:flex; justify-content:center; }
-  .sched-item { padding:12px 28px; text-align:center; border-right:1px solid rgba(255,255,255,.25); flex:1; max-width:200px; }
-  .sched-item:last-child { border-right:none; }
-  .sched-num { font-family:'Playfair Display',serif; font-size:22px; font-weight:700; display:block; }
-  .sched-label { font-size:10px; opacity:.85; letter-spacing:.1em; text-transform:uppercase; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  .content { max-width:860px; margin:0 auto; padding:48px 40px 80px; }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
 
-  .session { margin-bottom:60px; }
-  .session-header { display:flex; align-items:flex-start; gap:20px; margin-bottom:28px; padding-bottom:16px; border-bottom:2.5px solid var(--navy); }
-  .session-num { font-family:'Playfair Display',serif; font-size:56px; font-weight:900; color:var(--rule); line-height:1; min-width:64px; }
-  .session-info { flex:1; }
-  .session-title { font-family:'Playfair Display',serif; font-size:26px; font-weight:700; color:var(--navy); line-height:1.2; }
-  .session-sub { font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace; letter-spacing:.1em; margin-top:4px; }
-  .session-time { font-family:'JetBrains Mono',monospace; font-size:11px; background:var(--navy); color:#fff; padding:4px 10px; border-radius:3px; white-space:nowrap; align-self:flex-start; margin-top:8px; }
+    /* ── Header ── */
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .meta {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      font-family: var(--mono);
+    }
 
-  .topics { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:24px; }
-  .topic-tag { background:var(--code-bg); border:1px solid var(--rule); padding:4px 12px; border-radius:20px; font-size:12px; font-family:'JetBrains Mono',monospace; color:var(--navy); }
+    /* ── Layout ── */
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
 
-  .theory { background:var(--navy); color:#e8edf8; border-radius:6px; padding:20px 24px; margin-bottom:28px; }
-  .theory h4 { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:#8fa0c8; margin-bottom:12px; }
-  .theory ul { padding-left:20px; }
-  .theory li { margin-bottom:8px; font-size:14px; line-height:1.8; }
-  .theory strong { color:#f0c040; }
-  .theory mjx-container { color:#d4e0ff !important; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
 
-  .example-block { margin-bottom:20px; }
-  .example-header { display:flex; align-items:center; gap:10px; margin-bottom:10px; }
-  .ex-badge { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; background:var(--accent); color:#fff; padding:2px 8px; border-radius:3px; }
-  .example-q { background:#fff; border:1px solid var(--rule); border-left:4px solid var(--accent); padding:14px 18px; border-radius:0 4px 4px 0; font-size:14.5px; }
-  .solution { background:var(--highlight); border:1px solid #e8d98a; border-top:none; padding:14px 18px; font-size:13.5px; color:#3a3000; border-radius:0 0 4px 4px; line-height:1.9; }
-  .solution-label { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; color:#8a7200; margin-bottom:8px; text-transform:uppercase; }
+    .card h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .card .session-meta {
+      font-size: .82rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-bottom: 1.1rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-  .exercise-block { background:#f5f3ef; border:1px solid var(--rule); border-radius:6px; padding:20px 24px; margin-top:24px; }
-  .exercise-block h4 { font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; text-transform:uppercase; color:var(--gold); margin-bottom:14px; }
-  .ex-list { counter-reset:ex; list-style:none; padding:0; }
-  .ex-list li { counter-increment:ex; display:flex; gap:14px; padding:10px 0; border-bottom:1px solid var(--rule); font-size:14px; align-items:flex-start; }
-  .ex-list li:last-child { border-bottom:none; }
-  .ex-list li::before { content:counter(ex,decimal-leading-zero); font-family:'JetBrains Mono',monospace; font-size:11px; color:var(--muted); min-width:24px; margin-top:3px; flex-shrink:0; }
-  .difficulty { font-size:10px; font-family:'JetBrains Mono',monospace; padding:2px 6px; border-radius:2px; flex-shrink:0; margin-top:3px; }
-  .easy { background:#d4edda; color:#155724; }
-  .med  { background:#fff3cd; color:#856404; }
-  .hard { background:#f8d7da; color:#721c24; }
+    .card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 1.5rem 0 .6rem;
+      font-weight: 600;
+    }
 
-  .section-rule { border:none; border-top:1px solid var(--rule); margin:40px 0; }
+    .card h4 {
+      font-size: 1.0rem;
+      color: var(--text2);
+      margin: 1.2rem 0 .5rem;
+      font-weight: 600;
+    }
 
-  .rundown-table { width:100%; border-collapse:collapse; margin-bottom:40px; font-size:13.5px; }
-  .rundown-table th { background:var(--navy); color:#8fa0c8; font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.12em; text-transform:uppercase; padding:10px 16px; text-align:left; font-weight:400; }
-  .rundown-table td { padding:10px 16px; border-bottom:1px solid var(--rule); vertical-align:top; }
-  .rundown-table tr:nth-child(even) td { background:rgba(0,0,0,.02); }
-  .time-col { font-family:'JetBrains Mono',monospace; font-size:12px; color:var(--muted); white-space:nowrap; }
+    p { margin-bottom: .7rem; }
 
-  footer { text-align:center; padding:32px; font-size:12px; color:var(--muted); font-family:'JetBrains Mono',monospace; border-top:1px solid var(--rule); }
+    /* ── Recap from Pertemuan 1 ── */
+    .recap {
+      background: linear-gradient(135deg, #fef9e7 0%, #fdf3d4 100%);
+      border: 1px solid #e8d49b;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+    }
+    .recap strong { color: #7a5800; }
 
-  @media print {
-    .masthead, .schedule-strip, .theory { -webkit-print-color-adjust:exact; print-color-adjust:exact; }
-    .session { page-break-inside:avoid; }
-  }
-</style>
+    /* ── Info / Callout boxes ── */
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .93rem;
+      margin: 1rem 0;
+      color: var(--text);
+    }
+    .info-box strong { color: var(--accent); }
+
+    .tip-box {
+      background: var(--yellow-lt);
+      border: 1px solid var(--yellow-br);
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .93rem;
+    }
+    .tip-box strong { color: #7a5800; }
+
+    .theorem {
+      background: var(--accent-lt);
+      border: 1px solid #b8c6e3;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+    }
+    .theorem .label {
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      margin-bottom: .2rem;
+    }
+
+    .fact {
+      background: var(--green-lt);
+      border: 1px solid #9ed1ac;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    /* ── Strategy table ── */
+    table.strategy {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .92rem;
+    }
+    table.strategy th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      padding: .55rem .8rem;
+      font-family: var(--sans);
+    }
+    table.strategy td {
+      padding: .55rem .8rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.strategy tr:last-child td { border-bottom: none; }
+    table.strategy tr:nth-child(even) td { background: #fafafa; }
+
+    /* ── Example blocks ── */
+    .example {
+      border-left: 3px solid var(--text2);
+      padding: .4rem 0 .4rem 1rem;
+      margin: 1.2rem 0;
+    }
+    .example .ex-label {
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-bottom: .3rem;
+    }
+    .example .ex-tag {
+      display: inline-block;
+      font-size: .7rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .1rem .5rem;
+      border-radius: 3px;
+      font-family: var(--mono);
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
+
+    /* ── Exercise list ── */
+    .exercises {
+      counter-reset: ex;
+      list-style: none;
+      padding-left: 0;
+      margin: .5rem 0;
+    }
+    .exercises li {
+      padding: .65rem 0 .65rem 2.4rem;
+      border-bottom: 1px dashed var(--border);
+      position: relative;
+      counter-increment: ex;
+    }
+    .exercises li:last-child { border-bottom: none; }
+    .exercises li::before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 0;
+      top: .72rem;
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .12rem .38rem;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    /* ── Answer key (collapsible) ── */
+    details.answer { margin-top: .4rem; }
+    details.answer > summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.answer > summary::-webkit-details-marker { display: none; }
+    details.answer > summary::before {
+      content: "▶ ";
+      display: inline-block;
+      transition: transform .2s;
+      font-size: .7rem;
+    }
+    details.answer[open] > summary::before { transform: rotate(90deg); }
+    details.answer[open] > summary { color: var(--green); }
+    details.answer .ans-body {
+      margin-top: .5rem;
+      padding: .7rem .9rem;
+      background: #fafafa;
+      border-left: 2px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: .93rem;
+    }
+
+    /* ── Table of contents ── */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .toc .toc-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: .25rem 0;
+      font-size: .92rem;
+    }
+    .toc ol li::before {
+      content: counter(toc) ". ";
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-right: .4rem;
+    }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border-color .2s, color .2s;
+    }
+    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .toc .dur {
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: .82rem;
+      margin-left: .4rem;
+    }
+
+    /* ── Cross-link to pertemuan 1 ── */
+    .nav-link {
+      display: inline-block;
+      margin-top: .8rem;
+      padding: .35rem .8rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: .85rem;
+      transition: background .2s;
+    }
+    .nav-link:hover { background: #d8e2f3; }
+
+    /* ── Bullets ── */
+    ul.tips { margin: .5rem 0 .5rem 1.25rem; }
+    ul.tips li { margin-bottom: .35rem; }
+
+    /* ── Footer ── */
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    /* ── Small screens ── */
+    @media (max-width: 580px) {
+      header { padding: 1.2rem 1.25rem 1.4rem; }
+      header h1 { font-size: 1.55rem; }
+      .card { padding: 1.2rem; }
+      .card h2 { font-size: 1.3rem; }
+      table.strategy { font-size: .85rem; }
+      table.strategy td, table.strategy th { padding: .4rem .5rem; }
+    }
+
+    mjx-container { line-height: 0; }
+    mjx-container[jax="SVG"][display="true"] {
+      margin: .6em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: .15em 0 .35em;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar {
+      height: 5px;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar-thumb:hover {
+      background: var(--text2);
+    }
+    @media (max-width: 580px) {
+      mjx-container[jax="SVG"]:not([display="true"]) {
+        font-size: .95em;
+      }
+    }
+  </style>
 </head>
 <body>
 
-<header class="masthead">
-  <div class="masthead-inner">
-    <div>
-      <div class="tag">Modul Pembinaan · UIN SATU Tulungagung</div>
-      <h1>Olimpiade<br><span>Matematika</span></h1>
-      <div class="meta">
-        <span><b>Tempat</b> SMAN 1 Boyolangu</span>
-        <span><b>Durasi</b> 3 Jam</span>
-        <span><b>Level</b> Campur (Pemula–Menengah)</span>
-      </div>
-    </div>
-    <div class="badge">OSN · SMA</div>
-  </div>
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Bahan Ajar Olimpiade Matematika</h1>
+  <p>Pertemuan 2 — Aljabar Lanjutan · Tingkat KSN-K</p>
+  <div class="meta">SMAN 1 Boyolangu · 3 jam pelajaran</div>
 </header>
 
-<div class="schedule-strip">
-  <div class="sched-item"><span class="sched-num">60'</span><span class="sched-label">Teori Bilangan</span></div>
-  <div class="sched-item"><span class="sched-num">60'</span><span class="sched-label">Aljabar</span></div>
-  <div class="sched-item"><span class="sched-num">60'</span><span class="sched-label">Kombinatorik</span></div>
-</div>
+<main>
 
-<div class="content">
+  <!-- ═══════════ TOC ═══════════ -->
+  <div class="toc">
+    <div class="toc-title">Struktur Materi</div>
+    <ol>
+      <li><a href="#recap">Recap Pertemuan 1 &amp; Tujuan</a></li>
+      <li><a href="#sesi1">Sesi 1 — Ketaksamaan Cauchy-Schwarz</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi2">Sesi 2 — Persamaan Fungsional Sederhana</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi3">Sesi 3 — Barisan, Deret &amp; Teleskop</a><span class="dur">40 min</span></li>
+      <li><a href="#gabungan">Latihan Gabungan</a><span class="dur">20 min</span></li>
+      <li><a href="#panduan">Panduan untuk Guru</a></li>
+    </ol>
+    <a href="olimpiade-aljabar.html" class="nav-link">← Pertemuan 1: Identitas, Vieta, AM-GM</a>
+  </div>
 
-  <table class="rundown-table">
-    <thead><tr><th>Waktu</th><th>Kegiatan</th><th>Catatan</th></tr></thead>
-    <tbody>
-      <tr><td class="time-col">00:00–00:10</td><td><b>Pembukaan &amp; ice-breaking soal</b></td><td>Ukur level kelas spontan</td></tr>
-      <tr><td class="time-col">00:10–01:05</td><td><b>Sesi 1 — Teori Bilangan</b></td><td>Teori 15', contoh 25', latihan 15'</td></tr>
-      <tr><td class="time-col">01:05–01:10</td><td>Istirahat singkat</td><td>—</td></tr>
-      <tr><td class="time-col">01:10–02:05</td><td><b>Sesi 2 — Aljabar &amp; Pertidaksamaan</b></td><td>Teori 15', contoh 25', latihan 15'</td></tr>
-      <tr><td class="time-col">02:05–02:10</td><td>Istirahat singkat</td><td>—</td></tr>
-      <tr><td class="time-col">02:10–03:00</td><td><b>Sesi 3 — Kombinatorik</b></td><td>Teori 10', contoh 20', kompetisi mini 20'</td></tr>
-    </tbody>
-  </table>
+  <!-- ═══════════ RECAP ═══════════ -->
+  <div class="card" id="recap">
+    <h2>Recap Pertemuan 1 &amp; Tujuan</h2>
+    <div class="session-meta">15 menit · review cepat sebelum masuk materi baru</div>
 
-  <!-- ═══ SESI 1 ═══ -->
-  <div class="session">
-    <div class="session-header">
-      <div class="session-num">01</div>
-      <div class="session-info">
-        <div class="session-title">Teori Bilangan</div>
-        <div class="session-sub">NUMBER THEORY — FONDASI OLIMPIADE</div>
-      </div>
-      <div class="session-time">00:10 – 01:05</div>
-    </div>
-    <div class="topics">
-      <span class="topic-tag">Keterbagian</span>
-      <span class="topic-tag">FPB &amp; KPK</span>
-      <span class="topic-tag">Aritmetika Modular</span>
-      <span class="topic-tag">Bilangan Prima</span>
-    </div>
-    <div class="theory">
-      <h4>Konsep Kunci</h4>
-      <ul>
-        <li><strong>Keterbagian:</strong> $a \mid b \iff \exists\, k \in \mathbb{Z}$ sehingga $b = ka$</li>
-        <li><strong>Algoritma Euclid:</strong> $\gcd(a,b) = \gcd(b,\, a \bmod b)$. &nbsp; Berlaku: $\gcd(a,b) \times \text{lcm}(a,b) = a \times b$</li>
-        <li><strong>Kongruensi:</strong> $a \equiv b \pmod{m} \iff m \mid (a - b)$. Boleh dijumlah, dikurang, dikali — tidak langsung dibagi.</li>
-        <li><strong>Fermat Kecil:</strong> Jika $p$ prima dan $p \nmid a$, maka $a^{p-1} \equiv 1 \pmod{p}$</li>
-        <li><strong>Banyak faktor:</strong> Jika $n = p_1^{a_1} p_2^{a_2} \cdots p_k^{a_k}$, maka $\tau(n) = (a_1+1)(a_2+1)\cdots(a_k+1)$</li>
-      </ul>
+    <div class="recap">
+      <strong>Pertanyaan kilat untuk siswa (5 menit):</strong>
+      <ol style="margin:.5rem 0 0 1.3rem">
+        <li>Tulis identitas $a^3 + b^3 + c^3 - 3abc = ?$</li>
+        <li>Akar $x^2 - 7x + 12 = 0$ adalah $\alpha, \beta$. Hitung $\alpha^2 + \beta^2$.</li>
+        <li>Untuk $x > 0$, minimum $x + \dfrac{4}{x} = ?$</li>
+      </ol>
     </div>
 
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 1</span><span>Mudah — Pembuka kelas</span></div>
-      <div class="example-q">Tunjukkan bahwa untuk setiap bilangan bulat $n$, ekspresi $n^2 + n$ selalu genap.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Faktorkan: $n^2 + n = n(n+1)$.<br>
-        Karena $n$ dan $n+1$ adalah dua bilangan bulat berurutan, salah satunya pasti genap. Hasil kalinya pasti genap. $\blacksquare$
-      </div>
-    </div>
+    <p>Setelah 3 jam pelajaran, siswa mampu:</p>
+    <ol style="margin-left:1.3rem">
+      <li>Menerapkan Cauchy-Schwarz untuk ketaksamaan dengan rasio dan jumlah kuadrat.</li>
+      <li>Menyelesaikan persamaan fungsional sederhana dengan substitusi strategis.</li>
+      <li>Menghitung deret teleskop dan menyelesaikan barisan rekursif sederhana.</li>
+      <li>Memilih strategi yang tepat: AM-GM, Cauchy-Schwarz, atau SOS.</li>
+    </ol>
 
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 2</span><span>Menengah — Aritmetika modular</span></div>
-      <div class="example-q">Tentukan sisa pembagian $2^{100}$ oleh $7$.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Cari pola pangkat $2 \pmod{7}$:
-        $$2^1 \equiv 2,\quad 2^2 \equiv 4,\quad 2^3 \equiv 8 \equiv 1 \pmod{7}$$
-        Periodenya $3$. Karena $100 = 33 \times 3 + 1$:
-        $$2^{100} = (2^3)^{33} \cdot 2^1 \equiv 1^{33} \cdot 2 \equiv \mathbf{2} \pmod{7} \qquad\blacksquare$$
-      </div>
-    </div>
-
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 3</span><span>OSN level — Bilangan prima</span></div>
-      <div class="example-q">Tentukan semua bilangan prima $p$ sehingga $p^2 + 2$ juga merupakan bilangan prima.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Cek kecil: $p=2 \Rightarrow p^2+2=6$ (bukan prima). $p=3 \Rightarrow p^2+2=11$ ✓<br><br>
-        Untuk $p > 3$: setiap prima $p > 3$ memenuhi $p \equiv 1$ atau $2 \pmod{3}$, sehingga $p^2 \equiv 1 \pmod{3}$, dan:
-        $$p^2 + 2 \equiv 1 + 2 \equiv 0 \pmod{3}$$
-        Jadi $3 \mid (p^2+2)$ dan $p^2+2 > 3$, bukan prima.<br><br>
-        <strong>Jawaban: $p = 3$ satu-satunya.</strong> $\blacksquare$
-      </div>
-    </div>
-
-    <div class="exercise-block">
-      <h4>Soal Latihan Sesi 1</h4>
-      <ul class="ex-list">
-        <li><span class="difficulty easy">★☆☆</span><span>Tentukan digit terakhir dari $7^{2023}$.</span></li>
-        <li><span class="difficulty easy">★☆☆</span><span>Berapa banyak faktor positif dari $360$?&ensp;<em>(Petunjuk: $360 = 2^3 \cdot 3^2 \cdot 5$)</em></span></li>
-        <li><span class="difficulty med">★★☆</span><span>Tentukan semua pasangan bilangan bulat positif $(a,b)$ dengan $\gcd(a,b) = 6$ dan $\text{lcm}(a,b) = 60$.</span></li>
-        <li><span class="difficulty hard">★★★</span><span>Buktikan bahwa $5^n - 4n - 1$ habis dibagi $16$ untuk setiap bilangan bulat positif $n$. <em>(Induksi atau ekspansi binomial)</em></span></li>
-      </ul>
+    <div class="info-box">
+      <strong>Catatan.</strong> Pertemuan ini lebih padat dari pertemuan pertama. Kalau waktu mepet, prioritaskan Sesi 1 (Cauchy-Schwarz) — paling sering muncul di KSN-K.
     </div>
   </div>
 
-  <hr class="section-rule">
+  <!-- ═══════════ SESI 1 — CAUCHY-SCHWARZ ═══════════ -->
+  <div class="card" id="sesi1">
+    <h2>Sesi 1 — Ketaksamaan Cauchy-Schwarz</h2>
+    <div class="session-meta">60 menit · Teori 15' → Contoh 25' → Latihan 20'</div>
 
-  <!-- ═══ SESI 2 ═══ -->
-  <div class="session">
-    <div class="session-header">
-      <div class="session-num">02</div>
-      <div class="session-info">
-        <div class="session-title">Aljabar &amp; Pertidaksamaan</div>
-        <div class="session-sub">ALGEBRA & INEQUALITIES — SENJATA UTAMA</div>
-      </div>
-      <div class="session-time">01:10 – 02:05</div>
-    </div>
-    <div class="topics">
-      <span class="topic-tag">AM-GM</span>
-      <span class="topic-tag">Manipulasi Aljabar</span>
-      <span class="topic-tag">Substitusi Cerdas</span>
-      <span class="topic-tag">Optimasi</span>
-    </div>
-    <div class="theory">
-      <h4>Konsep Kunci</h4>
-      <ul>
-        <li><strong>AM-GM 2 variabel:</strong> Untuk $a, b \geq 0$,&ensp; $\dfrac{a+b}{2} \geq \sqrt{ab}$,&ensp; kesetaraan saat $a = b$</li>
-        <li><strong>AM-GM 3 variabel:</strong> $\dfrac{a+b+c}{3} \geq \sqrt[3]{abc}$,&ensp; kesetaraan saat $a = b = c$</li>
-        <li><strong>Cauchy-Schwarz:</strong> $(a^2+b^2)(x^2+y^2) \geq (ax+by)^2$</li>
-        <li><strong>Identitas penting:</strong>&ensp;
-          $(a+b)^2 = a^2+2ab+b^2$;&ensp;
-          $a^3+b^3 = (a+b)(a^2-ab+b^2)$;&ensp;
-          $a^2-b^2 = (a+b)(a-b)$
-        </li>
-      </ul>
+    <h3>1.1 Bentuk Standar</h3>
+
+    <div class="theorem">
+      <div class="label">Cauchy-Schwarz (bentuk jumlah)</div>
+      Untuk bilangan real $a_1, \ldots, a_n$ dan $b_1, \ldots, b_n$:
+      $$\begin{aligned}
+        & (a_1^2 + a_2^2 + \cdots + a_n^2)(b_1^2 + b_2^2 + \cdots + b_n^2) \\
+        & \qquad \ge (a_1 b_1 + a_2 b_2 + \cdots + a_n b_n)^2.
+      \end{aligned}$$
+      Kesamaan iff ada $k$ sehingga $a_i = k\,b_i$ untuk semua $i$ (atau semua $b_i = 0$).
     </div>
 
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 1</span><span>Mudah — Substitusi identitas</span></div>
-      <div class="example-q">Jika $x + \dfrac{1}{x} = 3$, tentukan nilai $x^2 + \dfrac{1}{x^2}$.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Kuadratkan kedua ruas:
-        $$\left(x + \frac{1}{x}\right)^2 = 9 \implies x^2 + 2 + \frac{1}{x^2} = 9$$
-        $$\therefore\quad x^2 + \frac{1}{x^2} = \mathbf{7} \qquad\blacksquare$$
-      </div>
+    <p><strong>Versi 2-variabel:</strong></p>
+    $$(a^2 + b^2)(c^2 + d^2) \ge (ac + bd)^2.$$
+
+    <p><strong>Bukti elegan (versi 2 variabel):</strong> Perhatikan</p>
+    $$(a^2+b^2)(c^2+d^2) - (ac+bd)^2 = (ad - bc)^2 \ge 0. \quad\blacksquare$$
+
+    <h3>1.2 Bentuk Engel (Titu's Lemma)</h3>
+
+    <div class="theorem">
+      <div class="label">Titu's Lemma — Engel Form</div>
+      Untuk $a_i \in \mathbb{R}$ dan $b_i > 0$:
+      $$\begin{aligned}
+        & \frac{a_1^2}{b_1} + \frac{a_2^2}{b_2} + \cdots + \frac{a_n^2}{b_n} \\
+        & \qquad \ge \frac{(a_1 + a_2 + \cdots + a_n)^2}{b_1 + b_2 + \cdots + b_n}.
+      \end{aligned}$$
+      Kesamaan iff $\dfrac{a_1}{b_1} = \dfrac{a_2}{b_2} = \cdots = \dfrac{a_n}{b_n}$.
     </div>
 
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 2</span><span>Menengah — Optimasi dengan AM-GM</span></div>
-      <div class="example-q">Jika $a, b > 0$ dan $a + b = 1$, tentukan nilai minimum $a^2 + b^2$.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        $$a^2 + b^2 = (a+b)^2 - 2ab = 1 - 2ab$$
-        Meminimumkan $a^2+b^2$ ekuivalen memaksimumkan $ab$. Dengan AM-GM:
-        $$ab \leq \left(\frac{a+b}{2}\right)^2 = \frac{1}{4}$$
-        kesetaraan saat $a = b = \tfrac{1}{2}$. Jadi:
-        $$\min(a^2+b^2) = 1 - 2 \cdot \frac{1}{4} = \mathbf{\frac{1}{2}} \qquad\blacksquare$$
-      </div>
+    <p>Bentuk Engel adalah <strong>senjata utama</strong> ketaksamaan KSN-K. Hampir semua soal "$\frac{1}{x} + \frac{1}{y} + \frac{1}{z} \ge \ldots$" dapat diserang dengan Titu.</p>
+
+    <h3>1.3 Kapan Pakai Apa?</h3>
+    <table class="strategy">
+      <thead><tr><th style="width:40%">Bentuk soal</th><th>Strategi</th></tr></thead>
+      <tbody>
+        <tr><td>Jumlah + hasil kali (semua positif)</td><td>AM-GM</td></tr>
+        <tr><td>Pecahan dengan pembilang kuadrat</td><td>Titu's Lemma</td></tr>
+        <tr><td>Hasil kali dua jumlah kuadrat ≥ kuadrat</td><td>Cauchy-Schwarz</td></tr>
+        <tr><td>Bukti $a^2 + b^2 + c^2 \ge \ldots$ (real, tanpa syarat)</td><td>SOS</td></tr>
+        <tr><td>Soal simetrik dengan kesamaan saat $a=b=c$</td><td>Coba AM-GM dulu, lalu C-S</td></tr>
+      </tbody>
+    </table>
+
+    <h3>1.4 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 1</span>Aplikasi langsung Cauchy-Schwarz</div>
+      <p><strong>Soal.</strong> Untuk $a, b, c \in \mathbb{R}$, buktikan</p>
+      $$(a + b + c)^2 \le 3(a^2 + b^2 + c^2).$$
+      <p><strong>Penyelesaian.</strong> C-S dengan $(b_1, b_2, b_3) = (1, 1, 1)$:</p>
+      $$(a^2 + b^2 + c^2)(1 + 1 + 1) \ge (a + b + c)^2.$$
+      <p>Maka $3(a^2+b^2+c^2) \ge (a+b+c)^2$. Kesamaan saat $a = b = c$. $\blacksquare$</p>
     </div>
 
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 3</span><span>OSN level — Tiga variabel</span></div>
-      <div class="example-q">Untuk $a, b, c > 0$ dengan $a + b + c = 3$, buktikan bahwa $ab + bc + ca \leq 3$.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Dari identitas $(a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca)$:
-        $$9 = a^2+b^2+c^2 + 2(ab+bc+ca)$$
-        Karena $a^2+b^2+c^2 \geq ab+bc+ca$ (diperoleh dari AM-GM per pasang), maka:
-        $$9 \geq 3(ab+bc+ca) \implies ab+bc+ca \leq 3 \qquad\blacksquare$$
-        <em>Kesetaraan saat $a = b = c = 1$.</em>
-      </div>
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 2</span>Titu's Lemma — bentuk pecahan</div>
+      <p><strong>Soal.</strong> Untuk $a, b, c > 0$ buktikan</p>
+      $$\frac{a^2}{b} + \frac{b^2}{c} + \frac{c^2}{a} \ge a + b + c.$$
+      <p><strong>Penyelesaian.</strong> Titu langsung:</p>
+      $$\begin{aligned}
+        \frac{a^2}{b} + \frac{b^2}{c} + \frac{c^2}{a} &\ge \frac{(a+b+c)^2}{a+b+c} \\
+        &= a+b+c. \quad\blacksquare
+      \end{aligned}$$
+      <p>Kesamaan iff $\dfrac{a}{b} = \dfrac{b}{c} = \dfrac{c}{a}$, yaitu $a = b = c$.</p>
     </div>
 
-    <div class="exercise-block">
-      <h4>Soal Latihan Sesi 2</h4>
-      <ul class="ex-list">
-        <li><span class="difficulty easy">★☆☆</span><span>Jika $a + b = 5$ dan $ab = 6$, tentukan $a^3 + b^3$.</span></li>
-        <li><span class="difficulty easy">★☆☆</span><span>Untuk $x, y > 0$ dengan $xy = 1$, buktikan $x + y \geq 2$.</span></li>
-        <li><span class="difficulty med">★★☆</span><span>Tentukan nilai minimum $x^2 + 4y^2$ jika $x + 2y = 6$ dan $x, y > 0$.</span></li>
-        <li><span class="difficulty hard">★★★</span><span>Untuk bilangan real $a, b, c$ dengan $a+b+c=0$, buktikan $a^3+b^3+c^3 = 3abc$.</span></li>
-      </ul>
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 3</span>Nesbitt — soal klasik</div>
+      <p><strong>Soal.</strong> Untuk $a, b, c > 0$ buktikan</p>
+      $$\frac{a}{b+c} + \frac{b}{c+a} + \frac{c}{a+b} \ge \frac{3}{2}.$$
+      <p><strong>Penyelesaian (Titu).</strong> Tulis ulang:</p>
+      $$\begin{aligned}
+        & \frac{a^2}{a(b+c)} + \frac{b^2}{b(c+a)} + \frac{c^2}{c(a+b)} \\
+        & \qquad \ge \frac{(a+b+c)^2}{a(b+c) + b(c+a) + c(a+b)}.
+      \end{aligned}$$
+      <p>Penyebut $= 2(ab + bc + ca)$. Maka</p>
+      $$\text{LHS} \ge \frac{(a+b+c)^2}{2(ab+bc+ca)}.$$
+      <p>Kita tahu $(a+b+c)^2 \ge 3(ab+bc+ca)$ (dari Contoh 1), jadi</p>
+      $$\text{LHS} \ge \frac{3(ab+bc+ca)}{2(ab+bc+ca)} = \frac{3}{2}. \quad\blacksquare$$
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 Trik penting.</strong> Untuk pecahan $\dfrac{a}{X}$, kalikan atas-bawah dengan $a$ jadi $\dfrac{a^2}{aX}$ — bentuk baku Titu.
+    </div>
+
+    <h3>1.5 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L1.1">
+        Buktikan untuk $x, y, z \in \mathbb{R}$: $(x+y+z)^2 \le 3(x^2+y^2+z^2)$ langsung dari SOS (tanpa C-S).
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$3(x^2+y^2+z^2) - (x+y+z)^2 = 2(x^2+y^2+z^2) - 2(xy+yz+zx) = (x-y)^2 + (y-z)^2 + (z-x)^2 \ge 0$. $\blacksquare$</div>
+        </details>
+      </li>
+      <li data-tag="L1.2">
+        $a, b, c > 0$ dan $a + b + c = 1$. Buktikan $\dfrac{1}{a} + \dfrac{1}{b} + \dfrac{1}{c} \ge 9$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Titu: $\dfrac{1^2}{a} + \dfrac{1^2}{b} + \dfrac{1^2}{c} \ge \dfrac{(1+1+1)^2}{a+b+c} = \dfrac{9}{1} = 9$. $\blacksquare$</div>
+        </details>
+      </li>
+      <li data-tag="L1.3">
+        $a, b, c > 0$. Buktikan $\dfrac{a^2}{b+c} + \dfrac{b^2}{c+a} + \dfrac{c^2}{a+b} \ge \dfrac{a+b+c}{2}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Titu: $\text{LHS} \ge \dfrac{(a+b+c)^2}{(b+c)+(c+a)+(a+b)} = \dfrac{(a+b+c)^2}{2(a+b+c)} = \dfrac{a+b+c}{2}$. $\blacksquare$</div>
+        </details>
+      </li>
+      <li data-tag="L1.4">
+        Carilah maksimum $\sqrt{x} + \sqrt{2-x}$ untuk $0 \le x \le 2$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">C-S: $(\sqrt{x}\cdot 1 + \sqrt{2-x}\cdot 1)^2 \le (x + (2-x))(1+1) = 4$. Jadi $\sqrt{x} + \sqrt{2-x} \le 2$, maksimum $= \mathbf{2}$ saat $x = 1$.</div>
+        </details>
+      </li>
+      <li data-tag="L1.5">
+        $x_1, \ldots, x_n > 0$ dengan $x_1 + \cdots + x_n = 1$. Buktikan $\dfrac{x_1^2}{1+x_1} + \cdots + \dfrac{x_n^2}{1+x_n} \ge \dfrac{1}{n+1}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Titu: LHS $\ge \dfrac{(x_1 + \cdots + x_n)^2}{(1+x_1) + \cdots + (1+x_n)} = \dfrac{1}{n+1}$. $\blacksquare$</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 2 — PERSAMAAN FUNGSIONAL ═══════════ -->
+  <div class="card" id="sesi2">
+    <h2>Sesi 2 — Persamaan Fungsional Sederhana</h2>
+    <div class="session-meta">60 menit · Konsep 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>2.1 Apa itu Persamaan Fungsional?</h3>
+    <p>Persamaan yang harus dipenuhi <strong>fungsi</strong> $f$ untuk semua nilai input — bukan persamaan dengan variabel $x$. Kita harus mencari semua $f$ yang memenuhi.</p>
+
+    <p>Contoh sederhana: <em>"Cari semua $f: \mathbb{R} \to \mathbb{R}$ dengan $f(x+y) = f(x) + f(y)$ untuk semua $x, y$."</em></p>
+
+    <h3>2.2 Strategi Substitusi Standar</h3>
+
+    <table class="strategy">
+      <thead><tr><th style="width:35%">Substitusi</th><th>Yang biasanya didapat</th></tr></thead>
+      <tbody>
+        <tr><td>$x = y = 0$</td><td>Nilai $f(0)$</td></tr>
+        <tr><td>$x = 0$ atau $y = 0$</td><td>Hubungan dengan $f(0)$</td></tr>
+        <tr><td>$y = x$</td><td>Bentuk kuadrat: $f(2x)$ atau $f(x^2)$</td></tr>
+        <tr><td>$y = -x$</td><td>Apakah $f$ ganjil/genap?</td></tr>
+        <tr><td>$x = y = 1$</td><td>Nilai $f(1), f(2)$</td></tr>
+        <tr><td>Tukar $x \leftrightarrow y$</td><td>Simetri: ekstrak info baru</td></tr>
+      </tbody>
+    </table>
+
+    <div class="tip-box">
+      <strong>💡 Aturan emas.</strong> Mulai selalu dengan substitusi paling sederhana ($x=y=0$). Kumpulkan hasil-hasil parsial. Tebak bentuk $f$, lalu buktikan tebakan benar.
+    </div>
+
+    <h3>2.3 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 4</span>Cauchy aditif</div>
+      <p><strong>Soal.</strong> Cari semua $f: \mathbb{Q} \to \mathbb{Q}$ yang memenuhi $f(x+y) = f(x) + f(y)$ untuk semua $x, y \in \mathbb{Q}$.</p>
+      <p><strong>Penyelesaian.</strong></p>
+      <p><em>Langkah 1.</em> $x = y = 0$: $f(0) = 2f(0) \Rightarrow f(0) = 0$.</p>
+      <p><em>Langkah 2.</em> Misal $f(1) = c$. Induksi pada bilangan asli:</p>
+      $$f(n) = f(\underbrace{1+1+\cdots+1}_{n}) = nc, \quad n \in \mathbb{N}.$$
+      <p><em>Langkah 3.</em> $y = -x$: $f(0) = f(x) + f(-x) \Rightarrow f(-x) = -f(x)$. Jadi $f(n) = nc$ untuk $n \in \mathbb{Z}$.</p>
+      <p><em>Langkah 4.</em> Untuk $\dfrac{p}{q} \in \mathbb{Q}$: $q \cdot f\!\left(\dfrac{p}{q}\right) = f(p) = pc \Rightarrow f\!\left(\dfrac{p}{q}\right) = \dfrac{p}{q} \cdot c$.</p>
+      <p><strong>Jawaban:</strong> $f(x) = cx$ untuk konstanta $c \in \mathbb{Q}$ apa saja.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 5</span>Substitusi pintar</div>
+      <p><strong>Soal.</strong> Cari semua $f: \mathbb{R} \to \mathbb{R}$ yang memenuhi $f(x) + 2f(1-x) = x^2$ untuk semua $x$.</p>
+      <p><strong>Penyelesaian.</strong> Substitusi $x \to 1-x$:</p>
+      $$f(1-x) + 2f(x) = (1-x)^2.$$
+      <p>Kita punya sistem dua persamaan:</p>
+      $$\begin{cases} f(x) + 2f(1-x) = x^2 \\ 2f(x) + f(1-x) = (1-x)^2 \end{cases}$$
+      <p>Eliminasi: kali persamaan kedua dengan 2, kurangi dari pertama:</p>
+      $$\begin{aligned}
+        -3f(x) &= x^2 - 2(1-x)^2 \\
+        f(x) &= \frac{2(1-x)^2 - x^2}{3} = \frac{x^2 - 4x + 2}{3}.
+      \end{aligned}$$
+      <p><strong>Cek:</strong> Substitusi balik mengkonfirmasi hasil. ✓</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 6</span>Tebak &amp; buktikan</div>
+      <p><strong>Soal.</strong> Cari semua $f: \mathbb{R} \to \mathbb{R}$ dengan $f(xy) = f(x)\,f(y)$ untuk semua $x, y$ dan $f$ kontinu.</p>
+      <p><strong>Penyelesaian.</strong></p>
+      <p><em>Langkah 1.</em> $x = y = 0$: $f(0) = f(0)^2 \Rightarrow f(0) \in \{0, 1\}$.</p>
+      <p><em>Langkah 2.</em> Jika $f(0) = 1$: ambil $y = 0$ saja: $f(0) = f(x)f(0) = f(x)$ untuk semua $x$. Jadi $f \equiv 1$.</p>
+      <p><em>Langkah 3.</em> Jika $f(0) = 0$: cek apakah ada $f$ tak-nol. Misal $f(1) = a$. Dari $f(1\cdot 1) = a^2 \Rightarrow a = a^2 \Rightarrow a \in \{0,1\}$.</p>
+      <p>Kalau $a = 0$: $f(x) = f(x \cdot 1) = f(x) \cdot 0 = 0$ untuk semua $x$. Jadi $f \equiv 0$.</p>
+      <p>Kalau $a = 1$: tebak $f(x) = x^k$ atau $f(x) = |x|^k$. Cek di soal: $(xy)^k = x^k y^k$ ✓ — bekerja. Dengan kontinuitas, jawaban umum: $f(x) = |x|^k$ atau $f(x) = |x|^k \cdot \text{sgn}(x)^m$ untuk $k \ge 0$.</p>
+      <p><strong>Jawaban (umum):</strong> $f \equiv 0$, $f \equiv 1$, atau $f(x) = |x|^k$ (dan variannya) untuk $k > 0$.</p>
+      <p><em>(Untuk KSN-K, cukup tunjukkan ide tebakan; bukti lengkap kontinuitas tidak wajib.)</em></p>
+    </div>
+
+    <h3>2.4 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L2.1">
+        Cari semua $f: \mathbb{R} \to \mathbb{R}$ dengan $f(x) - f(-x) = 2x$ untuk semua $x$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Substitusi $x \to -x$: $f(-x) - f(x) = -2x$, sama dengan persamaan asli (konsisten). Tulis $f(x) = g(x) + h(x)$ dengan $g$ genap, $h$ ganjil. Persamaan jadi $2h(x) = 2x \Rightarrow h(x) = x$. Bagian genap $g$ bebas. <strong>Jawaban:</strong> $f(x) = x + g(x)$ dengan $g$ fungsi genap apa saja.</div>
+        </details>
+      </li>
+      <li data-tag="L2.2">
+        $f: \mathbb{R} \to \mathbb{R}$ memenuhi $f(x) + f\!\left(\dfrac{1}{x}\right) = x$ untuk semua $x \neq 0$. Tentukan $f$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Substitusi $x \to 1/x$: $f(1/x) + f(x) = 1/x$. Bandingkan dengan persamaan asli: $x = 1/x$ untuk semua $x$ — kontradiksi kecuali $x = \pm 1$. <strong>Jawaban: tidak ada $f$ yang memenuhi.</strong> <em>(Soal jebakan — penting untuk dilatih!)</em></div>
+        </details>
+      </li>
+      <li data-tag="L2.3">
+        $f: \mathbb{R} \to \mathbb{R}$ memenuhi $2f(x) + f(1-x) = x^2$. Tentukan $f(x)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Sub $x \to 1-x$: $2f(1-x) + f(x) = (1-x)^2$. Kali persamaan asli dengan 2, kurangi: $3f(x) = 2x^2 - (1-x)^2 = x^2 + 2x - 1$. Jadi $\mathbf{f(x) = \dfrac{x^2 + 2x - 1}{3}}$.</div>
+        </details>
+      </li>
+      <li data-tag="L2.4">
+        $f: \mathbb{N} \to \mathbb{N}$ memenuhi $f(1) = 1$ dan $f(n+1) = f(n) + 2n + 1$ untuk semua $n$. Tentukan rumus $f(n)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$f(2) = 1+3 = 4$, $f(3) = 4+5 = 9$, $f(4) = 9+7 = 16$. Tebak $\mathbf{f(n) = n^2}$. Bukti induksi: $f(n+1) = n^2 + 2n + 1 = (n+1)^2$. ✓</div>
+        </details>
+      </li>
+      <li data-tag="L2.5">
+        Cari semua $f: \mathbb{R} \to \mathbb{R}$ dengan $f(x+y) = f(x) + f(y) + xy$ untuk semua $x, y \in \mathbb{R}$ dan $f(1) = 1$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Misal $g(x) = f(x) - \dfrac{x^2}{2}$. Cek: $g(x+y) = f(x+y) - \dfrac{(x+y)^2}{2} = f(x) + f(y) + xy - \dfrac{x^2 + 2xy + y^2}{2} = g(x) + g(y)$. Jadi $g$ aditif Cauchy. Untuk $\mathbb{Q}$: $g(x) = cx$, dengan $g(1) = f(1) - \tfrac{1}{2} = \tfrac{1}{2}$. Maka $\mathbf{f(x) = \dfrac{x^2}{2} + \dfrac{x}{2} = \dfrac{x(x+1)}{2}}$.</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 3 — BARISAN & DERET ═══════════ -->
+  <div class="card" id="sesi3">
+    <h2>Sesi 3 — Barisan, Deret &amp; Teleskop</h2>
+    <div class="session-meta">40 menit · Konsep 12' → Contoh 15' → Latihan 13'</div>
+
+    <h3>3.1 Tiga Teknik Inti</h3>
+
+    <div class="theorem">
+      <div class="label">1. Teleskop</div>
+      Tulis ulang $a_k = b_k - b_{k-1}$ (selisih). Maka
+      $$\sum_{k=1}^{n} a_k = b_n - b_0.$$
+    </div>
+
+    <div class="theorem">
+      <div class="label">2. Pecahan Parsial</div>
+      Untuk pecahan rasional, pecah jadi suku-suku yang lebih sederhana. Pola umum:
+      $$\frac{1}{k(k+1)} = \frac{1}{k} - \frac{1}{k+1},$$
+      $$\frac{1}{k(k+1)(k+2)} = \frac{1}{2}\left[\frac{1}{k(k+1)} - \frac{1}{(k+1)(k+2)}\right].$$
+    </div>
+
+    <div class="theorem">
+      <div class="label">3. Rekursi Linear</div>
+      Untuk $a_{n+1} = pa_n + qa_{n-1}$, akar persamaan karakteristik $x^2 - px - q = 0$ memberi solusi umum
+      $$a_n = A\,r_1^n + B\,r_2^n.$$
+    </div>
+
+    <h3>3.2 Rumus Penjumlahan Penting</h3>
+    <table class="strategy">
+      <thead><tr><th>Deret</th><th>Rumus</th></tr></thead>
+      <tbody>
+        <tr><td>$1 + 2 + \cdots + n$</td><td>$\dfrac{n(n+1)}{2}$</td></tr>
+        <tr><td>$1^2 + 2^2 + \cdots + n^2$</td><td>$\dfrac{n(n+1)(2n+1)}{6}$</td></tr>
+        <tr><td>$1^3 + 2^3 + \cdots + n^3$</td><td>$\left[\dfrac{n(n+1)}{2}\right]^2$</td></tr>
+        <tr><td>Geometri $a + ar + \cdots + ar^{n-1}$</td><td>$\dfrac{a(1-r^n)}{1-r}$ ($r \neq 1$)</td></tr>
+        <tr><td>$\dfrac{1}{1\cdot 2} + \dfrac{1}{2\cdot 3} + \cdots + \dfrac{1}{n(n+1)}$</td><td>$1 - \dfrac{1}{n+1} = \dfrac{n}{n+1}$</td></tr>
+      </tbody>
+    </table>
+
+    <h3>3.3 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 7</span>Teleskop dengan akar</div>
+      <p><strong>Soal.</strong> Hitung $\displaystyle\sum_{k=1}^{99} \frac{1}{\sqrt{k} + \sqrt{k+1}}$.</p>
+      <p><strong>Penyelesaian.</strong> Rasionalkan tiap suku:</p>
+      $$\begin{aligned}
+        \frac{1}{\sqrt{k} + \sqrt{k+1}} &\cdot \frac{\sqrt{k+1} - \sqrt{k}}{\sqrt{k+1} - \sqrt{k}} \\
+        &= \sqrt{k+1} - \sqrt{k}.
+      \end{aligned}$$
+      <p>Teleskop:</p>
+      $$\sum_{k=1}^{99} (\sqrt{k+1} - \sqrt{k}) = \sqrt{100} - \sqrt{1} = \mathbf{9}.$$
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 8</span>Rekursi Fibonacci-like</div>
+      <p><strong>Soal.</strong> $a_1 = 1, a_2 = 3$, $a_{n+1} = 5a_n - 6a_{n-1}$. Cari rumus tertutup $a_n$.</p>
+      <p><strong>Penyelesaian.</strong> Persamaan karakteristik: $x^2 - 5x + 6 = 0 \Rightarrow (x-2)(x-3) = 0$, akar $r_1 = 2, r_2 = 3$.</p>
+      <p>Solusi umum: $a_n = A\cdot 2^n + B\cdot 3^n$. Dari syarat awal:</p>
+      $$\begin{cases} 2A + 3B = 1 \\ 4A + 9B = 3 \end{cases} \;\Longrightarrow\; A = 0, \ B = \tfrac{1}{3}.$$
+      <p>Maka $\mathbf{a_n = \dfrac{3^n}{3} = 3^{n-1}}$. Cek: $a_1 = 1, a_2 = 3, a_3 = 9$. ✓</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 9</span>Pecahan parsial</div>
+      <p><strong>Soal.</strong> Hitung $\displaystyle S = \sum_{k=1}^{n} \frac{1}{k(k+1)(k+2)}$.</p>
+      <p><strong>Penyelesaian.</strong> Gunakan dekomposisi</p>
+      $$\frac{1}{k(k+1)(k+2)} = \frac{1}{2}\left[\frac{1}{k(k+1)} - \frac{1}{(k+1)(k+2)}\right].$$
+      <p>Teleskop:</p>
+      $$\begin{aligned}
+        S &= \frac{1}{2}\left[\frac{1}{1\cdot 2} - \frac{1}{(n+1)(n+2)}\right] \\
+        &= \frac{1}{4} - \frac{1}{2(n+1)(n+2)}.
+      \end{aligned}$$
+    </div>
+
+    <h3>3.4 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L3.1">
+        Hitung $\displaystyle\sum_{k=1}^{n} k(k+1)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$k(k+1) = k^2 + k$. Jadi $\sum = \dfrac{n(n+1)(2n+1)}{6} + \dfrac{n(n+1)}{2} = \dfrac{n(n+1)}{6}\left[(2n+1) + 3\right] = \mathbf{\dfrac{n(n+1)(n+2)}{3}}$.</div>
+        </details>
+      </li>
+      <li data-tag="L3.2">
+        Hitung $\displaystyle\sum_{k=1}^{50} \frac{1}{k^2 + k}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$\dfrac{1}{k^2+k} = \dfrac{1}{k(k+1)} = \dfrac{1}{k} - \dfrac{1}{k+1}$. Teleskop: $1 - \dfrac{1}{51} = \mathbf{\dfrac{50}{51}}$.</div>
+        </details>
+      </li>
+      <li data-tag="L3.3">
+        $a_1 = 2$, $a_{n+1} = 3a_n - 2$. Cari rumus tertutup $a_n$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Cari titik tetap: $L = 3L - 2 \Rightarrow L = 1$. Misal $b_n = a_n - 1$, maka $b_{n+1} = 3b_n$ dan $b_1 = 1$. Jadi $b_n = 3^{n-1}$, sehingga $\mathbf{a_n = 3^{n-1} + 1}$.</div>
+        </details>
+      </li>
+      <li data-tag="L3.4">
+        Hitung $\displaystyle\sum_{k=1}^{n} k \cdot k!$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$k \cdot k! = (k+1)! - k!$. Teleskop: $\sum = (n+1)! - 1! = \mathbf{(n+1)! - 1}$.</div>
+        </details>
+      </li>
+      <li data-tag="L3.5">
+        Barisan Fibonacci $F_1 = F_2 = 1$, $F_{n+1} = F_n + F_{n-1}$. Buktikan $F_1 + F_2 + \cdots + F_n = F_{n+2} - 1$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Tulis $F_k = F_{k+2} - F_{k+1}$. Maka $\sum_{k=1}^n F_k = \sum_{k=1}^n (F_{k+2} - F_{k+1})$ — teleskop $= F_{n+2} - F_2 = F_{n+2} - 1$. $\blacksquare$</div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ GABUNGAN ═══════════ -->
+  <div class="card" id="gabungan">
+    <h2>Latihan Gabungan — Mini Olimpiade</h2>
+    <div class="session-meta">20 menit · Pilih 3 dari 5 · Materi pertemuan 1 + 2</div>
+
+    <ul class="exercises">
+      <li data-tag="G1">
+        $a, b, c > 0$ dan $abc = 1$. Buktikan $\dfrac{1}{a^2(b+c)} + \dfrac{1}{b^2(c+a)} + \dfrac{1}{c^2(a+b)} \ge \dfrac{3}{2}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Karena $abc = 1$: $\dfrac{1}{a^2(b+c)} = \dfrac{bc}{a(b+c) \cdot abc} = \dfrac{bc/a}{b+c}$. Substitusi $x = 1/a, y=1/b, z=1/c$, syarat $xyz = 1$:
+            $\sum \dfrac{x^2}{y+z}$. Titu: $\ge \dfrac{(x+y+z)^2}{2(x+y+z)} = \dfrac{x+y+z}{2}$. Dari AM-GM $x+y+z \ge 3\sqrt[3]{xyz}=3$. Jadi $\ge \dfrac{3}{2}$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="G2">
+        Cari semua $f: \mathbb{R} \to \mathbb{R}$ dengan $f(x+y) + f(x-y) = 2f(x)f(y)$ dan $f$ tidak nol.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">$x = y = 0$: $2f(0) = 2f(0)^2 \Rightarrow f(0) \in \{0, 1\}$. Jika $f(0) = 0$, $y = 0$: $2f(x) = 0$ untuk semua $x$ — kontradiksi. Jadi $f(0) = 1$. $x = 0$: $f(y) + f(-y) = 2f(y) \Rightarrow f$ genap. Tebakan: $f(x) = \cos(kx)$ atau $f(x) = \cosh(kx)$. Verifikasi cocok dengan rumus jumlah-selisih cosinus. <strong>Jawaban:</strong> $f(x) = \cos(kx)$ atau $\cosh(kx)$ untuk $k \in \mathbb{R}$ (juga $f \equiv 1$ sebagai kasus $k=0$).</div>
+        </details>
+      </li>
+      <li data-tag="G3">
+        Hitung $\displaystyle\sum_{k=1}^{100} \frac{1}{k(k+1)(k+2)(k+3)}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Pola umum: $\dfrac{1}{k(k+1)(k+2)(k+3)} = \dfrac{1}{3}\left[\dfrac{1}{k(k+1)(k+2)} - \dfrac{1}{(k+1)(k+2)(k+3)}\right]$.
+            Teleskop: $\dfrac{1}{3}\left[\dfrac{1}{1\cdot 2 \cdot 3} - \dfrac{1}{101 \cdot 102 \cdot 103}\right] = \dfrac{1}{18} - \dfrac{1}{3 \cdot 101 \cdot 102 \cdot 103}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G4">
+        $a, b, c$ adalah akar $x^3 - 6x^2 + 11x - 6 = 0$. Hitung $\dfrac{1}{a^2} + \dfrac{1}{b^2} + \dfrac{1}{c^2}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Vieta: $a+b+c = 6, ab+bc+ca = 11, abc = 6$. $\dfrac{1}{a^2}+\dfrac{1}{b^2}+\dfrac{1}{c^2} = \dfrac{(ab+bc+ca)^2 - 2abc(a+b+c)}{(abc)^2} = \dfrac{121 - 72}{36} = \mathbf{\dfrac{49}{36}}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G5">
+        Untuk $a, b, c > 0$ buktikan $\dfrac{a^3}{b+c} + \dfrac{b^3}{c+a} + \dfrac{c^3}{a+b} \ge \dfrac{a^2+b^2+c^2}{2}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Tulis $\dfrac{a^3}{b+c} = \dfrac{(a^2)^2}{a(b+c)}$. Titu:
+            $\sum \dfrac{(a^2)^2}{a(b+c)} \ge \dfrac{(a^2+b^2+c^2)^2}{a(b+c)+b(c+a)+c(a+b)} = \dfrac{(a^2+b^2+c^2)^2}{2(ab+bc+ca)}$.
+            Karena $ab+bc+ca \le a^2+b^2+c^2$ (dari SOS), maka $\dfrac{(a^2+b^2+c^2)^2}{2(ab+bc+ca)} \ge \dfrac{a^2+b^2+c^2}{2}$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ PANDUAN GURU ═══════════ -->
+  <div class="card" id="panduan">
+    <h2>Panduan untuk Guru — Pertemuan 2</h2>
+    <div class="session-meta">Refleksi setelah pertemuan 1 + persiapan pertemuan 2</div>
+
+    <h3>Refleksi dari Pertemuan 1</h3>
+    <ul class="tips">
+      <li>Cek PR Pertemuan 1 di awal — minta 1-2 siswa menjelaskan jawaban di papan.</li>
+      <li>Identifikasi siswa yang kesulitan dengan identitas dasar. Mereka butuh latihan ekstra di luar kelas.</li>
+      <li>Catat materi mana yang lambat — mungkin perlu diulang sebelum Sesi 1 hari ini.</li>
+    </ul>
+
+    <h3>Selama Mengajar Pertemuan 2</h3>
+    <ul class="tips">
+      <li><strong>Cauchy-Schwarz adalah bintang utama.</strong> Pastikan semua siswa hafal Titu's Lemma — ini akan dipakai sangat sering.</li>
+      <li>Untuk persamaan fungsional, jangan paksa siswa menemukan jawaban sendiri pertama kali. <strong>Tunjukkan pola substitusi</strong>, lalu mereka tiru.</li>
+      <li>Sesi 3 paling padat — siapkan timer. Jangan tergoda menjelaskan terlalu detail rumus deret; siswa cukup tahu cara teleskop.</li>
+      <li>Bila siswa bingung memilih strategi (AM-GM vs C-S vs SOS), kembali ke tabel di bagian 1.3.</li>
+    </ul>
+
+    <h3>Untuk Pertemuan 3</h3>
+    <ul class="tips">
+      <li>Kombinatorika dasar: prinsip pencacahan, kombinasi, prinsip lubang merpati.</li>
+      <li>Atau: Geometri olimpiade — kesebangunan, garis berat, lingkaran luar/dalam segitiga.</li>
+      <li>Atau: Teori bilangan — keterbagian, modular, FPB &amp; KPK.</li>
+      <li>Pilih sesuai keseimbangan — jangan tinggal di aljabar terus-menerus.</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:1.5rem">
+      <strong>Pesan penutup.</strong> Pertemuan kedua adalah lompatan. Siswa yang bertahan dari pertemuan ini biasanya akan terus jalan. Beri pengakuan untuk usaha mereka, bukan hanya untuk jawaban yang benar.
     </div>
   </div>
 
-  <hr class="section-rule">
+</main>
 
-  <!-- ═══ SESI 3 ═══ -->
-  <div class="session">
-    <div class="session-header">
-      <div class="session-num">03</div>
-      <div class="session-info">
-        <div class="session-title">Kombinatorik</div>
-        <div class="session-sub">COMBINATORICS — SENI MENGHITUNG</div>
-      </div>
-      <div class="session-time">02:10 – 03:00</div>
-    </div>
-    <div class="topics">
-      <span class="topic-tag">Prinsip Dasar</span>
-      <span class="topic-tag">Permutasi &amp; Kombinasi</span>
-      <span class="topic-tag">Pigeonhole</span>
-      <span class="topic-tag">Kompetisi Mini</span>
-    </div>
-    <div class="theory">
-      <h4>Konsep Kunci</h4>
-      <ul>
-        <li><strong>Aturan Perkalian:</strong> Jika langkah 1 ada $m$ cara dan langkah 2 ada $n$ cara (independen), totalnya $mn$ cara.</li>
-        <li><strong>Kombinasi:</strong> $\dbinom{n}{r} = \dfrac{n!}{r!\,(n-r)!}$ — memilih $r$ dari $n$ tanpa urutan.</li>
-        <li><strong>Permutasi:</strong> $P(n,r) = \dfrac{n!}{(n-r)!}$ — memilih $r$ dari $n$ dengan urutan.</li>
-        <li><strong>Prinsip Pigeonhole:</strong> Jika $n+1$ objek dimasukkan ke $n$ kotak, ada minimal satu kotak berisi $\geq 2$ objek.</li>
-        <li><strong>Binomial:</strong> $\displaystyle\sum_{r=0}^{n}\binom{n}{r} = 2^n$</li>
-      </ul>
-    </div>
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Pertemuan 2 · Cauchy-Schwarz, Persamaan Fungsional, Barisan-Deret
+</footer>
 
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 1</span><span>Mudah — Kombinasi dasar</span></div>
-      <div class="example-q">Dari 10 orang, berapa cara memilih panitia yang terdiri dari 3 orang?</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        $$\binom{10}{3} = \frac{10!}{3!\cdot 7!} = \frac{10 \times 9 \times 8}{3 \times 2 \times 1} = \mathbf{120} \text{ cara} \qquad\blacksquare$$
-      </div>
-    </div>
-
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 2</span><span>Menengah — Prinsip Pigeonhole</span></div>
-      <div class="example-q">Dalam sebuah kelas berisi 13 siswa, buktikan bahwa minimal ada 2 siswa yang lahir pada bulan yang sama.</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Ada $12$ bulan (kotak) dan $13$ siswa (objek). Karena $13 > 12$, Prinsip Pigeonhole menjamin setidaknya satu bulan memuat $\geq 2$ siswa. $\blacksquare$
-      </div>
-    </div>
-
-    <div class="example-block">
-      <div class="example-header"><span class="ex-badge">CONTOH 3</span><span>OSN level — Counting dengan syarat</span></div>
-      <div class="example-q">Berapa banyak bilangan 4 digit (angka pertama $\neq 0$) yang semua digit-digitnya berbeda?</div>
-      <div class="solution">
-        <div class="solution-label">Solusi</div>
-        Digit pertama ($1$–$9$): $9$ pilihan. Digit kedua ($0$–$9$ kecuali digit pertama): $9$ pilihan. Digit ke-3: $8$. Digit ke-4: $7$.
-        $$\text{Total} = 9 \times 9 \times 8 \times 7 = \mathbf{4.536} \qquad\blacksquare$$
-      </div>
-    </div>
-
-    <div class="exercise-block" style="border-color:var(--accent); border-width:2px;">
-      <h4 style="color:var(--accent);">🏆 Kompetisi Mini — 20 Menit Terakhir</h4>
-      <p style="font-size:13px; color:var(--muted); margin-bottom:14px;">Kerjakan mandiri. Siapa selesai paling cepat dengan benar, menang.</p>
-      <ul class="ex-list">
-        <li><span class="difficulty easy">★☆☆</span><span>Dalam 25 bilangan bulat, buktikan ada 2 bilangan yang selisihnya habis dibagi $24$.</span></li>
-        <li><span class="difficulty med">★★☆</span><span>Dari 8 titik pada lingkaran (tidak ada 3 yang kolinear dari dalam), berapa banyak segitiga yang dapat dibentuk?</span></li>
-        <li><span class="difficulty med">★★☆</span><span>Berapa banyak susunan huruf dari kata <em>"MATEMATIKA"</em>? (Perhatikan huruf yang berulang)</span></li>
-        <li><span class="difficulty hard">★★★</span><span>Di pesta dengan $n$ orang, setiap dua orang berjabat tangan tepat sekali. Tunjukkan total jabat tangan adalah $\dbinom{n}{2}$. Hitung untuk $n = 10$.</span></li>
-      </ul>
-    </div>
-  </div>
-
-  <hr class="section-rule">
-
-  <div style="background:var(--navy); color:#e8edf8; border-radius:8px; padding:28px 32px;">
-    <div style="font-family:'JetBrains Mono',monospace; font-size:10px; letter-spacing:.18em; color:#8fa0c8; margin-bottom:14px; text-transform:uppercase;">Tips untuk Pengajar</div>
-    <div style="display:grid; grid-template-columns:1fr 1fr; gap:20px; font-size:13.5px;">
-      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Pembuka yang Kuat</div>Mulai dengan satu soal mudah di papan tulis. Biarkan siswa jawab spontan untuk ukur level kelas.</div>
-      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Kelola Perbedaan Level</div>Soal ★☆☆ untuk semua. Soal ★★☆ untuk yang selesai cepat. Soal ★★★ sebagai tantangan PR.</div>
-      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Pendekatan "Salah itu Bagus"</div>Saat siswa salah, tanya: <em>"Strategimu apa?"</em> Proses berpikir lebih penting dari jawaban akhir.</div>
-      <div><div style="color:#f0c040; margin-bottom:6px; font-weight:600;">Kompetisi Mini Penutup</div>Akhiri dengan kompetisi kecil — beri semangat, bukan tekanan. Suasana menyenangkan = siswa mau kembali.</div>
-    </div>
-  </div>
-
-</div>
-
-<footer>OLIMPIADE MATEMATIKA · SMAN 1 BOYOLANGU · UIN SATU TULUNGAGUNG</footer>
 </body>
 </html>
