@@ -20,8 +20,7 @@
     };
   </script>
   <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
-      <link href="https://paggalih.github.io/assets/css/style.css" rel="stylesheet">
-	<script src="https://paggalih.github.io/assets/js/main2.js"></script>
+
   <style>
     :root {
       --bg: #f5f4f0;
@@ -204,6 +203,7 @@
     }
     table.identity tr:last-child td { border-bottom: none; }
     table.identity tr:nth-child(even) td { background: #fafafa; }
+    table.identity td mjx-container[jax="SVG"] { font-size: .92em; }
 
     /* ── Example blocks ── */
     .example {
@@ -369,6 +369,27 @@
     mjx-container { line-height: 0; }
     mjx-container[jax="SVG"][display="true"] {
       margin: .6em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: .15em 0 .35em;
+    }
+    /* Subtle scrollbar that hints overflow */
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar {
+      height: 5px;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar-thumb:hover {
+      background: var(--text2);
+    }
+    /* Inline math on tight screens */
+    @media (max-width: 580px) {
+      mjx-container[jax="SVG"]:not([display="true"]) {
+        font-size: .95em;
+      }
     }
   </style>
 </head>
@@ -456,7 +477,10 @@
       <div class="ex-label"><span class="ex-tag">Contoh 2</span>Jumlah pangkat tiga saat $a+b+c=0$</div>
       <p><strong>Soal.</strong> Jika $a + b + c = 0$, buktikan $a^3 + b^3 + c^3 = 3abc$.</p>
       <p><strong>Penyelesaian.</strong> Gunakan identitas</p>
-      $$a^3 + b^3 + c^3 - 3abc = (a+b+c)(a^2+b^2+c^2-ab-bc-ca).$$
+      $$\begin{aligned}
+        & a^3 + b^3 + c^3 - 3abc \\
+        & \qquad = (a+b+c)(a^2+b^2+c^2-ab-bc-ca).
+      \end{aligned}$$
       <p>Karena $a + b + c = 0$, ruas kanan bernilai $0$, sehingga $a^3 + b^3 + c^3 = 3abc$. $\blacksquare$</p>
     </div>
 
@@ -464,7 +488,10 @@
       <div class="ex-label"><span class="ex-tag">Contoh 3</span>Teleskop</div>
       <p><strong>Soal.</strong> Hitung $S = (2+1)(2^2+1)(2^4+1)(2^8+1)(2^{16}+1)$.</p>
       <p><strong>Penyelesaian.</strong> Kalikan dan bagi dengan $(2 - 1) = 1$, lalu terapkan $a^2 - b^2 = (a-b)(a+b)$ secara berulang:</p>
-      $$S = (2-1)(2+1)(2^2+1)(2^4+1)(2^8+1)(2^{16}+1).$$
+      $$\begin{aligned}
+        S = (2-1)(2+1)(2^2+1)(2^4+1) \\
+        \cdot (2^8+1)(2^{16}+1).
+      \end{aligned}$$
       $$(2-1)(2+1) = 2^2-1;\quad (2^2-1)(2^2+1) = 2^4-1;\; \ldots$$
       <p>Jadi $\boxed{S = 2^{32} - 1}$.</p>
     </div>
@@ -532,13 +559,18 @@
 
     <h4>Vieta — Kubik</h4>
     <p>Untuk $ax^3 + bx^2 + cx + d = 0$ dengan akar $\alpha, \beta, \gamma$:</p>
-    $$\alpha+\beta+\gamma = -\frac{b}{a}, \quad \alpha\beta + \alpha\gamma + \beta\gamma = \frac{c}{a}, \quad \alpha\beta\gamma = -\frac{d}{a}.$$
+    $$\begin{aligned}
+      \alpha+\beta+\gamma &= -\frac{b}{a}, \\
+      \alpha\beta + \alpha\gamma + \beta\gamma &= \frac{c}{a}, \\
+      \alpha\beta\gamma &= -\frac{d}{a}.
+    \end{aligned}$$
 
     <div class="tip-box">
       <strong>Power sums (Newton sederhana):</strong>
       $$\alpha^2 + \beta^2 = (\alpha+\beta)^2 - 2\alpha\beta$$
       $$\alpha^3 + \beta^3 = (\alpha+\beta)^3 - 3\alpha\beta(\alpha+\beta)$$
-      $$\frac{1}{\alpha} + \frac{1}{\beta} = \frac{\alpha+\beta}{\alpha\beta}, \qquad \frac{1}{\alpha^2} + \frac{1}{\beta^2} = \frac{\alpha^2+\beta^2}{(\alpha\beta)^2}$$
+      $$\frac{1}{\alpha} + \frac{1}{\beta} = \frac{\alpha+\beta}{\alpha\beta}$$
+      $$\frac{1}{\alpha^2} + \frac{1}{\beta^2} = \frac{\alpha^2+\beta^2}{(\alpha\beta)^2}$$
     </div>
 
     <h3>2.2 Contoh Terbimbing</h3>
@@ -557,7 +589,10 @@
       <div class="ex-label"><span class="ex-tag">Contoh 5</span>Membentuk polinomial baru</div>
       <p><strong>Soal.</strong> $\alpha, \beta, \gamma$ adalah akar $x^3 - 3x + 1 = 0$. Carilah polinomial berderajat 3 yang akar-akarnya $2\alpha, 2\beta, 2\gamma$.</p>
       <p><strong>Penyelesaian.</strong> Jika $y$ akar baru, maka $y/2$ akar lama. Substitusi $x \to x/2$:</p>
-      $$\left(\frac{x}{2}\right)^3 - 3\left(\frac{x}{2}\right) + 1 = 0 \;\Longleftrightarrow\; \frac{x^3}{8} - \frac{3x}{2} + 1 = 0.$$
+      $$\begin{aligned}
+        \left(\frac{x}{2}\right)^3 - 3\left(\frac{x}{2}\right) + 1 &= 0 \\
+        \frac{x^3}{8} - \frac{3x}{2} + 1 &= 0.
+      \end{aligned}$$
       <p>Kali dengan $8$: $\quad\boxed{x^3 - 12x + 8 = 0}$.</p>
     </div>
 
