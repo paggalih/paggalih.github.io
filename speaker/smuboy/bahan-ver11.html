@@ -391,6 +391,13 @@
         font-size: .95em;
       }
     }
+    /* Inline math fallback — allow scroll for very wide expressions */
+    mjx-container[jax="SVG"]:not([display="true"]) {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      vertical-align: middle;
+    }
   </style>
 </head>
 <body>
@@ -522,15 +529,21 @@
         </details>
       </li>
       <li data-tag="L1.4">
-        Hitung $\displaystyle\left(1-\tfrac{1}{4}\right)\left(1-\tfrac{1}{9}\right)\left(1-\tfrac{1}{16}\right)\cdots\left(1-\tfrac{1}{100}\right)$.
+        Hitung
+        $$\left(1-\tfrac{1}{4}\right)\left(1-\tfrac{1}{9}\right)\left(1-\tfrac{1}{16}\right)\cdots\left(1-\tfrac{1}{100}\right).$$
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">$1 - \tfrac{1}{k^2} = \tfrac{(k-1)(k+1)}{k^2}$. Produk teleskop menghasilkan $\displaystyle\frac{1}{2}\cdot\frac{11}{10} = \frac{101}{200}$.</div>
+          <div class="ans-body">$1 - \tfrac{1}{k^2} = \tfrac{(k-1)(k+1)}{k^2}$. Produk teleskop:
+            $$\dfrac{1}{2}\cdot\dfrac{11}{10} = \dfrac{101}{200}.$$
+          </div>
         </details>
       </li>
       <li data-tag="L1.5">
         Tunjukkan $\displaystyle\frac{a^2+b^2}{ab} \ge 2$ untuk $a, b > 0$, dengan kesamaan iff $a = b$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">$\dfrac{a^2+b^2}{ab} - 2 = \dfrac{a^2 - 2ab + b^2}{ab} = \dfrac{(a-b)^2}{ab} \ge 0$. Sama dengan $0$ saat $a=b$. $\blacksquare$</div>
+          <div class="ans-body">
+            $$\dfrac{a^2+b^2}{ab} - 2 = \dfrac{a^2 - 2ab + b^2}{ab} = \dfrac{(a-b)^2}{ab} \ge 0.$$
+            Sama dengan $0$ saat $a=b$. $\blacksquare$
+          </div>
         </details>
       </li>
     </ul>
@@ -708,7 +721,8 @@
           <div class="ans-body">
             AM-GM: $xy \le \left(\tfrac{x+y}{2}\right)^2 = 25$, maksimum $25$ saat $x=y=5$.<br>
             Untuk $x^2 y$: terapkan AM-GM pada $\tfrac{x}{2}, \tfrac{x}{2}, y$ (jumlahnya $x+y=10$):
-            $\tfrac{x}{2}\cdot\tfrac{x}{2}\cdot y \le \left(\tfrac{10}{3}\right)^3 = \tfrac{1000}{27}$, jadi $x^2 y \le \mathbf{\tfrac{4000}{27}}$ saat $x=\tfrac{20}{3}, y=\tfrac{10}{3}$.
+            $$\tfrac{x}{2}\cdot\tfrac{x}{2}\cdot y \le \left(\tfrac{10}{3}\right)^3 = \tfrac{1000}{27},$$
+            jadi $x^2 y \le \mathbf{\tfrac{4000}{27}}$ saat $x=\tfrac{20}{3}, y=\tfrac{10}{3}$.
           </div>
         </details>
       </li>
@@ -721,13 +735,23 @@
       <li data-tag="L3.4">
         Buktikan $(a+b+c)^2 \ge 3(ab+bc+ca)$ untuk $a, b, c \in \mathbb{R}$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">$(a+b+c)^2 - 3(ab+bc+ca) = a^2+b^2+c^2 - ab-bc-ca = \tfrac{1}{2}\left[(a-b)^2+(b-c)^2+(c-a)^2\right] \ge 0$. $\blacksquare$</div>
+          <div class="ans-body">
+            $$\begin{aligned}
+              & (a+b+c)^2 - 3(ab+bc+ca) \\
+              &= a^2+b^2+c^2 - ab-bc-ca \\
+              &= \tfrac{1}{2}\left[(a-b)^2+(b-c)^2+(c-a)^2\right] \ge 0.
+            \end{aligned}$$
+            $\blacksquare$
+          </div>
         </details>
       </li>
       <li data-tag="L3.5">
         $a, b, c > 0$. Buktikan $\dfrac{a}{b} + \dfrac{b}{c} + \dfrac{c}{a} \ge 3$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">AM-GM tiga var: $\dfrac{1}{3}\left(\dfrac{a}{b}+\dfrac{b}{c}+\dfrac{c}{a}\right) \ge \sqrt[3]{\dfrac{a}{b}\cdot\dfrac{b}{c}\cdot\dfrac{c}{a}} = \sqrt[3]{1} = 1$. $\blacksquare$</div>
+          <div class="ans-body">AM-GM tiga var:
+            $$\dfrac{1}{3}\left(\dfrac{a}{b}+\dfrac{b}{c}+\dfrac{c}{a}\right) \ge \sqrt[3]{\dfrac{a}{b}\cdot\dfrac{b}{c}\cdot\dfrac{c}{a}} = \sqrt[3]{1} = 1.$$
+            $\blacksquare$
+          </div>
         </details>
       </li>
     </ul>
@@ -740,7 +764,8 @@
 
     <ul class="exercises">
       <li data-tag="G1">
-        Hitung $\displaystyle\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \frac{1}{3\cdot 4} + \cdots + \frac{1}{99 \cdot 100}$.
+        Hitung
+        $$\frac{1}{1\cdot 2} + \frac{1}{2\cdot 3} + \frac{1}{3\cdot 4} + \cdots + \frac{1}{99 \cdot 100}.$$
         <details class="answer"><summary>Kunci</summary>
           <div class="ans-body">$\dfrac{1}{k(k+1)} = \dfrac{1}{k} - \dfrac{1}{k+1}$. Teleskop: $1 - \dfrac{1}{100} = \mathbf{\dfrac{99}{100}}$.</div>
         </details>
@@ -763,7 +788,11 @@
       <li data-tag="G4">
         $a + b + c = 6$ dan $a^2 + b^2 + c^2 = 14$. Carilah $ab + bc + ca$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">$(a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca) \Rightarrow 36 = 14 + 2s \Rightarrow s = \mathbf{11}$. (Nilai unik — tidak ada maks/min berbeda.)</div>
+          <div class="ans-body">
+            $$(a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca)$$
+            $$\Rightarrow\ 36 = 14 + 2s \ \Rightarrow\ s = \mathbf{11}.$$
+            (Nilai unik — tidak ada maks/min berbeda.)
+          </div>
         </details>
       </li>
       <li data-tag="G5">
