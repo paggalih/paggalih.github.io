@@ -216,6 +216,21 @@
     table.strategy tr:last-child td { border-bottom: none; }
     table.strategy tr:nth-child(even) td { background: #fafafa; }
 
+    /* Scroll wrapper for any wide table */
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .table-wrap table { margin: 0; min-width: 480px; }
+    .table-wrap::-webkit-scrollbar { height: 5px; }
+    .table-wrap::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .table-wrap::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+
     /* ── Example blocks ── */
     .example {
       border-left: 3px solid var(--text2);
@@ -504,7 +519,8 @@
     <p>Bentuk Engel adalah <strong>senjata utama</strong> ketaksamaan KSN-K. Hampir semua soal "$\frac{1}{x} + \frac{1}{y}$ $+ \frac{1}{z} \ge \ldots$" dapat diserang dengan Titu.</p>
 
     <h3>1.3 Kapan Pakai Apa?</h3>
-    <table class="strategy">
+    <div class="table-wrap">
+<table class="strategy">
       <thead><tr><th style="width:40%">Bentuk soal</th><th>Strategi</th></tr></thead>
       <tbody>
         <tr><td>Jumlah + hasil kali (semua positif)</td><td>AM-GM</td></tr>
@@ -514,6 +530,7 @@
         <tr><td>Soal simetrik dengan kesamaan saat $a=b=c$</td><td>Coba AM-GM dulu, lalu C-S</td></tr>
       </tbody>
     </table>
+</div>
 
     <h3>1.4 Contoh Terbimbing</h3>
 
@@ -620,7 +637,8 @@
 
     <h3>2.2 Strategi Substitusi Standar</h3>
 
-    <table class="strategy">
+    <div class="table-wrap">
+<table class="strategy">
       <thead><tr><th style="width:35%">Substitusi</th><th>Yang biasanya didapat</th></tr></thead>
       <tbody>
         <tr><td>$x = y = 0$</td><td>Nilai $f(0)$</td></tr>
@@ -631,6 +649,7 @@
         <tr><td>Tukar $x \leftrightarrow y$</td><td>Simetri: ekstrak info baru</td></tr>
       </tbody>
     </table>
+</div>
 
     <div class="tip-box">
       <strong>💡 Aturan emas.</strong> Mulai selalu dengan substitusi paling sederhana ($x=y=0$). Kumpulkan hasil-hasil parsial. Tebak bentuk $f$, lalu buktikan tebakan benar.
@@ -749,7 +768,8 @@
     </div>
 
     <h3>3.2 Rumus Penjumlahan Penting</h3>
-    <table class="strategy">
+    <div class="table-wrap">
+<table class="strategy">
       <thead><tr><th>Deret</th><th>Rumus</th></tr></thead>
       <tbody>
         <tr><td>$1 + 2$ $+ \cdots + n$</td><td>$\dfrac{n(n+1)}{2}$</td></tr>
@@ -759,6 +779,7 @@
         <tr><td>$\dfrac{1}{1\cdot 2} + \dfrac{1}{2\cdot 3}$ $+ \cdots + \dfrac{1}{n(n+1)}$</td><td>$1 - \dfrac{1}{n+1} = \dfrac{n}{n+1}$</td></tr>
       </tbody>
     </table>
+</div>
 
     <h3>3.3 Contoh Terbimbing</h3>
 
