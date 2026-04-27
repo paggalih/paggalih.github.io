@@ -205,6 +205,21 @@
     table.identity tr:nth-child(even) td { background: #fafafa; }
     table.identity td mjx-container[jax="SVG"] { font-size: .92em; }
 
+    /* Scroll wrapper for any wide table */
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .table-wrap table.identity { margin: 0; min-width: 480px; }
+    .table-wrap::-webkit-scrollbar { height: 5px; }
+    .table-wrap::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .table-wrap::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+
     /* ── Example blocks ── */
     .example {
       border-left: 3px solid var(--text2);
@@ -446,23 +461,25 @@
     <h3>1.1 Identitas Wajib Hafal</h3>
     <p>Sebagian besar soal aljabar KSN-K dapat diselesaikan hanya dengan kombinasi identitas berikut. Minta siswa menyalin tabel ini ke buku catatan.</p>
 
+    <div class="table-wrap">
     <table class="identity">
       <thead>
         <tr><th style="width:45%">Bentuk</th><th>Faktorisasi / Ekspansi</th></tr>
       </thead>
       <tbody>
-        <tr><td>$(a+b)^2$</td><td>$a^2 + 2ab + b^2$</td></tr>
-        <tr><td>$(a-b)^2$</td><td>$a^2 - 2ab + b^2$</td></tr>
+        <tr><td>$(a+b)^2$</td><td>$a^2 + 2ab$ $+ b^2$</td></tr>
+        <tr><td>$(a-b)^2$</td><td>$a^2 - 2ab$ $+ b^2$</td></tr>
         <tr><td>$a^2 - b^2$</td><td>$(a-b)(a+b)$</td></tr>
-        <tr><td>$(a+b+c)^2$</td><td>$a^2+b^2+c^2+2(ab+bc+ca)$</td></tr>
-        <tr><td>$(a+b)^3$</td><td>$a^3 + 3a^2b + 3ab^2 + b^3$</td></tr>
-        <tr><td>$(a-b)^3$</td><td>$a^3 - 3a^2b + 3ab^2 - b^3$</td></tr>
+        <tr><td>$(a+b+c)^2$</td><td>$a^2+b^2$ $+c^2+2(ab+bc+ca)$</td></tr>
+        <tr><td>$(a+b)^3$</td><td>$a^3 + 3a^2b$ $+ 3ab^2 + b^3$</td></tr>
+        <tr><td>$(a-b)^3$</td><td>$a^3 - 3a^2b$ $+ 3ab^2 - b^3$</td></tr>
         <tr><td>$a^3 + b^3$</td><td>$(a+b)(a^2 - ab + b^2)$</td></tr>
         <tr><td>$a^3 - b^3$</td><td>$(a-b)(a^2 + ab + b^2)$</td></tr>
-        <tr><td>$a^3 + b^3 + c^3 - 3abc$</td><td>$(a+b+c)(a^2+b^2+c^2 - ab - bc - ca)$</td></tr>
+        <tr><td>$a^3 + b^3$ $+ c^3 - 3abc$</td><td>$(a+b+c)(a^2+b^2+c^2 - ab - bc - ca)$</td></tr>
         <tr><td>$a^4 + 4b^4$ <em style="color:var(--text2)">(Sophie Germain)</em></td><td>$(a^2 + 2b^2 + 2ab)(a^2 + 2b^2 - 2ab)$</td></tr>
       </tbody>
     </table>
+    </div>
 
     <div class="tip-box">
       <strong>💡 Tips mengajar:</strong> Tanyakan "Ada berapa cara menulis $a^2 - b^2$?" Biarkan siswa menjawab sebelum menulis faktorisasi. Ini membangun intuisi.
@@ -475,20 +492,20 @@
       <p><strong>Soal.</strong> Tentukan semua bilangan bulat positif $n$ sehingga $n^4 + 4$ adalah bilangan prima.</p>
       <p><strong>Penyelesaian.</strong> Gunakan identitas Sophie Germain dengan $b = 1$:</p>
       $$n^4 + 4 = (n^2 + 2n + 2)(n^2 - 2n + 2).$$
-      <p>Agar prima, salah satu faktor harus bernilai $1$. Perhatikan $n^2 + 2n + 2 = (n+1)^2 + 1 \ge 2$ untuk $n \ge 0$. Maka faktor yang mungkin sama dengan $1$ adalah</p>
+      <p>Agar prima, salah satu faktor harus bernilai $1$. Perhatikan $n^2 + 2n$ $+ 2 = (n+1)^2 + 1 \ge 2$ untuk $n \ge 0$. Maka faktor yang mungkin sama dengan $1$ adalah</p>
       $$n^2 - 2n + 2 = (n-1)^2 + 1 = 1 \;\;\Rightarrow\;\; n = 1.$$
       <p>Cek: $n = 1 \Rightarrow 1 + 4 = 5$ (prima). ✓ Jadi <strong>$n = 1$</strong> adalah satu-satunya jawaban.</p>
     </div>
 
     <div class="example">
-      <div class="ex-label"><span class="ex-tag">Contoh 2</span>Jumlah pangkat tiga saat $a+b+c=0$</div>
-      <p><strong>Soal.</strong> Jika $a + b + c = 0$, buktikan $a^3 + b^3 + c^3 = 3abc$.</p>
+      <div class="ex-label"><span class="ex-tag">Contoh 2</span>Jumlah pangkat tiga saat $a+b$ $+c=0$</div>
+      <p><strong>Soal.</strong> Jika $a + b$ $+ c = 0$, buktikan $a^3 + b^3$ $+ c^3 = 3abc$.</p>
       <p><strong>Penyelesaian.</strong> Gunakan identitas</p>
       $$\begin{aligned}
         & a^3 + b^3 + c^3 - 3abc \\
         & \qquad = (a+b+c)(a^2+b^2+c^2-ab-bc-ca).
       \end{aligned}$$
-      <p>Karena $a + b + c = 0$, ruas kanan bernilai $0$, sehingga $a^3 + b^3 + c^3 = 3abc$. $\blacksquare$</p>
+      <p>Karena $a + b$ $+ c = 0$, ruas kanan bernilai $0$, sehingga $a^3 + b^3$ $+ c^3 = 3abc$. $\blacksquare$</p>
     </div>
 
     <div class="example">
@@ -508,24 +525,24 @@
 
     <ul class="exercises">
       <li data-tag="L1.1">
-        Faktorkan $x^4 + x^2 + 1$.
+        Faktorkan $x^4 + x^2$ $+ 1$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Tambah &amp; kurangi $x^2$: $x^4 + 2x^2 + 1 - x^2 = (x^2+1)^2 - x^2 = (x^2+x+1)(x^2-x+1)$.</div>
+          <div class="ans-body">Tambah &amp; kurangi $x^2$: $x^4 + 2x^2$ $+ 1 - x^2 = (x^2+1)^2$ $- x^2 = (x^2+x+1)(x^2-x+1)$.</div>
         </details>
       </li>
       <li data-tag="L1.2">
         Jika $x + y = 3$ dan $xy = 1$, hitung $x^3 + y^3$ dan $x^5 + y^5$.
         <details class="answer"><summary>Kunci</summary>
           <div class="ans-body">
-            $x^3+y^3 = (x+y)^3 - 3xy(x+y) = 27 - 9 = 18$.<br>
+            $x^3+y^3 = (x+y)^3$ $- 3xy(x+y) = 27 - 9 = 18$.<br>
             Rekursi $s_{n+1} = (x+y)s_n - xy\,s_{n-1}$: $s_1=3,\ s_2=7,\ s_3=18,\ s_4=47,\ s_5=\mathbf{123}$.
           </div>
         </details>
       </li>
       <li data-tag="L1.3">
-        Sederhanakan $(a-b)^3 + (b-c)^3 + (c-a)^3$.
+        Sederhanakan $(a-b)^3 + (b-c)^3$ $+ (c-a)^3$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Karena $(a-b)+(b-c)+(c-a)=0$, gunakan $x^3+y^3+z^3=3xyz$ saat $x+y+z=0$. Hasilnya $3(a-b)(b-c)(c-a)$.</div>
+          <div class="ans-body">Karena $(a-b)+(b-c)$ $+(c-a)=0$, gunakan $x^3+y^3$ $+z^3=3xyz$ saat $x+y$ $+z=0$. Hasilnya $3(a-b)(b-c)(c-a)$.</div>
         </details>
       </li>
       <li data-tag="L1.4">
@@ -567,11 +584,11 @@
     </div>
 
     <h4>Vieta — Kuadrat</h4>
-    <p>Untuk $ax^2 + bx + c = 0$ dengan akar $\alpha, \beta$:</p>
+    <p>Untuk $ax^2 + bx$ $+ c = 0$ dengan akar $\alpha, \beta$:</p>
     $$\alpha + \beta = -\frac{b}{a}, \qquad \alpha\beta = \frac{c}{a}.$$
 
     <h4>Vieta — Kubik</h4>
-    <p>Untuk $ax^3 + bx^2 + cx + d = 0$ dengan akar $\alpha, \beta, \gamma$:</p>
+    <p>Untuk $ax^3 + bx^2$ $+ cx + d = 0$ dengan akar $\alpha, \beta, \gamma$:</p>
     $$\begin{aligned}
       \alpha+\beta+\gamma &= -\frac{b}{a}, \\
       \alpha\beta + \alpha\gamma + \beta\gamma &= \frac{c}{a}, \\
@@ -590,17 +607,17 @@
 
     <div class="example">
       <div class="ex-label"><span class="ex-tag">Contoh 4</span>Dari akar ke bentuk simetrik</div>
-      <p><strong>Soal.</strong> $\alpha$ dan $\beta$ adalah akar $x^2 - 5x + 3 = 0$. Hitung:
+      <p><strong>Soal.</strong> $\alpha$ dan $\beta$ adalah akar $x^2 - 5x$ $+ 3 = 0$. Hitung:
         (a) $\alpha^2 + \beta^2$; (b) $\alpha^3 + \beta^3$; (c) $\dfrac{1}{\alpha} + \dfrac{1}{\beta}$.</p>
       <p><strong>Penyelesaian.</strong> Dari Vieta: $\alpha + \beta = 5,\ \alpha\beta = 3$.</p>
-      <p>(a) $\alpha^2 + \beta^2 = 5^2 - 2(3) = \mathbf{19}$.</p>
-      <p>(b) $\alpha^3 + \beta^3 = 5^3 - 3(3)(5) = 125 - 45 = \mathbf{80}$.</p>
+      <p>(a) $\alpha^2 + \beta^2 = 5^2$ $- 2(3) = \mathbf{19}$.</p>
+      <p>(b) $\alpha^3 + \beta^3 = 5^3$ $- 3(3)(5) = 125 - 45 = \mathbf{80}$.</p>
       <p>(c) $\dfrac{1}{\alpha} + \dfrac{1}{\beta} = \dfrac{\alpha+\beta}{\alpha\beta} = \dfrac{5}{3}$.</p>
     </div>
 
     <div class="example">
       <div class="ex-label"><span class="ex-tag">Contoh 5</span>Membentuk polinomial baru</div>
-      <p><strong>Soal.</strong> $\alpha, \beta, \gamma$ adalah akar $x^3 - 3x + 1 = 0$. Carilah polinomial berderajat 3 yang akar-akarnya $2\alpha, 2\beta, 2\gamma$.</p>
+      <p><strong>Soal.</strong> $\alpha, \beta, \gamma$ adalah akar $x^3 - 3x$ $+ 1 = 0$. Carilah polinomial berderajat 3 yang akar-akarnya $2\alpha, 2\beta, 2\gamma$.</p>
       <p><strong>Penyelesaian.</strong> Jika $y$ akar baru, maka $y/2$ akar lama. Substitusi $x \to x/2$:</p>
       $$\begin{aligned}
         \left(\frac{x}{2}\right)^3 - 3\left(\frac{x}{2}\right) + 1 &= 0 \\
@@ -611,8 +628,8 @@
 
     <div class="example">
       <div class="ex-label"><span class="ex-tag">Contoh 6</span>Jumlah kebalikan akar</div>
-      <p><strong>Soal.</strong> Akar-akar $x^3 - 6x^2 + 11x - 6 = 0$ adalah $a, b, c$. Hitung $\dfrac{1}{a} + \dfrac{1}{b} + \dfrac{1}{c}$.</p>
-      <p><strong>Penyelesaian.</strong> Dari Vieta: $a+b+c = 6,\ ab+ac+bc = 11,\ abc = 6$.</p>
+      <p><strong>Soal.</strong> Akar-akar $x^3 - 6x^2$ $+ 11x - 6 = 0$ adalah $a, b, c$. Hitung $\dfrac{1}{a} + \dfrac{1}{b}$ $+ \dfrac{1}{c}$.</p>
+      <p><strong>Penyelesaian.</strong> Dari Vieta: $a+b$ $+c = 6,\ ab+ac$ $+bc = 11,\ abc = 6$.</p>
       $$\frac{1}{a} + \frac{1}{b} + \frac{1}{c} = \frac{ab+ac+bc}{abc} = \frac{11}{6}.$$
     </div>
 
@@ -620,33 +637,33 @@
 
     <ul class="exercises">
       <li data-tag="L2.1">
-        Akar $x^3 - 2x^2 + 3x - 4 = 0$ adalah $p, q, r$. Hitung $p^2 + q^2 + r^2$.
+        Akar $x^3 - 2x^2$ $+ 3x - 4 = 0$ adalah $p, q, r$. Hitung $p^2 + q^2$ $+ r^2$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">$p+q+r = 2,\ pq+pr+qr = 3$. Jadi $p^2+q^2+r^2 = 2^2 - 2(3) = \mathbf{-2}$.</div>
+          <div class="ans-body">$p+q$ $+r = 2,\ pq+pr$ $+qr = 3$. Jadi $p^2+q^2$ $+r^2 = 2^2 - 2(3) = \mathbf{-2}$.</div>
         </details>
       </li>
       <li data-tag="L2.2">
-        Akar $2x^2 - 7x + 5 = 0$ adalah $\alpha, \beta$. Bentuk persamaan kuadrat dengan akar $\alpha^2, \beta^2$.
+        Akar $2x^2 - 7x$ $+ 5 = 0$ adalah $\alpha, \beta$. Bentuk persamaan kuadrat dengan akar $\alpha^2, \beta^2$.
         <details class="answer"><summary>Kunci</summary>
           <div class="ans-body">$\alpha+\beta = \tfrac{7}{2},\ \alpha\beta = \tfrac{5}{2}$. Jadi $\alpha^2+\beta^2 = \tfrac{29}{4}$ dan $\alpha^2\beta^2 = \tfrac{25}{4}$. Persamaannya $\mathbf{4x^2 - 29x + 25 = 0}$.</div>
         </details>
       </li>
       <li data-tag="L2.3">
-        Tentukan semua bilangan $a, b, c$ dengan $a+b+c=6,\ ab+bc+ca=11,\ abc=6$.
+        Tentukan semua bilangan $a, b, c$ dengan $a+b$ $+c=6,\ ab+bc$ $+ca=11,\ abc=6$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Polinomial dengan akar $a,b,c$: $t^3 - 6t^2 + 11t - 6 = (t-1)(t-2)(t-3)$. Jadi $\{a,b,c\} = \mathbf{\{1,2,3\}}$.</div>
+          <div class="ans-body">Polinomial dengan akar $a,b,c$: $t^3 - 6t^2$ $+ 11t - 6 = (t-1)(t-2)(t-3)$. Jadi $\{a,b,c\} = \mathbf{\{1,2,3\}}$.</div>
         </details>
       </li>
       <li data-tag="L2.4">
-        $P(x) = x^3 + ax^2 + bx + c$. Jika $P(1)=1, P(2)=4, P(3)=9$, carilah $P(4)$.
+        $P(x) = x^3 + ax^2$ $+ bx + c$. Jika $P(1)=1, P(2)=4, P(3)=9$, carilah $P(4)$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Definisikan $Q(x) = P(x) - x^2$. $Q$ kubik dengan $Q(1)=Q(2)=Q(3)=0$ dan koefisien utama $1$, jadi $Q(x) = (x-1)(x-2)(x-3)$. Maka $P(4) = Q(4) + 16 = 6 + 16 = \mathbf{22}$.</div>
+          <div class="ans-body">Definisikan $Q(x) = P(x) - x^2$. $Q$ kubik dengan $Q(1)=Q(2)=Q(3)=0$ dan koefisien utama $1$, jadi $Q(x) = (x-1)(x-2)(x-3)$. Maka $P(4) = Q(4) + 16 = 6$ $+ 16 = \mathbf{22}$.</div>
         </details>
       </li>
       <li data-tag="L2.5">
-        Jika $\alpha$ akar $x^2 - x - 1 = 0$, buktikan $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$ untuk setiap $n \ge 0$.
+        Jika $\alpha$ akar $x^2 - x$ $- 1 = 0$, buktikan $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$ untuk setiap $n \ge 0$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Dari $\alpha^2 - \alpha - 1 = 0$: $\alpha^2 = \alpha + 1$. Kalikan kedua ruas dengan $\alpha^n$: $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$. $\blacksquare$ <em>(Identitas Fibonacci dari rasio emas.)</em></div>
+          <div class="ans-body">Dari $\alpha^2 - \alpha$ $- 1 = 0$: $\alpha^2 = \alpha + 1$. Kalikan kedua ruas dengan $\alpha^n$: $\alpha^{n+2} = \alpha^{n+1} + \alpha^n$. $\blacksquare$ <em>(Identitas Fibonacci dari rasio emas.)</em></div>
         </details>
       </li>
     </ul>
@@ -668,7 +685,7 @@
     <h4>AM-GM (Aritmetik–Geometrik)</h4>
     <p>Untuk $a, b \ge 0$:</p>
     $$\frac{a+b}{2} \ge \sqrt{ab}, \qquad \text{kesamaan iff } a = b.$$
-    <p><strong>Bukti.</strong> $(\sqrt{a}-\sqrt{b})^2 \ge 0 \Rightarrow a - 2\sqrt{ab} + b \ge 0 \Rightarrow \frac{a+b}{2} \ge \sqrt{ab}$. $\blacksquare$</p>
+    <p><strong>Bukti.</strong> $(\sqrt{a}-\sqrt{b})^2 \ge 0 \Rightarrow a - 2\sqrt{ab}$ $+ b \ge 0 \Rightarrow \frac{a+b}{2} \ge \sqrt{ab}$. $\blacksquare$</p>
 
     <p>Versi tiga variabel ($a, b, c \ge 0$):</p>
     $$\frac{a+b+c}{3} \ge \sqrt[3]{abc}.$$
@@ -692,15 +709,15 @@
 
     <div class="example">
       <div class="ex-label"><span class="ex-tag">Contoh 8</span>Bukti sederhana</div>
-      <p><strong>Soal.</strong> Untuk $a, b, c > 0$ dengan $abc = 1$, buktikan $a + b + c \ge 3$.</p>
+      <p><strong>Soal.</strong> Untuk $a, b, c > 0$ dengan $abc = 1$, buktikan $a + b$ $+ c \ge 3$.</p>
       <p><strong>Penyelesaian.</strong> AM-GM tiga variabel:</p>
       $$\frac{a+b+c}{3} \ge \sqrt[3]{abc} = \sqrt[3]{1} = 1.$$
-      <p>Jadi $a+b+c \ge 3$, kesamaan saat $a = b = c = 1$. $\blacksquare$</p>
+      <p>Jadi $a+b$ $+c \ge 3$, kesamaan saat $a = b = c = 1$. $\blacksquare$</p>
     </div>
 
     <div class="example">
       <div class="ex-label"><span class="ex-tag">Contoh 9</span>Sum of Squares (SOS)</div>
-      <p><strong>Soal.</strong> Buktikan $a^2 + b^2 + c^2 \ge ab + bc + ca$ untuk $a, b, c \in \mathbb{R}$.</p>
+      <p><strong>Soal.</strong> Buktikan $a^2 + b^2$ $+ c^2 \ge ab + bc$ $+ ca$ untuk $a, b, c \in \mathbb{R}$.</p>
       <p><strong>Penyelesaian.</strong></p>
       $$2(a^2+b^2+c^2) - 2(ab+bc+ca) = (a-b)^2 + (b-c)^2 + (c-a)^2 \ge 0. \quad\blacksquare$$
       <p style="font-size:.9rem;color:var(--text2)"><em>Catatan: valid untuk semua real, tidak perlu syarat non-negatif.</em></p>
@@ -727,9 +744,9 @@
         </details>
       </li>
       <li data-tag="L3.3">
-        $x, y, z > 0$ dan $xyz = 8$. Cari minimum $x + y + z$.
+        $x, y, z > 0$ dan $xyz = 8$. Cari minimum $x + y$ $+ z$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">AM-GM: $x+y+z \ge 3\sqrt[3]{xyz} = 3\cdot 2 = \mathbf{6}$, saat $x=y=z=2$.</div>
+          <div class="ans-body">AM-GM: $x+y$ $+z \ge 3\sqrt[3]{xyz} = 3\cdot 2 = \mathbf{6}$, saat $x=y=z=2$.</div>
         </details>
       </li>
       <li data-tag="L3.4">
@@ -746,7 +763,7 @@
         </details>
       </li>
       <li data-tag="L3.5">
-        $a, b, c > 0$. Buktikan $\dfrac{a}{b} + \dfrac{b}{c} + \dfrac{c}{a} \ge 3$.
+        $a, b, c > 0$. Buktikan $\dfrac{a}{b} + \dfrac{b}{c}$ $+ \dfrac{c}{a} \ge 3$.
         <details class="answer"><summary>Kunci</summary>
           <div class="ans-body">AM-GM tiga var:
             $$\dfrac{1}{3}\left(\dfrac{a}{b}+\dfrac{b}{c}+\dfrac{c}{a}\right) \ge \sqrt[3]{\dfrac{a}{b}\cdot\dfrac{b}{c}\cdot\dfrac{c}{a}} = \sqrt[3]{1} = 1.$$
@@ -771,22 +788,22 @@
         </details>
       </li>
       <li data-tag="G2">
-        Faktorkan $x^5 + x + 1$ sebagai produk dua polinomial berkoefisien bulat.
-        <br><em style="color:var(--text2);font-size:.88rem">Hint: $x^2 + x + 1$ adalah salah satu faktor.</em>
+        Faktorkan $x^5 + x$ $+ 1$ sebagai produk dua polinomial berkoefisien bulat.
+        <br><em style="color:var(--text2);font-size:.88rem">Hint: $x^2 + x$ $+ 1$ adalah salah satu faktor.</em>
         <details class="answer"><summary>Kunci</summary>
           <div class="ans-body">
-            $x^5 + x + 1 = x^5 - x^2 + x^2 + x + 1 = x^2(x^3 - 1) + (x^2+x+1)$ $= x^2(x-1)(x^2+x+1) + (x^2+x+1)$ $= \mathbf{(x^2+x+1)(x^3 - x^2 + 1)}$.
+            $x^5 + x$ $+ 1 = x^5 - x^2$ $+ x^2 + x$ $+ 1 = x^2(x^3 - 1) + (x^2+x+1)$ $= x^2(x-1)(x^2+x+1) + (x^2+x+1)$ $= \mathbf{(x^2+x+1)(x^3 - x^2 + 1)}$.
           </div>
         </details>
       </li>
       <li data-tag="G3">
-        Akar-akar $x^3 - 9x^2 + 23x - 15 = 0$ adalah tiga bilangan bulat positif. Tentukan ketiganya.
+        Akar-akar $x^3 - 9x^2$ $+ 23x - 15 = 0$ adalah tiga bilangan bulat positif. Tentukan ketiganya.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Vieta: $a+b+c = 9,\ ab+ac+bc = 23,\ abc = 15$. Faktor bulat positif dari $15$: cek $\{1,3,5\}$: $1+3+5=9\ \checkmark$, $1\cdot3 + 1\cdot5 + 3\cdot 5 = 23\ \checkmark$. Jadi akar-akarnya $\mathbf{1, 3, 5}$.</div>
+          <div class="ans-body">Vieta: $a+b$ $+c = 9,\ ab+ac$ $+bc = 23,\ abc = 15$. Faktor bulat positif dari $15$: cek $\{1,3,5\}$: $1+3$ $+5=9\ \checkmark$, $1\cdot3 + 1\cdot5$ $+ 3\cdot 5 = 23\ \checkmark$. Jadi akar-akarnya $\mathbf{1, 3, 5}$.</div>
         </details>
       </li>
       <li data-tag="G4">
-        $a + b + c = 6$ dan $a^2 + b^2 + c^2 = 14$. Carilah $ab + bc + ca$.
+        $a + b$ $+ c = 6$ dan $a^2 + b^2$ $+ c^2 = 14$. Carilah $ab + bc$ $+ ca$.
         <details class="answer"><summary>Kunci</summary>
           <div class="ans-body">
             $$(a+b+c)^2 = a^2+b^2+c^2 + 2(ab+bc+ca)$$
@@ -796,9 +813,9 @@
         </details>
       </li>
       <li data-tag="G5">
-        $a, b, c > 0$ dengan $a + b + c = 3$. Buktikan $a^2 + b^2 + c^2 \ge 3$.
+        $a, b, c > 0$ dengan $a + b$ $+ c = 3$. Buktikan $a^2 + b^2$ $+ c^2 \ge 3$.
         <details class="answer"><summary>Kunci</summary>
-          <div class="ans-body">Dari $(a+b+c)^2 \le 3(a^2+b^2+c^2)$ (ekuivalen dengan L3.4): $9 \le 3(a^2+b^2+c^2) \Rightarrow a^2+b^2+c^2 \ge 3$, kesamaan saat $a=b=c=1$. $\blacksquare$</div>
+          <div class="ans-body">Dari $(a+b+c)^2 \le 3(a^2+b^2+c^2)$ (ekuivalen dengan L3.4): $9 \le 3(a^2+b^2+c^2) \Rightarrow a^2+b^2$ $+c^2 \ge 3$, kesamaan saat $a=b=c=1$. $\blacksquare$</div>
         </details>
       </li>
     </ul>
