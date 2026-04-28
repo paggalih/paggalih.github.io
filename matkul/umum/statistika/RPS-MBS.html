@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>RPS Statistika — Pariwisata Syariah — UIN SATU Tulungagung</title>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1a2e;
+    --paper: #fafaf7;
+    --accent: #1b6b4a;
+    --accent-light: #e8f5ee;
+    --border: #d4d0c8;
+    --muted: #6b6b6b;
+    --header-bg: #1a1a2e;
+    --header-fg: #f0efe8;
+    --row-alt: #f5f4ef;
+    --exam-bg: #fff3e0;
+    --exam-border: #e8a630;
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #edecea;
+    color: var(--ink);
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    max-width: 1100px;
+    margin: 2rem auto;
+    background: var(--paper);
+    border-radius: 6px;
+    box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 30px rgba(0,0,0,.06);
+    overflow: hidden;
+  }
+
+  .kop {
+    background: var(--header-bg);
+    color: var(--header-fg);
+    padding: 2rem 2.5rem;
+    display: flex;
+    align-items: center;
+    gap: 1.5rem;
+    position: relative;
+    overflow: hidden;
+  }
+  .kop::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--accent), #2ecc71, var(--accent));
+  }
+  .kop-logo {
+    width: 70px; height: 82px;
+    background: rgba(255,255,255,.12);
+    border-radius: 6px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: .7rem; color: rgba(255,255,255,.5);
+    flex-shrink: 0;
+    border: 1px solid rgba(255,255,255,.15);
+  }
+  .kop-text { flex: 1; }
+  .kop-text h1 {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.15rem;
+    font-weight: 700;
+    letter-spacing: .03em;
+    line-height: 1.3;
+  }
+  .kop-text h1 span { display: block; }
+  .kop-text .fakultas { font-size: .85rem; font-weight: 600; margin-top: .25rem; opacity: .85; }
+  .kop-text .prodi { font-size: .78rem; font-weight: 500; opacity: .65; }
+  .kop-badge { font-size: .65rem; text-transform: uppercase; letter-spacing: .12em; opacity: .45; text-align: right; }
+
+  .rps-title {
+    text-align: center;
+    padding: 1.2rem;
+    font-family: 'Source Serif 4', serif;
+    font-size: 1.25rem;
+    font-weight: 700;
+    letter-spacing: .08em;
+    color: var(--accent);
+    border-bottom: 2px solid var(--border);
+    background: var(--accent-light);
+  }
+
+  .info-section { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); }
+  .info-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: .75rem 2rem; }
+  .info-item label { font-size: .68rem; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); font-weight: 600; display: block; margin-bottom: .15rem; }
+  .info-item span { font-weight: 600; font-size: .95rem; }
+
+  .section { padding: 1.5rem 2rem; border-bottom: 1px solid var(--border); }
+  .section:last-child { border-bottom: none; }
+  .section-title {
+    font-family: 'Source Serif 4', serif;
+    font-size: 1rem; font-weight: 700; color: var(--accent);
+    margin-bottom: .75rem; display: flex; align-items: center; gap: .5rem;
+  }
+  .section-title::before { content: ''; width: 4px; height: 1.1em; background: var(--accent); border-radius: 2px; flex-shrink: 0; }
+
+  .cpl-item { display: grid; grid-template-columns: 80px 1fr; gap: .5rem; margin-bottom: .6rem; font-size: .88rem; }
+  .cpl-code { font-weight: 700; color: var(--accent); font-size: .82rem; }
+
+  .desc-text { font-size: .88rem; text-align: justify; }
+
+  .pustaka-group { margin-bottom: .75rem; counter-reset: pust; }
+  .pustaka-label { font-weight: 700; font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: .25rem; }
+  .pustaka-item { font-size: .85rem; padding-left: 1.2rem; position: relative; margin-bottom: .3rem; line-height: 1.5; }
+  .pustaka-item::before { content: counter(pust) "."; counter-increment: pust; position: absolute; left: 0; font-weight: 600; color: var(--accent); }
+
+  .matrix-wrap { padding: 1rem 2rem; border-bottom: 1px solid var(--border); }
+  .matrix-table { width: 100%; border-collapse: collapse; font-size: .78rem; text-align: center; }
+  .matrix-table th, .matrix-table td { border: 1px solid var(--border); padding: .4rem .6rem; }
+  .matrix-table th { background: var(--header-bg); color: var(--header-fg); font-weight: 600; }
+  .matrix-table td:first-child { text-align: left; font-weight: 500; }
+  .matrix-table .check { color: var(--accent); font-weight: 700; font-size: 1rem; }
+
+  .schedule { padding: 0 0 2rem; }
+  .schedule-header {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr;
+    background: var(--header-bg);
+    color: var(--header-fg);
+    font-size: .7rem; font-weight: 600; text-transform: uppercase; letter-spacing: .05em;
+    position: sticky; top: 0; z-index: 2;
+  }
+  .schedule-header > div { padding: .7rem .6rem; border-right: 1px solid rgba(255,255,255,.08); }
+  .schedule-header > div:last-child { border-right: none; }
+
+  .week-row {
+    display: grid;
+    grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr;
+    border-bottom: 1px solid var(--border);
+    font-size: .82rem;
+    transition: background .15s;
+  }
+  .week-row:hover { background: var(--accent-light); }
+  .week-row > div { padding: .7rem .6rem; border-right: 1px solid var(--border); display: flex; align-items: flex-start; }
+  .week-row > div:last-child { border-right: none; }
+  .week-row:nth-child(even) { background: var(--row-alt); }
+  .week-row:nth-child(even):hover { background: var(--accent-light); }
+
+  .week-num {
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700; font-size: 1.1rem; color: var(--accent);
+    justify-content: center; align-items: center !important;
+  }
+  .week-row .col-sub { font-size: .78rem; line-height: 1.45; }
+
+  .exam-row {
+    display: flex; align-items: center; justify-content: center;
+    padding: 1rem 2rem;
+    background: var(--exam-bg);
+    border-bottom: 1px solid var(--border);
+    border-left: 4px solid var(--exam-border);
+    font-family: 'Source Serif 4', serif;
+    font-weight: 700; font-size: 1rem; color: #b8860b;
+    letter-spacing: .04em;
+  }
+
+  .otorisasi { padding: 1.5rem 2rem; border-top: 2px solid var(--border); }
+  .otorisasi-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; text-align: center; margin-top: .75rem; }
+  .otorisasi-slot { border: 1px dashed var(--border); border-radius: 6px; padding: 1.5rem 1rem; }
+  .otorisasi-slot .role { font-size: .72rem; font-weight: 700; text-transform: uppercase; letter-spacing: .06em; color: var(--muted); margin-bottom: 2.5rem; }
+  .otorisasi-slot .sign-line { border-top: 1px solid var(--ink); width: 60%; margin: 0 auto; padding-top: .4rem; font-size: .78rem; font-weight: 500; color: var(--muted); }
+
+  @media (max-width: 900px) {
+    .page { margin: .5rem; border-radius: 0; }
+    .kop { padding: 1.2rem; flex-wrap: wrap; }
+    .info-section, .section { padding: 1rem; }
+    .schedule-header, .week-row { grid-template-columns: 40px 1fr; font-size: .75rem; }
+    .schedule-header > div:not(:nth-child(1)):not(:nth-child(2)),
+    .week-row > div:not(:nth-child(1)):not(:nth-child(2)) { display: none; }
+  }
+
+  @media print {
+    body { background: #fff; }
+    .page { box-shadow: none; margin: 0; max-width: 100%; }
+    .schedule-header { position: static; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- KOP -->
+  <div class="kop">
+    <div class="kop-logo">LOGO</div>
+    <div class="kop-text">
+      <h1>
+        <span>UNIVERSITAS ISLAM NEGERI</span>
+        <span>SAYYID ALI RAHMATULLAH TULUNGAGUNG</span>
+      </h1>
+      <div class="fakultas">FAKULTAS EKONOMI DAN BISNIS ISLAM</div>
+      <div class="prodi">PROGRAM STUDI PARIWISATA SYARIAH</div>
+    </div>
+    <div class="kop-badge">Kode<br>Dokumen</div>
+  </div>
+
+  <div class="rps-title">RENCANA PEMBELAJARAN SEMESTER</div>
+
+  <!-- INFO -->
+  <div class="info-section">
+    <div class="info-grid">
+      <div class="info-item"><label>Mata Kuliah</label><span>Statistik</span></div>
+      <div class="info-item"><label>Kode</label><span>FEBI246011</span></div>
+      <div class="info-item"><label>Rumpun MK</label><span>Statistik</span></div>
+      <div class="info-item"><label>Bobot SKS</label><span>T=2 &nbsp; P=0</span></div>
+      <div class="info-item"><label>Semester</label><span>2</span></div>
+      <div class="info-item"><label>Tanggal Penyusunan</label><span>03/01/2026</span></div>
+      <div class="info-item"><label>Dosen Pengampu</label><span>Galih Pradananta</span></div>
+      <div class="info-item"><label>Matakuliah Syarat</label><span>—</span></div>
+    </div>
+  </div>
+
+  <!-- CPL -->
+  <div class="section">
+    <div class="section-title">Capaian Pembelajaran Lulusan (CPL)</div>
+    <div class="cpl-item">
+      <div class="cpl-code">CPL-1</div>
+      <div>Bertakwa kepada Tuhan Yang Maha Esa dan mampu menunjukkan sikap religius.</div>
+    </div>
+    <div class="cpl-item">
+      <div class="cpl-code">CPL-5</div>
+      <div>Mampu menerapkan nilai-nilai profesionalisme dalam pengelolaan pariwisata syariah dengan menunjukkan pemahaman tentang prinsip-prinsip keberlanjutan (ekonomi, etika, masyarakat, hukum dan lingkungan).</div>
+    </div>
+    <div class="cpl-item">
+      <div class="cpl-code">CPL-6</div>
+      <div>Mampu mengaplikasikan sistem informasi, menganalisa dan mengevaluasi data-data terkait kebijakan Pariwisata syariah, industri Pariwisata syariah dan kecenderungan pariwisata syariah sebagai dasar pengambilan keputusan pengembangan pariwisata syariah di suatu daerah.</div>
+    </div>
+  </div>
+
+  <!-- CPMK -->
+  <div class="section">
+    <div class="section-title">Capaian Pembelajaran Mata Kuliah (CPMK)</div>
+    <div class="cpl-item">
+      <div class="cpl-code">CP MK 1</div>
+      <div>Mahasiswa mampu memahami konsep dasar statistika dan mengaplikasikan teknik statistika deskriptif (penyajian data, ukuran pemusatan, serta bentuk distribusi) untuk merangkum dan menyajikan informasi awal terkait data pariwisata syariah.</div>
+    </div>
+    <div class="cpl-item">
+      <div class="cpl-code">CP MK 2</div>
+      <div>Mahasiswa mampu menganalisis konsep peluang dan berbagai jenis distribusi peluang, serta menerapkan metode sampling yang tepat untuk memastikan validitas pengumpulan data empiris.</div>
+    </div>
+    <div class="cpl-item">
+      <div class="cpl-code">CP MK 3</div>
+      <div>Mahasiswa mampu mengaplikasikan berbagai teknik statistika inferensial secara komprehensif untuk mengevaluasi data dan menarik kesimpulan yang valid sebagai dasar pengambilan keputusan pengembangan pariwisata syariah.</div>
+    </div>
+  </div>
+
+  <!-- PETA CPL–CPMK -->
+  <div class="matrix-wrap">
+    <div class="section-title">Peta CPL – CPMK</div>
+    <table class="matrix-table">
+      <thead><tr><th></th><th>CPL-1</th><th>CPL-5</th><th>CPL-6</th></tr></thead>
+      <tbody>
+        <tr><td>CPMK 1 / Sub CPMK 1</td><td class="check">✓</td><td></td><td class="check">✓</td></tr>
+        <tr><td>CPMK 2 / Sub CPMK 2</td><td class="check">✓</td><td></td><td class="check">✓</td></tr>
+        <tr><td>CPMK 3 / Sub CPMK 3</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DESKRIPSI -->
+  <div class="section">
+    <div class="section-title">Deskripsi Singkat Mata Kuliah</div>
+    <p class="desc-text">Mata kuliah Statistika ini membekali mahasiswa Program Studi Pariwisata Syariah dengan kemampuan kuantitatif dasar hingga lanjutan untuk mengelola dan menganalisis data sebagai landasan pengambilan keputusan. Ruang lingkup kajian mata kuliah ini dibagi menjadi tiga tahapan utama: <strong>Statistika Deskriptif</strong>, <strong>Konsep Peluang</strong>, dan <strong>Statistika Inferensial</strong>. Mahasiswa akan mempelajari teknik penyajian data, ukuran pemusatan dan bentuk kurva, distribusi peluang, metode sampling, hingga pengujian hipotesis komprehensif yang mencakup uji populasi, ANOVA, dan Regresi Linier Berganda. Melalui pemahaman konsep matematis dan aplikasi uji statistik tersebut, mahasiswa diharapkan mampu memproses data empiris secara objektif dan akurat untuk mendukung evaluasi, riset, serta pengembangan industri pariwisata syariah.</p>
+  </div>
+
+  <!-- BAHAN KAJIAN -->
+  <div class="section">
+    <div class="section-title">Bahan Kajian</div>
+    <p class="desc-text"><strong>a.</strong> Statistika Deskriptif &nbsp;&nbsp; <strong>b.</strong> Peluang &nbsp;&nbsp; <strong>c.</strong> Statistika Inferensial</p>
+  </div>
+
+  <!-- PUSTAKA -->
+  <div class="section">
+    <div class="section-title">Pustaka</div>
+    <div class="pustaka-group">
+      <div class="pustaka-label">Utama</div>
+      <div class="pustaka-item">Lind, Marchal, and Wathen. (2021). <em>Statistical Techniques in Business &amp; Economics</em>. Eighteenth Edition. McGraw-Hill Education.</div>
+    </div>
+    <div class="pustaka-group">
+      <div class="pustaka-label">Pendukung</div>
+      <div class="pustaka-item">Pradananta, G., &amp; Dana, B. S. (2026). Halal Trust Score sebagai Inovasi Penilaian Pembiayaan Syariah: Sebuah Prototipe pada Halal Value Chain berbasis Blockchain. <em>Jurnal Dinamika Ekonomi Pembangunan</em>.</div>
+      <div class="pustaka-item">Khusna, A., &amp; Pradananta, G. (2025). The Influence of Packaging, Product Variations, and Electronic Word of Mouth (E-WOM) on Consumer Buying Interest at Raja Nyemil Tulungagung. <em>Reinforce: Journal of Sharia Management</em>.</div>
+      <div class="pustaka-item">Pradananta, G. <em>Aplikasi Statistik berbasis Web</em>.</div>
+    </div>
+  </div>
+
+  <!-- JADWAL MINGGUAN -->
+  <div class="schedule">
+    <div class="section" style="border-bottom:none;padding-bottom:.5rem;">
+      <div class="section-title">Rencana Pembelajaran Mingguan</div>
+    </div>
+
+    <div class="schedule-header">
+      <div>Mg</div>
+      <div>Kemampuan Akhir (Sub-CPMK)</div>
+      <div>Indikator</div>
+      <div>Kriteria &amp; Teknik</div>
+      <div>Bentuk Pembelajaran</div>
+      <div>Materi</div>
+    </div>
+
+    <!-- Week 1 -->
+    <div class="week-row">
+      <div class="week-num">1</div>
+      <div class="col-sub">Mahasiswa mampu memahami konsep dasar statistika dan mengaplikasikan teknik statistika deskriptif untuk merangkum dan menyajikan informasi awal terkait data pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan menjelaskan perbedaan statistik dan statistika, serta ketepatan membedakan jenis-jenis data dan variabel dalam konteks pariwisata syariah.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Non-tes (Partisipasi tanya jawab di kelas)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Pengertian Statistika</strong></div>
+    </div>
+
+    <!-- Week 2 -->
+    <div class="week-row">
+      <div class="week-num">2</div>
+      <div class="col-sub">Mahasiswa mampu memahami konsep dasar statistika dan mengaplikasikan teknik statistika deskriptif untuk merangkum dan menyajikan informasi awal terkait data pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan mengklasifikasikan data mentah ke dalam tabel distribusi frekuensi dan menyajikannya secara visual (diagram batang, lingkaran, histogram, dll) dengan informatif.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tugas individu (membuat visualisasi dari dataset sederhana)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Tabel dan Diagram</strong></div>
+    </div>
+
+    <!-- Week 3 -->
+    <div class="week-row">
+      <div class="week-num">3</div>
+      <div class="col-sub">Mahasiswa mampu memahami konsep dasar statistika dan mengaplikasikan teknik statistika deskriptif untuk merangkum dan menyajikan informasi awal terkait data pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan menghitung dan menginterpretasikan ukuran pemusatan data (mean, median, modus) dan letak data (kuartil, desil, persentil) dari data tunggal maupun kelompok.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Kuis tertulis / latihan soal di kelas</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Pengukuran dan Pemusatan Data</strong></div>
+    </div>
+
+    <!-- Week 4 -->
+    <div class="week-row">
+      <div class="week-num">4</div>
+      <div class="col-sub">Mahasiswa mampu memahami konsep dasar statistika dan mengaplikasikan teknik statistika deskriptif untuk merangkum dan menyajikan informasi awal terkait data pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan menghitung nilai skewness (kemencengan) dan kurtosis (keruncingan), serta kemampuan menganalisis bentuk kurva distribusinya.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tugas mandiri (analisis dataset) yang akan dievaluasi pada Ujian CPMK 1</div>
+      <div class="col-sub">Direct Instruction</div>
+      <div class="col-sub"><strong>Kemencengan dan Keruncingan Data</strong></div>
+    </div>
+
+    <!-- Week 5 — Ujian CPMK 1 -->
+    <div class="exam-row">📝 &nbsp; Minggu 5 — UJIAN CPMK 1</div>
+
+    <!-- Week 6 -->
+    <div class="week-row">
+      <div class="week-num">6</div>
+      <div class="col-sub">Mahasiswa mampu menganalisis konsep peluang dan berbagai jenis distribusi peluang, serta menerapkan metode sampling yang tepat untuk memastikan validitas pengumpulan data empiris.</div>
+      <div class="col-sub">Ketepatan menjelaskan ruang sampel, kejadian, dan menghitung probabilitas kejadian sederhana maupun majemuk dalam konteks kasus nyata.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Non-tes (Tanya jawab dan diskusi studi kasus)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Pengantar Konsep Peluang</strong></div>
+    </div>
+
+    <!-- Week 7 -->
+    <div class="week-row">
+      <div class="week-num">7</div>
+      <div class="col-sub">Mahasiswa mampu menganalisis konsep peluang dan berbagai jenis distribusi peluang, serta menerapkan metode sampling yang tepat untuk memastikan validitas pengumpulan data empiris.</div>
+      <div class="col-sub">Ketepatan membedakan karakteristik peubah acak diskrit dan menghitung nilai probabilitas menggunakan distribusi Binomial dan Poisson.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tes (Latihan soal terstruktur di kelas)</div>
+      <div class="col-sub">Direct Instruction</div>
+      <div class="col-sub"><strong>Distribusi Peluang Diskrit</strong></div>
+    </div>
+
+    <!-- Week 8 -->
+    <div class="week-row">
+      <div class="week-num">8</div>
+      <div class="col-sub">Mahasiswa mampu menganalisis konsep peluang dan berbagai jenis distribusi peluang, serta menerapkan metode sampling yang tepat untuk memastikan validitas pengumpulan data empiris.</div>
+      <div class="col-sub">Ketepatan membaca tabel distribusi normal baku (Z) dan mengaplikasikannya untuk menghitung probabilitas pada data yang berdistribusi normal.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tes (Kuis singkat)</div>
+      <div class="col-sub">Direct Instruction</div>
+      <div class="col-sub"><strong>Distribusi Peluang Kontinu</strong></div>
+    </div>
+
+    <!-- Week 9 -->
+    <div class="week-row">
+      <div class="week-num">9</div>
+      <div class="col-sub">Mahasiswa mampu menganalisis konsep peluang dan berbagai jenis distribusi peluang, serta menerapkan metode sampling yang tepat untuk memastikan validitas pengumpulan data empiris.</div>
+      <div class="col-sub">Ketepatan memilih teknik penarikan sampel yang representatif untuk riset pariwisata, serta menjelaskan aplikasi Teorema Limit Pusat pada distribusi rata-rata sampel.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tugas mandiri (merancang skenario sampling dari populasi tertentu)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Metode Sampling dan Teorema Limit Pusat</strong></div>
+    </div>
+
+    <!-- Week 10 — Ujian CPMK 2 -->
+    <div class="exam-row">📝 &nbsp; Minggu 10 — UJIAN CPMK 2</div>
+
+    <!-- Week 11 -->
+    <div class="week-row">
+      <div class="week-num">11</div>
+      <div class="col-sub">Mahasiswa mampu mengaplikasikan berbagai teknik statistika inferensial secara komprehensif untuk mengevaluasi data dan menarik kesimpulan yang valid sebagai dasar pengambilan keputusan pengembangan pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan menghitung estimasi titik dan membentuk selang kepercayaan (confidence interval) untuk rata-rata dan proporsi populasi.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tes (Latihan studi kasus)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Estimasi dan Selang Kepercayaan</strong></div>
+    </div>
+
+    <!-- Week 12 -->
+    <div class="week-row">
+      <div class="week-num">12</div>
+      <div class="col-sub">Mahasiswa mampu mengaplikasikan berbagai teknik statistika inferensial secara komprehensif untuk mengevaluasi data dan menarik kesimpulan yang valid sebagai dasar pengambilan keputusan pengembangan pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan merumuskan hipotesis nol (H₀) dan alternatif (H₁), serta menarik kesimpulan dari uji hipotesis rata-rata/proporsi satu populasi.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tes tertulis</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Uji Satu Populasi</strong></div>
+    </div>
+
+    <!-- Week 13 -->
+    <div class="week-row">
+      <div class="week-num">13</div>
+      <div class="col-sub">Mahasiswa mampu mengaplikasikan berbagai teknik statistika inferensial secara komprehensif untuk mengevaluasi data dan menarik kesimpulan yang valid sebagai dasar pengambilan keputusan pengembangan pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan menganalisis perbedaan rata-rata dari dua sampel yang saling bebas (independent) maupun berpasangan (paired).</div>
+      <div class="col-sub"><strong>Teknik:</strong> Tugas kelompok (membandingkan dua kelompok data pariwisata)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Uji Dua Populasi</strong></div>
+    </div>
+
+    <!-- Week 14 -->
+    <div class="week-row">
+      <div class="week-num">14</div>
+      <div class="col-sub">Mahasiswa mampu mengaplikasikan berbagai teknik statistika inferensial secara komprehensif untuk mengevaluasi data dan menarik kesimpulan yang valid sebagai dasar pengambilan keputusan pengembangan pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan menyusun tabel Analysis of Variance (ANOVA) satu arah untuk membandingkan rata-rata dari tiga kelompok atau lebih.</div>
+      <div class="col-sub"><strong>Teknik:</strong> Kuis</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>ANOVA</strong></div>
+    </div>
+
+    <!-- Week 15 -->
+    <div class="week-row">
+      <div class="week-num">15</div>
+      <div class="col-sub">Mahasiswa mampu mengaplikasikan berbagai teknik statistika inferensial secara komprehensif untuk mengevaluasi data dan menarik kesimpulan yang valid sebagai dasar pengambilan keputusan pengembangan pariwisata syariah.</div>
+      <div class="col-sub">Ketepatan memodelkan pengaruh beberapa variabel independen terhadap satu variabel dependen, serta menguji kelayakan model (Uji F, Uji t, dan koefisien determinasi).</div>
+      <div class="col-sub"><strong>Teknik:</strong> Proyek Mini (Mengolah data mentah menjadi model regresi)</div>
+      <div class="col-sub">Guided Discovery Learning</div>
+      <div class="col-sub"><strong>Regresi Linier Berganda</strong></div>
+    </div>
+
+    <!-- Week 16 — Ujian CPMK 3 -->
+    <div class="exam-row">📝 &nbsp; Minggu 16 — UJIAN CPMK 3</div>
+  </div>
+
+  <!-- OTORISASI -->
+  <div class="otorisasi">
+    <div class="section-title">Otorisasi / Pengesahan</div>
+    <div class="otorisasi-grid">
+      <div class="otorisasi-slot">
+        <div class="role">Dosen Pengembang RPS</div>
+        <div class="sign-line">Tanda tangan</div>
+      </div>
+      <div class="otorisasi-slot">
+        <div class="role">Koordinator RMK</div>
+        <div class="sign-line">Tanda tangan</div>
+      </div>
+      <div class="otorisasi-slot">
+        <div class="role">Koordinator / Ketua Prodi</div>
+        <div class="sign-line">Tanda tangan</div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</body>
+</html>
