@@ -1,713 +1,616 @@
 <!DOCTYPE html>
 <html lang="id">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>RPS Ekonometri — UIN SATU Tulungagung</title>
-<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,600;8..60,700&family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --ink: #1a1a2e;
-    --paper: #fafaf7;
-    --accent: #1b6b4a;
-    --accent-light: #e8f5ee;
-    --border: #d4d0c8;
-    --muted: #6b6b6b;
-    --header-bg: #1a1a2e;
-    --header-fg: #f0efe8;
-    --row-alt: #f5f4ef;
-    --exam-bg: #fff3e0;
-    --exam-border: #e8a630;
-  }
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>RPS Ekonometri | Tadris Matematika</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --orange: #b45309;
+      --orange-lt: #fef3c7;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
 
-  * { margin: 0; padding: 0; box-sizing: border-box; }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
 
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: #edecea;
-    color: var(--ink);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-  }
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
 
-  .page {
-    max-width: 1100px;
-    margin: 2rem auto;
-    background: var(--paper);
-    border-radius: 6px;
-    box-shadow: 0 1px 3px rgba(0,0,0,.08), 0 8px 30px rgba(0,0,0,.06);
-    overflow: hidden;
-  }
+    /* ── Header ── */
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .header-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: .5rem 1.5rem;
+      margin-top: .7rem;
+    }
+    header .header-meta span {
+      font-size: .82rem;
+      color: rgba(255,255,255,.55);
+      font-family: var(--mono);
+    }
+    header .header-meta span strong {
+      color: rgba(255,255,255,.85);
+      font-weight: 500;
+    }
 
-  /* ── Header ── */
-  .kop {
-    background: var(--header-bg);
-    color: var(--header-fg);
-    padding: 2rem 2.5rem;
-    display: flex;
-    align-items: center;
-    gap: 1.5rem;
-    position: relative;
-    overflow: hidden;
-  }
-  .kop::after {
-    content: '';
-    position: absolute;
-    bottom: 0; left: 0; right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--accent), #2ecc71, var(--accent));
-  }
-  .kop-logo {
-    width: 70px; height: 82px;
-    background: rgba(255,255,255,.12);
-    border-radius: 6px;
-    display: flex; align-items: center; justify-content: center;
-    font-size: .7rem; color: rgba(255,255,255,.5);
-    flex-shrink: 0;
-    border: 1px solid rgba(255,255,255,.15);
-  }
-  .kop-text { flex: 1; }
-  .kop-text h1 {
-    font-family: 'Source Serif 4', serif;
-    font-size: 1.15rem;
-    font-weight: 700;
-    letter-spacing: .03em;
-    line-height: 1.3;
-  }
-  .kop-text h1 span { display: block; }
-  .kop-text .fakultas {
-    font-size: .85rem;
-    font-weight: 600;
-    margin-top: .25rem;
-    opacity: .85;
-  }
-  .kop-text .prodi {
-    font-size: .78rem;
-    font-weight: 500;
-    opacity: .65;
-  }
-  .kop-badge {
-    font-size: .65rem;
-    text-transform: uppercase;
-    letter-spacing: .12em;
-    opacity: .45;
-    text-align: right;
-  }
+    /* ── Layout ── */
+    main {
+      max-width: 920px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
 
-  .rps-title {
-    text-align: center;
-    padding: 1.2rem;
-    font-family: 'Source Serif 4', serif;
-    font-size: 1.25rem;
-    font-weight: 700;
-    letter-spacing: .08em;
-    color: var(--accent);
-    border-bottom: 2px solid var(--border);
-    background: var(--accent-light);
-  }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
 
-  /* ── Info Grid ── */
-  .info-section {
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .info-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-    gap: .75rem 2rem;
-  }
-  .info-item label {
-    font-size: .68rem;
-    text-transform: uppercase;
-    letter-spacing: .1em;
-    color: var(--muted);
-    font-weight: 600;
-    display: block;
-    margin-bottom: .15rem;
-  }
-  .info-item span {
-    font-weight: 600;
-    font-size: .95rem;
-  }
+    .card-title {
+      font-family: var(--serif);
+      font-size: 1.25rem;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      padding-bottom: .6rem;
+      border-bottom: 1px solid var(--border);
+    }
 
-  /* ── Sections ── */
-  .section {
-    padding: 1.5rem 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .section:last-child { border-bottom: none; }
+    /* ── Info box ── */
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .8rem 1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .9rem;
+      margin-bottom: 1.25rem;
+      color: var(--text2);
+    }
+    .info-box strong { color: var(--text); }
 
-  .section-title {
-    font-family: 'Source Serif 4', serif;
-    font-size: 1rem;
-    font-weight: 700;
-    color: var(--accent);
-    margin-bottom: .75rem;
-    display: flex;
-    align-items: center;
-    gap: .5rem;
-  }
-  .section-title::before {
-    content: '';
-    width: 4px;
-    height: 1.1em;
-    background: var(--accent);
-    border-radius: 2px;
-    flex-shrink: 0;
-  }
-
-  .cpl-item {
-    display: grid;
-    grid-template-columns: 80px 1fr;
-    gap: .5rem;
-    margin-bottom: .6rem;
-    font-size: .88rem;
-  }
-  .cpl-code {
-    font-weight: 700;
-    color: var(--accent);
-    font-size: .82rem;
-  }
-
-  .desc-text {
-    font-size: .88rem;
-    text-align: justify;
-  }
-
-  .pustaka-group { margin-bottom: .75rem; }
-  .pustaka-label {
-    font-weight: 700;
-    font-size: .78rem;
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    color: var(--muted);
-    margin-bottom: .25rem;
-  }
-  .pustaka-item {
-    font-size: .85rem;
-    padding-left: 1.2rem;
-    position: relative;
-    margin-bottom: .3rem;
-    line-height: 1.5;
-  }
-  .pustaka-item::before {
-    content: counter(pust) ".";
-    counter-increment: pust;
-    position: absolute;
-    left: 0;
-    font-weight: 600;
-    color: var(--accent);
-  }
-  .pustaka-group { counter-reset: pust; }
-
-  /* ── Matrix Table ── */
-  .matrix-wrap {
-    padding: 1rem 2rem;
-    border-bottom: 1px solid var(--border);
-  }
-  .matrix-table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: .78rem;
-    text-align: center;
-  }
-  .matrix-table th, .matrix-table td {
-    border: 1px solid var(--border);
-    padding: .4rem .6rem;
-  }
-  .matrix-table th {
-    background: var(--header-bg);
-    color: var(--header-fg);
-    font-weight: 600;
-  }
-  .matrix-table td:first-child { text-align: left; font-weight: 500; }
-  .matrix-table .check { color: var(--accent); font-weight: 700; font-size: 1rem; }
-
-  /* ── Weekly Schedule ── */
-  .schedule { padding: 0 0 2rem; }
-  .schedule-header {
-    display: grid;
-    grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr 60px;
-    background: var(--header-bg);
-    color: var(--header-fg);
-    font-size: .7rem;
-    font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: .05em;
-    position: sticky;
-    top: 0;
-    z-index: 2;
-  }
-  .schedule-header > div {
-    padding: .7rem .6rem;
-    border-right: 1px solid rgba(255,255,255,.08);
-  }
-  .schedule-header > div:last-child { border-right: none; }
-
-  .week-row {
-    display: grid;
-    grid-template-columns: 50px 1fr 1fr 1fr 1fr 1fr 1fr 60px;
-    border-bottom: 1px solid var(--border);
-    font-size: .82rem;
-    transition: background .15s;
-  }
-  .week-row:hover { background: var(--accent-light); }
-  .week-row > div {
-    padding: .7rem .6rem;
-    border-right: 1px solid var(--border);
-    display: flex;
-    align-items: flex-start;
-  }
-  .week-row > div:last-child { border-right: none; }
-  .week-row:nth-child(even) { background: var(--row-alt); }
-  .week-row:nth-child(even):hover { background: var(--accent-light); }
-
-  .week-num {
-    font-family: 'Source Serif 4', serif;
-    font-weight: 700;
-    font-size: 1.1rem;
-    color: var(--accent);
-    justify-content: center;
-    align-items: center !important;
-  }
-
-  .week-row .col-sub { font-size: .78rem; line-height: 1.45; }
-  .week-row .col-sub ol {
-    margin: 0;
-    padding-left: 1rem;
-  }
-  .week-row .col-sub li { margin-bottom: .2rem; }
-
-  /* Exam row */
-  .exam-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    padding: 1rem 2rem;
-    background: var(--exam-bg);
-    border-bottom: 1px solid var(--border);
-    border-left: 4px solid var(--exam-border);
-    font-family: 'Source Serif 4', serif;
-    font-weight: 700;
-    font-size: 1rem;
-    color: #b8860b;
-    letter-spacing: .04em;
-  }
-
-  .bobot-badge {
-    font-family: 'DM Sans', sans-serif;
-    font-size: .75rem;
-    font-weight: 700;
-    justify-content: center;
-    align-items: center !important;
-    text-align: center;
-  }
-
-  /* ── Footer ── */
-  .otorisasi {
-    padding: 1.5rem 2rem;
-    border-top: 2px solid var(--border);
-  }
-  .otorisasi-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 1.5rem;
-    text-align: center;
-    margin-top: .75rem;
-  }
-  .otorisasi-slot {
-    border: 1px dashed var(--border);
-    border-radius: 6px;
-    padding: 1.5rem 1rem;
-  }
-  .otorisasi-slot .role {
-    font-size: .72rem;
-    font-weight: 700;
-    text-transform: uppercase;
-    letter-spacing: .06em;
-    color: var(--muted);
-    margin-bottom: 2.5rem;
-  }
-  .otorisasi-slot .sign-line {
-    border-top: 1px solid var(--ink);
-    width: 60%;
-    margin: 0 auto;
-    padding-top: .4rem;
-    font-size: .78rem;
-    font-weight: 500;
-    color: var(--muted);
-  }
-
-  /* ── Responsive ── */
-  @media (max-width: 900px) {
-    .page { margin: .5rem; border-radius: 0; }
-    .kop { padding: 1.2rem; flex-wrap: wrap; }
-    .info-section, .section { padding: 1rem; }
-    .schedule-header, .week-row {
-      grid-template-columns: 40px 1fr;
+    /* ── CPL Items ── */
+    .cpl-item {
+      display: flex;
+      gap: .75rem;
+      padding: .6rem 0;
+      border-bottom: 1px dashed var(--border);
+      align-items: baseline;
+    }
+    .cpl-item:last-child { border-bottom: none; }
+    .cpl-tag {
+      font-family: var(--mono);
       font-size: .75rem;
+      color: #fff;
+      background: var(--accent);
+      padding: .18rem .5rem;
+      border-radius: 3px;
+      flex-shrink: 0;
+      white-space: nowrap;
     }
-    .schedule-header > div:not(:nth-child(1)):not(:nth-child(2)),
-    .week-row > div:not(:nth-child(1)):not(:nth-child(2)) {
-      display: none;
-    }
-    .week-row > div:nth-child(2) {
-      flex-direction: column;
-    }
-  }
+    .cpl-tag.cpmk { background: var(--green); }
+    .cpl-text { font-size: .88rem; color: var(--text); }
 
-  @media print {
-    body { background: #fff; }
-    .page { box-shadow: none; margin: 0; max-width: 100%; }
-    .schedule-header { position: static; }
-  }
-</style>
+    /* ── Pustaka ── */
+    .pustaka-section { margin-bottom: .75rem; }
+    .pustaka-label {
+      font-size: .78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: .06em;
+      color: var(--text2);
+      margin-bottom: .3rem;
+    }
+    .pustaka-item {
+      font-size: .88rem;
+      color: var(--text);
+      padding: .35rem 0 .35rem .75rem;
+      border-left: 2px solid var(--border);
+      margin-bottom: .3rem;
+    }
+
+    /* ── Weekly Table ── */
+    .week-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+    .week-row {
+      display: grid;
+      grid-template-columns: 52px 1fr;
+      border-bottom: 1px solid var(--border);
+      transition: background .15s;
+    }
+    .week-row:last-child { border-bottom: none; }
+    .week-row:hover { background: #fafafa; }
+    .week-row.exam-row { background: var(--orange-lt); }
+    .week-row.exam-row:hover { background: #fde9a0; }
+
+    .week-num {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: .82rem;
+      font-weight: 600;
+      color: var(--accent);
+      border-right: 1px solid var(--border);
+      padding: .75rem .25rem;
+    }
+    .exam-row .week-num { color: var(--orange); }
+
+    .week-content {
+      padding: .75rem 1rem;
+    }
+    .week-title {
+      font-weight: 600;
+      font-size: .9rem;
+      color: var(--text);
+      margin-bottom: .3rem;
+    }
+    .week-sub {
+      font-size: .82rem;
+      color: var(--text2);
+      line-height: 1.55;
+    }
+    .week-sub .label {
+      font-weight: 600;
+      color: var(--text);
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+
+    .exam-title {
+      font-family: var(--serif);
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--orange);
+      padding: .85rem 1rem;
+    }
+
+    .badge {
+      display: inline-block;
+      padding: .12rem .45rem;
+      border-radius: 3px;
+      font-size: .72rem;
+      font-weight: 600;
+      font-family: var(--sans);
+      vertical-align: middle;
+    }
+    .badge-weight {
+      background: var(--accent-lt);
+      color: var(--accent);
+    }
+    .badge-exam {
+      background: var(--orange-lt);
+      color: var(--orange);
+    }
+    .badge-method {
+      background: var(--green-lt);
+      color: var(--green);
+    }
+
+    /* ── Peta CPL ── */
+    .matrix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: .82rem;
+      margin-top: .5rem;
+    }
+    .matrix-table th, .matrix-table td {
+      border: 1px solid var(--border);
+      padding: .45rem .6rem;
+      text-align: center;
+    }
+    .matrix-table th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      font-size: .75rem;
+      text-transform: uppercase;
+      letter-spacing: .04em;
+    }
+    .matrix-table td { font-family: var(--mono); }
+    .matrix-table .check { color: var(--green); font-weight: 700; font-size: 1rem; }
+
+    /* ── Toggle ── */
+    .toggle-btn {
+      background: none;
+      border: 1px solid var(--accent);
+      color: var(--accent);
+      padding: .35rem .8rem;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: .82rem;
+      font-family: var(--sans);
+      transition: all .2s;
+      margin-top: .5rem;
+    }
+    .toggle-btn:hover { background: var(--accent); color: #fff; }
+
+    /* ── Responsive ── */
+    @media (max-width: 600px) {
+      header { padding: 1rem 1.2rem 1.2rem; }
+      header h1 { font-size: 1.5rem; }
+      .card { padding: 1rem; }
+      .week-row { grid-template-columns: 42px 1fr; }
+      .week-content { padding: .6rem .75rem; }
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+  </style>
 </head>
 <body>
 
-<div class="page">
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Ekonometri</h1>
+  <p>Rencana Pembelajaran Semester — Tadris Matematika</p>
+  <div class="header-meta">
+    <span><strong>PTMT246042</strong></span>
+    <span>SKS: <strong>T=2, P=0</strong></span>
+    <span>Semester: <strong>6</strong></span>
+    <span>Disusun: <strong>03/01/2026</strong></span>
+  </div>
+</header>
 
-  <!-- ═══ KOP SURAT ═══ -->
-  <div class="kop">
-    <div class="kop-logo">LOGO</div>
-    <div class="kop-text">
-      <h1>
-        <span>UNIVERSITAS ISLAM NEGERI</span>
-        <span>SAYYID ALI RAHMATULLAH TULUNGAGUNG</span>
-      </h1>
-      <div class="fakultas">FAKULTAS EKONOMI DAN BISNIS ISLAM</div>
-      <div class="prodi">PROGRAM STUDI TADRIS MATEMATIKA</div>
+<main>
+
+  <!-- Identitas -->
+  <div class="card">
+    <div class="info-box">
+      <strong>UIN Sayyid Ali Rahmatullah Tulungagung</strong> — Fakultas Ekonomi dan Bisnis Islam, Program Studi Tadris Matematika.<br>
+      Dosen Pengampu: <strong>Galih Pradananta</strong> &nbsp;·&nbsp; Matakuliah Syarat: —
     </div>
-    <div class="kop-badge">Kode<br>Dokumen</div>
+
+    <div class="card-title">Deskripsi Mata Kuliah</div>
+    <p style="font-size:.9rem;color:var(--text2);line-height:1.7">
+      Mata kuliah Ekonometri membekali mahasiswa dengan kemampuan analisis kuantitatif berbasis data menggunakan metode regresi dalam konteks ekonomi dan keuangan. <strong>Kajian pertama</strong> mencakup regresi dan asumsinya: model regresi linier sederhana dan berganda, berbagai bentuk fungsional, penggunaan variabel dummy, serta diagnosis dan penanganan pelanggaran asumsi klasik OLS. <strong>Kajian kedua</strong> mencakup model regresi lanjutan: logit/probit, multinomial, ordinal, variabel dependen terbatas (Tobit), model Poisson, analisis deret waktu, serta model ARCH/GARCH untuk volatilitas harga aset.
+    </p>
   </div>
 
-  <div class="rps-title">RENCANA PEMBELAJARAN SEMESTER</div>
-
-  <!-- ═══ INFO MATA KULIAH ═══ -->
-  <div class="info-section">
-    <div class="info-grid">
-      <div class="info-item">
-        <label>Mata Kuliah</label>
-        <span>Ekonometri</span>
-      </div>
-      <div class="info-item">
-        <label>Kode</label>
-        <span>PTMT246042</span>
-      </div>
-      <div class="info-item">
-        <label>Rumpun MK</label>
-        <span>Ekonometri</span>
-      </div>
-      <div class="info-item">
-        <label>Bobot SKS</label>
-        <span>T=2 &nbsp; P=0</span>
-      </div>
-      <div class="info-item">
-        <label>Semester</label>
-        <span>6</span>
-      </div>
-      <div class="info-item">
-        <label>Tanggal Penyusunan</label>
-        <span>03/01/2026</span>
-      </div>
-      <div class="info-item">
-        <label>Dosen Pengampu</label>
-        <span>Galih Pradananta</span>
-      </div>
-      <div class="info-item">
-        <label>Matakuliah Syarat</label>
-        <span>—</span>
-      </div>
+  <!-- CPL -->
+  <div class="card">
+    <div class="card-title">Capaian Pembelajaran Lulusan (CPL)</div>
+    <div class="cpl-item">
+      <span class="cpl-tag">CPL-1</span>
+      <span class="cpl-text">Menampilkan diri sebagai pribadi yang bertakwa kepada Tuhan Yang Maha Esa, berakhlak mulia, dan menjadi teladan bagi masyarakat sekitarnya.</span>
+    </div>
+    <div class="cpl-item">
+      <span class="cpl-tag">CPL-4</span>
+      <span class="cpl-text">Menguasai konsep keilmuan matematika yang mencakup aljabar, analisis, geometri, statistika, dan matematika terapan, sebagai bekal menempuh studi lanjut dan melaksanakan pembelajaran matematika di pendidikan dasar dan menengah.</span>
+    </div>
+    <div class="cpl-item">
+      <span class="cpl-tag">CPL-7</span>
+      <span class="cpl-text">Mampu mengkaji dan menerapkan konsep keilmuan matematika dalam pengembangan ilmu dan pemecahan masalah yang berorientasi pada kecakapan hidup.</span>
     </div>
   </div>
 
-  <!-- ═══ CPL ═══ -->
-  <div class="section">
-    <div class="section-title">Capaian Pembelajaran Lulusan (CPL)</div>
+  <!-- CPMK -->
+  <div class="card">
+    <div class="card-title">Capaian Pembelajaran Mata Kuliah (CPMK)</div>
     <div class="cpl-item">
-      <div class="cpl-code">CPL-1</div>
-      <div>Menampilkan diri sebagai pribadi yang bertakwa kepada Tuhan Yang Maha Esa, berakhlak mulia, dan menjadi teladan bagi masyarakat sekitarnya.</div>
+      <span class="cpl-tag cpmk">CPMK 1</span>
+      <span class="cpl-text">Mahasiswa mampu menguasai konsep dasar regresi linier, berbagai bentuk fungsional regresi, penggunaan variabel dummy, serta mengidentifikasi dan menangani pelanggaran asumsi klasik (multikolinearitas, heteroskedastisitas, autokorelasi, dan kesalahan spesifikasi model).</span>
     </div>
     <div class="cpl-item">
-      <div class="cpl-code">CPL-4</div>
-      <div>Menguasai konsep keilmuan matematika yang mencakup: aljabar, analisis, geometri, statistika, dan matematika terapan, sebagai bekal menempuh studi lanjut dan melaksanakan pembelajaran matematika di pendidikan dasar dan menengah.</div>
-    </div>
-    <div class="cpl-item">
-      <div class="cpl-code">CPL-7</div>
-      <div>Mampu mengkaji dan menerapkan konsep keilmuan matematika dalam pengembangan ilmu dan pemecahan masalah yang berorientasi pada kecakapan hidup.</div>
+      <span class="cpl-tag cpmk">CPMK 2</span>
+      <span class="cpl-text">Mahasiswa mampu menganalisis dan menerapkan model-model regresi lanjutan untuk data kategorikal (logit, probit, multinomial, ordinal), data terbatas (Tobit), data cacah (Poisson), serta data deret waktu termasuk uji stasioneritas dan model ARCH/GARCH untuk analisis volatilitas.</span>
     </div>
   </div>
 
-  <!-- ═══ CPMK ═══ -->
-  <div class="section">
-    <div class="section-title">Capaian Pembelajaran Mata Kuliah (CPMK)</div>
-    <div class="cpl-item">
-      <div class="cpl-code">CP MK 1</div>
-      <div>Mahasiswa mampu menguasai konsep dasar regresi linier, berbagai bentuk fungsional regresi, penggunaan variabel dummy, serta mengidentifikasi dan menangani pelanggaran asumsi klasik (multikolinearitas, heteroskedastisitas, autokorelasi, dan kesalahan spesifikasi model).</div>
-    </div>
-    <div class="cpl-item">
-      <div class="cpl-code">CP MK 2</div>
-      <div>Mahasiswa mampu menganalisis dan menerapkan model-model regresi lanjutan untuk data kategorikal (logit, probit, multinomial, ordinal), data terbatas (Tobit), data cacah (Poisson), serta data deret waktu termasuk uji stasioneritas dan model ARCH/GARCH untuk analisis volatilitas.</div>
-    </div>
-  </div>
-
-  <!-- ═══ PETA CPL–CPMK ═══ -->
-  <div class="matrix-wrap">
-    <div class="section-title">Peta CPL – CPMK</div>
+  <!-- Peta CPL-CPMK -->
+  <div class="card">
+    <div class="card-title">Peta CPL — CPMK</div>
     <table class="matrix-table">
       <thead>
         <tr><th></th><th>CPL-1</th><th>CPL-4</th><th>CPL-7</th></tr>
       </thead>
       <tbody>
-        <tr><td>CPMK 1 / Sub CPMK 1</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
-        <tr><td>CPMK 2 / Sub CPMK 2</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td style="font-weight:600;text-align:left;font-family:var(--sans)">CPMK 1</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
+        <tr><td style="font-weight:600;text-align:left;font-family:var(--sans)">CPMK 2</td><td class="check">✓</td><td class="check">✓</td><td class="check">✓</td></tr>
       </tbody>
     </table>
   </div>
 
-  <!-- ═══ DESKRIPSI ═══ -->
-  <div class="section">
-    <div class="section-title">Deskripsi Singkat Mata Kuliah</div>
-    <p class="desc-text">Mata kuliah Ekonometri merupakan mata kuliah yang membekali mahasiswa dengan kemampuan analisis kuantitatif berbasis data menggunakan metode regresi dalam konteks ekonomi dan keuangan. Kajian pertama mencakup <strong>Regresi dan Asumsinya</strong>, meliputi model regresi linier sederhana dan berganda, berbagai bentuk fungsional (log-linear, log-log, polynomial), penggunaan variabel kualitatif (dummy), serta diagnosis dan penanganan pelanggaran asumsi klasik OLS: multikolinearitas, heteroskedastisitas, autokorelasi, dan kesalahan spesifikasi model. Kajian kedua mencakup <strong>Model-model Regresi Lanjutan</strong>, yaitu model logit dan probit untuk data biner, regresi multinomial dan ordinal, variabel dependen terbatas (Tobit), model Poisson untuk data cacah, analisis deret waktu stasioner dan non-stasioner, serta model ARCH/GARCH untuk volatilitas harga aset. Secara keseluruhan, mata kuliah ini mendorong mahasiswa mengintegrasikan pemahaman teori statistika dan matematika dalam pemecahan masalah ekonometri secara kuantitatif.</p>
-  </div>
-
-  <!-- ═══ BAHAN KAJIAN ═══ -->
-  <div class="section">
-    <div class="section-title">Bahan Kajian</div>
-    <p class="desc-text"><strong>a.</strong> Regresi dan Asumsinya &nbsp;&nbsp; <strong>b.</strong> Model-model regresi</p>
-  </div>
-
-  <!-- ═══ PUSTAKA ═══ -->
-  <div class="section">
-    <div class="section-title">Pustaka</div>
-    <div class="pustaka-group">
+  <!-- Pustaka -->
+  <div class="card">
+    <div class="card-title">Pustaka</div>
+    <div class="pustaka-section">
       <div class="pustaka-label">Utama</div>
-      <div class="pustaka-item">Gujarati, Damodar. (2025). <em>Econometrics by Example</em>. McGraw-Hill.</div>
-      <div class="pustaka-item">Wooldridge, Jeffrey M. (2019). <em>Introductory Econometrics: A Modern Approach</em>. 7th Edition. Cengage Learning.</div>
+      <div class="pustaka-item">Gujarati, D. (2025). <em>Econometrics by Example.</em> McGraw-Hill.</div>
+      <div class="pustaka-item">Wooldridge, J. M. (2019). <em>Introductory Econometrics: A Modern Approach.</em> 7th Ed. Cengage Learning.</div>
     </div>
-    <div class="pustaka-group">
+    <div class="pustaka-section">
       <div class="pustaka-label">Pendukung</div>
-      <div class="pustaka-item">Pradananta, G., &amp; Dana, B. S. (2026). Halal Trust Score sebagai Inovasi Penilaian Pembiayaan Syariah: Sebuah Prototipe pada Halal Value Chain berbasis Blockchain. <em>Jurnal Dinamika Ekonomi Pembangunan</em>.</div>
-      <div class="pustaka-item">Pradananta, G. <em>Aplikasi Statistik berbasis Web</em>.</div>
+      <div class="pustaka-item">Pradananta, G., & Dana, B. S. (2026). Halal Trust Score sebagai Inovasi Penilaian Pembiayaan Syariah. <em>Jurnal Dinamika Ekonomi Pembangunan.</em></div>
+      <div class="pustaka-item">Pradananta, G. Aplikasi Statistik berbasis Web.</div>
     </div>
   </div>
 
-  <!-- ═══ JADWAL MINGGUAN ═══ -->
-  <div class="schedule">
-    <div class="section" style="border-bottom:none;padding-bottom:.5rem;">
-      <div class="section-title">Rencana Pembelajaran Mingguan</div>
+  <!-- Rencana Mingguan -->
+  <div class="card">
+    <div class="card-title">
+      Rencana Pembelajaran Mingguan
+      <span style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem">16 minggu</span>
     </div>
 
-    <div class="schedule-header">
-      <div>Mg</div>
-      <div>Kemampuan Akhir (Sub-CPMK)</div>
-      <div>Indikator</div>
-      <div>Kriteria &amp; Teknik</div>
-      <div>Bentuk Pembelajaran</div>
-      <div>Tugas &amp; Waktu</div>
-      <div>Materi [Pustaka]</div>
-      <div>Bobot</div>
-    </div>
+    <div class="week-grid" id="week-grid">
 
-    <!-- Week 1 -->
-    <div class="week-row">
-      <div class="week-num">1</div>
-      <div class="col-sub">Menjelaskan konsep dasar model regresi linier sederhana dan berganda serta menginterpretasikan koefisien OLS</div>
-      <div class="col-sub"><ol><li>Ketepatan menjelaskan asumsi BLUE (Gauss-Markov)</li><li>Ketepatan menginterpretasikan koefisien regresi OLS</li><li>Ketepatan menghitung dan menjelaskan R² dan adjusted R²</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan konsep dan interpretasi<br><strong>Teknik:</strong> Kuis tertulis</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Diskusi; Latihan soal<br><br>[TM: 1×(2×50')] </div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 1:</strong> The Linear Regression Model: An Overview</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 1 -->
+      <div class="week-row">
+        <div class="week-num">01</div>
+        <div class="week-content">
+          <div class="week-title">Model Regresi Linier: Tinjauan Umum <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menjelaskan konsep dasar model regresi linier sederhana dan berganda serta menginterpretasikan koefisien OLS<br>
+            <span class="label">Indikator:</span> Ketepatan menjelaskan asumsi BLUE (Gauss-Markov); interpretasi koefisien OLS; menghitung R² dan adjusted R²<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Diskusi · Latihan soal<br>
+            <span class="label">Pustaka:</span> Bab 1: The Linear Regression Model: An Overview
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 2 -->
-    <div class="week-row">
-      <div class="week-num">2</div>
-      <div class="col-sub">Mengidentifikasi dan menggunakan berbagai bentuk fungsional regresi (log-linear, lin-log, log-log, polynomial, reciprocal) sesuai karakteristik data</div>
-      <div class="col-sub"><ol><li>Ketepatan memilih bentuk fungsional yang tepat</li><li>Ketepatan menginterpretasikan koefisien pada model log-linear dan log-log</li><li>Ketepatan melakukan transformasi variabel</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemilihan dan interpretasi model<br><strong>Teknik:</strong> Tugas individu</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Diskusi; Latihan studi kasus<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 2:</strong> Functional Forms of Regression Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 2 -->
+      <div class="week-row">
+        <div class="week-num">02</div>
+        <div class="week-content">
+          <div class="week-title">Bentuk Fungsional Regresi <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Mengidentifikasi dan menggunakan berbagai bentuk fungsional regresi (log-linear, lin-log, log-log, polynomial, reciprocal)<br>
+            <span class="label">Indikator:</span> Ketepatan memilih bentuk fungsional; interpretasi koefisien model log-linear dan log-log; transformasi variabel<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Diskusi · Studi kasus<br>
+            <span class="label">Pustaka:</span> Bab 2: Functional Forms of Regression Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 3 -->
-    <div class="week-row">
-      <div class="week-num">3</div>
-      <div class="col-sub">Menerapkan variabel dummy (kualitatif) dalam model regresi dan menginterpretasikan dampaknya secara tepat</div>
-      <div class="col-sub"><ol><li>Ketepatan mendefinisikan dan mengkodekan variabel dummy</li><li>Ketepatan menginterpretasikan koefisien variabel dummy</li><li>Ketepatan menghindari dummy variable trap</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan interpretasi koefisien dummy<br><strong>Teknik:</strong> Kuis &amp; tugas individu</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi kelompok<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Studi kasus mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 3:</strong> Qualitative Explanatory Variables Regression Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 3 -->
+      <div class="week-row">
+        <div class="week-num">03</div>
+        <div class="week-content">
+          <div class="week-title">Variabel Dummy (Kualitatif) <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan variabel dummy dalam model regresi dan menginterpretasikan dampaknya<br>
+            <span class="label">Indikator:</span> Mendefinisikan dan mengkodekan variabel dummy; interpretasi koefisien; menghindari dummy variable trap<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi kelompok<br>
+            <span class="label">Pustaka:</span> Bab 3: Qualitative Explanatory Variables Regression Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 4 -->
-    <div class="week-row">
-      <div class="week-num">4</div>
-      <div class="col-sub">Mendeteksi multikolinearitas dalam model regresi dan menerapkan solusi yang tepat untuk mengatasinya</div>
-      <div class="col-sub"><ol><li>Ketepatan mendeteksi multikolinearitas dengan VIF dan matriks korelasi</li><li>Ketepatan menjelaskan dampak multikolinearitas terhadap estimasi OLS</li><li>Ketepatan menerapkan solusi (transformasi, ridge regression, penghapusan variabel)</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan deteksi dan penanganan<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Direct Instruction<br><br>Kuliah; Demonstrasi; Latihan terbimbing<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 4:</strong> Regression Diagnostic I: Multicollinearity</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 4 -->
+      <div class="week-row">
+        <div class="week-num">04</div>
+        <div class="week-content">
+          <div class="week-title">Diagnostik I: Multikolinearitas <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Mendeteksi multikolinearitas dan menerapkan solusi yang tepat<br>
+            <span class="label">Indikator:</span> Deteksi dengan VIF dan matriks korelasi; dampak terhadap estimasi OLS; solusi (transformasi, ridge regression, penghapusan variabel)<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Direct Instruction</span> Kuliah · Demonstrasi · Latihan terbimbing<br>
+            <span class="label">Pustaka:</span> Bab 4: Regression Diagnostic I: Multicollinearity
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 5 -->
-    <div class="week-row">
-      <div class="week-num">5</div>
-      <div class="col-sub">Mendeteksi heteroskedastisitas dalam model regresi dan menerapkan metode penanganan yang sesuai</div>
-      <div class="col-sub"><ol><li>Ketepatan mendeteksi heteroskedastisitas dengan uji Park, Glejser, White, dan Breusch-Pagan</li><li>Ketepatan menerapkan WLS dan heteroscedasticity-robust standard errors sebagai solusi</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan deteksi dan penanganan heteroskedastisitas<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Direct Instruction<br><br>Kuliah; Demonstrasi; Latihan terbimbing<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 5:</strong> Regression Diagnostic II: Heteroscedasticity</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 5 -->
+      <div class="week-row">
+        <div class="week-num">05</div>
+        <div class="week-content">
+          <div class="week-title">Diagnostik II: Heteroskedastisitas <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Mendeteksi heteroskedastisitas dan menerapkan metode penanganan yang sesuai<br>
+            <span class="label">Indikator:</span> Deteksi dengan uji Park, Glejser, White, Breusch-Pagan; penerapan WLS dan robust standard errors<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Direct Instruction</span> Kuliah · Demonstrasi · Latihan terbimbing<br>
+            <span class="label">Pustaka:</span> Bab 5: Regression Diagnostic II: Heteroscedasticity
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 6 -->
-    <div class="week-row">
-      <div class="week-num">6</div>
-      <div class="col-sub">Mendeteksi autokorelasi dalam model regresi dan menerapkan metode GLS atau Newey-West untuk mengatasinya</div>
-      <div class="col-sub"><ol><li>Ketepatan mendeteksi autokorelasi dengan uji Durbin-Watson dan Breusch-Godfrey</li><li>Ketepatan menjelaskan dampak autokorelasi terhadap estimasi OLS</li><li>Ketepatan menerapkan metode GLS/FGLS dan Newey-West sebagai solusi</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan deteksi dan penanganan autokorelasi<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Direct Instruction<br><br>Kuliah; Demonstrasi; Latihan terbimbing<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 6:</strong> Regression Diagnostic III: Autocorrelation</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 6 -->
+      <div class="week-row">
+        <div class="week-num">06</div>
+        <div class="week-content">
+          <div class="week-title">Diagnostik III: Autokorelasi <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Mendeteksi autokorelasi dan menerapkan metode GLS atau Newey-West<br>
+            <span class="label">Indikator:</span> Deteksi dengan Durbin-Watson dan Breusch-Godfrey; dampak terhadap estimasi OLS; metode GLS/FGLS dan Newey-West<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Direct Instruction</span> Kuliah · Demonstrasi · Latihan terbimbing<br>
+            <span class="label">Pustaka:</span> Bab 6: Regression Diagnostic III: Autocorrelation
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 7 -->
-    <div class="week-row">
-      <div class="week-num">7</div>
-      <div class="col-sub">Mengidentifikasi dan menangani kesalahan spesifikasi model regresi (variabel dihilangkan, variabel tidak relevan, kesalahan bentuk fungsional)</div>
-      <div class="col-sub"><ol><li>Ketepatan mendeteksi kesalahan spesifikasi dengan uji RESET Ramsey</li><li>Ketepatan mengidentifikasi bias akibat omitted variable</li><li>Ketepatan mengevaluasi dan memperbaiki spesifikasi model</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan identifikasi dan perbaikan spesifikasi<br><strong>Teknik:</strong> Studi kasus &amp; tes tertulis</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi kelompok<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Studi kasus mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 7:</strong> Regression Diagnostic IV: Model Specification Errors</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 7 -->
+      <div class="week-row">
+        <div class="week-num">07</div>
+        <div class="week-content">
+          <div class="week-title">Diagnostik IV: Kesalahan Spesifikasi Model <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Mengidentifikasi dan menangani kesalahan spesifikasi model regresi<br>
+            <span class="label">Indikator:</span> Deteksi dengan uji RESET Ramsey; identifikasi bias omitted variable; evaluasi dan perbaikan spesifikasi model<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi kelompok<br>
+            <span class="label">Pustaka:</span> Bab 7: Regression Diagnostic IV: Model Specification Errors
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 8 — UTS -->
-    <div class="exam-row">
-      📝 &nbsp; Minggu 8 — UJIAN CPMK 1 &nbsp;|&nbsp; Bobot: 22%
-    </div>
+      <!-- Week 8 — UTS -->
+      <div class="week-row exam-row">
+        <div class="week-num">08</div>
+        <div class="exam-title">Ujian CPMK 1 <span class="badge badge-exam">22%</span></div>
+      </div>
 
-    <!-- Week 9 -->
-    <div class="week-row">
-      <div class="week-num">9</div>
-      <div class="col-sub">Menerapkan model regresi logistik (logit dan probit) untuk variabel dependen biner dan menginterpretasikan hasilnya</div>
-      <div class="col-sub"><ol><li>Ketepatan membangun dan memilih antara model logit dan probit</li><li>Ketepatan menginterpretasikan odds ratio dan marginal effect</li><li>Ketepatan menilai goodness-of-fit (McFadden R², uji Hosmer-Lemeshow)</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemodelan dan interpretasi<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi kelompok<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Studi kasus mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 8:</strong> The Logit and Probit Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 9 -->
+      <div class="week-row">
+        <div class="week-num">09</div>
+        <div class="week-content">
+          <div class="week-title">Model Logit dan Probit <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan model regresi logistik (logit dan probit) untuk variabel dependen biner<br>
+            <span class="label">Indikator:</span> Membangun dan memilih model logit/probit; interpretasi odds ratio dan marginal effect; goodness-of-fit (McFadden R², Hosmer-Lemeshow)<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi kelompok<br>
+            <span class="label">Pustaka:</span> Bab 8: The Logit and Probit Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 10 -->
-    <div class="week-row">
-      <div class="week-num">10</div>
-      <div class="col-sub">Menerapkan model regresi multinomial untuk variabel dependen nominal dengan lebih dari dua kategori</div>
-      <div class="col-sub"><ol><li>Ketepatan menyusun model regresi multinomial logistik</li><li>Ketepatan menginterpretasikan log odds relatif antar kategori</li><li>Ketepatan menilai ketepatan klasifikasi model</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemodelan dan interpretasi<br><strong>Teknik:</strong> Tugas individu</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi kelompok<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Studi kasus mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 9:</strong> Multinomial Regression Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 10 -->
+      <div class="week-row">
+        <div class="week-num">10</div>
+        <div class="week-content">
+          <div class="week-title">Model Regresi Multinomial <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan model regresi multinomial untuk variabel dependen nominal (>2 kategori)<br>
+            <span class="label">Indikator:</span> Menyusun model multinomial logistik; interpretasi log odds relatif antar kategori; ketepatan klasifikasi model<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi kelompok<br>
+            <span class="label">Pustaka:</span> Bab 9: Multinomial Regression Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 11 -->
-    <div class="week-row">
-      <div class="week-num">11</div>
-      <div class="col-sub">Menerapkan model regresi ordinal (ordered logit/probit) untuk variabel dependen berskala ordinal</div>
-      <div class="col-sub"><ol><li>Ketepatan membangun model ordered logit dan ordered probit</li><li>Ketepatan menginterpretasikan cumulative odds ratio</li><li>Ketepatan menguji proportional odds assumption</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemodelan dan interpretasi<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi kelompok<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Studi kasus mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 10:</strong> Ordinal Regression Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 11 -->
+      <div class="week-row">
+        <div class="week-num">11</div>
+        <div class="week-content">
+          <div class="week-title">Model Regresi Ordinal <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan model regresi ordinal (ordered logit/probit) untuk variabel dependen berskala ordinal<br>
+            <span class="label">Indikator:</span> Membangun ordered logit/probit; interpretasi cumulative odds ratio; menguji proportional odds assumption<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi kelompok<br>
+            <span class="label">Pustaka:</span> Bab 10: Ordinal Regression Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 12 -->
-    <div class="week-row">
-      <div class="week-num">12</div>
-      <div class="col-sub">Menerapkan model variabel dependen terbatas (Tobit, Truncated, Censored) pada permasalahan data ekonomi</div>
-      <div class="col-sub"><ol><li>Ketepatan membedakan dan memilih model Tobit, Truncated, dan Censored</li><li>Ketepatan menginterpretasikan koefisien model Tobit</li><li>Ketepatan menjelaskan masalah censoring dan truncation dalam data</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemodelan dan interpretasi<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Direct Instruction<br><br>Kuliah; Demonstrasi; Latihan terbimbing<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 11:</strong> Limited Dependent Variable</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 12 -->
+      <div class="week-row">
+        <div class="week-num">12</div>
+        <div class="week-content">
+          <div class="week-title">Variabel Dependen Terbatas (Tobit) <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan model variabel dependen terbatas (Tobit, Truncated, Censored)<br>
+            <span class="label">Indikator:</span> Membedakan model Tobit, Truncated, Censored; interpretasi koefisien Tobit; masalah censoring dan truncation<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Direct Instruction</span> Kuliah · Demonstrasi · Latihan terbimbing<br>
+            <span class="label">Pustaka:</span> Bab 11: Limited Dependent Variable
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 13 -->
-    <div class="week-row">
-      <div class="week-num">13</div>
-      <div class="col-sub">Menerapkan model regresi Poisson dan Negative Binomial untuk data cacah (count data) dalam konteks ekonomi</div>
-      <div class="col-sub"><ol><li>Ketepatan membangun model regresi Poisson</li><li>Ketepatan menginterpretasikan incidence rate ratio</li><li>Ketepatan mendeteksi dan menangani overdispersion dengan model Negative Binomial</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemodelan dan interpretasi<br><strong>Teknik:</strong> Tugas individu</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 12:</strong> Poisson Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 13 -->
+      <div class="week-row">
+        <div class="week-num">13</div>
+        <div class="week-content">
+          <div class="week-title">Model Poisson & Negative Binomial <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan model regresi Poisson dan Negative Binomial untuk data cacah<br>
+            <span class="label">Indikator:</span> Membangun model Poisson; interpretasi incidence rate ratio; deteksi dan penanganan overdispersion<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi<br>
+            <span class="label">Pustaka:</span> Bab 12: Poisson Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 14 -->
-    <div class="week-row">
-      <div class="week-num">14</div>
-      <div class="col-sub">Menganalisis sifat stasioneritas data deret waktu dan menerapkan uji kointegrasi serta error correction model</div>
-      <div class="col-sub"><ol><li>Ketepatan melakukan uji stasioneritas (ADF, PP, KPSS)</li><li>Ketepatan mengidentifikasi dan menghindari spurious regression</li><li>Ketepatan menerapkan uji kointegrasi Engle-Granger dan menyusun ECM</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan analisis dan pemodelan deret waktu<br><strong>Teknik:</strong> Tugas individu &amp; tes tertulis</div>
-      <div class="col-sub">Direct Instruction<br><br>Kuliah; Demonstrasi; Latihan terbimbing<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Latihan mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 13:</strong> Stationary and Non-stationary Time Series</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 14 -->
+      <div class="week-row">
+        <div class="week-num">14</div>
+        <div class="week-content">
+          <div class="week-title">Deret Waktu: Stasioneritas & Kointegrasi <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menganalisis stasioneritas data deret waktu dan menerapkan uji kointegrasi serta ECM<br>
+            <span class="label">Indikator:</span> Uji stasioneritas (ADF, PP, KPSS); identifikasi spurious regression; uji kointegrasi Engle-Granger dan ECM<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Direct Instruction</span> Kuliah · Demonstrasi · Latihan terbimbing<br>
+            <span class="label">Pustaka:</span> Bab 13: Stationary and Nonstationary Time Series
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 15 -->
-    <div class="week-row">
-      <div class="week-num">15</div>
-      <div class="col-sub">Menerapkan model ARCH dan GARCH untuk menganalisis volatilitas data keuangan dan ekonomi berderet waktu</div>
-      <div class="col-sub"><ol><li>Ketepatan mendeteksi efek ARCH dengan uji LM (Engle)</li><li>Ketepatan membangun dan mengestimasi model GARCH(1,1)</li><li>Ketepatan menginterpretasikan persistensi dan volatilitas dari model GARCH</li></ol></div>
-      <div class="col-sub"><strong>Kriteria:</strong> Ketepatan pemodelan dan interpretasi volatilitas<br><strong>Teknik:</strong> Studi kasus &amp; tugas individu</div>
-      <div class="col-sub">Guided Discovery Learning<br><br>Kuliah; Studi kasus; Diskusi kelompok<br><br>[TM: 1×(2×50')]</div>
-      <div class="col-sub">Akses materi LMS; Studi kasus mandiri<br><br>[BM: 1×(2×60')]</div>
-      <div class="col-sub"><strong>Bab 15:</strong> Asset Price Volatility: The ARCH and GARCH Models</div>
-      <div class="bobot-badge">4%</div>
-    </div>
+      <!-- Week 15 -->
+      <div class="week-row">
+        <div class="week-num">15</div>
+        <div class="week-content">
+          <div class="week-title">ARCH & GARCH: Volatilitas Harga Aset <span class="badge badge-weight">4%</span></div>
+          <div class="week-sub">
+            <span class="label">Sub-CPMK:</span> Menerapkan model ARCH dan GARCH untuk menganalisis volatilitas data keuangan<br>
+            <span class="label">Indikator:</span> Deteksi efek ARCH dengan uji LM (Engle); estimasi GARCH(1,1); interpretasi persistensi dan volatilitas<br>
+            <span class="label">Metode:</span> <span class="badge badge-method">Guided Discovery</span> Kuliah · Studi kasus · Diskusi kelompok<br>
+            <span class="label">Pustaka:</span> Bab 15: Asset Price Volatility: The ARCH and GARCH Models
+          </div>
+        </div>
+      </div>
 
-    <!-- Week 16 — UAS -->
-    <div class="exam-row">
-      📝 &nbsp; Minggu 16 — UJIAN CPMK 2 &nbsp;|&nbsp; Bobot: 22%
+      <!-- Week 16 — UAS -->
+      <div class="week-row exam-row">
+        <div class="week-num">16</div>
+        <div class="exam-title">Ujian CPMK 2 <span class="badge badge-exam">22%</span></div>
+      </div>
+
     </div>
   </div>
 
-  <!-- ═══ OTORISASI ═══ -->
-  <div class="otorisasi">
-    <div class="section-title">Otorisasi / Pengesahan</div>
-    <div class="otorisasi-grid">
-      <div class="otorisasi-slot">
-        <div class="role">Dosen Pengembang RPS</div>
-        <div class="sign-line">Tanda tangan</div>
-      </div>
-      <div class="otorisasi-slot">
-        <div class="role">Koordinator RMK</div>
-        <div class="sign-line">Tanda tangan</div>
-      </div>
-      <div class="otorisasi-slot">
-        <div class="role">Koordinator / Ketua Prodi</div>
-        <div class="sign-line">Tanda tangan</div>
-      </div>
-    </div>
-  </div>
+</main>
 
-</div>
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  UIN Sayyid Ali Rahmatullah Tulungagung — Fakultas Ekonomi dan Bisnis Islam
+</footer>
 
 </body>
 </html>
