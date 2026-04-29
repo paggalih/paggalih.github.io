@@ -1657,240 +1657,314 @@ graph TD
           <h2>Pertemuan 6</h2>
         </div>
         <div class="trigger">
-          Error harus berdistribusi normal dengan rata-rata 0 untuk memastikan bahwa kesalahan-kesalahan kecil diperbolehkan dengan jumlah yang banyak di sekitar 0 tetapi kesalahan besar peluangnya dibuat sangat kecil.
-        </div>
+<strong>Analogi Autokorelasi: "Efek Domino di Barisan"</strong><br>
+Bayangkan Anda sedang melihat sekumpulan tentara yang berbaris rapi. Jika semuanya berjalan dengan sempurna, setiap langkah satu prajurit tidak bergantung pada kesalahan langkah prajurit lainnya.
+<br>
+Namun, bagaimana jika prajurit pertama tersandung batu? Prajurit kedua di belakangnya kemungkinan besar akan ikut tersandung karena menabrak prajurit pertama, yang kemudian membuat prajurit ketiga ikut goyah. Inilah yang disebut Autokorelasi.        </div>
         <div class="mermaid text-center">
-          graph TD
-          A[Mulai: Siapkan Data] --> B[1. Estimasi Model Regresi];
-          B --> C{2. Dapatkan Residual};
-          C --> D[3. Lakukan Uji Normalitas pada Residual];
-          D --> E{Apakah P-value > 0.05?};
-          E -- Ya --> F[✅ Asumsi Terpenuhi: Lanjutkan Analisis];
-          E -- Tidak --> G[❌ Asumsi Dilanggar: Selidiki];
-          G --> H[Cek Outlier atau Kesalahan Spesifikasi Model];
-          H --> I[Lakukan Tindakan Korektif];
-          I --> B;
+graph TD
+    A["Mulai Analisis Regresi"] --> B["Estimasi Model OLS (Ordinary Least Squares)"]
+    B --> C["Lakukan Uji Diagnostik Residual"]
+    C --> D["Uji Breusch-Godfrey Serial Correlation LM Test"]
+    D --> E{"Apakah Prob. Chi-Square &lt; 0.05?"}
+    E -- "Tidak (H0 Diterima)" --> F["Bebas Autokorelasi: Gunakan Model OLS Ini"]
+    E -- "Ya (H0 Ditolak)" --> G["Terdeteksi Autokorelasi: Pilih Metode Perbaikan"]
+    G --> H["Metode 1: Generalized Least Squares (GLS)"]
+    G --> I["Metode 2: HAC Newey-West"]
+    H --> J["Tambahkan term AR(1) atau AR(p) di estimasi"]
+    I --> K["Ubah Covariance Method menjadi HAC (Newey-West)"]
+    J --> L["Evaluasi Ulang Model (Selesai)"]
+    K --> L["Evaluasi Ulang Model (Selesai)"]
         </div>
-
-        <div style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; border: 1px solid #e1e1e1; padding: 20px; border-radius: 8px; box-shadow: 0 2px 4px rgba(0,0,0,0.1);">
-          <h2>Langkah-langkah Uji Normalitas di EViews</h2>
-          <ol>
-            <li> <strong>Impor Data Anda:</strong> Pertama, buka EViews dan impor data CSV yang disediakan dalam studi kasus di bawah ini. </li>
-            <li> <strong>Jalankan Regresi:</strong> Di baris perintah EViews, ketik persamaan regresi Anda menggunakan perintah <code>ls</code> (least squares). Sebagai contoh:
-
-              <code>ls harga_saham c tingkat_suku_bunga tingkat_pengangguran pertumbuhan_pdb</code>
-
-              Tekan Enter. Ini akan menjalankan regresi dan membuka jendela hasil.
-            </li>
-            <li> <strong>Akses Diagnostik Residual:</strong> Di jendela hasil regresi (jendela 'Equation'), navigasikan ke <b>View</b> → <b>Residual Diagnostics</b> → <b>Histogram - Normality Test</b>.
-
-            </li>
-            <li>
-              <strong>Interpretasikan Hasil:</strong> EViews akan menampilkan histogram dari residual beserta kotak statistik. Cari dua nilai kunci:
-              <ul>
-                <li><strong>Jarque-Bera:</strong> Ini adalah statistik uji.</li>
-                <li><strong>Probability:</strong> Ini adalah p-value yang terkait dengan statistik Jarque-Bera.</li>
-              </ul>
-              <p>Uji hipotesisnya disusun sebagai berikut:</p>
-              <p style="text-align: center;">$$H_0: \text{Residual terdistribusi secara normal.}$$</p>
-              <p style="text-align: center;">$$H_1: \text{Residual tidak terdistribusi secara normal.}$$</p>
-              <p><strong>Aturan Keputusan:</strong></p>
-              <ul>
-                <li>Jika <strong>Probability > 0.05</strong>, Anda tidak menolak hipotesis nol ($H_0$). Ini berarti residual terdistribusi normal, dan asumsi terpenuhi. </li>
-                <li>Jika <strong>Probability ≤ 0.05</strong>, Anda menolak hipotesis nol ($H_0$). Ini menunjukkan residual tidak terdistribusi normal, dan asumsi dilanggar. </li>
-              </ul>
-            </li>
-          </ol>
+<h2>Cara Mudah Mengatasi Autokorelasi di EViews</h2><p>Dalam model regresi time-series standar, kita memiliki persamaan matematis berikut:</p>$$Y_t = \beta_0 + \beta_1 X_t + \varepsilon_t$$<p>Masalah autokorelasi muncul ketika nilai error hari ini $\varepsilon_t$ berkorelasi dengan error masa lalu $\varepsilon_{t-1}$. Untuk menyelesaikannya di perangkat lunak EViews, ikuti langkah-langkah berikut:</p><h3>1. Mendeteksi Autokorelasi</h3><ul><li><strong>Estimasi OLS:</strong> Ketik di <i>Command Window</i>: <code>ls y c x</code> lalu tekan Enter.</li><li><strong>Uji LM:</strong> Pada jendela Equation, klik <strong>View &gt; Residual Diagnostics &gt; Serial Correlation LM Test</strong>. Masukkan nilai lags (biasanya 2).</li><li><strong>Kriteria Keputusan:</strong> Jika nilai <em>Prob. Chi-Square</em> pada Obs*R-squared $&lt; 0.05$, maka model mengalami masalah autokorelasi.</li></ul><h3>2. Mengatasi dengan Metode GLS (Generalized Least Squares)</h3><p>Metode GLS dilakukan dengan memodelkan error tersebut. Jika autokorelasi berada pada lag 1, kita mengubah spesifikasi model menjadi:</p>$$Y_t = \beta_0 + \beta_1 X_t + \rho \varepsilon_{t-1} + v_t$$<ul><li>Di EViews, tekan tombol <strong>Estimate</strong> pada jendela model Anda.</li><li>Tambahkan <code>ar(1)</code> di akhir persamaan sehingga menjadi: <code>y c x ar(1)</code>.</li><li>Klik <strong>OK</strong>. Model kini telah disesuaikan menggunakan iterative GLS (Cochrane-Orcutt).</li></ul><h3>3. Mengatasi dengan Metode HAC Newey-West</h3><p>Jika Anda tidak ingin mengubah koefisien regresi, melainkan hanya ingin mengoreksi standar error agar uji-t dan p-value kembali valid, gunakan Newey-West.</p><ul><li>Tekan tombol <strong>Estimate</strong> di jendela Equation (kembalikan rumus menjadi <code>y c x</code>).</li><li>Pilih tab <strong>Options</strong>.</li><li>Pada bagian <em>Covariance method</em>, ubah dari <em>Ordinary</em> menjadi <strong>HAC (Newey-West)</strong>.</li><li>Klik <strong>OK</strong>. Koefisien regresi akan sama persis dengan OLS awal, tetapi nilai Standard Error, t-Statistic, dan Probabilitas sudah kebal terhadap autokorelasi.</li></ul>
+        <p class="soal-latihan">
+          Kasus 1: Pengaruh Suku Bunga (X) terhadap Inflasi (Y) bulanan.
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Periode","Y_Inflasi","X_SukuBunga"
+"1","3.10","5.00"
+"2","3.15","5.00"
+"3","3.21","5.05"
+"4","3.35","5.10"
+"5","3.42","5.15"
+"6","3.50","5.20"
+"7","3.55","5.25"
+"8","3.62","5.25"
+"9","3.70","5.30"
+"10","3.75","5.35"
+"11","3.81","5.40"
+"12","3.90","5.45"
+"13","3.95","5.50"
+"14","4.01","5.55"
+"15","4.10","5.55"
+"16","4.15","5.60"
+"17","4.22","5.65"
+"18","4.25","5.70"
+"19","4.30","5.75"
+"20","4.35","5.80"
+"21","4.41","5.80"
+"22","4.48","5.85"
+"23","4.55","5.90"
+"24","4.60","5.95"
+"25","4.65","6.00"
+"26","4.70","6.00"
+"27","4.75","6.05"
+"28","4.82","6.10"
+"29","4.88","6.15"
+"30","4.95","6.20"
+"31","5.00","6.25"
+"32","5.05","6.25"
+"33","5.10","6.30"
+"34","5.15","6.35"
+"35","5.20","6.40"
+"36","5.28","6.45"
+"37","5.32","6.50"
+"38","5.38","6.50"
+"39","5.42","6.55"
+"40","5.48","6.60"
+"41","5.55","6.65"
+"42","5.61","6.70"
+"43","5.65","6.75"
+"44","5.70","6.75"
+"45","5.75","6.80"
+"46","5.82","6.85"
+"47","5.88","6.90"
+"48","5.95","6.95"
+"49","6.01","7.00"
+"50","6.05","7.00"</textarea>
         </div>
-        <hr>
-        <h4>Kasus 1: Faktor-faktor yang Mempengaruhi Harga Saham Perusahaan</h4>
-        <p>Kasus ini menguji bagaimana faktor makroekonomi memengaruhi harga saham suatu perusahaan.
-
-          <br>Y (Harga_Saham): Harga penutupan saham.
-
-          <br>X1 (Tingkat_Suku_Bunga): Tingkat suku bunga bank sentral yang berlaku (%).
-
-          <br>X2 (Tingkat_Pengangguran): Tingkat pengangguran nasional (%).
-
-          <br>X3 (Pertumbuhan_PDB): Tingkat pertumbuhan PDB kuartalan (%).
+        <p class="soal-latihan">Kasus 2: Pengaruh Biaya Iklan (X) terhadap Penjualan Ritel (Y) mingguan.
         </p>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-normalitas-1.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-normalitas-1"></div>
-        <script>
-          fetch('latihan-normalitas-1.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-normalitas-1">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-normalitas-1").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-normalitas-1').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <hr>
-        <h4>Kasus 2: Determinan Hasil Panen</h4>
-        <p>Kasus ini menyelidiki faktor-faktor yang mempengaruhi hasil panen tanaman tertentu.
-
-          <br>Y (Hasil_Panen): Hasil panen dalam ton per hektar.
-
-          <br>X1 (Curah_Hujan): Total curah hujan selama musim tanam (dalam mm).
-
-          <br>X2 (Pupuk): Jumlah pupuk yang digunakan (dalam kg per hektar).
-
-          <br> X3 (Sinar_Matahari): Rata-rata jam sinar matahari harian.
+        <div class="textarea-container">
+        <textarea>
+"Minggu","Y_Penjualan","X_Iklan"
+"1","100.5","10.0"
+"2","102.1","10.5"
+"3","103.5","11.0"
+"4","105.0","11.5"
+"5","106.2","12.0"
+"6","107.8","12.5"
+"7","109.1","13.0"
+"8","110.5","13.5"
+"9","111.9","14.0"
+"10","113.2","14.5"
+"11","114.8","15.0"
+"12","116.1","15.5"
+"13","117.5","16.0"
+"14","118.9","16.5"
+"15","120.2","17.0"
+"16","121.6","17.5"
+"17","123.0","18.0"
+"18","124.3","18.5"
+"19","125.7","19.0"
+"20","127.1","19.5"
+"21","128.5","20.0"
+"22","129.8","20.5"
+"23","131.2","21.0"
+"24","132.6","21.5"
+"25","134.0","22.0"
+"26","135.3","22.5"
+"27","136.7","23.0"
+"28","138.1","23.5"
+"29","139.5","24.0"
+"30","140.8","24.5"
+"31","142.2","25.0"
+"32","143.6","25.5"
+"33","145.0","26.0"
+"34","146.3","26.5"
+"35","147.7","27.0"
+"36","149.1","27.5"
+"37","150.5","28.0"
+"38","151.8","28.5"
+"39","153.2","29.0"
+"40","154.6","29.5"
+"41","156.0","30.0"
+"42","157.3","30.5"
+"43","158.7","31.0"
+"44","160.1","31.5"
+"45","161.5","32.0"
+"46","162.8","32.5"
+"47","164.2","33.0"
+"48","165.6","33.5"
+"49","167.0","34.0"
+"50","168.3","34.5"</textarea>
+        </div>
+        <p class="soal-latihan">Kasus 3: Pengaruh EPS/Laba (X) terhadap Harga Saham (Y) harian (Indeks).
         </p>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-normalitas-2.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-normalitas-2"></div>
-        <script>
-          fetch('latihan-normalitas-2.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-normalitas-2">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-normalitas-2").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-normalitas-2').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <hr>
-        <h4>Kasus 3: Memprediksi Harga Rumah</h4>
-        <P>Kasus ini memodelkan harga rumah berdasarkan karakteristik fisiknya.
-
-          <br>Y (Harga): Harga jual rumah (dalam jutaan rupiah, disimulasikan sebagai ratusan ribu dolar).
-
-          <br>X1 (Luas_Bangunan): Luas rumah dalam meter persegi (disimulasikan sebagai sq. feet).
-
-          <br> X2 (Jumlah_Kamar): Jumlah kamar tidur.
-
-          <br> X3 (Usia_Rumah): Usia rumah dalam tahun.
-        </P>
-        <a class="actions" href="https://raw.githubusercontent.com/paggalih/paggalih.github.io/refs/heads/main/matkul/sem2025-01/ekonometrika/latihan-normalitas-3.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-latihan-normalitas-3"></div>
-        <script>
-          fetch('latihan-normalitas-3.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-latihan-normalitas-3">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-latihan-normalitas-3").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-latihan-normalitas-3').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <hr>
-        <h4>KIRIMKAN JAWABAN PER KELOMPOK DISINI <br><a class="actions" href="https://forms.gle/xZQ7E9FCQiAc2ktEA"><button>UNGGAH JAWABAN</button></a></h4>
-
+        <div class="textarea-container">
+        <textarea>
+"Hari","Y_Saham","X_EPS"
+"1","5010","205"
+"2","5025","206"
+"3","5040","208"
+"4","5035","207"
+"5","5060","210"
+"6","5085","212"
+"7","5100","215"
+"8","5090","214"
+"9","5115","217"
+"10","5130","220"
+"11","5125","219"
+"12","5150","222"
+"13","5175","225"
+"14","5190","227"
+"15","5180","226"
+"16","5210","230"
+"17","5230","232"
+"18","5225","231"
+"19","5250","235"
+"20","5270","238"
+"21","5290","240"
+"22","5285","239"
+"23","5310","242"
+"24","5335","245"
+"25","5350","247"
+"26","5340","246"
+"27","5365","250"
+"28","5390","253"
+"29","5410","256"
+"30","5405","255"
+"31","5430","258"
+"32","5455","261"
+"33","5470","263"
+"34","5465","262"
+"35","5490","265"
+"36","5515","268"
+"37","5535","270"
+"38","5525","269"
+"39","5550","273"
+"40","5575","276"
+"41","5590","279"
+"42","5585","278"
+"43","5610","282"
+"44","5635","285"
+"45","5650","288"
+"46","5645","287"
+"47","5670","291"
+"48","5695","294"
+"49","5715","297"
+"50","5705","296"</textarea>
+        </div>
+        <p class="soal-latihan">Kasus 4: Pengaruh Suhu Udara (X) terhadap Konsumsi Energi Listrik (Y).
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Waktu","Y_Listrik","X_Suhu"
+"1","200.5","25.0"
+"2","201.2","25.2"
+"3","203.0","25.5"
+"4","205.5","26.0"
+"5","208.1","26.5"
+"6","210.3","27.0"
+"7","212.8","27.4"
+"8","215.4","28.0"
+"9","217.1","28.3"
+"10","220.0","28.8"
+"11","221.5","29.0"
+"12","224.2","29.5"
+"13","226.8","30.0"
+"14","229.0","30.4"
+"15","231.5","30.8"
+"16","234.1","31.3"
+"17","235.8","31.5"
+"18","238.5","32.0"
+"19","240.2","32.2"
+"20","242.6","32.6"
+"21","244.9","33.0"
+"22","247.1","33.4"
+"23","249.5","33.8"
+"24","251.0","34.0"
+"25","253.4","34.4"
+"26","255.8","34.8"
+"27","258.1","35.2"
+"28","259.5","35.4"
+"29","261.9","35.8"
+"30","264.0","36.1"
+"31","266.3","36.5"
+"32","268.5","36.9"
+"33","270.2","37.2"
+"34","272.6","37.6"
+"35","274.8","37.9"
+"36","277.1","38.3"
+"37","279.5","38.7"
+"38","281.0","38.9"
+"39","283.4","39.3"
+"40","285.6","39.6"
+"41","287.9","40.0"
+"42","289.5","40.2"
+"43","291.8","40.6"
+"44","294.1","41.0"
+"45","296.3","41.3"
+"46","298.5","41.7"
+"47","300.1","41.9"
+"48","302.4","42.3"
+"49","304.6","42.6"
+"50","306.9","43.0"</textarea>
+        </div>
+        <p class="soal-latihan">Kasus 5: Pengaruh Nilai Tukar Rupiah (X) terhadap Total Ekspor (Y).
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Kuartal","Y_Ekspor","X_Kurs"
+"1","1500","14000"
+"2","1510","14050"
+"3","1505","14025"
+"4","1520","14100"
+"5","1535","14150"
+"6","1525","14120"
+"7","1540","14200"
+"8","1555","14250"
+"9","1545","14220"
+"10","1560","14300"
+"11","1575","14350"
+"12","1565","14320"
+"13","1580","14400"
+"14","1595","14450"
+"15","1585","14420"
+"16","1600","14500"
+"17","1615","14550"
+"18","1605","14520"
+"19","1620","14600"
+"20","1635","14650"
+"21","1625","14620"
+"22","1640","14700"
+"23","1655","14750"
+"24","1645","14720"
+"25","1660","14800"
+"26","1675","14850"
+"27","1665","14820"
+"28","1680","14900"
+"29","1695","14950"
+"30","1685","14920"
+"31","1700","15000"
+"32","1715","15050"
+"33","1705","15020"
+"34","1720","15100"
+"35","1735","15150"
+"36","1725","15120"
+"37","1740","15200"
+"38","1755","15250"
+"39","1745","15220"
+"40","1760","15300"
+"41","1775","15350"
+"42","1765","15320"
+"43","1780","15400"
+"44","1795","15450"
+"45","1785","15420"
+"46","1800","15500"
+"47","1815","15550"
+"48","1805","15520"
+"49","1820","15600"
+"50","1835","15650"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
+        
       </div>
     </section>
     <section id="p7">
