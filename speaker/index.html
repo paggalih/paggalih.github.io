@@ -3,305 +3,609 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Loading…</title>
+<title>Site Mind Map</title>
+<link href="https://paggalih.github.io/assets/css/style.css" rel="stylesheet">
+<script src="https://paggalih.github.io/assets/js/main2.js"></script>
 <style>
-  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Syne:wght@700;800&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;600;700&family=Syne:wght@700;800&family=DM+Sans:wght@400;500;600&display=swap');
+
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
   :root {
-    --bg: #0a0a0f; --surface: #111118; --border: #1e1e2e;
-    --accent: #7efff5; --text: #e0e0f0; --muted: #555570;
-    --ok: #6fff6f; --err: #ff6b6b;
+    --bg: #07070c;
+    --surface: #0e0e16;
+    --border: #1a1a28;
+    --accent: #7efff5;
+    --accent2: #f57eff;
+    --accent3: #7e9fff;
+    --text: #d8d8ee;
+    --muted: #484860;
+    --ok: #6fff6f;
+    --file: #ffce7e;
+    --folder: #7efff5;
   }
+
   body {
-    background: var(--bg); color: var(--text);
-    font-family: 'JetBrains Mono', monospace;
-    min-height: 100vh; padding: 40px 20px 80px;
-    background-image:
-      radial-gradient(ellipse at 15% 15%, #0d1a2a 0%, transparent 50%),
-      radial-gradient(ellipse at 85% 85%, #1a0d1a 0%, transparent 50%);
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    overflow: hidden;
   }
-  header { max-width: 720px; margin: 0 auto 28px; }
-  h1 {
-    font-family: 'Syne', sans-serif; font-weight: 800; font-size: clamp(1.6rem,4vw,2.4rem);
-    background: linear-gradient(135deg, #7efff5, #4fc3f7);
+
+  /* ── Top bar ── */
+  .topbar {
+    position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+    display: flex; align-items: center; gap: 12px;
+    padding: 10px 20px;
+    background: rgba(7,7,12,0.85);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+  }
+  .topbar h1 {
+    font-family: 'Syne', sans-serif; font-weight: 800; font-size: 1.1rem;
+    background: linear-gradient(135deg, var(--accent), var(--accent3));
     -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-    letter-spacing: -0.5px;
+    flex-shrink: 0;
   }
-  .meta { color: var(--muted); font-size: 0.72rem; margin-top: 6px; line-height: 1.7; }
-  .meta span { color: var(--accent); }
-  .search-wrap { max-width: 720px; margin: 0 auto 16px; }
-  #search {
-    width: 100%; background: var(--surface); border: 1px solid var(--border);
-    border-radius: 8px; color: var(--text); font-family: 'JetBrains Mono', monospace;
-    font-size: 0.85rem; padding: 10px 16px; outline: none; transition: border-color 0.2s;
+  .topbar .sep { width: 1px; height: 20px; background: var(--border); }
+  #status-bar {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.7rem;
+    color: var(--muted); white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  #search:focus { border-color: var(--accent); }
-  #search::placeholder { color: var(--muted); }
-  #status {
-    max-width: 720px; margin: 0 auto 16px;
-    font-size: 0.75rem; padding: 10px 14px; border-radius: 6px; display: none;
+  .topbar .controls { margin-left: auto; display: flex; gap: 6px; flex-shrink: 0; }
+  .ctrl-btn {
+    background: var(--surface); border: 1px solid var(--border); color: var(--muted);
+    font-family: 'JetBrains Mono', monospace; font-size: 0.68rem;
+    padding: 4px 10px; border-radius: 5px; cursor: pointer; transition: all 0.2s;
   }
-  #status.info { background:#0d1a2a; color:#4fc3f7; border:1px solid #1a3a5a; display:block; }
-  #status.error { background:#2a0d0d; color:var(--err); border:1px solid #5a1a1a; display:block; }
-  #status.ok { background:#0d2a0d; color:var(--ok); border:1px solid #1a5a1a; display:block; }
-  ul { list-style: none; max-width: 720px; margin: 0 auto; display: flex; flex-direction: column; gap: 6px; }
-  li {
-    background: var(--surface); border: 1px solid var(--border); border-radius: 10px;
-    padding: 13px 16px; display: flex; align-items: center; gap: 12px;
-    transition: border-color 0.2s, background 0.2s; animation: fadeIn 0.3s ease both;
+  .ctrl-btn:hover { border-color: var(--accent); color: var(--accent); }
+  .ctrl-btn.active { background: rgba(126,255,245,0.1); border-color: var(--accent); color: var(--accent); }
+
+  /* ── Canvas ── */
+  #canvas {
+    position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+    cursor: grab;
   }
-  li:hover { border-color: var(--accent); background: #14141e; }
-  li.hidden { display: none !important; }
-  @keyframes fadeIn { from { opacity:0; transform:translateY(6px); } to { opacity:1; transform:none; } }
-  .icon { color: var(--accent); flex-shrink: 0; }
-  .info-block { flex: 1; overflow: hidden; }
-  .fname {
-    font-size: 0.85rem; color: var(--text); white-space: nowrap;
-    overflow: hidden; text-overflow: ellipsis;
+  #canvas.dragging { cursor: grabbing; }
+
+  /* ── Tooltip ── */
+  #tooltip {
+    position: fixed; pointer-events: none; z-index: 200;
+    background: rgba(14,14,22,0.95); border: 1px solid var(--border);
+    border-radius: 8px; padding: 10px 14px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
+    color: var(--text); max-width: 340px;
+    backdrop-filter: blur(8px);
+    opacity: 0; transition: opacity 0.15s;
+    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
   }
-  .fpath { font-size: 0.68rem; color: var(--muted); margin-top: 2px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .fdate { font-size: 0.67rem; color: var(--muted); margin-top: 3px; }
-  .fdate.fresh { color: #4fc3f7; }
-  .fdate.loading { opacity: 0.35; }
-  .open-btn {
-    color: var(--accent); text-decoration: none; font-size: 0.72rem;
-    padding: 5px 12px; border: 1px solid var(--accent); border-radius: 5px;
-    flex-shrink: 0; transition: background 0.15s; white-space: nowrap;
+  #tooltip.show { opacity: 1; }
+  #tooltip .tt-path { color: var(--accent); margin-bottom: 4px; word-break: break-all; }
+  #tooltip .tt-date { color: var(--muted); font-size: 0.65rem; }
+  #tooltip .tt-hint { color: var(--accent2); font-size: 0.62rem; margin-top: 5px; }
+
+  /* ── Legend ── */
+  .legend {
+    position: fixed; bottom: 16px; left: 16px; z-index: 100;
+    display: flex; gap: 14px;
+    font-family: 'JetBrains Mono', monospace; font-size: 0.65rem; color: var(--muted);
   }
-  .open-btn:hover { background: rgba(126,255,245,0.12); }
-  .self-item { border-color: #333 !important; opacity: 0.4; }
-  .self-item .fname::after { content: '  ← you are here'; color: var(--muted); font-size: 0.68rem; }
-  footer { max-width: 720px; margin: 32px auto 0; color: var(--muted); font-size: 0.68rem; }
-  #spinner {
-    max-width: 720px; margin: 40px auto; text-align: center;
-    color: var(--muted); font-size: 0.8rem;
+  .legend span::before {
+    content: ''; display: inline-block; width: 8px; height: 8px;
+    border-radius: 50%; margin-right: 5px; vertical-align: middle;
   }
-  .dot { animation: blink 1.2s infinite; }
-  .dot:nth-child(2) { animation-delay: 0.2s; }
-  .dot:nth-child(3) { animation-delay: 0.4s; }
-  @keyframes blink { 0%,80%,100%{opacity:0.2} 40%{opacity:1} }
+  .legend .l-root::before { background: var(--accent); }
+  .legend .l-folder::before { background: var(--accent3); }
+  .legend .l-file::before { background: var(--file); }
+
+  /* ── Loading overlay ── */
+  #loader {
+    position: fixed; inset: 0; z-index: 300;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--bg);
+  }
+  #loader.hide { opacity: 0; pointer-events: none; transition: opacity 0.5s; }
+  .loader-text {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.8rem; color: var(--muted);
+    margin-top: 16px;
+  }
+  .loader-spinner {
+    width: 36px; height: 36px; border: 2px solid var(--border);
+    border-top-color: var(--accent); border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ── Error ── */
+  #error-overlay {
+    position: fixed; inset: 0; z-index: 300;
+    display: none; flex-direction: column; align-items: center; justify-content: center;
+    background: var(--bg); padding: 20px; text-align: center;
+  }
+  #error-overlay.show { display: flex; }
+  #error-overlay .err-icon { font-size: 2rem; margin-bottom: 12px; }
+  #error-overlay .err-msg {
+    font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
+    color: #ff6b6b; max-width: 500px; line-height: 1.6;
+  }
 </style>
 </head>
 <body>
 
-<header>
-  <h1>◈ Folder Index</h1>
-  <div class="meta" id="meta">Detecting location<span id="dots">…</span></div>
-</header>
-
-<div id="spinner">
-  <span class="dot">▪</span><span class="dot">▪</span><span class="dot">▪</span>
+<div class="topbar">
+  <h1>◈ Mind Map</h1>
+  <div class="sep"></div>
+  <div id="status-bar">Initializing…</div>
+  <div class="controls">
+    <button class="ctrl-btn" onclick="resetView()">Reset view</button>
+    <button class="ctrl-btn" id="btn-labels" onclick="toggleLabels()">Labels</button>
+  </div>
 </div>
 
-<div id="status"></div>
-<div class="search-wrap" id="searchWrap" style="display:none">
-  <input type="text" id="search" placeholder="filter files…" oninput="filter(this.value)" />
+<canvas id="canvas"></canvas>
+
+<div id="tooltip">
+  <div class="tt-path"></div>
+  <div class="tt-date"></div>
+  <div class="tt-hint">click to open ↗</div>
 </div>
-<ul id="list"></ul>
-<footer id="footer"></footer>
+
+<div class="legend">
+  <span class="l-root">root</span>
+  <span class="l-folder">folder</span>
+  <span class="l-file">file</span>
+</div>
+
+<div id="loader">
+  <div class="loader-spinner"></div>
+  <div class="loader-text">Fetching repo tree…</div>
+</div>
+
+<div id="error-overlay">
+  <div class="err-icon">✕</div>
+  <div class="err-msg" id="err-msg"></div>
+</div>
 
 <script>
-(async () => {
-  const loc = window.location;
-  const hostname = loc.hostname; // e.g. paggalih.github.io
-  const pathname = loc.pathname; // e.g. /trial/index.html
+/* ═══════════════════════════════════════════
+   CONFIG & STATE
+═══════════════════════════════════════════ */
+const canvas = document.getElementById('canvas');
+const ctx = canvas.getContext('2d');
+const tooltip = document.getElementById('tooltip');
+const statusBar = document.getElementById('status-bar');
 
-  // ── Parse GitHub Pages URL ──────────────────────────────────────────
-  // Case A: username.github.io          → repo = username.github.io, folder = root
-  // Case B: username.github.io/repo/... → repo = repo, folder = rest of path
+let W, H, dpr;
+let nodes = [], edges = [];
+let cam = { x: 0, y: 0, zoom: 1 };
+let drag = { active: false, sx: 0, sy: 0, cx: 0, cy: 0 };
+let hoveredNode = null;
+let showLabels = true;
+let animT = 0;
+let treeData = null;
+
+const COLORS = {
+  root:   '#7efff5',
+  folder: '#7e9fff',
+  file:   '#ffce7e',
+  edge:   '#1e1e32',
+  edgeHi: '#3a3a5a',
+};
+const FOLDER_COLORS = ['#7e9fff','#f57eff','#7efff5','#ff7e7e','#7eff9f','#ffce7e','#9f7eff','#7ec8ff'];
+
+/* ═══════════════════════════════════════════
+   CANVAS SETUP
+═══════════════════════════════════════════ */
+function resize() {
+  dpr = window.devicePixelRatio || 1;
+  W = window.innerWidth; H = window.innerHeight;
+  canvas.width = W * dpr; canvas.height = H * dpr;
+  canvas.style.width = W + 'px'; canvas.style.height = H + 'px';
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+}
+window.addEventListener('resize', resize);
+resize();
+
+/* ═══════════════════════════════════════════
+   GITHUB API — FETCH TREE
+═══════════════════════════════════════════ */
+async function fetchTree() {
+  const loc = window.location;
+  const hostname = loc.hostname;
+  const pathname = loc.pathname;
+
   const parts = hostname.split('.');
   const isGhPages = parts.includes('github') && parts.includes('io');
 
   if (!isGhPages) {
-    showErr(`Not a GitHub Pages URL (detected: ${hostname}). This file only works on *.github.io`);
-    return;
+    showError(`Not a GitHub Pages URL (${hostname}). Deploy this file to *.github.io`);
+    return null;
   }
 
-  const owner = parts[0]; // username
-
-  // path segments (strip leading slash, split)
+  const owner = parts[0];
   const segments = pathname.replace(/^\//, '').split('/').filter(Boolean);
-  // remove the file itself (index.html etc.)
   const lastSeg = segments[segments.length - 1];
   if (lastSeg && lastSeg.includes('.')) segments.pop();
 
   let repo, folderPath;
-
-  // username.github.io → repo is ALWAYS username.github.io
-  // all path segments are just folders inside that repo
   if (hostname === `${owner}.github.io`) {
     repo = `${owner}.github.io`;
     folderPath = segments.join('/');
   } else {
-    // org pages or custom domain
     repo = hostname;
     folderPath = segments.join('/');
   }
 
-  const currentFileUrl = loc.href;
-  const folderDisplay = folderPath ? `/${folderPath}/` : '/';
+  setStatus(`Fetching ${owner}/${repo}…`);
 
-  document.title = `Index — ${folderDisplay}`;
-  document.getElementById('meta').innerHTML =
-    `<span>${owner}/${repo}</span> · folder: <span>${folderDisplay || 'root'}</span>`;
+  const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
+  if (!repoRes.ok) throw new Error(`Repo "${owner}/${repo}" not found (HTTP ${repoRes.status})`);
+  const repoData = await repoRes.json();
+  const branch = repoData.default_branch;
 
-  setStatus('Fetching file tree from GitHub API…', 'info');
+  setStatus(`Branch: ${branch} — loading tree…`);
+  const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
+  if (!treeRes.ok) throw new Error(`Tree fetch failed (HTTP ${treeRes.status})`);
+  const treeData = await treeRes.json();
 
+  const prefix = folderPath ? folderPath + '/' : '';
+
+  const htmlFiles = treeData.tree.filter(f => {
+    if (f.type !== 'blob') return false;
+    if (!/\.(html|htm)$/i.test(f.path)) return false;
+    return f.path.startsWith(prefix);
+  }).map(f => ({
+    path: f.path,
+    rel: f.path.slice(prefix.length),
+    filename: f.path.split('/').pop(),
+    url: `${loc.protocol}//${hostname}/${f.path}`,
+  }));
+
+  return { owner, repo, branch, folderPath, htmlFiles, hostname, protocol: loc.protocol };
+}
+
+/* ═══════════════════════════════════════════
+   BUILD TREE STRUCTURE
+═══════════════════════════════════════════ */
+function buildTree(data) {
+  const root = { name: data.repo, type: 'root', children: {}, files: [], path: '', url: null, depth: 0 };
+
+  for (const f of data.htmlFiles) {
+    const parts = f.rel.split('/');
+    let current = root;
+    // traverse/create folder nodes
+    for (let i = 0; i < parts.length - 1; i++) {
+      const folder = parts[i];
+      if (!current.children[folder]) {
+        current.children[folder] = {
+          name: folder, type: 'folder', children: {}, files: [],
+          path: parts.slice(0, i + 1).join('/'), depth: current.depth + 1
+        };
+      }
+      current = current.children[folder];
+    }
+    current.files.push({ name: f.filename, url: f.url, path: f.rel, type: 'file' });
+  }
+
+  return root;
+}
+
+/* ═══════════════════════════════════════════
+   LAYOUT — RADIAL TREE
+═══════════════════════════════════════════ */
+function layoutRadial(tree) {
+  nodes = []; edges = [];
+  let nodeId = 0;
+
+  function countLeaves(node) {
+    let c = node.files.length;
+    for (const k in node.children) c += countLeaves(node.children[k]);
+    return Math.max(c, 1);
+  }
+
+  const totalLeaves = countLeaves(tree);
+
+  function traverse(node, angle0, angleSpan, depth, parentId, colorIdx) {
+    const id = nodeId++;
+    const R = depth === 0 ? 0 : 120 + depth * 100;
+    const midAngle = angle0 + angleSpan / 2;
+    const x = Math.cos(midAngle) * R;
+    const y = Math.sin(midAngle) * R;
+    const col = depth === 0 ? COLORS.root : FOLDER_COLORS[colorIdx % FOLDER_COLORS.length];
+    const radius = depth === 0 ? 28 : Math.max(10, 18 - depth * 2);
+
+    nodes.push({
+      id, x, y, tx: x, ty: y, type: node.type, name: node.name,
+      radius, color: col, depth, url: null, path: node.path,
+      vx: 0, vy: 0,
+    });
+
+    if (parentId !== null) edges.push({ from: parentId, to: id, color: col });
+
+    // Layout children folders
+    const folders = Object.values(node.children);
+    const allItems = [...folders.map(f => ({ kind: 'folder', data: f, leaves: countLeaves(f) })),
+                      ...node.files.map(f => ({ kind: 'file', data: f, leaves: 1 }))];
+
+    let currentAngle = angle0;
+    let ci = 0;
+    for (const item of allItems) {
+      const share = (item.leaves / Math.max(totalLeaves, 1)) * Math.PI * 2;
+      const itemSpan = Math.max(share, 0.08);
+
+      if (item.kind === 'folder') {
+        traverse(item.data, currentAngle, itemSpan, depth + 1, id, depth === 0 ? ci : colorIdx);
+        ci++;
+      } else {
+        // file leaf
+        const fid = nodeId++;
+        const fR = R + 80;
+        const fAngle = currentAngle + itemSpan / 2;
+        const fx = Math.cos(fAngle) * fR;
+        const fy = Math.sin(fAngle) * fR;
+        nodes.push({
+          id: fid, x: fx, y: fy, tx: fx, ty: fy,
+          type: 'file', name: item.data.name,
+          radius: 6, color: COLORS.file, depth: depth + 1,
+          url: item.data.url, path: item.data.path,
+          vx: 0, vy: 0,
+        });
+        edges.push({ from: id, to: fid, color: col + '44' });
+      }
+      currentAngle += itemSpan;
+    }
+  }
+
+  traverse(tree, -Math.PI / 2, Math.PI * 2, 0, null, 0);
+}
+
+/* ═══════════════════════════════════════════
+   RENDERING
+═══════════════════════════════════════════ */
+function worldToScreen(wx, wy) {
+  return { x: (wx - cam.x) * cam.zoom + W / 2, y: (wy - cam.y) * cam.zoom + H / 2 };
+}
+function screenToWorld(sx, sy) {
+  return { x: (sx - W / 2) / cam.zoom + cam.x, y: (sy - H / 2) / cam.zoom + cam.y };
+}
+
+function draw() {
+  animT += 0.01;
+  ctx.clearRect(0, 0, W, H);
+
+  // BG gradient
+  const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.7);
+  bg.addColorStop(0, '#0c0c18');
+  bg.addColorStop(1, '#07070c');
+  ctx.fillStyle = bg;
+  ctx.fillRect(0, 0, W, H);
+
+  // Edges
+  ctx.lineWidth = 1;
+  for (const e of edges) {
+    const from = nodes[e.from], to = nodes[e.to];
+    const p1 = worldToScreen(from.x, from.y);
+    const p2 = worldToScreen(to.x, to.y);
+
+    // Cull offscreen
+    if (Math.max(p1.x, p2.x) < -50 || Math.min(p1.x, p2.x) > W + 50) continue;
+    if (Math.max(p1.y, p2.y) < -50 || Math.min(p1.y, p2.y) > H + 50) continue;
+
+    const isHovered = hoveredNode && (hoveredNode.id === e.from || hoveredNode.id === e.to);
+    ctx.strokeStyle = isHovered ? (e.color.length > 7 ? e.color.slice(0, 7) : e.color) : (e.color || COLORS.edge);
+    ctx.globalAlpha = isHovered ? 0.9 : 0.3;
+    ctx.beginPath();
+    // Curved edge
+    const mx = (p1.x + p2.x) / 2 + (p2.y - p1.y) * 0.08;
+    const my = (p1.y + p2.y) / 2 - (p2.x - p1.x) * 0.08;
+    ctx.moveTo(p1.x, p1.y);
+    ctx.quadraticCurveTo(mx, my, p2.x, p2.y);
+    ctx.stroke();
+  }
+  ctx.globalAlpha = 1;
+
+  // Nodes
+  for (const n of nodes) {
+    const p = worldToScreen(n.x, n.y);
+    const r = n.radius * cam.zoom;
+
+    // Cull offscreen
+    if (p.x + r < -20 || p.x - r > W + 20 || p.y + r < -20 || p.y - r > H + 20) continue;
+
+    // Skip tiny nodes when zoomed out
+    if (r < 1.5 && n.type === 'file') continue;
+
+    const isHov = hoveredNode && hoveredNode.id === n.id;
+
+    // Glow for hovered/root
+    if (isHov || n.type === 'root') {
+      ctx.beginPath();
+      ctx.arc(p.x, p.y, r + (isHov ? 8 : 4), 0, Math.PI * 2);
+      ctx.fillStyle = n.color + (isHov ? '30' : '18');
+      ctx.fill();
+    }
+
+    // Node circle
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, Math.max(r, 2), 0, Math.PI * 2);
+    ctx.fillStyle = isHov ? '#fff' : n.color;
+    ctx.fill();
+
+    if (n.type === 'file' && isHov) {
+      ctx.strokeStyle = COLORS.file;
+      ctx.lineWidth = 2;
+      ctx.stroke();
+    }
+
+    // Label
+    if (showLabels && r > 5) {
+      const fontSize = Math.max(8, Math.min(13, r * 0.9));
+      ctx.font = `500 ${fontSize}px 'DM Sans', sans-serif`;
+      ctx.textAlign = 'center';
+
+      if (n.type === 'root') {
+        ctx.fillStyle = '#fff';
+        ctx.font = `700 ${Math.max(11, r * 0.7)}px 'Syne', sans-serif`;
+        ctx.fillText(n.name, p.x, p.y + r * 0.25);
+      } else {
+        const label = n.name.length > 18 ? n.name.slice(0, 16) + '…' : n.name;
+        ctx.fillStyle = isHov ? '#fff' : n.color + 'cc';
+        ctx.fillText(label, p.x, p.y + r + fontSize + 2);
+      }
+    }
+  }
+
+  requestAnimationFrame(draw);
+}
+
+/* ═══════════════════════════════════════════
+   INTERACTION
+═══════════════════════════════════════════ */
+function getNodeAt(sx, sy) {
+  const w = screenToWorld(sx, sy);
+  let best = null, bestDist = Infinity;
+  for (const n of nodes) {
+    const dx = n.x - w.x, dy = n.y - w.y;
+    const d = Math.sqrt(dx * dx + dy * dy);
+    const hitR = Math.max(n.radius * 1.5, 12 / cam.zoom);
+    if (d < hitR && d < bestDist) { best = n; bestDist = d; }
+  }
+  return best;
+}
+
+canvas.addEventListener('mousedown', e => {
+  drag.active = true; drag.sx = e.clientX; drag.sy = e.clientY;
+  drag.cx = cam.x; drag.cy = cam.y;
+  canvas.classList.add('dragging');
+});
+
+window.addEventListener('mousemove', e => {
+  if (drag.active) {
+    cam.x = drag.cx - (e.clientX - drag.sx) / cam.zoom;
+    cam.y = drag.cy - (e.clientY - drag.sy) / cam.zoom;
+    tooltip.classList.remove('show');
+    return;
+  }
+
+  const n = getNodeAt(e.clientX, e.clientY);
+  hoveredNode = n;
+  canvas.style.cursor = n ? (n.url ? 'pointer' : 'default') : 'grab';
+
+  if (n) {
+    const tt = tooltip;
+    tt.querySelector('.tt-path').textContent = n.path || n.name;
+    tt.querySelector('.tt-date').textContent = n.type === 'root' ? 'Repository root' : n.type === 'folder' ? 'Folder' : 'HTML file';
+    tt.querySelector('.tt-hint').style.display = n.url ? 'block' : 'none';
+    tt.classList.add('show');
+    let tx = e.clientX + 16, ty = e.clientY - 10;
+    if (tx + 300 > W) tx = e.clientX - 300;
+    if (ty + 80 > H) ty = e.clientY - 70;
+    tt.style.left = tx + 'px';
+    tt.style.top = ty + 'px';
+  } else {
+    tooltip.classList.remove('show');
+  }
+});
+
+window.addEventListener('mouseup', () => {
+  drag.active = false;
+  canvas.classList.remove('dragging');
+});
+
+canvas.addEventListener('click', e => {
+  if (Math.abs(e.clientX - drag.sx) > 4 || Math.abs(e.clientY - drag.sy) > 4) return;
+  const n = getNodeAt(e.clientX, e.clientY);
+  if (n && n.url) window.open(n.url, '_blank');
+});
+
+canvas.addEventListener('wheel', e => {
+  e.preventDefault();
+  const factor = e.deltaY > 0 ? 0.9 : 1.1;
+  const newZoom = Math.max(0.1, Math.min(5, cam.zoom * factor));
+  // Zoom toward cursor
+  const w = screenToWorld(e.clientX, e.clientY);
+  cam.zoom = newZoom;
+  const w2 = screenToWorld(e.clientX, e.clientY);
+  cam.x -= (w2.x - w.x);
+  cam.y -= (w2.y - w.y);
+}, { passive: false });
+
+// Touch support
+let lastTouchDist = 0;
+canvas.addEventListener('touchstart', e => {
+  if (e.touches.length === 1) {
+    drag.active = true;
+    drag.sx = e.touches[0].clientX; drag.sy = e.touches[0].clientY;
+    drag.cx = cam.x; drag.cy = cam.y;
+  } else if (e.touches.length === 2) {
+    drag.active = false;
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    lastTouchDist = Math.sqrt(dx * dx + dy * dy);
+  }
+}, { passive: true });
+
+canvas.addEventListener('touchmove', e => {
+  e.preventDefault();
+  if (e.touches.length === 1 && drag.active) {
+    cam.x = drag.cx - (e.touches[0].clientX - drag.sx) / cam.zoom;
+    cam.y = drag.cy - (e.touches[0].clientY - drag.sy) / cam.zoom;
+  } else if (e.touches.length === 2) {
+    const dx = e.touches[0].clientX - e.touches[1].clientX;
+    const dy = e.touches[0].clientY - e.touches[1].clientY;
+    const dist = Math.sqrt(dx * dx + dy * dy);
+    if (lastTouchDist > 0) {
+      cam.zoom = Math.max(0.1, Math.min(5, cam.zoom * (dist / lastTouchDist)));
+    }
+    lastTouchDist = dist;
+  }
+}, { passive: false });
+
+canvas.addEventListener('touchend', () => { drag.active = false; lastTouchDist = 0; });
+
+/* ═══════════════════════════════════════════
+   CONTROLS
+═══════════════════════════════════════════ */
+function resetView() { cam.x = 0; cam.y = 0; cam.zoom = 1; }
+function toggleLabels() {
+  showLabels = !showLabels;
+  document.getElementById('btn-labels').classList.toggle('active', showLabels);
+}
+document.getElementById('btn-labels').classList.add('active');
+
+function setStatus(msg) { statusBar.textContent = msg; }
+function showError(msg) {
+  document.getElementById('loader').classList.add('hide');
+  document.getElementById('err-msg').textContent = msg;
+  document.getElementById('error-overlay').classList.add('show');
+}
+
+/* ═══════════════════════════════════════════
+   INIT
+═══════════════════════════════════════════ */
+(async () => {
   try {
-    // Get default branch
-    const repoRes = await fetch(`https://api.github.com/repos/${owner}/${repo}`);
-    if (!repoRes.ok) throw new Error(`Repo "${owner}/${repo}" not found or is private (HTTP ${repoRes.status})`);
-    const repoData = await repoRes.json();
-    const branch = repoData.default_branch;
+    const data = await fetchTree();
+    if (!data) return;
 
-    // Get full tree
-    const treeRes = await fetch(`https://api.github.com/repos/${owner}/${repo}/git/trees/${branch}?recursive=1`);
-    if (!treeRes.ok) throw new Error(`Failed to fetch tree (HTTP ${treeRes.status})`);
-    const treeData = await treeRes.json();
-
-    const prefix = folderPath ? folderPath + '/' : '';
-
-    // Filter: all HTML inside folder AND subfolders
-    const htmlFiles = treeData.tree.filter(f => {
-      if (f.type !== 'blob') return false;
-      if (!f.path.match(/\.(html|htm)$/i)) return false;
-      return f.path.startsWith(prefix);
-    }).map(f => ({
-      path: f.path,
-      rel: f.path.slice(prefix.length),
-      filename: f.path.split('/').pop(),
-      url: `${loc.protocol}//${hostname}/${f.path}`,
-      isSelf: `${loc.protocol}//${hostname}/${f.path}` === currentFileUrl.split('?')[0].split('#')[0]
-    }));
-
-    document.getElementById('spinner').style.display = 'none';
-
-    if (htmlFiles.length === 0) {
-      showErr(`No HTML files found in ${folderDisplay} on branch "${branch}"`);
+    if (data.htmlFiles.length === 0) {
+      showError('No HTML files found in this directory.');
       return;
     }
 
-    setStatus(`✓ ${htmlFiles.length} file(s) found — fetching commit dates…`, 'info');
-    document.getElementById('searchWrap').style.display = 'block';
-    document.getElementById('footer').textContent =
-      `// branch: ${branch} · generated: ${new Date().toLocaleString()}`;
+    setStatus(`${data.htmlFiles.length} files found — building map…`);
+    const tree = buildTree(data);
+    layoutRadial(tree);
 
-    const ul = document.getElementById('list');
+    document.getElementById('loader').classList.add('hide');
+    setStatus(`${data.owner}/${data.repo} · ${data.htmlFiles.length} files · scroll to zoom, drag to pan, click to open`);
 
-    // Render placeholders first (unsorted)
-    htmlFiles.forEach((f, i) => {
-      const li = document.createElement('li');
-      li.id = `fi-${i}`;
-      if (f.isSelf) li.classList.add('self-item');
-      li.style.animationDelay = `${i * 0.04}s`;
-      const subdir = f.rel.includes('/') ? f.rel.substring(0, f.rel.lastIndexOf('/') + 1) : '';
-      li.innerHTML = `
-        <span class="icon">◈</span>
-        <div class="info-block">
-          <div class="fname"><span style="color:var(--muted)">${subdir}</span>${f.filename}</div>
-          <div class="fpath">${f.url}</div>
-          <div class="fdate loading" id="date-${i}">loading commit date…</div>
-        </div>
-        ${f.isSelf ? '' : `<a class="open-btn" href="${f.url}">Open →</a>`}
-      `;
-      ul.appendChild(li);
-      f._liId = i;
-    });
-
-    // Fetch commit dates with concurrency limit = 4
-    async function fetchCommitDate(file) {
-      try {
-        const r = await fetch(
-          `https://api.github.com/repos/${owner}/${repo}/commits?path=${encodeURIComponent(file.path)}&per_page=1&sha=${branch}`
-        );
-        if (!r.ok) return null;
-        const d = await r.json();
-        if (!d.length) return null;
-        return d[0].commit.committer.date; // ISO string
-      } catch { return null; }
-    }
-
-    async function pool(items, fn, concurrency) {
-      let i = 0;
-      const results = new Array(items.length);
-      async function worker() {
-        while (i < items.length) {
-          const idx = i++;
-          results[idx] = await fn(items[idx], idx);
-        }
-      }
-      await Promise.all(Array.from({ length: concurrency }, worker));
-      return results;
-    }
-
-    let done = 0;
-    const dates = await pool(htmlFiles, async (f, idx) => {
-      const date = await fetchCommitDate(f);
-      done++;
-      setStatus(`Fetching commit dates… ${done}/${htmlFiles.length}`, 'info');
-
-      const dateEl = document.getElementById(`date-${idx}`);
-      if (dateEl) {
-        if (date) {
-          const d = new Date(date);
-          const ago = timeAgo(d);
-          const isRecent = (Date.now() - d) < 7 * 24 * 3600 * 1000;
-          dateEl.textContent = `🕐 ${d.toLocaleDateString('id-ID', {day:'2-digit',month:'short',year:'numeric'})} — ${ago}`;
-          dateEl.className = 'fdate' + (isRecent ? ' fresh' : '');
-        } else {
-          dateEl.textContent = 'date unknown';
-          dateEl.className = 'fdate';
-        }
-      }
-      return date ? new Date(date).getTime() : 0;
-    }, 4);
-
-    // Sort DOM nodes by date descending
-    htmlFiles.forEach((f, i) => f._ts = dates[i]);
-    const sorted = [...htmlFiles].sort((a, b) => b._ts - a._ts);
-    sorted.forEach(f => ul.appendChild(document.getElementById(`fi-${f._liId}`)));
-
-    setStatus(`✓ Sorted by latest commit`, 'ok');
-    setTimeout(() => document.getElementById('status').style.display = 'none', 2000);
-
+    draw();
   } catch (err) {
-    document.getElementById('spinner').style.display = 'none';
-    showErr(err.message);
+    showError(err.message);
   }
 })();
-
-function timeAgo(date) {
-  const diff = Date.now() - date;
-  const m = Math.floor(diff / 60000);
-  if (m < 1) return 'just now';
-  if (m < 60) return `${m}m ago`;
-  const h = Math.floor(m / 60);
-  if (h < 24) return `${h}h ago`;
-  const d = Math.floor(h / 24);
-  if (d < 30) return `${d}d ago`;
-  const mo = Math.floor(d / 30);
-  if (mo < 12) return `${mo} bulan lalu`;
-  return `${Math.floor(mo / 12)} tahun lalu`;
-}
-
-function filter(q) {
-  document.querySelectorAll('#list li').forEach(li => {
-    const txt = li.textContent.toLowerCase();
-    li.classList.toggle('hidden', !txt.includes(q.toLowerCase()));
-  });
-}
-
-function setStatus(msg, type) {
-  const el = document.getElementById('status');
-  el.textContent = msg;
-  el.className = type;
-}
-
-function showErr(msg) {
-  document.getElementById('spinner').style.display = 'none';
-  setStatus('❌ ' + msg, 'error');
-  document.getElementById('meta').innerHTML = `<span style="color:var(--err)">Error</span>`;
-}
 </script>
 </body>
 </html>
