@@ -280,11 +280,25 @@
     <!-- </section> -->
 
    <!-- ======= Portfolio Section ======= -->
-    <!-- <section id="portfolio" class="portfolio section-bg"> -->
-      <!-- <div class="container" data-aos="fade-up"> -->
-        <!-- <div class="section-title"> -->
-          <!-- <h2>Menu</h2> -->
-        <!-- </div> -->
+    <section id="portfolio" class="portfolio section-bg">
+      <div class="container" data-aos="fade-up">
+        <div class="section-title">
+          <h2>Menu</h2>
+        </div>
+		<iframe 
+		  id="cv-frame"
+		  src="menu.html" 
+		  width="100%" 
+		  frameborder="0"
+		  style="border:none;">
+		</iframe>
+		
+		<script>
+		  const frame = document.getElementById('cv-frame');
+		  frame.onload = () => {
+		    frame.style.height = frame.contentDocument.body.scrollHeight + 'px';
+		  };
+		</script>
         <!-- <div class="row"> -->
           <!-- <div class="col-lg-12 d-flex justify-content-center" data-aos="fade-up" data-aos-delay="100"> -->
             <!-- <ul id="portfolio-flters"> -->
@@ -485,8 +499,8 @@
             <!-- <a href="reflection" title="Portfolio Details"><img src="https://yt3.ggpht.com/DOddVrRDGG5MgEDVWpp1brS-G18h2zdOMdxNgR0ILd_4ifVcQXWSrbllXdTyVtmmUpNSkZvGNOX5=s640-c-fcrop64=1,00002fc9ffffd036-nd-v1" class="img-fluid" alt=""></a> -->
             <!-- </div> -->
           <!-- </div> -->
-        <!-- </div> -->
-    <!-- </section> -->
+        </div>
+    </section>
     <!-- End Portfolio Section -->
     <!-- ======= About Section ======= -->
     <!-- <section id="about" class="about"> -->
