@@ -1,0 +1,972 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahan Ajar Olimpiade — Pertemuan 3 | paggalih</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --yellow-lt: #fff8e1;
+      --yellow-br: #ffe082;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .meta {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      font-family: var(--mono);
+    }
+
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .card .session-meta {
+      font-size: .82rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-bottom: 1.1rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 1.5rem 0 .6rem;
+      font-weight: 600;
+    }
+
+    .card h4 {
+      font-size: 1.0rem;
+      color: var(--text2);
+      margin: 1.2rem 0 .5rem;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: .7rem; }
+
+    .recap {
+      background: linear-gradient(135deg, #fef9e7 0%, #fdf3d4 100%);
+      border: 1px solid #e8d49b;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+    }
+    .recap strong { color: #7a5800; }
+
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .93rem;
+      margin: 1rem 0;
+      color: var(--text);
+    }
+    .info-box strong { color: var(--accent); }
+
+    .tip-box {
+      background: var(--yellow-lt);
+      border: 1px solid var(--yellow-br);
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .93rem;
+    }
+    .tip-box strong { color: #7a5800; }
+
+    .theorem {
+      background: var(--accent-lt);
+      border: 1px solid #b8c6e3;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+    }
+    .theorem .label {
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      margin-bottom: .2rem;
+    }
+
+    .fact {
+      background: var(--green-lt);
+      border: 1px solid #9ed1ac;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    table.strategy {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .92rem;
+    }
+    table.strategy th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      padding: .55rem .8rem;
+      font-family: var(--sans);
+    }
+    table.strategy td {
+      padding: .55rem .8rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.strategy tr:last-child td { border-bottom: none; }
+    table.strategy tr:nth-child(even) td { background: #fafafa; }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .table-wrap table { margin: 0; min-width: 480px; }
+    .table-wrap::-webkit-scrollbar { height: 5px; }
+    .table-wrap::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .table-wrap::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+
+    .example {
+      border-left: 3px solid var(--text2);
+      padding: .4rem 0 .4rem 1rem;
+      margin: 1.2rem 0;
+    }
+    .example .ex-label {
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-bottom: .3rem;
+    }
+    .example .ex-tag {
+      display: inline-block;
+      font-size: .7rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .1rem .5rem;
+      border-radius: 3px;
+      font-family: var(--mono);
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
+
+    .exercises {
+      counter-reset: ex;
+      list-style: none;
+      padding-left: 0;
+      margin: .5rem 0;
+    }
+    .exercises li {
+      padding: .65rem 0 .65rem 2.4rem;
+      border-bottom: 1px dashed var(--border);
+      position: relative;
+      counter-increment: ex;
+    }
+    .exercises li:last-child { border-bottom: none; }
+    .exercises li::before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 0;
+      top: .72rem;
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .12rem .38rem;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    details.answer { margin-top: .4rem; }
+    details.answer > summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.answer > summary::-webkit-details-marker { display: none; }
+    details.answer > summary::before {
+      content: "▶ ";
+      display: inline-block;
+      transition: transform .2s;
+      font-size: .7rem;
+    }
+    details.answer[open] > summary::before { transform: rotate(90deg); }
+    details.answer[open] > summary { color: var(--green); }
+    details.answer .ans-body {
+      margin-top: .5rem;
+      padding: .7rem .9rem;
+      background: #fafafa;
+      border-left: 2px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: .93rem;
+    }
+
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .toc .toc-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: .25rem 0;
+      font-size: .92rem;
+    }
+    .toc ol li::before {
+      content: counter(toc) ". ";
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-right: .4rem;
+    }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border-color .2s, color .2s;
+    }
+    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .toc .dur {
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: .82rem;
+      margin-left: .4rem;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin-top: .8rem;
+      margin-right: .4rem;
+      padding: .35rem .8rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: .85rem;
+      transition: background .2s;
+    }
+    .nav-link:hover { background: #d8e2f3; }
+
+    ul.tips { margin: .5rem 0 .5rem 1.25rem; }
+    ul.tips li { margin-bottom: .35rem; }
+
+    /* Pigeonhole illustration */
+    .pigeon-art {
+      display: flex;
+      justify-content: center;
+      gap: .4rem;
+      margin: 1rem 0;
+      flex-wrap: wrap;
+    }
+    .pigeon-art .hole {
+      width: 48px;
+      height: 48px;
+      border: 2px solid var(--accent);
+      border-radius: 6px 6px 12px 12px;
+      background: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.1rem;
+      position: relative;
+    }
+    .pigeon-art .hole.full {
+      background: var(--accent-lt);
+    }
+    .pigeon-art .hole .badge-num {
+      position: absolute;
+      top: -8px;
+      right: -8px;
+      background: var(--accent);
+      color: #fff;
+      font-size: .65rem;
+      width: 16px;
+      height: 16px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 580px) {
+      header { padding: 1.2rem 1.25rem 1.4rem; }
+      header h1 { font-size: 1.55rem; }
+      .card { padding: 1.2rem; }
+      .card h2 { font-size: 1.3rem; }
+      table.strategy { font-size: .85rem; }
+      table.strategy td, table.strategy th { padding: .4rem .5rem; }
+      .pigeon-art .hole { width: 40px; height: 40px; }
+      mjx-container[jax="SVG"]:not([display="true"]) { font-size: .95em; }
+    }
+
+    mjx-container { line-height: 0; }
+    mjx-container[jax="SVG"][display="true"] {
+      margin: .6em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: .15em 0 .35em;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar { height: 5px; }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    mjx-container[jax="SVG"]:not([display="true"]) {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Bahan Ajar Olimpiade Matematika</h1>
+  <p>Pertemuan 3 — Kombinatorika Dasar · Tingkat KSN-K</p>
+  <div class="meta">SMAN 1 Boyolangu · 3 jam pelajaran</div>
+</header>
+
+<main>
+
+  <!-- ═══════════ TOC ═══════════ -->
+  <div class="toc">
+    <div class="toc-title">Struktur Materi</div>
+    <ol>
+      <li><a href="#recap">Recap &amp; Tujuan</a></li>
+      <li><a href="#sesi1">Sesi 1 — Prinsip Pencacahan &amp; Permutasi-Kombinasi</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi2">Sesi 2 — Prinsip Lubang Merpati</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi3">Sesi 3 — Inklusi-Eksklusi &amp; Trik Kombinatorik</a><span class="dur">40 min</span></li>
+      <li><a href="#gabungan">Latihan Gabungan</a><span class="dur">20 min</span></li>
+      <li><a href="#panduan">Panduan untuk Guru</a></li>
+    </ol>
+    <a href="olimpiade-aljabar.html" class="nav-link">← Pertemuan 1</a>
+    <a href="olimpiade-aljabar-2.html" class="nav-link">← Pertemuan 2</a>
+  </div>
+
+  <!-- ═══════════ RECAP ═══════════ -->
+  <div class="card" id="recap">
+    <h2>Recap &amp; Tujuan</h2>
+    <div class="session-meta">15 menit · transisi dari aljabar ke kombinatorika</div>
+
+    <div class="recap">
+      <strong>Pertanyaan kilat untuk siswa (5 menit):</strong>
+      <ol style="margin:.5rem 0 0 1.3rem">
+        <li>Berapa banyak susunan huruf dari kata "BUKU"?</li>
+        <li>Ada 5 buku berbeda di rak. Berapa cara mengambil 2 buku?</li>
+        <li>Jika 13 orang berdiri di ruangan, paling sedikit berapa orang yang lahir di bulan yang sama?</li>
+      </ol>
+      <em style="color:var(--text2);font-size:.85rem">Soal 3 adalah pengantar lubang merpati — biarkan siswa menebak sendiri.</em>
+    </div>
+
+    <p>Setelah 3 jam pelajaran, siswa mampu:</p>
+    <ol style="margin-left:1.3rem">
+      <li>Membedakan kapan menggunakan permutasi dan kombinasi.</li>
+      <li>Menerapkan prinsip lubang merpati untuk soal eksistensi.</li>
+      <li>Menggunakan inklusi-eksklusi untuk menghitung gabungan himpunan.</li>
+      <li>Mengenali trik kombinatorik klasik: bintang &amp; batang, simetri.</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>Catatan transisi.</strong> Kombinatorika terasa "tidak matematis" untuk siswa yang baru kenal aljabar. Tegaskan: ini tetap matematika — yang berubah hanya gaya berpikirnya. Fokus pada <em>strukturalisasi</em> masalah.
+    </div>
+  </div>
+
+  <!-- ═══════════ SESI 1 — PENCACAHAN ═══════════ -->
+  <div class="card" id="sesi1">
+    <h2>Sesi 1 — Prinsip Pencacahan &amp; Permutasi-Kombinasi</h2>
+    <div class="session-meta">60 menit · Konsep 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>1.1 Dua Aturan Dasar</h3>
+
+    <div class="theorem">
+      <div class="label">Aturan Penjumlahan</div>
+      Jika kejadian $A$ dapat terjadi dalam $m$ cara dan $B$ dalam $n$ cara, dan keduanya <strong>tidak dapat terjadi bersamaan</strong>, maka $A$ atau $B$ terjadi dalam $m + n$ cara.
+    </div>
+
+    <div class="theorem">
+      <div class="label">Aturan Perkalian</div>
+      Jika kejadian $A$ dapat terjadi dalam $m$ cara, dan untuk setiap $A$, kejadian $B$ dapat terjadi dalam $n$ cara, maka $A$ <strong>diikuti</strong> $B$ terjadi dalam $m \cdot n$ cara.
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 Kata kunci.</strong> "atau" → tambah · "dan/lalu" → kali. Tapi cek dulu: apakah keduanya <em>saling lepas</em>?
+    </div>
+
+    <h3>1.2 Permutasi vs Kombinasi</h3>
+
+    <div class="table-wrap">
+    <table class="strategy">
+      <thead><tr><th style="width:40%">Konsep</th><th>Rumus</th></tr></thead>
+      <tbody>
+        <tr><td>Permutasi $n$ objek berbeda</td><td>$n!$</td></tr>
+        <tr><td>Permutasi $r$ dari $n$ (urutan penting)</td><td>$P(n,r) = \dfrac{n!}{(n-r)!}$</td></tr>
+        <tr><td>Kombinasi $r$ dari $n$ (urutan tidak penting)</td><td>$\binom{n}{r} = \dfrac{n!}{r!(n-r)!}$</td></tr>
+        <tr><td>Permutasi dengan unsur sama</td><td>$\dfrac{n!}{n_1!\,n_2!\cdots n_k!}$</td></tr>
+        <tr><td>Permutasi siklis (lingkaran)</td><td>$(n-1)!$</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="info-box">
+      <strong>Aturan emas.</strong> Tanyakan: <em>"Apakah urutan AB berbeda dengan BA?"</em> Jika ya → permutasi. Jika tidak → kombinasi.
+    </div>
+
+    <h3>1.3 Identitas Penting Binomial</h3>
+
+    $$\binom{n}{r} = \binom{n}{n-r}$$
+    $$\binom{n}{r} = \binom{n-1}{r-1} + \binom{n-1}{r} \quad \text{(segitiga Pascal)}$$
+    $$\sum_{r=0}^{n} \binom{n}{r} = 2^n$$
+
+    <h3>1.4 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 1</span>Susunan huruf dengan unsur sama</div>
+      <p><strong>Soal.</strong> Berapa banyak susunan huruf yang berbeda dari kata "MATEMATIKA"?</p>
+      <p><strong>Penyelesaian.</strong> Kata "MATEMATIKA" memiliki 10 huruf:</p>
+      <ul style="margin:.4rem 0 .6rem 1.5rem">
+        <li>M muncul 2 kali</li>
+        <li>A muncul 3 kali</li>
+        <li>T muncul 2 kali</li>
+        <li>E, I, K masing-masing 1 kali</li>
+      </ul>
+      <p>Jumlah susunan:</p>
+      $$\frac{10!}{2! \cdot 3! \cdot 2!} = \frac{3{,}628{,}800}{24} = \mathbf{151{,}200}.$$
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 2</span>Memilih panitia dengan syarat</div>
+      <p><strong>Soal.</strong> Dari 8 siswa pria dan 6 siswa wanita, akan dipilih panitia 5 orang yang terdiri dari minimal 2 wanita. Berapa banyak cara memilihnya?</p>
+      <p><strong>Penyelesaian.</strong> Pisah berdasarkan jumlah wanita: 2W3P, 3W2P, 4W1P, 5W0P.</p>
+      $$\binom{6}{2}\binom{8}{3} = 15 \cdot 56 = 840$$
+      $$\binom{6}{3}\binom{8}{2} = 20 \cdot 28 = 560$$
+      $$\binom{6}{4}\binom{8}{1} = 15 \cdot 8 = 120$$
+      $$\binom{6}{5}\binom{8}{0} = 6 \cdot 1 = 6$$
+      <p>Total: $840 + 560$ $+ 120 + 6 = \mathbf{1526}$ cara.</p>
+      <p><em>Alternatif (komplemen):</em> Total semua $-$ (0 wanita) $-$ (1 wanita) $= \binom{14}{5} - \binom{8}{5}$ $- \binom{6}{1}\binom{8}{4} = 2002 - 56$ $- 420 = 1526$. ✓</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 3</span>Permutasi siklis</div>
+      <p><strong>Soal.</strong> Tujuh orang akan duduk mengelilingi meja bundar. Dua di antaranya (Andi dan Budi) ingin duduk bersebelahan. Berapa banyak susunan yang mungkin?</p>
+      <p><strong>Penyelesaian.</strong> Ikat Andi-Budi menjadi satu unit. Sekarang ada 6 unit di meja bundar:</p>
+      $$(6-1)! = 5! = 120 \text{ cara.}$$
+      <p>Andi-Budi bisa bertukar tempat (AB atau BA): kalikan 2.</p>
+      $$120 \cdot 2 = \mathbf{240} \text{ susunan.}$$
+    </div>
+
+    <h3>1.5 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L1.1">
+        Berapa banyak bilangan 4 angka berbeda yang dapat dibentuk dari angka $\{1, 2, 3, 4, 5, 6\}$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Permutasi 4 dari 6:
+            $$P(6,4) = \frac{6!}{2!} = 6 \cdot 5 \cdot 4 \cdot 3 = \mathbf{360}.$$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.2">
+        Sebuah tim sepak bola terdiri dari 11 pemain. Dari 15 calon, berapa cara memilih 11 pemain jika 2 calon harus selalu masuk?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            2 sudah pasti masuk, tinggal pilih $11 - 2 = 9$ dari sisa $15 - 2 = 13$:
+            $$\binom{13}{9} = \binom{13}{4} = \mathbf{715}.$$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.3">
+        Hitung
+        $$\binom{10}{0} + \binom{10}{1} + \binom{10}{2} + \cdots + \binom{10}{10}.$$
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Identitas $\sum_{r=0}^{n}\binom{n}{r} = 2^n$. Jadi hasilnya $\mathbf{2^{10} = 1024}$.</div>
+        </details>
+      </li>
+      <li data-tag="L1.4">
+        Berapa banyak susunan huruf dari kata "OLIMPIADE"?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            9 huruf, dengan I muncul 2 kali, sisanya berbeda:
+            $$\frac{9!}{2!} = \frac{362{,}880}{2} = \mathbf{181{,}440}.$$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.5">
+        Berapa banyak cara membagi 12 buku berbeda kepada 3 anak, masing-masing menerima 4 buku?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Pilih 4 untuk anak pertama, 4 dari sisa untuk anak kedua, sisanya untuk anak ketiga:
+            $$\binom{12}{4}\binom{8}{4}\binom{4}{4} = 495 \cdot 70 \cdot 1 = \mathbf{34{,}650}.$$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 2 — LUBANG MERPATI ═══════════ -->
+  <div class="card" id="sesi2">
+    <h2>Sesi 2 — Prinsip Lubang Merpati</h2>
+    <div class="session-meta">60 menit · Konsep 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>2.1 Prinsip Dasar</h3>
+
+    <div class="fact">
+      <strong>Prinsip Lubang Merpati (Pigeonhole Principle)</strong><br>
+      Jika $n + 1$ merpati ditempatkan dalam $n$ lubang, maka setidaknya ada satu lubang yang berisi minimal 2 merpati.
+    </div>
+
+    <div class="pigeon-art">
+      <div class="hole full">🐦<span class="badge-num">2</span></div>
+      <div class="hole full">🐦</div>
+      <div class="hole full">🐦</div>
+      <div class="hole full">🐦</div>
+    </div>
+    <p style="text-align:center;font-size:.85rem;color:var(--text2);margin-top:-.5rem">
+      <em>5 merpati, 4 lubang → pasti ada lubang berisi ≥ 2 merpati.</em>
+    </p>
+
+    <div class="theorem">
+      <div class="label">Versi Umum</div>
+      Jika $kn + 1$ merpati ditempatkan dalam $n$ lubang, maka setidaknya satu lubang berisi minimal $k + 1$ merpati. Lebih umum: jika $N$ merpati dalam $n$ lubang, maka ada lubang berisi setidaknya $\left\lceil \dfrac{N}{n} \right\rceil$ merpati.
+    </div>
+
+    <h3>2.2 Pola Pikir: Identifikasi Merpati &amp; Lubang</h3>
+
+    <p>Soal lubang merpati selalu punya struktur: <strong>siapa merpatinya, apa lubangnya?</strong> Begitu identifikasi ini selesai, soal hampir selesai.</p>
+
+    <div class="table-wrap">
+    <table class="strategy">
+      <thead><tr><th style="width:35%">Soal</th><th>Merpati</th><th>Lubang</th></tr></thead>
+      <tbody>
+        <tr><td>13 orang, bulan lahir</td><td>orang</td><td>12 bulan</td></tr>
+        <tr><td>5 titik di persegi $1\times 1$</td><td>titik</td><td>4 sub-persegi $\tfrac{1}{2}\times\tfrac{1}{2}$</td></tr>
+        <tr><td>10 bilangan dari $\{1,\ldots,18\}$</td><td>bilangan</td><td>9 pasang bersisa $19$</td></tr>
+        <tr><td>$n+1$ bilangan dari $\{1,\ldots,2n\}$</td><td>bilangan</td><td>$n$ rantai keterbagian</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>2.3 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 4</span>Pengenalan klasik</div>
+      <p><strong>Soal.</strong> Dalam suatu kelas terdapat 30 siswa. Buktikan bahwa paling sedikit ada 3 siswa yang lahir di bulan yang sama.</p>
+      <p><strong>Penyelesaian.</strong> Merpati = 30 siswa; lubang = 12 bulan.</p>
+      $$\left\lceil \frac{30}{12} \right\rceil = \lceil 2.5 \rceil = 3.$$
+      <p>Jadi pasti ada bulan yang berisi minimal 3 siswa. $\blacksquare$</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 5</span>Pasangan jumlah</div>
+      <p><strong>Soal.</strong> Dipilih 11 bilangan dari $\{1, 2, 3, \ldots, 20\}$. Buktikan bahwa pasti ada dua bilangan terpilih yang jumlahnya $21$.</p>
+      <p><strong>Penyelesaian.</strong> Bagi $\{1, \ldots, 20\}$ menjadi 10 pasangan dengan jumlah 21:</p>
+      $$\{1,20\}, \{2,19\}, \{3,18\}, \ldots, \{10,11\}.$$
+      <p>Merpati = 11 bilangan terpilih; lubang = 10 pasangan.</p>
+      <p>Karena $11 > 10$, paling sedikit ada satu pasangan yang kedua anggotanya terpilih. Pasangan itu jumlahnya $21$. $\blacksquare$</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 6</span>Geometri lubang merpati</div>
+      <p><strong>Soal.</strong> Lima titik diletakkan di dalam segitiga sama sisi dengan sisi $1$. Buktikan bahwa ada dua titik yang jaraknya tidak lebih dari $\dfrac{1}{2}$.</p>
+      <p><strong>Penyelesaian.</strong> Bagi segitiga menjadi 4 segitiga sama sisi kecil dengan menghubungkan titik-titik tengah sisi. Setiap segitiga kecil memiliki sisi $\dfrac{1}{2}$, sehingga jarak terjauh antara dua titik di dalamnya $\le \dfrac{1}{2}$.</p>
+      <p>Merpati = 5 titik; lubang = 4 segitiga kecil. Pasti ada segitiga kecil berisi $\ge 2$ titik. $\blacksquare$</p>
+    </div>
+
+    <div class="tip-box">
+      <strong>💡 Trik konstruksi lubang.</strong> Untuk soal "ada dua bilangan dengan sifat $X$", coba kelompokkan bilangan berdasarkan sifat $X$ — sehingga sifat $X$ otomatis terpenuhi bila ada dua merpati di lubang yang sama.
+    </div>
+
+    <h3>2.4 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L2.1">
+        Dalam ruangan ada 367 orang. Buktikan paling sedikit ada 2 orang yang berulang tahun di tanggal yang sama.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Setahun maksimal 366 hari (termasuk tahun kabisat). Merpati = 367 orang; lubang = 366 hari. $367 > 366$, jadi paling sedikit ada 2 orang berulang tahun di hari yang sama. $\blacksquare$</div>
+        </details>
+      </li>
+      <li data-tag="L2.2">
+        Buktikan bahwa di setiap kumpulan 10 bilangan bulat positif berbeda yang masing-masing $\le 50$, selalu ada dua bilangan yang selisihnya kelipatan $9$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi berdasarkan sisa pembagian dengan 9. Ada 9 kemungkinan sisa: $\{0, 1, 2, \ldots, 8\}$.
+            Merpati = 10 bilangan; lubang = 9 kelas sisa. Paling sedikit ada 2 bilangan dengan sisa sama. Selisihnya kelipatan 9. $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.3">
+        Buktikan bahwa di antara 7 bilangan bulat sebarang, selalu ada dua bilangan yang jumlah atau selisihnya habis dibagi $10$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Lihat sisa modulo 10. Pasangkan sisa: $\{0\}, \{5\}, \{1,9\}, \{2,8\}, \{3,7\}, \{4,6\}$ — total 6 kelas.
+            Merpati = 7 bilangan; lubang = 6 kelas. Pasti ada 2 bilangan di kelas sama: kalau sisa sama → selisihnya habis dibagi 10; kalau sisanya berpasangan → jumlahnya habis dibagi 10. $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.4">
+        Sembilan titik diletakkan di dalam persegi dengan sisi $1$. Buktikan bahwa ada tiga titik yang membentuk segitiga dengan luas $\le \dfrac{1}{8}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi persegi menjadi 4 sub-persegi dengan sisi $\dfrac{1}{2}$. Merpati = 9 titik; lubang = 4 sub-persegi. Sub-persegi yang sama berisi $\ge \lceil 9/4 \rceil = 3$ titik. Luas segitiga di dalam persegi sisi $\dfrac{1}{2}$ paling besar $\dfrac{1}{2}\cdot\dfrac{1}{2}\cdot\dfrac{1}{2} = \dfrac{1}{8}$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.5">
+        Buktikan bahwa di antara $n + 1$ bilangan dari $\{1, 2, \ldots, 2n\}$, pasti ada dua bilangan yang satu membagi yang lain.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Setiap bilangan bulat positif dapat ditulis $2^k \cdot m$ dengan $m$ ganjil. Untuk bilangan di $\{1, \ldots, 2n\}$, $m$ ganjil di $\{1, 3, 5, \ldots, 2n-1\}$ — ada $n$ pilihan $m$.
+            Merpati = $n+1$ bilangan; lubang = $n$ nilai $m$. Dua bilangan dengan $m$ sama: $a = 2^i m$ dan $b = 2^j m$, $i < j$ → $a \mid b$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 3 — INKLUSI-EKSKLUSI ═══════════ -->
+  <div class="card" id="sesi3">
+    <h2>Sesi 3 — Inklusi-Eksklusi &amp; Trik Kombinatorik</h2>
+    <div class="session-meta">40 menit · Konsep 12' → Contoh 15' → Latihan 13'</div>
+
+    <h3>3.1 Inklusi-Eksklusi</h3>
+
+    <div class="theorem">
+      <div class="label">Untuk Dua Himpunan</div>
+      $$|A \cup B| = |A| + |B| - |A \cap B|.$$
+    </div>
+
+    <div class="theorem">
+      <div class="label">Untuk Tiga Himpunan</div>
+      $$\begin{aligned}
+        |A \cup B \cup C| =\ & |A| + |B| + |C| \\
+        & - |A \cap B| - |A \cap C| - |B \cap C| \\
+        & + |A \cap B \cap C|.
+      \end{aligned}$$
+    </div>
+
+    <p>Pola: tambah ganjil, kurang genap. Untuk $n$ himpunan, ada $2^n - 1$ suku.</p>
+
+    <h3>3.2 Bintang dan Batang (Stars and Bars)</h3>
+
+    <div class="theorem">
+      <div class="label">Bintang dan Batang</div>
+      Banyaknya solusi non-negatif $x_1 + x_2$ $+ \cdots + x_k = n$ dengan $x_i \ge 0$ adalah
+      $$\binom{n + k - 1}{k - 1}.$$
+    </div>
+
+    <p>Untuk solusi <strong>positif</strong> ($x_i \ge 1$), substitusi $y_i = x_i - 1 \ge 0$ menghasilkan</p>
+    $$\binom{n - 1}{k - 1}.$$
+
+    <h3>3.3 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 7</span>Inklusi-eksklusi sederhana</div>
+      <p><strong>Soal.</strong> Dari 100 siswa, 60 suka matematika, 50 suka fisika, dan 30 suka keduanya. Berapa siswa yang tidak suka keduanya?</p>
+      <p><strong>Penyelesaian.</strong> Yang suka minimal satu:</p>
+      $$|M \cup F| = 60 + 50 - 30 = 80.$$
+      <p>Yang tidak suka keduanya: $100 - 80 = \mathbf{20}$ siswa.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 8</span>Bintang dan batang</div>
+      <p><strong>Soal.</strong> Berapa banyak solusi non-negatif dari $x + y$ $+ z = 10$?</p>
+      <p><strong>Penyelesaian.</strong> Bayangkan 10 bintang dan 2 batang pemisah dalam barisan:</p>
+      $$\underbrace{*\,*\,*}_{x=3} \;|\; \underbrace{*\,*\,*\,*}_{y=4} \;|\; \underbrace{*\,*\,*}_{z=3}$$
+      <p>Setiap susunan unik 10 bintang &amp; 2 batang menghasilkan satu solusi. Jumlahnya:</p>
+      $$\binom{10 + 2}{2} = \binom{12}{2} = \mathbf{66}.$$
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 9</span>Inklusi-eksklusi tiga himpunan</div>
+      <p><strong>Soal.</strong> Berapa banyak bilangan bulat dari $1$ sampai $1000$ yang habis dibagi $2$ atau $3$ atau $5$?</p>
+      <p><strong>Penyelesaian.</strong> Misalkan:</p>
+      <ul style="margin:.4rem 0 .6rem 1.5rem">
+        <li>$|A|$ = banyak yang habis dibagi 2 $= \lfloor 1000/2 \rfloor = 500$</li>
+        <li>$|B|$ = habis dibagi 3 $= \lfloor 1000/3 \rfloor = 333$</li>
+        <li>$|C|$ = habis dibagi 5 $= \lfloor 1000/5 \rfloor = 200$</li>
+        <li>$|A\cap B| = \lfloor 1000/6 \rfloor = 166$</li>
+        <li>$|A\cap C| = \lfloor 1000/10 \rfloor = 100$</li>
+        <li>$|B\cap C| = \lfloor 1000/15 \rfloor = 66$</li>
+        <li>$|A\cap B\cap C| = \lfloor 1000/30 \rfloor = 33$</li>
+      </ul>
+      $$\begin{aligned}
+        |A\cup B\cup C| &= 500 + 333 + 200 \\
+        &\phantom{=} - 166 - 100 - 66 + 33 \\
+        &= \mathbf{734}.
+      \end{aligned}$$
+    </div>
+
+    <h3>3.4 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L3.1">
+        Berapa banyak solusi non-negatif dari $a + b$ $+ c + d = 15$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">Bintang batang: $\binom{15 + 3}{3} = \binom{18}{3} = \mathbf{816}$.</div>
+        </details>
+      </li>
+      <li data-tag="L3.2">
+        Berapa bilangan dari $1$ sampai $200$ yang tidak habis dibagi $4$ maupun $6$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $|A| = \lfloor 200/4\rfloor = 50$, $|B| = \lfloor 200/6\rfloor = 33$, $|A\cap B| = \lfloor 200/12\rfloor = 16$.
+            $|A\cup B| = 50 + 33$ $- 16 = 67$. Yang tidak habis dibagi 4 atau 6: $200 - 67 = \mathbf{133}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.3">
+        Sebuah toko menjual 4 jenis donat. Berapa cara membeli 8 donat (boleh sama)?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Misalkan $x_i$ = banyak donat jenis $i$, $x_1 + x_2$ $+ x_3 + x_4 = 8$, $x_i \ge 0$. Bintang batang: $\binom{8+3}{3} = \binom{11}{3} = \mathbf{165}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.4">
+        Berapa banyak solusi positif dari $x + y$ $+ z = 12$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Substitusi $y_i = x_i - 1 \ge 0$: $y_1 + y_2$ $+ y_3 = 9$. Bintang batang: $\binom{9+2}{2} = \mathbf{55}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.5">
+        Dalam survei 100 orang: 70 minum kopi, 50 minum teh, 30 minum susu, 25 kopi+teh, 15 kopi+susu, 10 teh+susu, 5 ketiganya. Berapa orang yang tidak minum apapun?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $|K \cup T \cup S| = 70 + 50$ $+ 30 - 25$ $- 15 - 10$ $+ 5 = 105$. Tetapi total cuma 100. <strong>Datanya tidak konsisten</strong>! <em>(Soal jebakan — penting agar siswa selalu cek konsistensi data.)</em>
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ GABUNGAN ═══════════ -->
+  <div class="card" id="gabungan">
+    <h2>Latihan Gabungan — Mini Olimpiade</h2>
+    <div class="session-meta">20 menit · Pilih 3 dari 5 · Materi semua sesi pertemuan 3</div>
+
+    <ul class="exercises">
+      <li data-tag="G1">
+        Berapa banyak susunan huruf dari kata "INDONESIA" sehingga semua huruf vokal berdekatan?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            "INDONESIA" = 9 huruf, vokal = $\{I, O, E, I, A\}$ (5), konsonan = $\{N, D, N, S\}$ (4).
+            Anggap blok vokal sebagai 1 unit. Total unit: $1 + 4 = 5$. Susunan unit dengan $N$ berulang: $\dfrac{5!}{2!} = 60$.
+            Susunan internal blok vokal (5 huruf, $I$ berulang): $\dfrac{5!}{2!} = 60$.
+            Total: $60 \cdot 60 = \mathbf{3600}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G2">
+        Buktikan bahwa di antara 6 orang yang saling kenal atau tidak kenal, pasti ada 3 orang yang saling kenal atau 3 orang yang saling tidak kenal.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            <em>(Teorema Ramsey $R(3,3) = 6$.)</em> Pilih satu orang $A$. Dari 5 orang sisanya, pakai lubang merpati pada relasi "kenal/tidak kenal": $\lceil 5/2 \rceil = 3$. Jadi ada 3 orang dengan relasi sama dengan $A$, sebut $B, C, D$.
+            <ul style="margin:.4rem 0 0 1.2rem">
+              <li>Jika $A$ kenal $B, C, D$: kalau ada dua di antara $B, C, D$ yang saling kenal, mereka + $A$ = 3 saling kenal. Kalau tidak ada, $B, C, D$ saling tidak kenal — selesai.</li>
+              <li>Sebaliknya simetris.</li>
+            </ul>
+            $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="G3">
+        Berapa banyak bilangan 6-digit dengan semua digit berbeda dan jumlah digit ganjil?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            <em>(Soal sulit — bisa dilewati.)</em> Total bilangan 6-digit dengan digit berbeda: $9 \cdot P(9,5) = 9 \cdot 15{,}120 = 136{,}080$.
+            Berdasarkan simetri (mengganti digit terakhir dari ganjil ke genap atau sebaliknya), kira-kira separo jumlah digitnya ganjil — namun pembuktian rigor butuh paritas pilihan digit. <strong>Kunci:</strong> separuhnya $\approx 68{,}040$. Soal ini setingkat di atas KSN-K, lewati saja.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G4">
+        Berapa banyak cara membagi 20 kelereng identik kepada 4 anak sehingga setiap anak mendapat minimal 2 kelereng?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Beri 2 kelereng dulu ke setiap anak (8 kelereng terpakai). Sisa $20 - 8 = 12$ dibagi bebas (boleh 0). Bintang batang: $\binom{12+3}{3} = \binom{15}{3} = \mathbf{455}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G5">
+        Sepuluh orang berdiri membentuk lingkaran. Buktikan bahwa ada dua orang yang jumlah usianya genap.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Pisah berdasarkan paritas usia: ganjil atau genap (2 lubang). Merpati = 10 orang; lubang = 2 paritas. $\lceil 10/2 \rceil = 5$ — paling sedikit ada 5 orang dengan paritas sama. Dua orang dengan paritas sama jumlahnya genap. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ PANDUAN GURU ═══════════ -->
+  <div class="card" id="panduan">
+    <h2>Panduan untuk Guru — Pertemuan 3</h2>
+    <div class="session-meta">Refleksi setelah pertemuan 1+2 + persiapan pertemuan 3</div>
+
+    <h3>Refleksi dari Pertemuan 1 &amp; 2</h3>
+    <ul class="tips">
+      <li>Cek pemahaman aljabar sebelum lanjut. Jika siswa masih ragu di Vieta atau Cauchy-Schwarz, tetap sediakan 1 soal aljabar di awal sesi sebagai jembatan.</li>
+      <li>Buat tabel kemajuan tiap siswa. Catat siapa yang menonjol di aljabar — mereka belum tentu menonjol di kombinatorika, dan sebaliknya.</li>
+    </ul>
+
+    <h3>Selama Mengajar Pertemuan 3</h3>
+    <ul class="tips">
+      <li><strong>Kombinatorika butuh contoh konkret.</strong> Jangan langsung formula. Untuk Sesi 1, mulai dari soal "berapa banyak warna pakaian yang bisa dipakai?" sebelum permutasi.</li>
+      <li><strong>Lubang merpati = trik berpikir, bukan rumus.</strong> Jangan terburu-buru ke contoh sulit. Pastikan siswa nyaman mengidentifikasi <em>"siapa merpatinya, apa lubangnya"</em>.</li>
+      <li>Untuk inklusi-eksklusi 3 himpunan, gambar diagram Venn di papan. Visual bantu sekali.</li>
+      <li>Bintang dan batang: peragakan dengan kelereng dan pembatas di meja. Konkret &gt; abstrak.</li>
+      <li>Akui jika ada soal yang terlalu sulit untuk waktu yang tersedia. Lebih baik 3 soal tuntas daripada 5 soal setengah-setengah.</li>
+    </ul>
+
+    <h3>Untuk Pertemuan 4 &amp; Seterusnya</h3>
+    <ul class="tips">
+      <li><strong>Teori Bilangan</strong> — keterbagian, kongruensi modular, FPB &amp; KPK, teorema Fermat kecil.</li>
+      <li><strong>Geometri</strong> — kesebangunan, lingkaran luar/dalam, garis berat, teorema Ptolemy.</li>
+      <li><strong>Latihan KSN-K</strong> — kerjakan soal asli KSN-K 5 tahun terakhir, sesi try-out.</li>
+      <li>Setelah pertemuan 5-6: mulai mengarah ke soal KSN-P (provinsi) untuk siswa yang lolos seleksi.</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:1.5rem">
+      <strong>Pesan penutup.</strong> Tiga pertemuan ini sudah memberi siswa Anda fondasi dasar olimpiade. Yang berikutnya: konsistensi latihan. Bantu mereka bertahan — di olimpiade, yang menang bukan yang paling pintar, tapi yang paling sabar.
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Pertemuan 3 · Kombinatorika Dasar · Pencacahan, Pigeonhole, Inklusi-Eksklusi
+</footer>
+
+</body>
+</html>
