@@ -251,10 +251,15 @@ async function fetchTree() {
 
   const prefix = folderPath ? folderPath + '/' : '';
 
+  const currentFileUrl = loc.href.split('?')[0].split('#')[0];
+
   const htmlFiles = treeData.tree.filter(f => {
     if (f.type !== 'blob') return false;
     if (!/\.(html|htm)$/i.test(f.path)) return false;
-    return f.path.startsWith(prefix);
+    if (!f.path.startsWith(prefix)) return false;
+    // exclude self
+    const fileUrl = `${loc.protocol}//${hostname}/${f.path}`;
+    return fileUrl !== currentFileUrl;
   }).map(f => ({
     path: f.path,
     rel: f.path.slice(prefix.length),
