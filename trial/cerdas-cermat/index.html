@@ -86,7 +86,7 @@
 
         /* ── MAIN GRID ── */
         .main-grid {
-            flex: 1; display: grid; grid-template-columns: 1fr 280px;
+            flex: 1; display: grid; grid-template-columns: 1fr 300px;
             gap: 8px; min-height: 0;
         }
 
@@ -326,15 +326,15 @@
 
         /* ── SCOREBOARD ── */
         .scoreboard-container {
-            display: flex; flex-direction: column; gap: 6px;
-            height: 100%; overflow-y: auto; padding-right: 2px;
+            display: flex; flex-direction: column; gap: 5px;
+            flex: 1; min-height: 0; overflow-y: auto; padding-right: 2px;
         }
 
         .team-card {
-            background: var(--surface); border-radius: 10px; padding: 8px 10px;
+            background: var(--surface); border-radius: 10px; padding: 7px 9px;
             border: 1px solid var(--border);
             display: flex; flex-direction: column;
-            flex: 1; min-height: 90px; position: relative;
+            flex: 0 0 auto; position: relative;
             transition: border-color 0.3s, box-shadow 0.3s;
         }
         .team-card.active-team {
@@ -342,46 +342,175 @@
             box-shadow: 0 0 0 2px rgba(251,191,36,0.3);
         }
         .team-header {
-            display: flex; justify-content: space-between; align-items: center; margin-bottom: 4px;
+            display: flex; justify-content: space-between; align-items: center; margin-bottom: 3px;
         }
         .team-name {
-            border: none; font-weight: 800; font-size: 0.9rem;
-            color: var(--text); width: 60%; background: transparent;
+            border: none; font-weight: 800; font-size: 0.85rem;
+            color: var(--text); width: 55%; background: transparent;
             font-family: 'Nunito', sans-serif; outline: none;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .team-name:focus { border-bottom: 1px solid var(--accent); }
         .team-score {
             font-family: 'Bebas Neue', sans-serif;
-            font-size: 2.2rem; color: var(--gold);
+            font-size: 2rem; color: var(--gold);
             line-height: 1; letter-spacing: 1px;
+            min-width: 60px; text-align: right;
         }
         .team-score.negative { color: var(--danger); }
 
-        .score-grid {
-            display: grid; grid-template-columns: repeat(3, 1fr); gap: 3px; margin-top: 4px;
+        .score-grid { display: none; } /* dihapus dari kartu tim */
+
+        /* ── SCORING PANEL ── */
+        .scoring-panel {
+            flex: 0 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
         }
-        .btn-score {
-            padding: 3px 0; font-size: 0.72rem; cursor: pointer; font-weight: 800;
-            border: 1px solid transparent; border-radius: 5px;
-            font-family: 'Nunito', sans-serif; transition: 0.15s;
+        .scoring-panel-header {
+            display: flex; align-items: center; gap: 8px;
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
         }
-        .btn-plus { background: rgba(34,197,94,0.1); color: var(--success); border-color: rgba(34,197,94,0.3); }
-        .btn-plus:hover { background: var(--success); color: white; }
-        .btn-min { background: rgba(239,68,68,0.1); color: var(--danger); border-color: rgba(239,68,68,0.3); }
-        .btn-min:hover { background: var(--danger); color: white; }
+        .scoring-team-name {
+            font-weight: 900; font-size: 0.85rem; color: var(--gold);
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+            flex: 1;
+        }
+        .scoring-round-badge {
+            font-size: 0.65rem; font-weight: 800; letter-spacing: 1px;
+            text-transform: uppercase; color: var(--text-muted);
+            background: var(--surface2); padding: 2px 7px; border-radius: 10px;
+            white-space: nowrap;
+        }
+        .scoring-empty {
+            text-align: center; color: var(--text-muted);
+            font-size: 0.78rem; padding: 12px 10px; font-style: italic;
+        }
+        .scoring-buttons {
+            display: grid; gap: 5px; padding: 8px;
+        }
+        .btn-scoring {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 8px 12px; border-radius: 7px; cursor: pointer;
+            border: 1px solid transparent; font-family: 'Nunito', sans-serif;
+            font-weight: 800; font-size: 0.82rem; transition: all 0.15s;
+            gap: 8px;
+        }
+        .btn-scoring:active { transform: scale(0.97); }
+        .btn-scoring .sc-label { flex: 1; text-align: left; }
+        .btn-scoring .sc-val {
+            font-family: 'Bebas Neue', sans-serif; font-size: 1.1rem;
+            letter-spacing: 1px; white-space: nowrap;
+        }
+        .btn-sc-plus {
+            background: rgba(34,197,94,0.1); color: var(--success);
+            border-color: rgba(34,197,94,0.3);
+        }
+        .btn-sc-plus:hover { background: var(--success); color: white; border-color: var(--success); }
+        .btn-sc-minus {
+            background: rgba(239,68,68,0.1); color: var(--danger);
+            border-color: rgba(239,68,68,0.3);
+        }
+        .btn-sc-minus:hover { background: var(--danger); color: white; border-color: var(--danger); }
 
         .team-footer {
             display: flex; gap: 4px; margin-top: 5px;
         }
         .btn-team-action {
-            flex: 1; padding: 3px 0; font-size: 0.7rem; font-weight: 700;
+            flex: 1; padding: 4px 0; font-size: 0.7rem; font-weight: 700;
             border-radius: 4px; cursor: pointer; border: none;
             font-family: 'Nunito', sans-serif; transition: 0.15s;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
         }
         .btn-set-giliran { background: rgba(251,191,36,0.15); color: var(--gold); }
         .btn-set-giliran:hover { background: rgba(251,191,36,0.3); }
         .btn-reset-score { background: rgba(239,68,68,0.1); color: var(--danger); }
         .btn-reset-score:hover { background: rgba(239,68,68,0.2); }
+
+        /* ── UNDO PANEL ── */
+        .undo-panel {
+            flex: 0 0 auto;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .undo-header {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 6px 10px;
+            border-bottom: 1px solid var(--border);
+            background: rgba(255,255,255,0.03);
+        }
+        .undo-header-label {
+            font-size: 0.72rem; font-weight: 800; color: var(--text-muted);
+            letter-spacing: 1px; text-transform: uppercase;
+        }
+        .btn-undo-last {
+            display: flex; align-items: center; gap: 5px;
+            padding: 4px 10px; border-radius: 6px;
+            background: rgba(251,191,36,0.12); border: 1px solid rgba(251,191,36,0.3);
+            color: var(--gold); font-size: 0.75rem; font-weight: 800;
+            cursor: pointer; transition: 0.2s; font-family: 'Nunito', sans-serif;
+            opacity: 0.4; pointer-events: none;
+        }
+        .btn-undo-last.has-history {
+            opacity: 1; pointer-events: auto;
+        }
+        .btn-undo-last.has-history:hover {
+            background: rgba(251,191,36,0.25); border-color: var(--gold);
+        }
+        .btn-undo-last.flash {
+            animation: undoFlash 0.4s ease;
+        }
+        @keyframes undoFlash {
+            0%   { background: rgba(251,191,36,0.5); }
+            100% { background: rgba(251,191,36,0.12); }
+        }
+
+        .undo-log {
+            height: 56px; overflow-y: auto;
+            padding: 4px 0;
+        }
+        .undo-log-empty {
+            text-align: center; color: var(--text-muted);
+            font-size: 0.72rem; padding: 10px 0; font-style: italic;
+        }
+        .undo-log-item {
+            display: flex; align-items: center; justify-content: space-between;
+            padding: 4px 10px; font-size: 0.75rem;
+            border-bottom: 1px solid rgba(255,255,255,0.04);
+            transition: background 0.15s;
+            gap: 6px;
+        }
+        .undo-log-item:hover { background: rgba(255,255,255,0.04); }
+        .undo-log-item.latest {
+            background: rgba(251,191,36,0.07);
+        }
+        .undo-log-item .log-team {
+            font-weight: 800; color: var(--text); flex: 1; min-width: 0;
+            white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+        }
+        .undo-log-item .log-delta {
+            font-weight: 900; white-space: nowrap;
+        }
+        .log-delta.pos { color: var(--success); }
+        .log-delta.neg { color: var(--danger); }
+        .undo-log-item .log-result {
+            color: var(--text-muted); font-size: 0.7rem; white-space: nowrap;
+        }
+        .undo-log-item .btn-undo-single {
+            background: none; border: 1px solid rgba(251,191,36,0.25);
+            color: var(--gold); border-radius: 4px; padding: 1px 6px;
+            font-size: 0.68rem; font-weight: 800; cursor: pointer;
+            font-family: 'Nunito', sans-serif; transition: 0.2s; white-space: nowrap;
+        }
+        .undo-log-item .btn-undo-single:hover {
+            background: rgba(251,191,36,0.2); border-color: var(--gold);
+        }
 
         /* ── TOAST ── */
         .toast {
@@ -517,8 +646,34 @@
             </div>
         </div>
 
-        <!-- SCOREBOARD -->
-        <div class="scoreboard-container" id="scoreboard"></div>
+        <!-- SCOREBOARD + UNDO PANEL -->
+        <div style="display:flex; flex-direction:column; gap:6px; height:100%; min-height:0; overflow:hidden;">
+            <div class="scoreboard-container" id="scoreboard"></div>
+
+            <!-- SCORING PANEL -->
+            <div class="scoring-panel">
+                <div class="scoring-panel-header">
+                    <span class="scoring-team-name" id="scoringTeamName">— Pilih giliran tim —</span>
+                    <span class="scoring-round-badge" id="scoringRoundBadge">WAJIB</span>
+                </div>
+                <div id="scoringBody">
+                    <div class="scoring-empty">Tekan ⭐ Giliran pada tim yang akan dinilai</div>
+                </div>
+            </div>
+
+            <!-- UNDO PANEL -->
+            <div class="undo-panel">
+                <div class="undo-header">
+                    <span class="undo-header-label">📋 Riwayat Skor</span>
+                    <button class="btn-undo-last" id="btnUndoLast" onclick="undoLast()">
+                        ↩ Batalkan Terakhir
+                    </button>
+                </div>
+                <div class="undo-log" id="undoLog">
+                    <div class="undo-log-empty" id="undoLogEmpty">Belum ada perubahan skor</div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- TOAST -->
@@ -537,7 +692,7 @@
         return audioCtx;
     }
 
-    function playBeep(freq = 880, dur = 0.15, vol = 0.4, type = 'sine') {
+    function playBeep(freq = 880, dur = 0.15, vol = 0.9, type = 'sine') {
         try {
             const ctx = getAudioCtx();
             const osc = ctx.createOscillator();
@@ -587,11 +742,11 @@
         wajib: {
             title: "Sesi 1: Babak Putaran (Soal Wajib)",
             badge: "BABAK WAJIB",
-            time: 15,
+            time: 10,
             rules: [
                 "Setiap finalis memilih <b>2 amplop soal</b> secara bergiliran.",
-                "Soal dibacakan oleh juri.",
-                "Waktu menjawab: <b>15 detik</b> setelah soal selesai dibacakan.",
+                "Soal dibacakan oleh MC.",
+                "Waktu menjawab: <b>10 detik</b> setelah soal selesai dibacakan.",
                 "Jawaban BENAR: <b style='color:var(--success)'>+100 poin</b>.",
                 "Salah / Tidak Menjawab: <b>0 poin</b>. Soal gugur, tidak dilempar."
             ]
@@ -603,7 +758,7 @@
             rules: [
                 "Setiap finalis memilih <b>2 amplop soal</b> secara bergiliran.",
                 "Finalis utama memiliki hak jawab pertama dalam <b>10 detik</b>.",
-                "Jika finalis utama <b>salah / tidak bisa</b>, soal dilempar ke finalis lain (tekan bel).",
+                "Jika finalis utama <b>salah  atau tidak menjawab,</b> soal dilempar ke finalis lain (tekan bel).",
                 "Finalis Utama: Benar <b style='color:var(--success)'>+100</b>, Salah <b>0 poin</b>.",
                 "Penjawab Lemparan: Benar <b style='color:var(--success)'>+80</b>, Salah <b style='color:var(--danger)'>-40 poin</b>."
             ]
@@ -613,7 +768,7 @@
             badge: "ADU CEPAT",
             time: 10,
             rules: [
-                "Terdapat <b>10 soal</b> yang diperebutkan seluruh finalis.",
+                "Terdapat <b>5 soal</b> yang diperebutkan seluruh finalis.",
                 "Peserta <b>wajib menekan bel</b> terlebih dahulu sebelum menjawab.",
                 "Menjawab sebelum ditunjuk: <b style='color:var(--danger)'>-50 poin</b>.",
                 "Jawaban Benar: <b style='color:var(--success)'>+100 poin</b>.",
@@ -633,6 +788,11 @@
     let activeTeam    = null;
     const NUM_TEAMS   = 5;
 
+    // ─── UNDO HISTORY ───
+    // setiap entry: { id, teamName, delta, before, after, timestamp }
+    let scoreHistory = [];
+    const MAX_HISTORY = 20;
+
     // ─── GENERATE SCOREBOARD ───
     const scoreContainer = document.getElementById('scoreboard');
     const savedNames = JSON.parse(localStorage.getItem('ccTeamNames') || '[]');
@@ -640,21 +800,12 @@
 
     for (let i = 1; i <= NUM_TEAMS; i++) {
         const defName = savedNames[i-1] || `Tim ${String.fromCharCode(64+i)}`;
-        const defScore = 0; // Skor selalu mulai 0
         scoreContainer.innerHTML += `
         <div class="team-card" id="teamCard${i}">
             <div class="team-header">
-                <input type="text" class="team-name" id="teamName${i}" value="${defName}" 
+                <input type="text" class="team-name" id="teamName${i}" value="${defName}"
                     onchange="saveTeamNames()" placeholder="Nama Tim">
                 <div class="team-score" id="score${i}">0</div>
-            </div>
-            <div class="score-grid">
-                <button class="btn-score btn-plus" onclick="addScore(${i}, 100)">+100</button>
-                <button class="btn-score btn-plus" onclick="addScore(${i}, 80)">+80</button>
-                <button class="btn-score btn-plus" onclick="addScore(${i}, 50)">+50</button>
-                <button class="btn-score btn-min"  onclick="addScore(${i}, -25)">−25</button>
-                <button class="btn-score btn-min"  onclick="addScore(${i}, -40)">−40</button>
-                <button class="btn-score btn-min"  onclick="addScore(${i}, -50)">−50</button>
             </div>
             <div class="team-footer">
                 <button class="btn-team-action btn-set-giliran" onclick="setActiveTeam(${i})">⭐ Giliran</button>
@@ -676,21 +827,158 @@
     }
 
     function addScore(id, val) {
-        let el = document.getElementById(`score${id}`);
-        let cur = parseInt(el.innerText) || 0;
-        let newVal = cur + val;
-        el.innerText = newVal;
-        el.classList.toggle('negative', newVal < 0);
+        const el     = document.getElementById(`score${id}`);
+        const before = parseInt(el.innerText) || 0;
+        const after  = before + val;
+        el.innerText = after;
+        el.classList.toggle('negative', after < 0);
         playBeep(val > 0 ? 660 : 330, 0.2, 0.3);
-        showToast(`${getTeamName(id)}: ${val > 0 ? '+' : ''}${val} → Total: ${newVal}`);
+
+        // Simpan ke history
+        const entry = { id, teamName: getTeamName(id), delta: val, before, after, ts: Date.now() };
+        scoreHistory.unshift(entry); // terbaru di atas
+        if (scoreHistory.length > MAX_HISTORY) scoreHistory.pop();
+        renderUndoLog();
+
+        showToast(`${getTeamName(id)}: ${val > 0 ? '+' : ''}${val} → Total: ${after}`);
     }
 
     function resetScore(id) {
         if (!confirm(`Reset skor ${getTeamName(id)} ke 0?`)) return;
-        let el = document.getElementById(`score${id}`);
+        const el     = document.getElementById(`score${id}`);
+        const before = parseInt(el.innerText) || 0;
+        if (before === 0) { showToast('Skor sudah 0'); return; }
         el.innerText = '0';
         el.classList.remove('negative');
+
+        const entry = { id, teamName: getTeamName(id), delta: -before, before, after: 0, ts: Date.now(), isReset: true };
+        scoreHistory.unshift(entry);
+        if (scoreHistory.length > MAX_HISTORY) scoreHistory.pop();
+        renderUndoLog();
+
         showToast(`Skor ${getTeamName(id)} direset ke 0`);
+    }
+
+    // ─── UNDO FUNCTIONS ───
+    function undoEntry(index) {
+        const entry = scoreHistory[index];
+        if (!entry) return;
+
+        const el = document.getElementById(`score${entry.id}`);
+        const cur = parseInt(el.innerText) || 0;
+
+        // Peringatan jika skor sudah berubah sejak entry ini
+        if (cur !== entry.after) {
+            if (!confirm(`Skor ${entry.teamName} saat ini (${cur}) berbeda dari saat aksi ini dilakukan (${entry.after}).\nTetap batalkan aksi ini? Skor akan kembali ke ${entry.before}.`)) return;
+        }
+
+        el.innerText = entry.before;
+        el.classList.toggle('negative', entry.before < 0);
+        playBeep(440, 0.2, 0.3);
+
+        // Hapus entry ini dari history
+        scoreHistory.splice(index, 1);
+        renderUndoLog();
+
+        showToast(`↩ Dibatalkan: ${entry.teamName} ${entry.delta > 0 ? '+' : ''}${entry.delta} → kembali ke ${entry.before}`);
+    }
+
+    function undoLast() {
+        if (scoreHistory.length === 0) return;
+        undoEntry(0);
+        // Flash animasi tombol
+        const btn = document.getElementById('btnUndoLast');
+        btn.classList.remove('flash');
+        void btn.offsetWidth;
+        btn.classList.add('flash');
+    }
+
+    function renderUndoLog() {
+        const log     = document.getElementById('undoLog');
+        const empty   = document.getElementById('undoLogEmpty');
+        const btnLast = document.getElementById('btnUndoLast');
+
+        if (scoreHistory.length === 0) {
+            empty.style.display = 'block';
+            btnLast.classList.remove('has-history');
+            // Hapus semua item lama
+            log.querySelectorAll('.undo-log-item').forEach(el => el.remove());
+            return;
+        }
+
+        empty.style.display = 'none';
+        btnLast.classList.add('has-history');
+
+        // Rebuild list
+        log.querySelectorAll('.undo-log-item').forEach(el => el.remove());
+
+        scoreHistory.forEach((entry, i) => {
+            const item = document.createElement('div');
+            item.className = 'undo-log-item' + (i === 0 ? ' latest' : '');
+
+            const sign  = entry.delta > 0 ? '+' : '';
+            const cls   = entry.delta > 0 ? 'pos' : 'neg';
+            const label = entry.isReset ? '↺ Reset' : `${sign}${entry.delta}`;
+            const time  = new Date(entry.ts).toLocaleTimeString('id-ID', { hour:'2-digit', minute:'2-digit', second:'2-digit' });
+
+            item.innerHTML = `
+                <span class="log-team" title="${entry.teamName}">${entry.teamName}</span>
+                <span class="log-delta ${cls}">${label}</span>
+                <span class="log-result">${entry.before} → ${entry.after}</span>
+                <span style="color:var(--text-muted);font-size:0.65rem;">${time}</span>
+                <button class="btn-undo-single" onclick="undoEntry(${i})">↩</button>
+            `;
+            log.appendChild(item);
+        });
+    }
+
+    // ─── SCORING PANEL CONFIG ───
+    const SCORING_BUTTONS = {
+        wajib: [
+            { label: 'Jawaban Benar',        val: +100, type: 'plus' },
+        ],
+        lemparan: [
+            { label: 'Utama Benar',   val: +100, type: 'plus' },
+            { label: 'Lemparan Benar', val: +80,  type: 'plus' },
+            { label: 'Lemparan Salah', val: -40,  type: 'minus' },
+        ],
+        cepat: [
+            { label: 'Jawaban Benar',            val: +100, type: 'plus' },
+            { label: 'Jawaban Salah',             val: -50,  type: 'minus' },
+            { label: 'Lemparan Benar',          val: +50,  type: 'plus' },
+            { label: 'Lemparan Salah',          val: -25,  type: 'minus' },
+            { label: 'Jawab Sebelum Ditunjuk',    val: -50,  type: 'minus' },
+        ],
+    };
+
+    function renderScoringPanel() {
+        const body      = document.getElementById('scoringBody');
+        const nameEl    = document.getElementById('scoringTeamName');
+        const badgeEl   = document.getElementById('scoringRoundBadge');
+
+        badgeEl.innerText = RULES_DATA[currentRound]?.badge || currentRound.toUpperCase();
+
+        if (!activeTeam) {
+            nameEl.innerText = '— Pilih giliran tim —';
+            body.innerHTML = `<div class="scoring-empty">Tekan ⭐ Giliran pada tim yang akan dinilai</div>`;
+            return;
+        }
+
+        nameEl.innerText = getTeamName(activeTeam);
+
+        const buttons = SCORING_BUTTONS[currentRound] || [];
+        const cols = buttons.length <= 2 ? 1 : buttons.length <= 4 ? 2 : 2;
+        let html = `<div class="scoring-buttons" style="grid-template-columns: repeat(${cols}, 1fr);">`;
+        buttons.forEach(b => {
+            const sign = b.val > 0 ? '+' : '';
+            html += `
+            <button class="btn-scoring btn-sc-${b.type}" onclick="addScore(${activeTeam}, ${b.val})">
+                <span class="sc-label">${b.label}</span>
+                <span class="sc-val">${sign}${b.val}</span>
+            </button>`;
+        });
+        html += `</div>`;
+        body.innerHTML = html;
     }
 
     function setActiveTeam(id) {
@@ -698,6 +986,7 @@
         document.querySelectorAll('.team-card').forEach((c, i) => {
             c.classList.toggle('active-team', i + 1 === id);
         });
+        renderScoringPanel();
         showToast(`${getTeamName(id)} mendapat giliran menjawab`);
     }
 
@@ -785,6 +1074,7 @@
 
         generateEnvelopes();
         showRules(currentRound);
+        renderScoringPanel();
     }
 
     function updateRoundUI() {
@@ -1004,6 +1294,13 @@
     // ─── INIT ───
     (function init() {
         showRules('wajib');
+        // Shortcut keyboard: Ctrl+Z = undo skor terakhir
+        document.addEventListener('keydown', e => {
+            if ((e.ctrlKey || e.metaKey) && e.key === 'z') {
+                e.preventDefault();
+                undoLast();
+            }
+        });
     })();
 </script>
 </body>
