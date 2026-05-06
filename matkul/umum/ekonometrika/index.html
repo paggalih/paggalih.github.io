@@ -1964,6 +1964,350 @@ graph TD
         <textarea>
 </textarea>
         </div>
+        <div class="trigger">
+<strong>1. Ketepatan Mendeteksi Kesalahan Spesifikasi (Uji RESET Ramsey)</strong>
+          <br><strong>Analogi:</strong> Membeli jas yang ukurannya salah. Jika Anda memaksakan tubuh Anda ke dalam jas lurus padahal postur Anda agak membungkuk, jas itu akan berkerut di tempat-tempat yang aneh.
+          <br>Dalam regresi, kita sering berasumsi hubungannya berupa garis lurus (linear). Jika hubungan aslinya melengkung (non-linear) tapi kita paksakan pakai garis lurus, error-nya akan "berkerut". Uji Ramsey RESET (Regression Equation Specification Error Test) berfungsi seperti cermin fitting; ia mengecek apakah kita perlu menambahkan variabel berpangkat (seperti $X^2$ atau $X^3$) agar modelnya pas.
+          <br><strong><br>2. Ketepatan Mengidentifikasi Bias akibat Omitted Variable (Variabel yang Dihilangkan)</strong>
+          <br><strong>Analogi:</strong> Menyalahkan payung sebagai penyebab hujan. Anda melihat data bahwa setiap kali banyak orang membawa payung, jalanan pasti basah. Anda menyimpulkan payung membasahi jalan. Anda lupa memasukkan variabel "Awan Mendung".
+          <br>Omitted Variable Bias (OVB) terjadi ketika kita meninggalkan variabel penting yang mempengaruhi variabel dependen ($Y$) sekaligus berkorelasi dengan variabel independen ($X$). Akibatnya, $X$ yang ada di dalam model akan "merampas" efek dari variabel yang hilang tersebut, membuat estimasinya menjadi bias atau salah arah.
+          <br><br><strong>3. Ketepatan Mengevaluasi dan Memperbaiki Spesifikasi Model</strong>
+          <br><strong>Analogi:</strong> Memasak sup asam pedas. Anda mencicipi supnya (evaluasi). Jika kurang asam, Anda tambah cuka. Jika terlalu asin, Anda tambah air (perbaikan).
+          <br>Evaluasi model dilakukan dengan melihat $R^2$, signifikansi uji-t, uji-F, serta uji diagnostik (seperti RESET). Jika spesifikasinya salah, perbaikannya bisa berupa: menambah/mengurangi variabel, melakukan transformasi logaritma ($\ln$), atau menambahkan bentuk kuadratik.
+        </div>
+        <div class="mermaid text-center">
+graph TD
+    A["Mulai Analisis Data"] --> B["Estimasi Model OLS Dasar"]
+    B --> C["Evaluasi Signifikansi (Uji t dan F)"]
+    C --> D["Uji Omitted Variable Bias"]
+    D --> E["Uji Ramsey RESET"]
+    E --> F{"Apakah Ada Kesalahan Spesifikasi?"}
+    F -- "Ya" --> G["Perbaiki Spesifikasi (Log/Kuadrat/Tambah Variabel)"]
+    G --> B
+    F -- "Tidak" --> H["Model Final Valid"]
+    H --> I["Interpretasi Hasil"]
+        </div>
+    <h2>Tutorial EViews: Evaluasi dan Perbaikan Spesifikasi Model</h2>
+    <p>Dalam ekonometrika, memastikan model kita memiliki spesifikasi yang tepat adalah hal yang krusial. Misalkan kita memiliki model dasar:</p>
+    <p>$$Y_i = \beta_0 + \beta_1 X_{1i} + \epsilon_i$$</p>
+    
+    <h3>1. Mengidentifikasi Omitted Variable Bias</h3>
+    <p>Jika kita curiga ada variabel $X_2$ yang terlewat, kita bisa mengujinya di EViews:</p>
+    <ol>
+        <li>Estimasi model awal dengan mengetik di <i>Command Window</i>: <code>ls y c x1</code></li>
+        <li>Pada jendela hasil regresi (Equation), klik menu <strong>View</strong> &rarr; <strong>Coefficient Diagnostics</strong> &rarr; <strong>Omitted Variables Test - Likelihood Ratio</strong>.</li>
+        <li>Ketikkan nama variabel yang dicurigai terlewat, misalnya <code>x2</code>, lalu klik <strong>OK</strong>.</li>
+        <li><strong>Kriteria Keputusan:</strong> Perhatikan nilai probabilitas F-statistic. Jika nilai $p &lt; 0.05$, tolak hipotesis nol. Artinya, $X_2$ memang seharusnya masuk ke dalam model (terjadi OVB jika dihilangkan).</li>
+    </ol>
+
+    <h3>2. Mendeteksi Kesalahan Bentuk Fungsional (Ramsey RESET Test)</h3>
+    <p>Apakah hubungan variabel kita benar-benar linear, atau butuh elemen non-linear seperti $X^2$?</p>
+    <ol>
+        <li>Dari jendela Equation model Anda, klik <strong>View</strong> &rarr; <strong>Stability Diagnostics</strong> &rarr; <strong>Ramsey RESET Test</strong>.</li>
+        <li>Masukkan jumlah <i>fitted terms</i> (biasanya 1 untuk $\hat{Y}^2$, atau 2 untuk $\hat{Y}^2$ dan $\hat{Y}^3$). Klik <strong>OK</strong>.</li>
+        <li><strong>Kriteria Keputusan:</strong> Jika probabilitas F-statistic $ &lt; 0.05$, model Anda mengalami salah spesifikasi (misspecification). Anda perlu mengubah bentuk fungsional model.</li>
+    </ol>
+
+    <h3>3. Memperbaiki Spesifikasi Model</h3>
+    <p>Jika RESET test gagal atau ada OVB, kita harus memperbaikinya. Persamaan baru kita mungkin menjadi bentuk log-linear atau polinomial:</p>
+    <p>$$\ln(Y_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{1i}^2 + \beta_3 X_{2i} + \epsilon_i$$</p>
+    <ul>
+        <li><strong>Menambah Variabel:</strong> Ketik <code>ls y c x1 x2</code></li>
+        <li><strong>Transformasi Logaritma:</strong> Ketik <code>ls log(y) c log(x1) x2</code></li>
+        <li><strong>Transformasi Kuadratik:</strong> Ketik <code>ls y c x1 x1^2</code></li>
+    </ul>
+    <p>Setelah diperbaiki, lakukan uji RESET kembali hingga model dinyatakan valid!</p>
+        <p class="soal-latihan">
+          Kasus 1: Pengaruh Iklan terhadap Penjualan
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Penjualan","Iklan"
+"10.2","1.1"
+"15.5","2.0"
+"20.1","3.2"
+"23.8","4.5"
+"26.5","5.8"
+"28.9","7.1"
+"30.2","8.5"
+"31.5","9.9"
+"32.1","11.0"
+"32.8","12.5"
+"11.5","1.3"
+"16.8","2.2"
+"21.4","3.5"
+"24.9","4.8"
+"27.1","6.0"
+"29.5","7.4"
+"31.0","8.8"
+"32.0","10.1"
+"32.5","11.3"
+"33.0","12.8"
+"12.1","1.5"
+"18.0","2.5"
+"22.5","3.8"
+"25.5","5.1"
+"28.0","6.4"
+"30.0","7.8"
+"31.2","9.1"
+"32.2","10.5"
+"32.6","11.6"
+"33.1","13.0"
+"13.5","1.7"
+"19.1","2.8"
+"23.1","4.0"
+"26.1","5.3"
+"28.3","6.7"
+"30.5","8.1"
+"31.4","9.4"
+"32.3","10.8"
+"32.7","11.9"
+"33.2","13.3"
+"14.2","1.9"
+"19.8","3.0"
+"23.5","4.2"
+"26.3","5.6"
+"28.6","6.9"
+"30.8","8.3"
+"31.6","9.7"
+"32.4","11.0"
+"32.9","12.1"
+"33.5","13.5"</textarea>
+        </div>
+        <p class="soal-latihan">
+          Kasus 2: Gaji dan Edukasi
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Gaji","Edukasi","Pengalaman"
+"3500","12","5"
+"3800","12","7"
+"4200","14","4"
+"4600","14","8"
+"5100","16","3"
+"5500","16","6"
+"6000","18","2"
+"6500","18","5"
+"7200","20","2"
+"7500","20","4"
+"3600","12","6"
+"3900","12","8"
+"4300","14","5"
+"4700","14","9"
+"5200","16","4"
+"5600","16","7"
+"6100","18","3"
+"6600","18","6"
+"7300","20","3"
+"7600","20","5"
+"3700","12","6"
+"4000","12","9"
+"4400","14","6"
+"4800","14","10"
+"5300","16","5"
+"5700","16","8"
+"6200","18","4"
+"6700","18","7"
+"7400","20","4"
+"7700","20","6"
+"3750","12","7"
+"4050","12","10"
+"4450","14","7"
+"4850","14","11"
+"5350","16","6"
+"5750","16","9"
+"6250","18","5"
+"6750","18","8"
+"7450","20","5"
+"7800","20","7"
+"3800","12","8"
+"4100","13","4"
+"4500","14","8"
+"4900","15","5"
+"5400","16","7"
+"5800","17","4"
+"6300","18","6"
+"6800","19","4"
+"7500","20","6"
+"7900","21","5"</textarea>
+        </div>
+        <p class="soal-latihan">
+          Kasus 3: Harga Rumah, Luas, dan Usia
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Harga_Rumah","Luas_Tanah","Usia_Bangunan"
+"150","100","10"
+"165","120","12"
+"180","150","8"
+"210","180","5"
+"250","200","2"
+"145","100","15"
+"160","120","14"
+"175","150","10"
+"200","180","8"
+"240","200","5"
+"140","100","20"
+"155","120","18"
+"170","150","15"
+"190","180","12"
+"230","200","10"
+"135","100","25"
+"150","120","22"
+"165","150","18"
+"185","180","15"
+"220","200","12"
+"130","100","30"
+"145","120","25"
+"160","150","22"
+"180","180","18"
+"210","200","15"
+"152","110","10"
+"168","130","11"
+"185","160","7"
+"215","190","4"
+"255","210","1"
+"148","110","14"
+"163","130","13"
+"178","160","9"
+"205","190","7"
+"245","210","4"
+"142","110","18"
+"158","130","16"
+"172","160","12"
+"195","190","10"
+"235","210","8"
+"138","110","22"
+"152","130","20"
+"168","160","16"
+"188","190","14"
+"225","210","11"
+"132","110","28"
+"148","130","24"
+"162","160","20"
+"182","190","17"
+"215","210","14"</textarea>
+        </div>
+        <p class="soal-latihan">
+          Kasus 4: Hasil Panen dan Pupuk
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Panen","Pupuk","Air"
+"10","2","5"
+"15","4","10"
+"22","8","15"
+"31","16","20"
+"45","32","25"
+"11","2","6"
+"16","4","11"
+"24","8","16"
+"33","16","21"
+"48","32","26"
+"12","3","5"
+"18","5","10"
+"25","9","15"
+"35","18","20"
+"50","35","25"
+"13","3","7"
+"19","5","12"
+"27","9","17"
+"38","18","22"
+"53","35","27"
+"10.5","2.5","5.5"
+"15.5","4.5","10.5"
+"23","8.5","15.5"
+"32","16.5","20.5"
+"46","32.5","25.5"
+"11.5","2.5","6.5"
+"16.5","4.5","11.5"
+"24.5","8.5","16.5"
+"34","16.5","21.5"
+"49","32.5","26.5"
+"12.5","3.5","5.5"
+"18.5","5.5","10.5"
+"26","9.5","15.5"
+"36","18.5","20.5"
+"51","35.5","25.5"
+"13.5","3.5","7.5"
+"19.5","5.5","12.5"
+"28","9.5","17.5"
+"39","18.5","22.5"
+"55","35.5","27.5"
+"14","3.8","6"
+"20","6.0","11"
+"29","10","16"
+"41","20","21"
+"58","40","26"
+"14.5","3.8","8"
+"21","6.0","13"
+"30","10","18"
+"43","20","23"
+"60","40","28"</textarea>
+        </div>
+        <p class="soal-latihan">
+          Kasus 5: Permintaan Listrik dan Suhu
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Listrik","Suhu","Populasi"
+"500","10","100"
+"450","15","102"
+"400","20","105"
+"380","25","108"
+"420","30","110"
+"480","35","112"
+"550","40","115"
+"510","11","101"
+"460","16","103"
+"405","21","106"
+"385","26","109"
+"425","31","111"
+"490","36","113"
+"560","41","116"
+"520","12","102"
+"470","17","104"
+"410","22","107"
+"390","27","110"
+"435","32","112"
+"500","37","114"
+"570","42","117"
+"505","10.5","100"
+"455","15.5","102"
+"402","20.5","105"
+"382","25.5","108"
+"422","30.5","110"
+"485","35.5","112"
+"555","40.5","115"
+"515","11.5","101"
+"465","16.5","103"
+"408","21.5","106"
+"388","26.5","109"
+"430","31.5","111"
+"495","36.5","113"
+"565","41.5","116"
+"525","12.5","102"
+"475","17.5","104"
+"415","22.5","107"
+"395","27.5","110"
+"440","32.5","112"
+"505","37.5","114"
+"575","42.5","117"
+"490","13","101"
+"440","18","103"
+"390","23","106"
+"395","28","109"
+"445","33","111"
+"515","38","113"
+"580","43","116"
+"590","44","118"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
         
       </div>
     </section>
@@ -1972,21 +2316,7 @@ graph TD
         <div class="section-title">
           <h2>Pertemuan 7</h2>
         </div>
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp7">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp7">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep7" aria-expanded="true" aria-controls="collapsep7">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep7" class="accordion-collapse collapse" aria-labelledby="headingp7" data-bs-parent="#accordionp7">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
+        
       </div>
     </section>
     <section id="p8">
