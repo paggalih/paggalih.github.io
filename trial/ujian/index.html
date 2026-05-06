@@ -1,4 +1,4 @@
-<!-- lupa tidak dideskripsi -->
+	<!-- lupa tidak dideskripsi -->
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -288,16 +288,6 @@
 
 <footer>Part of <a href="https://paggalih.github.io">paggalih.github.io</a></footer>
 
-<!-- ANTI-CHEAT OVERLAY -->
-<div id="anticheat-overlay">
-  <div class="ac-icon">⚠️</div>
-  <h2>Keluar dari Halaman Terdeteksi!</h2>
-  <p id="ac-message"></p>
-  <div class="ac-count" id="ac-count"></div>
-  <div class="ac-bar"><div class="ac-bar-fill" id="ac-bar-fill"></div></div>
-  <p id="ac-sub" style="font-size:.82rem;opacity:.7"></p>
-  <button class="ac-resume" id="ac-resume-btn" onclick="resumeFromCheat()">Kembali ke Ujian</button>
-</div>
 
 <!-- LIGHTBOX -->
 <div id="lightbox" style="display:none" onclick="closeLightbox(event)">
@@ -1381,161 +1371,6 @@ function markCompletedLocal(kuisId, nim) {
 }
 function selectedKuisData() { return quizzes.find(q => q.id === selectedKuis); }
 
-/* ════════════════════════════════════════════════════════
-   WAKE LOCK
-════════════════════════════════════════════════════════ */
-
-const NOSLEEP_VIDEO_SRC = 'data:video/mp4;base64,AAAAIGZ0eXBtcDQyAAAAAG1wNDJpc29tAAACTm1vb3YAAABsbXZoZAAAAADaBlwX2gZcFwAAASwAAAH0AAEAAAEAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAACAAAB+HRyYWsAAABcdGtoZAAAAAHaBlwX2gZcFwAAAAEAAAAAAAAB9AAAAAAAAQAAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAAAAABAAAAAAQAAAAEAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAHQAAANhtZGlhAAAAIG1kaGQAAAAA2gZcF9oGXBcAAEAAAABAVcQAAAAAAC1oZGxyAAAAAAAAAAAhdmlkZQAAAAAAAAAAAAAAAABWaWRlb0hhbmRsZXIAAAABg21pbmYAAAAUdm1oZAAAAAEAAAAAAAAAAAAAACRkaW5mAAAAHGRyZWYAAAAAAAAAAQAAAAx1cmwgAAAAAQAAAVdzdGJsAAAAnXN0c2QAAAAAAAAAAQAAAIVhdmMxAAAAAAAAAAEAAAAAAAAAAAAAAAAAAAAAAAEAAQAASAAAAEgAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAY//wAAADFhdmNDAWQAH//hABhZ2gAbINlAoD2wEQAAAwAEAAADAGDxYtlgAQAEaM4yyAAAABhzdHRzAAAAAAAAAAEAAAABAAAAQAAAABRzdHNzAAAAAAAAAAEAAAABAAAAGGN0dHMAAAAAAAAAAQAAAAEAAAABAAAAGHN0c2MAAAAAAAAAAQAAAAEAAAABAAAAAQAAABBzdHN6AAAAAAAAAMIAAAABAAAAFHN0Y28AAAAAAAAAAQAAAAQAAAAYc21oZAAAAAAAAAAAAAAAAAAAAAA=';
-
-let _noSleepVideo  = null;
-let _noSleepActive = false;
-
-function _startNoSleep() {
-  if (_noSleepActive) return;
-  if (!_noSleepVideo) {
-    _noSleepVideo = document.createElement('video');
-    _noSleepVideo.setAttribute('playsinline', '');
-    _noSleepVideo.setAttribute('muted', '');
-    _noSleepVideo.loop   = true;
-    _noSleepVideo.style.cssText = 'position:fixed;width:1px;height:1px;opacity:0;pointer-events:none;top:0;left:0';
-    _noSleepVideo.src = NOSLEEP_VIDEO_SRC;
-    document.body.appendChild(_noSleepVideo);
-  }
-  _noSleepVideo.play().then(() => {
-    _noSleepActive = true;
-    _setWlIndicator('🔆', 'Layar terkunci aktif — tidak akan standby');
-  }).catch(() => {
-    _startDummyInterval();
-  });
-}
-
-function _stopNoSleep() {
-  if (_noSleepVideo) { _noSleepVideo.pause(); }
-  _noSleepActive = false;
-  _stopDummyInterval();
-}
-
-let _dummyInterval = null;
-function _startDummyInterval() {
-  if (_dummyInterval) return;
-  _setWlIndicator('🔆', 'Layar terkunci (mode fallback)');
-  _dummyInterval = setInterval(() => {
-    try { localStorage.setItem('_wl_ping', Date.now()); } catch(e) {}
-  }, 20000);
-}
-function _stopDummyInterval() {
-  if (_dummyInterval) { clearInterval(_dummyInterval); _dummyInterval = null; }
-}
-
-function _setWlIndicator(icon, title) {
-  const el = document.getElementById('wakelock-indicator');
-  if (el) { el.textContent = icon; el.title = title; el.style.display = ''; }
-}
-
-async function requestWakeLock() {
-  if ('wakeLock' in navigator) {
-    try {
-      _wakeLock = await navigator.wakeLock.request('screen');
-      _setWlIndicator('🔆', 'Layar terkunci (Wake Lock API)');
-      _wakeLock.addEventListener('release', () => {
-        _wakeLock = null;
-        if (_watchingQuiz) _startNoSleep();
-      });
-      return;
-    } catch(e) {}
-  }
-  _startNoSleep();
-}
-
-function releaseWakeLock() {
-  if (_wakeLock) { _wakeLock.release(); _wakeLock = null; }
-  _stopNoSleep();
-  const el = document.getElementById('wakelock-indicator');
-  if (el) el.style.display = 'none';
-}
-
-document.addEventListener('visibilitychange', () => {
-  if (!document.hidden && _watchingQuiz) {
-    if (!_wakeLock) requestWakeLock();
-    if (_noSleepVideo && !_noSleepActive) _startNoSleep();
-  }
-});
-
-/* ════════════════════════════════════════════════════════
-   ANTI-CHEAT
-════════════════════════════════════════════════════════ */
-
-function _onCheatDetected(reason) {
-  if (!_watchingQuiz) return;
-  _violations++;
-  saveDraft();
-
-  const remaining = MAX_VIOLATIONS - _violations;
-  const overlay   = document.getElementById('anticheat-overlay');
-  const msgEl     = document.getElementById('ac-message');
-  const countEl   = document.getElementById('ac-count');
-  const subEl     = document.getElementById('ac-sub');
-  const barFill   = document.getElementById('ac-bar-fill');
-  const resumeBtn = document.getElementById('ac-resume-btn');
-
-  const pct = Math.round((_violations / MAX_VIOLATIONS) * 100);
-  barFill.style.width = pct + '%';
-  countEl.textContent = `Pelanggaran ${_violations} / ${MAX_VIOLATIONS}`;
-
-  if (remaining <= 0) {
-    msgEl.innerHTML = `Anda terdeteksi keluar dari halaman sebanyak <strong>${_violations} kali</strong>.<br>Ujian dihentikan dan jawaban dikirim otomatis.`;
-    subEl.textContent = 'Mengirim jawaban…';
-    resumeBtn.style.display = 'none';
-    overlay.style.display   = 'flex';
-    _watchingQuiz = false;
-    releaseWakeLock();
-    setTimeout(() => {
-      overlay.style.display = 'none';
-      submitQuiz(true);
-    }, 2500);
-  } else {
-    msgEl.innerHTML = `Anda terdeteksi <strong>${reason}</strong>.<br>Ini dianggap pelanggaran integritas ujian.`;
-    subEl.textContent = remaining === 1
-      ? '⚠ Pelanggaran berikutnya akan langsung submit jawaban Anda!'
-      : `Sisa toleransi: ${remaining} kali lagi`;
-    resumeBtn.style.display = 'inline-block';
-    overlay.style.display   = 'flex';
-
-    document.getElementById('timer-bar').classList.add('warn');
-    const warnEl = document.getElementById('quiz-warn');
-    if (warnEl) {
-      warnEl.style.background  = 'var(--red-lt)';
-      warnEl.style.borderColor = 'var(--red)';
-      warnEl.style.color       = 'var(--red)';
-      warnEl.innerHTML = `⚠ Peringatan ${_violations}/${MAX_VIOLATIONS}: keluar halaman terdeteksi. Pelanggaran ke-${MAX_VIOLATIONS} akan auto-submit.`;
-    }
-  }
-}
-
-function resumeFromCheat() {
-  document.getElementById('anticheat-overlay').style.display = 'none';
-  requestFullscreen()
-}
-
-document.addEventListener('visibilitychange', () => {
-  if (document.hidden) {
-    if (_cameraOpen || _confirmOpen) return;
-    _onCheatDetected('meninggalkan halaman ujian');
-  } else {
-    _cameraOpen = false;
-  }
-});
-
-window.addEventListener('blur', () => {
-  if (_cameraOpen || _confirmOpen) return;
-  if (document.activeElement?.tagName === 'INPUT' &&
-      document.activeElement.type === 'file') return;
-  _onCheatDetected('berpindah aplikasi / jendela');
-});
-
-window.addEventListener('focus', () => {
-  _cameraOpen = false;
-});
 
 /* ════════════════════════════════════════════════════════
    DRAFT
@@ -1605,31 +1440,6 @@ function showDraftBanner() {
   container.parentElement.insertBefore(banner, container);
 }
 
-/* ════════════════════════════════════════════════════════
-   FULLSCREEN — minta saat pertama kali mulai kuis
-════════════════════════════════════════════════════════ */
-
-function requestFullscreen() {
-  const el = document.documentElement;
-  const fn = el.requestFullscreen || el.webkitRequestFullscreen || el.mozRequestFullScreen;
-  if (fn) fn.call(el).catch(() => {});
-}
-
-function exitFullscreen() {
-  const fn = document.exitFullscreen || document.webkitExitFullscreen || document.mozCancelFullScreen;
-  if (fn) fn.call(document).catch(() => {});
-}
-
-function isFullscreen() {
-  return !!(document.fullscreenElement || document.webkitFullscreenElement || document.mozFullScreenElement);
-}
-
-document.addEventListener('fullscreenchange', () => {
-  if (!isFullscreen() && _watchingQuiz) {
-    requestFullscreen(); // paksa masuk lagi
-    _onCheatDetected('keluar dari mode layar penuh');
-  }
-});
 
 </script>
 </body>
