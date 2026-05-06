@@ -1001,7 +1001,6 @@ async function submitQuiz(auto) {
   markCompletedLocal(selectedKuis, currentNIM);
   clearDraft(selectedKuis, currentNIM);
   hideLoading();
-  exitFullscreen();
 
   const failedUploads = (result.results || []).filter(r => r.uploadFailed);
   if (failedUploads.length > 0) {
