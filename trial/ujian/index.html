@@ -332,7 +332,6 @@ const STORAGE_PREFIX = "kuis_";
 
 const MAX_VIOLATIONS  = 15;
 let   _violations     = 0;
-let   _watchingQuiz   = false;
 
 let _wakeLock = null;
 let _cameraOpen = false;
@@ -854,10 +853,6 @@ function compressImage(file, maxPx, quality) {
 ════════════════════════════════════════════════════════ */
 
 function startTimer() {
-  requestFullscreen(); 
-  _violations    = 0;
-  _watchingQuiz  = true;
-  requestWakeLock();
   updateTimer();
   timerInterval = setInterval(() => {
     timeLeft--;
@@ -929,8 +924,6 @@ async function submitQuiz(auto) {
     }
   }
 
-  _watchingQuiz = false;
-  releaseWakeLock();
   clearInterval(timerInterval);
   document.getElementById('btn-submit').disabled = true;
   showLoading("Mengirim jawaban…");
