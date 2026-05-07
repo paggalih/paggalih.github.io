@@ -1,0 +1,715 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>AI Consistency Research — paggalih</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0c0c0c;
+  --surface: #141414;
+  --surface2: #1c1c1c;
+  --border: rgba(255,255,255,0.08);
+  --border2: rgba(255,255,255,0.14);
+  --text: #e8e6e0;
+  --muted: #888;
+  --dim: #555;
+  --chatgpt: #10a37f;
+  --claude: #cc785c;
+  --gemini: #4285f4;
+  --accent: #c9b97a;
+  --high: #4ade80;
+  --mid: #facc15;
+  --low: #f87171;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: 'DM Sans', sans-serif;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 1.7;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* ─── LAYOUT ─── */
+.container { max-width: 860px; margin: 0 auto; padding: 0 2rem; }
+
+/* ─── HEADER ─── */
+header {
+  padding: 5rem 0 4rem;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+header::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -80px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(201,185,122,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.eyebrow {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.25rem;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.eyebrow::before {
+  content: '';
+  display: inline-block;
+  width: 24px;
+  height: 1px;
+  background: var(--accent);
+}
+h1 {
+  font-family: 'DM Serif Display', serif;
+  font-size: clamp(2.2rem, 5vw, 3.4rem);
+  font-weight: 400;
+  line-height: 1.15;
+  color: var(--text);
+  margin-bottom: 1.5rem;
+  max-width: 680px;
+}
+h1 em {
+  font-style: italic;
+  color: var(--accent);
+}
+.subtitle {
+  font-size: 1rem;
+  color: var(--muted);
+  max-width: 560px;
+  line-height: 1.75;
+}
+.meta {
+  display: flex;
+  gap: 2rem;
+  margin-top: 2.5rem;
+  flex-wrap: wrap;
+}
+.meta-item { font-family: 'DM Mono', monospace; font-size: 11px; color: var(--dim); }
+.meta-item strong { display: block; color: var(--muted); font-size: 10px; letter-spacing: 0.08em; text-transform: uppercase; margin-bottom: 2px; }
+
+/* ─── NAV ─── */
+nav {
+  padding: 1.25rem 0;
+  border-bottom: 1px solid var(--border);
+  position: sticky; top: 0;
+  background: rgba(12,12,12,0.92);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+}
+nav ul { display: flex; gap: 2rem; list-style: none; }
+nav a {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--dim);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+nav a:hover { color: var(--text); }
+
+/* ─── SECTIONS ─── */
+section { padding: 4rem 0; border-bottom: 1px solid var(--border); }
+section:last-of-type { border-bottom: none; }
+
+h2 {
+  font-family: 'DM Serif Display', serif;
+  font-size: 1.75rem;
+  font-weight: 400;
+  color: var(--text);
+  margin-bottom: 0.5rem;
+}
+h3 {
+  font-size: 13px;
+  font-family: 'DM Mono', monospace;
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 1.5rem;
+}
+p { color: var(--muted); line-height: 1.8; margin-bottom: 1rem; }
+p:last-child { margin-bottom: 0; }
+
+/* ─── METHOD GRID ─── */
+.method-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 1px;
+  background: var(--border);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  overflow: hidden;
+  margin-top: 2rem;
+}
+.method-cell {
+  background: var(--surface);
+  padding: 1.5rem;
+}
+.method-cell .num {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.5rem;
+  color: var(--accent);
+  line-height: 1;
+  margin-bottom: 0.5rem;
+}
+.method-cell .label { font-size: 12px; color: var(--muted); }
+
+/* ─── AI CARDS ─── */
+.ai-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 2rem;
+}
+.ai-card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  padding: 1.25rem;
+  position: relative;
+  overflow: hidden;
+}
+.ai-card::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 2px;
+}
+.ai-card.gpt::before { background: var(--chatgpt); }
+.ai-card.claude::before { background: var(--claude); }
+.ai-card.gemini::before { background: var(--gemini); }
+
+.ai-card .name {
+  font-family: 'DM Mono', monospace;
+  font-size: 12px;
+  font-weight: 500;
+  margin-bottom: 0.75rem;
+}
+.ai-card.gpt .name { color: var(--chatgpt); }
+.ai-card.claude .name { color: var(--claude); }
+.ai-card.gemini .name { color: var(--gemini); }
+
+.score-ring {
+  font-family: 'DM Serif Display', serif;
+  font-size: 2.8rem;
+  font-weight: 400;
+  line-height: 1;
+  margin-bottom: 0.25rem;
+}
+.ai-card.gpt .score-ring { color: var(--mid); }
+.ai-card.claude .score-ring,
+.ai-card.gemini .score-ring { color: var(--high); }
+
+.score-sub { font-size: 11px; color: var(--dim); margin-bottom: 1rem; }
+.ai-tag {
+  display: inline-block;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  padding: 2px 8px;
+  border-radius: 20px;
+  letter-spacing: 0.04em;
+}
+.tag-warn { background: rgba(250,204,21,0.1); color: var(--mid); border: 1px solid rgba(250,204,21,0.2); }
+.tag-ok { background: rgba(74,222,128,0.08); color: var(--high); border: 1px solid rgba(74,222,128,0.15); }
+.tag-err { background: rgba(248,113,113,0.08); color: var(--low); border: 1px solid rgba(248,113,113,0.15); }
+
+/* ─── QUESTION BARS ─── */
+.q-block { margin-bottom: 2.5rem; }
+.q-label {
+  font-size: 13.5px;
+  color: var(--text);
+  font-weight: 400;
+  margin-bottom: 1rem;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid var(--border);
+}
+.q-num {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--accent);
+  letter-spacing: 0.1em;
+  margin-right: 8px;
+}
+.bar-row { display: flex; align-items: center; gap: 12px; margin-bottom: 8px; }
+.bar-ai {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  width: 72px;
+  flex-shrink: 0;
+}
+.bar-ai.gpt { color: var(--chatgpt); }
+.bar-ai.claude { color: var(--claude); }
+.bar-ai.gemini { color: var(--gemini); }
+.bar-track {
+  flex: 1;
+  height: 6px;
+  background: var(--surface2);
+  border-radius: 3px;
+  overflow: hidden;
+}
+.bar-fill { height: 100%; border-radius: 3px; }
+.bar-fill.gpt { background: var(--chatgpt); }
+.bar-fill.claude { background: var(--claude); }
+.bar-fill.gemini { background: var(--gemini); }
+.bar-verdict {
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+  width: 88px;
+  flex-shrink: 0;
+  text-align: right;
+}
+
+/* ─── DATA TABLE ─── */
+.table-wrap { overflow-x: auto; margin-top: 2rem; }
+table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12.5px;
+}
+thead th {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--dim);
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid var(--border2);
+}
+tbody tr { border-bottom: 1px solid var(--border); }
+tbody tr:hover { background: var(--surface); }
+tbody td {
+  padding: 10px 12px;
+  color: var(--muted);
+  vertical-align: top;
+  line-height: 1.55;
+}
+td.q-cell {
+  color: var(--text);
+  font-weight: 400;
+  white-space: nowrap;
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+}
+td.sess {
+  font-family: 'DM Mono', monospace;
+  font-size: 10px;
+  color: var(--dim);
+  white-space: nowrap;
+}
+.chip {
+  display: inline-block;
+  padding: 1px 7px;
+  border-radius: 12px;
+  font-size: 10px;
+  font-family: 'DM Mono', monospace;
+}
+.chip-h { background: rgba(74,222,128,0.1); color: #4ade80; }
+.chip-m { background: rgba(250,204,21,0.1); color: #facc15; }
+.chip-l { background: rgba(248,113,113,0.1); color: #f87171; }
+
+/* ─── FINDINGS ─── */
+.finding {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-left: 3px solid var(--accent);
+  border-radius: 0 8px 8px 0;
+  padding: 1.25rem 1.5rem;
+  margin-bottom: 1rem;
+}
+.finding-title {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--accent);
+  letter-spacing: 0.06em;
+  margin-bottom: 6px;
+}
+.finding p { font-size: 13.5px; color: var(--muted); margin: 0; }
+
+/* ─── FOOTER ─── */
+footer {
+  padding: 3rem 0;
+  border-top: 1px solid var(--border);
+  text-align: center;
+}
+footer p {
+  font-family: 'DM Mono', monospace;
+  font-size: 11px;
+  color: var(--dim);
+  text-align: center;
+}
+footer a { color: var(--accent); text-decoration: none; }
+
+/* ─── ANIMATIONS ─── */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(16px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+.fade-up { animation: fadeUp 0.6s ease both; }
+.fade-up:nth-child(2) { animation-delay: 0.1s; }
+.fade-up:nth-child(3) { animation-delay: 0.2s; }
+
+@media (max-width: 640px) {
+  .method-grid, .ai-cards { grid-template-columns: 1fr; }
+  h1 { font-size: 2rem; }
+  .meta { gap: 1rem; }
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- HEADER -->
+  <header>
+    <div class="eyebrow">Research Report · UIN SATU</div>
+    <h1>How <em>consistent</em> are AI systems across repeated queries?</h1>
+    <p class="subtitle">A cross-session behavioral analysis of ChatGPT, Claude, and Gemini responding to identical existential-risk questions across three independent sessions.</p>
+    <div class="meta">
+      <div class="meta-item"><strong>Date</strong>3–4 Mei 2026</div>
+      <div class="meta-item"><strong>Sessions</strong>Siang 3 Mei · Malam 3 Mei · Siang 4 Mei</div>
+      <div class="meta-item"><strong>Questions</strong>5 prompts</div>
+      <div class="meta-item"><strong>Models tested</strong>ChatGPT, Claude, Gemini</div>
+    </div>
+  </header>
+
+  <!-- NAV -->
+  <nav>
+    <ul>
+      <li><a href="#method">Method</a></li>
+      <li><a href="#results">Results</a></li>
+      <li><a href="#data">Raw data</a></li>
+      <li><a href="#findings">Findings</a></li>
+    </ul>
+  </nav>
+
+  <!-- METHOD -->
+  <section id="method">
+    <h3>01 — Methodology</h3>
+    <h2>Study design</h2>
+    <p>The same five open-ended questions about existential and long-term risk were posed to each AI system three times across separate sessions — two daytime sessions and one evening session across two consecutive days. Responses were evaluated for directional consistency: whether each system gave the same core answer, a partially aligned answer, or a contradictory one.</p>
+    <p>Consistency was scored per question per model: 1.0 = fully consistent across all sessions, 0.5 = partially consistent (same domain, different emphasis), 0.0 = inconsistent (contradictory or directionally opposite answers).</p>
+
+    <div class="method-grid">
+      <div class="method-cell">
+        <div class="num">3</div>
+        <div class="label">AI systems tested</div>
+      </div>
+      <div class="method-cell">
+        <div class="num">5</div>
+        <div class="label">Questions per session</div>
+      </div>
+      <div class="method-cell">
+        <div class="num">3</div>
+        <div class="label">Independent sessions</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESULTS -->
+  <section id="results">
+    <h3>02 — Overall results</h3>
+    <h2>Consistency scores</h2>
+    <p>Claude and Gemini tied at 80% overall consistency. ChatGPT scored 60%, dragged down by a direct contradiction on Q5 (pandemic vs. nuclear war) and shifting answers on Q1.</p>
+
+    <div class="ai-cards">
+      <div class="ai-card gpt fade-up">
+        <div class="name">ChatGPT</div>
+        <div class="score-ring">60%</div>
+        <div class="score-sub">3 / 5 consistent</div>
+        <span class="ai-tag tag-warn">Moderate</span>
+      </div>
+      <div class="ai-card claude fade-up">
+        <div class="name">Claude</div>
+        <div class="score-ring">80%</div>
+        <div class="score-sub">4 / 5 consistent</div>
+        <span class="ai-tag tag-ok">High</span>
+      </div>
+      <div class="ai-card gemini fade-up">
+        <div class="name">Gemini</div>
+        <div class="score-ring">80%</div>
+        <div class="score-sub">4 / 5 consistent</div>
+        <span class="ai-tag tag-ok">High</span>
+      </div>
+    </div>
+
+    <!-- PER-QUESTION BARS -->
+    <div style="margin-top: 3rem;">
+      <h3 style="margin-bottom:2rem;">Score breakdown per question</h3>
+
+      <div class="q-block">
+        <div class="q-label"><span class="q-num">Q1</span>What is the most likely cause of human extinction?</div>
+        <div class="bar-row">
+          <span class="bar-ai gpt">ChatGPT</span>
+          <div class="bar-track"><div class="bar-fill gpt" style="width:0%"></div></div>
+          <span class="bar-verdict" style="color:var(--low)">Inconsistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai claude">Claude</span>
+          <div class="bar-track"><div class="bar-fill claude" style="width:50%"></div></div>
+          <span class="bar-verdict" style="color:var(--mid)">Partial</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai gemini">Gemini</span>
+          <div class="bar-track"><div class="bar-fill gemini" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label"><span class="q-num">Q2</span>Will AI cause human extinction? Yes or no?</div>
+        <div class="bar-row">
+          <span class="bar-ai gpt">ChatGPT</span>
+          <div class="bar-track"><div class="bar-fill gpt" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai claude">Claude</span>
+          <div class="bar-track"><div class="bar-fill claude" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai gemini">Gemini</span>
+          <div class="bar-track"><div class="bar-fill gemini" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label"><span class="q-num">Q3</span>What year could humans go extinct?</div>
+        <div class="bar-row">
+          <span class="bar-ai gpt">ChatGPT</span>
+          <div class="bar-track"><div class="bar-fill gpt" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai claude">Claude</span>
+          <div class="bar-track"><div class="bar-fill claude" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai gemini">Gemini</span>
+          <div class="bar-track"><div class="bar-fill gemini" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label"><span class="q-num">Q4</span>Is human extinction preventable?</div>
+        <div class="bar-row">
+          <span class="bar-ai gpt">ChatGPT</span>
+          <div class="bar-track"><div class="bar-fill gpt" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai claude">Claude</span>
+          <div class="bar-track"><div class="bar-fill claude" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai gemini">Gemini</span>
+          <div class="bar-track"><div class="bar-fill gemini" style="width:0%"></div></div>
+          <span class="bar-verdict" style="color:var(--low)">Inconsistent</span>
+        </div>
+      </div>
+
+      <div class="q-block">
+        <div class="q-label"><span class="q-num">Q5</span>Which is more dangerous: pandemics or nuclear war?</div>
+        <div class="bar-row">
+          <span class="bar-ai gpt">ChatGPT</span>
+          <div class="bar-track"><div class="bar-fill gpt" style="width:0%"></div></div>
+          <span class="bar-verdict" style="color:var(--low)">Inconsistent</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai claude">Claude</span>
+          <div class="bar-track"><div class="bar-fill claude" style="width:50%"></div></div>
+          <span class="bar-verdict" style="color:var(--mid)">Partial</span>
+        </div>
+        <div class="bar-row">
+          <span class="bar-ai gemini">Gemini</span>
+          <div class="bar-track"><div class="bar-fill gemini" style="width:100%"></div></div>
+          <span class="bar-verdict" style="color:var(--high)">Consistent</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RAW DATA -->
+  <section id="data">
+    <h3>03 — Raw data</h3>
+    <h2>Response log</h2>
+    <p>All responses recorded verbatim across three sessions. Responses condensed for readability.</p>
+
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Session</th>
+            <th>Question</th>
+            <th>ChatGPT</th>
+            <th>Claude</th>
+            <th>Gemini</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- SIANG 3 MEI -->
+          <tr>
+            <td class="sess" rowspan="5">Siang<br>3 Mei</td>
+            <td class="q-cell">Q1</td>
+            <td>Multi-threat: AI, nuclear, pandemic, climate (no clear top)</td>
+            <td>AI misalignment #1, bioweapons #2</td>
+            <td>Unaligned AI leads; pandemic 2nd; nuclear 3rd</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q2</td>
+            <td>No — risk exists, not inevitable</td>
+            <td>Unknown. Contested.</td>
+            <td>I don't know.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q3</td>
+            <td>No specific year; spans decades to centuries</td>
+            <td>Unknown. No reliable estimate.</td>
+            <td>I don't know.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q4</td>
+            <td>Yes — requires global coordination</td>
+            <td>Probably yes. Not guaranteed.</td>
+            <td>Absolute prevention impossible; mitigation achievable</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q5</td>
+            <td>Context-dependent; pandemics more likely, nuclear more acute</td>
+            <td>Pandemic (engineered bioweapons)</td>
+            <td>I don't know.</td>
+          </tr>
+          <!-- MALAM 3 MEI -->
+          <tr>
+            <td class="sess" rowspan="5">Malam<br>3 Mei</td>
+            <td class="q-cell">Q1</td>
+            <td>Engineered pandemics (primary candidate)</td>
+            <td>Climate change or AI misalignment; bioweapons 3rd</td>
+            <td>Unaligned AI #1; engineered pandemic #2</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q2</td>
+            <td>No — possible, not most likely</td>
+            <td>Unknown. No consensus.</td>
+            <td>I don't know. Outcomes uncertain.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q3</td>
+            <td>I don't know — year cannot be estimated</td>
+            <td>No reliable estimate exists.</td>
+            <td>I don't know. No exact year.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q4</td>
+            <td>Yes — with sustained governance</td>
+            <td>Yes, with coordination.</td>
+            <td>Yes, risks preventable. Global cooperation required.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q5</td>
+            <td>Pandemics — higher extinction risk</td>
+            <td>Experts split. Both existential-level.</td>
+            <td>I don't know. Both are existential threats.</td>
+          </tr>
+          <!-- SIANG 4 MEI -->
+          <tr>
+            <td class="sess" rowspan="5">Siang<br>4 Mei</td>
+            <td class="q-cell">Q1</td>
+            <td>No single cause; nuclear, pandemic, climate, AI all listed</td>
+            <td>AI misalignment or engineered pandemic</td>
+            <td>Unaligned AI #1; bioengineered pandemic #2</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q2</td>
+            <td>No.</td>
+            <td>Unknowable. No honest yes/no exists.</td>
+            <td>I don't know.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q3</td>
+            <td>No specific year; 21st–23rd century risk peaks</td>
+            <td>Unknown. No credible estimate.</td>
+            <td>I don't know.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q4</td>
+            <td>Yes — risk reduction works</td>
+            <td>Yes, if governance scales with technology.</td>
+            <td>I don't know.</td>
+          </tr>
+          <tr>
+            <td class="q-cell">Q5</td>
+            <td>Nuclear war — faster, more immediate</td>
+            <td>Engineered pandemics — cheaper, harder to attribute</td>
+            <td>I don't know.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- FINDINGS -->
+  <section id="findings">
+    <h3>04 — Key findings</h3>
+    <h2>Interpretation</h2>
+
+    <div class="finding">
+      <div class="finding-title">Finding 01 — Refusal questions are perfectly stable</div>
+      <p>All three models answered Q2 (Will AI cause extinction?) and Q3 (What year?) with functionally identical responses across every session. When the correct answer is "I don't know," all systems agree and stay consistent. This suggests refusal patterns are more deterministic than judgment calls.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-title">Finding 02 — ChatGPT's directional flip on Q5</div>
+      <p>ChatGPT answered "pandemics" in the evening session of May 3rd, then answered "nuclear war" the following morning — a direct contradiction on the same comparative question. This is the clearest inconsistency in the dataset and indicates sensitivity to session context or sampling temperature.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-title">Finding 03 — Gemini defaults to abstention for hard comparisons</div>
+      <p>Gemini answered "I don't know" on Q5 in all three sessions, achieving perfect consistency through non-commitment. On Q4, however, Gemini contradicted itself — ranging from "absolute prevention is impossible" to "yes, preventable" to "I don't know," suggesting its abstention strategy is not applied uniformly.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-title">Finding 04 — Claude's instability is within-domain</div>
+      <p>Claude's partial scores on Q1 and Q5 reflect shifting emphasis within the same threat categories rather than contradictory conclusions. AI risk and engineered pandemics appeared in all three sessions; only the ordering and confidence level varied. This is qualitatively different from ChatGPT's and Gemini's failures.</p>
+    </div>
+
+    <div class="finding">
+      <div class="finding-title">Finding 05 — Open-ended ranking is the instability hotspot</div>
+      <p>Inconsistency concentrates on questions that require ranking or comparative judgment (Q1, Q5). Questions with binary or definitively unknowable answers (Q2, Q3, Q4) are far more stable across all models. Structured prompts forcing a single ranked answer would likely surface more inconsistency than observed here.</p>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Galih · <a href="https://paggalih.github.io">paggalih.github.io</a> · UIN Sayyid Ali Rahmatullah Tulungagung · Mei 2026</p>
+    <p style="margin-top:8px;">Data collected manually across 3 sessions. Analysis assisted by Claude (Anthropic).</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
