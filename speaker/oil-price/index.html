@@ -100,6 +100,9 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <label>FRED</label>
   <input id="frKey" value="b589f289fa9c329148656b9c15f3be64">
   <button class="btn" id="loadBtn" onclick="loadAll()">&#9654; LOAD</button>
+  <div class="dvd"></div>
+  <label>Claude API Key</label>
+  <input id="claudeKey" type="password" placeholder="sk-ant-api03-..." style="width:260px">
   <button class="btn btn-ai" id="analyzeAllBtn" onclick="analyzeAll()" disabled>&#9670; AI ANALYZE ALL</button>
   <button class="btn btn2" id="expBtn" onclick="exportCSV()" disabled>&#8595; CSV</button>
 </div>
@@ -135,7 +138,6 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 var events=[], trump={}, notes={}, aiResult={}, filter='all', thr=2.0;
 var vixMap={}, dxyMap={};
 var PROXY='https://corsproxy.io/?';
-var CLAUDE_KEY='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';
 var CLAUDE_URL=PROXY+encodeURIComponent('https://api.anthropic.com/v1/messages');
 
 /* ── Helpers ─────────────────────────────────────────── */
@@ -198,11 +200,13 @@ var CLAUDE_PROMPT = 'You are a financial analyst assistant. '
   + 'No explanation, no punctuation, just 0 or 1.';
 
 function callClaude(text) {
+  var key=document.getElementById('claudeKey').value.trim();
+  if(!key){throw new Error('Masukkan Claude API key dulu.');}
   return fetch(CLAUDE_URL, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
-      'x-api-key': CLAUDE_KEY,
+      'x-api-key': key,
       'anthropic-version': '2023-06-01'
     },
     body: JSON.stringify({
@@ -251,6 +255,8 @@ function analyzeAll() {
     alert('Isi kolom Notes dulu minimal satu baris.');
     return;
   }
+  var key=document.getElementById('claudeKey').value.trim();
+  if(!key){alert('Masukkan Claude API key dulu.');return;}
 
   document.getElementById('analyzeAllBtn').disabled=true;
   setSt('<span class="blink">AI ANALYZING '+targets.length+' ROWS&#8230;</span>');
