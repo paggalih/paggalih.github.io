@@ -135,6 +135,8 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 var events=[], trump={}, notes={}, aiResult={}, filter='all', thr=2.0;
 var vixMap={}, dxyMap={};
 var PROXY='https://corsproxy.io/?';
+var CLAUDE_KEY='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';
+var CLAUDE_URL=PROXY+encodeURIComponent('https://api.anthropic.com/v1/messages');
 
 /* ── Helpers ─────────────────────────────────────────── */
 function nearest(map, date) {
@@ -196,9 +198,13 @@ var CLAUDE_PROMPT = 'You are a financial analyst assistant. '
   + 'No explanation, no punctuation, just 0 or 1.';
 
 function callClaude(text) {
-  return fetch('https://api.anthropic.com/v1/messages', {
+  return fetch(CLAUDE_URL, {
     method: 'POST',
-    headers: { 'Content-Type': 'application/json' },
+    headers: {
+      'Content-Type': 'application/json',
+      'x-api-key': CLAUDE_KEY,
+      'anthropic-version': '2023-06-01'
+    },
     body: JSON.stringify({
       model: 'claude-sonnet-4-20250514',
       max_tokens: 10,
@@ -208,8 +214,9 @@ function callClaude(text) {
   })
   .then(function(r){ return r.json(); })
   .then(function(j){
-    var txt = (j.content && j.content[0] && j.content[0].text) ? j.content[0].text.trim() : '';
-    return txt === '1' ? 1 : 0;
+    if(j.error) throw new Error(j.error.message);
+    var txt=(j.content&&j.content[0]&&j.content[0].text)?j.content[0].text.trim():'';
+    return txt==='1'?1:0;
   });
 }
 
