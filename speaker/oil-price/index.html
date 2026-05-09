@@ -86,16 +86,17 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 .ai-info{background:#0d0d1a;border:1px solid #1e1e3a;padding:10px 16px;font-size:10px;color:#6060a0;letter-spacing:1px}
 .save-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--up);margin-left:6px;opacity:0;transition:opacity .3s}
 .save-dot.show{opacity:1}
+.weekly-tag{font-size:9px;color:#444;letter-spacing:1px;margin-left:4px}
 </style>
 </head>
 <body>
 
 <header>
   <div>
-    <div class="hl">Research Tool v6.0 — Google Sheets Edition</div>
+    <div class="hl">Research Tool v6.0 — Google Sheets + EIA Edition</div>
     <h1>WTI CRUDE &#8212; <span>TRUMP</span> EVENT TRACKER</h1>
   </div>
-  <div class="hm">DATA DARI GOOGLE SHEETS &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; AI TRUMP ANALYSIS &#8594; CSV</div>
+  <div class="hm">DATA DARI GOOGLE SHEETS &#183; EIA WEEKLY &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; AI TRUMP ANALYSIS &#8594; CSV</div>
 </header>
 
 <!-- ROW 1: Apps Script URL -->
@@ -103,17 +104,17 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <label>Apps Script URL</label>
   <input id="scriptUrl" placeholder="https://script.google.com/macros/s/xxx/exec" style="width:420px">
   <button class="btn" id="loadBtn" onclick="loadFromSheet()">&#9654; LOAD SHEET</button>
-  <span class="save-dot" id="saveDot" title="Tersimpan"></span>
+  <span class="save-dot" id="saveDot" title="Tersimpan ke Sheets"></span>
 </div>
 
-<!-- ROW 2: Refresh API (fetch ulang dari Alpha Vantage/FRED) -->
+<!-- ROW 2: Refresh dari EIA + FRED -->
 <div class="api-bar" style="border-top:1px solid var(--border)">
-  <label>Alpha Vantage</label>
-  <input id="avKey" placeholder="Hanya untuk REFRESH" style="width:190px">
+  <label>EIA API Key</label>
+  <input id="eiaKey" placeholder="Hanya untuk REFRESH" style="width:190px">
   <div class="dvd"></div>
-  <label>FRED</label>
+  <label>FRED API Key</label>
   <input id="frKey" placeholder="Hanya untuk REFRESH" style="width:190px">
-  <button class="btn btn-warn" id="refreshBtn" onclick="refreshFromAPI()">&#8635; REFRESH FROM API</button>
+  <button class="btn btn-warn" id="refreshBtn" onclick="refreshFromAPI()">&#8635; REFRESH FROM EIA</button>
   <div class="dvd"></div>
   <label>Claude API Key</label>
   <input id="claudeKey" type="password" placeholder="sk-ant-api03-..." style="width:240px">
@@ -122,12 +123,13 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 </div>
 
 <div class="ai-info">
-  &#9670; Buka pertama kali: masukkan Apps Script URL &#8594; LOAD SHEET. &nbsp;|&nbsp;
-  Refresh data baru: isi Alpha Vantage + FRED &#8594; REFRESH FROM API (update spreadsheet).
+  &#9670; Buka: masukkan Apps Script URL &#8594; LOAD SHEET. &nbsp;|&nbsp;
+  Data baru: isi EIA + FRED key &#8594; REFRESH FROM EIA (weekly, unlimited). &nbsp;|&nbsp;
+  Daftar EIA key gratis: <b>eia.gov/opendata</b>
 </div>
 
 <div class="sbar" id="sbar">
-  <span class="si"><span>STATUS</span>&nbsp;<span class="sv blink">SIAP&#8230;</span></span>
+  <span class="si"><span>STATUS</span>&nbsp;<span class="sv">SIAP &#8212; masukkan Apps Script URL</span></span>
 </div>
 
 <div class="fbar">
@@ -149,7 +151,7 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <div class="msg">
     <span class="mi">&#9672;</span>
     Masukkan <b style="color:#aaa">Apps Script URL</b> lalu klik <b style="color:var(--accent)">LOAD SHEET</b>.<br><br>
-    <span style="color:#333;font-size:10px">Data tersimpan di Google Sheets kamu</span>
+    <span style="color:#333;font-size:10px">Data WTI weekly dari EIA &#183; tersimpan di Google Sheets</span>
   </div>
 </div>
 
@@ -171,9 +173,10 @@ function renderSt(lastUpdated){
   var dn=ev.filter(function(e){return e.pct<0;}).length;
   var lk=Object.keys(trump).filter(function(k){return trump[k];}).length;
   var ai=Object.keys(aiResult).length;
-  var lu=lastUpdated?'UPDATE: '+lastUpdated.slice(0,10):'NO DATA';
+  var lu=lastUpdated?lastUpdated.slice(0,10):'&#8212;';
   document.getElementById('sbar').innerHTML=
     si('SHEETS',lu,'ssheet')+
+    si('FREQ','WEEKLY','')+
     si('EVENTS &#8805;'+thr+'%',ev.length,'')+
     si('&#9650;',up,'sup')+
     si('&#9660;',dn,'sdn')+
@@ -185,7 +188,7 @@ function si(l,v,c){
   return '<span class="si"><span>'+l+'</span>&nbsp;<span class="sv '+c+'">'+v+'</span></span>';
 }
 
-/* ── LOAD dari Google Sheets via Apps Script ─────────── */
+/* ── LOAD dari Google Sheets ─────────────────────────── */
 function loadFromSheet() {
   var url=document.getElementById('scriptUrl').value.trim();
   if(!url){alert('Masukkan Apps Script URL.');return;}
@@ -198,30 +201,31 @@ function loadFromSheet() {
   .then(function(r){return r.json();})
   .then(function(j){
     if(j.error) throw new Error(j.error);
-    if(!j.rows||!j.rows.length) throw new Error('Sheet kosong. Klik REFRESH FROM API untuk ambil data.');
+    if(!j.rows||!j.rows.length)
+      throw new Error('Sheet kosong. Isi EIA + FRED key lalu klik REFRESH FROM EIA.');
 
     events=[];
     trump={}; notes={}; aiResult={};
 
     j.rows.forEach(function(r){
       events.push({
-        date  : r.date,
+        date  : String(r.date),
         prev  : parseFloat(r.prev_usd)||0,
         price : parseFloat(r.close_usd)||0,
         pct   : parseFloat(r.pct_change)||0,
-        vix   : r.vix!==''?parseFloat(r.vix):null,
-        dxy   : r.dxy!==''?parseFloat(r.dxy):null,
+        vix   : r.vix!==''&&r.vix!==null?parseFloat(r.vix):null,
+        dxy   : r.dxy!==''&&r.dxy!==null?parseFloat(r.dxy):null,
       });
-      if(r.trump_statement!=='') trump[r.date]  = parseInt(r.trump_statement)||0;
-      if(r.ai_result!=='')       aiResult[r.date]= parseInt(r.ai_result)||0;
-      if(r.notes)                notes[r.date]   = r.notes;
+      if(r.trump_statement!=='') trump[String(r.date)]   = parseInt(r.trump_statement)||0;
+      if(r.ai_result!=='')       aiResult[String(r.date)]= parseInt(r.ai_result)||0;
+      if(r.notes)                notes[String(r.date)]   = r.notes;
     });
 
     renderSt(j.lastUpdated);
     renderTable();
     document.getElementById('expBtn').disabled=false;
     document.getElementById('analyzeAllBtn').disabled=false;
-    setSt('LOADED &#8212; '+events.length+' baris dari Sheets');
+    setSt('LOADED &#8212; '+events.length+' minggu dari Sheets');
   })
   .catch(function(e){
     setSt('ERROR: '+e.message);
@@ -233,24 +237,27 @@ function loadFromSheet() {
   });
 }
 
-/* ── REFRESH: fetch API → simpan ke Sheets ───────────── */
+/* ── REFRESH dari EIA → simpan ke Sheets ─────────────── */
 function refreshFromAPI() {
   var url=document.getElementById('scriptUrl').value.trim();
-  var av =document.getElementById('avKey').value.trim();
+  var eia=document.getElementById('eiaKey').value.trim();
   var fr =document.getElementById('frKey').value.trim();
   if(!url){alert('Masukkan Apps Script URL.');return;}
-  if(!av||!fr){alert('Masukkan Alpha Vantage dan FRED key untuk refresh.');return;}
+  if(!eia||!fr){alert('Masukkan EIA key dan FRED key.');return;}
 
   document.getElementById('refreshBtn').disabled=true;
-  setSt('<span class="blink">FETCHING API &#8594; SIMPAN KE SHEETS&#8230;</span>');
+  setSt('<span class="blink">FETCHING EIA + FRED &#8594; SIMPAN KE SHEETS&#8230;</span>');
 
-  fetch(url+'?action=fetchAPI&avKey='+encodeURIComponent(av)+'&frKey='+encodeURIComponent(fr))
+  var fetchUrl=url+'?action=fetchAPI'
+    +'&eiaKey='+encodeURIComponent(eia)
+    +'&frKey='+encodeURIComponent(fr);
+
+  fetch(fetchUrl)
   .then(function(r){return r.json();})
   .then(function(j){
     if(j.error) throw new Error(j.error);
-    setSt('API REFRESH SELESAI &#8212; '+j.count+' baris. Memuat ulang&#8230;');
-    // Reload dari sheet
-    setTimeout(function(){loadFromSheet();}, 800);
+    setSt('REFRESH SELESAI &#8212; '+j.count+' minggu tersimpan. Memuat&#8230;');
+    setTimeout(function(){loadFromSheet();},800);
   })
   .catch(function(e){
     setSt('REFRESH ERROR: '+e.message);
@@ -260,11 +267,10 @@ function refreshFromAPI() {
   });
 }
 
-/* ── Simpan anotasi ke Sheets (auto-save debounce) ───── */
+/* ── Auto-save anotasi ke Sheets ─────────────────────── */
 function saveToSheet() {
   var url=document.getElementById('scriptUrl').value.trim();
   if(!url) return;
-
   var data=events.map(function(e){
     return {
       date            : e.date,
@@ -273,7 +279,6 @@ function saveToSheet() {
       notes           : notes[e.date]||''
     };
   });
-
   fetch(url,{
     method:'POST',
     body:JSON.stringify({action:'saveAnnotations',data:data}),
@@ -402,8 +407,8 @@ function renderTable(){
     var ps=(up?'+':'')+e.pct.toFixed(2)+'%';
     var badge='<span class="badge '+(up?'bu':'bd')+'">'+(up?'&#9650;':'&#9660;')+' '+ps+'</span>';
     var vc=!e.vix?'na':e.vix>=30?'vhi':e.vix>=20?'vmd':'vlo';
-    var vs=e.vix?'<span class="'+vc+'">'+e.vix.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
-    var ds=e.dxy?'<span class="dxy-v">'+e.dxy.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
+    var vs=e.vix!==null?'<span class="'+vc+'">'+e.vix.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
+    var ds=e.dxy!==null?'<span class="dxy-v">'+e.dxy.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
     var chk=trump[e.date]?' checked':'';
     var nt=(notes[e.date]||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     var d=e.date;
@@ -411,7 +416,7 @@ function renderTable(){
       ?(aiResult[d]===1?'<span class="ai-badge ai-1">&#9670; OIL</span>':'<span class="ai-badge ai-0">&#9671; NO</span>')
       :'';
     return '<tr>'
-      +'<td class="tda">'+d+'</td>'
+      +'<td class="tda">'+d+'<span class="weekly-tag">W</span></td>'
       +'<td class="tdp">$'+e.prev.toFixed(2)+'</td>'
       +'<td class="tdp">$'+e.price.toFixed(2)+'</td>'
       +'<td>'+badge+'</td>'
@@ -425,7 +430,7 @@ function renderTable(){
 
   document.getElementById('tw').innerHTML=
     '<table><thead><tr>'
-    +'<th>Date</th><th>Prev $</th><th>Close $</th>'
+    +'<th>Week</th><th>Prev $</th><th>Close $</th>'
     +'<th>WTI %&#916;</th><th>VIX</th><th>DXY</th>'
     +'<th>Trump</th><th>Statement</th><th>AI</th>'
     +'</tr></thead><tbody>'+trs+'</tbody></table>'
@@ -433,7 +438,7 @@ function renderTable(){
     +'VIX: <span style="color:var(--down)">&#9632;&#8805;30</span> '
     +'<span style="color:var(--accent)">&#9632;20&#8211;30</span> '
     +'<span style="color:var(--vix)">&#9632;&lt;20</span>'
-    +' &#183; Anotasi auto-save ke Google Sheets'
+    +' &#183; W = minggu berakhir tanggal tersebut &#183; Anotasi auto-save ke Sheets'
     +'</div>';
 }
 
@@ -444,7 +449,7 @@ function setN(d,v){notes[d]=v;scheduleSave();}
 function exportCSV(){
   var rows=events.filter(function(e){return Math.abs(e.pct)>=thr;})
     .sort(function(a,b){return b.date<a.date?-1:1;});
-  var h='date,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,ai_result,notes';
+  var h='week_ending,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,ai_result,notes';
   var b=rows.map(function(e){
     return [
       e.date,e.prev.toFixed(2),e.price.toFixed(2),e.pct.toFixed(4),
@@ -458,7 +463,7 @@ function exportCSV(){
   var blob=new Blob([h+'\n'+b],{type:'text/csv'});
   var url=URL.createObjectURL(blob);
   var a=document.createElement('a');
-  a.href=url;a.download='wti_trump_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.href=url;a.download='wti_trump_weekly_'+new Date().toISOString().slice(0,10)+'.csv';
   a.click();URL.revokeObjectURL(url);
 }
 </script>
