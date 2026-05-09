@@ -104,6 +104,7 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <label>Apps Script URL</label>
   <input id="scriptUrl" placeholder="https://script.google.com/macros/s/xxx/exec" style="width:420px">
   <button class="btn" id="loadBtn" onclick="loadFromSheet()">&#9654; LOAD SHEET</button>
+  <button class="btn" id="syncBtn" onclick="syncNow()" style="border-color:#5bb8d4;color:#5bb8d4">&#8635; SYNC NOW</button>
   <span class="save-dot" id="saveDot" title="Tersimpan ke Sheets"></span>
 </div>
 
@@ -157,9 +158,9 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 
 <script>
 var events=[], trump={}, notes={}, aiResult={}, filter='all', thr=2.0;
-var PROXY='https://corsproxy.io/?';
-var CLAUDE_URL=PROXY+encodeURIComponent('https://api.anthropic.com/v1/messages');
-var saveTimer=null;
+var saveTimer=null, pollTimer=null;
+var lastEdited={};       // date → timestamp terakhir user edit di web
+var POLL_INTERVAL=30000; // 30 detik
 
 /* ── Status ──────────────────────────────────────────── */
 function setSt(msg){
@@ -225,7 +226,8 @@ function loadFromSheet() {
     renderTable();
     document.getElementById('expBtn').disabled=false;
     document.getElementById('analyzeAllBtn').disabled=false;
-    setSt('LOADED &#8212; '+events.length+' minggu dari Sheets');
+    setSt('LOADED &#8212; '+events.length+' minggu dari Sheets &#183; auto-sync setiap 30 detik');
+    startPolling();
   })
   .catch(function(e){
     setSt('ERROR: '+e.message);
@@ -265,6 +267,82 @@ function refreshFromAPI() {
   .finally(function(){
     document.getElementById('refreshBtn').disabled=false;
   });
+}
+
+function syncNow(){
+  var btn=document.getElementById('syncBtn');
+  btn.disabled=true;
+  btn.textContent='SYNCING...';
+  syncFromSheet();
+  setTimeout(function(){
+    btn.disabled=false;
+    btn.textContent='&#8635; SYNC NOW';
+  },3000);
+}
+
+/* ── Polling: sync Sheets → Web ──────────────────────── */
+function startPolling() {
+  stopPolling();
+  pollTimer=setInterval(syncFromSheet, POLL_INTERVAL);
+}
+
+function stopPolling() {
+  if(pollTimer) clearInterval(pollTimer);
+}
+
+function syncFromSheet() {
+  var url=document.getElementById('scriptUrl').value.trim();
+  if(!url||!events.length) return;
+
+  fetch(url+'?action=getAnnotations')
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(!j.annotations) return;
+    var changed=false;
+    var now=Date.now();
+
+    Object.keys(j.annotations).forEach(function(date){
+      var a=j.annotations[date];
+      var recentEdit=lastEdited[date]&&(now-lastEdited[date]<10000); // 10 detik grace
+      if(recentEdit) return; // skip: user baru saja edit di web
+
+      // Update trump
+      var newTrump=a.trump_statement!==''?parseInt(a.trump_statement)||0:undefined;
+      if(newTrump!==undefined && trump[date]!==newTrump){
+        trump[date]=newTrump; changed=true;
+      }
+
+      // Update aiResult
+      var newAi=a.ai_result!==''?parseInt(a.ai_result)||0:undefined;
+      if(newAi!==undefined && aiResult[date]!==newAi){
+        aiResult[date]=newAi; changed=true;
+      }
+
+      // Update notes (hanya kalau beda dan field tidak sedang fokus)
+      var noteEl=document.getElementById('note-'+date);
+      var isFocused=noteEl&&document.activeElement===noteEl;
+      if(!isFocused && a.notes!==undefined && notes[date]!==(a.notes||'')){
+        notes[date]=a.notes||''; changed=true;
+        if(noteEl) noteEl.value=notes[date];
+      }
+    });
+
+    if(changed){
+      renderSt(); renderTable();
+      flashSyncIndicator();
+    }
+  })
+  .catch(function(){});
+}
+
+function flashSyncIndicator(){
+  var dot=document.getElementById('saveDot');
+  dot.style.background='#5bb8d4';
+  dot.classList.add('show');
+  setTimeout(function(){
+    dot.style.background='var(--up)';
+    dot.classList.remove('show');
+  },1500);
 }
 
 /* ── Auto-save anotasi ke Sheets ─────────────────────── */
@@ -308,21 +386,18 @@ var CLAUDE_PROMPT='You are a financial analyst assistant. '
 
 function callClaude(text){
   var key=document.getElementById('claudeKey').value.trim();
+  var url=document.getElementById('scriptUrl').value.trim();
   if(!key) throw new Error('Masukkan Claude API key.');
-  return fetch(CLAUDE_URL,{
+  if(!url) throw new Error('Masukkan Apps Script URL.');
+  return fetch(url,{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
-    body:JSON.stringify({
-      model:'claude-sonnet-4-20250514',max_tokens:10,
-      system:CLAUDE_PROMPT,
-      messages:[{role:'user',content:text}]
-    })
+    headers:{'Content-Type':'application/json'},
+    body:JSON.stringify({action:'claudeAnalyze',text:text,claudeKey:key})
   })
   .then(function(r){return r.json();})
   .then(function(j){
-    if(j.error) throw new Error(j.error.message);
-    var txt=(j.content&&j.content[0])?j.content[0].text.trim():'';
-    return txt==='1'?1:0;
+    if(j.error) throw new Error(j.error);
+    return j.result===1?1:0;
   });
 }
 
@@ -334,6 +409,7 @@ function analyzeRow(date){
   callClaude(note)
   .then(function(r){
     aiResult[date]=r; trump[date]=r;
+    lastEdited[date]=Date.now();
     scheduleSave(); renderSt(); renderTable();
   })
   .catch(function(e){
@@ -442,8 +518,8 @@ function renderTable(){
     +'</div>';
 }
 
-function setTr(d,v){trump[d]=v?1:0;scheduleSave();renderSt();}
-function setN(d,v){notes[d]=v;scheduleSave();}
+function setTr(d,v){trump[d]=v?1:0;lastEdited[d]=Date.now();scheduleSave();renderSt();}
+function setN(d,v){notes[d]=v;lastEdited[d]=Date.now();scheduleSave();}
 
 /* ── Export CSV ──────────────────────────────────────── */
 function exportCSV(){
