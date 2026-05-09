@@ -3,700 +3,433 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WTI OIL — TRUMP EVENT TRACKER v2</title>
-<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
+<title>WTI Oil — Trump Event Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
-  :root {
-    --bg: #0a0a0a;
-    --surface: #111111;
-    --border: #1e1e1e;
-    --border-bright: #2a2a2a;
-    --text: #c8c8c8;
-    --muted: #555;
-    --accent: #e8a020;
-    --up: #2ecc71;
-    --down: #e74c3c;
-    --linked: #e8a020;
-    --mono: 'IBM Plex Mono', monospace;
-    --sans: 'IBM Plex Sans', sans-serif;
-  }
+:root {
+  --bg: #0a0a0a;
+  --surface: #111;
+  --border: #1e1e1e;
+  --border2: #2a2a2a;
+  --text: #c8c8c8;
+  --muted: #555;
+  --accent: #e8a020;
+  --up: #2ecc71;
+  --down: #e74c3c;
+  --vix: #9b88d0;
+  --dxy: #5bb8d4;
+  --mono: 'IBM Plex Mono', monospace;
+}
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
 
-  * { box-sizing: border-box; margin: 0; padding: 0; }
+header {
+  border-bottom: 1px solid var(--border2);
+  padding: 24px 32px;
+  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;
+}
+.h-label { font-size: 10px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
+h1 { font-size: 20px; font-weight: 700; color: #fff; }
+h1 span { color: var(--accent); }
+.h-meta { font-size: 11px; color: var(--muted); line-height: 1.8; }
 
-  body {
-    background: var(--bg);
-    color: var(--text);
-    font-family: var(--mono);
-    min-height: 100vh;
-    overflow-x: hidden;
-  }
+.api-bar {
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  padding: 14px 32px;
+  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
+}
+.api-bar label { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
+.api-bar input[type=text] {
+  background: var(--bg); border: 1px solid var(--border2);
+  color: var(--accent); font-family: var(--mono); font-size: 11px;
+  padding: 7px 12px; outline: none; width: 240px;
+}
+.api-bar input[type=text]:focus { border-color: var(--accent); }
+.divider { width: 1px; height: 28px; background: var(--border2); margin: 0 4px; }
 
-  /* SCANLINE OVERLAY */
-  body::before {
-    content: '';
-    position: fixed; inset: 0;
-    background: repeating-linear-gradient(
-      0deg,
-      transparent,
-      transparent 2px,
-      rgba(0,0,0,0.03) 2px,
-      rgba(0,0,0,0.03) 4px
-    );
-    pointer-events: none;
-    z-index: 9999;
-  }
+.btn {
+  background: transparent; border: 1px solid var(--accent);
+  color: var(--accent); font-family: var(--mono); font-size: 10px;
+  font-weight: 700; letter-spacing: 2px; padding: 7px 18px;
+  cursor: pointer; text-transform: uppercase; transition: all .15s;
+}
+.btn:hover { background: var(--accent); color: #000; }
+.btn:disabled { opacity: .3; cursor: not-allowed; }
+.btn-sec { border-color: #333; color: #666; }
+.btn-sec:hover { background: #1a1a1a; color: #aaa; border-color: #666; }
 
-  header {
-    border-bottom: 1px solid var(--border-bright);
-    padding: 28px 40px 24px;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-end;
-    gap: 20px;
-    flex-wrap: wrap;
-  }
+.status-bar {
+  padding: 8px 32px; font-size: 10px; color: var(--muted);
+  border-bottom: 1px solid var(--border);
+  display: flex; flex-wrap: wrap; gap: 24px; align-items: center; min-height: 34px;
+}
+.stat-item { display: flex; gap: 6px; align-items: center; }
+.stat-val { font-weight: 700; color: var(--text); }
+.s-up   { color: var(--up) !important; }
+.s-down { color: var(--down) !important; }
+.s-acc  { color: var(--accent) !important; }
+.s-vix  { color: var(--vix) !important; }
 
-  .header-title {
-    display: flex;
-    flex-direction: column;
-    gap: 4px;
-  }
+.filter-bar {
+  padding: 10px 32px; border-bottom: 1px solid var(--border);
+  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
+}
+.flabel { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
+.fbtn {
+  background: transparent; border: 1px solid var(--border2); color: var(--muted);
+  font-family: var(--mono); font-size: 10px; padding: 4px 10px;
+  cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all .15s;
+}
+.fbtn.active { border-color: var(--accent); color: var(--accent); }
+.fbtn:hover { border-color: #444; color: var(--text); }
 
-  .header-label {
-    font-size: 10px;
-    letter-spacing: 4px;
-    color: var(--muted);
-    text-transform: uppercase;
-  }
+.thr-wrap { display: flex; align-items: center; gap: 8px; margin-left: auto; }
+.thr-wrap label { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
+input[type=range] { width: 80px; accent-color: var(--accent); }
+.thr-val { font-size: 11px; color: var(--accent); font-weight: 700; width: 32px; }
 
-  h1 {
-    font-size: 22px;
-    font-weight: 700;
-    color: #fff;
-    letter-spacing: -0.5px;
-  }
+.table-wrap { overflow-x: auto; padding: 0 32px 60px; }
+table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 16px; }
+thead th {
+  text-align: left; padding: 8px 14px;
+  font-size: 10px; letter-spacing: 2px; color: var(--muted);
+  text-transform: uppercase; border-bottom: 1px solid var(--border2); white-space: nowrap;
+}
+tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
+tbody tr:hover { background: rgba(255,255,255,.02); }
+td { padding: 11px 14px; vertical-align: middle; white-space: nowrap; }
 
-  h1 span { color: var(--accent); }
+.td-date { color: #fff; font-weight: 700; }
+.td-price { color: var(--text); }
 
-  .header-meta {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 1px;
-  }
+.badge { display: inline-block; padding: 3px 9px; font-size: 11px; font-weight: 700; }
+.b-up   { color: var(--up);   border: 1px solid rgba(46,204,113,.3); background: rgba(46,204,113,.06); }
+.b-down { color: var(--down); border: 1px solid rgba(231,76,60,.3);  background: rgba(231,76,60,.06); }
 
-  /* API KEY INPUT */
-  .api-bar {
-    background: var(--surface);
-    border-bottom: 1px solid var(--border);
-    padding: 16px 40px;
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-  }
+.td-vix { font-weight: 600; }
+.vix-hi { color: var(--down); }
+.vix-md { color: var(--accent); }
+.vix-lo { color: var(--vix); }
+.td-dxy { color: var(--dxy); font-weight: 600; }
+.td-na  { color: #2a2a2a; }
 
-  .api-bar label {
-    font-size: 11px;
-    color: var(--muted);
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    white-space: nowrap;
-  }
+.trump-toggle {
+  appearance: none; -webkit-appearance: none;
+  width: 38px; height: 22px; background: #1a1a1a;
+  border: 1px solid #333; border-radius: 2px;
+  cursor: pointer; position: relative; transition: all .2s; display: inline-block;
+}
+.trump-toggle:checked { background: rgba(232,160,32,.12); border-color: var(--accent); }
+.trump-toggle::after {
+  content: '0'; position: absolute;
+  top: 50%; left: 50%; transform: translate(-50%,-50%);
+  font-family: var(--mono); font-size: 11px; font-weight: 700;
+  color: #333; pointer-events: none;
+}
+.trump-toggle:checked::after { content: '1'; color: var(--accent); }
 
-  .api-bar input {
-    background: var(--bg);
-    border: 1px solid var(--border-bright);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 12px;
-    padding: 8px 14px;
-    outline: none;
-    width: 280px;
-    letter-spacing: 1px;
-    transition: border-color 0.2s;
-  }
+.note-input {
+  background: transparent; border: none; border-bottom: 1px solid #1e1e1e;
+  color: #666; font-family: var(--mono); font-size: 11px;
+  padding: 2px 4px; width: 200px; outline: none; transition: all .2s;
+}
+.note-input:focus { border-bottom-color: var(--accent); color: var(--text); }
+.note-input::placeholder { color: #222; }
 
-  .api-bar input:focus { border-color: var(--accent); }
+.msg {
+  text-align: center; padding: 80px 40px;
+  color: var(--muted); font-size: 12px; letter-spacing: 1px; line-height: 2;
+}
+.msg-icon { font-size: 28px; display: block; margin-bottom: 16px; }
+.blink { animation: blink 1s step-end infinite; }
+@keyframes blink { 50% { opacity: 0; } }
 
-  .api-bar input::placeholder { color: #333; }
-
-  .btn {
-    background: transparent;
-    border: 1px solid var(--accent);
-    color: var(--accent);
-    font-family: var(--mono);
-    font-size: 11px;
-    font-weight: 600;
-    letter-spacing: 2px;
-    padding: 8px 20px;
-    cursor: pointer;
-    text-transform: uppercase;
-    transition: all 0.15s;
-  }
-
-  .btn:hover { background: var(--accent); color: #000; }
-  .btn:disabled { opacity: 0.3; cursor: not-allowed; }
-
-  .btn-export {
-    border-color: #444;
-    color: #888;
-    margin-left: auto;
-  }
-
-  .btn-export:hover { background: #222; color: #aaa; border-color: #888; }
-
-  /* STATUS BAR */
-  .status-bar {
-    padding: 10px 40px;
-    font-size: 11px;
-    color: var(--muted);
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 32px;
-    flex-wrap: wrap;
-    min-height: 38px;
-    align-items: center;
-  }
-
-  .stat { display: flex; gap: 8px; align-items: center; }
-  .stat-val { color: var(--text); font-weight: 600; }
-  .stat-val.up { color: var(--up); }
-  .stat-val.down { color: var(--down); }
-  .stat-val.linked { color: var(--linked); }
-
-  /* FILTERS */
-  .filter-bar {
-    padding: 12px 40px;
-    border-bottom: 1px solid var(--border);
-    display: flex;
-    gap: 20px;
-    align-items: center;
-    flex-wrap: wrap;
-  }
-
-  .filter-label { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
-
-  .filter-btn {
-    background: transparent;
-    border: 1px solid var(--border-bright);
-    color: var(--muted);
-    font-family: var(--mono);
-    font-size: 10px;
-    padding: 4px 12px;
-    cursor: pointer;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: all 0.15s;
-  }
-
-  .filter-btn.active { border-color: var(--accent); color: var(--accent); }
-  .filter-btn:hover { border-color: #555; color: var(--text); }
-
-  /* TABLE */
-  .table-wrap {
-    overflow-x: auto;
-    padding: 0 40px 60px;
-  }
-
-  table {
-    width: 100%;
-    border-collapse: collapse;
-    font-size: 12px;
-    margin-top: 20px;
-  }
-
-  thead th {
-    text-align: left;
-    padding: 10px 16px;
-    font-size: 10px;
-    letter-spacing: 2px;
-    color: var(--muted);
-    text-transform: uppercase;
-    border-bottom: 1px solid var(--border-bright);
-    white-space: nowrap;
-  }
-
-  tbody tr {
-    border-bottom: 1px solid var(--border);
-    transition: background 0.1s;
-    animation: rowIn 0.3s ease both;
-  }
-
-  tbody tr:hover { background: rgba(255,255,255,0.02); }
-
-  @keyframes rowIn {
-    from { opacity: 0; transform: translateX(-8px); }
-    to   { opacity: 1; transform: translateX(0); }
-  }
-
-  td {
-    padding: 12px 16px;
-    vertical-align: middle;
-    white-space: nowrap;
-  }
-
-  .td-date { color: #fff; font-weight: 600; }
-  .td-time { color: var(--muted); margin-left: 6px; font-weight: 300; }
-
-  .td-price { color: var(--text); }
-
-  .badge {
-    display: inline-block;
-    padding: 3px 10px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1px;
-  }
-
-  .badge-up { color: var(--up); border: 1px solid rgba(46,204,113,0.3); background: rgba(46,204,113,0.06); }
-  .badge-down { color: var(--down); border: 1px solid rgba(231,76,60,0.3); background: rgba(231,76,60,0.06); }
-
-  /* TRUMP CHECKBOX */
-  .trump-cell { text-align: center; }
-
-  .trump-toggle {
-    appearance: none;
-    width: 36px;
-    height: 20px;
-    background: #1a1a1a;
-    border: 1px solid #333;
-    border-radius: 2px;
-    cursor: pointer;
-    position: relative;
-    transition: all 0.2s;
-  }
-
-  .trump-toggle:checked {
-    background: rgba(232,160,32,0.15);
-    border-color: var(--accent);
-  }
-
-  .trump-toggle::after {
-    content: attr(data-label);
-    position: absolute;
-    top: 50%; left: 50%;
-    transform: translate(-50%, -50%);
-    font-family: var(--mono);
-    font-size: 10px;
-    font-weight: 700;
-    pointer-events: none;
-  }
-
-  .trump-toggle:not(:checked)::after { content: '0'; color: #444; }
-  .trump-toggle:checked::after { content: '1'; color: var(--accent); }
-
-  /* NOTES INPUT */
-  .notes-input {
-    background: transparent;
-    border: none;
-    border-bottom: 1px solid #222;
-    color: #666;
-    font-family: var(--mono);
-    font-size: 11px;
-    padding: 2px 4px;
-    width: 220px;
-    outline: none;
-    transition: all 0.2s;
-  }
-
-  .notes-input:focus {
-    border-bottom-color: var(--accent);
-    color: var(--text);
-  }
-
-  .notes-input::placeholder { color: #2a2a2a; }
-
-  /* EMPTY / LOADING / ERROR */
-  .center-msg {
-    text-align: center;
-    padding: 80px 40px;
-    color: var(--muted);
-    font-size: 13px;
-    letter-spacing: 1px;
-  }
-
-  .center-msg .icon { font-size: 32px; margin-bottom: 16px; display: block; }
-
-  .blink { animation: blink 1s step-end infinite; }
-  @keyframes blink { 50% { opacity: 0; } }
-
-  .api-link {
-    color: var(--accent);
-    text-decoration: none;
-    border-bottom: 1px solid rgba(232,160,32,0.3);
-    font-size: 11px;
-  }
-
-  .api-link:hover { border-bottom-color: var(--accent); }
-
-  .threshold-wrap {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    margin-left: auto;
-  }
-
-  .threshold-wrap label { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
-
-  .threshold-wrap input[type=range] {
-    width: 80px;
-    accent-color: var(--accent);
-  }
-
-  .threshold-val { font-size: 12px; color: var(--accent); font-weight: 600; width: 32px; }
-
-  .td-vix  { color: #9b88d0; font-weight: 600; }
-  .td-dxy  { color: #5bb8d4; font-weight: 600; }
-  .td-na   { color: #2a2a2a; }
-
-  .vix-high { color: #e74c3c !important; }
-  .vix-mid  { color: #e8a020 !important; }
-  .vix-low  { color: #9b88d0 !important; }
-
-  .api-row {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    flex-wrap: wrap;
-    width: 100%;
-    padding-top: 10px;
-    border-top: 1px solid var(--border);
-    margin-top: 2px;
-  }
-
+.legend { padding: 12px 0 0; font-size: 10px; color: #2a2a2a; letter-spacing: 1px; }
 </style>
 </head>
 <body>
 
 <header>
-  <div class="header-title">
-    <div class="header-label">Research Tool v2.0</div>
-    <h1>WTI CRUDE OIL — <span>TRUMP EVENT</span> TRACKER</h1>
+  <div>
+    <div class="h-label">Research Tool v3.0</div>
+    <h1>WTI CRUDE — <span>TRUMP</span> EVENT TRACKER</h1>
   </div>
-  <div class="header-meta">
-    DAILY PRICE MOVES ≥ THRESHOLD% &nbsp;|&nbsp; 2025 – PRESENT<br>
-    WTI + VIX + DXY &nbsp;|&nbsp; MARK TRUMP STATEMENTS → EXPORT CSV
+  <div class="h-meta">
+    DAILY MOVES ≥ THRESHOLD% &nbsp;·&nbsp; 2025–PRESENT<br>
+    WTI · VIX · DXY &nbsp;·&nbsp; MANUAL TRUMP CODING → CSV
   </div>
 </header>
 
 <div class="api-bar">
-  <label>Alpha Vantage Key</label>
-  <input type="text" id="apiKey" value="5FR6ZCR1R2Q6LBZE" autocomplete="off" style="width:220px">
-
-  <div class="api-row">
-    <label>FRED API Key</label>
-    <input type="text" id="fredKey" value="b589f289fa9c329148656b9c15f3be64" autocomplete="off" style="width:220px">
-    <button class="btn" id="fetchBtn" onclick="fetchData()">▶ RELOAD DATA</button>
-    <button class="btn btn-export" id="exportBtn" onclick="exportCSV()" disabled>⬇ EXPORT CSV</button>
-  </div>
+  <label>Alpha Vantage</label>
+  <input type="text" id="avKey" value="5FR6ZCR1R2Q6LBZE">
+  <div class="divider"></div>
+  <label>FRED</label>
+  <input type="text" id="frKey" value="b589f289fa9c329148656b9c15f3be64">
+  <button class="btn" id="loadBtn" onclick="loadAll()">&#9654; LOAD</button>
+  <button class="btn btn-sec" id="expBtn" onclick="exportCSV()" disabled>&#8595; CSV</button>
 </div>
 
 <div class="status-bar" id="statusBar">
-  <span class="stat"><span class="header-label">STATUS</span>&nbsp; <span class="stat-val" id="statusText">AWAITING API KEYS — Alpha Vantage (WTI) + FRED (VIX, DXY)</span></span>
+  <span class="stat-item"><span>STATUS</span>&nbsp;<span class="stat-val blink">LOADING…</span></span>
 </div>
 
 <div class="filter-bar">
-  <span class="filter-label">Filter</span>
-  <button class="filter-btn active" id="f-all" onclick="setFilter('all')">ALL</button>
-  <button class="filter-btn" id="f-up" onclick="setFilter('up')">▲ UP ONLY</button>
-  <button class="filter-btn" id="f-down" onclick="setFilter('down')">▼ DOWN ONLY</button>
-  <button class="filter-btn" id="f-linked" onclick="setFilter('linked')">● TRUMP LINKED</button>
-
-  <div class="threshold-wrap">
+  <span class="flabel">Filter</span>
+  <button class="fbtn active" id="f-all"   onclick="setFilter('all')">ALL</button>
+  <button class="fbtn"        id="f-up"    onclick="setFilter('up')">&#9650; UP</button>
+  <button class="fbtn"        id="f-down"  onclick="setFilter('down')">&#9660; DOWN</button>
+  <button class="fbtn"        id="f-trump" onclick="setFilter('trump')">&#9679; TRUMP</button>
+  <div class="thr-wrap">
     <label>THRESHOLD</label>
-    <input type="range" id="thresholdRange" min="1" max="5" step="0.5" value="2" oninput="updateThreshold(this.value)">
-    <span class="threshold-val" id="thresholdVal">2.0%</span>
-    <button class="btn" style="padding:4px 12px;font-size:10px" onclick="applyThreshold()">APPLY</button>
+    <input type="range" id="thrRange" min="1" max="5" step="0.5" value="2"
+      oninput="document.getElementById('thrVal').textContent=parseFloat(this.value).toFixed(1)+'%'">
+    <span class="thr-val" id="thrVal">2.0%</span>
+    <button class="btn" style="padding:4px 10px;font-size:10px" onclick="applyThr()">APPLY</button>
   </div>
 </div>
 
 <div class="table-wrap" id="tableWrap">
-  <div class="center-msg">
-    <span class="icon">◈</span>
-    Enter <b style="color:#aaa">Alpha Vantage</b> key (WTI) + <b style="color:#aaa">FRED</b> key (VIX &amp; DXY), then click LOAD ALL DATA.<br><br>
-    <span style="color:#333;font-size:10px">Both keys are free — no credit card required</span>
-  </div>
+  <div class="msg"><span class="msg-icon blink">&#9672;</span>Fetching data…</div>
 </div>
 
 <script>
-let allEvents = [];
-let currentFilter = 'all';
-let threshold = 2.0;
-let userNotes = {};
-let userTrump = {};
-let vixMap = {};   // date → VIX value
-let dxyMap = {};   // date → DXY value
+var events = [];
+var trump  = {};
+var notes  = {};
+var filter = 'all';
+var thr    = 2.0;
 
-function updateThreshold(val) {
-  document.getElementById('thresholdVal').textContent = parseFloat(val).toFixed(1) + '%';
+function nearest(map, date) {
+  var keys = Object.keys(map).sort();
+  var val  = null;
+  for (var i = 0; i < keys.length; i++) {
+    if (keys[i] <= date) val = map[keys[i]];
+    else break;
+  }
+  return val;
 }
 
-function applyThreshold() {
-  threshold = parseFloat(document.getElementById('thresholdRange').value);
-  renderTable();
+function fetchFRED(series, key) {
+  var url = 'https://api.stlouisfed.org/fred/series/observations'
+    + '?series_id=' + series
+    + '&observation_start=2025-01-01'
+    + '&api_key=' + key
+    + '&file_type=json&sort_order=asc';
+  return fetch(url).then(function(r) { return r.json(); }).then(function(j) {
+    if (j.error_message) throw new Error('FRED ' + series + ': ' + j.error_message);
+    var map = {};
+    (j.observations || []).forEach(function(o) {
+      if (o.value && o.value !== '.' && o.value !== 'null') map[o.date] = parseFloat(o.value);
+    });
+    return map;
+  });
+}
+
+function loadAll() {
+  var avKey = document.getElementById('avKey').value.trim();
+  var frKey = document.getElementById('frKey').value.trim();
+  if (!avKey || !frKey) { alert('Kedua API key diperlukan.'); return; }
+
+  document.getElementById('loadBtn').disabled = true;
+  document.getElementById('expBtn').disabled  = true;
+  document.getElementById('tableWrap').innerHTML = '<div class="msg"><span class="msg-icon blink">&#9672;</span>Fetching WTI · VIX · DXY…</div>';
+  setStatus('<span class="blink">FETCHING…</span>');
+
+  var wtiUrl = 'https://www.alphavantage.co/query?function=WTI&interval=daily&apikey=' + avKey;
+
+  Promise.all([
+    fetch(wtiUrl).then(function(r) { return r.json(); }),
+    fetchFRED('VIXCLS',   frKey),
+    fetchFRED('DTWEXBGS', frKey),
+  ]).then(function(results) {
+    var wtiJson = results[0];
+    var vixMap  = results[1];
+    var dxyMap  = results[2];
+
+    if (wtiJson['Information']) throw new Error('Alpha Vantage rate limit. Tunggu 1 menit lalu reload.');
+    if (!wtiJson['data'])       throw new Error('WTI: data kosong. Cek Alpha Vantage key.');
+
+    var raw = (wtiJson['data'] || [])
+      .filter(function(d) { return d.date >= '2025-01-01' && d.value && d.value !== '.' && d.value !== 'null'; })
+      .sort(function(a, b) { return a.date < b.date ? -1 : 1; });
+
+    events = [];
+    for (var i = 1; i < raw.length; i++) {
+      var prev = parseFloat(raw[i-1].value);
+      var curr = parseFloat(raw[i].value);
+      if (!prev || !curr) continue;
+      events.push({
+        date  : raw[i].date,
+        prev  : prev,
+        price : curr,
+        pct   : (curr - prev) / prev * 100,
+        vix   : nearest(vixMap, raw[i].date),
+        dxy   : nearest(dxyMap, raw[i].date),
+      });
+    }
+
+    renderStatus();
+    renderTable();
+    document.getElementById('expBtn').disabled = false;
+
+  }).catch(function(e) {
+    setStatus('ERROR: ' + e.message);
+    document.getElementById('tableWrap').innerHTML =
+      '<div class="msg"><span class="msg-icon">&#10005;</span>' + e.message + '</div>';
+  }).finally(function() {
+    document.getElementById('loadBtn').disabled = false;
+  });
+}
+
+function setStatus(msg) {
+  document.getElementById('statusBar').innerHTML =
+    '<span class="stat-item"><span>STATUS</span>&nbsp;<span class="stat-val">' + msg + '</span></span>';
+}
+
+function renderStatus() {
+  var ev     = events.filter(function(e) { return Math.abs(e.pct) >= thr; });
+  var up     = ev.filter(function(e)  { return e.pct > 0; }).length;
+  var down   = ev.filter(function(e)  { return e.pct < 0; }).length;
+  var linked = Object.keys(trump).filter(function(k) { return trump[k]; }).length;
+  var vixArr = ev.filter(function(e)  { return e.vix; });
+  var vixAvg = vixArr.length ? (vixArr.reduce(function(s,e) { return s+e.vix; }, 0) / vixArr.length).toFixed(1) : '—';
+
+  document.getElementById('statusBar').innerHTML =
+    si('EVENTS ≥' + thr + '%', ev.length, '') +
+    si('UP',   '&#9650; ' + up,   's-up') +
+    si('DOWN',  '&#9660; ' + down, 's-down') +
+    si('TRUMP', '&#9679; ' + linked, 's-acc') +
+    si('AVG VIX', vixAvg, 's-vix');
+}
+
+function si(label, val, cls) {
+  return '<span class="stat-item"><span>' + label + '</span>&nbsp;'
+    + '<span class="stat-val ' + cls + '">' + val + '</span></span>';
 }
 
 function setFilter(f) {
-  currentFilter = f;
-  ['all','up','down','linked'].forEach(id => {
+  filter = f;
+  ['all','up','down','trump'].forEach(function(id) {
     document.getElementById('f-' + id).classList.toggle('active', id === f);
   });
   renderTable();
 }
 
-// ── Nearest previous date lookup ──────────────────────────────────────────────
-function getNearestValue(map, targetDate) {
-  const dates = Object.keys(map).sort();
-  let result = null;
-  for (const d of dates) {
-    if (d <= targetDate) result = map[d];
-    else break;
-  }
-  return result;
-}
-
-// ── FRED fetch helper ──────────────────────────────────────────────────────────
-async function fetchFREDSeries(seriesId, fredKey) {
-  const url = `https://api.stlouisfed.org/fred/series/observations`
-    + `?series_id=${seriesId}&observation_start=2025-01-01`
-    + `&api_key=${fredKey}&file_type=json&sort_order=asc`;
-  const resp = await fetch(url);
-  if (!resp.ok) throw new Error(`FRED (${seriesId}): HTTP ${resp.status}`);
-  const json = await resp.json();
-  if (json.error_message) throw new Error(`FRED (${seriesId}): ${json.error_message}`);
-  if (!json.observations || json.observations.length === 0) {
-    console.warn(`FRED ${seriesId}: 0 observations returned`);
-    return {};
-  }
-  const map = {};
-  for (const obs of json.observations) {
-    if (obs.value !== '.' && obs.value !== 'null' && obs.value) {
-      map[obs.date] = parseFloat(obs.value);
-    }
-  }
-  console.log(`FRED ${seriesId}: ${Object.keys(map).length} rows loaded`);
-  return map;
-}
-
-// Nearest-date lookup (within ±5 calendar days)
-function nearestValue(map, dateStr) {
-  if (map[dateStr] !== undefined) return map[dateStr];
-  const target = new Date(dateStr).getTime();
-  let best = null, bestDiff = Infinity;
-  for (const [d, v] of Object.entries(map)) {
-    const diff = Math.abs(new Date(d).getTime() - target);
-    if (diff < bestDiff && diff <= 5 * 86400000) {
-      bestDiff = diff; best = v;
-    }
-  }
-  return best; // null if nothing within 5 days
-}
-
-// ── MAIN FETCH ─────────────────────────────────────────────────────────────────
-async function fetchData() {
-  const avKey   = document.getElementById('apiKey').value.trim();
-  const fredKey = document.getElementById('fredKey').value.trim();
-  if (!avKey)   { alert('Masukkan Alpha Vantage API key.'); return; }
-  if (!fredKey) { alert('Masukkan FRED API key.'); return; }
-
-  document.getElementById('fetchBtn').disabled = true;
-  document.getElementById('tableWrap').innerHTML =
-    `<div class="center-msg"><span class="icon blink">◈</span>Fetching WTI, VIX, DXY...</div>`;
-
-  try {
-    // Fetch all 3 in parallel
-    setStatus('FETCHING WTI + VIX + DXY<span class="blink">_</span>');
-
-    const [wtiResp, vixResult, dxyResult] = await Promise.all([
-      fetch(`https://www.alphavantage.co/query?function=WTI&interval=daily&apikey=${avKey}`).then(r => r.json()),
-      fetchFREDSeries('VIXCLS', fredKey),          // VIX daily
-      fetchFREDSeries('DTWEXBGS', fredKey),         // DXY broad weekly → nearest lookup
-    ]);
-
-    if (wtiResp['Information']) throw new Error('Alpha Vantage limit reached.');
-    if (!wtiResp['data'])       throw new Error('WTI: No data. Check Alpha Vantage key.');
-
-    vixMap = vixResult;
-    dxyMap = dxyResult;
-
-    // Process WTI
-    const raw = wtiResp['data']
-      .filter(d => d.date >= '2025-01-01' && d.value !== '.' && d.value !== 'null')
-      .sort((a, b) => a.date.localeCompare(b.date));
-
-    allEvents = [];
-    for (let i = 1; i < raw.length; i++) {
-      const prev = parseFloat(raw[i-1].value);
-      const curr = parseFloat(raw[i].value);
-      if (!prev || !curr) continue;
-      const pct = ((curr - prev) / prev) * 100;
-      allEvents.push({
-        date: raw[i].date,
-        price: curr,
-        prev_price: prev,
-        pct_change: pct,
-        vix: getNearestValue(vixMap, raw[i].date),
-        dxy: getNearestValue(dxyMap, raw[i].date),
-      });
-    }
-
-    setStatusFull();
-    renderTable();
-    document.getElementById('exportBtn').disabled = false;
-
-  } catch(e) {
-    setStatus('ERROR: ' + e.message);
-    document.getElementById('tableWrap').innerHTML =
-      `<div class="center-msg"><span class="icon">✕</span>${e.message}</div>`;
-  }
-
-  document.getElementById('fetchBtn').disabled = false;
-}
-
-function setStatus(msg) {
-  document.getElementById('statusBar').innerHTML =
-    `<span class="stat"><span class="header-label">STATUS</span>&nbsp;<span class="stat-val">${msg}</span></span>`;
-}
-
-function setStatusFull() {
-  const events = allEvents.filter(e => Math.abs(e.pct_change) >= threshold);
-  const up     = events.filter(e => e.pct_change >= threshold).length;
-  const down   = events.filter(e => e.pct_change <= -threshold).length;
-  const linked = Object.values(userTrump).filter(v => v).length;
-  const avgVix = (events.filter(e => e.vix).reduce((s,e) => s + e.vix, 0) / events.filter(e=>e.vix).length || 0).toFixed(1);
-
-  document.getElementById('statusBar').innerHTML = `
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">DATA</span>&nbsp;<span class="stat-val">WTI · VIX · DXY — 2025–PRESENT</span></span>
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">EVENTS ≥${threshold}%</span>&nbsp;<span class="stat-val">${events.length}</span></span>
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">UP</span>&nbsp;<span class="stat-val up">▲ ${up}</span></span>
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">DOWN</span>&nbsp;<span class="stat-val down">▼ ${down}</span></span>
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">TRUMP</span>&nbsp;<span class="stat-val linked">● ${linked}</span></span>
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">AVG VIX</span>&nbsp;<span class="stat-val" style="color:#9b88d0">${avgVix}</span></span>
-  `;
-}
-
-function vixClass(v) {
-  if (!v) return 'td-na';
-  if (v >= 30) return 'td-vix vix-high';
-  if (v >= 20) return 'td-vix vix-mid';
-  return 'td-vix vix-low';
+function applyThr() {
+  thr = parseFloat(document.getElementById('thrRange').value);
+  renderStatus();
+  renderTable();
 }
 
 function renderTable() {
-  const events = allEvents.filter(e => {
-    if (Math.abs(e.pct_change) < threshold) return false;
-    if (currentFilter === 'up'     && e.pct_change < 0)    return false;
-    if (currentFilter === 'down'   && e.pct_change > 0)    return false;
-    if (currentFilter === 'linked' && !userTrump[e.date])  return false;
+  var rows = events.filter(function(e) {
+    if (Math.abs(e.pct) < thr)              return false;
+    if (filter === 'up'    && e.pct < 0)    return false;
+    if (filter === 'down'  && e.pct > 0)    return false;
+    if (filter === 'trump' && !trump[e.date]) return false;
     return true;
-  }).sort((a,b) => b.date.localeCompare(a.date));
+  }).sort(function(a, b) { return b.date < a.date ? -1 : 1; });
 
-  if (events.length === 0) {
+  if (!rows.length) {
     document.getElementById('tableWrap').innerHTML =
-      `<div class="center-msg"><span class="icon">◎</span>No events for current filter/threshold.</div>`;
+      '<div class="msg"><span class="msg-icon">&#9711;</span>Tidak ada event untuk filter ini.</div>';
     return;
   }
 
-  const rows = events.map((e, i) => {
-    const isUp   = e.pct_change > 0;
-    const pctStr = (isUp ? '+' : '') + e.pct_change.toFixed(2) + '%';
-    const badge  = isUp
-      ? `<span class="badge badge-up">▲ ${pctStr}</span>`
-      : `<span class="badge badge-down">▼ ${pctStr}</span>`;
+  var trs = rows.map(function(e) {
+    var up    = e.pct > 0;
+    var pctS  = (up ? '+' : '') + e.pct.toFixed(2) + '%';
+    var badge = '<span class="badge ' + (up ? 'b-up' : 'b-down') + '">'
+      + (up ? '&#9650;' : '&#9660;') + ' ' + pctS + '</span>';
 
-    const vixCell = e.vix !== null
-      ? `<span class="${vixClass(e.vix)}">${e.vix.toFixed(2)}</span>`
-      : `<span class="td-na">—</span>`;
+    var vixCls = !e.vix ? 'td-na'
+      : e.vix >= 30 ? 'td-vix vix-hi'
+      : e.vix >= 20 ? 'td-vix vix-md'
+      : 'td-vix vix-lo';
+    var vixS = e.vix
+      ? '<span class="' + vixCls + '">' + e.vix.toFixed(2) + '</span>'
+      : '<span class="td-na">—</span>';
+    var dxyS = e.dxy
+      ? '<span class="td-dxy">' + e.dxy.toFixed(2) + '</span>'
+      : '<span class="td-na">—</span>';
 
-    const dxyCell = e.dxy !== null
-      ? `<span class="td-dxy">${e.dxy.toFixed(2)}</span>`
-      : `<span class="td-na">—</span>`;
+    var chk  = trump[e.date] ? ' checked' : '';
+    var note = (notes[e.date] || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
+    var d    = e.date;
 
-    const trumpChecked = userTrump[e.date] ? 'checked' : '';
-
-    return `
-      <tr style="animation-delay:${i * 0.025}s">
-        <td class="td-date">${e.date}</td>
-        <td class="td-price">$${e.prev_price.toFixed(2)}</td>
-        <td class="td-price">$${e.price.toFixed(2)}</td>
-        <td>${badge}</td>
-        <td>${vixCell}</td>
-        <td>${dxyCell}</td>
-        <td class="trump-cell">
-          <input type="checkbox" class="trump-toggle" ${trumpChecked}
-            onchange="setTrump('${e.date}', this.checked)">
-        </td>
-        <td>
-          <input type="text" class="notes-input"
-            placeholder="Trump statement summary..."
-            value="${(userNotes[e.date] || '').replace(/"/g, '&quot;')}"
-            oninput="setNote('${e.date}', this.value)">
-        </td>
-      </tr>`;
+    return '<tr>'
+      + '<td class="td-date">' + d + '</td>'
+      + '<td class="td-price">$' + e.prev.toFixed(2) + '</td>'
+      + '<td class="td-price">$' + e.price.toFixed(2) + '</td>'
+      + '<td>' + badge + '</td>'
+      + '<td>' + vixS + '</td>'
+      + '<td>' + dxyS + '</td>'
+      + '<td style="text-align:center">'
+        + '<input type="checkbox" class="trump-toggle"' + chk
+        + ' onchange="setTrump(\'' + d + '\',this.checked)">'
+      + '</td>'
+      + '<td><input type="text" class="note-input" placeholder="Trump statement…" value="' + note + '"'
+        + ' oninput="setNote(\'' + d + '\',this.value)"></td>'
+      + '</tr>';
   }).join('');
 
-  document.getElementById('tableWrap').innerHTML = `
-    <table>
-      <thead>
-        <tr>
-          <th>Date</th>
-          <th>Prev Close</th>
-          <th>Close</th>
-          <th>WTI %Δ</th>
-          <th>VIX</th>
-          <th>DXY</th>
-          <th>Trump (0/1)</th>
-          <th>Notes / Statement</th>
-        </tr>
-      </thead>
-      <tbody>${rows}</tbody>
-    </table>
-    <div style="padding:16px 0 0;font-size:10px;color:#333;letter-spacing:1px">
-      VIX COLOR: <span style="color:#e74c3c">■ ≥30 (fear)</span> &nbsp;
-      <span style="color:#e8a020">■ 20–30 (caution)</span> &nbsp;
-      <span style="color:#9b88d0">■ &lt;20 (calm)</span> &nbsp;&nbsp;
-      DXY = Trade Weighted USD Index (FRED: DTWEXBGS)
-    </div>`;
+  document.getElementById('tableWrap').innerHTML =
+    '<table>'
+    + '<thead><tr>'
+    + '<th>Date</th><th>Prev $</th><th>Close $</th>'
+    + '<th>WTI %&#916;</th><th>VIX</th><th>DXY</th>'
+    + '<th>Trump 0/1</th><th>Notes</th>'
+    + '</tr></thead>'
+    + '<tbody>' + trs + '</tbody>'
+    + '</table>'
+    + '<div class="legend">'
+    + 'VIX: <span style="color:var(--down)">&#9632; &#8805;30 fear</span> &nbsp;'
+    + '<span style="color:var(--accent)">&#9632; 20&#8211;30 caution</span> &nbsp;'
+    + '<span style="color:var(--vix)">&#9632; &lt;20 calm</span>'
+    + ' &nbsp;&nbsp;&middot; DXY = FRED:DTWEXBGS (weekly, forward-filled)'
+    + '</div>';
 }
 
 function setTrump(date, val) {
-  userTrump[date] = val ? 1 : 0;
-  setStatusFull();
+  trump[date] = val ? 1 : 0;
+  renderStatus();
 }
 
 function setNote(date, val) {
-  userNotes[date] = val;
+  notes[date] = val;
 }
 
 function exportCSV() {
-  const events = allEvents
-    .filter(e => Math.abs(e.pct_change) >= threshold)
-    .sort((a,b) => b.date.localeCompare(a.date));
+  var rows = events
+    .filter(function(e) { return Math.abs(e.pct) >= thr; })
+    .sort(function(a, b) { return b.date < a.date ? -1 : 1; });
 
-  const header = ['date','price_prev_usd','price_close_usd','pct_change','vix','dxy','trump_statement','notes'];
-  const rows = events.map(e => [
-    e.date,
-    e.prev_price.toFixed(2),
-    e.price.toFixed(2),
-    e.pct_change.toFixed(4),
-    e.vix !== null ? e.vix.toFixed(2) : '',
-    e.dxy !== null ? e.dxy.toFixed(2) : '',
-    userTrump[e.date] !== undefined ? userTrump[e.date] : 0,
-    '"' + (userNotes[e.date] || '').replace(/"/g, '""') + '"'
-  ].join(','));
+  var hdr  = 'date,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,notes';
+  var body = rows.map(function(e) {
+    return [
+      e.date,
+      e.prev.toFixed(2),
+      e.price.toFixed(2),
+      e.pct.toFixed(4),
+      e.vix  != null ? e.vix.toFixed(2) : '',
+      e.dxy  != null ? e.dxy.toFixed(2) : '',
+      trump[e.date] || 0,
+      '"' + (notes[e.date] || '').replace(/"/g, '""') + '"',
+    ].join(',');
+  }).join('\n');
 
-  const csv  = [header.join(','), ...rows].join('\n');
-  const blob = new Blob([csv], { type: 'text/csv' });
-  const url  = URL.createObjectURL(blob);
-  const a    = document.createElement('a');
-  a.href     = url;
-  a.download = `wti_trump_events_${new Date().toISOString().slice(0,10)}.csv`;
+  var blob = new Blob([hdr + '\n' + body], { type: 'text/csv' });
+  var url  = URL.createObjectURL(blob);
+  var a    = document.createElement('a');
+  a.href   = url;
+  a.download = 'wti_trump_' + new Date().toISOString().slice(0,10) + '.csv';
   a.click();
   URL.revokeObjectURL(url);
 }
 
-// Auto-load on open
-window.addEventListener('DOMContentLoaded', () => fetchData());
+window.onload = loadAll;
 </script>
 </body>
 </html>
