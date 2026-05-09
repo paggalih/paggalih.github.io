@@ -7,429 +7,335 @@
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
 <style>
 :root {
-  --bg: #0a0a0a;
-  --surface: #111;
-  --border: #1e1e1e;
-  --border2: #2a2a2a;
-  --text: #c8c8c8;
-  --muted: #555;
-  --accent: #e8a020;
-  --up: #2ecc71;
-  --down: #e74c3c;
-  --vix: #9b88d0;
-  --dxy: #5bb8d4;
-  --mono: 'IBM Plex Mono', monospace;
+  --bg:#0a0a0a; --surface:#111; --border:#1e1e1e; --b2:#2a2a2a;
+  --text:#c8c8c8; --muted:#555; --accent:#e8a020;
+  --up:#2ecc71; --down:#e74c3c; --vix:#9b88d0; --dxy:#5bb8d4;
+  --mono:'IBM Plex Mono',monospace;
 }
-* { box-sizing: border-box; margin: 0; padding: 0; }
-body { background: var(--bg); color: var(--text); font-family: var(--mono); min-height: 100vh; }
-
-header {
-  border-bottom: 1px solid var(--border2);
-  padding: 24px 32px;
-  display: flex; justify-content: space-between; align-items: flex-end; flex-wrap: wrap; gap: 12px;
-}
-.h-label { font-size: 10px; letter-spacing: 4px; color: var(--muted); text-transform: uppercase; margin-bottom: 4px; }
-h1 { font-size: 20px; font-weight: 700; color: #fff; }
-h1 span { color: var(--accent); }
-.h-meta { font-size: 11px; color: var(--muted); line-height: 1.8; }
-
-.api-bar {
-  background: var(--surface);
-  border-bottom: 1px solid var(--border);
-  padding: 14px 32px;
-  display: flex; flex-wrap: wrap; gap: 10px; align-items: center;
-}
-.api-bar label { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; white-space: nowrap; }
-.api-bar input[type=text] {
-  background: var(--bg); border: 1px solid var(--border2);
-  color: var(--accent); font-family: var(--mono); font-size: 11px;
-  padding: 7px 12px; outline: none; width: 240px;
-}
-.api-bar input[type=text]:focus { border-color: var(--accent); }
-.divider { width: 1px; height: 28px; background: var(--border2); margin: 0 4px; }
-
-.btn {
-  background: transparent; border: 1px solid var(--accent);
-  color: var(--accent); font-family: var(--mono); font-size: 10px;
-  font-weight: 700; letter-spacing: 2px; padding: 7px 18px;
-  cursor: pointer; text-transform: uppercase; transition: all .15s;
-}
-.btn:hover { background: var(--accent); color: #000; }
-.btn:disabled { opacity: .3; cursor: not-allowed; }
-.btn-sec { border-color: #333; color: #666; }
-.btn-sec:hover { background: #1a1a1a; color: #aaa; border-color: #666; }
-
-.status-bar {
-  padding: 8px 32px; font-size: 10px; color: var(--muted);
-  border-bottom: 1px solid var(--border);
-  display: flex; flex-wrap: wrap; gap: 24px; align-items: center; min-height: 34px;
-}
-.stat-item { display: flex; gap: 6px; align-items: center; }
-.stat-val { font-weight: 700; color: var(--text); }
-.s-up   { color: var(--up) !important; }
-.s-down { color: var(--down) !important; }
-.s-acc  { color: var(--accent) !important; }
-.s-vix  { color: var(--vix) !important; }
-
-.filter-bar {
-  padding: 10px 32px; border-bottom: 1px solid var(--border);
-  display: flex; gap: 16px; align-items: center; flex-wrap: wrap;
-}
-.flabel { font-size: 10px; color: var(--muted); letter-spacing: 2px; text-transform: uppercase; }
-.fbtn {
-  background: transparent; border: 1px solid var(--border2); color: var(--muted);
-  font-family: var(--mono); font-size: 10px; padding: 4px 10px;
-  cursor: pointer; letter-spacing: 1px; text-transform: uppercase; transition: all .15s;
-}
-.fbtn.active { border-color: var(--accent); color: var(--accent); }
-.fbtn:hover { border-color: #444; color: var(--text); }
-
-.thr-wrap { display: flex; align-items: center; gap: 8px; margin-left: auto; }
-.thr-wrap label { font-size: 10px; color: var(--muted); letter-spacing: 1px; }
-input[type=range] { width: 80px; accent-color: var(--accent); }
-.thr-val { font-size: 11px; color: var(--accent); font-weight: 700; width: 32px; }
-
-.table-wrap { overflow-x: auto; padding: 0 32px 60px; }
-table { width: 100%; border-collapse: collapse; font-size: 12px; margin-top: 16px; }
-thead th {
-  text-align: left; padding: 8px 14px;
-  font-size: 10px; letter-spacing: 2px; color: var(--muted);
-  text-transform: uppercase; border-bottom: 1px solid var(--border2); white-space: nowrap;
-}
-tbody tr { border-bottom: 1px solid var(--border); transition: background .1s; }
-tbody tr:hover { background: rgba(255,255,255,.02); }
-td { padding: 11px 14px; vertical-align: middle; white-space: nowrap; }
-
-.td-date { color: #fff; font-weight: 700; }
-.td-price { color: var(--text); }
-
-.badge { display: inline-block; padding: 3px 9px; font-size: 11px; font-weight: 700; }
-.b-up   { color: var(--up);   border: 1px solid rgba(46,204,113,.3); background: rgba(46,204,113,.06); }
-.b-down { color: var(--down); border: 1px solid rgba(231,76,60,.3);  background: rgba(231,76,60,.06); }
-
-.td-vix { font-weight: 600; }
-.vix-hi { color: var(--down); }
-.vix-md { color: var(--accent); }
-.vix-lo { color: var(--vix); }
-.td-dxy { color: var(--dxy); font-weight: 600; }
-.td-na  { color: #2a2a2a; }
-
-.trump-toggle {
-  appearance: none; -webkit-appearance: none;
-  width: 38px; height: 22px; background: #1a1a1a;
-  border: 1px solid #333; border-radius: 2px;
-  cursor: pointer; position: relative; transition: all .2s; display: inline-block;
-}
-.trump-toggle:checked { background: rgba(232,160,32,.12); border-color: var(--accent); }
-.trump-toggle::after {
-  content: '0'; position: absolute;
-  top: 50%; left: 50%; transform: translate(-50%,-50%);
-  font-family: var(--mono); font-size: 11px; font-weight: 700;
-  color: #333; pointer-events: none;
-}
-.trump-toggle:checked::after { content: '1'; color: var(--accent); }
-
-.note-input {
-  background: transparent; border: none; border-bottom: 1px solid #1e1e1e;
-  color: #666; font-family: var(--mono); font-size: 11px;
-  padding: 2px 4px; width: 200px; outline: none; transition: all .2s;
-}
-.note-input:focus { border-bottom-color: var(--accent); color: var(--text); }
-.note-input::placeholder { color: #222; }
-
-.msg {
-  text-align: center; padding: 80px 40px;
-  color: var(--muted); font-size: 12px; letter-spacing: 1px; line-height: 2;
-}
-.msg-icon { font-size: 28px; display: block; margin-bottom: 16px; }
-.blink { animation: blink 1s step-end infinite; }
-@keyframes blink { 50% { opacity: 0; } }
-
-.legend { padding: 12px 0 0; font-size: 10px; color: #2a2a2a; letter-spacing: 1px; }
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);min-height:100vh}
+header{border-bottom:1px solid var(--b2);padding:22px 28px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px}
+.hl{font-size:10px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+h1{font-size:19px;font-weight:700;color:#fff}
+h1 span{color:var(--accent)}
+.hm{font-size:11px;color:var(--muted);line-height:1.8}
+.api-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.api-bar label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.api-bar input{background:var(--bg);border:1px solid var(--b2);color:var(--accent);font-family:var(--mono);font-size:11px;padding:7px 12px;outline:none;width:230px}
+.api-bar input:focus{border-color:var(--accent)}
+.dvd{width:1px;height:26px;background:var(--b2)}
+.btn{background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;padding:7px 16px;cursor:pointer;text-transform:uppercase;transition:all .15s}
+.btn:hover{background:var(--accent);color:#000}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn2{border-color:#333;color:#555}
+.btn2:hover{background:#1a1a1a;color:#aaa;border-color:#666}
+.sbar{padding:8px 28px;font-size:10px;color:var(--muted);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:20px;align-items:center;min-height:32px}
+.si{display:flex;gap:6px;align-items:center}
+.sv{font-weight:700;color:var(--text)}
+.sup{color:var(--up)!important} .sdn{color:var(--down)!important}
+.sacc{color:var(--accent)!important} .svix{color:var(--vix)!important}
+.fbar{padding:9px 28px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.fl{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.fb{background:transparent;border:1px solid var(--b2);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .15s}
+.fb.act{border-color:var(--accent);color:var(--accent)}
+.fb:hover{border-color:#444;color:var(--text)}
+.tw{display:flex;align-items:center;gap:8px;margin-left:auto}
+.tw label{font-size:10px;color:var(--muted);letter-spacing:1px}
+input[type=range]{width:80px;accent-color:var(--accent)}
+.tv{font-size:11px;color:var(--accent);font-weight:700;width:32px}
+.twrap{overflow-x:auto;padding:0 28px 60px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px}
+thead th{text-align:left;padding:8px 12px;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--b2);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
+.tda{color:#fff;font-weight:700}
+.tdp{color:var(--text)}
+.badge{display:inline-block;padding:3px 8px;font-size:11px;font-weight:700}
+.bu{color:var(--up);border:1px solid rgba(46,204,113,.3);background:rgba(46,204,113,.06)}
+.bd{color:var(--down);border:1px solid rgba(231,76,60,.3);background:rgba(231,76,60,.06)}
+.vhi{color:var(--down);font-weight:600} .vmd{color:var(--accent);font-weight:600} .vlo{color:var(--vix);font-weight:600}
+.dxy-v{color:var(--dxy);font-weight:600}
+.na{color:#2a2a2a}
+.tt{appearance:none;-webkit-appearance:none;width:38px;height:22px;background:#1a1a1a;border:1px solid #333;border-radius:2px;cursor:pointer;position:relative;transition:all .2s;display:inline-block}
+.tt:checked{background:rgba(232,160,32,.12);border-color:var(--accent)}
+.tt::after{content:'0';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#333;pointer-events:none}
+.tt:checked::after{content:'1';color:var(--accent)}
+.ni{background:transparent;border:none;border-bottom:1px solid #1e1e1e;color:#555;font-family:var(--mono);font-size:11px;padding:2px 4px;width:190px;outline:none;transition:all .2s}
+.ni:focus{border-bottom-color:var(--accent);color:var(--text)}
+.ni::placeholder{color:#222}
+.msg{text-align:center;padding:70px 40px;color:var(--muted);font-size:12px;letter-spacing:1px;line-height:2}
+.mi{font-size:26px;display:block;margin-bottom:14px}
+.blink{animation:bk 1s step-end infinite}
+@keyframes bk{50%{opacity:0}}
+.leg{padding:12px 0 0;font-size:10px;color:#2a2a2a;letter-spacing:1px}
+.err-box{background:#1a0a0a;border:1px solid #3a1a1a;padding:12px 16px;font-size:11px;color:#c0605a;margin:16px 0}
 </style>
 </head>
 <body>
 
 <header>
   <div>
-    <div class="h-label">Research Tool v3.0</div>
-    <h1>WTI CRUDE — <span>TRUMP</span> EVENT TRACKER</h1>
+    <div class="hl">Research Tool v4.0</div>
+    <h1>WTI CRUDE &#8212; <span>TRUMP</span> EVENT TRACKER</h1>
   </div>
-  <div class="h-meta">
-    DAILY MOVES ≥ THRESHOLD% &nbsp;·&nbsp; 2025–PRESENT<br>
-    WTI · VIX · DXY &nbsp;·&nbsp; MANUAL TRUMP CODING → CSV
-  </div>
+  <div class="hm">DAILY MOVES &#8805; THRESHOLD% &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; MANUAL TRUMP CODING &#8594; CSV</div>
 </header>
 
 <div class="api-bar">
   <label>Alpha Vantage</label>
-  <input type="text" id="avKey" value="5FR6ZCR1R2Q6LBZE">
-  <div class="divider"></div>
+  <input id="avKey" value="5FR6ZCR1R2Q6LBZE">
+  <div class="dvd"></div>
   <label>FRED</label>
-  <input type="text" id="frKey" value="b589f289fa9c329148656b9c15f3be64">
+  <input id="frKey" value="b589f289fa9c329148656b9c15f3be64">
   <button class="btn" id="loadBtn" onclick="loadAll()">&#9654; LOAD</button>
-  <button class="btn btn-sec" id="expBtn" onclick="exportCSV()" disabled>&#8595; CSV</button>
+  <button class="btn btn2" id="expBtn" onclick="exportCSV()" disabled>&#8595; CSV</button>
 </div>
 
-<div class="status-bar" id="statusBar">
-  <span class="stat-item"><span>STATUS</span>&nbsp;<span class="stat-val blink">LOADING…</span></span>
+<div class="sbar" id="sbar">
+  <span class="si"><span>STATUS</span>&nbsp;<span class="sv blink">LOADING&#8230;</span></span>
 </div>
 
-<div class="filter-bar">
-  <span class="flabel">Filter</span>
-  <button class="fbtn active" id="f-all"   onclick="setFilter('all')">ALL</button>
-  <button class="fbtn"        id="f-up"    onclick="setFilter('up')">&#9650; UP</button>
-  <button class="fbtn"        id="f-down"  onclick="setFilter('down')">&#9660; DOWN</button>
-  <button class="fbtn"        id="f-trump" onclick="setFilter('trump')">&#9679; TRUMP</button>
-  <div class="thr-wrap">
+<div class="fbar">
+  <span class="fl">Filter</span>
+  <button class="fb act" id="f-all"   onclick="setF('all')">ALL</button>
+  <button class="fb"     id="f-up"    onclick="setF('up')">&#9650; UP</button>
+  <button class="fb"     id="f-down"  onclick="setF('down')">&#9660; DOWN</button>
+  <button class="fb"     id="f-trump" onclick="setF('trump')">&#9679; TRUMP</button>
+  <div class="tw">
     <label>THRESHOLD</label>
-    <input type="range" id="thrRange" min="1" max="5" step="0.5" value="2"
-      oninput="document.getElementById('thrVal').textContent=parseFloat(this.value).toFixed(1)+'%'">
-    <span class="thr-val" id="thrVal">2.0%</span>
-    <button class="btn" style="padding:4px 10px;font-size:10px" onclick="applyThr()">APPLY</button>
+    <input type="range" id="tr" min="1" max="5" step="0.5" value="2"
+      oninput="document.getElementById('tv').textContent=parseFloat(this.value).toFixed(1)+'%'">
+    <span class="tv" id="tv">2.0%</span>
+    <button class="btn" style="padding:4px 10px;font-size:10px" onclick="applyT()">APPLY</button>
   </div>
 </div>
 
-<div class="table-wrap" id="tableWrap">
-  <div class="msg"><span class="msg-icon blink">&#9672;</span>Fetching data…</div>
+<div class="twrap" id="tw">
+  <div class="msg"><span class="mi blink">&#9672;</span>Menghubungi API&#8230;</div>
 </div>
 
 <script>
-var events = [];
-var trump  = {};
-var notes  = {};
-var filter = 'all';
-var thr    = 2.0;
+var events=[], trump={}, notes={}, filter='all', thr=2.0;
+var vixMap={}, dxyMap={};
+
+/* ── CORS proxy untuk FRED ──────────────────────────────── */
+var PROXY = 'https://corsproxy.io/?';
 
 function nearest(map, date) {
-  var keys = Object.keys(map).sort();
-  var val  = null;
-  for (var i = 0; i < keys.length; i++) {
-    if (keys[i] <= date) val = map[keys[i]];
+  var keys=Object.keys(map).sort(), val=null;
+  for(var i=0;i<keys.length;i++){
+    if(keys[i]<=date) val=map[keys[i]];
     else break;
   }
   return val;
 }
 
-function fetchFRED(series, key) {
-  var url = 'https://api.stlouisfed.org/fred/series/observations'
+function fredUrl(series, key) {
+  var raw = 'https://api.stlouisfed.org/fred/series/observations'
     + '?series_id=' + series
     + '&observation_start=2025-01-01'
     + '&api_key=' + key
     + '&file_type=json&sort_order=asc';
-  return fetch(url).then(function(r) { return r.json(); }).then(function(j) {
-    if (j.error_message) throw new Error('FRED ' + series + ': ' + j.error_message);
-    var map = {};
-    (j.observations || []).forEach(function(o) {
-      if (o.value && o.value !== '.' && o.value !== 'null') map[o.date] = parseFloat(o.value);
-    });
-    return map;
-  });
+  return PROXY + encodeURIComponent(raw);
 }
 
+function parseFRED(json) {
+  var map={};
+  (json.observations||[]).forEach(function(o){
+    if(o.value && o.value!=='.' && o.value!=='null')
+      map[o.date]=parseFloat(o.value);
+  });
+  return map;
+}
+
+/* ── Status helpers ─────────────────────────────────────── */
+function setSt(msg) {
+  document.getElementById('sbar').innerHTML =
+    '<span class="si"><span>STATUS</span>&nbsp;<span class="sv">'+msg+'</span></span>';
+}
+
+function renderSt() {
+  var ev=events.filter(function(e){return Math.abs(e.pct)>=thr;});
+  var up=ev.filter(function(e){return e.pct>0;}).length;
+  var dn=ev.filter(function(e){return e.pct<0;}).length;
+  var lk=Object.keys(trump).filter(function(k){return trump[k];}).length;
+  var va=ev.filter(function(e){return e.vix;});
+  var vavg=va.length?(va.reduce(function(s,e){return s+e.vix;},0)/va.length).toFixed(1):'&#8212;';
+  document.getElementById('sbar').innerHTML=
+    si('EVENTS &#8805;'+thr+'%',ev.length,'')+
+    si('UP','&#9650; '+up,'sup')+
+    si('DOWN','&#9660; '+dn,'sdn')+
+    si('TRUMP','&#9679; '+lk,'sacc')+
+    si('AVG VIX',vavg,'svix');
+}
+
+function si(l,v,c){
+  return '<span class="si"><span>'+l+'</span>&nbsp;<span class="sv '+c+'">'+v+'</span></span>';
+}
+
+/* ── Load ───────────────────────────────────────────────── */
 function loadAll() {
-  var avKey = document.getElementById('avKey').value.trim();
-  var frKey = document.getElementById('frKey').value.trim();
-  if (!avKey || !frKey) { alert('Kedua API key diperlukan.'); return; }
+  var av=document.getElementById('avKey').value.trim();
+  var fr=document.getElementById('frKey').value.trim();
+  if(!av||!fr){alert('Kedua API key diperlukan.');return;}
 
-  document.getElementById('loadBtn').disabled = true;
-  document.getElementById('expBtn').disabled  = true;
-  document.getElementById('tableWrap').innerHTML = '<div class="msg"><span class="msg-icon blink">&#9672;</span>Fetching WTI · VIX · DXY…</div>';
-  setStatus('<span class="blink">FETCHING…</span>');
+  document.getElementById('loadBtn').disabled=true;
+  document.getElementById('expBtn').disabled=true;
+  document.getElementById('tw').innerHTML='<div class="msg"><span class="mi blink">&#9672;</span>Mengambil WTI&#8230;</div>';
+  setSt('<span class="blink">FETCHING WTI&#8230;</span>');
 
-  var wtiUrl = 'https://www.alphavantage.co/query?function=WTI&interval=daily&apikey=' + avKey;
+  /* Step 1: WTI dari Alpha Vantage (CORS ok) */
+  fetch('https://www.alphavantage.co/query?function=WTI&interval=daily&apikey='+av)
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(j['Information']) throw new Error('Alpha Vantage rate limit. Tunggu 1 menit.');
+    if(!j['data'])       throw new Error('WTI kosong. Cek Alpha Vantage key.');
 
-  Promise.all([
-    fetch(wtiUrl).then(function(r) { return r.json(); }),
-    fetchFRED('VIXCLS',   frKey),
-    fetchFRED('DTWEXBGS', frKey),
-  ]).then(function(results) {
-    var wtiJson = results[0];
-    var vixMap  = results[1];
-    var dxyMap  = results[2];
+    var raw=(j['data']||[])
+      .filter(function(d){return d.date>='2025-01-01'&&d.value&&d.value!=='.'&&d.value!=='null';})
+      .sort(function(a,b){return a.date<b.date?-1:1;});
 
-    if (wtiJson['Information']) throw new Error('Alpha Vantage rate limit. Tunggu 1 menit lalu reload.');
-    if (!wtiJson['data'])       throw new Error('WTI: data kosong. Cek Alpha Vantage key.');
-
-    var raw = (wtiJson['data'] || [])
-      .filter(function(d) { return d.date >= '2025-01-01' && d.value && d.value !== '.' && d.value !== 'null'; })
-      .sort(function(a, b) { return a.date < b.date ? -1 : 1; });
-
-    events = [];
-    for (var i = 1; i < raw.length; i++) {
-      var prev = parseFloat(raw[i-1].value);
-      var curr = parseFloat(raw[i].value);
-      if (!prev || !curr) continue;
-      events.push({
-        date  : raw[i].date,
-        prev  : prev,
-        price : curr,
-        pct   : (curr - prev) / prev * 100,
-        vix   : nearest(vixMap, raw[i].date),
-        dxy   : nearest(dxyMap, raw[i].date),
-      });
+    events=[];
+    for(var i=1;i<raw.length;i++){
+      var p=parseFloat(raw[i-1].value), c=parseFloat(raw[i].value);
+      if(!p||!c) continue;
+      events.push({date:raw[i].date,prev:p,price:c,pct:(c-p)/p*100,vix:null,dxy:null});
     }
 
-    renderStatus();
-    renderTable();
-    document.getElementById('expBtn').disabled = false;
+    /* Render WTI dulu */
+    renderSt(); renderTable();
+    document.getElementById('expBtn').disabled=false;
+    setSt('<span class="blink">WTI OK &#8212; FETCHING VIX+DXY&#8230;</span>');
 
-  }).catch(function(e) {
-    setStatus('ERROR: ' + e.message);
-    document.getElementById('tableWrap').innerHTML =
-      '<div class="msg"><span class="msg-icon">&#10005;</span>' + e.message + '</div>';
-  }).finally(function() {
-    document.getElementById('loadBtn').disabled = false;
+    /* Step 2: VIX via proxy */
+    return fetch(fredUrl('VIXCLS',fr)).then(function(r){return r.json();});
+  })
+  .then(function(vj){
+    vixMap=parseFRED(vj);
+    events.forEach(function(e){e.vix=nearest(vixMap,e.date);});
+    renderSt(); renderTable();
+    setSt('<span class="blink">VIX OK &#8212; FETCHING DXY&#8230;</span>');
+
+    /* Step 3: DXY via proxy */
+    return fetch(fredUrl('DTWEXBGS',document.getElementById('frKey').value.trim()))
+      .then(function(r){return r.json();});
+  })
+  .then(function(dj){
+    dxyMap=parseFRED(dj);
+    events.forEach(function(e){e.dxy=nearest(dxyMap,e.date);});
+    renderSt(); renderTable();
+    setSt('READY &#8212; '+events.filter(function(e){return Math.abs(e.pct)>=thr;}).length+' events loaded');
+  })
+  .catch(function(e){
+    var msg=e.message||String(e);
+    /* Kalau hanya VIX/DXY yang gagal, WTI sudah tampil */
+    if(events.length){
+      document.getElementById('tw').querySelector && null;
+      var box=document.createElement('div');
+      box.className='err-box';
+      box.textContent='VIX/DXY error: '+msg+' (WTI data masih tersedia)';
+      document.getElementById('tw').prepend(box);
+      setSt('PARTIAL &#8212; WTI OK, VIX/DXY GAGAL');
+    } else {
+      setSt('ERROR: '+msg);
+      document.getElementById('tw').innerHTML=
+        '<div class="msg"><span class="mi">&#10005;</span>'+msg+'</div>';
+    }
+  })
+  .finally(function(){
+    document.getElementById('loadBtn').disabled=false;
   });
 }
 
-function setStatus(msg) {
-  document.getElementById('statusBar').innerHTML =
-    '<span class="stat-item"><span>STATUS</span>&nbsp;<span class="stat-val">' + msg + '</span></span>';
-}
-
-function renderStatus() {
-  var ev     = events.filter(function(e) { return Math.abs(e.pct) >= thr; });
-  var up     = ev.filter(function(e)  { return e.pct > 0; }).length;
-  var down   = ev.filter(function(e)  { return e.pct < 0; }).length;
-  var linked = Object.keys(trump).filter(function(k) { return trump[k]; }).length;
-  var vixArr = ev.filter(function(e)  { return e.vix; });
-  var vixAvg = vixArr.length ? (vixArr.reduce(function(s,e) { return s+e.vix; }, 0) / vixArr.length).toFixed(1) : '—';
-
-  document.getElementById('statusBar').innerHTML =
-    si('EVENTS ≥' + thr + '%', ev.length, '') +
-    si('UP',   '&#9650; ' + up,   's-up') +
-    si('DOWN',  '&#9660; ' + down, 's-down') +
-    si('TRUMP', '&#9679; ' + linked, 's-acc') +
-    si('AVG VIX', vixAvg, 's-vix');
-}
-
-function si(label, val, cls) {
-  return '<span class="stat-item"><span>' + label + '</span>&nbsp;'
-    + '<span class="stat-val ' + cls + '">' + val + '</span></span>';
-}
-
-function setFilter(f) {
-  filter = f;
-  ['all','up','down','trump'].forEach(function(id) {
-    document.getElementById('f-' + id).classList.toggle('active', id === f);
+/* ── Table ──────────────────────────────────────────────── */
+function setF(f){
+  filter=f;
+  ['all','up','down','trump'].forEach(function(id){
+    document.getElementById('f-'+id).classList.toggle('act',id===f);
   });
   renderTable();
 }
 
-function applyThr() {
-  thr = parseFloat(document.getElementById('thrRange').value);
-  renderStatus();
-  renderTable();
+function applyT(){
+  thr=parseFloat(document.getElementById('tr').value);
+  renderSt(); renderTable();
 }
 
-function renderTable() {
-  var rows = events.filter(function(e) {
-    if (Math.abs(e.pct) < thr)              return false;
-    if (filter === 'up'    && e.pct < 0)    return false;
-    if (filter === 'down'  && e.pct > 0)    return false;
-    if (filter === 'trump' && !trump[e.date]) return false;
+function renderTable(){
+  var rows=events.filter(function(e){
+    if(Math.abs(e.pct)<thr) return false;
+    if(filter==='up'    &&e.pct<0)        return false;
+    if(filter==='down'  &&e.pct>0)        return false;
+    if(filter==='trump' &&!trump[e.date]) return false;
     return true;
-  }).sort(function(a, b) { return b.date < a.date ? -1 : 1; });
+  }).sort(function(a,b){return b.date<a.date?-1:1;});
 
-  if (!rows.length) {
-    document.getElementById('tableWrap').innerHTML =
-      '<div class="msg"><span class="msg-icon">&#9711;</span>Tidak ada event untuk filter ini.</div>';
+  if(!rows.length){
+    document.getElementById('tw').innerHTML=
+      '<div class="msg"><span class="mi">&#9711;</span>Tidak ada event untuk filter ini.</div>';
     return;
   }
 
-  var trs = rows.map(function(e) {
-    var up    = e.pct > 0;
-    var pctS  = (up ? '+' : '') + e.pct.toFixed(2) + '%';
-    var badge = '<span class="badge ' + (up ? 'b-up' : 'b-down') + '">'
-      + (up ? '&#9650;' : '&#9660;') + ' ' + pctS + '</span>';
-
-    var vixCls = !e.vix ? 'td-na'
-      : e.vix >= 30 ? 'td-vix vix-hi'
-      : e.vix >= 20 ? 'td-vix vix-md'
-      : 'td-vix vix-lo';
-    var vixS = e.vix
-      ? '<span class="' + vixCls + '">' + e.vix.toFixed(2) + '</span>'
-      : '<span class="td-na">—</span>';
-    var dxyS = e.dxy
-      ? '<span class="td-dxy">' + e.dxy.toFixed(2) + '</span>'
-      : '<span class="td-na">—</span>';
-
-    var chk  = trump[e.date] ? ' checked' : '';
-    var note = (notes[e.date] || '').replace(/"/g, '&quot;').replace(/'/g, '&#39;');
-    var d    = e.date;
-
+  var trs=rows.map(function(e){
+    var up=e.pct>0;
+    var ps=(up?'+':'')+e.pct.toFixed(2)+'%';
+    var badge='<span class="badge '+(up?'bu':'bd')+'">'+(up?'&#9650;':'&#9660;')+' '+ps+'</span>';
+    var vc=!e.vix?'na':e.vix>=30?'vhi':e.vix>=20?'vmd':'vlo';
+    var vs=e.vix?'<span class="'+vc+'">'+e.vix.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
+    var ds=e.dxy?'<span class="dxy-v">'+e.dxy.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
+    var chk=trump[e.date]?' checked':'';
+    var nt=(notes[e.date]||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    var d=e.date;
     return '<tr>'
-      + '<td class="td-date">' + d + '</td>'
-      + '<td class="td-price">$' + e.prev.toFixed(2) + '</td>'
-      + '<td class="td-price">$' + e.price.toFixed(2) + '</td>'
-      + '<td>' + badge + '</td>'
-      + '<td>' + vixS + '</td>'
-      + '<td>' + dxyS + '</td>'
-      + '<td style="text-align:center">'
-        + '<input type="checkbox" class="trump-toggle"' + chk
-        + ' onchange="setTrump(\'' + d + '\',this.checked)">'
-      + '</td>'
-      + '<td><input type="text" class="note-input" placeholder="Trump statement…" value="' + note + '"'
-        + ' oninput="setNote(\'' + d + '\',this.value)"></td>'
-      + '</tr>';
+      +'<td class="tda">'+d+'</td>'
+      +'<td class="tdp">$'+e.prev.toFixed(2)+'</td>'
+      +'<td class="tdp">$'+e.price.toFixed(2)+'</td>'
+      +'<td>'+badge+'</td>'
+      +'<td>'+vs+'</td>'
+      +'<td>'+ds+'</td>'
+      +'<td style="text-align:center"><input type="checkbox" class="tt"'+chk+' onchange="setTr(\''+d+'\',this.checked)"></td>'
+      +'<td><input type="text" class="ni" placeholder="Trump statement&#8230;" value="'+nt+'" oninput="setN(\''+d+'\',this.value)"></td>'
+      +'</tr>';
   }).join('');
 
-  document.getElementById('tableWrap').innerHTML =
-    '<table>'
-    + '<thead><tr>'
-    + '<th>Date</th><th>Prev $</th><th>Close $</th>'
-    + '<th>WTI %&#916;</th><th>VIX</th><th>DXY</th>'
-    + '<th>Trump 0/1</th><th>Notes</th>'
-    + '</tr></thead>'
-    + '<tbody>' + trs + '</tbody>'
-    + '</table>'
-    + '<div class="legend">'
-    + 'VIX: <span style="color:var(--down)">&#9632; &#8805;30 fear</span> &nbsp;'
-    + '<span style="color:var(--accent)">&#9632; 20&#8211;30 caution</span> &nbsp;'
-    + '<span style="color:var(--vix)">&#9632; &lt;20 calm</span>'
-    + ' &nbsp;&nbsp;&middot; DXY = FRED:DTWEXBGS (weekly, forward-filled)'
-    + '</div>';
+  document.getElementById('tw').innerHTML=
+    '<table><thead><tr>'
+    +'<th>Date</th><th>Prev $</th><th>Close $</th>'
+    +'<th>WTI %&#916;</th><th>VIX</th><th>DXY</th>'
+    +'<th>Trump 0/1</th><th>Notes</th>'
+    +'</tr></thead><tbody>'+trs+'</tbody></table>'
+    +'<div class="leg">'
+    +'VIX: <span style="color:var(--down)">&#9632; &#8805;30</span> '
+    +'<span style="color:var(--accent)">&#9632; 20&#8211;30</span> '
+    +'<span style="color:var(--vix)">&#9632; &lt;20</span>'
+    +' &nbsp;&#183; DXY=FRED:DTWEXBGS via corsproxy.io'
+    +'</div>';
 }
 
-function setTrump(date, val) {
-  trump[date] = val ? 1 : 0;
-  renderStatus();
-}
+function setTr(d,v){trump[d]=v?1:0;renderSt();}
+function setN(d,v){notes[d]=v;}
 
-function setNote(date, val) {
-  notes[date] = val;
-}
-
-function exportCSV() {
-  var rows = events
-    .filter(function(e) { return Math.abs(e.pct) >= thr; })
-    .sort(function(a, b) { return b.date < a.date ? -1 : 1; });
-
-  var hdr  = 'date,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,notes';
-  var body = rows.map(function(e) {
-    return [
-      e.date,
-      e.prev.toFixed(2),
-      e.price.toFixed(2),
-      e.pct.toFixed(4),
-      e.vix  != null ? e.vix.toFixed(2) : '',
-      e.dxy  != null ? e.dxy.toFixed(2) : '',
-      trump[e.date] || 0,
-      '"' + (notes[e.date] || '').replace(/"/g, '""') + '"',
-    ].join(',');
+/* ── Export ─────────────────────────────────────────────── */
+function exportCSV(){
+  var rows=events.filter(function(e){return Math.abs(e.pct)>=thr;})
+    .sort(function(a,b){return b.date<a.date?-1:1;});
+  var h='date,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,notes';
+  var b=rows.map(function(e){
+    return [e.date,e.prev.toFixed(2),e.price.toFixed(2),e.pct.toFixed(4),
+      e.vix!=null?e.vix.toFixed(2):'',
+      e.dxy!=null?e.dxy.toFixed(2):'',
+      trump[e.date]||0,
+      '"'+(notes[e.date]||'').replace(/"/g,'""')+'"'].join(',');
   }).join('\n');
-
-  var blob = new Blob([hdr + '\n' + body], { type: 'text/csv' });
-  var url  = URL.createObjectURL(blob);
-  var a    = document.createElement('a');
-  a.href   = url;
-  a.download = 'wti_trump_' + new Date().toISOString().slice(0,10) + '.csv';
-  a.click();
-  URL.revokeObjectURL(url);
+  var blob=new Blob([h+'\n'+b],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url; a.download='wti_trump_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click(); URL.revokeObjectURL(url);
 }
 
-window.onload = loadAll;
+window.onload=loadAll;
 </script>
 </body>
 </html>
