@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>WTI OIL — TRUMP EVENT TRACKER</title>
+<title>WTI OIL — TRUMP EVENT TRACKER v2</title>
 <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&family=IBM+Plex+Sans:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
   :root {
@@ -345,31 +345,54 @@
 
   .threshold-val { font-size: 12px; color: var(--accent); font-weight: 600; width: 32px; }
 
+  .td-vix  { color: #9b88d0; font-weight: 600; }
+  .td-dxy  { color: #5bb8d4; font-weight: 600; }
+  .td-na   { color: #2a2a2a; }
+
+  .vix-high { color: #e74c3c !important; }
+  .vix-mid  { color: #e8a020 !important; }
+  .vix-low  { color: #9b88d0 !important; }
+
+  .api-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+    width: 100%;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    margin-top: 2px;
+  }
+
 </style>
 </head>
 <body>
 
 <header>
   <div class="header-title">
-    <div class="header-label">Research Tool v1.0</div>
+    <div class="header-label">Research Tool v2.0</div>
     <h1>WTI CRUDE OIL — <span>TRUMP EVENT</span> TRACKER</h1>
   </div>
   <div class="header-meta">
     DAILY PRICE MOVES ≥ THRESHOLD% &nbsp;|&nbsp; 2025 – PRESENT<br>
-    MARK TRUMP STATEMENTS MANUALLY → EXPORT CSV
+    WTI + VIX + DXY &nbsp;|&nbsp; MARK TRUMP STATEMENTS → EXPORT CSV
   </div>
 </header>
 
 <div class="api-bar">
-  <label>Alpha Vantage API Key</label>
-  <input type="text" id="apiKey" placeholder="Paste API key here..." autocomplete="off">
-  <button class="btn" id="fetchBtn" onclick="fetchData()">▶ LOAD DATA</button>
-  <a href="https://www.alphavantage.co/support/#api-key" target="_blank" class="api-link">Get free key →</a>
-  <button class="btn btn-export" id="exportBtn" onclick="exportCSV()" disabled>⬇ EXPORT CSV</button>
+  <label>Alpha Vantage Key</label>
+  <input type="text" id="apiKey" value="5FR6ZCR1R2Q6LBZE" autocomplete="off" style="width:220px">
+
+  <div class="api-row">
+    <label>FRED API Key</label>
+    <input type="text" id="fredKey" value="b589f289fa9c329148656b9c15f3be64" autocomplete="off" style="width:220px">
+    <button class="btn" id="fetchBtn" onclick="fetchData()">▶ RELOAD DATA</button>
+    <button class="btn btn-export" id="exportBtn" onclick="exportCSV()" disabled>⬇ EXPORT CSV</button>
+  </div>
 </div>
 
 <div class="status-bar" id="statusBar">
-  <span class="stat"><span class="header-label">STATUS</span>&nbsp; <span class="stat-val" id="statusText">AWAITING API KEY</span></span>
+  <span class="stat"><span class="header-label">STATUS</span>&nbsp; <span class="stat-val" id="statusText">AWAITING API KEYS — Alpha Vantage (WTI) + FRED (VIX, DXY)</span></span>
 </div>
 
 <div class="filter-bar">
@@ -390,8 +413,8 @@
 <div class="table-wrap" id="tableWrap">
   <div class="center-msg">
     <span class="icon">◈</span>
-    Enter your Alpha Vantage API key above and click LOAD DATA.<br><br>
-    <span style="color:#333;font-size:10px">Free key at alphavantage.co — no credit card required</span>
+    Enter <b style="color:#aaa">Alpha Vantage</b> key (WTI) + <b style="color:#aaa">FRED</b> key (VIX &amp; DXY), then click LOAD ALL DATA.<br><br>
+    <span style="color:#333;font-size:10px">Both keys are free — no credit card required</span>
   </div>
 </div>
 
@@ -401,6 +424,8 @@ let currentFilter = 'all';
 let threshold = 2.0;
 let userNotes = {};
 let userTrump = {};
+let vixMap = {};   // date → VIX value
+let dxyMap = {};   // date → DXY value
 
 function updateThreshold(val) {
   document.getElementById('thresholdVal').textContent = parseFloat(val).toFixed(1) + '%';
@@ -419,45 +444,99 @@ function setFilter(f) {
   renderTable();
 }
 
-async function fetchData() {
-  const key = document.getElementById('apiKey').value.trim();
-  if (!key) { alert('Masukkan API key terlebih dahulu.'); return; }
+// ── Nearest previous date lookup ──────────────────────────────────────────────
+function getNearestValue(map, targetDate) {
+  const dates = Object.keys(map).sort();
+  let result = null;
+  for (const d of dates) {
+    if (d <= targetDate) result = map[d];
+    else break;
+  }
+  return result;
+}
 
-  setStatus('FETCHING WTI DATA<span class="blink">_</span>');
+// ── FRED fetch helper ──────────────────────────────────────────────────────────
+async function fetchFREDSeries(seriesId, fredKey) {
+  const url = `https://api.stlouisfed.org/fred/series/observations`
+    + `?series_id=${seriesId}&observation_start=2025-01-01`
+    + `&api_key=${fredKey}&file_type=json&sort_order=asc`;
+  const resp = await fetch(url);
+  if (!resp.ok) throw new Error(`FRED (${seriesId}): HTTP ${resp.status}`);
+  const json = await resp.json();
+  if (json.error_message) throw new Error(`FRED (${seriesId}): ${json.error_message}`);
+  if (!json.observations || json.observations.length === 0) {
+    console.warn(`FRED ${seriesId}: 0 observations returned`);
+    return {};
+  }
+  const map = {};
+  for (const obs of json.observations) {
+    if (obs.value !== '.' && obs.value !== 'null' && obs.value) {
+      map[obs.date] = parseFloat(obs.value);
+    }
+  }
+  console.log(`FRED ${seriesId}: ${Object.keys(map).length} rows loaded`);
+  return map;
+}
+
+// Nearest-date lookup (within ±5 calendar days)
+function nearestValue(map, dateStr) {
+  if (map[dateStr] !== undefined) return map[dateStr];
+  const target = new Date(dateStr).getTime();
+  let best = null, bestDiff = Infinity;
+  for (const [d, v] of Object.entries(map)) {
+    const diff = Math.abs(new Date(d).getTime() - target);
+    if (diff < bestDiff && diff <= 5 * 86400000) {
+      bestDiff = diff; best = v;
+    }
+  }
+  return best; // null if nothing within 5 days
+}
+
+// ── MAIN FETCH ─────────────────────────────────────────────────────────────────
+async function fetchData() {
+  const avKey   = document.getElementById('apiKey').value.trim();
+  const fredKey = document.getElementById('fredKey').value.trim();
+  if (!avKey)   { alert('Masukkan Alpha Vantage API key.'); return; }
+  if (!fredKey) { alert('Masukkan FRED API key.'); return; }
+
   document.getElementById('fetchBtn').disabled = true;
-  document.getElementById('tableWrap').innerHTML = `<div class="center-msg"><span class="icon blink">◈</span>Connecting to Alpha Vantage...</div>`;
+  document.getElementById('tableWrap').innerHTML =
+    `<div class="center-msg"><span class="icon blink">◈</span>Fetching WTI, VIX, DXY...</div>`;
 
   try {
-    const url = `https://www.alphavantage.co/query?function=WTI&interval=daily&apikey=${key}`;
-    const resp = await fetch(url);
-    const json = await resp.json();
+    // Fetch all 3 in parallel
+    setStatus('FETCHING WTI + VIX + DXY<span class="blink">_</span>');
 
-    if (json['Information']) {
-      throw new Error('API limit reached. Try again in a minute or get a new key.');
-    }
+    const [wtiResp, vixResult, dxyResult] = await Promise.all([
+      fetch(`https://www.alphavantage.co/query?function=WTI&interval=daily&apikey=${avKey}`).then(r => r.json()),
+      fetchFREDSeries('VIXCLS', fredKey),          // VIX daily
+      fetchFREDSeries('DTWEXBGS', fredKey),         // DXY broad weekly → nearest lookup
+    ]);
 
-    if (!json['data']) {
-      throw new Error('No data returned. Check your API key.');
-    }
+    if (wtiResp['Information']) throw new Error('Alpha Vantage limit reached.');
+    if (!wtiResp['data'])       throw new Error('WTI: No data. Check Alpha Vantage key.');
 
-    const raw = json['data'];
+    vixMap = vixResult;
+    dxyMap = dxyResult;
 
-    // Filter 2025 onwards
-    const filtered = raw.filter(d => d.date >= '2025-01-01' && d.value !== '.' && d.value !== 'null');
-    filtered.sort((a,b) => a.date.localeCompare(b.date)); // ascending
+    // Process WTI
+    const raw = wtiResp['data']
+      .filter(d => d.date >= '2025-01-01' && d.value !== '.' && d.value !== 'null')
+      .sort((a, b) => a.date.localeCompare(b.date));
 
-    // Calculate % change
     allEvents = [];
-    for (let i = 1; i < filtered.length; i++) {
-      const prev = parseFloat(filtered[i-1].value);
-      const curr = parseFloat(filtered[i].value);
+    for (let i = 1; i < raw.length; i++) {
+      const prev = parseFloat(raw[i-1].value);
+      const curr = parseFloat(raw[i].value);
       if (!prev || !curr) continue;
       const pct = ((curr - prev) / prev) * 100;
       allEvents.push({
-        date: filtered[i].date,
+        date: raw[i].date,
         price: curr,
         prev_price: prev,
         pct_change: pct,
+        vix: getNearestValue(vixMap, raw[i].date),
+        dxy: getNearestValue(dxyMap, raw[i].date),
       });
     }
 
@@ -467,73 +546,90 @@ async function fetchData() {
 
   } catch(e) {
     setStatus('ERROR: ' + e.message);
-    document.getElementById('tableWrap').innerHTML = `<div class="center-msg"><span class="icon">✕</span>${e.message}</div>`;
+    document.getElementById('tableWrap').innerHTML =
+      `<div class="center-msg"><span class="icon">✕</span>${e.message}</div>`;
   }
 
   document.getElementById('fetchBtn').disabled = false;
 }
 
 function setStatus(msg) {
-  document.getElementById('statusBar').innerHTML = `<span class="stat"><span class="header-label">STATUS</span>&nbsp;<span class="stat-val">${msg}</span></span>`;
+  document.getElementById('statusBar').innerHTML =
+    `<span class="stat"><span class="header-label">STATUS</span>&nbsp;<span class="stat-val">${msg}</span></span>`;
 }
 
 function setStatusFull() {
   const events = allEvents.filter(e => Math.abs(e.pct_change) >= threshold);
-  const up = events.filter(e => e.pct_change >= threshold).length;
-  const down = events.filter(e => e.pct_change <= -threshold).length;
+  const up     = events.filter(e => e.pct_change >= threshold).length;
+  const down   = events.filter(e => e.pct_change <= -threshold).length;
   const linked = Object.values(userTrump).filter(v => v).length;
+  const avgVix = (events.filter(e => e.vix).reduce((s,e) => s + e.vix, 0) / events.filter(e=>e.vix).length || 0).toFixed(1);
 
   document.getElementById('statusBar').innerHTML = `
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">DATA</span>&nbsp;<span class="stat-val">WTI DAILY — 2025–PRESENT</span></span>
+    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">DATA</span>&nbsp;<span class="stat-val">WTI · VIX · DXY — 2025–PRESENT</span></span>
     <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">EVENTS ≥${threshold}%</span>&nbsp;<span class="stat-val">${events.length}</span></span>
     <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">UP</span>&nbsp;<span class="stat-val up">▲ ${up}</span></span>
     <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">DOWN</span>&nbsp;<span class="stat-val down">▼ ${down}</span></span>
-    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">TRUMP LINKED</span>&nbsp;<span class="stat-val linked">● ${linked}</span></span>
+    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">TRUMP</span>&nbsp;<span class="stat-val linked">● ${linked}</span></span>
+    <span class="stat"><span style="color:var(--muted);font-size:10px;letter-spacing:2px">AVG VIX</span>&nbsp;<span class="stat-val" style="color:#9b88d0">${avgVix}</span></span>
   `;
+}
+
+function vixClass(v) {
+  if (!v) return 'td-na';
+  if (v >= 30) return 'td-vix vix-high';
+  if (v >= 20) return 'td-vix vix-mid';
+  return 'td-vix vix-low';
 }
 
 function renderTable() {
   const events = allEvents.filter(e => {
-    const absPct = Math.abs(e.pct_change);
-    if (absPct < threshold) return false;
-    if (currentFilter === 'up' && e.pct_change < 0) return false;
-    if (currentFilter === 'down' && e.pct_change > 0) return false;
-    if (currentFilter === 'linked' && !userTrump[e.date]) return false;
+    if (Math.abs(e.pct_change) < threshold) return false;
+    if (currentFilter === 'up'     && e.pct_change < 0)    return false;
+    if (currentFilter === 'down'   && e.pct_change > 0)    return false;
+    if (currentFilter === 'linked' && !userTrump[e.date])  return false;
     return true;
-  });
-
-  // Sort descending
-  events.sort((a,b) => b.date.localeCompare(a.date));
+  }).sort((a,b) => b.date.localeCompare(a.date));
 
   if (events.length === 0) {
-    document.getElementById('tableWrap').innerHTML = `<div class="center-msg"><span class="icon">◎</span>No events found for current filter/threshold.</div>`;
+    document.getElementById('tableWrap').innerHTML =
+      `<div class="center-msg"><span class="icon">◎</span>No events for current filter/threshold.</div>`;
     return;
   }
 
   const rows = events.map((e, i) => {
-    const isUp = e.pct_change > 0;
+    const isUp   = e.pct_change > 0;
     const pctStr = (isUp ? '+' : '') + e.pct_change.toFixed(2) + '%';
-    const badge = isUp
+    const badge  = isUp
       ? `<span class="badge badge-up">▲ ${pctStr}</span>`
       : `<span class="badge badge-down">▼ ${pctStr}</span>`;
 
-    const trumpVal = userTrump[e.date] ? 'checked' : '';
+    const vixCell = e.vix !== null
+      ? `<span class="${vixClass(e.vix)}">${e.vix.toFixed(2)}</span>`
+      : `<span class="td-na">—</span>`;
+
+    const dxyCell = e.dxy !== null
+      ? `<span class="td-dxy">${e.dxy.toFixed(2)}</span>`
+      : `<span class="td-na">—</span>`;
+
+    const trumpChecked = userTrump[e.date] ? 'checked' : '';
 
     return `
-      <tr style="animation-delay:${i * 0.03}s">
+      <tr style="animation-delay:${i * 0.025}s">
         <td class="td-date">${e.date}</td>
         <td class="td-price">$${e.prev_price.toFixed(2)}</td>
         <td class="td-price">$${e.price.toFixed(2)}</td>
         <td>${badge}</td>
+        <td>${vixCell}</td>
+        <td>${dxyCell}</td>
         <td class="trump-cell">
-          <input type="checkbox" class="trump-toggle" ${trumpVal}
+          <input type="checkbox" class="trump-toggle" ${trumpChecked}
             onchange="setTrump('${e.date}', this.checked)">
         </td>
         <td>
           <input type="text" class="notes-input"
             placeholder="Trump statement summary..."
-            value="${userNotes[e.date] || ''}"
-            onchange="setNote('${e.date}', this.value)"
+            value="${(userNotes[e.date] || '').replace(/"/g, '&quot;')}"
             oninput="setNote('${e.date}', this.value)">
         </td>
       </tr>`;
@@ -546,13 +642,21 @@ function renderTable() {
           <th>Date</th>
           <th>Prev Close</th>
           <th>Close</th>
-          <th>% Change</th>
+          <th>WTI %Δ</th>
+          <th>VIX</th>
+          <th>DXY</th>
           <th>Trump (0/1)</th>
           <th>Notes / Statement</th>
         </tr>
       </thead>
       <tbody>${rows}</tbody>
-    </table>`;
+    </table>
+    <div style="padding:16px 0 0;font-size:10px;color:#333;letter-spacing:1px">
+      VIX COLOR: <span style="color:#e74c3c">■ ≥30 (fear)</span> &nbsp;
+      <span style="color:#e8a020">■ 20–30 (caution)</span> &nbsp;
+      <span style="color:#9b88d0">■ &lt;20 (calm)</span> &nbsp;&nbsp;
+      DXY = Trade Weighted USD Index (FRED: DTWEXBGS)
+    </div>`;
 }
 
 function setTrump(date, val) {
@@ -565,27 +669,34 @@ function setNote(date, val) {
 }
 
 function exportCSV() {
-  const events = allEvents.filter(e => Math.abs(e.pct_change) >= threshold);
-  events.sort((a,b) => b.date.localeCompare(a.date));
+  const events = allEvents
+    .filter(e => Math.abs(e.pct_change) >= threshold)
+    .sort((a,b) => b.date.localeCompare(a.date));
 
-  const header = ['date','price_prev_usd','price_close_usd','pct_change','trump_statement','notes'];
+  const header = ['date','price_prev_usd','price_close_usd','pct_change','vix','dxy','trump_statement','notes'];
   const rows = events.map(e => [
     e.date,
     e.prev_price.toFixed(2),
     e.price.toFixed(2),
     e.pct_change.toFixed(4),
+    e.vix !== null ? e.vix.toFixed(2) : '',
+    e.dxy !== null ? e.dxy.toFixed(2) : '',
     userTrump[e.date] !== undefined ? userTrump[e.date] : 0,
     '"' + (userNotes[e.date] || '').replace(/"/g, '""') + '"'
   ].join(','));
 
-  const csv = [header.join(','), ...rows].join('\n');
+  const csv  = [header.join(','), ...rows].join('\n');
   const blob = new Blob([csv], { type: 'text/csv' });
-  const url = URL.createObjectURL(blob);
-  const a = document.createElement('a'); a.href = url;
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href     = url;
   a.download = `wti_trump_events_${new Date().toISOString().slice(0,10)}.csv`;
   a.click();
   URL.revokeObjectURL(url);
 }
+
+// Auto-load on open
+window.addEventListener('DOMContentLoaded', () => fetchData());
 </script>
 </body>
 </html>
