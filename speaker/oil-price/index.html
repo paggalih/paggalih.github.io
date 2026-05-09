@@ -10,6 +10,7 @@
   --bg:#0a0a0a; --surface:#111; --border:#1e1e1e; --b2:#2a2a2a;
   --text:#c8c8c8; --muted:#555; --accent:#e8a020;
   --up:#2ecc71; --down:#e74c3c; --vix:#9b88d0; --dxy:#5bb8d4;
+  --ai:#7c6fcd;
   --mono:'IBM Plex Mono',monospace;
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -29,11 +30,13 @@ h1 span{color:var(--accent)}
 .btn:disabled{opacity:.3;cursor:not-allowed}
 .btn2{border-color:#333;color:#555}
 .btn2:hover{background:#1a1a1a;color:#aaa;border-color:#666}
+.btn-ai{border-color:var(--ai);color:var(--ai)}
+.btn-ai:hover{background:var(--ai);color:#fff}
 .sbar{padding:8px 28px;font-size:10px;color:var(--muted);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:20px;align-items:center;min-height:32px}
 .si{display:flex;gap:6px;align-items:center}
 .sv{font-weight:700;color:var(--text)}
 .sup{color:var(--up)!important} .sdn{color:var(--down)!important}
-.sacc{color:var(--accent)!important} .svix{color:var(--vix)!important}
+.sacc{color:var(--accent)!important} .svix{color:var(--vix)!important} .sai{color:var(--ai)!important}
 .fbar{padding:9px 28px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
 .fl{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
 .fb{background:transparent;border:1px solid var(--b2);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .15s}
@@ -61,25 +64,33 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 .tt:checked{background:rgba(232,160,32,.12);border-color:var(--accent)}
 .tt::after{content:'0';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#333;pointer-events:none}
 .tt:checked::after{content:'1';color:var(--accent)}
-.ni{background:transparent;border:none;border-bottom:1px solid #1e1e1e;color:#555;font-family:var(--mono);font-size:11px;padding:2px 4px;width:190px;outline:none;transition:all .2s}
+.ni{background:transparent;border:none;border-bottom:1px solid #1e1e1e;color:#555;font-family:var(--mono);font-size:11px;padding:2px 4px;width:200px;outline:none;transition:all .2s}
 .ni:focus{border-bottom-color:var(--accent);color:var(--text)}
 .ni::placeholder{color:#222}
+.ai-btn{background:transparent;border:1px solid #2a2a2a;color:#444;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;cursor:pointer;text-transform:uppercase;transition:all .15s;white-space:nowrap}
+.ai-btn:hover{border-color:var(--ai);color:var(--ai)}
+.ai-btn:disabled{opacity:.3;cursor:not-allowed}
+.ai-btn.analyzing{border-color:var(--ai);color:var(--ai);animation:bk 1s step-end infinite}
+.ai-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;letter-spacing:1px}
+.ai-1{color:var(--up);border:1px solid rgba(46,204,113,.3);background:rgba(46,204,113,.06)}
+.ai-0{color:#444;border:1px solid #2a2a2a}
 .msg{text-align:center;padding:70px 40px;color:var(--muted);font-size:12px;letter-spacing:1px;line-height:2}
 .mi{font-size:26px;display:block;margin-bottom:14px}
 .blink{animation:bk 1s step-end infinite}
 @keyframes bk{50%{opacity:0}}
 .leg{padding:12px 0 0;font-size:10px;color:#2a2a2a;letter-spacing:1px}
 .err-box{background:#1a0a0a;border:1px solid #3a1a1a;padding:12px 16px;font-size:11px;color:#c0605a;margin:16px 0}
+.ai-info{background:#0d0d1a;border:1px solid #1e1e3a;padding:10px 16px;font-size:10px;color:#6060a0;margin-bottom:0;letter-spacing:1px}
 </style>
 </head>
 <body>
 
 <header>
   <div>
-    <div class="hl">Research Tool v4.0</div>
+    <div class="hl">Research Tool v5.0</div>
     <h1>WTI CRUDE &#8212; <span>TRUMP</span> EVENT TRACKER</h1>
   </div>
-  <div class="hm">DAILY MOVES &#8805; THRESHOLD% &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; MANUAL TRUMP CODING &#8594; CSV</div>
+  <div class="hm">DAILY MOVES &#8805; THRESHOLD% &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; AI TRUMP STATEMENT ANALYSIS &#8594; CSV</div>
 </header>
 
 <div class="api-bar">
@@ -89,7 +100,12 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <label>FRED</label>
   <input id="frKey" value="b589f289fa9c329148656b9c15f3be64">
   <button class="btn" id="loadBtn" onclick="loadAll()">&#9654; LOAD</button>
+  <button class="btn btn-ai" id="analyzeAllBtn" onclick="analyzeAll()" disabled>&#9670; AI ANALYZE ALL</button>
   <button class="btn btn2" id="expBtn" onclick="exportCSV()" disabled>&#8595; CSV</button>
+</div>
+
+<div class="ai-info" id="aiInfo">
+  &#9670; AI ANALYSIS: Paste pernyataan Trump di kolom Notes &#8594; klik tombol AI per baris, atau gunakan "AI ANALYZE ALL" untuk semua sekaligus.
 </div>
 
 <div class="sbar" id="sbar">
@@ -101,7 +117,7 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <button class="fb act" id="f-all"   onclick="setF('all')">ALL</button>
   <button class="fb"     id="f-up"    onclick="setF('up')">&#9650; UP</button>
   <button class="fb"     id="f-down"  onclick="setF('down')">&#9660; DOWN</button>
-  <button class="fb"     id="f-trump" onclick="setF('trump')">&#9679; TRUMP</button>
+  <button class="fb"     id="f-trump" onclick="setF('trump')">&#9679; TRUMP=1</button>
   <div class="tw">
     <label>THRESHOLD</label>
     <input type="range" id="tr" min="1" max="5" step="0.5" value="2"
@@ -116,12 +132,11 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
 </div>
 
 <script>
-var events=[], trump={}, notes={}, filter='all', thr=2.0;
+var events=[], trump={}, notes={}, aiResult={}, filter='all', thr=2.0;
 var vixMap={}, dxyMap={};
+var PROXY='https://corsproxy.io/?';
 
-/* ── CORS proxy untuk FRED ──────────────────────────────── */
-var PROXY = 'https://corsproxy.io/?';
-
+/* ── Helpers ─────────────────────────────────────────── */
 function nearest(map, date) {
   var keys=Object.keys(map).sort(), val=null;
   for(var i=0;i<keys.length;i++){
@@ -132,60 +147,145 @@ function nearest(map, date) {
 }
 
 function fredUrl(series, key) {
-  var raw = 'https://api.stlouisfed.org/fred/series/observations'
-    + '?series_id=' + series
-    + '&observation_start=2025-01-01'
-    + '&api_key=' + key
-    + '&file_type=json&sort_order=asc';
-  return PROXY + encodeURIComponent(raw);
+  var raw='https://api.stlouisfed.org/fred/series/observations'
+    +'?series_id='+series+'&observation_start=2025-01-01'
+    +'&api_key='+key+'&file_type=json&sort_order=asc';
+  return PROXY+encodeURIComponent(raw);
 }
 
 function parseFRED(json) {
   var map={};
   (json.observations||[]).forEach(function(o){
-    if(o.value && o.value!=='.' && o.value!=='null')
-      map[o.date]=parseFloat(o.value);
+    if(o.value&&o.value!=='.'&&o.value!=='null') map[o.date]=parseFloat(o.value);
   });
   return map;
 }
 
-/* ── Status helpers ─────────────────────────────────────── */
-function setSt(msg) {
-  document.getElementById('sbar').innerHTML =
+function setSt(msg){
+  document.getElementById('sbar').innerHTML=
     '<span class="si"><span>STATUS</span>&nbsp;<span class="sv">'+msg+'</span></span>';
 }
 
-function renderSt() {
+function renderSt(){
   var ev=events.filter(function(e){return Math.abs(e.pct)>=thr;});
   var up=ev.filter(function(e){return e.pct>0;}).length;
   var dn=ev.filter(function(e){return e.pct<0;}).length;
   var lk=Object.keys(trump).filter(function(k){return trump[k];}).length;
+  var ai=Object.keys(aiResult).length;
   var va=ev.filter(function(e){return e.vix;});
   var vavg=va.length?(va.reduce(function(s,e){return s+e.vix;},0)/va.length).toFixed(1):'&#8212;';
   document.getElementById('sbar').innerHTML=
     si('EVENTS &#8805;'+thr+'%',ev.length,'')+
-    si('UP','&#9650; '+up,'sup')+
-    si('DOWN','&#9660; '+dn,'sdn')+
-    si('TRUMP','&#9679; '+lk,'sacc')+
-    si('AVG VIX',vavg,'svix');
+    si('&#9650;',up,'sup')+
+    si('&#9660;',dn,'sdn')+
+    si('TRUMP=1',lk,'sacc')+
+    si('AVG VIX',vavg,'svix')+
+    si('AI ANALYZED',ai,'sai');
 }
 
 function si(l,v,c){
   return '<span class="si"><span>'+l+'</span>&nbsp;<span class="sv '+c+'">'+v+'</span></span>';
 }
 
-/* ── Load ───────────────────────────────────────────────── */
-function loadAll() {
+/* ── Claude API ──────────────────────────────────────── */
+var CLAUDE_PROMPT = 'You are a financial analyst assistant. '
+  + 'Given a Trump statement, determine if it is likely to influence crude oil prices. '
+  + 'Consider: OPEC, Iran, Saudi Arabia, sanctions, tariffs, energy policy, China trade, '
+  + 'geopolitical threats, SPR releases, oil production, Venezuela, Russia. '
+  + 'Reply with ONLY a single digit: 1 if relevant to oil price, 0 if not. '
+  + 'No explanation, no punctuation, just 0 or 1.';
+
+function callClaude(text) {
+  return fetch('https://api.anthropic.com/v1/messages', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({
+      model: 'claude-sonnet-4-20250514',
+      max_tokens: 10,
+      system: CLAUDE_PROMPT,
+      messages: [{ role: 'user', content: text }]
+    })
+  })
+  .then(function(r){ return r.json(); })
+  .then(function(j){
+    var txt = (j.content && j.content[0] && j.content[0].text) ? j.content[0].text.trim() : '';
+    return txt === '1' ? 1 : 0;
+  });
+}
+
+/* ── Analyze single row ─────────────────────────────── */
+function analyzeRow(date) {
+  var note = (notes[date]||'').trim();
+  if(!note){ alert('Isi Notes dulu untuk tanggal '+date); return; }
+
+  var btn = document.getElementById('ai-btn-'+date);
+  if(btn){ btn.disabled=true; btn.className='ai-btn analyzing'; btn.textContent='AI...'; }
+
+  callClaude(note)
+  .then(function(result){
+    aiResult[date] = result;
+    trump[date]    = result;
+    renderSt();
+    renderTable();
+  })
+  .catch(function(e){
+    if(btn){ btn.disabled=false; btn.className='ai-btn'; btn.textContent='AI'; }
+    alert('Claude API error: '+e.message);
+  });
+}
+
+/* ── Analyze all rows with notes (sequential) ───────── */
+function analyzeAll() {
+  var targets = events.filter(function(e){
+    return Math.abs(e.pct)>=thr && (notes[e.date]||'').trim();
+  });
+
+  if(!targets.length){
+    alert('Isi kolom Notes dulu minimal satu baris.');
+    return;
+  }
+
+  document.getElementById('analyzeAllBtn').disabled=true;
+  setSt('<span class="blink">AI ANALYZING '+targets.length+' ROWS&#8230;</span>');
+
+  var i=0;
+  function next(){
+    if(i>=targets.length){
+      document.getElementById('analyzeAllBtn').disabled=false;
+      renderSt(); renderTable();
+      setSt('AI DONE &#8212; '+targets.length+' rows analyzed');
+      return;
+    }
+    var e=targets[i]; i++;
+    var btn=document.getElementById('ai-btn-'+e.date);
+    if(btn){btn.disabled=true;btn.className='ai-btn analyzing';btn.textContent='AI...';}
+
+    callClaude((notes[e.date]||'').trim())
+    .then(function(result){
+      aiResult[e.date]=result;
+      trump[e.date]=result;
+      renderSt(); renderTable();
+      setTimeout(next, 500); // rate limit buffer
+    })
+    .catch(function(){
+      setTimeout(next, 1000);
+    });
+  }
+  next();
+}
+
+/* ── Data load ───────────────────────────────────────── */
+function loadAll(){
   var av=document.getElementById('avKey').value.trim();
   var fr=document.getElementById('frKey').value.trim();
   if(!av||!fr){alert('Kedua API key diperlukan.');return;}
 
   document.getElementById('loadBtn').disabled=true;
   document.getElementById('expBtn').disabled=true;
-  document.getElementById('tw').innerHTML='<div class="msg"><span class="mi blink">&#9672;</span>Mengambil WTI&#8230;</div>';
+  document.getElementById('analyzeAllBtn').disabled=true;
+  document.getElementById('tw').innerHTML='<div class="msg"><span class="mi blink">&#9672;</span>Fetching WTI&#8230;</div>';
   setSt('<span class="blink">FETCHING WTI&#8230;</span>');
 
-  /* Step 1: WTI dari Alpha Vantage (CORS ok) */
   fetch('https://www.alphavantage.co/query?function=WTI&interval=daily&apikey='+av)
   .then(function(r){return r.json();})
   .then(function(j){
@@ -202,13 +302,10 @@ function loadAll() {
       if(!p||!c) continue;
       events.push({date:raw[i].date,prev:p,price:c,pct:(c-p)/p*100,vix:null,dxy:null});
     }
-
-    /* Render WTI dulu */
     renderSt(); renderTable();
     document.getElementById('expBtn').disabled=false;
-    setSt('<span class="blink">WTI OK &#8212; FETCHING VIX+DXY&#8230;</span>');
-
-    /* Step 2: VIX via proxy */
+    document.getElementById('analyzeAllBtn').disabled=false;
+    setSt('<span class="blink">WTI OK &#8212; FETCHING VIX&#8230;</span>');
     return fetch(fredUrl('VIXCLS',fr)).then(function(r){return r.json();});
   })
   .then(function(vj){
@@ -216,8 +313,6 @@ function loadAll() {
     events.forEach(function(e){e.vix=nearest(vixMap,e.date);});
     renderSt(); renderTable();
     setSt('<span class="blink">VIX OK &#8212; FETCHING DXY&#8230;</span>');
-
-    /* Step 3: DXY via proxy */
     return fetch(fredUrl('DTWEXBGS',document.getElementById('frKey').value.trim()))
       .then(function(r){return r.json();});
   })
@@ -225,18 +320,16 @@ function loadAll() {
     dxyMap=parseFRED(dj);
     events.forEach(function(e){e.dxy=nearest(dxyMap,e.date);});
     renderSt(); renderTable();
-    setSt('READY &#8212; '+events.filter(function(e){return Math.abs(e.pct)>=thr;}).length+' events loaded');
+    setSt('READY &#8212; Paste Trump statement di Notes &#8594; klik AI per baris');
   })
   .catch(function(e){
     var msg=e.message||String(e);
-    /* Kalau hanya VIX/DXY yang gagal, WTI sudah tampil */
     if(events.length){
-      document.getElementById('tw').querySelector && null;
       var box=document.createElement('div');
       box.className='err-box';
-      box.textContent='VIX/DXY error: '+msg+' (WTI data masih tersedia)';
+      box.textContent='VIX/DXY error: '+msg;
       document.getElementById('tw').prepend(box);
-      setSt('PARTIAL &#8212; WTI OK, VIX/DXY GAGAL');
+      setSt('PARTIAL &#8212; WTI OK, VIX/DXY gagal');
     } else {
       setSt('ERROR: '+msg);
       document.getElementById('tw').innerHTML=
@@ -248,7 +341,7 @@ function loadAll() {
   });
 }
 
-/* ── Table ──────────────────────────────────────────────── */
+/* ── Table ───────────────────────────────────────────── */
 function setF(f){
   filter=f;
   ['all','up','down','trump'].forEach(function(id){
@@ -265,9 +358,9 @@ function applyT(){
 function renderTable(){
   var rows=events.filter(function(e){
     if(Math.abs(e.pct)<thr) return false;
-    if(filter==='up'    &&e.pct<0)        return false;
-    if(filter==='down'  &&e.pct>0)        return false;
-    if(filter==='trump' &&!trump[e.date]) return false;
+    if(filter==='up'    &&e.pct<0)          return false;
+    if(filter==='down'  &&e.pct>0)          return false;
+    if(filter==='trump' &&!trump[e.date])   return false;
     return true;
   }).sort(function(a,b){return b.date<a.date?-1:1;});
 
@@ -287,6 +380,15 @@ function renderTable(){
     var chk=trump[e.date]?' checked':'';
     var nt=(notes[e.date]||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
     var d=e.date;
+
+    // AI result badge
+    var aiBadge='';
+    if(aiResult[d]!==undefined){
+      aiBadge=aiResult[d]===1
+        ?'<span class="ai-badge ai-1">&#9670; OIL</span>'
+        :'<span class="ai-badge ai-0">&#9671; NO</span>';
+    }
+
     return '<tr>'
       +'<td class="tda">'+d+'</td>'
       +'<td class="tdp">$'+e.prev.toFixed(2)+'</td>'
@@ -294,8 +396,11 @@ function renderTable(){
       +'<td>'+badge+'</td>'
       +'<td>'+vs+'</td>'
       +'<td>'+ds+'</td>'
-      +'<td style="text-align:center"><input type="checkbox" class="tt"'+chk+' onchange="setTr(\''+d+'\',this.checked)"></td>'
-      +'<td><input type="text" class="ni" placeholder="Trump statement&#8230;" value="'+nt+'" oninput="setN(\''+d+'\',this.value)"></td>'
+      +'<td style="text-align:center">'
+        +'<input type="checkbox" class="tt"'+chk+' onchange="setTr(\''+d+'\',this.checked)">'
+      +'</td>'
+      +'<td><input type="text" class="ni" id="note-'+d+'" placeholder="Paste Trump statement…" value="'+nt+'" oninput="setN(\''+d+'\',this.value)"></td>'
+      +'<td>'+aiBadge+'<button class="ai-btn" id="ai-btn-'+d+'" onclick="analyzeRow(\''+d+'\')">AI</button></td>'
       +'</tr>';
   }).join('');
 
@@ -303,30 +408,33 @@ function renderTable(){
     '<table><thead><tr>'
     +'<th>Date</th><th>Prev $</th><th>Close $</th>'
     +'<th>WTI %&#916;</th><th>VIX</th><th>DXY</th>'
-    +'<th>Trump 0/1</th><th>Notes</th>'
+    +'<th>Trump</th><th>Statement (paste here)</th><th>AI</th>'
     +'</tr></thead><tbody>'+trs+'</tbody></table>'
     +'<div class="leg">'
     +'VIX: <span style="color:var(--down)">&#9632; &#8805;30</span> '
     +'<span style="color:var(--accent)">&#9632; 20&#8211;30</span> '
     +'<span style="color:var(--vix)">&#9632; &lt;20</span>'
-    +' &nbsp;&#183; DXY=FRED:DTWEXBGS via corsproxy.io'
+    +' &nbsp;&#183; AI: &#9670; OIL = relevan ke harga minyak &nbsp;&#183; &#9671; NO = tidak relevan'
     +'</div>';
 }
 
 function setTr(d,v){trump[d]=v?1:0;renderSt();}
 function setN(d,v){notes[d]=v;}
 
-/* ── Export ─────────────────────────────────────────────── */
+/* ── Export ──────────────────────────────────────────── */
 function exportCSV(){
   var rows=events.filter(function(e){return Math.abs(e.pct)>=thr;})
     .sort(function(a,b){return b.date<a.date?-1:1;});
-  var h='date,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,notes';
+  var h='date,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,ai_result,notes';
   var b=rows.map(function(e){
-    return [e.date,e.prev.toFixed(2),e.price.toFixed(2),e.pct.toFixed(4),
+    return [
+      e.date, e.prev.toFixed(2), e.price.toFixed(2), e.pct.toFixed(4),
       e.vix!=null?e.vix.toFixed(2):'',
       e.dxy!=null?e.dxy.toFixed(2):'',
       trump[e.date]||0,
-      '"'+(notes[e.date]||'').replace(/"/g,'""')+'"'].join(',');
+      aiResult[e.date]!==undefined?aiResult[e.date]:'',
+      '"'+(notes[e.date]||'').replace(/"/g,'""')+'"'
+    ].join(',');
   }).join('\n');
   var blob=new Blob([h+'\n'+b],{type:'text/csv'});
   var url=URL.createObjectURL(blob);
