@@ -99,7 +99,6 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <div class="hm">DATA DARI GOOGLE SHEETS &#183; EIA WEEKLY &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; AI TRUMP ANALYSIS &#8594; CSV</div>
 </header>
 
-<!-- ROW 1: Apps Script URL -->
 <div class="api-bar">
   <label>Apps Script URL</label>
   <input id="scriptUrl" value="https://script.google.com/macros/s/AKfycbwbduy98MPXbb5ABKixQDOlWwnNkf2pIGbLKmGjzGH4sTIHimJOCrijpFg45dkV87E5/exec" style="width:420px">
@@ -107,7 +106,6 @@ td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
   <span class="save-dot" id="saveDot" title="Tersimpan ke Sheets"></span>
 </div>
 
-<!-- ROW 2: Refresh dari EIA + FRED -->
 <div class="api-bar" style="border-top:1px solid var(--border)">
   <label>EIA API Key</label>
   <input id="eiaKey" placeholder="Hanya untuk REFRESH" style="width:190px">
@@ -161,7 +159,6 @@ var PROXY='https://corsproxy.io/?';
 var CLAUDE_URL=PROXY+encodeURIComponent('https://api.anthropic.com/v1/messages');
 var saveTimer=null;
 
-/* ── Status ──────────────────────────────────────────── */
 function setSt(msg){
   document.getElementById('sbar').innerHTML=
     '<span class="si"><span>STATUS</span>&nbsp;<span class="sv">'+msg+'</span></span>';
@@ -188,7 +185,6 @@ function si(l,v,c){
   return '<span class="si"><span>'+l+'</span>&nbsp;<span class="sv '+c+'">'+v+'</span></span>';
 }
 
-/* ── LOAD dari Google Sheets ─────────────────────────── */
 function loadFromSheet() {
   var url=document.getElementById('scriptUrl').value.trim();
   if(!url){alert('Masukkan Apps Script URL.');return;}
@@ -197,7 +193,7 @@ function loadFromSheet() {
   document.getElementById('tw').innerHTML='<div class="msg"><span class="mi blink">&#9672;</span>Membaca Google Sheets&#8230;</div>';
   setSt('<span class="blink">LOADING FROM SHEETS&#8230;</span>');
 
-  fetch(url+'?action=getData')
+  fetch(url+'?action=getData', { redirect: 'follow' })
   .then(function(r){return r.json();})
   .then(function(j){
     if(j.error) throw new Error(j.error);
@@ -237,7 +233,6 @@ function loadFromSheet() {
   });
 }
 
-/* ── REFRESH dari EIA → simpan ke Sheets ─────────────── */
 function refreshFromAPI() {
   var url=document.getElementById('scriptUrl').value.trim();
   var eia=document.getElementById('eiaKey').value.trim();
@@ -252,7 +247,7 @@ function refreshFromAPI() {
     +'&eiaKey='+encodeURIComponent(eia)
     +'&frKey='+encodeURIComponent(fr);
 
-  fetch(fetchUrl)
+  fetch(fetchUrl, { redirect: 'follow' })
   .then(function(r){return r.json();})
   .then(function(j){
     if(j.error) throw new Error(j.error);
@@ -267,7 +262,6 @@ function refreshFromAPI() {
   });
 }
 
-/* ── Auto-save anotasi ke Sheets ─────────────────────── */
 function saveToSheet() {
   var url=document.getElementById('scriptUrl').value.trim();
   if(!url) return;
@@ -282,7 +276,8 @@ function saveToSheet() {
   fetch(url,{
     method:'POST',
     body:JSON.stringify({action:'saveAnnotations',data:data}),
-    headers:{'Content-Type':'application/json'}
+    headers:{'Content-Type':'text/plain;charset=utf-8'},
+    redirect: 'follow'
   })
   .then(function(r){return r.json();})
   .then(function(){
@@ -298,7 +293,6 @@ function scheduleSave(){
   saveTimer=setTimeout(saveToSheet,1500);
 }
 
-/* ── Claude API ──────────────────────────────────────── */
 var CLAUDE_PROMPT='You are a financial analyst assistant. '
   +'Given a Trump statement, determine if it is likely to influence crude oil prices. '
   +'Consider: OPEC, Iran, Saudi Arabia, sanctions, tariffs, energy policy, China trade, '
@@ -311,7 +305,12 @@ function callClaude(text){
   if(!key) throw new Error('Masukkan Claude API key.');
   return fetch(CLAUDE_URL,{
     method:'POST',
-    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+    headers:{
+      'Content-Type':'application/json',
+      'x-api-key':key,
+      'anthropic-version':'2023-06-01',
+      'anthropic-dangerous-direct-browser-access': 'true'
+    },
     body:JSON.stringify({
       model:'claude-sonnet-4-20250514',max_tokens:10,
       system:CLAUDE_PROMPT,
@@ -372,7 +371,6 @@ function analyzeAll(){
   next();
 }
 
-/* ── Filter & threshold ──────────────────────────────── */
 function setF(f){
   filter=f;
   ['all','up','down','trump'].forEach(function(id){
@@ -386,7 +384,6 @@ function applyT(){
   renderSt(); renderTable();
 }
 
-/* ── Render table ────────────────────────────────────── */
 function renderTable(){
   var rows=events.filter(function(e){
     if(Math.abs(e.pct)<thr) return false;
@@ -445,7 +442,6 @@ function renderTable(){
 function setTr(d,v){trump[d]=v?1:0;scheduleSave();renderSt();}
 function setN(d,v){notes[d]=v;scheduleSave();}
 
-/* ── Export CSV ──────────────────────────────────────── */
 function exportCSV(){
   var rows=events.filter(function(e){return Math.abs(e.pct)>=thr;})
     .sort(function(a,b){return b.date<a.date?-1:1;});
