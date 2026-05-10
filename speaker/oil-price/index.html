@@ -1,73 +1,471 @@
-<!-- index.html -->
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-  <base target="_top">
-  <style>
-    body { 
-      font-family: sans-serif; 
-      padding: 20px; 
-    }
-    table { 
-      border-collapse: collapse; 
-      width: 100%; 
-    }
-    th, td { 
-      border: 1px solid black; 
-      padding: 8px; 
-      text-align: left; 
-    }
-    input[type="text"] {
-      width: 90%;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>WTI Oil — Trump Event Tracker</title>
+<link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@300;400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg:#0a0a0a; --surface:#111; --border:#1e1e1e; --b2:#2a2a2a;
+  --text:#c8c8c8; --muted:#555; --accent:#e8a020;
+  --up:#2ecc71; --down:#e74c3c; --vix:#9b88d0; --dxy:#5bb8d4;
+  --ai:#7c6fcd;
+  --mono:'IBM Plex Mono',monospace;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--text);font-family:var(--mono);min-height:100vh}
+header{border-bottom:1px solid var(--b2);padding:22px 28px;display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:10px}
+.hl{font-size:10px;letter-spacing:4px;color:var(--muted);text-transform:uppercase;margin-bottom:4px}
+h1{font-size:19px;font-weight:700;color:#fff}
+h1 span{color:var(--accent)}
+.hm{font-size:11px;color:var(--muted);line-height:1.8}
+.api-bar{background:var(--surface);border-bottom:1px solid var(--border);padding:12px 28px;display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.api-bar label{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase;white-space:nowrap}
+.api-bar input{background:var(--bg);border:1px solid var(--b2);color:var(--accent);font-family:var(--mono);font-size:11px;padding:7px 12px;outline:none;width:230px}
+.api-bar input:focus{border-color:var(--accent)}
+.dvd{width:1px;height:26px;background:var(--b2)}
+.btn{background:transparent;border:1px solid var(--accent);color:var(--accent);font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:2px;padding:7px 16px;cursor:pointer;text-transform:uppercase;transition:all .15s}
+.btn:hover{background:var(--accent);color:#000}
+.btn:disabled{opacity:.3;cursor:not-allowed}
+.btn2{border-color:#333;color:#555}
+.btn2:hover{background:#1a1a1a;color:#aaa;border-color:#666}
+.btn-ai{border-color:var(--ai);color:var(--ai)}
+.btn-ai:hover{background:var(--ai);color:#fff}
+.btn-warn{border-color:#c0605a;color:#c0605a}
+.btn-warn:hover{background:#c0605a;color:#fff}
+.sbar{padding:8px 28px;font-size:10px;color:var(--muted);border-bottom:1px solid var(--border);display:flex;flex-wrap:wrap;gap:20px;align-items:center;min-height:32px}
+.si{display:flex;gap:6px;align-items:center}
+.sv{font-weight:700;color:var(--text)}
+.sup{color:var(--up)!important} .sdn{color:var(--down)!important}
+.sacc{color:var(--accent)!important} .svix{color:var(--vix)!important} .sai{color:var(--ai)!important}
+.ssheet{color:#3a3!important}
+.fbar{padding:9px 28px;border-bottom:1px solid var(--border);display:flex;gap:14px;align-items:center;flex-wrap:wrap}
+.fl{font-size:10px;color:var(--muted);letter-spacing:2px;text-transform:uppercase}
+.fb{background:transparent;border:1px solid var(--b2);color:var(--muted);font-family:var(--mono);font-size:10px;padding:4px 10px;cursor:pointer;letter-spacing:1px;text-transform:uppercase;transition:all .15s}
+.fb.act{border-color:var(--accent);color:var(--accent)}
+.fb:hover{border-color:#444;color:var(--text)}
+.tw{display:flex;align-items:center;gap:8px;margin-left:auto}
+.tw label{font-size:10px;color:var(--muted);letter-spacing:1px}
+input[type=range]{width:80px;accent-color:var(--accent)}
+.tv{font-size:11px;color:var(--accent);font-weight:700;width:32px}
+.twrap{overflow-x:auto;padding:0 28px 60px}
+table{width:100%;border-collapse:collapse;font-size:12px;margin-top:14px}
+thead th{text-align:left;padding:8px 12px;font-size:10px;letter-spacing:2px;color:var(--muted);text-transform:uppercase;border-bottom:1px solid var(--b2);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .1s}
+tbody tr:hover{background:rgba(255,255,255,.02)}
+td{padding:10px 12px;vertical-align:middle;white-space:nowrap}
+.tda{color:#fff;font-weight:700}
+.tdp{color:var(--text)}
+.badge{display:inline-block;padding:3px 8px;font-size:11px;font-weight:700}
+.bu{color:var(--up);border:1px solid rgba(46,204,113,.3);background:rgba(46,204,113,.06)}
+.bd{color:var(--down);border:1px solid rgba(231,76,60,.3);background:rgba(231,76,60,.06)}
+.vhi{color:var(--down);font-weight:600} .vmd{color:var(--accent);font-weight:600} .vlo{color:var(--vix);font-weight:600}
+.dxy-v{color:var(--dxy);font-weight:600}
+.na{color:#2a2a2a}
+.tt{appearance:none;-webkit-appearance:none;width:38px;height:22px;background:#1a1a1a;border:1px solid #333;border-radius:2px;cursor:pointer;position:relative;transition:all .2s;display:inline-block}
+.tt:checked{background:rgba(232,160,32,.12);border-color:var(--accent)}
+.tt::after{content:'0';position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-family:var(--mono);font-size:11px;font-weight:700;color:#333;pointer-events:none}
+.tt:checked::after{content:'1';color:var(--accent)}
+.ni{background:transparent;border:none;border-bottom:1px solid #1e1e1e;color:#555;font-family:var(--mono);font-size:11px;padding:2px 4px;width:200px;outline:none;transition:all .2s}
+.ni:focus{border-bottom-color:var(--accent);color:var(--text)}
+.ni::placeholder{color:#222}
+.ai-btn{background:transparent;border:1px solid #2a2a2a;color:#444;font-family:var(--mono);font-size:9px;font-weight:700;letter-spacing:1px;padding:3px 8px;cursor:pointer;text-transform:uppercase;transition:all .15s;white-space:nowrap}
+.ai-btn:hover{border-color:var(--ai);color:var(--ai)}
+.ai-btn:disabled{opacity:.3;cursor:not-allowed}
+.ai-btn.analyzing{border-color:var(--ai);color:var(--ai);animation:bk 1s step-end infinite}
+.ai-badge{display:inline-block;font-size:9px;font-weight:700;padding:2px 6px;letter-spacing:1px;margin-right:4px}
+.ai-1{color:var(--up);border:1px solid rgba(46,204,113,.3);background:rgba(46,204,113,.06)}
+.ai-0{color:#444;border:1px solid #2a2a2a}
+.msg{text-align:center;padding:70px 40px;color:var(--muted);font-size:12px;letter-spacing:1px;line-height:2}
+.mi{font-size:26px;display:block;margin-bottom:14px}
+.blink{animation:bk 1s step-end infinite}
+@keyframes bk{50%{opacity:0}}
+.leg{padding:12px 0 0;font-size:10px;color:#2a2a2a;letter-spacing:1px}
+.err-box{background:#1a0a0a;border:1px solid #3a1a1a;padding:12px 16px;font-size:11px;color:#c0605a;margin:16px 0}
+.ai-info{background:#0d0d1a;border:1px solid #1e1e3a;padding:10px 16px;font-size:10px;color:#6060a0;letter-spacing:1px}
+.save-dot{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--up);margin-left:6px;opacity:0;transition:opacity .3s}
+.save-dot.show{opacity:1}
+.weekly-tag{font-size:9px;color:#444;letter-spacing:1px;margin-left:4px}
+</style>
 </head>
 <body>
-  <h2>Market Data Tracker</h2>
-  <div id="status">Loading fresh data...</div>
-  <table id="dataTable"></table>
 
-  <script>
-    // Request data on load
-    google.script.run.withSuccessHandler(renderTable).getLatestData();
+<header>
+  <div>
+    <div class="hl">Research Tool v6.0 — Google Sheets + EIA Edition</div>
+    <h1>WTI CRUDE &#8212; <span>TRUMP</span> EVENT TRACKER</h1>
+  </div>
+  <div class="hm">DATA DARI GOOGLE SHEETS &#183; EIA WEEKLY &#183; 2025&#8211;PRESENT<br>WTI &#183; VIX &#183; DXY &#183; AI TRUMP ANALYSIS &#8594; CSV</div>
+</header>
 
-    // Build the HTML table
-    function renderTable(data) {
-      document.getElementById('status').innerText = '';
-      let html = '<tr>';
-      
-      // Build headers
-      data[0].forEach(header => html += `<th>${header}</th>`);
-      html += '<th>Action</th></tr>';
+<!-- ROW 1: Apps Script URL -->
+<div class="api-bar">
+  <label>Apps Script URL</label>
+  <input id="scriptUrl" value="https://script.google.com/macros/s/AKfycbwbduy98MPXbb5ABKixQDOlWwnNkf2pIGbLKmGjzGH4sTIHimJOCrijpFg45dkV87E5/exec" style="width:420px">
+  <button class="btn" id="loadBtn" onclick="loadFromSheet()">&#9654; LOAD SHEET</button>
+  <span class="save-dot" id="saveDot" title="Tersimpan ke Sheets"></span>
+</div>
 
-      // Build data rows
-      for (let i = 1; i < data.length; i++) {
-        html += '<tr>';
-        html += `<td>${data[i][0]}</td>`;
-        html += `<td>${data[i][1]}</td>`;
-        html += `<td>${data[i][2]}</td>`;
-        html += `<td>${data[i][3]}</td>`;
-        
-        let statement = data[i][4];
-        let inputId = `stmt_${i}`;
-        
-        // Input and button cells
-        html += `<td><input type="text" id="${inputId}" value="${statement}"></td>`;
-        html += `<td><button onclick="saveData('${data[i][0]}', '${inputId}')">Save</button></td>`;
-        html += '</tr>';
-      }
-      document.getElementById('dataTable').innerHTML = html;
+<!-- ROW 2: Refresh dari EIA + FRED -->
+<div class="api-bar" style="border-top:1px solid var(--border)">
+  <label>EIA API Key</label>
+  <input id="eiaKey" placeholder="Hanya untuk REFRESH" style="width:190px">
+  <div class="dvd"></div>
+  <label>FRED API Key</label>
+  <input id="frKey" placeholder="Hanya untuk REFRESH" style="width:190px">
+  <button class="btn btn-warn" id="refreshBtn" onclick="refreshFromAPI()">&#8635; REFRESH FROM EIA</button>
+  <div class="dvd"></div>
+  <label>Claude API Key</label>
+  <input id="claudeKey" type="password" placeholder="sk-ant-api03-..." style="width:240px">
+  <button class="btn btn-ai" id="analyzeAllBtn" onclick="analyzeAll()" disabled>&#9670; AI ANALYZE ALL</button>
+  <button class="btn btn2" id="expBtn" onclick="exportCSV()" disabled>&#8595; CSV</button>
+</div>
+
+<div class="ai-info">
+  &#9670; Buka: masukkan Apps Script URL &#8594; LOAD SHEET. &nbsp;|&nbsp;
+  Data baru: isi EIA + FRED key &#8594; REFRESH FROM EIA (weekly, unlimited). &nbsp;|&nbsp;
+  Daftar EIA key gratis: <b>eia.gov/opendata</b>
+</div>
+
+<div class="sbar" id="sbar">
+  <span class="si"><span>STATUS</span>&nbsp;<span class="sv">SIAP &#8212; masukkan Apps Script URL</span></span>
+</div>
+
+<div class="fbar">
+  <span class="fl">Filter</span>
+  <button class="fb act" id="f-all"   onclick="setF('all')">ALL</button>
+  <button class="fb"     id="f-up"    onclick="setF('up')">&#9650; UP</button>
+  <button class="fb"     id="f-down"  onclick="setF('down')">&#9660; DOWN</button>
+  <button class="fb"     id="f-trump" onclick="setF('trump')">&#9679; TRUMP=1</button>
+  <div class="tw">
+    <label>THRESHOLD</label>
+    <input type="range" id="tr" min="1" max="5" step="0.5" value="2"
+      oninput="document.getElementById('tv').textContent=parseFloat(this.value).toFixed(1)+'%'">
+    <span class="tv" id="tv">2.0%</span>
+    <button class="btn" style="padding:4px 10px;font-size:10px" onclick="applyT()">APPLY</button>
+  </div>
+</div>
+
+<div class="twrap" id="tw">
+  <div class="msg">
+    <span class="mi">&#9672;</span>
+    Masukkan <b style="color:#aaa">Apps Script URL</b> lalu klik <b style="color:var(--accent)">LOAD SHEET</b>.<br><br>
+    <span style="color:#333;font-size:10px">Data WTI weekly dari EIA &#183; tersimpan di Google Sheets</span>
+  </div>
+</div>
+
+<script>
+var events=[], trump={}, notes={}, aiResult={}, filter='all', thr=2.0;
+var PROXY='https://corsproxy.io/?';
+var CLAUDE_URL=PROXY+encodeURIComponent('https://api.anthropic.com/v1/messages');
+var saveTimer=null;
+
+/* ── Status ──────────────────────────────────────────── */
+function setSt(msg){
+  document.getElementById('sbar').innerHTML=
+    '<span class="si"><span>STATUS</span>&nbsp;<span class="sv">'+msg+'</span></span>';
+}
+
+function renderSt(lastUpdated){
+  var ev=events.filter(function(e){return Math.abs(e.pct)>=thr;});
+  var up=ev.filter(function(e){return e.pct>0;}).length;
+  var dn=ev.filter(function(e){return e.pct<0;}).length;
+  var lk=Object.keys(trump).filter(function(k){return trump[k];}).length;
+  var ai=Object.keys(aiResult).length;
+  var lu=lastUpdated?lastUpdated.slice(0,10):'&#8212;';
+  document.getElementById('sbar').innerHTML=
+    si('SHEETS',lu,'ssheet')+
+    si('FREQ','WEEKLY','')+
+    si('EVENTS &#8805;'+thr+'%',ev.length,'')+
+    si('&#9650;',up,'sup')+
+    si('&#9660;',dn,'sdn')+
+    si('TRUMP=1',lk,'sacc')+
+    si('AI',ai,'sai');
+}
+
+function si(l,v,c){
+  return '<span class="si"><span>'+l+'</span>&nbsp;<span class="sv '+c+'">'+v+'</span></span>';
+}
+
+/* ── LOAD dari Google Sheets ─────────────────────────── */
+function loadFromSheet() {
+  var url=document.getElementById('scriptUrl').value.trim();
+  if(!url){alert('Masukkan Apps Script URL.');return;}
+
+  document.getElementById('loadBtn').disabled=true;
+  document.getElementById('tw').innerHTML='<div class="msg"><span class="mi blink">&#9672;</span>Membaca Google Sheets&#8230;</div>';
+  setSt('<span class="blink">LOADING FROM SHEETS&#8230;</span>');
+
+  fetch(url+'?action=getData')
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(j.error) throw new Error(j.error);
+    if(!j.rows||!j.rows.length)
+      throw new Error('Sheet kosong. Isi EIA + FRED key lalu klik REFRESH FROM EIA.');
+
+    events=[];
+    trump={}; notes={}; aiResult={};
+
+    j.rows.forEach(function(r){
+      events.push({
+        date  : String(r.date),
+        prev  : parseFloat(r.prev_usd)||0,
+        price : parseFloat(r.close_usd)||0,
+        pct   : parseFloat(r.pct_change)||0,
+        vix   : r.vix!==''&&r.vix!==null?parseFloat(r.vix):null,
+        dxy   : r.dxy!==''&&r.dxy!==null?parseFloat(r.dxy):null,
+      });
+      if(r.trump_statement!=='') trump[String(r.date)]   = parseInt(r.trump_statement)||0;
+      if(r.ai_result!=='')       aiResult[String(r.date)]= parseInt(r.ai_result)||0;
+      if(r.notes)                notes[String(r.date)]   = r.notes;
+    });
+
+    renderSt(j.lastUpdated);
+    renderTable();
+    document.getElementById('expBtn').disabled=false;
+    document.getElementById('analyzeAllBtn').disabled=false;
+    setSt('LOADED &#8212; '+events.length+' minggu dari Sheets');
+  })
+  .catch(function(e){
+    setSt('ERROR: '+e.message);
+    document.getElementById('tw').innerHTML=
+      '<div class="msg"><span class="mi">&#10005;</span>'+e.message+'</div>';
+  })
+  .finally(function(){
+    document.getElementById('loadBtn').disabled=false;
+  });
+}
+
+/* ── REFRESH dari EIA → simpan ke Sheets ─────────────── */
+function refreshFromAPI() {
+  var url=document.getElementById('scriptUrl').value.trim();
+  var eia=document.getElementById('eiaKey').value.trim();
+  var fr =document.getElementById('frKey').value.trim();
+  if(!url){alert('Masukkan Apps Script URL.');return;}
+  if(!eia||!fr){alert('Masukkan EIA key dan FRED key.');return;}
+
+  document.getElementById('refreshBtn').disabled=true;
+  setSt('<span class="blink">FETCHING EIA + FRED &#8594; SIMPAN KE SHEETS&#8230;</span>');
+
+  var fetchUrl=url+'?action=fetchAPI'
+    +'&eiaKey='+encodeURIComponent(eia)
+    +'&frKey='+encodeURIComponent(fr);
+
+  fetch(fetchUrl)
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(j.error) throw new Error(j.error);
+    setSt('REFRESH SELESAI &#8212; '+j.count+' minggu tersimpan. Memuat&#8230;');
+    setTimeout(function(){loadFromSheet();},800);
+  })
+  .catch(function(e){
+    setSt('REFRESH ERROR: '+e.message);
+  })
+  .finally(function(){
+    document.getElementById('refreshBtn').disabled=false;
+  });
+}
+
+/* ── Auto-save anotasi ke Sheets ─────────────────────── */
+function saveToSheet() {
+  var url=document.getElementById('scriptUrl').value.trim();
+  if(!url) return;
+  var data=events.map(function(e){
+    return {
+      date            : e.date,
+      trump_statement : trump[e.date]!==undefined?trump[e.date]:'',
+      ai_result       : aiResult[e.date]!==undefined?aiResult[e.date]:'',
+      notes           : notes[e.date]||''
+    };
+  });
+  fetch(url,{
+    method:'POST',
+    body:JSON.stringify({action:'saveAnnotations',data:data}),
+    headers:{'Content-Type':'application/json'}
+  })
+  .then(function(r){return r.json();})
+  .then(function(){
+    var dot=document.getElementById('saveDot');
+    dot.classList.add('show');
+    setTimeout(function(){dot.classList.remove('show');},2000);
+  })
+  .catch(function(){});
+}
+
+function scheduleSave(){
+  clearTimeout(saveTimer);
+  saveTimer=setTimeout(saveToSheet,1500);
+}
+
+/* ── Claude API ──────────────────────────────────────── */
+var CLAUDE_PROMPT='You are a financial analyst assistant. '
+  +'Given a Trump statement, determine if it is likely to influence crude oil prices. '
+  +'Consider: OPEC, Iran, Saudi Arabia, sanctions, tariffs, energy policy, China trade, '
+  +'geopolitical threats, SPR releases, oil production, Venezuela, Russia. '
+  +'Reply with ONLY a single digit: 1 if relevant to oil price, 0 if not. '
+  +'No explanation, no punctuation, just 0 or 1.';
+
+function callClaude(text){
+  var key=document.getElementById('claudeKey').value.trim();
+  if(!key) throw new Error('Masukkan Claude API key.');
+  return fetch(CLAUDE_URL,{
+    method:'POST',
+    headers:{'Content-Type':'application/json','x-api-key':key,'anthropic-version':'2023-06-01'},
+    body:JSON.stringify({
+      model:'claude-sonnet-4-20250514',max_tokens:10,
+      system:CLAUDE_PROMPT,
+      messages:[{role:'user',content:text}]
+    })
+  })
+  .then(function(r){return r.json();})
+  .then(function(j){
+    if(j.error) throw new Error(j.error.message);
+    var txt=(j.content&&j.content[0])?j.content[0].text.trim():'';
+    return txt==='1'?1:0;
+  });
+}
+
+function analyzeRow(date){
+  var note=(notes[date]||'').trim();
+  if(!note){alert('Isi Notes dulu untuk '+date);return;}
+  var btn=document.getElementById('ai-btn-'+date);
+  if(btn){btn.disabled=true;btn.className='ai-btn analyzing';btn.textContent='AI...';}
+  callClaude(note)
+  .then(function(r){
+    aiResult[date]=r; trump[date]=r;
+    scheduleSave(); renderSt(); renderTable();
+  })
+  .catch(function(e){
+    if(btn){btn.disabled=false;btn.className='ai-btn';btn.textContent='AI';}
+    alert('Claude error: '+e.message);
+  });
+}
+
+function analyzeAll(){
+  var targets=events.filter(function(e){
+    return Math.abs(e.pct)>=thr&&(notes[e.date]||'').trim();
+  });
+  if(!targets.length){alert('Isi Notes dulu minimal satu baris.');return;}
+  if(!document.getElementById('claudeKey').value.trim()){alert('Masukkan Claude API key.');return;}
+  document.getElementById('analyzeAllBtn').disabled=true;
+  setSt('<span class="blink">AI ANALYZING '+targets.length+' ROWS&#8230;</span>');
+  var i=0;
+  function next(){
+    if(i>=targets.length){
+      document.getElementById('analyzeAllBtn').disabled=false;
+      scheduleSave(); renderSt(); renderTable();
+      setSt('AI DONE &#8212; '+targets.length+' rows');
+      return;
     }
+    var e=targets[i++];
+    var btn=document.getElementById('ai-btn-'+e.date);
+    if(btn){btn.disabled=true;btn.className='ai-btn analyzing';btn.textContent='AI...';}
+    callClaude((notes[e.date]||'').trim())
+    .then(function(r){
+      aiResult[e.date]=r; trump[e.date]=r;
+      renderSt(); renderTable();
+      setTimeout(next,600);
+    })
+    .catch(function(){setTimeout(next,1000);});
+  }
+  next();
+}
 
-    // Send data to backend
-    function saveData(date, inputId) {
-      let val = document.getElementById(inputId).value;
-      document.getElementById('status').innerText = 'Saving data...';
-      
-      google.script.run.withSuccessHandler(res => {
-        document.getElementById('status').innerText = res;
-      }).saveStatement(date, val);
-    }
-  </script>
+/* ── Filter & threshold ──────────────────────────────── */
+function setF(f){
+  filter=f;
+  ['all','up','down','trump'].forEach(function(id){
+    document.getElementById('f-'+id).classList.toggle('act',id===f);
+  });
+  renderTable();
+}
+
+function applyT(){
+  thr=parseFloat(document.getElementById('tr').value);
+  renderSt(); renderTable();
+}
+
+/* ── Render table ────────────────────────────────────── */
+function renderTable(){
+  var rows=events.filter(function(e){
+    if(Math.abs(e.pct)<thr) return false;
+    if(filter==='up'   &&e.pct<0)        return false;
+    if(filter==='down' &&e.pct>0)        return false;
+    if(filter==='trump'&&!trump[e.date]) return false;
+    return true;
+  }).sort(function(a,b){return b.date<a.date?-1:1;});
+
+  if(!rows.length){
+    document.getElementById('tw').innerHTML=
+      '<div class="msg"><span class="mi">&#9711;</span>Tidak ada event untuk filter ini.</div>';
+    return;
+  }
+
+  var trs=rows.map(function(e){
+    var up=e.pct>0;
+    var ps=(up?'+':'')+e.pct.toFixed(2)+'%';
+    var badge='<span class="badge '+(up?'bu':'bd')+'">'+(up?'&#9650;':'&#9660;')+' '+ps+'</span>';
+    var vc=!e.vix?'na':e.vix>=30?'vhi':e.vix>=20?'vmd':'vlo';
+    var vs=e.vix!==null?'<span class="'+vc+'">'+e.vix.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
+    var ds=e.dxy!==null?'<span class="dxy-v">'+e.dxy.toFixed(2)+'</span>':'<span class="na">&#8212;</span>';
+    var chk=trump[e.date]?' checked':'';
+    var nt=(notes[e.date]||'').replace(/"/g,'&quot;').replace(/'/g,'&#39;');
+    var d=e.date;
+    var aiBadge=aiResult[d]!==undefined
+      ?(aiResult[d]===1?'<span class="ai-badge ai-1">&#9670; OIL</span>':'<span class="ai-badge ai-0">&#9671; NO</span>')
+      :'';
+    return '<tr>'
+      +'<td class="tda">'+d+'<span class="weekly-tag">W</span></td>'
+      +'<td class="tdp">$'+e.prev.toFixed(2)+'</td>'
+      +'<td class="tdp">$'+e.price.toFixed(2)+'</td>'
+      +'<td>'+badge+'</td>'
+      +'<td>'+vs+'</td>'
+      +'<td>'+ds+'</td>'
+      +'<td style="text-align:center"><input type="checkbox" class="tt"'+chk+' onchange="setTr(\''+d+'\',this.checked)"></td>'
+      +'<td><input type="text" class="ni" placeholder="Paste Trump statement&#8230;" value="'+nt+'" oninput="setN(\''+d+'\',this.value)"></td>'
+      +'<td>'+aiBadge+'<button class="ai-btn" id="ai-btn-'+d+'" onclick="analyzeRow(\''+d+'\')">AI</button></td>'
+      +'</tr>';
+  }).join('');
+
+  document.getElementById('tw').innerHTML=
+    '<table><thead><tr>'
+    +'<th>Week</th><th>Prev $</th><th>Close $</th>'
+    +'<th>WTI %&#916;</th><th>VIX</th><th>DXY</th>'
+    +'<th>Trump</th><th>Statement</th><th>AI</th>'
+    +'</tr></thead><tbody>'+trs+'</tbody></table>'
+    +'<div class="leg">'
+    +'VIX: <span style="color:var(--down)">&#9632;&#8805;30</span> '
+    +'<span style="color:var(--accent)">&#9632;20&#8211;30</span> '
+    +'<span style="color:var(--vix)">&#9632;&lt;20</span>'
+    +' &#183; W = minggu berakhir tanggal tersebut &#183; Anotasi auto-save ke Sheets'
+    +'</div>';
+}
+
+function setTr(d,v){trump[d]=v?1:0;scheduleSave();renderSt();}
+function setN(d,v){notes[d]=v;scheduleSave();}
+
+/* ── Export CSV ──────────────────────────────────────── */
+function exportCSV(){
+  var rows=events.filter(function(e){return Math.abs(e.pct)>=thr;})
+    .sort(function(a,b){return b.date<a.date?-1:1;});
+  var h='week_ending,prev_usd,close_usd,pct_change,vix,dxy,trump_statement,ai_result,notes';
+  var b=rows.map(function(e){
+    return [
+      e.date,e.prev.toFixed(2),e.price.toFixed(2),e.pct.toFixed(4),
+      e.vix!=null?e.vix.toFixed(2):'',
+      e.dxy!=null?e.dxy.toFixed(2):'',
+      trump[e.date]||0,
+      aiResult[e.date]!==undefined?aiResult[e.date]:'',
+      '"'+(notes[e.date]||'').replace(/"/g,'""')+'"'
+    ].join(',');
+  }).join('\n');
+  var blob=new Blob([h+'\n'+b],{type:'text/csv'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');
+  a.href=url;a.download='wti_trump_weekly_'+new Date().toISOString().slice(0,10)+'.csv';
+  a.click();URL.revokeObjectURL(url);
+}
+</script>
 </body>
 </html>
