@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahan Ajar Olimpiade — Pertemuan 4 | paggalih</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <!-- MathJax -->
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --red-lt: #fde8e8;
+      --blue-lt: #e8f0fd;
+      --yellow-lt: #fff8e1;
+      --yellow-br: #ffe082;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .meta {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      font-family: var(--mono);
+    }
+
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .card .session-meta {
+      font-size: .82rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-bottom: 1.1rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 1.5rem 0 .6rem;
+      font-weight: 600;
+    }
+
+    .card h4 {
+      font-size: 1.0rem;
+      color: var(--text2);
+      margin: 1.2rem 0 .5rem;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: .7rem; }
+
+    .recap {
+      background: linear-gradient(135deg, #fef9e7 0%, #fdf3d4 100%);
+      border: 1px solid #e8d49b;
+      border-radius: 8px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1rem;
+      font-size: .9rem;
+    }
+    .recap strong { color: #7a5800; }
+
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .93rem;
+      margin: 1rem 0;
+      color: var(--text);
+    }
+    .info-box strong { color: var(--accent); }
+
+    .tip-box {
+      background: var(--yellow-lt);
+      border: 1px solid var(--yellow-br);
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .93rem;
+    }
+    .tip-box strong { color: #7a5800; }
+
+    .theorem {
+      background: var(--accent-lt);
+      border: 1px solid #b8c6e3;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+    }
+    .theorem .label {
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      margin-bottom: .2rem;
+    }
+
+    .fact {
+      background: var(--green-lt);
+      border: 1px solid #9ed1ac;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+      text-align: center;
+    }
+
+    table.strategy {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: .92rem;
+    }
+    table.strategy th {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+      text-align: left;
+      padding: .55rem .8rem;
+      font-family: var(--sans);
+    }
+    table.strategy td {
+      padding: .55rem .8rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+    }
+    table.strategy tr:last-child td { border-bottom: none; }
+    table.strategy tr:nth-child(even) td { background: #fafafa; }
+
+    .table-wrap {
+      overflow-x: auto;
+      -webkit-overflow-scrolling: touch;
+      margin: 1rem 0;
+      border-radius: 4px;
+    }
+    .table-wrap table { margin: 0; min-width: 480px; }
+    .table-wrap::-webkit-scrollbar { height: 5px; }
+    .table-wrap::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    .table-wrap::-webkit-scrollbar-thumb:hover { background: var(--text2); }
+
+    .example {
+      border-left: 3px solid var(--text2);
+      padding: .4rem 0 .4rem 1rem;
+      margin: 1.2rem 0;
+    }
+    .example .ex-label {
+      font-family: var(--serif);
+      font-weight: 600;
+      color: var(--accent);
+      font-size: 1.05rem;
+      margin-bottom: .3rem;
+    }
+    .example .ex-tag {
+      display: inline-block;
+      font-size: .7rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .1rem .5rem;
+      border-radius: 3px;
+      font-family: var(--mono);
+      margin-right: .5rem;
+      vertical-align: middle;
+    }
+
+    .exercises {
+      counter-reset: ex;
+      list-style: none;
+      padding-left: 0;
+      margin: .5rem 0;
+    }
+    .exercises li {
+      padding: .65rem 0 .65rem 2.4rem;
+      border-bottom: 1px dashed var(--border);
+      position: relative;
+      counter-increment: ex;
+    }
+    .exercises li:last-child { border-bottom: none; }
+    .exercises li::before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 0;
+      top: .72rem;
+      font-family: var(--mono);
+      font-size: .75rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .12rem .38rem;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    details.answer { margin-top: .4rem; }
+    details.answer > summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.answer > summary::-webkit-details-marker { display: none; }
+    details.answer > summary::before {
+      content: "▶ ";
+      display: inline-block;
+      transition: transform .2s;
+      font-size: .7rem;
+    }
+    details.answer[open] > summary::before { transform: rotate(90deg); }
+    details.answer[open] > summary { color: var(--green); }
+    details.answer .ans-body {
+      margin-top: .5rem;
+      padding: .7rem .9rem;
+      background: #fafafa;
+      border-left: 2px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: .93rem;
+    }
+
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .toc .toc-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: .25rem 0;
+      font-size: .92rem;
+    }
+    .toc ol li::before {
+      content: counter(toc) ". ";
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-right: .4rem;
+    }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+      transition: border-color .2s, color .2s;
+    }
+    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .toc .dur {
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: .82rem;
+      margin-left: .4rem;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin-top: .8rem;
+      margin-right: .4rem;
+      padding: .35rem .8rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: .85rem;
+      transition: background .2s;
+    }
+    .nav-link:hover { background: #d8e2f3; }
+
+    ul.tips { margin: .5rem 0 .5rem 1.25rem; }
+    ul.tips li { margin-bottom: .35rem; }
+
+    /* Mod arithmetic clock visualization */
+    .mod-clock {
+      display: flex;
+      gap: .35rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      margin: 1rem 0;
+    }
+    .mod-clock .cell {
+      width: 38px;
+      height: 38px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: var(--mono);
+      font-size: .85rem;
+      background: #fff;
+    }
+    .mod-clock .cell.highlight {
+      background: var(--accent-lt);
+      border-color: var(--accent);
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 580px) {
+      header { padding: 1.2rem 1.25rem 1.4rem; }
+      header h1 { font-size: 1.55rem; }
+      .card { padding: 1.2rem; }
+      .card h2 { font-size: 1.3rem; }
+      table.strategy { font-size: .85rem; }
+      table.strategy td, table.strategy th { padding: .4rem .5rem; }
+      .mod-clock .cell { width: 32px; height: 32px; font-size: .75rem; }
+      mjx-container[jax="SVG"]:not([display="true"]) { font-size: .95em; }
+    }
+
+    mjx-container { line-height: 0; }
+    mjx-container[jax="SVG"][display="true"] {
+      margin: .6em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: .15em 0 .35em;
+    }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar { height: 5px; }
+    mjx-container[jax="SVG"][display="true"]::-webkit-scrollbar-thumb {
+      background: var(--border);
+      border-radius: 3px;
+    }
+    mjx-container[jax="SVG"]:not([display="true"]) {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Bahan Ajar Olimpiade Matematika</h1>
+  <p>Pertemuan 4 — Teori Bilangan Dasar · Tingkat KSN-K</p>
+  <div class="meta">SMAN 1 Boyolangu · 3 jam pelajaran</div>
+</header>
+
+<main>
+
+  <!-- ═══════════ TOC ═══════════ -->
+  <div class="toc">
+    <div class="toc-title">Struktur Materi</div>
+    <ol>
+      <li><a href="#recap">Recap &amp; Tujuan</a></li>
+      <li><a href="#sesi1">Sesi 1 — Keterbagian, FPB &amp; KPK</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi2">Sesi 2 — Kongruensi Modular</a><span class="dur">60 min</span></li>
+      <li><a href="#sesi3">Sesi 3 — Bilangan Prima &amp; Teorema Fermat Kecil</a><span class="dur">40 min</span></li>
+      <li><a href="#gabungan">Latihan Gabungan</a><span class="dur">20 min</span></li>
+      <li><a href="#panduan">Panduan untuk Guru</a></li>
+    </ol>
+    <a href="olimpiade-aljabar.html" class="nav-link">← Pertemuan 1</a>
+    <a href="olimpiade-aljabar-2.html" class="nav-link">← Pertemuan 2</a>
+    <a href="olimpiade-aljabar-3.html" class="nav-link">← Pertemuan 3</a>
+  </div>
+
+  <!-- ═══════════ RECAP ═══════════ -->
+  <div class="card" id="recap">
+    <h2>Recap &amp; Tujuan</h2>
+    <div class="session-meta">15 menit · pengantar ke teori bilangan</div>
+
+    <div class="recap">
+      <strong>Pertanyaan kilat untuk siswa (5 menit):</strong>
+      <ol style="margin:.5rem 0 0 1.3rem">
+        <li>Sebutkan semua faktor dari $36$.</li>
+        <li>Jam menunjukkan pukul $10$. Pukul berapa $25$ jam kemudian?</li>
+        <li>Apakah $2024$ bilangan prima? Jika bukan, mengapa?</li>
+      </ol>
+      <em style="color:var(--text2);font-size:.85rem">Soal 2 adalah pengantar kongruensi modular — jam adalah modulo $12$ atau $24$.</em>
+    </div>
+
+    <p>Setelah 3 jam pelajaran, siswa mampu:</p>
+    <ol style="margin-left:1.3rem">
+      <li>Menerapkan algoritma Euclid untuk mencari FPB.</li>
+      <li>Menggunakan kongruensi modular untuk soal sisa pembagian.</li>
+      <li>Menerapkan teorema Fermat kecil untuk pangkat besar.</li>
+      <li>Mengenali pola dan sifat bilangan prima.</li>
+    </ol>
+
+    <div class="info-box">
+      <strong>Catatan.</strong> Teori bilangan adalah materi paling sering muncul di KSN-K (rata-rata 2-3 soal). Sesi ini wajib dikuasai siswa.
+    </div>
+  </div>
+
+  <!-- ═══════════ SESI 1 — KETERBAGIAN, FPB, KPK ═══════════ -->
+  <div class="card" id="sesi1">
+    <h2>Sesi 1 — Keterbagian, FPB &amp; KPK</h2>
+    <div class="session-meta">60 menit · Konsep 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>1.1 Keterbagian</h3>
+
+    <div class="theorem">
+      <div class="label">Definisi</div>
+      $a \mid b$ artinya "$a$ membagi $b$" — yaitu ada bilangan bulat $k$ sehingga $b = ak$.
+    </div>
+
+    <p><strong>Sifat-sifat dasar keterbagian:</strong></p>
+    <ul style="margin:.4rem 0 .8rem 1.3rem">
+      <li>Jika $a \mid b$ dan $a \mid c$, maka $a \mid (mb + nc)$ untuk sebarang $m, n \in \mathbb{Z}$.</li>
+      <li>Jika $a \mid b$ dan $b \mid c$, maka $a \mid c$ (transitif).</li>
+      <li>Jika $a \mid b$ dan $b \mid a$, maka $a = \pm b$.</li>
+      <li>$a \mid b \Rightarrow |a| \le |b|$ (jika $b \neq 0$).</li>
+    </ul>
+
+    <h3>1.2 Aturan Keterbagian Cepat</h3>
+
+    <div class="table-wrap">
+    <table class="strategy">
+      <thead><tr><th>Pembagi</th><th>Aturan</th></tr></thead>
+      <tbody>
+        <tr><td>$2$</td><td>Digit terakhir genap</td></tr>
+        <tr><td>$3$</td><td>Jumlah semua digit habis dibagi $3$</td></tr>
+        <tr><td>$4$</td><td>Dua digit terakhir habis dibagi $4$</td></tr>
+        <tr><td>$5$</td><td>Digit terakhir $0$ atau $5$</td></tr>
+        <tr><td>$6$</td><td>Habis dibagi $2$ dan $3$</td></tr>
+        <tr><td>$8$</td><td>Tiga digit terakhir habis dibagi $8$</td></tr>
+        <tr><td>$9$</td><td>Jumlah semua digit habis dibagi $9$</td></tr>
+        <tr><td>$11$</td><td>Selisih jumlah digit posisi ganjil &amp; genap habis dibagi $11$</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <h3>1.3 Algoritma Euclid</h3>
+
+    <div class="theorem">
+      <div class="label">Algoritma Pembagian</div>
+      Untuk $a, b \in \mathbb{Z}$ dengan $b > 0$, ada $q, r$ tunggal sehingga $a = bq + r$ dengan $0 \le r < b$.
+    </div>
+
+    <div class="theorem">
+      <div class="label">Algoritma Euclid (untuk FPB)</div>
+      $$\gcd(a, b) = \gcd(b, a \bmod b).$$
+      Lakukan iterasi sampai sisa $= 0$. FPB adalah pembagi terakhir yang tidak nol.
+    </div>
+
+    <p><strong>Hubungan FPB dan KPK:</strong></p>
+    $$\gcd(a, b) \cdot \mathrm{lcm}(a, b) = |a \cdot b|.$$
+
+    <h3>1.4 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 1</span>Algoritma Euclid</div>
+      <p><strong>Soal.</strong> Hitung $\gcd(252, 105)$.</p>
+      <p><strong>Penyelesaian.</strong></p>
+      $$252 = 2 \cdot 105 + 42$$
+      $$105 = 2 \cdot 42 + 21$$
+      $$42 = 2 \cdot 21 + 0$$
+      <p>Sisa terakhir yang tidak nol adalah $\mathbf{21}$, jadi $\gcd(252, 105) = 21$.</p>
+      <p>Kemudian $\mathrm{lcm}(252, 105) = \dfrac{252 \cdot 105}{21} = \mathbf{1260}$.</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 2</span>Aplikasi sifat keterbagian</div>
+      <p><strong>Soal.</strong> Buktikan bahwa untuk setiap bilangan bulat $n$, $n^3 - n$ habis dibagi $6$.</p>
+      <p><strong>Penyelesaian.</strong> Faktorkan:</p>
+      $$n^3 - n = n(n^2 - 1) = n(n-1)(n+1) = (n-1)\,n\,(n+1).$$
+      <p>Ini adalah perkalian tiga bilangan bulat berurutan, sehingga:</p>
+      <ul style="margin:.4rem 0 .6rem 1.3rem">
+        <li>Salah satunya pasti habis dibagi $2$ (di antara tiga berurutan, minimal satu genap).</li>
+        <li>Salah satunya pasti habis dibagi $3$.</li>
+      </ul>
+      <p>Karena $\gcd(2,3) = 1$, perkaliannya habis dibagi $2 \cdot 3 = 6$. $\blacksquare$</p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 3</span>Mencari digit dengan aturan keterbagian</div>
+      <p><strong>Soal.</strong> Bilangan $\overline{2a31b}$ habis dibagi $45$. Tentukan $a$ dan $b$.</p>
+      <p><strong>Penyelesaian.</strong> $45 = 9 \cdot 5$, dan $\gcd(9, 5) = 1$. Cek dua syarat:</p>
+      <p><em>Habis dibagi 5:</em> $b \in \{0, 5\}$.</p>
+      <p><em>Habis dibagi 9:</em> jumlah digit $= 2 + a$ $+ 3 + 1$ $+ b = 6 + a$ $+ b$ habis dibagi $9$.</p>
+      <p>Kasus $b = 0$: $6 + a$ habis dibagi $9 \Rightarrow a = 3$.</p>
+      <p>Kasus $b = 5$: $11 + a$ habis dibagi $9 \Rightarrow a = 7$.</p>
+      <p><strong>Jawaban:</strong> $(a, b) = (3, 0)$ atau $(7, 5)$. Bilangannya: $23310$ atau $27315$.</p>
+    </div>
+
+    <h3>1.5 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L1.1">
+        Hitung $\gcd(378, 252)$ dengan algoritma Euclid.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $378 = 1 \cdot 252 + 126$<br>
+            $252 = 2 \cdot 126 + 0$<br>
+            $\gcd = \mathbf{126}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.2">
+        Buktikan bahwa $n^5 - n$ habis dibagi $30$ untuk setiap $n \in \mathbb{Z}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $n^5 - n = n(n^4 - 1) = n(n-1)(n+1)(n^2+1)$. $30 = 2 \cdot 3 \cdot 5$.
+            <ul style="margin:.3rem 0 0 1rem">
+              <li>$\div 2$: $(n-1)n$ ada yang genap.</li>
+              <li>$\div 3$: $(n-1)n(n+1)$ tiga berurutan, ada yang $\equiv 0 \pmod 3$.</li>
+              <li>$\div 5$: Cek tiap kelas sisa modulo 5. Jika $n \equiv 0$, jelas. Jika $n \equiv \pm 1$, $n \mp 1 \equiv 0$. Jika $n \equiv \pm 2$, $n^2 + 1 \equiv 5 \equiv 0$. Selesai.</li>
+            </ul>
+            $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.3">
+        Tentukan semua $(a, b)$ digit sehingga $\overline{a55b}$ habis dibagi $36$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $36 = 4 \cdot 9$, $\gcd(4,9)=1$.<br>
+            <em>$\div 4$:</em> dua digit terakhir $\overline{5b}$ habis dibagi $4 \Rightarrow b \in \{2, 6\}$ (cek: $52, 56$).<br>
+            <em>$\div 9$:</em> $a + 5$ $+ 5 + b = 10$ $+ a + b$ habis dibagi $9$.<br>
+            $b = 2$: $12 + a \equiv 0 \pmod 9 \Rightarrow a = 6$.<br>
+            $b = 6$: $16 + a \equiv 0 \pmod 9 \Rightarrow a = 2$.<br>
+            <strong>Jawaban:</strong> $\mathbf{(a,b) = (6,2)}$ atau $\mathbf{(2,6)}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.4">
+        Carilah dua bilangan bulat positif $a, b$ dengan $\gcd(a,b) = 12$ dan $\mathrm{lcm}(a,b) = 360$. Berapa banyak pasangan $(a, b)$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $a \cdot b = \gcd \cdot \mathrm{lcm} = 12 \cdot 360 = 4320$. Tulis $a = 12x, b = 12y$ dengan $\gcd(x,y)=1$. Maka $144xy = 4320 \Rightarrow xy = 30$.<br>
+            Pasangan $(x,y)$ koprima dengan $xy = 30$: $\{(1,30),(2,15),(3,10),(5,6)\}$ — 4 pasangan tidak terurut.
+            Jika $(a,b)$ urutan diperhitungkan: $8$ pasangan.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L1.5">
+        Buktikan bahwa $\gcd(a, b) = \gcd(a, b + ka)$ untuk setiap $k \in \mathbb{Z}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Misal $d = \gcd(a, b)$. Karena $d \mid a$ dan $d \mid b$, maka $d \mid (b + ka)$. Jadi $d \mid \gcd(a, b+ka)$.<br>
+            Sebaliknya, misal $d' = \gcd(a, b+ka)$. $d' \mid a$ dan $d' \mid (b+ka) \Rightarrow d' \mid b$. Jadi $d' \mid d$.<br>
+            Maka $d = d'$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 2 — KONGRUENSI MODULAR ═══════════ -->
+  <div class="card" id="sesi2">
+    <h2>Sesi 2 — Kongruensi Modular</h2>
+    <div class="session-meta">60 menit · Konsep 15' → Contoh 25' → Latihan 20'</div>
+
+    <h3>2.1 Definisi dan Sifat</h3>
+
+    <div class="theorem">
+      <div class="label">Definisi Kongruensi</div>
+      $a \equiv b \pmod{n}$ artinya $n \mid (a - b)$, yaitu $a$ dan $b$ memiliki sisa yang sama saat dibagi $n$.
+    </div>
+
+    <p>Contoh: $17 \equiv 5 \pmod{12}$ karena $17 - 5 = 12$ habis dibagi $12$. (Pukul $17.00$ = pukul $5$ sore.)</p>
+
+    <div class="mod-clock">
+      <div class="cell">0</div>
+      <div class="cell">1</div>
+      <div class="cell">2</div>
+      <div class="cell">3</div>
+      <div class="cell">4</div>
+      <div class="cell highlight">5</div>
+      <div class="cell">6</div>
+      <div class="cell">7</div>
+      <div class="cell">8</div>
+      <div class="cell">9</div>
+      <div class="cell">10</div>
+      <div class="cell">11</div>
+    </div>
+    <p style="text-align:center;font-size:.85rem;color:var(--text2);margin-top:-.5rem">
+      <em>Modulo $12$: bilangan apa pun "berputar" ke salah satu kelas $\{0, 1, 2, \ldots, 11\}$.</em>
+    </p>
+
+    <h3>2.2 Sifat-sifat Penting</h3>
+
+    <p>Jika $a \equiv b \pmod{n}$ dan $c \equiv d \pmod{n}$, maka:</p>
+    <div class="table-wrap">
+    <table class="strategy">
+      <thead><tr><th>Operasi</th><th>Hasil</th></tr></thead>
+      <tbody>
+        <tr><td>Penjumlahan</td><td>$a + c \equiv b$ $+ d \pmod{n}$</td></tr>
+        <tr><td>Pengurangan</td><td>$a - c \equiv b$ $- d \pmod{n}$</td></tr>
+        <tr><td>Perkalian</td><td>$ac \equiv bd \pmod{n}$</td></tr>
+        <tr><td>Perpangkatan</td><td>$a^k \equiv b^k \pmod{n}$</td></tr>
+      </tbody>
+    </table>
+    </div>
+
+    <div class="tip-box">
+      <strong>⚠️ Hati-hati pembagian.</strong> Pembagian tidak selalu berlaku. $a \equiv b \pmod n$ tidak otomatis berarti $a/k \equiv b/k$. Pembagian valid hanya jika $\gcd(k, n) = 1$.
+    </div>
+
+    <h3>2.3 Trik Sisa Pembagian Pangkat Besar</h3>
+
+    <p>Strategi umum untuk $a^n \bmod m$:</p>
+    <ol style="margin:.4rem 0 .8rem 1.3rem">
+      <li>Reduksi $a$ modulo $m$ dulu.</li>
+      <li>Cari pola berulang pangkat. Cari $k$ terkecil sehingga $a^k \equiv 1 \pmod m$.</li>
+      <li>Tulis $n = qk + r$, maka $a^n \equiv a^r \pmod m$.</li>
+    </ol>
+
+    <h3>2.4 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 4</span>Sisa pembagian sederhana</div>
+      <p><strong>Soal.</strong> Berapa sisa pembagian $7^{100}$ oleh $5$?</p>
+      <p><strong>Penyelesaian.</strong> $7 \equiv 2 \pmod{5}$, jadi $7^{100} \equiv 2^{100} \pmod{5}$.</p>
+      <p>Cari pola $2^k \pmod 5$:</p>
+      $$2^1 \equiv 2, \quad 2^2 \equiv 4, \quad 2^3 \equiv 3, \quad 2^4 \equiv 1 \pmod 5.$$
+      <p>Polanya berulang setiap $4$. $100 = 25 \cdot 4$, jadi:</p>
+      $$2^{100} = (2^4)^{25} \equiv 1^{25} = 1 \pmod 5.$$
+      <p><strong>Sisanya $\mathbf{1}$.</strong></p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 5</span>Digit terakhir</div>
+      <p><strong>Soal.</strong> Tentukan digit satuan (last digit) dari $3^{2024}$.</p>
+      <p><strong>Penyelesaian.</strong> Digit satuan = sisa pembagian oleh $10$.</p>
+      <p>Pola $3^k \pmod{10}$:</p>
+      $$3^1 = 3, \;\; 3^2 = 9, \;\; 3^3 \equiv 7, \;\; 3^4 \equiv 1 \pmod{10}.$$
+      <p>Periode $= 4$. $2024 = 506 \cdot 4 + 0$, jadi $3^{2024} \equiv 3^4 \equiv 1$ atau lebih tepat $3^{2024} \equiv (3^4)^{506} \equiv 1 \pmod{10}$.</p>
+      <p><strong>Digit satuannya $\mathbf{1}$.</strong></p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 6</span>Bukti dengan kongruensi</div>
+      <p><strong>Soal.</strong> Buktikan bahwa $n^2 + 1$ tidak pernah habis dibagi $3$ untuk setiap $n \in \mathbb{Z}$.</p>
+      <p><strong>Penyelesaian.</strong> Cek semua kasus modulo $3$:</p>
+      <ul style="margin:.4rem 0 .6rem 1.3rem">
+        <li>$n \equiv 0 \pmod 3 \Rightarrow n^2 \equiv 0 \Rightarrow n^2 + 1 \equiv 1$.</li>
+        <li>$n \equiv 1 \pmod 3 \Rightarrow n^2 \equiv 1 \Rightarrow n^2 + 1 \equiv 2$.</li>
+        <li>$n \equiv 2 \pmod 3 \Rightarrow n^2 \equiv 4 \equiv 1 \Rightarrow n^2 + 1 \equiv 2$.</li>
+      </ul>
+      <p>Dalam semua kasus, $n^2 + 1 \not\equiv 0 \pmod 3$. $\blacksquare$</p>
+    </div>
+
+    <h3>2.5 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L2.1">
+        Tentukan sisa pembagian $2^{100}$ oleh $7$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Pola $2^k \pmod 7$: $2, 4, 1, 2, 4, 1, \ldots$ — periode $3$.<br>
+            $100 = 33 \cdot 3 + 1$, jadi $2^{100} \equiv 2^1 \equiv \mathbf{2} \pmod 7$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.2">
+        Tentukan dua digit terakhir dari $7^{50}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Hitung modulo $100$. Pola $7^k \pmod{100}$:<br>
+            $7^1 = 7, 7^2 = 49, 7^3 = 343 \equiv 43, 7^4 \equiv 301 \equiv 1 \pmod{100}$.<br>
+            Periode $4$. $50 = 12 \cdot 4 + 2$, jadi $7^{50} \equiv 7^2 = \mathbf{49} \pmod{100}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.3">
+        Buktikan bahwa $a^2 \equiv 0$ atau $1 \pmod 4$ untuk setiap $a \in \mathbb{Z}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Cek modulo 4: jika $a$ genap, $a = 2k$, $a^2 = 4k^2 \equiv 0$. Jika $a$ ganjil, $a = 2k+1$, $a^2 = 4k^2 + 4k$ $+ 1 \equiv 1 \pmod 4$. $\blacksquare$<br>
+            <em>(Akibat penting: jumlah dua kuadrat tidak pernah $\equiv 3 \pmod 4$.)</em>
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.4">
+        Carilah sisa pembagian $1! + 2! + 3! + \cdots + 100!$ oleh $7$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Untuk $n \ge 7$, $n!$ mengandung faktor $7$, jadi $n! \equiv 0 \pmod 7$.<br>
+            $1! + 2! + 3! + 4! + 5! + 6! = 1 + 2$ $+ 6 + 24$ $+ 120 + 720 = 873$.<br>
+            $873 = 124 \cdot 7 + 5$, jadi sisanya $\mathbf{5}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L2.5">
+        Buktikan bahwa $n^3 \equiv n \pmod 6$ untuk setiap $n \in \mathbb{Z}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Dari Contoh 2: $n^3 - n = (n-1)n(n+1)$ habis dibagi $6$. Maka $n^3 \equiv n \pmod 6$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ SESI 3 — PRIMA & FERMAT ═══════════ -->
+  <div class="card" id="sesi3">
+    <h2>Sesi 3 — Bilangan Prima &amp; Teorema Fermat Kecil</h2>
+    <div class="session-meta">40 menit · Konsep 12' → Contoh 15' → Latihan 13'</div>
+
+    <h3>3.1 Bilangan Prima</h3>
+
+    <div class="theorem">
+      <div class="label">Definisi</div>
+      Bilangan bulat $p > 1$ disebut <strong>prima</strong> jika faktor positifnya hanya $1$ dan $p$ sendiri.
+    </div>
+
+    <p>Prima awal: $2, 3, 5, 7, 11, 13, 17, 19, 23, 29, \ldots$</p>
+
+    <div class="theorem">
+      <div class="label">Teorema Dasar Aritmetika</div>
+      Setiap bilangan bulat $n > 1$ dapat ditulis secara unik (sampai urutan) sebagai perkalian bilangan prima:
+      $$n = p_1^{a_1} \cdot p_2^{a_2} \cdots p_k^{a_k}.$$
+    </div>
+
+    <p><strong>Aplikasi:</strong> banyak faktor positif $n = p_1^{a_1} \cdots p_k^{a_k}$ adalah</p>
+    $$\tau(n) = (a_1 + 1)(a_2 + 1) \cdots (a_k + 1).$$
+
+    <p>Contoh: $36 = 2^2 \cdot 3^2$, $\tau(36) = 3 \cdot 3 = 9$ faktor: $\{1, 2, 3, 4, 6, 9, 12, 18, 36\}$.</p>
+
+    <h3>3.2 Teorema Fermat Kecil</h3>
+
+    <div class="theorem">
+      <div class="label">Teorema Fermat Kecil</div>
+      Jika $p$ prima dan $\gcd(a, p) = 1$, maka
+      $$a^{p-1} \equiv 1 \pmod p.$$
+      Akibatnya, untuk sembarang $a$: $a^p \equiv a \pmod p$.
+    </div>
+
+    <p>Contoh kerja: $p = 7$, $a = 3$:</p>
+    $$3^6 = 729 = 7 \cdot 104 + 1 \equiv 1 \pmod 7. \;\checkmark$$
+
+    <div class="info-box">
+      <strong>Mengapa berguna?</strong> Untuk menghitung $a^n \bmod p$ dengan $n$ sangat besar, tulis $n = q(p-1) + r$, maka $a^n \equiv a^r \pmod p$ — tidak perlu cari periode manual.
+    </div>
+
+    <h3>3.3 Contoh Terbimbing</h3>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 7</span>Banyak faktor</div>
+      <p><strong>Soal.</strong> Berapa banyak faktor positif dari $720$?</p>
+      <p><strong>Penyelesaian.</strong> Faktorisasi prima:</p>
+      $$720 = 2^4 \cdot 3^2 \cdot 5^1.$$
+      <p>Banyak faktor:</p>
+      $$\tau(720) = (4+1)(2+1)(1+1) = 5 \cdot 3 \cdot 2 = \mathbf{30}.$$
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 8</span>Aplikasi Fermat kecil</div>
+      <p><strong>Soal.</strong> Tentukan sisa pembagian $2^{100}$ oleh $13$.</p>
+      <p><strong>Penyelesaian.</strong> $13$ prima, $\gcd(2, 13) = 1$. Fermat kecil: $2^{12} \equiv 1 \pmod{13}$.</p>
+      <p>$100 = 8 \cdot 12 + 4$, jadi:</p>
+      $$2^{100} = (2^{12})^8 \cdot 2^4 \equiv 1 \cdot 16 \equiv 3 \pmod{13}.$$
+      <p><strong>Sisanya $\mathbf{3}$.</strong></p>
+    </div>
+
+    <div class="example">
+      <div class="ex-label"><span class="ex-tag">Contoh 9</span>Bukti kekal-prima</div>
+      <p><strong>Soal.</strong> Buktikan bahwa $a^7 - a$ habis dibagi $7$ untuk setiap $a \in \mathbb{Z}$.</p>
+      <p><strong>Penyelesaian.</strong> Dari Fermat kecil dengan $p = 7$:</p>
+      $$a^7 \equiv a \pmod 7 \;\Longleftrightarrow\; a^7 - a \equiv 0 \pmod 7.$$
+      <p>$\blacksquare$</p>
+      <p><em>Versi lebih kuat: $a^p \equiv a \pmod p$ untuk sembarang $a$, tanpa syarat $\gcd(a,p)=1$.</em></p>
+    </div>
+
+    <h3>3.4 Latihan Mandiri</h3>
+
+    <ul class="exercises">
+      <li data-tag="L3.1">
+        Berapa banyak faktor positif dari $1000$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $1000 = 2^3 \cdot 5^3$. $\tau(1000) = 4 \cdot 4 = \mathbf{16}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.2">
+        Carilah sisa pembagian $5^{83}$ oleh $11$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Fermat: $5^{10} \equiv 1 \pmod{11}$. $83 = 8 \cdot 10 + 3$, jadi $5^{83} \equiv 5^3 = 125 \equiv 4 \pmod{11}$. <strong>Sisanya $\mathbf{4}$.</strong>
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.3">
+        Tentukan semua bilangan prima $p$ sehingga $p^2 + 2$ juga prima.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Untuk $p = 3$: $p^2 + 2 = 11$ (prima). ✓<br>
+            Untuk $p \neq 3$ prima: $p \not\equiv 0 \pmod 3 \Rightarrow p^2 \equiv 1 \pmod 3 \Rightarrow p^2 + 2 \equiv 0 \pmod 3$, dan $p^2 + 2 > 3$ — bukan prima.<br>
+            <strong>Jawaban: hanya $p = 3$.</strong>
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.4">
+        Carilah dua digit terakhir dari $3^{100}$. <em>(Gunakan $\phi(100) = 40$ — Euler.)</em>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\gcd(3, 100) = 1$. Teorema Euler: $3^{40} \equiv 1 \pmod{100}$. $100 = 2 \cdot 40 + 20$, jadi $3^{100} \equiv 3^{20} \pmod{100}$.<br>
+            $3^4 = 81$, $3^8 = 6561 \equiv 61$, $3^{16} \equiv 61^2 = 3721 \equiv 21$, $3^{20} = 3^{16} \cdot 3^4 \equiv 21 \cdot 81 = 1701 \equiv \mathbf{1} \pmod{100}$.<br>
+            Dua digit terakhir: $\mathbf{01}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="L3.5">
+        Buktikan bahwa untuk setiap prima $p > 3$, $p^2 - 1$ habis dibagi $24$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $p^2 - 1 = (p-1)(p+1)$. Karena $p > 3$ prima, $p$ ganjil — $p - 1, p$ $+ 1$ keduanya genap, dan salah satunya kelipatan $4$. Jadi $8 \mid (p-1)(p+1)$.<br>
+            Karena $p > 3$ dan prima, $p \not\equiv 0 \pmod 3$, jadi $p \equiv 1$ atau $2 \pmod 3$, sehingga $p - 1$ atau $p + 1$ habis dibagi $3$.<br>
+            Maka $24 = 8 \cdot 3$ membagi $p^2 - 1$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ GABUNGAN ═══════════ -->
+  <div class="card" id="gabungan">
+    <h2>Latihan Gabungan — Mini Olimpiade</h2>
+    <div class="session-meta">20 menit · Pilih 3 dari 5 · Materi semua sesi pertemuan 4</div>
+
+    <ul class="exercises">
+      <li data-tag="G1">
+        Carilah semua bilangan bulat positif $n$ sehingga $n + 1 \mid n^2$ $+ 1$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $n^2 + 1 = (n+1)(n-1)$ $+ 2$. Jadi $n+1 \mid n^2$ $+1 \Leftrightarrow n+1 \mid 2$.<br>
+            $n + 1 \in \{1, 2\} \Rightarrow n \in \{0, 1\}$. Karena $n > 0$, $\mathbf{n = 1}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G2">
+        Tentukan sisa pembagian $1^5 + 2^5$ $+ 3^5 + \cdots$ $+ 100^5$ oleh $5$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Dari Fermat: $a^5 \equiv a \pmod 5$ untuk semua $a$. Maka<br>
+            $\sum_{k=1}^{100} k^5 \equiv \sum_{k=1}^{100} k = \frac{100 \cdot 101}{2} = 5050 \pmod 5$.<br>
+            $5050 = 1010 \cdot 5 + 0$, jadi sisanya $\mathbf{0}$.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G3">
+        Buktikan bahwa di antara $n+1$ bilangan dari $\{1, 2, \ldots, 2n\}$, pasti ada dua yang koprima. <em>(Pakai pertemuan 3!)</em>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi $\{1, \ldots, 2n\}$ menjadi $n$ pasang berurutan: $\{1,2\}, \{3,4\}, \ldots, \{2n-1, 2n\}$. Setiap pasangan berisi dua bilangan berturutan, yang selalu koprima.<br>
+            Merpati = $n+1$ bilangan; lubang = $n$ pasangan. Pasti ada pasangan dengan kedua anggota terpilih → koprima. $\blacksquare$
+          </div>
+        </details>
+      </li>
+      <li data-tag="G4">
+        Tentukan banyaknya pasangan bilangan bulat positif $(a, b)$ sehingga $\mathrm{lcm}(a, b) = 1200$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $1200 = 2^4 \cdot 3 \cdot 5^2$. Untuk tiap prima $p^k$ dalam $\mathrm{lcm}$, pasangan eksponen $(\alpha, \beta)$ dengan $\max(\alpha, \beta) = k$ ada $2k + 1$ pasangan.<br>
+            Untuk $2^4$: $2 \cdot 4 + 1 = 9$. Untuk $3^1$: $3$. Untuk $5^2$: $5$.<br>
+            Total: $9 \cdot 3 \cdot 5 = \mathbf{135}$ pasangan terurut.
+          </div>
+        </details>
+      </li>
+      <li data-tag="G5">
+        Buktikan bahwa untuk setiap $n \in \mathbb{N}$, $5^{2n} - 1$ habis dibagi $24$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $5^{2n} - 1 = (5^n - 1)(5^n + 1)$. Atau lebih langsung: $5^{2n} = 25^n$. $25 \equiv 1 \pmod{24}$, jadi $25^n \equiv 1^n = 1 \pmod{24}$, sehingga $5^{2n} - 1 \equiv 0 \pmod{24}$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ PANDUAN GURU ═══════════ -->
+  <div class="card" id="panduan">
+    <h2>Panduan untuk Guru — Pertemuan 4</h2>
+    <div class="session-meta">Setelah aljabar &amp; kombinatorika → masuk teori bilangan</div>
+
+    <h3>Refleksi dari Pertemuan 1-3</h3>
+    <ul class="tips">
+      <li>Tiga pertemuan sebelumnya: aljabar (P1-2) dan kombinatorika (P3). Beberapa siswa mungkin lebih nyaman di salah satu dari dua, dan itu wajar. Teori bilangan adalah <em>great equalizer</em> — semua sama-sama baru.</li>
+      <li>Cek apakah siswa sudah hafal aturan keterbagian dasar. Kalau belum, beri PR singkat sebelum lanjut Sesi 1.</li>
+    </ul>
+
+    <h3>Selama Mengajar Pertemuan 4</h3>
+    <ul class="tips">
+      <li><strong>Mulai dari yang konkret.</strong> Untuk kongruensi, gunakan jam dinding sebagai contoh. "Pukul $13$ = pukul $1$" lebih cepat dimengerti daripada definisi formal.</li>
+      <li>Algoritma Euclid: peragakan dengan dua bilangan di papan. Biarkan siswa melihat bagaimana sisa menyusut.</li>
+      <li><strong>Fermat kecil hanya berlaku untuk prima!</strong> Tegaskan ini berulang kali. Siswa pemula sering salah menerapkan ke modulus komposit.</li>
+      <li>Untuk Sesi 3, kalau waktu cukup, jelaskan konsep $\phi(n)$ (Euler totient) sebagai pengantar — tapi jangan paksa hafal rumusnya.</li>
+      <li>Latihan G3 menggabungkan teori bilangan + pigeonhole. Ini tipe soal "campuran" yang sangat khas KSN-K.</li>
+    </ul>
+
+    <h3>Untuk Pertemuan 5 &amp; Seterusnya</h3>
+    <ul class="tips">
+      <li><strong>Geometri</strong> — kesebangunan, sifat segitiga, lingkaran luar/dalam, teorema Ptolemy. Butuh banyak diagram di papan.</li>
+      <li><strong>Try-out KSN-K</strong> — kerjakan soal KSN-K 5 tahun terakhir, sesi simulasi (waktu terbatas).</li>
+      <li>Bentuk kelompok kecil 3-4 siswa untuk diskusi soal di luar jam kelas.</li>
+      <li>Mulai motivasi siswa terbaik untuk persiapan KSN-P (provinsi) — materi akan lebih dalam.</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:1.5rem">
+      <strong>Pesan penutup.</strong> Empat pertemuan ini sudah memberikan cakupan dasar yang baik. Sisa perjalanan adalah <em>latihan dan refleksi</em>. Selamat — Anda sudah jadi pelatih olimpiade yang sesungguhnya.
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Pertemuan 4 · Teori Bilangan · Keterbagian, Kongruensi, Fermat Kecil
+</footer>
+
+</body>
+</html>
