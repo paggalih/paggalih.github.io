@@ -2335,7 +2335,7 @@ graph TD
             </ol>
             <button id="tombol_mulai_mbs2d" type="button" class="btn btn-primary" onclick="validateUTSmbs2d()">Mulai UTS</button>
             <button type="button" class="btn btn-primary" onclick="closeValidateUTSmbs2d()">Kirim Jawaban</button>
-            <script>
+             <script>
               const mulaiUTSmbs2d = new Date("October 24, 2025 09:30:00").getTime();
               const akhirUTSmbs2d = new Date("October 24, 2026 10:30:00").getTime();
               function validateUTSmbs2d() {
@@ -2433,7 +2433,7 @@ graph TD
                   }, 500);
               }
               
-            </script>
+            </script> 
             <h3 id="timerUTS" class="text-center bg-success bg-opacity-10 border border-success rounded" style="display:none;"></h3>
             <div id="berhasilValidateUTS" style="display: none">
               <div id="soala" style='display:none;'>
@@ -2814,295 +2814,72 @@ graph TD
           <h2>Pertemuan 9</h2>
         </div>
         <div class="trigger">
-          $Y$ merupakan data nominal atau kategori. Misal Ya atau Tidak, Hijau atau Merah, dsb.
+<strong>Model Logit dan Probit:</strong> Bayangkan Anda sedang menebak apakah seseorang akan membeli payung atau tidak (hanya ada dua pilihan: Ya = 1, Tidak = 0). OLS (Regresi Linear biasa) tidak cocok di sini karena bisa memprediksi peluang sebesar -0.5 atau 1.2 (mustahil). Logit dan Probit adalah "pintu otomatis" yang memaksa tebakan peluang selalu berada di antara 0% dan 100%.
+<br>
+==> Logit menggunakan kurva logistik (seperti huruf S yang sedikit lebih santai di ujungnya).
+<br>
+==> Probit menggunakan kurva distribusi normal (huruf S yang lebih ketat di ujungnya).
+<br>
+Kapan pilih yang mana? Di sebagian besar kasus ekonomi, hasilnya sangat mirip. Logit lebih populer di bidang kesehatan/marketing karena mudah dihitung odds ratio-nya, sedangkan Probit sering dipakai di ekonometrika karena asumsi distribusi normalnya.
+<br>
+<strong>Odds Ratio (Hanya Logit):</strong> Analogi Taruhan Kuda Balap. Jika odds ratio variabel "Cuaca Mendung" adalah 3, artinya peluang orang membeli payung menjadi 3 kali lipat lebih besar saat mendung dibandingkan saat tidak mendung.
         </div>
         <div class="mermaid text-center">
-          graph TD
-          D{Y data nominal <br> data kategori};
-          D -- Ya --> E[Pilih Metode: Logit atau Probit];
-          E --> F[Estimasi Model];
-          F --> G{Evaluasi Model};
-          G -- Koefisien Signifikan? --> H["Uji Kelayakan Model (Goodness of Fit)"];
-          H -- Model Layak? --> I["Interpretasi Hasil: Odds Ratio (Logit) / Marginal Effects"];
-          I --> J["Tarik Kesimpulan & Selesai"];
+graph TD
+    A["Mulai Analisis Biner"] --> B["Uji Stasioneritas & Asumsi Klasik (Jika Runtun Waktu)"]
+    B --> C["Estimasi Model (Pilih Logit atau Probit)"]
+    C --> D["Cek Signifikansi Variabel (Uji z / p-value)"]
+    D --> E["Evaluasi Goodness-of-Fit"]
+    E --> F["Cek McFadden R-Squared"]
+    E --> G["Lakukan Uji Hosmer-Lemeshow"]
+    F --> H["Interpretasi Ekonomi"]
+    G --> H
+    H --> I["Hitung Odds Ratio (Jika Logit)"]
+    H --> J["Hitung Marginal Effect"]
+    I --> K["Tarik Kesimpulan"]
+    J --> K
+    K --> L["Selesai"]
         </div>
 
-        <h4>Menjalankan Estimasi Model</h4>
-        <div class="step">
-          <p>Setelah data berhasil diimpor, kita siap untuk melakukan estimasi. Prosesnya hampir identik untuk Logit dan Probit.</p>
-          <ol>
-            <li>Buka jendela Command atau pilih <strong>Quick &rarr; Estimate Equation...</strong>.</li>
-            <li>Pada dialog <em>Equation Estimation</em>, tuliskan spesifikasi model Anda. Formatnya adalah: <code>variabel_dependen c variabel_independen1 variabel_independen2 ...</code>. Contoh: <code>Y c X1 X2 X3</code>.</li>
-            <li>Ubah menu dropdown <strong>Method</strong> dari LS (Least Squares) menjadi <strong>BINARY - Binary Choice</strong>.</li>
-            <li>
-              Akan muncul pilihan estimasi. Pilih:
-              <ul>
-                <li><strong>Logit</strong> untuk Model Logit (distribusi logistik).</li>
-                <li><strong>Probit</strong> untuk Model Probit (distribusi normal).</li>
-              </ul>
-              <div class="highlight">
-                <strong>Tips:</strong> Secara default, EViews menggunakan metode Maximum Likelihood (ML) untuk mengestimasi model ini, yang merupakan standar industri.
-              </div>
-            </li>
-            <li>Klik <strong>OK</strong> untuk menjalankan estimasi.</li>
-          </ol>
-          <p>Jendela output akan muncul dengan hasil estimasi Anda.</p>
-        </div>
+        <h2 style="color: #2c3e50;">Tutorial Analisis Logit/Probit di Eviews</h2>
+    
+    <h3>Langkah 1: Estimasi Model</h3>
+    <ol>
+        <li>Buka file data Anda (<em>File > Open > Foreign Data as Workfile</em>) lalu masukkan CSV.</li>
+        <li>Pada menu utama Eviews, klik <strong>Quick > Estimate Equation</strong>.</li>
+        <li>Ketikkan persamaan dengan format: <code>Y C X1 X2</code> (Contoh: <code>KEPUTUSAN C PENDAPATAN UMUR</code>).</li>
+        <li>Pada kotak <em>Method</em>, ubah dari <strong>LS - Least Squares</strong> menjadi <strong>BINARY - Logit, Probit, Extreme Value</strong>.</li>
+        <li>Pada jendela yang sama di opsi <em>Binary estimation method</em>, pilih <strong>Logit</strong> atau <strong>Probit</strong>. Klik <strong>OK</strong>.</li>
+    </ol>
+    
+    <h3>Langkah 2: Menilai Goodness-of-Fit</h3>
+    <p>Setelah hasil regresi keluar:</p>
+    <ul>
+        <li><strong>McFadden $R^2$:</strong> Langsung lihat di tabel <em>output</em> bagian bawah. Nilainya diukur dengan rumus: $$ R^2_{McF} = 1 - \frac{\ln(L_M)}{\ln(L_0)} $$ Dimana $L_M$ adalah *Likelihood* model, dan $L_0$ adalah *Likelihood* model tanpa variabel independen.</li>
+        <li><strong>Hosmer-Lemeshow:</strong> Klik tombol <strong>View > Goodness-of-Fit Tests</strong> pada jendela Equation. Pilih <em>Hosmer-Lemeshow</em> dan gunakan 10 <em>quantiles</em>. Pastikan nilai <em>Prob. Chi-Square</em> $> 0.05$ agar model dinyatakan fit.</li>
+    </ul>
 
-        <h2>Interpretasi Output EViews</h2>
-        <div class="step">
-          <p>Output EViews memberikan banyak informasi penting. Mari kita bedah bagian utamanya:</p>
-          <ul>
-            <li><strong>Coefficient ($\beta$)</strong>: Menunjukkan arah hubungan variabel independen dengan log-odds (Logit) atau Z-score (Probit). Positif berarti meningkatkan probabilitas Y=1, negatif berarti sebaliknya.</li>
-            <li><strong>Std. Error, z-Statistic, Prob.</strong>: Ini adalah kunci untuk uji signifikansi. Jika nilai <strong>Prob. (p-value)</strong> lebih kecil dari tingkat signifikansi yang Anda tentukan (misal, 0.05), maka variabel tersebut berpengaruh signifikan secara statistik terhadap probabilitas Y.</li>
-            <li><strong>McFadden R-squared</strong>: Ini adalah salah satu ukuran <em>goodness-of-fit</em>, analog dengan R-squared pada regresi OLS. Nilainya berkisar antara 0 dan 1. Semakin tinggi, semakin baik model menjelaskan variasi data. Nilai antara 0.2 hingga 0.4 sudah dianggap sangat baik.</li>
-            <li><strong>LR statistic & Prob(LR statistic)</strong>: Ini adalah uji signifikansi model secara keseluruhan (<em>overall significance</em>). Jika nilai Prob(LR statistic) < 0.05, maka model dianggap layak (setidaknya ada satu variabel independen yang berpengaruh signifikan).</li>
-          </ul>
-          <p>Formula yang diestimasi untuk model Logit adalah probabilitas kejadian (Y=1):</p>
-          <p>$$ P(Y=1 | X) = \frac{e^{\beta_0 + \beta_1 X_1 + \dots + \beta_k X_k}}{1 + e^{\beta_0 + \beta_1 X_1 + \dots + \beta_k X_k}} $$</p>
-          <p>Karena interpretasi koefisien $\beta$ secara langsung tidak intuitif (misalnya, 'kenaikan satu unit X1 akan menaikkan log-odds sebesar $\beta_1$'), kita seringkali perlu menghitung <strong>Odds Ratio</strong> (untuk Logit) atau <strong>Marginal Effects</strong> untuk interpretasi yang lebih mudah.</p>
-        </div>
+    <h3>Langkah 3: Interpretasi Odds Ratio (Untuk Logit)</h3>
+    <p>Nilai koefisien yang keluar adalah log-odds. Untuk mendapatkan <em>Odds Ratio</em>, eksponensialkan koefisien tersebut: $$ OR = e^{\beta} $$</p>
+    <p><strong>Cara di Eviews:</strong> Sayangnya, Eviews tidak mengeluarkan OR secara otomatis. Anda bisa menghitungnya secara manual dengan mengetik di baris perintah (Command): <code>scalar OR_X1 = exp(c(2))</code> (asumsi variabel independen pertama ada di koefisien ke-2).</p>
 
-        <h2>Marginal Effects</h2>
-        <div class="step">
-          <p>Efek marjinal (marginal effects) menjawab pertanyaan: "Jika X1 naik satu unit, berapa persen perubahan probabilitas Y=1, dengan asumsi variabel lain konstan pada nilai rata-ratanya?". Ini jauh lebih mudah dipahami.</p>
-          <ol>
-            <li>Setelah mendapatkan output estimasi, klik tombol <strong>View</strong> pada jendela output.</li>
-            <li>Pilih <strong>Marginal Effects...</strong> (atau pada beberapa versi EViews, mungkin berada di bawah <strong>Gradients and Derivatives</strong>).</li>
-            <li>Biarkan pengaturan default (biasanya dihitung pada rata-rata variabel) dan klik <strong>OK</strong>.</li>
-            <li>Output baru akan menunjukkan perubahan probabilitas untuk setiap unit perubahan variabel independen.</li>
-          </ol>
-        </div>
-
-        <p class="fw-bold">Kasus 1: Prediksi Persetujuan Kredit Mikro</p>
-        <p>Bank ingin memprediksi probabilitas seorang calon nasabah akan disetujui (APPROVE=1) atau ditolak (APPROVE=0) pengajuan kredit mikronya.
-          <br>
-          <strong>Variabel Dependen (Y):</strong> <br>APPROVE (1=Disetujui, 0=Ditolak)
-          <br>
-          <strong>Variabel Independen (X):</strong>
-          <br>
-          PENDAPATAN: Pendapatan bulanan pemohon (dalam jutaan Rupiah).
-          <br>
-          LAMA_USAHA: Lama usaha berjalan (dalam tahun).
-          <br>
-          RASIO_UTANG: Rasio total utang terhadap pendapatan (%).
-          <br>
-          JAMINAN: Apakah pemohon memiliki jaminan (1=Ya, 0=Tidak).
+    <h3>Langkah 4: Menghitung Marginal Effect</h3>
+    <p>Marginal effect menunjukkan perubahan probabilitas marginal: $$ \frac{\partial P(Y=1|X)}{\partial X_k} $$</p>
+    <p><strong>Cara di Eviews:</strong> Pada jendela <em>Equation</em> hasil regresi, klik <strong>View > Gradients and Derivatives</strong>. Ini akan menunjukkan nilai Marginal Effects (turunan pertama) pada titik rata-rata variabel independen.</p>
+        <p class="soal-latihan">
         </p>
-        <a class="actions" href="logit-probit-1.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-logit-probit-1"></div>
-        <script>
-          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-1.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-logit-probit-1">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-logit-probit-1").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-logit-probit-1').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <ol>
-          <li>Lakukan estimasi regresi berganda.</li>
-          <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
-          <li>Interpretasikan hasilnya.</li>
-        </ol>
-
-        <p class="fw-bold">Kasus 2: Prediksi Kelulusan Tepat Waktu Mahasiswa</p>
-        <p>Universitas ingin mengetahui faktor-faktor yang mempengaruhi probabilitas seorang mahasiswa lulus tepat waktu (LULUS_TEPAT=1) atau tidak (LULUS_TEPAT=0).
-          <br>
-          <strong>Variabel Dependen (Y):</strong> <br>LULUS_TEPAT (1=Lulus Tepat Waktu, 0=Tidak)
-          <br>
-          <strong>Variabel Independen (X):</strong>
-          <br>
-          IPK_SEM2: Indeks Prestasi Kumulatif mahasiswa pada semester 2.
-          <br>
-          SKS_LULUS_SEM2: Jumlah SKS yang berhasil diambil hingga semester 2.
-          <br>
-          KEAKTIFAN_ORG: Keaktifan dalam organisasi (1=Aktif, 0=Tidak Aktif).
-          <br>
-          BEASISWA: Apakah mahasiswa penerima beasiswa (1=Ya, 0=Tidak).
-        </p>
-        <a class="actions" href="logit-probit-2.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-logit-probit-2"></div>
-        <script>
-          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-2.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-logit-probit-2">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-logit-probit-2").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-logit-probit-2').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <ol>
-          <li>Lakukan estimasi regresi berganda.</li>
-          <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
-          <li>Interpretasikan hasilnya.</li>
-        </ol>
-
-        <p class="fw-bold">Kasus 3: Prediksi Adopsi Aplikasi Mobile Banking</p>
-        <p>Menganalisis faktor-faktor yang mendorong nasabah untuk mengadopsi (PAKAI_MBANKING=1) atau tidak mengadopsi (PAKAI_MBANKING=0) aplikasi mobile banking.
-          <br>
-          <strong>Variabel Dependen (Y):</strong> <br>PAKAI_MBANKING (1=Pakai, 0=Tidak Pakai)
-          <br>
-          <strong>Variabel Independen (X):</strong>
-          <br>
-          USIA: Usia nasabah (dalam tahun).
-          <br>
-          TINGKAT_PENDIDIKAN: Tingkat pendidikan (1=SMA/Sederajat, 2=Diploma, 3=Sarjana, 4=Pascasarjana).
-          <br>
-          LITERASI_DIGITAL: Skor literasi digital nasabah (skala 1-10).
-          <br>
-          KEPERCAYAAN_KEAMANAN: Skor kepercayaan terhadap keamanan digital (skala 1-10).
-        </p>
-        <a class="actions" href="logit-probit-3.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-logit-probit-3"></div>
-        <script>
-          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/logit-probit-3.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-logit-probit-3">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-logit-probit-3").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-logit-probit-3').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-        <ol>
-          <li>Lakukan estimasi regresi berganda.</li>
-          <li>Uji asumsi klasik (normalitas, heteroskedastisitas, dan multikolinieritas</li>
-          <li>Interpretasikan hasilnya.</li>
-        </ol>
-
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp9">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp9">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep9" aria-expanded="true" aria-controls="collapsep9">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep9" class="accordion-collapse collapse" aria-labelledby="headingp9" data-bs-parent="#accordionp9">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
         </div>
-      </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
+        
+  </div>
     </section>
     <section id="p10">
       <div class="container aos-init aos-animate" data-aos="fade-up">
