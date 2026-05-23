@@ -108,9 +108,10 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 
     <script>
-		const copyBtn = document.getElementById('copy-btn');
 copyBtn.addEventListener('click', () => {
-    navigator.clipboard.writeText(editor.getValue()).then(() => {
+    const raw = editor.getValue();
+    const clean = raw.replace(/\s*data-source-line="\d+"/g, '');
+    navigator.clipboard.writeText(clean).then(() => {
         const icon = copyBtn.querySelector('i');
         icon.classList.replace('bi-clipboard', 'bi-check-lg');
         setTimeout(() => icon.classList.replace('bi-check-lg', 'bi-clipboard'), 1500);
