@@ -68,6 +68,7 @@
             <button id="inspect-btn" class="btn btn-primary text-white"><i class="bi bi-cursor-fill"></i> <span>Inspect</span></button>
             <button id="find-btn" class="btn btn-info text-white"><i class="bi bi-search"></i> <span>Find</span></button>
             <button id="format-btn" class="btn btn-secondary text-white"><i class="bi bi-wrench"></i> Format</button>
+			<button id="copy-btn" class="btn btn-dark text-white"><i class="bi bi-clipboard"></i> Copy</button>
             <button id="example-btn" class="btn text-white" style="background-color: #6f42c1;"><i class="bi bi-file-code"></i> Contoh</button>
             
             <div class="ms-auto d-flex align-items-center">
@@ -107,6 +108,14 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/split.js/1.6.0/split.min.js"></script>
 
     <script>
+		const copyBtn = document.getElementById('copy-btn');
+copyBtn.addEventListener('click', () => {
+    navigator.clipboard.writeText(editor.getValue()).then(() => {
+        const icon = copyBtn.querySelector('i');
+        icon.classList.replace('bi-clipboard', 'bi-check-lg');
+        setTimeout(() => icon.classList.replace('bi-check-lg', 'bi-clipboard'), 1500);
+    });
+});
         document.addEventListener('DOMContentLoaded', function() {
             const editor = CodeMirror.fromTextArea(document.getElementById('html-code'), {
                 mode: 'htmlmixed', theme: 'monokai', lineNumbers: true, lineWrapping: true,
