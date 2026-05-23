@@ -1,0 +1,950 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahan Ajar Olimpiade — Pertemuan 5 (Drill) | paggalih</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --blue-lt: #e8f0fd;
+      --yellow-lt: #fff8e1;
+      --yellow-br: #ffe082;
+      --orange: #c75a1a;
+      --orange-lt: #fdebd4;
+      --purple: #6a3aa6;
+      --purple-lt: #ede4f8;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .meta {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      font-family: var(--mono);
+    }
+
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .card .session-meta {
+      font-size: .82rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-bottom: 1.1rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 1.5rem 0 .6rem;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: .7rem; }
+
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .93rem;
+      margin: 1rem 0;
+    }
+    .info-box strong { color: var(--accent); }
+
+    .tip-box {
+      background: var(--yellow-lt);
+      border: 1px solid var(--yellow-br);
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .93rem;
+    }
+    .tip-box strong { color: #7a5800; }
+
+    /* ── Difficulty badges ── */
+    .diff {
+      display: inline-block;
+      font-size: .65rem;
+      padding: .12rem .42rem;
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-weight: 600;
+      margin-left: .4rem;
+      vertical-align: middle;
+      letter-spacing: .03em;
+    }
+    .diff.easy   { background: var(--green-lt);  color: var(--green); }
+    .diff.med    { background: var(--orange-lt); color: var(--orange); }
+    .diff.hard   { background: var(--purple-lt); color: var(--purple); }
+
+    /* ── Topic recap card ── */
+    .topic-recap {
+      background: var(--accent-lt);
+      border: 1px solid #b8c6e3;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 0 0 1.2rem;
+      font-size: .92rem;
+    }
+    .topic-recap .recap-title {
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--serif);
+      margin-bottom: .3rem;
+    }
+    .topic-recap ul {
+      margin: .3rem 0 0 1.3rem;
+    }
+    .topic-recap ul li {
+      margin-bottom: .2rem;
+    }
+
+    /* ── Exercise list ── */
+    .exercises {
+      list-style: none;
+      padding-left: 0;
+      margin: .5rem 0;
+    }
+    .exercises li {
+      padding: .75rem 0 .75rem 2.6rem;
+      border-bottom: 1px dashed var(--border);
+      position: relative;
+    }
+    .exercises li:last-child { border-bottom: none; }
+    .exercises li::before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 0;
+      top: .82rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .14rem .42rem;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    details.answer { margin-top: .4rem; }
+    details.answer > summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.answer > summary::-webkit-details-marker { display: none; }
+    details.answer > summary::before {
+      content: "▶ ";
+      display: inline-block;
+      transition: transform .2s;
+      font-size: .7rem;
+    }
+    details.answer[open] > summary::before { transform: rotate(90deg); }
+    details.answer[open] > summary { color: var(--green); }
+    details.answer .ans-body {
+      margin-top: .5rem;
+      padding: .7rem .9rem;
+      background: #fafafa;
+      border-left: 2px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: .93rem;
+    }
+
+    /* ── Score tracker ── */
+    .tracker {
+      background: linear-gradient(135deg, #f0f6ff 0%, #e0ebff 100%);
+      border: 1px solid #b8c6e3;
+      border-radius: 8px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .9rem;
+    }
+    .tracker strong { color: var(--accent); }
+    .tracker table {
+      margin-top: .5rem;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: .85rem;
+      width: 100%;
+      max-width: 380px;
+    }
+    .tracker td {
+      padding: .25rem .5rem;
+      border-bottom: 1px dotted var(--border);
+    }
+    .tracker td:last-child { text-align: right; color: var(--text2); }
+
+    /* ── Toc ── */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .toc .toc-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: .25rem 0;
+      font-size: .92rem;
+    }
+    .toc ol li::before {
+      content: counter(toc) ". ";
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-right: .4rem;
+    }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+    }
+    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .toc .dur {
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: .82rem;
+      margin-left: .4rem;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin-top: .8rem;
+      margin-right: .4rem;
+      padding: .35rem .8rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: .85rem;
+    }
+    .nav-link:hover { background: #d8e2f3; }
+
+    ul.tips { margin: .5rem 0 .5rem 1.25rem; }
+    ul.tips li { margin-bottom: .35rem; }
+
+    /* Legend for difficulty */
+    .legend {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin: .5rem 0;
+      font-size: .82rem;
+      color: var(--text2);
+    }
+    .legend .item { display: inline-flex; align-items: center; gap: .3rem; }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 580px) {
+      header { padding: 1.2rem 1.25rem 1.4rem; }
+      header h1 { font-size: 1.55rem; }
+      .card { padding: 1.2rem; }
+      .card h2 { font-size: 1.3rem; }
+      mjx-container[jax="SVG"]:not([display="true"]) { font-size: .95em; }
+    }
+
+    mjx-container { line-height: 0; }
+    mjx-container[jax="SVG"][display="true"] {
+      margin: .6em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: .15em 0 .35em;
+    }
+    mjx-container[jax="SVG"]:not([display="true"]) {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Bahan Ajar Olimpiade Matematika</h1>
+  <p>Pertemuan 5 — Drill Latihan Soal · Tingkat KSN-K</p>
+  <div class="meta">SMAN 1 Boyolangu · 3 jam pelajaran</div>
+</header>
+
+<main>
+
+  <!-- ═══════════ TOC ═══════════ -->
+  <div class="toc">
+    <div class="toc-title">Struktur Latihan</div>
+    <ol>
+      <li><a href="#intro">Pengantar &amp; Cara Pakai</a><span class="dur">15 min</span></li>
+      <li><a href="#aljabar">Drill Aljabar — 10 soal</a><span class="dur">55 min</span></li>
+      <li><a href="#kombinatorika">Drill Kombinatorika — 10 soal</a><span class="dur">55 min</span></li>
+      <li><a href="#tb">Drill Teori Bilangan — 10 soal</a><span class="dur">45 min</span></li>
+      <li><a href="#campuran">Soal Campuran (Bonus) — 5 soal</a><span class="dur">10 min</span></li>
+      <li><a href="#panduan">Refleksi &amp; Panduan</a></li>
+    </ol>
+    <a href="olimpiade-aljabar.html" class="nav-link">P1</a>
+    <a href="olimpiade-aljabar-2.html" class="nav-link">P2</a>
+    <a href="olimpiade-aljabar-3.html" class="nav-link">P3</a>
+    <a href="olimpiade-aljabar-4.html" class="nav-link">P4</a>
+  </div>
+
+  <!-- ═══════════ INTRO ═══════════ -->
+  <div class="card" id="intro">
+    <h2>Pengantar &amp; Cara Pakai</h2>
+    <div class="session-meta">15 menit · pembukaan sesi drill</div>
+
+    <p>Sesi ini berisi <strong>35 soal latihan</strong> dengan format dan tingkat kesulitan menyerupai KSN-K. Tidak ada materi baru — fokus penuh pada penerapan.</p>
+
+    <h3>Aturan main</h3>
+    <ul class="tips">
+      <li>Siswa kerjakan tiap soal <strong>tanpa membuka kunci dulu</strong>. Aturan 5 menit per soal — jika belum dapat, lewati dulu.</li>
+      <li>Setelah 1 sesi selesai, baru buka kunci. Cocokkan jawaban dan baca pembahasan yang miss.</li>
+      <li>Catat soal yang salah/sulit. Itu adalah <em>peta belajar</em> Anda.</li>
+    </ul>
+
+    <h3>Skala kesulitan</h3>
+    <div class="legend">
+      <span class="item"><span class="diff easy">MUDAH</span> langsung pakai rumus</span>
+      <span class="item"><span class="diff med">SEDANG</span> butuh 1-2 trik</span>
+      <span class="item"><span class="diff hard">SULIT</span> kombinasi konsep</span>
+    </div>
+
+    <div class="tracker">
+      <strong>📊 Target skor (untuk siswa)</strong>
+      <table>
+        <tr><td>Aljabar (10 soal)</td><td>target ≥ 7</td></tr>
+        <tr><td>Kombinatorika (10 soal)</td><td>target ≥ 6</td></tr>
+        <tr><td>Teori Bilangan (10 soal)</td><td>target ≥ 7</td></tr>
+        <tr><td>Campuran (5 soal)</td><td>target ≥ 3</td></tr>
+      </table>
+      <p style="margin-top:.6rem;font-size:.85rem;color:var(--text2)">
+        Total $\ge 23/35 \approx 66\%$ → siap KSN-K. Skor kurang? Identifikasi topik lemah dan ulangi pertemuan terkait.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <strong>Tips guru.</strong> Bagi waktu dengan jam dinding atau timer di proyektor. Setelah tiap sub-sesi, beri 5 menit diskusi pleno untuk soal yang banyak salah.
+    </div>
+  </div>
+
+  <!-- ═══════════ ALJABAR ═══════════ -->
+  <div class="card" id="aljabar">
+    <h2>Drill Aljabar — 10 Soal</h2>
+    <div class="session-meta">55 menit · 4 mudah · 4 sedang · 2 sulit</div>
+
+    <div class="topic-recap">
+      <div class="recap-title">📖 Konsep yang dipakai</div>
+      <ul>
+        <li>Identitas: $(a \pm b)^2$, $(a \pm b)^3$, $a^3 \pm b^3$, $a^2 - b^2$, Sophie Germain</li>
+        <li>Vieta: hubungan akar &amp; koefisien polinomial</li>
+        <li>AM-GM, Cauchy-Schwarz, Titu's Lemma, SOS</li>
+        <li>Barisan: teleskop, rekursi, pecahan parsial</li>
+      </ul>
+    </div>
+
+    <ul class="exercises">
+      <li data-tag="A1">
+        <span class="diff easy">MUDAH</span>
+        Faktorkan $x^4 - 16$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $x^4 - 16 = (x^2)^2$ $- 4^2 = (x^2-4)(x^2+4) = (x-2)(x+2)(x^2+4)$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A2">
+        <span class="diff easy">MUDAH</span>
+        Jika $x + y = 5$ dan $xy = 3$, hitung $x^2 + y^2$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $x^2 + y^2 = (x+y)^2$ $- 2xy = 25 - 6 = \mathbf{19}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A3">
+        <span class="diff easy">MUDAH</span>
+        Untuk $x > 0$, tentukan nilai minimum $x + \dfrac{9}{x}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            AM-GM: $x + \dfrac{9}{x} \ge 2\sqrt{x \cdot \dfrac{9}{x}} = 2 \cdot 3 = \mathbf{6}$, saat $x = 3$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A4">
+        <span class="diff easy">MUDAH</span>
+        Hitung
+        $$\dfrac{1}{1\cdot 3} + \dfrac{1}{3\cdot 5} + \dfrac{1}{5\cdot 7} + \cdots + \dfrac{1}{99\cdot 101}.$$
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\dfrac{1}{(2k-1)(2k+1)} = \dfrac{1}{2}\left[\dfrac{1}{2k-1} - \dfrac{1}{2k+1}\right]$.<br>
+            Teleskop: $\dfrac{1}{2}\left[1 - \dfrac{1}{101}\right] = \dfrac{1}{2} \cdot \dfrac{100}{101} = \mathbf{\dfrac{50}{101}}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A5">
+        <span class="diff med">SEDANG</span>
+        Akar persamaan $x^3 - 6x^2$ $+ 11x - 6 = 0$ adalah $a, b, c$. Hitung $a^2 + b^2$ $+ c^2$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Vieta: $a+b$ $+c = 6$, $ab+bc$ $+ca = 11$, $abc = 6$.<br>
+            $a^2 + b^2$ $+ c^2 = (a+b+c)^2 - 2(ab+bc+ca) = 36$ $- 22 = \mathbf{14}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A6">
+        <span class="diff med">SEDANG</span>
+        $a, b, c > 0$ dan $a + b$ $+ c = 3$. Buktikan
+        $$\dfrac{1}{a} + \dfrac{1}{b} + \dfrac{1}{c} \ge 3.$$
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Titu (Cauchy-Schwarz bentuk Engel):
+            $$\dfrac{1^2}{a} + \dfrac{1^2}{b} + \dfrac{1^2}{c} \ge \dfrac{(1+1+1)^2}{a+b+c} = \dfrac{9}{3} = 3.$$
+            Kesamaan saat $a = b = c = 1$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A7">
+        <span class="diff med">SEDANG</span>
+        Hitung
+        $$\sqrt{1 + \dfrac{1}{1^2} + \dfrac{1}{2^2}} + \sqrt{1 + \dfrac{1}{2^2} + \dfrac{1}{3^2}} + \cdots + \sqrt{1 + \dfrac{1}{99^2} + \dfrac{1}{100^2}}.$$
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Trik kunci: $1 + \dfrac{1}{n^2}$ $+ \dfrac{1}{(n+1)^2} = \left(1 + \dfrac{1}{n} - \dfrac{1}{n+1}\right)^2$.<br>
+            Cek: kuadratkan ruas kanan, gunakan $\dfrac{1}{n} - \dfrac{1}{n+1} = \dfrac{1}{n(n+1)}$.<br>
+            Akar tiap suku: $1 + \dfrac{1}{n}$ $- \dfrac{1}{n+1}$. Jumlahnya teleskop:
+            $$99 + \sum_{n=1}^{99}\left(\dfrac{1}{n} - \dfrac{1}{n+1}\right) = 99 + 1 - \dfrac{1}{100} = \mathbf{\dfrac{9999}{100}}.$$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A8">
+        <span class="diff med">SEDANG</span>
+        Hitung jumlah semua bilangan real $x$ yang memenuhi $x^2 - 5\lfloor x \rfloor$ $+ 6 = 0$. <em>($\lfloor x \rfloor$ = floor.)</em>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Misal $\lfloor x \rfloor = n$. Maka $x^2 = 5n - 6$, jadi $x = \pm\sqrt{5n - 6}$ (perlu $n \ge 2$).<br>
+            Karena $n \le x < n + 1$, kita butuh $n \le \sqrt{5n-6} < n+1$ (atau $-\sqrt{}$ untuk negatif).<br>
+            Cek $n = 2$: $x = \sqrt{4} = 2$, dan $\lfloor 2 \rfloor = 2$. ✓<br>
+            $n = 3$: $x = \sqrt{9} = 3$, $\lfloor 3 \rfloor = 3$. ✓<br>
+            $n = 4$: $x = \sqrt{14} \approx 3.74$, tapi $\lfloor x \rfloor = 3 \neq 4$. ✗<br>
+            $n = 5$: $x = \sqrt{19} \approx 4.36$, $\lfloor x \rfloor = 4 \neq 5$. ✗<br>
+            $n = 6$: $x = \sqrt{24} \approx 4.9$, $\lfloor x \rfloor = 4$. ✗ (semakin jauh)<br>
+            Cek juga negatif & batas: hanya $x = 2$ dan $x = 3$ yang valid. <strong>Jumlah $= \mathbf{5}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A9">
+        <span class="diff hard">SULIT</span>
+        Tentukan nilai dari $\dfrac{1}{1+\sqrt 2} + \dfrac{1}{\sqrt 2 + \sqrt 3}$ $+ \cdots + \dfrac{1}{\sqrt{99}+\sqrt{100}}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Rasionalkan tiap suku:
+            $$\dfrac{1}{\sqrt{k} + \sqrt{k+1}} = \dfrac{\sqrt{k+1} - \sqrt{k}}{(k+1) - k} = \sqrt{k+1} - \sqrt{k}.$$
+            Teleskop: $\sqrt{100} - \sqrt{1} = 10$ $- 1 = \mathbf{9}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A10">
+        <span class="diff hard">SULIT</span>
+        Polinomial $P(x)$ berderajat $4$ dengan koefisien utama $1$, dan $P(1) = 1, P(2) = 4, P(3) = 9, P(4) = 16$. Tentukan $P(5)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Definisikan $Q(x) = P(x) - x^2$. $Q$ berderajat $4$ dengan koefisien utama $1$, dan $Q(1) = Q(2) = Q(3) = Q(4) = 0$. Jadi
+            $$Q(x) = (x-1)(x-2)(x-3)(x-4).$$
+            Maka $P(x) = x^2 + (x-1)(x-2)(x-3)(x-4)$.<br>
+            $P(5) = 25 + 4 \cdot 3 \cdot 2 \cdot 1 = 25$ $+ 24 = \mathbf{49}$.
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ KOMBINATORIKA ═══════════ -->
+  <div class="card" id="kombinatorika">
+    <h2>Drill Kombinatorika — 10 Soal</h2>
+    <div class="session-meta">55 menit · 4 mudah · 4 sedang · 2 sulit</div>
+
+    <div class="topic-recap">
+      <div class="recap-title">📖 Konsep yang dipakai</div>
+      <ul>
+        <li>Aturan jumlah &amp; aturan kali</li>
+        <li>Permutasi $P(n,r)$, kombinasi $\binom{n}{r}$, permutasi siklis $(n-1)!$</li>
+        <li>Pigeonhole: $\lceil N/n \rceil$ merpati di satu lubang</li>
+        <li>Inklusi-Eksklusi, Bintang &amp; Batang</li>
+      </ul>
+    </div>
+
+    <ul class="exercises">
+      <li data-tag="K1">
+        <span class="diff easy">MUDAH</span>
+        Berapa banyak susunan huruf dari kata "BUKU"?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            4 huruf dengan U muncul 2 kali: $\dfrac{4!}{2!} = \mathbf{12}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K2">
+        <span class="diff easy">MUDAH</span>
+        Dari 10 siswa, dipilih 3 untuk lomba. Berapa banyak cara pemilihan?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\binom{10}{3} = \dfrac{10 \cdot 9 \cdot 8}{6} = \mathbf{120}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K3">
+        <span class="diff easy">MUDAH</span>
+        Ada berapa bilangan 3 digit yang semua digitnya berbeda?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Digit ratusan: $1-9$ (9 pilihan). Puluhan: $0-9$ kecuali yang sudah dipakai (9 pilihan). Satuan: sisa (8 pilihan).<br>
+            Total: $9 \cdot 9 \cdot 8 = \mathbf{648}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K4">
+        <span class="diff easy">MUDAH</span>
+        Tujuh orang duduk di meja bundar. Berapa banyak susunan?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Permutasi siklis: $(7-1)! = 6! = \mathbf{720}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K5">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak cara menyusun 5 buku merah, 3 buku biru, dan 2 buku hijau di rak (buku sewarna identik)?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Permutasi multinomial: $\dfrac{10!}{5! \cdot 3! \cdot 2!} = \dfrac{3{,}628{,}800}{120 \cdot 6 \cdot 2} = \mathbf{2520}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K6">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak solusi non-negatif dari $a + b$ $+ c + d = 12$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bintang batang: $\binom{12 + 3}{3} = \binom{15}{3} = \mathbf{455}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K7">
+        <span class="diff med">SEDANG</span>
+        Buktikan bahwa dari $13$ bilangan bulat sembarang, pasti ada dua bilangan yang selisihnya habis dibagi $12$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi berdasarkan sisa modulo $12$: ada $12$ kelas $\{0, 1, \ldots, 11\}$. Merpati = 13 bilangan; lubang = 12 kelas. Pasti ada 2 di kelas sama → selisihnya habis dibagi $12$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K8">
+        <span class="diff med">SEDANG</span>
+        Dari 100 siswa: 60 ikut klub musik, 50 ikut klub seni, 40 ikut klub olahraga, 30 musik+seni, 20 musik+olahraga, 25 seni+olahraga, 10 ketiganya. Berapa siswa yang tidak ikut klub apapun?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Inklusi-eksklusi:
+            $$|M \cup S \cup O| = 60 + 50 + 40 - 30 - 20 - 25 + 10 = 85.$$
+            Tidak ikut apapun: $100 - 85 = \mathbf{15}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K9">
+        <span class="diff hard">SULIT</span>
+        Berapa banyak susunan huruf "MATEMATIKA" sehingga tidak ada dua huruf "A" yang berdekatan?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            "MATEMATIKA" punya 3 A dan 7 huruf lain (M,T,E,M,T,I,K — 2M, 2T, 1E, 1I, 1K).<br>
+            <em>Langkah 1.</em> Susun 7 huruf non-A: $\dfrac{7!}{2! \cdot 2!} = 1260$ cara.<br>
+            <em>Langkah 2.</em> Susunan 7 huruf membentuk 8 "celah" (sebelum, di antara, setelah). Pilih 3 celah untuk A: $\binom{8}{3} = 56$ cara.<br>
+            Total: $1260 \cdot 56 = \mathbf{70{,}560}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K10">
+        <span class="diff hard">SULIT</span>
+        Sepuluh titik diletakkan di dalam persegi sisi $3$. Buktikan bahwa ada dua titik yang jaraknya $\le \sqrt 2$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi persegi menjadi $9$ sub-persegi sisi $1$. Merpati = 10 titik; lubang = 9 sub-persegi. Paling sedikit ada sub-persegi berisi $\ge 2$ titik.<br>
+            Jarak terjauh dalam persegi sisi $1$ = diagonal $= \sqrt 2$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ TEORI BILANGAN ═══════════ -->
+  <div class="card" id="tb">
+    <h2>Drill Teori Bilangan — 10 Soal</h2>
+    <div class="session-meta">45 menit · 4 mudah · 4 sedang · 2 sulit</div>
+
+    <div class="topic-recap">
+      <div class="recap-title">📖 Konsep yang dipakai</div>
+      <ul>
+        <li>Keterbagian: aturan cepat untuk $2, 3, 4, 5, 9, 11$, dst.</li>
+        <li>FPB &amp; KPK: $\gcd \cdot \mathrm{lcm} = a \cdot b$, algoritma Euclid</li>
+        <li>Kongruensi modular: reduksi pangkat, sisa pembagian</li>
+        <li>Fermat kecil: $a^{p-1} \equiv 1 \pmod p$ (prima $p$, $\gcd(a,p)=1$)</li>
+        <li>Banyak faktor: $\tau(n) = \prod(a_i + 1)$</li>
+      </ul>
+    </div>
+
+    <ul class="exercises">
+      <li data-tag="T1">
+        <span class="diff easy">MUDAH</span>
+        Tentukan $\gcd(48, 36)$ dan $\mathrm{lcm}(48, 36)$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Euclid: $48 = 1 \cdot 36 + 12$, $36 = 3 \cdot 12 + 0$. $\gcd = \mathbf{12}$.<br>
+            $\mathrm{lcm} = \dfrac{48 \cdot 36}{12} = \mathbf{144}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T2">
+        <span class="diff easy">MUDAH</span>
+        Berapa banyak faktor positif dari $360$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $360 = 2^3 \cdot 3^2 \cdot 5$. $\tau(360) = 4 \cdot 3 \cdot 2 = \mathbf{24}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T3">
+        <span class="diff easy">MUDAH</span>
+        Berapa sisa pembagian $2^{10}$ oleh $7$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $2^3 = 8 \equiv 1 \pmod 7$. $2^{10} = 2^9 \cdot 2 = (2^3)^3 \cdot 2 \equiv 1 \cdot 2 = \mathbf{2} \pmod 7$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T4">
+        <span class="diff easy">MUDAH</span>
+        Tentukan digit satuan dari $7^{2024}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Pola $7^k \pmod{10}$: $7, 9, 3, 1$ — periode $4$. $2024 = 506 \cdot 4 + 0$, jadi $7^{2024} \equiv 7^4 \equiv 1 \pmod{10}$. Digit satuan = $\mathbf{1}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T5">
+        <span class="diff med">SEDANG</span>
+        Buktikan bahwa $n^2 \equiv 0$ atau $1 \pmod 4$ untuk setiap $n \in \mathbb{Z}$. Lalu tunjukkan bahwa $3$ tidak dapat ditulis sebagai jumlah dua kuadrat.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Genap: $n = 2k \Rightarrow n^2 = 4k^2 \equiv 0$. Ganjil: $n = 2k+1 \Rightarrow n^2 = 4k^2$ $+ 4k + 1 \equiv 1$.<br>
+            Jumlah dua kuadrat modulo 4: $0+0, 0$ $+1, 1+1 \Rightarrow \{0, 1, 2\}$. Tidak pernah $\equiv 3$. Karena $3 \equiv 3 \pmod 4$, mustahil. $\blacksquare$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T6">
+        <span class="diff med">SEDANG</span>
+        Carilah sisa pembagian $3^{2024}$ oleh $13$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Fermat: $3^{12} \equiv 1 \pmod{13}$.<br>
+            $2024 = 168 \cdot 12 + 8$, jadi $3^{2024} \equiv 3^8 \pmod{13}$.<br>
+            $3^2 = 9$, $3^4 = 81 \equiv 3$, $3^8 \equiv 9 \pmod{13}$. <strong>Sisa = $\mathbf{9}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T7">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak bilangan bulat $n$ dengan $1 \le n \le 1000$ yang tidak habis dibagi $2$ maupun $5$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $|A_2| = 500$, $|A_5| = 200$, $|A_2 \cap A_5| = |A_{10}| = 100$.<br>
+            $|A_2 \cup A_5| = 500 + 200$ $- 100 = 600$.<br>
+            Tidak habis dibagi 2 dan 5: $1000 - 600 = \mathbf{400}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T8">
+        <span class="diff med">SEDANG</span>
+        Tentukan semua bilangan bulat positif $n$ sehingga $\dfrac{n^2 + 1}{n + 1}$ adalah bilangan bulat.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi: $n^2 + 1 = (n+1)(n-1)$ $+ 2$. Jadi $n^2 + 1 \equiv 2 \pmod{n+1}$.<br>
+            Agar bagi habis: $n + 1 \mid 2 \Rightarrow n$ $+ 1 \in \{1, 2\} \Rightarrow n \in \{0, 1\}$.<br>
+            Karena $n > 0$: $\mathbf{n = 1}$. (Cek: $\dfrac{2}{2} = 1$. ✓)
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T9">
+        <span class="diff hard">SULIT</span>
+        Hitung jumlah semua faktor positif dari $720$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $720 = 2^4 \cdot 3^2 \cdot 5$. Jumlah faktor:
+            $$\sigma(720) = (1+2+4+8+16)(1+3+9)(1+5) = 31 \cdot 13 \cdot 6 = \mathbf{2418}.$$
+            <em>Rumus umum: $\sigma(n) = \prod \dfrac{p_i^{a_i+1} - 1}{p_i - 1}$.</em>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T10">
+        <span class="diff hard">SULIT</span>
+        Tentukan dua digit terakhir dari $7^{2024}$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Hitung modulo $100$. $\phi(100) = 40$ (Euler), dan $\gcd(7,100) = 1$, jadi $7^{40} \equiv 1 \pmod{100}$.<br>
+            $2024 = 50 \cdot 40 + 24$, jadi $7^{2024} \equiv 7^{24} \pmod{100}$.<br>
+            Hitung bertahap: $7^2 = 49$, $7^4 \equiv 49^2 = 2401 \equiv 1 \pmod{100}$.<br>
+            <em>Wow — periode jauh lebih kecil dari 40!</em> $7^{24} = (7^4)^6 \equiv 1^6 = 1 \pmod{100}$.<br>
+            Dua digit terakhir: $\mathbf{01}$.
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ CAMPURAN ═══════════ -->
+  <div class="card" id="campuran">
+    <h2>Soal Campuran (Bonus) — 5 Soal</h2>
+    <div class="session-meta">10 menit · soal pamungkas, gabungan beberapa topik</div>
+
+    <p>Soal-soal ini menggabungkan dua atau lebih topik. Cocok untuk siswa yang sudah kuat di drill sebelumnya. Kalau waktu mepet, ini bisa dijadikan PR.</p>
+
+    <ul class="exercises">
+      <li data-tag="C1">
+        <span class="diff med">SEDANG</span>
+        <em>(Aljabar + TB)</em> Berapa sisa pembagian $1^3 + 2^3$ $+ 3^3 + \cdots$ $+ 100^3$ oleh $5$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Rumus: $1^3 + 2^3$ $+ \cdots + n^3 = \left[\dfrac{n(n+1)}{2}\right]^2$.<br>
+            $\left[\dfrac{100 \cdot 101}{2}\right]^2 = 5050^2$.<br>
+            $5050 \equiv 0 \pmod 5$, jadi $5050^2 \equiv 0 \pmod 5$. <strong>Sisa = $\mathbf{0}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="C2">
+        <span class="diff med">SEDANG</span>
+        <em>(Komb + Pigeonhole)</em> Buktikan bahwa di antara sembarang $10$ bilangan bulat positif berbeda, ada dua bilangan yang sama atau berlawanan modulo $9$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Pasangkan kelas modulo 9: $\{0\}, \{1,8\}, \{2,7\}, \{3,6\}, \{4,5\}$ — 5 kelas pasangan.<br>
+            Merpati = 10 bilangan; lubang = 5 kelas. $\lceil 10/5 \rceil = 2$, jadi paling sedikit ada 2 bilangan di kelas sama.<br>
+            Dua bilangan di kelas sama → sisanya sama atau berlawanan modulo 9. $\blacksquare$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="C3">
+        <span class="diff hard">SULIT</span>
+        <em>(Aljabar + Komb)</em> Berapa banyak solusi bilangan bulat non-negatif dari $x + y$ $+ z = 10$ dengan syarat $x \ge 2$ dan $y \ge 3$?
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Substitusi $x' = x - 2 \ge 0$, $y' = y - 3 \ge 0$. Persamaan jadi $x' + y'$ $+ z = 5$.<br>
+            Bintang batang: $\binom{5 + 2}{2} = \binom{7}{2} = \mathbf{21}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="C4">
+        <span class="diff hard">SULIT</span>
+        <em>(TB + Aljabar)</em> Tentukan semua bilangan bulat positif $n$ sehingga $n^4 + 4$ adalah bilangan prima.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Identitas Sophie Germain: $n^4 + 4 = (n^2 + 2n + 2)(n^2 - 2n + 2)$.<br>
+            Untuk prima, salah satu faktor harus $= 1$. $n^2 + 2n$ $+ 2 = (n+1)^2 + 1 \ge 2$, jadi cek $n^2 - 2n$ $+ 2 = (n-1)^2 + 1 = 1 \Rightarrow n = 1$.<br>
+            Cek: $1 + 4 = 5$ (prima). ✓ <strong>Hanya $\mathbf{n = 1}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="C5">
+        <span class="diff hard">SULIT</span>
+        <em>(Pigeonhole + TB)</em> Diberikan $11$ bilangan bulat berbeda. Buktikan bahwa ada subset tak kosong yang jumlahnya habis dibagi $11$.
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            <em>(Soal klasik IMO-level — bagus untuk siswa terbaik.)</em><br>
+            Misal $a_1, a_2, \ldots, a_{11}$. Bentuk 11 "jumlah parsial":
+            $$S_k = a_1 + a_2 + \cdots + a_k, \quad k = 1, 2, \ldots, 11.$$
+            Bila ada $S_k \equiv 0 \pmod{11}$: selesai, $\{a_1, \ldots, a_k\}$ adalah subsetnya.<br>
+            Bila tidak ada: ke-11 nilai $S_k$ semuanya di $\{1, 2, \ldots, 10\}$ modulo 11. Merpati = 11 nilai; lubang = 10 sisa. Pasti ada $i < j$ dengan $S_i \equiv S_j \pmod{11}$.<br>
+            Maka $S_j - S_i = a_{i+1}$ $+ \cdots + a_j \equiv 0 \pmod{11}$. Subsetnya $\{a_{i+1}, \ldots, a_j\}$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ PANDUAN ═══════════ -->
+  <div class="card" id="panduan">
+    <h2>Refleksi &amp; Panduan untuk Guru</h2>
+    <div class="session-meta">Setelah drill 35 soal · evaluasi &amp; arah lanjutan</div>
+
+    <h3>Cara Membaca Hasil Drill</h3>
+    <ul class="tips">
+      <li><strong>Skor &lt; 50%</strong> di topik tertentu → ulangi materi pertemuan terkait. Latih konsep dasar dulu, jangan loncat soal.</li>
+      <li><strong>Skor 50-70%</strong> → konsep dasar OK, perlu pembiasaan dengan trik. Tambah 3-5 soal sehari di topik tersebut.</li>
+      <li><strong>Skor &gt; 70%</strong> → siap untuk KSN-K. Lanjut ke soal lebih sulit atau topik baru (geometri).</li>
+      <li><strong>Kasus khusus:</strong> siswa tidak menjawab sama sekali $\neq$ siswa salah. Cek mana yang "tidak tahu mulai dari mana" vs "tahu jalan tapi salah hitung".</li>
+    </ul>
+
+    <h3>Pola Kesalahan Umum (perhatikan saat mengoreksi)</h3>
+    <ul class="tips">
+      <li><strong>Aljabar:</strong> lupa cek kasus kesamaan di AM-GM. Salah memilih Titu vs C-S. Salah faktorkan tanda di $(a \pm b)^3$.</li>
+      <li><strong>Kombinatorika:</strong> bingung "urutan penting atau tidak". Lupa kasus saling lepas di aturan jumlah. Overcounting di permutasi siklis.</li>
+      <li><strong>Teori bilangan:</strong> salah menerapkan Fermat ke modulus komposit. Lupa cek $\gcd(a, p) = 1$. Salah perhitungan pangkat besar.</li>
+    </ul>
+
+    <h3>Rencana Pertemuan Berikutnya</h3>
+    <ul class="tips">
+      <li><strong>Pertemuan 6:</strong> Geometri olimpiade — kesebangunan, lingkaran luar/dalam, teorema Ptolemy. Butuh banyak diagram di papan.</li>
+      <li><strong>Pertemuan 7:</strong> Try-out simulasi KSN-K dengan waktu terbatas (90 menit untuk 5-10 soal).</li>
+      <li><strong>Pertemuan 8:</strong> Pembahasan try-out + tinjauan ulang topik lemah.</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:1.5rem">
+      <strong>Pesan penutup.</strong> Drill bukan tentang berapa banyak soal yang benar — tapi tentang berapa banyak <em>kesalahan yang dipahami</em>. Soal yang siswa salah tapi mereka tahu di mana salahnya = lebih berharga daripada 10 soal yang benar tanpa perlu mikir. Beri waktu untuk refleksi setiap kali sesi selesai.
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Pertemuan 5 · Drill 35 Soal · Aljabar, Kombinatorika, Teori Bilangan
+</footer>
+
+</body>
+</html>
