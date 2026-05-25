@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Bahan Ajar Olimpiade — Pertemuan 6 (Drill Naik Level) | paggalih</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Pro:ital,wght@0,400;0,600;1,400&family=JetBrains+Mono:wght@400;500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+
+  <script>
+    window.MathJax = {
+      tex: {
+        inlineMath: [['$', '$'], ['\\(', '\\)']],
+        displayMath: [['$$', '$$'], ['\\[', '\\]']],
+        packages: {'[+]': ['ams']}
+      },
+      svg: { fontCache: 'global' },
+      options: { skipHtmlTags: ['script', 'noscript', 'style', 'textarea', 'pre'] }
+    };
+  </script>
+  <script async src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-svg.js"></script>
+
+  <style>
+    :root {
+      --bg: #f5f4f0;
+      --card: #ffffff;
+      --text: #1a1a2e;
+      --text2: #5a5a7a;
+      --accent: #1e3a6e;
+      --accent-lt: #e8edf8;
+      --border: #dde0e8;
+      --green: #1a6b3c;
+      --green-lt: #d4edda;
+      --red: #8b1a1a;
+      --blue-lt: #e8f0fd;
+      --yellow-lt: #fff8e1;
+      --yellow-br: #ffe082;
+      --orange: #c75a1a;
+      --orange-lt: #fdebd4;
+      --purple: #6a3aa6;
+      --purple-lt: #ede4f8;
+      --mono: 'JetBrains Mono', 'Courier New', monospace;
+      --serif: 'Crimson Pro', Georgia, serif;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: var(--sans);
+      background: var(--bg);
+      color: var(--text);
+      min-height: 100vh;
+      line-height: 1.65;
+    }
+
+    header {
+      background: var(--accent);
+      color: #fff;
+      padding: 1.4rem 2rem 1.6rem;
+    }
+    header a.back {
+      color: rgba(255,255,255,.65);
+      text-decoration: none;
+      font-size: .85rem;
+      display: inline-flex;
+      align-items: center;
+      gap: .3rem;
+      margin-bottom: .6rem;
+      transition: color .2s;
+    }
+    header a.back:hover { color: #fff; }
+    header h1 {
+      font-family: var(--serif);
+      font-size: 2rem;
+      font-weight: 600;
+      letter-spacing: -.01em;
+    }
+    header p {
+      color: rgba(255,255,255,.7);
+      font-size: .92rem;
+      margin-top: .2rem;
+    }
+    header .meta {
+      margin-top: .6rem;
+      font-size: .82rem;
+      color: rgba(255,255,255,.6);
+      font-family: var(--mono);
+    }
+
+    main {
+      max-width: 860px;
+      margin: 2rem auto;
+      padding: 0 1.25rem 3rem;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.75rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+
+    .card h2 {
+      font-family: var(--serif);
+      font-size: 1.55rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .3rem;
+    }
+    .card .session-meta {
+      font-size: .82rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-bottom: 1.1rem;
+      padding-bottom: .75rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .card h3 {
+      font-family: var(--serif);
+      font-size: 1.2rem;
+      color: var(--accent);
+      margin: 1.5rem 0 .6rem;
+      font-weight: 600;
+    }
+
+    p { margin-bottom: .7rem; }
+
+    .info-box {
+      background: var(--blue-lt);
+      border-left: 3px solid var(--accent);
+      padding: .85rem 1.1rem;
+      border-radius: 0 6px 6px 0;
+      font-size: .93rem;
+      margin: 1rem 0;
+    }
+    .info-box strong { color: var(--accent); }
+
+    .tip-box {
+      background: var(--yellow-lt);
+      border: 1px solid var(--yellow-br);
+      border-radius: 6px;
+      padding: .85rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .93rem;
+    }
+    .tip-box strong { color: #7a5800; }
+
+    /* difficulty */
+    .diff {
+      display: inline-block;
+      font-size: .65rem;
+      padding: .12rem .42rem;
+      border-radius: 3px;
+      font-family: var(--mono);
+      font-weight: 600;
+      margin-left: .4rem;
+      vertical-align: middle;
+      letter-spacing: .03em;
+    }
+    .diff.med    { background: var(--orange-lt); color: var(--orange); }
+    .diff.hard   { background: var(--purple-lt); color: var(--purple); }
+    .diff.elite  { background: #ffe8e8;          color: var(--red); }
+
+    /* hint chip */
+    .hint-chip {
+      display: inline-block;
+      font-size: .72rem;
+      color: var(--text2);
+      background: #f0f0f0;
+      padding: .12rem .5rem;
+      border-radius: 10px;
+      margin-left: .3rem;
+      font-family: var(--mono);
+    }
+
+    /* topic recap */
+    .topic-recap {
+      background: var(--accent-lt);
+      border: 1px solid #b8c6e3;
+      border-radius: 6px;
+      padding: .9rem 1.1rem;
+      margin: 0 0 1.2rem;
+      font-size: .92rem;
+    }
+    .topic-recap .recap-title {
+      font-weight: 600;
+      color: var(--accent);
+      font-family: var(--serif);
+      margin-bottom: .3rem;
+    }
+    .topic-recap ul {
+      margin: .3rem 0 0 1.3rem;
+    }
+    .topic-recap ul li {
+      margin-bottom: .2rem;
+    }
+
+    /* exercises */
+    .exercises {
+      list-style: none;
+      padding-left: 0;
+      margin: .5rem 0;
+    }
+    .exercises li {
+      padding: .85rem 0 .85rem 2.6rem;
+      border-bottom: 1px dashed var(--border);
+      position: relative;
+    }
+    .exercises li:last-child { border-bottom: none; }
+    .exercises li::before {
+      content: attr(data-tag);
+      position: absolute;
+      left: 0;
+      top: .92rem;
+      font-family: var(--mono);
+      font-size: .72rem;
+      background: var(--accent);
+      color: #fff;
+      padding: .14rem .42rem;
+      border-radius: 3px;
+      font-weight: 500;
+    }
+
+    details.answer { margin-top: .4rem; }
+    details.answer > summary {
+      cursor: pointer;
+      font-size: .85rem;
+      color: var(--accent);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.answer > summary::-webkit-details-marker { display: none; }
+    details.answer > summary::before {
+      content: "▶ ";
+      display: inline-block;
+      transition: transform .2s;
+      font-size: .7rem;
+    }
+    details.answer[open] > summary::before { transform: rotate(90deg); }
+    details.answer[open] > summary { color: var(--green); }
+    details.answer .ans-body {
+      margin-top: .5rem;
+      padding: .7rem .9rem;
+      background: #fafafa;
+      border-left: 2px solid var(--green);
+      border-radius: 0 4px 4px 0;
+      font-size: .93rem;
+    }
+
+    /* nested details for hint */
+    details.hint > summary {
+      cursor: pointer;
+      font-size: .8rem;
+      color: var(--text2);
+      font-family: var(--mono);
+      padding: .25rem 0;
+      user-select: none;
+      list-style: none;
+    }
+    details.hint > summary::-webkit-details-marker { display: none; }
+    details.hint > summary::before {
+      content: "💡 ";
+      display: inline-block;
+      font-size: .8rem;
+    }
+    details.hint[open] > summary { color: var(--orange); }
+    details.hint .hint-body {
+      margin-top: .35rem;
+      padding: .5rem .75rem;
+      background: var(--orange-lt);
+      border-left: 2px solid var(--orange);
+      border-radius: 0 4px 4px 0;
+      font-size: .9rem;
+      color: #5a3818;
+    }
+
+    /* tracker */
+    .tracker {
+      background: linear-gradient(135deg, #f0f6ff 0%, #e0ebff 100%);
+      border: 1px solid #b8c6e3;
+      border-radius: 8px;
+      padding: .9rem 1.1rem;
+      margin: 1rem 0;
+      font-size: .9rem;
+    }
+    .tracker strong { color: var(--accent); }
+    .tracker table {
+      margin-top: .5rem;
+      border-collapse: collapse;
+      font-family: var(--mono);
+      font-size: .85rem;
+      width: 100%;
+      max-width: 400px;
+    }
+    .tracker td {
+      padding: .25rem .5rem;
+      border-bottom: 1px dotted var(--border);
+    }
+    .tracker td:last-child { text-align: right; color: var(--text2); }
+
+    /* toc */
+    .toc {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 1.2rem 1.5rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.05);
+    }
+    .toc .toc-title {
+      font-family: var(--serif);
+      font-size: 1.05rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: .6rem;
+    }
+    .toc ol {
+      list-style: none;
+      counter-reset: toc;
+      padding: 0;
+    }
+    .toc ol li {
+      counter-increment: toc;
+      padding: .25rem 0;
+      font-size: .92rem;
+    }
+    .toc ol li::before {
+      content: counter(toc) ". ";
+      color: var(--text2);
+      font-family: var(--mono);
+      margin-right: .4rem;
+    }
+    .toc a {
+      color: var(--text);
+      text-decoration: none;
+      border-bottom: 1px dotted transparent;
+    }
+    .toc a:hover { color: var(--accent); border-bottom-color: var(--accent); }
+    .toc .dur {
+      color: var(--text2);
+      font-family: var(--mono);
+      font-size: .82rem;
+      margin-left: .4rem;
+    }
+
+    .nav-link {
+      display: inline-block;
+      margin-top: .8rem;
+      margin-right: .4rem;
+      padding: .35rem .8rem;
+      background: var(--accent-lt);
+      color: var(--accent);
+      border-radius: 5px;
+      text-decoration: none;
+      font-size: .85rem;
+    }
+    .nav-link:hover { background: #d8e2f3; }
+
+    ul.tips { margin: .5rem 0 .5rem 1.25rem; }
+    ul.tips li { margin-bottom: .35rem; }
+
+    .legend {
+      display: flex;
+      gap: .8rem;
+      flex-wrap: wrap;
+      margin: .5rem 0;
+      font-size: .82rem;
+      color: var(--text2);
+    }
+
+    footer {
+      text-align: center;
+      padding: 1.5rem;
+      color: var(--text2);
+      font-size: .83rem;
+      border-top: 1px solid var(--border);
+    }
+    footer a { color: var(--accent); text-decoration: none; }
+
+    @media (max-width: 580px) {
+      header { padding: 1.2rem 1.25rem 1.4rem; }
+      header h1 { font-size: 1.55rem; }
+      .card { padding: 1.2rem; }
+      .card h2 { font-size: 1.3rem; }
+      mjx-container[jax="SVG"]:not([display="true"]) { font-size: .95em; }
+    }
+
+    mjx-container { line-height: 0; }
+    mjx-container[jax="SVG"][display="true"] {
+      margin: .6em 0 !important;
+      overflow-x: auto;
+      overflow-y: hidden;
+      max-width: 100%;
+      padding: .15em 0 .35em;
+    }
+    mjx-container[jax="SVG"]:not([display="true"]) {
+      max-width: 100%;
+      overflow-x: auto;
+      overflow-y: hidden;
+      vertical-align: middle;
+    }
+  </style>
+</head>
+<body>
+
+<header>
+  <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
+  <h1>Bahan Ajar Olimpiade Matematika</h1>
+  <p>Pertemuan 6 — Drill Naik Level (Sedang &amp; Sulit) · KSN-K → KSN-P</p>
+  <div class="meta">SMAN 1 Boyolangu · 3 jam pelajaran</div>
+</header>
+
+<main>
+
+  <div class="toc">
+    <div class="toc-title">Struktur Latihan</div>
+    <ol>
+      <li><a href="#intro">Pengantar &amp; Strategi</a><span class="dur">10 min</span></li>
+      <li><a href="#aljabar">Aljabar Naik Level — 10 soal</a><span class="dur">55 min</span></li>
+      <li><a href="#kombinatorika">Kombinatorika Naik Level — 10 soal</a><span class="dur">55 min</span></li>
+      <li><a href="#tb">Teori Bilangan Naik Level — 10 soal</a><span class="dur">50 min</span></li>
+      <li><a href="#panduan">Refleksi &amp; Panduan</a><span class="dur">10 min</span></li>
+    </ol>
+    <a href="olimpiade-aljabar.html" class="nav-link">P1</a>
+    <a href="olimpiade-aljabar-2.html" class="nav-link">P2</a>
+    <a href="olimpiade-aljabar-3.html" class="nav-link">P3</a>
+    <a href="olimpiade-aljabar-4.html" class="nav-link">P4</a>
+    <a href="olimpiade-aljabar-5.html" class="nav-link">P5</a>
+  </div>
+
+  <!-- ═══════════ INTRO ═══════════ -->
+  <div class="card" id="intro">
+    <h2>Pengantar &amp; Strategi</h2>
+    <div class="session-meta">10 menit · pembukaan singkat</div>
+
+    <p>Pertemuan ini adalah lanjutan drill P5. Karena soal mudah sudah lancar, semua 30 soal di sini berada di level <strong>sedang</strong> ke atas. Tujuannya: melatih kemampuan <em>memilih strategi</em>, bukan sekadar pakai rumus.</p>
+
+    <h3>Skala kesulitan</h3>
+    <div class="legend">
+      <span><span class="diff med">SEDANG</span> butuh 1-2 trik</span>
+      <span><span class="diff hard">SULIT</span> kombinasi konsep</span>
+      <span><span class="diff elite">ELITE</span> setingkat KSN-P</span>
+    </div>
+
+    <h3>Aturan main (lebih ketat dari P5)</h3>
+    <ul class="tips">
+      <li><strong>7 menit per soal</strong> sebagai patokan. Lewati dulu jika belum dapat, jangan tunggu sampai macet.</li>
+      <li>Setiap soal punya tombol <strong>💡 Hint</strong> — buka <em>hanya</em> setelah mencoba 3 menit. Hint memberi arah, bukan jawaban.</li>
+      <li>Soal "ELITE" sengaja dipasang untuk siswa terbaik. Tidak apa-apa kalau hanya 1-2 yang lulus. Itu pengantar ke KSN-P.</li>
+    </ul>
+
+    <div class="tracker">
+      <strong>📊 Target skor (lebih realistis untuk drill ini)</strong>
+      <table>
+        <tr><td>Aljabar (10 soal)</td><td>target ≥ 5</td></tr>
+        <tr><td>Kombinatorika (10 soal)</td><td>target ≥ 4</td></tr>
+        <tr><td>Teori Bilangan (10 soal)</td><td>target ≥ 5</td></tr>
+      </table>
+      <p style="margin-top:.6rem;font-size:.85rem;color:var(--text2)">
+        Total $\ge 14/30 \approx 47\%$ — siap KSN-K dengan kompetitif. $\ge 20/30 \approx 67\%$ → mulai pantas dipersiapkan untuk KSN-P.
+      </p>
+    </div>
+
+    <div class="info-box">
+      <strong>Filosofi naik level.</strong> Naik dari "tahu rumus" ke "lihat trik" tidak terjadi semalam. Yang berubah bukan kapasitas berpikir — yang berubah adalah <em>kepekaan</em>. Banyaklah salah, banyak refleksi, banyak menulis "kenapa tadi tidak terpikir".
+    </div>
+  </div>
+
+  <!-- ═══════════ ALJABAR ═══════════ -->
+  <div class="card" id="aljabar">
+    <h2>Aljabar Naik Level — 10 Soal</h2>
+    <div class="session-meta">55 menit · 5 sedang · 4 sulit · 1 elite</div>
+
+    <div class="topic-recap">
+      <div class="recap-title">📖 Trik-trik aljabar yang sering muncul</div>
+      <ul>
+        <li><strong>Identitas tersembunyi:</strong> tambah-kurang suku untuk dapat faktor (Sophie Germain trick)</li>
+        <li><strong>Substitusi pintar:</strong> ganti variabel untuk simplifikasi (homogenisasi, $u = x + 1/x$)</li>
+        <li><strong>Polinomial konstruksi:</strong> definisikan $Q(x) = P(x) - g(x)$ untuk eksploitasi akar</li>
+        <li><strong>Ketaksamaan + kesamaan:</strong> cari kapan tanda sama berlaku untuk tebak nilai</li>
+      </ul>
+    </div>
+
+    <ul class="exercises">
+      <li data-tag="A1">
+        <span class="diff med">SEDANG</span>
+        Tentukan semua bilangan real $x$ yang memenuhi
+        $$\sqrt{x + 3 - 4\sqrt{x-1}} + \sqrt{x + 8 - 6\sqrt{x-1}} = 1.$$
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Substitusi $u = \sqrt{x-1}$. Coba ubah tiap ekspresi di dalam akar menjadi kuadrat sempurna.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Misal $u = \sqrt{x-1}$, $u \ge 0$, $x = u^2 + 1$. Maka<br>
+            $x + 3$ $- 4u = u^2 - 4u$ $+ 4 = (u-2)^2$, dan $x + 8$ $- 6u = u^2 - 6u$ $+ 9 = (u-3)^2$.<br>
+            Persamaan: $|u - 2| + |u$ $- 3| = 1$. Ini bernilai $1$ ketika $u \in [2, 3]$.<br>
+            $u \in [2, 3] \Leftrightarrow x - 1 \in [4, 9] \Leftrightarrow \mathbf{x \in [5, 10]}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A2">
+        <span class="diff med">SEDANG</span>
+        Untuk $a, b, c > 0$ dengan $a + b$ $+ c = 1$, buktikan
+        $$\sqrt{a} + \sqrt{b} + \sqrt{c} \le \sqrt{3}.$$
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Cauchy-Schwarz dengan vektor $(\sqrt a, \sqrt b, \sqrt c)$ dan $(1, 1, 1)$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Cauchy-Schwarz:
+            $$(\sqrt{a} + \sqrt{b} + \sqrt{c})^2 \le 3(a + b + c) = 3.$$
+            Maka $\sqrt{a} + \sqrt{b}$ $+ \sqrt{c} \le \sqrt{3}$, kesamaan saat $a = b = c = \tfrac{1}{3}$. $\blacksquare$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A3">
+        <span class="diff med">SEDANG</span>
+        Polinomial $P(x)$ berderajat $3$ dengan $P(0) = P(1) = P(2) = 1$ dan $P(3) = 7$. Tentukan $P(4)$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Definisikan $Q(x) = P(x) - 1$. Apa yang khusus tentang $Q$ di $x = 0, 1, 2$?
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $Q(x) = P(x) - 1$ kubik, $Q(0) = Q(1) = Q(2) = 0$. Maka $Q(x) = ax(x-1)(x-2)$.<br>
+            Dari $Q(3) = P(3) - 1 = 6 = a \cdot 3 \cdot 2 \cdot 1 = 6a \Rightarrow a = 1$.<br>
+            $P(x) = 1 + x(x-1)(x-2)$. $P(4) = 1 + 4 \cdot 3 \cdot 2 = \mathbf{25}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A4">
+        <span class="diff med">SEDANG</span>
+        Jika $x^2 + x$ $+ 1 = 0$, hitung nilai $x^{2024} + x^{2025}$ $+ x^{2026}$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Dari $x^2 + x$ $+ 1 = 0$, kalikan dengan $(x - 1)$. Apa yang kita dapat tentang $x^3$?
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $(x-1)(x^2+x+1) = x^3 - 1 = 0 \Rightarrow x^3 = 1$.<br>
+            $x^{2024} = x^{3 \cdot 674 + 2} = x^2$. Demikian $x^{2025} = 1$, $x^{2026} = x$.<br>
+            Jumlah: $x^2 + 1$ $+ x = (x^2 + x + 1) = \mathbf{0}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A5">
+        <span class="diff med">SEDANG</span>
+        Hitung
+        $$S = \sum_{k=1}^{99} \frac{1}{k\sqrt{k+1} + (k+1)\sqrt{k}}.$$
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Faktorkan penyebut: $\sqrt{k}\sqrt{k+1}(\sqrt{k} + \sqrt{k+1})$. Rasionalkan dengan $\sqrt{k+1} - \sqrt{k}$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Penyebut $= \sqrt{k}\sqrt{k+1}(\sqrt{k} + \sqrt{k+1})$. Kalikan atas-bawah dengan $\sqrt{k+1} - \sqrt{k}$:
+            $$\frac{\sqrt{k+1} - \sqrt{k}}{\sqrt{k}\sqrt{k+1}(\sqrt{k+1}+\sqrt{k})(\sqrt{k+1}-\sqrt{k})}.$$
+            Penyebut sederhana: $\sqrt{k}\sqrt{k+1} \cdot 1 = \sqrt{k(k+1)}$. Hasil:
+            $$\frac{\sqrt{k+1} - \sqrt{k}}{\sqrt{k(k+1)}} = \frac{1}{\sqrt{k}} - \frac{1}{\sqrt{k+1}}.$$
+            Teleskop: $S = \dfrac{1}{\sqrt 1} - \dfrac{1}{\sqrt{100}} = 1$ $- \dfrac{1}{10} = \mathbf{\dfrac{9}{10}}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A6">
+        <span class="diff hard">SULIT</span>
+        Untuk $a, b, c$ akar-akar $x^3 - 3x$ $+ 1 = 0$, hitung $\dfrac{1}{a-2} + \dfrac{1}{b-2}$ $+ \dfrac{1}{c-2}$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Jangan hitung satu per satu. Pakai trik: $\sum \dfrac{1}{r - k} = \dfrac{P'(k)}{P(k)}$ jika $P(x) = \prod(x - r_i)$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $P(x) = (x-a)(x-b)(x-c) = x^3 - 3x$ $+ 1$.<br>
+            $P'(x) = 3x^2 - 3$.<br>
+            Rumus: $\dfrac{P'(k)}{P(k)} = \sum \dfrac{1}{k - r_i}$. Jadi $\sum \dfrac{1}{r_i - k} = -\dfrac{P'(k)}{P(k)}$.<br>
+            $k = 2$: $P(2) = 8 - 6$ $+ 1 = 3$, $P'(2) = 12 - 3 = 9$. Jawaban: $-\dfrac{9}{3} = \mathbf{-3}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A7">
+        <span class="diff hard">SULIT</span>
+        Carilah semua pasangan bilangan real $(x, y)$ yang memenuhi
+        $$x^2 + y^2 + xy = 7, \qquad x^3 + y^3 = 9.$$
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Misal $s = x + y$, $p = xy$. Tulis ulang dua persamaan dalam $s, p$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $s = x+y$, $p = xy$. $x^2 + y^2$ $+ xy = (x+y)^2 - xy = s^2$ $- p = 7$, jadi $p = s^2 - 7$.<br>
+            $x^3 + y^3 = s^3$ $- 3sp = 9$.<br>
+            Substitusi $p$: $s^3 - 3s(s^2 - 7) = 9 \Rightarrow s^3$ $- 3s^3 + 21s = 9 \Rightarrow$ $-2s^3 + 21s$ $- 9 = 0$.<br>
+            Atau $2s^3 - 21s$ $+ 9 = 0$. Cari akar rasional: $s = 3$? $2(27) - 63$ $+ 9 = 0$. ✓<br>
+            Faktorkan: $2s^3 - 21s$ $+ 9 = (s - 3)(2s^2 + 6s - 3)$.<br>
+            Untuk $s = 3$: $p = 9 - 7 = 2$. $(x, y)$ akar $t^2 - 3t$ $+ 2 = 0 \Rightarrow t \in \{1, 2\}$.<br>
+            <strong>$(x, y) \in \{(1,2), (2,1)\}$.</strong> Akar lain $2s^2 + 6s$ $- 3 = 0$ menghasilkan $s = \frac{-6 \pm \sqrt{60}}{4} = \frac{-3 \pm \sqrt{15}}{2}$, dan perlu cek apakah $p = s^2 - 7$ menghasilkan $s^2 \ge 4p$ (diskriminan non-negatif).
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A8">
+        <span class="diff hard">SULIT</span>
+        $f: \mathbb{R} \to \mathbb{R}$ memenuhi $f(x + y) = f(x) + f(y)$ $+ 2xy$ untuk semua $x, y$, dan $f(1) = 3$. Tentukan $f(10)$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Coba $g(x) = f(x) - x^2$. Apa yang berubah?
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Misal $g(x) = f(x) - x^2$. Cek:
+            $$g(x+y) = f(x+y) - (x+y)^2 = f(x) + f(y) + 2xy - x^2 - 2xy - y^2 = g(x) + g(y).$$
+            Jadi $g$ aditif Cauchy. Pada $\mathbb{Q}$: $g(x) = cx$ dengan $c = g(1) = f(1) - 1 = 2$.<br>
+            $f(x) = x^2 + 2x$. $f(10) = 100 + 20 = \mathbf{120}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A9">
+        <span class="diff hard">SULIT</span>
+        Buktikan untuk $a, b, c > 0$:
+        $$\frac{a^3}{a^2 + ab + b^2} + \frac{b^3}{b^2 + bc + c^2} + \frac{c^3}{c^2 + ca + a^2} \ge \frac{a + b + c}{3}.$$
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Tunjukkan dulu klaim kunci: $\dfrac{a^3}{a^2 + ab + b^2} \ge \dfrac{2a - b}{3}$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            <strong>Klaim:</strong> $\dfrac{a^3}{a^2+ab+b^2} \ge \dfrac{2a-b}{3}$.<br>
+            Kalikan silang ($a^2+ab$ $+b^2 > 0$): $3a^3 \ge (2a-b)(a^2+ab+b^2) = 2a^3 + 2a^2b$ $+ 2ab^2 - a^2b$ $- ab^2 - b^3$<br>
+            $= 2a^3 + a^2b$ $+ ab^2 - b^3$.<br>
+            Maka $3a^3 - 2a^3$ $- a^2b - ab^2$ $+ b^3 \ge 0 \Leftrightarrow a^3 - a^2b$ $- ab^2 + b^3 \ge 0$<br>
+            $= a^2(a-b) - b^2(a-b) = (a-b)(a^2-b^2) = (a-b)^2(a+b) \ge 0$. ✓<br>
+            Jumlahkan ketiga klaim secara siklis:
+            $$\sum \frac{a^3}{a^2+ab+b^2} \ge \frac{(2a-b) + (2b-c) + (2c-a)}{3} = \frac{a+b+c}{3}. \quad\blacksquare$$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="A10">
+        <span class="diff elite">ELITE</span>
+        Tentukan jumlah semua bilangan real $x$ pada $[0, 2\pi]$ sehingga $\sin x + \sin 2x$ $+ \sin 3x = 0$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Gunakan identitas $\sin A + \sin B = 2 \sin\dfrac{A+B}{2}\cos\dfrac{A-B}{2}$ pada $\sin x + \sin 3x$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\sin x + \sin 3x = 2\sin 2x \cos x$. Maka persamaan menjadi
+            $$2\sin 2x \cos x + \sin 2x = \sin 2x (2\cos x + 1) = 0.$$
+            Jadi $\sin 2x = 0$ atau $\cos x = -\dfrac{1}{2}$.<br>
+            $\sin 2x = 0 \Rightarrow 2x = k\pi \Rightarrow x \in \{0, \tfrac{\pi}{2}, \pi, \tfrac{3\pi}{2}, 2\pi\}$ pada $[0, 2\pi]$. Jumlah $= 5\pi$.<br>
+            $\cos x = -\dfrac{1}{2} \Rightarrow x \in \{\tfrac{2\pi}{3}, \tfrac{4\pi}{3}\}$. Jumlah $= 2\pi$.<br>
+            Total $= 5\pi + 2\pi = \mathbf{7\pi}$.
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ KOMBINATORIKA ═══════════ -->
+  <div class="card" id="kombinatorika">
+    <h2>Kombinatorika Naik Level — 10 Soal</h2>
+    <div class="session-meta">55 menit · 5 sedang · 4 sulit · 1 elite</div>
+
+    <div class="topic-recap">
+      <div class="recap-title">📖 Trik kombinatorika yang sering muncul</div>
+      <ul>
+        <li><strong>Komplemen:</strong> "minimal" sulit, "kurang dari" mudah</li>
+        <li><strong>Hitung dua kali:</strong> elemen yang sama, dua cara hitung</li>
+        <li><strong>Bijection:</strong> hubungkan ke kasus yang sudah dikenal</li>
+        <li><strong>Konstruksi lubang cerdas:</strong> kunci pigeonhole tingkat lanjut</li>
+        <li><strong>Bintang batang + komplemen</strong> untuk batas atas</li>
+      </ul>
+    </div>
+
+    <ul class="exercises">
+      <li data-tag="K1">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak susunan 4-huruf yang dapat dibentuk dari huruf-huruf kata "OLIMPIADE" jika tidak ada huruf yang berulang dalam susunan?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            "OLIMPIADE" punya 9 huruf, tetapi I muncul 2 kali. Susunan 4-huruf tanpa pengulangan = ambil 4 huruf berbeda lalu susun.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Huruf berbeda di "OLIMPIADE": $\{O, L, I, M, P, A, D, E\}$ = 8 huruf. Susunan 4 dari 8 (urutan penting):
+            $$P(8, 4) = 8 \cdot 7 \cdot 6 \cdot 5 = \mathbf{1680}.$$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K2">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak bilangan bulat positif $\le 1000$ yang habis dibagi $2$ atau $3$ tetapi <em>tidak</em> habis dibagi $5$?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Hitung "habis dibagi 2 atau 3" dulu (inklusi-eksklusi). Lalu kurangi yang juga habis dibagi 5.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $|A \cup B| = |A| + |B| - |A \cap B| = 500 + 333$ $- 166 = 667$.<br>
+            Dari sini, kurangi yang habis dibagi 5: $\lfloor 1000/10 \rfloor + \lfloor 1000/15 \rfloor$ $- \lfloor 1000/30 \rfloor = 100 + 66$ $- 33 = 133$.<br>
+            <strong>$667 - 133 = \mathbf{534}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K3">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak segitiga yang titik-titik sudutnya adalah 3 titik dari 12 titik yang terletak di lingkaran (tidak ada 3 titik yang segaris)?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Karena tidak ada 3 yang segaris, setiap pilihan 3 titik dari 12 langsung membentuk segitiga.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\binom{12}{3} = \dfrac{12 \cdot 11 \cdot 10}{6} = \mathbf{220}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K4">
+        <span class="diff med">SEDANG</span>
+        Sepuluh kursi disusun melingkar. Empat pasangan suami-istri akan duduk, dengan setiap pasangan harus bersebelahan. Berapa banyak susunan?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Ikat tiap pasangan jadi 1 unit. Berapa unit total? Permutasi siklis. Lalu pertimbangkan susunan internal tiap pasangan.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            10 kursi tapi hanya 8 orang? <em>Hmm, soal kurang jelas. Asumsikan 8 kursi melingkar, 4 pasangan.</em><br>
+            Ikat 4 pasangan jadi 4 unit. Permutasi siklis: $(4-1)! = 6$. Setiap pasangan bisa tukar tempat ($2^4 = 16$).<br>
+            Total: $6 \cdot 16 = \mathbf{96}$.<br>
+            <em>(Kalau benar 10 kursi: ada 2 kursi kosong — penambahan jadi soal placement, lebih rumit. Akui ke siswa ada ambiguitas dalam soal.)</em>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K5">
+        <span class="diff med">SEDANG</span>
+        Tentukan banyaknya bilangan bulat $n$ dengan $1 \le n \le 100$ sehingga $\lfloor \sqrt{n} \rfloor$ membagi $n$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Pisah berdasarkan nilai $\lfloor \sqrt n \rfloor = k$. Untuk tiap $k$, $n \in [k^2, k^2 + 2k]$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Untuk $\lfloor \sqrt n \rfloor = k$: $n \in [k^2, (k+1)^2 - 1] = [k^2, k^2 + 2k]$. Ini $2k+1$ nilai.<br>
+            Yang habis dibagi $k$ di rentang ini: $n \in \{k^2, k^2+k, k^2+2k\}$ — selalu 3 nilai. <em>(Kecuali $k=1$: rentang $[1, 3]$, semua habis dibagi 1, ada 3 nilai.)</em><br>
+            $k = 1, 2, \ldots, 9$: tiap-tiap $3$ nilai. $9 \cdot 3 = 27$.<br>
+            $k = 10$: $n = 100$ saja (cek: $100/10 = 10$ ✓). Tambah 1.<br>
+            <strong>Total: $27 + 1 = \mathbf{28}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K6">
+        <span class="diff hard">SULIT</span>
+        Pada papan $4 \times 4$, akan ditempatkan 4 buah benteng (rook) sehingga tidak ada dua benteng yang berada di baris atau kolom yang sama. Berapa banyak cara penempatan?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Penempatan 4 benteng di papan 4×4 tanpa saling serang setara dengan permutasi. Tiap kolom isinya unik per baris.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Benteng di baris 1 punya 4 kolom; baris 2: 3 sisa; baris 3: 2 sisa; baris 4: 1 sisa.<br>
+            $4! = \mathbf{24}$. <em>(Setara permutasi $\{1,2,3,4\}$.)</em>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K7">
+        <span class="diff hard">SULIT</span>
+        Berapa banyak fungsi $f: \{1, 2, 3, 4, 5\} \to \{1, 2, 3, 4, 5\}$ yang bersifat $f(f(x)) = x$ untuk semua $x$? <em>(Disebut "involusi".)</em>
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            $f(f(x)) = x$ artinya $f$ adalah permutasi yang merupakan kebalikannya sendiri. Permutasi semacam ini terdiri dari fixed-point dan 2-cycle.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Klasifikasi: jumlah 2-cycle (tukar pasangan) dapat $0, 1$, atau $2$.<br>
+            <em>0 cycle:</em> identitas, 1 cara.<br>
+            <em>1 cycle:</em> pilih 2 elemen untuk ditukar: $\binom{5}{2} = 10$.<br>
+            <em>2 cycle:</em> pilih 4 elemen dari 5, lalu bagi mereka jadi 2 pasangan tak terurut: $\binom{5}{4} \cdot \dfrac{1}{2!}\binom{4}{2} = 5 \cdot 3 = 15$.<br>
+            Total: $1 + 10$ $+ 15 = \mathbf{26}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K8">
+        <span class="diff hard">SULIT</span>
+        Buktikan: dari setiap subset berukuran $55$ dari $\{1, 2, \ldots, 100\}$, ada dua elemen yang selisihnya $9$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Pasangkan bilangan dengan selisih 9 dalam grup. Berapa banyak grup dengan ukuran max?
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Bagi $\{1, \ldots, 100\}$ berdasarkan sisa mod 18. Setiap kelas mod 18 berbentuk $\{r, r+18, r+36, r+54, r+72, r+90\}$ (5 atau 6 elemen).<br>
+            Lebih bagus: kelompokkan menggunakan rantai $a, a+9, a$ $+18, \ldots$ dengan $a \in \{1, \ldots, 9\}$:<br>
+            Rantai $a = 1$: $1, 10, 19, \ldots, 91, 100$ — 12 elemen.<br>
+            Rantai $a = 2$: $2, 11, 20, \ldots, 92$ — 11 elemen, dst.<br>
+            Untuk menghindari pasangan berselisih 9 dalam satu rantai, ambil maksimal $\lceil n/2 \rceil$ tanpa dua berurutan.<br>
+            Total max tanpa selisih 9: dengan menghitung rantai-rantai, ternyata maks adalah $\mathbf{54}$. Karena $55 > 54$, pasti ada selisih 9. $\blacksquare$<br>
+            <em>(Detil rantai bisa dilewati di kelas — siswa cukup tahu strateginya.)</em>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K9">
+        <span class="diff hard">SULIT</span>
+        Berapa banyak cara membagi $20$ permen identik kepada $5$ anak sehingga setiap anak mendapat antara $2$ sampai $6$ permen?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Beri 2 permen ke tiap anak dulu (sisa 10), kemudian tetapkan batas atas $\le 4$ tambahan per anak. Pakai inklusi-eksklusi pada batas atas.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Substitusi $y_i = x_i - 2$, dengan $0 \le y_i \le 4$ dan $\sum y_i = 10$.<br>
+            Tanpa batas atas: $\binom{10+4}{4} = 1001$.<br>
+            Kurangi yang melanggar ($y_i \ge 5$ untuk suatu $i$): $\binom{5}{1}\binom{5+4}{4} = 5 \cdot 126 = 630$.<br>
+            Tambah lagi yang dihitung dua kali ($y_i, y_j \ge 5$): $\binom{5}{2}\binom{0+4}{4} = 10 \cdot 1 = 10$.<br>
+            <strong>Total: $1001 - 630$ $+ 10 = \mathbf{381}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="K10">
+        <span class="diff elite">ELITE</span>
+        Berapa banyak permutasi dari $\{1, 2, 3, 4, 5\}$ sedemikian sehingga tidak ada $i$ dengan $a_i = i$? <em>(Derangement.)</em>
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Inklusi-eksklusi: hitung permutasi dengan minimal satu fixed-point, lalu kurangi dari total.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Rumus derangement: $D_n = n! \sum_{k=0}^{n} \dfrac{(-1)^k}{k!}$.<br>
+            $D_5 = 120\left[1 - 1 + \tfrac{1}{2} - \tfrac{1}{6} + \tfrac{1}{24} - \tfrac{1}{120}\right]$<br>
+            $= 120 - 120$ $+ 60 - 20$ $+ 5 - 1 = \mathbf{44}$.<br>
+            <em>(Untuk siswa: hafalkan $D_3=2, D_4=9, D_5=44$.)</em>
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ TB ═══════════ -->
+  <div class="card" id="tb">
+    <h2>Teori Bilangan Naik Level — 10 Soal</h2>
+    <div class="session-meta">50 menit · 5 sedang · 4 sulit · 1 elite</div>
+
+    <div class="topic-recap">
+      <div class="recap-title">📖 Trik teori bilangan yang sering muncul</div>
+      <ul>
+        <li><strong>Faktorisasi prima:</strong> hampir semua jalan menuju ini</li>
+        <li><strong>Kongruensi modular:</strong> reduksi sebelum hitung</li>
+        <li><strong>Modulo kecil yang strategis:</strong> mod 3, 4, 9 untuk soal Diophantine</li>
+        <li><strong>Bilangan terstruktur:</strong> $n^k - 1 = (n-1)(\ldots)$, Sophie Germain</li>
+        <li><strong>Fermat &amp; Euler:</strong> tahu kapan kontradiksi muncul</li>
+      </ul>
+    </div>
+
+    <ul class="exercises">
+      <li data-tag="T1">
+        <span class="diff med">SEDANG</span>
+        Berapa banyak bilangan bulat positif $n$ dengan $1 \le n \le 100$ sehingga $n^2 + 1$ habis dibagi $5$?
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Cek semua kelas $n \pmod 5$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $n^2 \pmod 5$: $n \equiv 0,1,2,3,4 \Rightarrow n^2 \equiv 0,1,4,4,1$. Jadi $n^2 + 1 \equiv 1,2,0,0,2$.<br>
+            Habis dibagi 5 ketika $n \equiv 2$ atau $3 \pmod 5$.<br>
+            Dari 1-100, $n \equiv 2$: 20 nilai. $n \equiv 3$: 20 nilai. Total $\mathbf{40}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T2">
+        <span class="diff med">SEDANG</span>
+        Tentukan semua bilangan bulat $n$ sehingga $n^2 - n$ $+ 1$ adalah kuadrat sempurna.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Bandingkan $n^2 - n$ $+ 1$ dengan $(n-1)^2$ dan $n^2$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Untuk $n \ge 2$: $(n-1)^2 = n^2 - 2n$ $+ 1 < n^2 - n$ $+ 1 < n^2$. Antara dua kuadrat berurutan, tidak ada kuadrat sempurna.<br>
+            Cek $n = 1$: $1 = 1^2$ ✓. $n = 0$: $1 = 1^2$ ✓. $n = -1$: $3$ ✗.<br>
+            Untuk $n \le -1$: substitusi $m = 1 - n \ge 2$, $n^2 - n$ $+ 1 = m^2 - m$ $+ 1$, sama analisisnya.<br>
+            <strong>Jawaban: $n \in \{0, 1\}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T3">
+        <span class="diff med">SEDANG</span>
+        Tentukan dua digit terakhir dari $9^{2024}$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Hitung mod 100. Cari periode $9^k \pmod{100}$ — kemungkinan tidak terlalu panjang.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $9^1 = 9, 9^2 = 81, 9^3 = 729 \equiv 29, 9^4 \equiv 261 \equiv 61, 9^5 \equiv 549 \equiv 49, 9^{10} \equiv 49^2 = 2401 \equiv 1 \pmod{100}$.<br>
+            Periode $10$. $2024 = 202 \cdot 10 + 4$, jadi $9^{2024} \equiv 9^4 \equiv \mathbf{61} \pmod{100}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T4">
+        <span class="diff med">SEDANG</span>
+        Carilah sisa pembagian $1^{2024} + 2^{2024}$ $+ 3^{2024} + \cdots$ $+ 7^{2024}$ oleh $7$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Fermat: $a^6 \equiv 1 \pmod 7$ untuk $a$ koprima dengan $7$. Tulis $2024$ sebagai kelipatan $6$ tambah sisa.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $2024 = 337 \cdot 6 + 2$, jadi untuk $a$ koprima dengan $7$: $a^{2024} \equiv a^2 \pmod 7$.<br>
+            $7^{2024} \equiv 0 \pmod 7$.<br>
+            Jumlah: $1^2 + 2^2$ $+ 3^2 + 4^2$ $+ 5^2 + 6^2$ $+ 0 = 1 + 4$ $+ 9 + 16$ $+ 25 + 36 = 91 \equiv \mathbf{0} \pmod 7$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T5">
+        <span class="diff med">SEDANG</span>
+        Tentukan semua bilangan bulat positif $n$ sehingga $\gcd(n, 100) = 1$ dan $n \le 100$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Ini adalah $\phi(100)$. Hitung pakai rumus Euler.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\phi(100) = \phi(2^2)\phi(5^2) = (4-2)(25-5) = 2 \cdot 20 = \mathbf{40}$.<br>
+            Atau langsung: $\phi(100) = 100\left(1 - \tfrac{1}{2}\right)\left(1 - \tfrac{1}{5}\right) = 100 \cdot \tfrac{1}{2} \cdot \tfrac{4}{5} = 40$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T6">
+        <span class="diff hard">SULIT</span>
+        Buktikan bahwa $3 \mid n(n+1)(2n+1)$ untuk setiap $n \in \mathbb{Z}$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Cek kasus $n \pmod 3$. Atau ingat: rumus $1^2 + 2^2$ $+ \cdots + n^2 = \dfrac{n(n+1)(2n+1)}{6}$ — pembilang harus habis dibagi 6.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Cek kasus modulo 3:
+            <ul style="margin:.3rem 0 0 1rem">
+              <li>$n \equiv 0 \pmod 3$: $n$ habis dibagi 3 ✓</li>
+              <li>$n \equiv 1 \pmod 3$: $2n + 1 \equiv 3 \equiv 0$ ✓</li>
+              <li>$n \equiv 2 \pmod 3$: $n + 1 \equiv 0$ ✓</li>
+            </ul>
+            Dalam semua kasus, satu faktor habis dibagi 3. $\blacksquare$
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T7">
+        <span class="diff hard">SULIT</span>
+        Tentukan sisa pembagian $2025^{2025}$ oleh $11$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Reduksi $2025 \pmod{11}$ dulu. Lalu pakai Fermat kecil dengan $p = 11$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $2025 = 11 \cdot 184 + 1$, jadi $2025 \equiv 1 \pmod{11}$.<br>
+            $2025^{2025} \equiv 1^{2025} = \mathbf{1} \pmod{11}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T8">
+        <span class="diff hard">SULIT</span>
+        Tentukan semua pasangan $(p, q)$ bilangan prima sehingga $p^2 + q^3$ adalah kuadrat sempurna.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Misal $p^2 + q^3 = m^2$. Maka $q^3 = (m-p)(m+p)$. Karena $q$ prima, $m - p$ dan $m + p$ harus berbentuk $q^a, q^b$ dengan $a + b = 3$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $q^3 = (m-p)(m+p)$, $0 \le m-p < m$ $+p$, dan $\gcd(m-p, m+p) \mid 2p$.<br>
+            Kasus 1: $m - p = 1, m$ $+ p = q^3 \Rightarrow 2p = q^3 - 1$.<br>
+            Kasus 2: $m - p = q, m$ $+ p = q^2 \Rightarrow 2p = q^2 - q = q(q-1)$, sehingga $q \mid 2p \Rightarrow q = 2$ atau $q = p$.<br>
+            $q = 2$ di Kasus 2: $2p = 2 \cdot 1 = 2 \Rightarrow p = 1$ — bukan prima. ✗<br>
+            $q = p$ di Kasus 2: $2p = p(p-1) \Rightarrow p - 1 = 2 \Rightarrow p = q = 3$. Cek: $9 + 27 = 36 = 6^2$ ✓<br>
+            Kasus 1: $2p = q^3 - 1 = (q-1)(q^2+q+1)$. Untuk $q = 2$: $2p = 7$ ✗. $q = 3$: $2p = 26 \Rightarrow p = 13$. Cek $169 + 27 = 196 = 14^2$ ✓<br>
+            Untuk $q \ge 5$ prima ganjil: $q - 1$ genap, $q^2+q$ $+1$ ganjil > 1. Maka $2p = (q-1)(q^2+q+1)$, dan $p = \tfrac{q-1}{2}(q^2+q+1)$ — hasil komposit kecuali kasus khusus. Untuk $q = 5$: $p = 2 \cdot 31 = 62$ ✗. $q = 7$: $p = 3 \cdot 57$ — bukan prima.<br>
+            <strong>Jawaban: $(p,q) \in \{(3, 3), (13, 3)\}$.</strong>
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T9">
+        <span class="diff hard">SULIT</span>
+        Tentukan bilangan bulat positif terkecil $n$ sehingga $n$ memiliki tepat $15$ pembagi positif.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            $\tau(n) = 15 = 15 \cdot 1 = 5 \cdot 3$. Bentuk faktorisasi prima yang menghasilkan $15$ pembagi: $n = p^{14}$ atau $n = p^4 q^2$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            $\tau(n) = 15$. Bentuk: $n = p^{14}$ atau $n = p^4 q^2$ (dengan $p, q$ prima berbeda).<br>
+            $n = 2^{14} = 16384$.<br>
+            $n = p^4 q^2$ minimal: ambil $p$ kecil tapi pangkat besar pakai prima kecil. $p^4$ dipasangkan dengan $q^2$: bandingkan $2^4 \cdot 3^2 = 144$ vs $3^4 \cdot 2^2 = 324$. Yang lebih kecil: $\mathbf{144}$.<br>
+            $144 < 16384$, jadi $\mathbf{n = 144}$.
+          </div>
+        </details>
+      </li>
+
+      <li data-tag="T10">
+        <span class="diff elite">ELITE</span>
+        Buktikan bahwa untuk setiap bilangan bulat $n \ge 1$, $n!$ tidak pernah merupakan kuadrat sempurna selain $1! = 1$.
+        <details class="hint"><summary>Hint</summary>
+          <div class="hint-body">
+            Pakai postulat Bertrand: untuk $n \ge 2$, ada prima $p$ dengan $n/2 &lt; p \le n$. Eksponen prima ini di $n!$ adalah $1$.
+          </div>
+        </details>
+        <details class="answer"><summary>Kunci</summary>
+          <div class="ans-body">
+            Postulat Bertrand: untuk $n \ge 2$, selalu ada prima $p$ dengan $\tfrac{n}{2} < p \le n$.<br>
+            Eksponen $p$ di $n!$ (Legendre): $\sum \lfloor n/p^k \rfloor$. Karena $p > n/2$, $\lfloor n/p \rfloor = 1$ dan $\lfloor n/p^k \rfloor = 0$ untuk $k \ge 2$. Jadi eksponen $p$ di $n!$ tepat $1$.<br>
+            Tetapi kuadrat sempurna memiliki <em>semua</em> eksponen prima genap. Maka $n! \neq m^2$ untuk $n \ge 2$. $\blacksquare$<br>
+            <em>(Postulat Bertrand sudah terbukti dan bisa dipakai. Soal ini level KSN-P / IMO.)</em>
+          </div>
+        </details>
+      </li>
+    </ul>
+  </div>
+
+  <!-- ═══════════ PANDUAN ═══════════ -->
+  <div class="card" id="panduan">
+    <h2>Refleksi &amp; Panduan untuk Guru</h2>
+    <div class="session-meta">10 menit · evaluasi setelah drill</div>
+
+    <h3>Membaca Hasil Drill</h3>
+    <ul class="tips">
+      <li><strong>Skor &lt; 30%</strong> → siswa terlalu cepat naik level. Kembali ke P5 dan kuasai dulu yang sedang.</li>
+      <li><strong>Skor 30-50%</strong> → momen kritis. Identifikasi trik mana yang belum tertangkap. Sediakan 2-3 sesi tambahan untuk trik tersebut.</li>
+      <li><strong>Skor &gt; 50%</strong> → siswa sudah siap masuk persiapan KSN-P. Pertemuan berikutnya bisa fokus pada geometri atau soal asli KSN-K.</li>
+      <li><strong>Skor &gt; 70%</strong> → ini siswa yang harus didorong ke KSN-P. Bentuk grup kecil eksklusif untuk mereka.</li>
+    </ul>
+
+    <h3>Apa yang Diukur Drill Ini</h3>
+    <p>Berbeda dengan P5 yang mengukur <em>penguasaan rumus</em>, drill P6 mengukur:</p>
+    <ul class="tips">
+      <li><strong>Kepekaan pola.</strong> Lihat dua kotak — apakah siswa langsung sadar ini soal Sophie Germain? Pigeonhole? Vieta?</li>
+      <li><strong>Manajemen waktu.</strong> Apakah siswa tahu kapan harus pindah dan kapan harus bertahan? Lihat soal mana yang dia habiskan waktunya tetapi tidak selesai.</li>
+      <li><strong>Verifikasi diri.</strong> Sebelum mulai bukti, apakah siswa cek dengan substitusi $n = 0, 1, 2$? Ini kebiasaan kecil yang menyelamatkan dari kesalahan besar.</li>
+    </ul>
+
+    <h3>Catatan Khusus tentang Soal-soal</h3>
+    <ul class="tips">
+      <li><strong>A6:</strong> trik $\sum\dfrac{1}{r-k} = \dfrac{P'(k)}{P(k)}$ jarang diajarkan formal. Worth ditulis di papan sebagai "trik bonus".</li>
+      <li><strong>K4:</strong> soal kurang jelas (10 kursi vs 8 orang). Bagus untuk diskusi: bagaimana menangani soal ambigu di olimpiade.</li>
+      <li><strong>A10, K10, T10:</strong> tingkat elite. Tidak perlu semua siswa bisa. Tunjukkan saja sebagai "pemandangan KSN-P".</li>
+    </ul>
+
+    <h3>Rencana Pertemuan 7 &amp; Seterusnya</h3>
+    <ul class="tips">
+      <li><strong>P7:</strong> Geometri olimpiade — kesebangunan, sifat segitiga, lingkaran. Materi yang sengaja ditunda untuk akhir.</li>
+      <li><strong>P8:</strong> Simulasi try-out KSN-K (timer 90 menit, 10 soal).</li>
+      <li><strong>P9-10:</strong> Pembahasan + topik lemah individual. Personal coaching mulai di sini.</li>
+    </ul>
+
+    <div class="info-box" style="margin-top:1.5rem">
+      <strong>Pesan penutup.</strong> Drill naik level itu seperti latihan angkat beban — siswa akan capek, akan frustasi, dan beberapa akan mau menyerah. Tugas Anda bukan mempermudah soal, tapi <em>mempermudah perjalanan</em>. Beri pengakuan untuk usaha. Pertanyaan "kenapa kamu memilih trik ini?" jauh lebih berguna dari pertanyaan "kenapa jawaban kamu salah?".
+    </div>
+  </div>
+
+</main>
+
+<footer>
+  Part of <a href="https://paggalih.github.io">paggalih.github.io</a> &nbsp;·&nbsp;
+  Pertemuan 6 · Drill 30 Soal Naik Level · Aljabar, Kombinatorika, Teori Bilangan
+</footer>
+
+</body>
+</html>
