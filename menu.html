@@ -253,7 +253,8 @@ async function fetchTree() {
 
   const htmlFiles = treeData.tree.filter(f => {
     if (f.type !== 'blob') return false;
-    if (!/\.(html|htm)$/i.test(f.path)) return false;
+    // if (!/\.(html|htm)$/i.test(f.path)) return false;
+    if (!/(?:^|\/)index\.html$/i.test(f.path)) return false;
     return f.path.startsWith(prefix);
   }).map(f => ({
     path: f.path,
