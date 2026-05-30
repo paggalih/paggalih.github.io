@@ -392,7 +392,7 @@ a:hover {
 #hero p {
   color: #45505b;
   /* margin: 15px 0 0 0; */
-  font-size: 26px;
+  font-size: 10px;
   /* font-family: "Poppins", sans-serif; */
 }
 
@@ -430,8 +430,8 @@ a:hover {
 
   #hero p {
     margin-top: 10px;
-    font-size: 20px;
-    line-height: 24px;
+    font-size: 10px;
+    line-height: 12px;
   }
 }
 
