@@ -3217,7 +3217,6 @@ graph TD
                 <li>Klik menu <code>Quick -> Estimate Equation</code>.</li>
                 <li>Pada kotak *Specification*, ketik variabel Anda: <code>y c x1 x2</code>.</li>
                 <li>Pada dropdown *Estimation Method*, pilih <strong>LOGIT - Binary, Ordered, Multinomial...</strong></li>
-                <li>Pada opsi *Type*, pilih <strong>Multinomial Logit</strong>.</li>
                 <li>Tentukan kategori basis (secara default, EViews menggunakan nilai terkecil atau terbesar). Klik <strong>OK</strong>.</li>
             </ul>
         </li>
@@ -3231,7 +3230,7 @@ graph TD
 
     <h3>4. Menilai Ketepatan Klasifikasi</h3>
     <p>Untuk melihat seberapa akurat model kita memprediksi realitas, di jendela hasil estimasi EViews, klik:</p>
-    <p><code>View -> Goodness of Fit -> Expectation-Prediction Evaluation</code></p>
+    <p><code>View -> Expectation-Prediction Evaluation</code></p>
     <p>Perhatikan nilai <strong>Total Correct Percentage</strong>. Nilai ini menunjukkan seberapa besar persentase data pengamatan yang berhasil diklasifikasikan dengan benar oleh model (analog dengan $R^2$ pada regresi linear standar).</p>
 </article>
         <p class="soal-latihan">
@@ -3241,8 +3240,8 @@ Kasus 1: Pilihan Merek Smartphone ($Y$)<br>Kategori Y: "0" (Xiaomi), "1" (Samsun
         <textarea>
 "ID","Y","X1","X2"
 "1","0","3.5","5"
-"2","0","4.0","6"
-"3","0","4.2","4"
+"2","1","4.0","6"
+"3","1","4.2","4"
 "4","1","6.5","7"
 "5","2","15.0","9"
 "6","1","7.0","6"
@@ -3300,9 +3299,9 @@ Kasus 2: Pilihan Jalur Karier Lulusan Kuliah ($Y$)
         <textarea>
 "ID","Y","X1","X2"
 "1","0","3","3.65"
-"2","0","4","3.40"
-"3","1","7","3.10"
-"4","2","9","3.25"
+"2","1","4","3.40"
+"3","0","7","3.10"
+"4","0","9","3.25"
 "5","0","2","3.80"
 "6","1","6","2.95"
 "7","2","8","3.45"
@@ -3358,8 +3357,8 @@ Kasus 3: Pilihan Sumber Energi Rumah Tangga ($Y$)
         <div class="textarea-container">
         <textarea>
 "ID","Y","X1","X2"
-"1","0","4.0","30"
-"2","0","4.5","40"
+"1","1","4.0","30"
+"2","1","4.5","40"
 "3","1","8.0","50"
 "4","1","9.5","60"
 "5","2","16.0","100"
@@ -3417,9 +3416,9 @@ Kasus 4: Pilihan Moda Transportasi Kerja ($Y$)
         <div class="textarea-container">
         <textarea>
 "ID","Y","X1","X2"
-"1","0","5","5"
-"2","0","8","10"
-"3","1","25","15"
+"1","1","5","5"
+"2","1","8","10"
+"3","0","25","15"
 "4","1","30","10"
 "5","2","15","50"
 "6","0","7","5"
@@ -3476,8 +3475,8 @@ Kasus 5: Pilihan Instrumen Investasi Utama ($Y$)
         <div class="textarea-container">
         <textarea>
 "ID","Y","X1","X2"
-"1","0","55","25"
-"2","0","48","30"
+"1","1","55","25"
+"2","1","48","30"
 "3","1","40","35"
 "4","2","25","42"
 "5","0","60","22"
