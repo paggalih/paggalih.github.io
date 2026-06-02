@@ -3180,259 +3180,360 @@ graph TD
         <div class="section-title">
           <h2>Pertemuan 10</h2>
         </div>
+        <div class="trigger">
+Bayangkan Regresi Logistik Multinomial itu seperti memprediksi menu makan siang rekan kerja Anda. Kalau pilihannya cuma dua ("Makan siang" vs "Puasa"), itu Logistik Biner. <br>Tapi kalau pilihannya ada tiga atau lebih dan tidak bertingkat—misalnya: "Nasi Padang", "Salad Diet", atau "Mie Instan"—maka di sinilah Regresi Multinomial beraksi. Pilihan mereka ditentukan oleh variabel independen seperti: isi dompet ($X_1$) dan tingkat kelaparan ($X_2$).
+        </div>
         <div class="mermaid text-center">
-          flowchart TD
-          B{"Cek Variabel Dependen (Y)"};
-          B --> C{"Y Kontinu? (Mis: Rupiah, KG)"};
-          C -- Ya --> D[Gunakan OLS / Regresi Linear];
-          C -- Tidak --> E{Y Kategorikal?};
-          E -- Ya --> F{Berapa Kategori?};
-          F -- "2 Kategori (Mis: Ya/Tidak)" --> G[Gunakan Binary Logit / Probit];
-          F -- 3+ Kategori --> H{Apakah Kategori Punya Urutan?};
-          H -- Ya (Mis: Jelek, Cukup, Bagus) --> I["Gunakan Model ORDINAL (Ordered Logit/Probit)"];
-          H -- "Tidak (Mis: Mobil, Motor, Bus)" --> J["Gunakan Model MULTINOMIAL (MNL)"];
+graph TD
+    A["Mulai Analisis"] --> B["Siapkan Data (Y &gt; 2 Kategori Nominal)"]
+    B --> C["Tentukan Kategori Basis (Base Outcome)"]
+    C --> D["Estimasi Model di EViews (Multinomial Logit)"]
+    D --> E["Evaluasi Log Odds Relatif (Koefisien Beta)"]
+    E --> F["Hitung Nilai Odds Ratio [exp(Beta)]"]
+    F --> G["Uji Ketepatan Klasifikasi (Expectation-Prediction)"]
+    G --> H["Interpretasi & Selesai"]
         </div>
-        <h1>Membedah Model Multinomial dan Ordinal Logit</h1>
+<article>
+    <h2>Panduan Praktis Regresi Logistik Multinomial dengan EViews</h2>
+    <p>Regresi Logistik Multinomial digunakan ketika variabel dependen ($Y$) bersifat kategorikal dengan lebih dari dua opsi tanpa urutan tertentu (nominal).</p>
 
-        <p>Dalam ekonometrika, kita sering berhadapan dengan variabel dependen (Y) yang bukan angka kontinu. Ketika Y adalah sebuah <strong>pilihan</strong> dari beberapa kategori, kita tidak bisa menggunakan OLS biasa. Di sinilah Model Multinomial dan Ordinal berperan.</p>
+    <h3>1. Perumusan Model Matematika</h3>
+    <p>Misalkan kategori basis kita adalah $b$. Probabilitas log odds memilih kategori $j$ dibandingkan kategori basis $b$ dirumuskan sebagai berikut:</p>
+    
+    $$ \ln\left(\frac{P(Y = j)}{P(Y = b)}\right) = \beta_{j0} + \beta_{j1}X_1 + \beta_{j2}X_2 + \dots + \beta_{jk}X_k $$
 
-        <h2>1. Model Multinomial Logit (MNL)</h2>
-        <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>tidak berperingkat</strong> (unordered).</p>
-        <p><strong>Contoh:</strong> Pilihan moda transportasi (Mobil, Motor, Bus), pilihan karier (Swasta, PNS, Wirausaha).</p>
-        <p>Model ini menghitung probabilitas individu <em>i</em> memilih alternatif <em>j</em>, berdasarkan serangkaian variabel independen $X_i$. Model ini mengasumsikan satu kategori sebagai "base" (referensi).</p>
-        <p>Probabilitas pilihan <em>j</em> adalah:</p>
-        <div class="equation">
-          $$ P(Y_i=j | X_i) = \frac{e^{\beta_j'X_i}}{\sum_{k=1}^J e^{\beta_k'X_i}} $$
-        </div>
-        <p>Dimana $J$ adalah jumlah total kategori.</p>
+    <p>Di mana:</p>
+    <ul>
+        <li>$\ln\left(\frac{P(Y = j)}{P(Y = b)}\right)$ adalah <strong>Relative Log Odds</strong>.</li>
+        <li>$\beta_{j}$ adalah koefisien estimasi untuk kategori $j$ relatif terhadap basis.</li>
+    </ul>
 
-        <h2>2. Model Ordinal Logit (OL)</h2>
-        <p>Digunakan ketika Y memiliki 3+ kategori yang <strong>berperingkat</strong> (ordered).</p>
-        <p><strong>Contoh:</strong> Rating kepuasan (Buruk, Cukup, Baik), Peringkat kredit (C, B, A, AA).</p>
-        <p>Model ini bekerja dengan mengestimasi sebuah variabel laten (tidak teramati), $Y^*$, yang bergantung pada $X_i$.</p>
-        <div class="equation">
-          $$ Y_i^* = \beta'X_i + \epsilon_i $$
-        </div>
-        <p>Kita tidak mengamati $Y^*$, tapi kita mengamati $Y$ (kategori) melalui "cut-points" atau thresholds ($\mu$):</p>
-        <ul>
-          <li>$Y_i = 1$ (Mis: Buruk) jika $Y_i^* \le \mu_1$</li>
-          <li>$Y_i = 2$ (Mis: Cukup) jika $\mu_1 < Y_i^* \le \mu_2$</li>
-          <li>$Y_i = 3$ (Mis: Baik) jika $Y_i^* > \mu_2$</li>
-        </ul>
-        <p>Model Ordinal Logit mengestimasi koefisien $\beta$ dan titik potong $\mu$ secara bersamaan.</p>
-
-        <h2>Langkah-Langkah Analisis Umum</h2>
-        <ol>
-          <li><strong>Identifikasi Y:</strong> Tentukan apakah Y Anda kategorikal.</li>
-          <li><strong>Cek Urutan:</strong> Apakah kategorinya berperingkat (Ordinal) atau hanya pilihan (Multinomial)?</li>
-          <li><strong>Spesifikasi Model:</strong> Tentukan variabel independen (X) yang relevan.</li>
-          <li><strong>Estimasi Model:</strong> Gunakan Eviews atau software statistik lain (Metode: ORDERED untuk Ordinal, LOGIT/MNL untuk Multinomial).</li>
-          <li><strong>Interpretasi:</strong>
-            <div class="highlight">
-              <strong>Peringatan:</strong> Koefisien $\beta$ dalam model Logit (MNL/Ordinal) <strong>TIDAK</strong> dapat diinterpretasikan secara langsung sebagai "jika X naik 1 unit, Y naik $\beta$ unit".
-            </div>
-            <p>Interpretasi harus melalui:</p>
+    <h3>2. Langkah-Langkah di EViews</h3>
+    <ol>
+        <li><strong>Input Data:</strong> Buka EViews, pilih <code>File -> New -> Workfile</code>. Pilih tipe data (Unstructured) dan masukkan jumlah observasi (50).</li>
+        <li><strong>Copy Data:</strong> Buat objek grup baru atau ketik <code>data y x1 x2</code> di command bar, lalu <em>paste</em> data simulasi Anda.</li>
+        <li><strong>Estimasi Model:</strong> 
             <ul>
-              <li><strong>Odds Ratios (OR):</strong> $OR = e^\beta$. (Seberapa besar perubahan <em>odds</em> jika X naik 1 unit).</li>
-              <li><strong>Marginal Effects (ME):</strong> (Seberapa besar perubahan <em>probabilitas</em> jika X naik 1 unit). Ini adalah cara interpretasi yang paling intuitif.</li>
+                <li>Klik menu <code>Quick -> Estimate Equation</code>.</li>
+                <li>Pada kotak *Specification*, ketik variabel Anda: <code>y c x1 x2</code>.</li>
+                <li>Pada dropdown *Estimation Method*, pilih <strong>LOGIT - Binary, Ordered, Multinomial...</strong></li>
+                <li>Pada opsi *Type*, pilih <strong>Multinomial Logit</strong>.</li>
+                <li>Tentukan kategori basis (secara default, EViews menggunakan nilai terkecil atau terbesar). Klik <strong>OK</strong>.</li>
             </ul>
-          </li>
-        </ol>
-        <h4>Kasus 1: Model Ordinal (Kepuasan Layanan Bank)</h4>
-        <p>Y (Dependen): Kepuasan (1 = Sangat Tidak Puas, 2 = Netral, 3 = Puas)
-          <br>
-          X1 (Independen): Kecepatan (Waktu tunggu dalam menit)
-          <br>
-          X2 (Independen): Staf_Ramah (Skor 1-10)
-          <br>
-          X3 (Independen): Digital_App (1 = Sering Pakai, 0 = Jarang/Tidak)
-        </p>
-        <a class="actions" href="multi-ordinal-1.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-multi-ordinal-1"></div>
-        <script>
-          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-1.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-1">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-multi-ordinal-1").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-multi-ordinal-1').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
+        </li>
+    </ol>
 
-        <h4>Kasus 2: Model Multinomial (Pilihan Transportasi Kerja)</h4>
-        <p>Y (Dependen): Transport (Mobil, Motor, Umum) -> Harus dalam format Teks/Alpha di Eviews
-          <br>
-          X1 (Independen): Waktu_Tempuh (Menit)
-          <br>
-          X2 (Independen): Biaya (Ribu Rupiah per hari)
-          <br>
-          X3 (Independen): Jarak_KM (Jarak rumah ke kantor)
-        </p>
-        <a class="actions" href="multi-ordinal-2.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-multi-ordinal-2"></div>
-        <script>
-          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-2.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-2">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-multi-ordinal-2").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-multi-ordinal-2').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
+    <h3>3. Interpretasi Log Odds Relatif</h3>
+    <blockquote>
+        Jika koefisien $\beta_{j1}$ bernilai positif, artinya setiap kenaikan satu unit $X_1$ akan <strong>meningkatkan</strong> kecenderungan (log odds) seseorang untuk memilih kategori $j$ dibandingkan kategori basis, dengan asumsi variabel lain konstan.
+    </blockquote>
+    <p>Untuk mempermudah, kita dapat menghitung nilai <em>Odds Ratio</em> atau <em>Relative Risk Ratio (RRR)</em> dengan melakukan eksponensial terhadap koefisien: $\text{RRR} = e^{\beta_{j1}}$.</p>
 
-        <h4>Kasus 3: Model Ordinal (Rating Risiko Kredit UMKM)</h4>
-        <p>Y (Dependen): Rating (1=Tinggi, 2=Sedang, 3=Rendah)
-          <br>
-          X1 (Independen): DER (Debt to Equity Ratio)
-          <br>
-          X2 (Independen): Laba_Bersih (Juta Rupiah)
-          <br>
-          X3 (Independen): Lama_Usaha (Tahun)
+    <h3>4. Menilai Ketepatan Klasifikasi</h3>
+    <p>Untuk melihat seberapa akurat model kita memprediksi realitas, di jendela hasil estimasi EViews, klik:</p>
+    <p><code>View -> Goodness of Fit -> Expectation-Prediction Evaluation</code></p>
+    <p>Perhatikan nilai <strong>Total Correct Percentage</strong>. Nilai ini menunjukkan seberapa besar persentase data pengamatan yang berhasil diklasifikasikan dengan benar oleh model (analog dengan $R^2$ pada regresi linear standar).</p>
+</article>
+        <p class="soal-latihan">
+Kasus 1: Pilihan Merek Smartphone ($Y$)<br>Kategori Y: "0" (Xiaomi), "1" (Samsung), "2" (Apple) — Basis: "0" <br> Variabel X: $X_1$ = "Pendapatan" (Juta Rupiah), $X_2$ = "Skor Tech-Savvy" (Skala 1-10)
         </p>
-        <a class="actions" href="multi-ordinal-3.csv"><button>Unduh CSV </button></a>
-        <div class="overflow-auto" id="tabel-multi-ordinal-3"></div>
-        <script>
-          fetch('https://paggalih.github.io/matkul/sem2025-01/ekonometrika/multi-ordinal-3.csv')
-              .then(res => res.text())
-              .then(csvText => {
-                  Papa.parse(csvText, {
-                      header: true,
-                      skipEmptyLines: true, 
-                      complete: function (results) {
-                          const headers = results.meta.fields;
-                          const dataRows = results.data;  
-                          if (dataRows.length === 0) return;
-          
-                          let html = `<table class="table table-striped text-center" id="datatable-multi-ordinal-3">`;
-          
-                          html += '<thead><tr>';
-                          headers.forEach(header => {
-                              html += `<th>${header}</th>`;
-                          });
-                          html += '</tr></thead>';
-          
-                          html += '<tbody>';
-                          dataRows.forEach(row => {
-                              html += '<tr>';
-                              headers.forEach(header => {
-                                  const cell = row[header];
-                                  html += `<td>${cell}</td>`;
-                              });
-                              html += '</tr>';
-                          });
-                          html += '</tbody>';
-          
-                          html += '</table>';
-                          document.getElementById("tabel-multi-ordinal-3").innerHTML = html;
-          
-                          $(document).ready(function () {
-                              $('#datatable-multi-ordinal-3').DataTable({
-                                  paging: true,
-                                  searching: true,
-                                  scrollX: true,
-                                        pageLength: 5,
-                    	           columnDefs: [{ className: 'dt-center', targets: '_all' } ]
-          
-                              });
-                          });
-                      }
-                  });
-              });
-        </script>
-
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp10">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp10">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep10" aria-expanded="true" aria-controls="collapsep10">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep10" class="accordion-collapse collapse" aria-labelledby="headingp10" data-bs-parent="#accordionp10">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","0","3.5","5"
+"2","0","4.0","6"
+"3","0","4.2","4"
+"4","1","6.5","7"
+"5","2","15.0","9"
+"6","1","7.0","6"
+"7","2","12.5","8"
+"8","0","3.8","5"
+"9","1","8.5","7"
+"10","2","18.0","9"
+"11","0","4.5","4"
+"12","1","5.5","6"
+"13","2","14.0","8"
+"14","0","3.9","5"
+"15","1","7.2","7"
+"16","2","16.5","9"
+"17","0","4.1","6"
+"18","1","6.0","6"
+"19","2","13.0","8"
+"20","0","3.6","4"
+"21","1","8.0","7"
+"22","2","19.0","10"
+"23","0","4.3","5"
+"24","1","6.8","6"
+"25","2","11.0","8"
+"26","0","3.7","5"
+"27","1","7.5","7"
+"28","2","17.0","9"
+"29","0","4.6","5"
+"30","1","5.9","6"
+"31","2","15.5","9"
+"32","0","3.2","4"
+"33","1","8.2","7"
+"34","2","20.0","9"
+"35","0","4.4","6"
+"36","1","6.1","6"
+"37","2","12.0","8"
+"38","0","3.4","5"
+"39","1","7.8","7"
+"40","2","16.0","9"
+"41","0","4.7","5"
+"42","1","6.3","6"
+"43","2","14.5","8"
+"44","0","3.3","4"
+"45","1","8.4","8"
+"46","2","18.5","10"
+"47","0","4.8","6"
+"48","1","6.6","7"
+"49","2","13.5","7"
+"50","1","7.1","6"</textarea>
         </div>
+        <p class="soal-latihan">
+Kasus 2: Pilihan Jalur Karier Lulusan Kuliah ($Y$)
+          <br>Kategori Y: "0" (Karyawan Swasta), "1" (Freelancer), "2" (Wirausaha) — Basis: "0"
+          <br>Variabel X: $X_1$ = "Toleransi Risiko" (Skala 1-10), $X_2$ = "IPK" (Skala 4.00)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","0","3","3.65"
+"2","0","4","3.40"
+"3","1","7","3.10"
+"4","2","9","3.25"
+"5","0","2","3.80"
+"6","1","6","2.95"
+"7","2","8","3.45"
+"8","0","4","3.70"
+"9","1","7","3.20"
+"10","2","9","3.15"
+"11","0","3","3.55"
+"12","1","5","3.00"
+"13","2","8","3.60"
+"14","0","4","3.90"
+"15","1","6","3.12"
+"16","2","9","2.85"
+"17","0","2","3.75"
+"18","1","7","3.40"
+"19","2","8","3.30"
+"20","0","3","3.68"
+"21","1","6","2.90"
+"22","2","10","3.10"
+"23","0","4","3.50"
+"24","1","7","3.05"
+"25","2","8","3.52"
+"26","0","1","3.85"
+"27","1","5","3.25"
+"28","2","9","3.00"
+"29","0","3","3.60"
+"30","1","6","3.15"
+"31","2","9","3.42"
+"32","0","4","3.72"
+"33","1","7","2.98"
+"34","2","8","3.21"
+"35","0","2","3.95"
+"36","1","6","3.35"
+"37","2","9","3.08"
+"38","0","5","3.48"
+"39","1","8","2.80"
+"40","2","9","3.50"
+"41","0","3","3.66"
+"42","1","7","3.18"
+"43","2","8","3.29"
+"44","0","2","3.78"
+"45","1","6","3.02"
+"46","2","10","3.60"
+"47","0","4","3.54"
+"48","1","7","3.11"
+"49","2","9","3.38"
+"50","0","3","3.45"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 3: Pilihan Sumber Energi Rumah Tangga ($Y$)
+          <br>Kategori Y: "0" (Gas/LPG), "1" (Listrik PLN), "2" (Panel Surya) — Basis: "0"
+          <br>Variabel X: $X_1$ = "Pendapatan Bulanan" (Juta Rupiah), $X_2$ = "Luas Atap" ($m^2$)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","0","4.0","30"
+"2","0","4.5","40"
+"3","1","8.0","50"
+"4","1","9.5","60"
+"5","2","16.0","100"
+"6","0","5.0","35"
+"7","1","7.5","45"
+"8","2","14.0","90"
+"9","0","3.8","25"
+"10","1","8.5","70"
+"11","2","18.0","120"
+"12","0","4.2","32"
+"13","1","9.0","55"
+"14","2","15.0","85"
+"15","0","5.2","42"
+"16","1","7.0","50"
+"17","2","13.5","95"
+"18","0","4.7","38"
+"19","1","8.2","65"
+"20","2","17.0","110"
+"21","0","3.9","28"
+"22","1","7.8","48"
+"23","2","19.0","130"
+"24","0","4.6","36"
+"25","1","8.8","60"
+"26","2","14.5","80"
+"27","0","4.1","30"
+"28","1","9.2","75"
+"29","2","16.5","105"
+"30","0","5.5","50"
+"31","1","6.8","40"
+"32","2","12.0","85"
+"33","0","4.3","34"
+"34","1","8.4","68"
+"35","2","15.8","100"
+"36","0","3.7","26"
+"37","1","7.9","52"
+"38","2","20.0","140"
+"39","0","4.9","44"
+"40","1","8.1","62"
+"41","2","13.8","90"
+"42","0","4.4","35"
+"43","1","9.6","78"
+"44","2","17.5","115"
+"45","0","5.1","48"
+"46","1","7.2","46"
+"47","2","12.8","88"
+"48","0","4.0","31"
+"49","1","8.6","66"
+"50","2","15.2","92"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 4: Pilihan Moda Transportasi Kerja ($Y$)
+          <br>Kategori Y: "0" (Sepeda Motor), "1" (Kereta Commuter), "2" (Mobil Pribadi) — Basis: "0"
+          <br>Variabel X: $X_1$ = "Jarak Tempuh" (Km), $X_2$ = "Biaya Parkir/Tol Harian" (Ribu Rupiah)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","0","5","5"
+"2","0","8","10"
+"3","1","25","15"
+"4","1","30","10"
+"5","2","15","50"
+"6","0","7","5"
+"7","1","22","12"
+"8","2","18","60"
+"9","0","4","0"
+"10","1","35","15"
+"11","2","28","75"
+"12","0","9","10"
+"13","1","20","10"
+"14","2","12","45"
+"15","0","6","5"
+"16","1","26","15"
+"17","2","22","65"
+"18","0","11","10"
+"19","1","19","8"
+"20","2","16","55"
+"21","0","3","0"
+"22","1","40","20"
+"23","2","32","80"
+"24","0","10","5"
+"25","1","24","12"
+"26","2","14","40"
+"27","0","5","5"
+"28","1","27","14"
+"29","2","25","70"
+"30","0","12","15"
+"31","1","18","10"
+"32","2","17","50"
+"33","0","8","5"
+"34","1","32","18"
+"35","2","21","60"
+"36","0","2","0"
+"37","1","23","11"
+"38","2","30","85"
+"39","0","7","10"
+"40","1","21","13"
+"41","2","15","45"
+"42","0","6","5"
+"43","1","29","16"
+"44","2","26","75"
+"45","0","13","15"
+"46","1","17","8"
+"47","2","19","55"
+"48","0","4","5"
+"49","1","31","15"
+"50","2","23","65"</textarea>
+        </div>
+        <p class="soal-latihan">
+Kasus 5: Pilihan Instrumen Investasi Utama ($Y$)
+          <br>Kategori Y: "0" (Emas/Logam Mulia), "1" (Obligasi/Surat Utang), "2" (Saham) — Basis: "0"
+          <br>Variabel X: $X_1$ = "Usia" (Tahun), $X_2$ = "Skor Literasi Keuangan" (Skala 10-50)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","0","55","25"
+"2","0","48","30"
+"3","1","40","35"
+"4","2","25","42"
+"5","0","60","22"
+"6","1","35","38"
+"7","2","28","45"
+"8","0","52","28"
+"9","1","42","36"
+"10","2","24","40"
+"11","0","57","26"
+"12","1","38","34"
+"13","2","29","48"
+"14","0","50","31"
+"15","1","45","37"
+"16","2","26","43"
+"17","0","47","29"
+"18","1","36","33"
+"19","2","31","41"
+"20","0","58","24"
+"21","1","41","39"
+"22","2","23","46"
+"23","0","53","27"
+"24","1","39","35"
+"25","2","30","44"
+"26","0","62","20"
+"27","1","44","36"
+"28","2","27","42"
+"29","0","49","32"
+"30","1","37","38"
+"31","2","32","47"
+"32","0","54","25"
+"33","1","43","34"
+"34","2","25","45"
+"35","0","51","30"
+"36","1","34","36"
+"37","2","28","41"
+"38","0","56","23"
+"39","1","40","37"
+"40","2","22","44"
+"41","0","46","28"
+"42","1","35","35"
+"43","2","33","49"
+"44","0","59","26"
+"45","1","42","38"
+"46","2","24","43"
+"47","0","52","31"
+"48","1","38","32"
+"49","2","27","40"
+"50","2","29","46"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
+        
       </div>
     </section>
     <section id="p11">
