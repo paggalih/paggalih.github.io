@@ -3197,41 +3197,50 @@ graph TD
     <h2>Panduan Praktis Regresi Logistik Multinomial dengan EViews</h2>
     <p>Regresi Logistik Multinomial digunakan ketika variabel dependen ($Y$) bersifat kategorikal dengan lebih dari dua opsi tanpa urutan tertentu (nominal).</p>
 
-    <h3>1. Perumusan Model Matematika</h3>
-    <p>Misalkan kategori basis kita adalah $b$. Probabilitas log odds memilih kategori $j$ dibandingkan kategori basis $b$ dirumuskan sebagai berikut:</p>
-    
-    $$ \ln\left(\frac{P(Y = j)}{P(Y = b)}\right) = \beta_{j0} + \beta_{j1}X_1 + \beta_{j2}X_2 + \dots + \beta_{jk}X_k $$
-
-    <p>Di mana:</p>
-    <ul>
-        <li>$\ln\left(\frac{P(Y = j)}{P(Y = b)}\right)$ adalah <strong>Relative Log Odds</strong>.</li>
-        <li>$\beta_{j}$ adalah koefisien estimasi untuk kategori $j$ relatif terhadap basis.</li>
-    </ul>
-
-    <h3>2. Langkah-Langkah di EViews</h3>
+    <h3>Langkah-Langkah di EViews</h3>
     <ol>
-        <li><strong>Input Data:</strong> Buka EViews, pilih <code>File -> New -> Workfile</code>. Pilih tipe data (Unstructured) dan masukkan jumlah observasi (50).</li>
-        <li><strong>Copy Data:</strong> Buat objek grup baru atau ketik <code>data y x1 x2</code> di command bar, lalu <em>paste</em> data simulasi Anda.</li>
-        <li><strong>Estimasi Model:</strong> 
-            <ul>
-                <li>Klik menu <code>Quick -> Estimate Equation</code>.</li>
-                <li>Pada kotak *Specification*, ketik variabel Anda: <code>y c x1 x2</code>.</li>
-                <li>Pada dropdown *Estimation Method*, pilih <strong>LOGIT - Binary, Ordered, Multinomial...</strong></li>
-                <li>Tentukan kategori basis (secara default, EViews menggunakan nilai terkecil atau terbesar). Klik <strong>OK</strong>.</li>
-            </ul>
+        <li>Enter satu per satu command di bawah ini
+          <br><code>series d0 = (Y = 0)<br>
+series d1 = (Y = 1)<br>
+series d2 = (Y = 2)<br>
+coef(3) b1<br>
+coef(3) b2</code>
         </li>
+      <li>Klik <strong>Object --> New Object</strong> dari menu utama.</li>
+      <li>Pilih <strong>Log Likelihood</strong>, beri nama <code>mlogit_model</code>, dan klik OK.</li>
+      <li>Pada jendela kosong yang muncul copy kan perintah di bawah ini.
+      <br><code><textarea>
+' Specify the log-likelihood assignment variable
+@logl logl1
+
+' Define linear index functions for choices 1 and 2 (Y=0 is the base)
+xb1 = b1(1) + b1(2)*X1 + b1(3)*X2
+xb2 = b2(1) + b2(2)*X1 + b2(3)*X2
+
+' Define the common denominator for the probabilities
+denom = 1 + exp(xb1) + exp(xb2)
+
+' Define choice probabilities
+pr0 = 1 / denom
+pr1 = exp(xb1) / denom
+pr2 = exp(xb2) / denom
+
+' Construct the log-likelihood function
+logl1 = d0*log(pr0) + d1*log(pr1) + d2*log(pr2)</textarea>
+        </code>
+      </li>
+      <li>Klik <code>Estimate</code> pada jendela LogL, isikan <code>@all</code> pada kotak <strong>Sample</strong> dan klik OK.</li>
     </ol>
 
-    <h3>3. Interpretasi Log Odds Relatif</h3>
-    <blockquote>
-        Jika koefisien $\beta_{j1}$ bernilai positif, artinya setiap kenaikan satu unit $X_1$ akan <strong>meningkatkan</strong> kecenderungan (log odds) seseorang untuk memilih kategori $j$ dibandingkan kategori basis, dengan asumsi variabel lain konstan.
-    </blockquote>
-    <p>Untuk mempermudah, kita dapat menghitung nilai <em>Odds Ratio</em> atau <em>Relative Risk Ratio (RRR)</em> dengan melakukan eksponensial terhadap koefisien: $\text{RRR} = e^{\beta_{j1}}$.</p>
-
-    <h3>4. Menilai Ketepatan Klasifikasi</h3>
-    <p>Untuk melihat seberapa akurat model kita memprediksi realitas, di jendela hasil estimasi EViews, klik:</p>
-    <p><code>View -> Expectation-Prediction Evaluation</code></p>
-    <p>Perhatikan nilai <strong>Total Correct Percentage</strong>. Nilai ini menunjukkan seberapa besar persentase data pengamatan yang berhasil diklasifikasikan dengan benar oleh model (analog dengan $R^2$ pada regresi linear standar).</p>
+    <h3>Interpretasi</h3>
+  <ol>
+  <li>koefisien b1 ($Y=1$ vs $Y=0$): menunjukkan pengaruh $X1$ dan $X2$ pada pemilihan category 1 daripada category 0. Jadi, positif b1(2) artinya $X1$ lebih mendorong pemilihan 1 daripada 0. Begitupun positif b1(3).
+    </li>
+    <li> koefisien b2 ($Y=2$ vs $Y=0$): menunjukkan pengaruh pemilihan category 2 daripada category 0.
+    </li>
+    <li>Z-Statistics & P-values: untuk cek apakah $X1$ dan $X2$ signifikan secara statistik berpengaruh pada pemilihan categorys.
+    </li>
+  </ol>
 </article>
         <p class="soal-latihan">
 Kasus 1: Pilihan Merek Smartphone ($Y$)<br>Kategori Y: "0" (Xiaomi), "1" (Samsung), "2" (Apple) — Basis: "0" <br> Variabel X: $X_1$ = "Pendapatan" (Juta Rupiah), $X_2$ = "Skor Tech-Savvy" (Skala 1-10)
