@@ -207,8 +207,8 @@
           <li>Kuis hanya dapat dikerjakan <strong>satu kali</strong>.</li>
           <li>Setiap mahasiswa mendapat <strong>soal varian acak</strong>.</li>
           <li>Tidak diperkenankan <strong>pindah</strong> dari halaman ujian.</li>
-			<li>Jika terkena <strong>pelanggaran yang aneh</strong> segera lapor.</li>
-			<li> Jangan sampai <strong>pelanggaran mencapai batas</strong> dan jawaban terkirim otomatis.</li>
+          <li>Jika terkena <strong>pelanggaran yang aneh</strong> segera lapor.</li>
+          <li> Jangan sampai <strong>pelanggaran mencapai batas</strong> dan jawaban terkirim otomatis.</li>
         </ul>
       </div>
       <div class="nim-row">
@@ -347,13 +347,42 @@ let   _violations     = 0;
 let   _watchingQuiz   = false;
 
 let _wakeLock = null;
-let _cameraOpen = false;
-let _confirmOpen = false;
+
+/*
+ * FIX: Camera / file-picker anti-cheat false-positive
+ *
+ * _cameraOpen is set on touchstart/mousedown (BEFORE the OS launches the
+ * camera or file picker and steals focus).  This prevents the blur /
+ * visibilitychange handlers from counting a legitimate file-upload as a
+ * cheat event.
+ *
+ * _cameraResetTimer ensures the flag is cleared even if focus/visibility
+ * events fire in an unexpected order (e.g. some Android browsers never
+ * fire 'focus' after closing the camera).
+ */
+let _cameraOpen       = false;
+let _cameraResetTimer = null;
+let _confirmOpen      = false;
+
+/** Call this on touchstart/mousedown on any file input — fires BEFORE blur */
+function _setCameraOpen() {
+  _cameraOpen = true;
+  // Safety net: auto-clear after 30 s in case the OS never returns focus
+  if (_cameraResetTimer) clearTimeout(_cameraResetTimer);
+  _cameraResetTimer = setTimeout(_clearCameraOpen, 30000);
+}
+
+/** Delayed clear so blur/visibilitychange that arrive right after focus-return are ignored */
+function _clearCameraOpen() {
+  if (_cameraResetTimer) { clearTimeout(_cameraResetTimer); _cameraResetTimer = null; }
+  // Small delay: on some devices the blur event arrives *after* focus is restored
+  setTimeout(() => { _cameraOpen = false; }, 1000);
+}
 
 function safeConfirm(msg) {
   _confirmOpen = true;
   const result = confirm(msg);
-  setTimeout(() => { _confirmOpen = false; }, 300);
+  setTimeout(() => { _confirmOpen = false; }, 1000);
   return result;
 }
 
@@ -557,7 +586,11 @@ function renderQuestions() {
       answerHTML = `<input type="text" class="isian-input" id="isian-${i}" placeholder="Ketik jawaban…" autocomplete="off">`;
 
     } else {
-      // ═══ URAIAN — kamera + galeri terpisah ═══
+      /*
+       * FIX: Both file inputs get ontouchstart + onmousedown to set _cameraOpen
+       * BEFORE the browser fires blur/visibilitychange when the OS steals focus.
+       * onchange clears the flag via _clearCameraOpen() (delayed 500 ms).
+       */
       answerHTML = `
         <label class="field-label">Upload jawaban (foto/scan)</label>
         <div style="font-size:.78rem;color:var(--text2);margin-bottom:.4rem">
@@ -567,23 +600,25 @@ function renderQuestions() {
 
         <div style="display:flex;gap:.5rem;flex-wrap:wrap;align-items:center">
 
-          <!-- Tombol Kamera: input DEDICATED dengan capture=environment -->
+          <!-- Tombol Kamera -->
           <div class="upload-area"
             style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;position:relative;overflow:hidden">
             <input type="file" accept="image/*" capture="environment"
-              onchange="handleFile(${i},this);_cameraOpen=false"
-              onclick="_cameraOpen=true"
+              ontouchstart="_setCameraOpen()"
+              onmousedown="_setCameraOpen()"
+              onchange="handleFile(${i},this);_clearCameraOpen()"
               style="position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0">
             <div style="font-size:1.5rem;pointer-events:none">📷</div>
             <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2;pointer-events:none">Kamera</div>
           </div>
 
-          <!-- Tombol Galeri: input DEDICATED TANPA capture -->
+          <!-- Tombol Galeri -->
           <div class="upload-area"
             style="flex:0 0 auto;width:90px;height:90px;padding:.5rem;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:.25rem;position:relative;overflow:hidden">
             <input type="file" accept="image/*"
-              onchange="handleFile(${i},this);_cameraOpen=false"
-              onclick="_cameraOpen=true"
+              ontouchstart="_setCameraOpen()"
+              onmousedown="_setCameraOpen()"
+              onchange="handleFile(${i},this);_clearCameraOpen()"
               style="position:absolute;inset:0;opacity:0;cursor:pointer;font-size:0">
             <div style="font-size:1.5rem;pointer-events:none">🖼️</div>
             <div style="font-size:.68rem;text-align:center;color:var(--text2);line-height:1.2;pointer-events:none">Galeri</div>
@@ -617,9 +652,8 @@ const MAX_IMG_SIZE_MB = 0.8;
 const IMG_MAX_PX     = 1024;
 const IMG_QUALITY    = 0.78;
 
-const _multiFiles = {};   // idx → Blob[]  (blobs lokal)
+const _multiFiles = {};   // idx → Blob[]
 
-// State upload background per soal uraian
 // _qUpload[idx] = { status:'idle'|'uploading'|'done'|'failed', fileId, link, timer }
 const _qUpload = {};
 
@@ -628,7 +662,7 @@ const _qUpload = {};
 ════════════════════════════════════════════════════════ */
 
 function handleFile(idx, input) {
-  _cameraOpen = false;
+  /* _cameraOpen is cleared via _clearCameraOpen() in onchange — no need here */
   const file = input.files[0];
   if (!file) return;
   input.value = '';
@@ -669,7 +703,6 @@ function handleFile(idx, input) {
     _updateFilenameLabel(idx);
     saveDraft();
 
-    // Jadwalkan background upload untuk soal ini
     scheduleUpload(idx);
   }).catch(() => {
     const nameEl = document.getElementById(`filename-${idx}`);
@@ -686,11 +719,9 @@ function removeThumb(idx, fileIdx) {
 
   const total = (_multiFiles[idx] || []).filter(Boolean).length;
   if (total === 0) {
-    // Tidak ada gambar lagi — hapus file di server jika ada
     _deleteServerFile(idx);
     if (_qUpload[idx]) _qUpload[idx] = { status:'idle', fileId:null, link:null, timer:null };
   } else {
-    // Masih ada gambar — re-upload yang digabung
     scheduleUpload(idx);
   }
 }
@@ -712,12 +743,10 @@ function _updateFilenameLabel(idx) {
   }
 }
 
-/** Jadwalkan upload soal ini setelah jeda singkat (debounce 1.5 detik) */
 function scheduleUpload(idx) {
   if (!_qUpload[idx]) _qUpload[idx] = { status:'idle', fileId:null, link:null, timer:null };
   const q = _qUpload[idx];
 
-  // Batalkan timer lama jika ada
   if (q.timer) { clearTimeout(q.timer); q.timer = null; }
 
   q.status = 'idle';
@@ -726,7 +755,6 @@ function scheduleUpload(idx) {
   q.timer = setTimeout(() => { _doUpload(idx); }, 1500);
 }
 
-/** Upload (merge jika perlu) gambar soal idx ke server */
 async function _doUpload(idx) {
   const blobs = (_multiFiles[idx] || []).filter(Boolean);
   if (!blobs.length) return;
@@ -734,7 +762,6 @@ async function _doUpload(idx) {
   if (!_qUpload[idx]) _qUpload[idx] = { status:'idle', fileId:null, link:null, timer:null };
   const q = _qUpload[idx];
 
-  // Hapus file lama di server sebelum upload baru
   const oldFileId = q.fileId;
   q.status = 'uploading';
   q.fileId = null;
@@ -743,7 +770,6 @@ async function _doUpload(idx) {
   _setAllThumbStatus(idx, '⏫');
 
   try {
-    // Gabungkan jika lebih dari 1 gambar
     let blob;
     try {
       blob = blobs.length === 1 ? blobs[0] : await mergeImages(blobs, IMG_QUALITY);
@@ -763,7 +789,7 @@ async function _doUpload(idx) {
         base64,
         fileName  : `soal${(soalData?.nomor ?? idx+1)}_nim${currentNIM}.jpg`,
         mimeType  : 'image/jpeg',
-        oldFileId               // kirim ID lama agar backend hapus
+        oldFileId
       })
     });
 
@@ -784,7 +810,6 @@ async function _doUpload(idx) {
   _updateFilenameLabel(idx);
 }
 
-/** Hapus file di server (fire-and-forget) */
 async function _deleteServerFile(idx) {
   const fileId = _qUpload[idx]?.fileId;
   if (!fileId) return;
@@ -797,7 +822,6 @@ async function _deleteServerFile(idx) {
   } catch(e) { /* non-critical */ }
 }
 
-/** Update label status di semua thumbnail soal ini */
 function _setAllThumbStatus(idx, icon) {
   (_multiFiles[idx] || []).forEach((b, fi) => {
     if (!b) return;
@@ -971,13 +995,11 @@ async function submitQuiz(auto) {
 
       if (files.length > 0) {
         if (q?.status === 'done' && q.fileId) {
-          // ✅ Sudah terunggah di background — cukup kirim referensi
           ans.fileId   = q.fileId;
           ans.fileLink = q.link;
           ans.fileName = `soal${currentSoal[i]?.nomor ?? i+1}_nim${currentNIM}.jpg`;
           ans.preUploaded = true;
         } else {
-          // ⚠ Fallback: upload saat submit (background upload gagal / belum selesai)
           showLoading(`Mengunggah gambar soal ${i+1}…`);
           let blob;
           try {
@@ -1516,18 +1538,28 @@ function _onCheatDetected(reason) {
 
 function resumeFromCheat() {
   document.getElementById('anticheat-overlay').style.display = 'none';
-  requestFullscreen()
+  requestFullscreen();
 }
 
+/*
+ * FIX: visibilitychange — guard with _cameraOpen
+ * _cameraOpen is set on touchstart/mousedown, so it's true when the OS
+ * camera/gallery steals visibility before this handler fires.
+ */
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
     if (_cameraOpen || _confirmOpen) return;
     _onCheatDetected('meninggalkan halaman ujian');
   } else {
-    _cameraOpen = false;
+    // Page became visible again — clear camera flag after short delay
+    _clearCameraOpen();
   }
 });
 
+/*
+ * FIX: blur — guard with _cameraOpen.
+ * Also skip if the active element is a file input (redundant safety net).
+ */
 window.addEventListener('blur', () => {
   if (_cameraOpen || _confirmOpen) return;
   if (document.activeElement?.tagName === 'INPUT' &&
@@ -1535,8 +1567,12 @@ window.addEventListener('blur', () => {
   _onCheatDetected('berpindah aplikasi / jendela');
 });
 
+/*
+ * FIX: focus — use _clearCameraOpen() (delayed) instead of immediate reset.
+ * This prevents the flag from clearing before blur/visibilitychange fire.
+ */
 window.addEventListener('focus', () => {
-  _cameraOpen = false;
+  _clearCameraOpen();
 });
 
 /* ════════════════════════════════════════════════════════
@@ -1608,7 +1644,7 @@ function showDraftBanner() {
 }
 
 /* ════════════════════════════════════════════════════════
-   FULLSCREEN — minta saat pertama kali mulai kuis
+   FULLSCREEN
 ════════════════════════════════════════════════════════ */
 
 function requestFullscreen() {
@@ -1628,7 +1664,7 @@ function isFullscreen() {
 
 document.addEventListener('fullscreenchange', () => {
   if (!isFullscreen() && _watchingQuiz) {
-    requestFullscreen(); // paksa masuk lagi
+    requestFullscreen();
     _onCheatDetected('keluar dari mode layar penuh');
   }
 });
