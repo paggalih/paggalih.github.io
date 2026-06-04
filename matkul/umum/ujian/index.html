@@ -369,7 +369,7 @@ function _setCameraOpen() {
   _cameraOpen = true;
   // Safety net: auto-clear after 30 s in case the OS never returns focus
   if (_cameraResetTimer) clearTimeout(_cameraResetTimer);
-  _cameraResetTimer = setTimeout(_clearCameraOpen, 30000);
+  _cameraResetTimer = setTimeout(_clearCameraOpen, 120000);
 }
 
 /** Delayed clear so blur/visibilitychange that arrive right after focus-return are ignored */
@@ -384,6 +384,29 @@ function safeConfirm(msg) {
   const result = confirm(msg);
   setTimeout(() => { _confirmOpen = false; }, 1000);
   return result;
+}
+
+/*
+ * Debounced violation scheduler.
+ * A real cheat (app switch) keeps the page hidden/unfocused.
+ * Notifications, soft keyboard, OS banners, and the camera/gallery
+ * launch return focus almost immediately. Requiring the bad state to
+ * PERSIST for HIDDEN_GRACE_MS kills those false positives.
+ */
+let _hiddenTimer = null;
+const HIDDEN_GRACE_MS = 2000;
+
+function _scheduleViolation(reason, stillBad) {
+  if (_cameraOpen || _confirmOpen) return;
+  clearTimeout(_hiddenTimer);
+  _hiddenTimer = setTimeout(() => {
+    if (_cameraOpen || _confirmOpen) return;
+    if (stillBad()) _onCheatDetected(reason);
+  }, HIDDEN_GRACE_MS);
+}
+
+function _cancelViolation() {
+  if (_hiddenTimer) { clearTimeout(_hiddenTimer); _hiddenTimer = null; }
 }
 
 /* ════════════════════════════════════════════════════════
@@ -1542,36 +1565,34 @@ function resumeFromCheat() {
 }
 
 /*
- * FIX: visibilitychange — guard with _cameraOpen
- * _cameraOpen is set on touchstart/mousedown, so it's true when the OS
- * camera/gallery steals visibility before this handler fires.
+ * visibilitychange — only a violation if the page STAYS hidden.
+ * Guarded by _cameraOpen/_confirmOpen and debounced via _scheduleViolation.
  */
 document.addEventListener('visibilitychange', () => {
   if (document.hidden) {
-    if (_cameraOpen || _confirmOpen) return;
-    _onCheatDetected('meninggalkan halaman ujian');
+    _scheduleViolation('meninggalkan halaman ujian', () => document.hidden);
   } else {
-    // Page became visible again — clear camera flag after short delay
+    _cancelViolation();
     _clearCameraOpen();
   }
 });
 
 /*
- * FIX: blur — guard with _cameraOpen.
- * Also skip if the active element is a file input (redundant safety net).
+ * blur — debounced too. A notification, soft keyboard, or OS banner
+ * causes a brief blur followed immediately by focus; the debounce
+ * cancels it. Only a sustained loss of focus counts.
  */
 window.addEventListener('blur', () => {
-  if (_cameraOpen || _confirmOpen) return;
   if (document.activeElement?.tagName === 'INPUT' &&
       document.activeElement.type === 'file') return;
-  _onCheatDetected('berpindah aplikasi / jendela');
+  _scheduleViolation('berpindah aplikasi / jendela', () => !document.hasFocus());
 });
 
 /*
- * FIX: focus — use _clearCameraOpen() (delayed) instead of immediate reset.
- * This prevents the flag from clearing before blur/visibilitychange fire.
+ * focus — cancel any pending violation and clear the camera flag.
  */
 window.addEventListener('focus', () => {
+  _cancelViolation();
   _clearCameraOpen();
 });
 
@@ -1664,8 +1685,12 @@ function isFullscreen() {
 
 document.addEventListener('fullscreenchange', () => {
   if (!isFullscreen() && _watchingQuiz) {
+    // Camera/gallery launch and notifications drop fullscreen on mobile.
+    // Guard with the camera flag, re-enter fullscreen, and only count a
+    // violation if we are STILL out of fullscreen after the grace period.
+    if (_cameraOpen || _confirmOpen) return;
     requestFullscreen();
-    _onCheatDetected('keluar dari mode layar penuh');
+    _scheduleViolation('keluar dari mode layar penuh', () => !isFullscreen());
   }
 });
 
