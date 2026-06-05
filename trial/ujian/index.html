@@ -181,7 +181,7 @@
 <header>
   <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
   <h1>Ujian Mata Kuliah</h1>
-  <p id="header-sub">Memuat daftar kuis…</p>
+  <p id="header-sub">Memuat daftar ujian…</p>
 </header>
 
 <main>
@@ -194,9 +194,9 @@
     </div>
 
     <!-- Pilih kuis -->
-    <label class="field-label">Pilih Kuis</label>
+    <label class="field-label">Pilih Ujian</label>
     <div id="kuis-grid" class="kuis-grid">
-      <div style="color:var(--text2);font-size:.88rem;">Memuat daftar kuis…</div>
+      <div style="color:var(--text2);font-size:.88rem;">Memuat daftar ujian…</div>
     </div>
 
     <!-- MHS -->
@@ -215,7 +215,7 @@
         </div>
         <div>
           <label class="field-label">&nbsp;</label>
-          <button class="btn-primary" id="btn-start" onclick="startQuiz()">Mulai Kuis</button>
+          <button class="btn-primary" id="btn-start" onclick="startQuiz()">Mulai Ujian</button>
         </div>
       </div>
     </div>
@@ -255,7 +255,7 @@
     </div>
     <div class="card fade-in">
       <div class="card-title">
-        <span id="quiz-title">Soal Kuis</span>
+        <span id="quiz-title">Soal Ujian</span>
         <span id="nim-display" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
       </div>
       <div class="warn-box" id="quiz-warn">Jawab semua soal. Ujian otomatis tersubmit saat waktu habis.</div>
@@ -359,7 +359,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    showLoading("Memuat daftar kuis…");
+    showLoading("Memuat daftar ujian…");
     const res = await apiFetch(`${API_URL}?action=config`);
     hideLoading();
     if (res.quizzes && res.quizzes.length > 0) {
@@ -372,7 +372,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
   } catch(e) {
     hideLoading();
-    document.getElementById('kuis-grid').innerHTML = `<div class="error-msg">⚠ Gagal memuat daftar kuis: ${e.message}</div>`;
+    document.getElementById('kuis-grid').innerHTML = `<div class="error-msg">⚠ Gagal memuat daftar ujian: ${e.message}</div>`;
   }
 });
 
@@ -801,7 +801,7 @@ async function mergeImages(blobs, quality) {
   })));
 
   const GAP    = 8;
-  const WIDTH  = Math.max(...imgs.map(i => i.naturalWidth), 800);
+  const WIDTH  = Math.max(...imgs.map(i => i.naturalWidth), 800); 
   const HEIGHT = imgs.reduce((h, i) => h + Math.round(i.naturalHeight * WIDTH / i.naturalWidth) + GAP, 0) - GAP;
 
   const canvas = document.createElement('canvas');
@@ -1147,7 +1147,7 @@ async function dosenCheck() {
             </div>`;
             if (ans.link) {
               const fidMatch = String(ans.link).match(/\/d\/(.+?)\//);
-              const thumb = fidMatch ? `https://drive.google.com/thumbnail?id=${fidMatch[1]}&sz=w400` : '';
+              const thumb = fidMatch ? `https://drive.google.com/thumbnail?id=${fidMatch[1]}&sz=w1200` : ''; //disini saya ganti
               const imgId = `img-ans-${i}-${ans.nomor}`;
               html += `<div style="margin-top:.5rem">
                 <a href="${ans.link}" target="_blank" style="color:var(--accent);font-size:.85rem">📎 Buka gambar jawaban</a>
