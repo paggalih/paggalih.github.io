@@ -1213,7 +1213,7 @@ async function dosenCheck() {
             </div>`;
             if (ans.link) {
               const fidMatch = String(ans.link).match(/\/d\/(.+?)\//);
-              const thumb = fidMatch ? `https://drive.google.com/thumbnail?id=${fidMatch[1]}&sz=w400` : '';
+              const thumb = fidMatch ? `https://drive.google.com/thumbnail?id=${fidMatch[1]}&sz=w1200` : '';
               const imgId = `img-ans-${i}-${ans.nomor}`;
               html += `<div style="margin-top:.5rem">
                 <a href="${ans.link}" target="_blank" style="color:var(--accent);font-size:.85rem">📎 Buka gambar jawaban</a>
