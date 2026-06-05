@@ -181,7 +181,7 @@
 <header>
   <a class="back" href="https://paggalih.github.io">← paggalih.github.io</a>
   <h1>Ujian Mata Kuliah</h1>
-  <p id="header-sub">Memuat daftar kuis…</p>
+  <p id="header-sub">Memuat daftar ujian…</p>
 </header>
 
 <main>
@@ -194,9 +194,9 @@
     </div>
 
     <!-- Pilih kuis -->
-    <label class="field-label">Pilih Kuis</label>
+    <label class="field-label">Pilih Ujian</label>
     <div id="kuis-grid" class="kuis-grid">
-      <div style="color:var(--text2);font-size:.88rem;">Memuat daftar kuis…</div>
+      <div style="color:var(--text2);font-size:.88rem;">Memuat daftar ujian…</div>
     </div>
 
     <!-- MHS -->
@@ -204,7 +204,7 @@
       <div class="info-box">
         <strong>Perhatian:</strong> 
         <ul>
-          <li>Kuis hanya dapat dikerjakan <strong>satu kali</strong>.</li>
+          <li>Ujian hanya dapat dikerjakan <strong>satu kali</strong>.</li>
           <li>Setiap mahasiswa mendapat <strong>soal varian acak</strong>.</li>
           <li>Tidak diperkenankan <strong>pindah</strong> dari halaman ujian.</li>
           <li>Jika terkena <strong>pelanggaran yang aneh</strong> segera lapor.</li>
@@ -218,7 +218,7 @@
         </div>
         <div>
           <label class="field-label">&nbsp;</label>
-          <button class="btn-primary" id="btn-start" onclick="startQuiz()">Mulai Kuis</button>
+          <button class="btn-primary" id="btn-start" onclick="startQuiz()">Mulai Ujian</button>
         </div>
       </div>
     </div>
@@ -258,7 +258,7 @@
     </div>
     <div class="card fade-in">
       <div class="card-title">
-        <span id="quiz-title">Soal Kuis</span>
+        <span id="quiz-title">Soal Ujian</span>
         <span id="nim-display" style="font-size:.82rem;color:var(--text2);font-family:var(--mono);font-weight:400;margin-left:.5rem"></span>
       </div>
       <div class="warn-box" id="quiz-warn">Jawab semua soal. Ujian otomatis tersubmit saat waktu habis.</div>
@@ -425,7 +425,7 @@ document.addEventListener('DOMContentLoaded', async () => {
   }
 
   try {
-    showLoading("Memuat daftar kuis…");
+    showLoading("Memuat daftar ujian…");
     const res = await apiFetch(`${API_URL}?action=config`);
     hideLoading();
     if (res.quizzes && res.quizzes.length > 0) {
