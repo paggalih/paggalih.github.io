@@ -1221,15 +1221,9 @@ async function dosenCheck() {
                 <div style="margin-top:.6rem">
                   <img id="${imgId}" src="${thumb}"
                     class="zoomable"
-                    style="max-width:300px;border-radius:4px;border:1px solid var(--border);display:block;transition:transform .3s;transform-origin:center center"
+                    style="max-width:700px;border-radius:4px;border:1px solid var(--border);display:block;transition:transform .3s;transform-origin:center center"
                     onclick="openLightbox('${thumb}','${ans.link}')"
                     onerror="this.parentElement.style.display='none'">
-                  <div style="margin-top:.4rem;display:flex;gap:.4rem;align-items:center">
-                    <button class="btn-secondary" onclick="rotateImg('${imgId}',-90)"
-                      style="padding:.3rem .7rem;font-size:.8rem">↺ Kiri</button>
-                    <button class="btn-secondary" onclick="rotateImg('${imgId}',90)"
-                      style="padding:.3rem .7rem;font-size:.8rem">↻ Kanan</button>
-                  </div>
                 </div>` : ''}
               </div>`;
             }
