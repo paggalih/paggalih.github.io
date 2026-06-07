@@ -1,7 +1,7 @@
 {
   "name": "Ujian Mata Kuliah – paggalih",
   "short_name": "Ujian",
-  "description": "Platform ujian online FEBI UIN SATU Tulungagung",
+  "description": "Platform ujian online Galih Pradananta",
   "start_url": "/ujian/",
   "scope": "/",
   "display": "standalone",
