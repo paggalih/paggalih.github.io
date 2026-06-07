@@ -1,0 +1,16 @@
+{
+  "name": "Ujian Mata Kuliah – paggalih",
+  "short_name": "Ujian",
+  "description": "Platform ujian online FEBI UIN SATU Tulungagung",
+  "start_url": "/ujian/",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1e3a6e",
+  "background_color": "#f5f4f0",
+  "lang": "id",
+  "icons": [
+    { "src": "/assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "/assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+  ]
+}
