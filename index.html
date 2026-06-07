@@ -36,7 +36,8 @@
   * Author: BootstrapMade.com
   * License: https://bootstrapmade.com/license/
   ======================================================== -->
-
+<link rel="manifest" href="/manifest.json">
+<meta name="theme-color" content="#1e3a6e">
 </head>
 
 <body>
@@ -620,7 +621,10 @@ cryptography.
     	main.scrollIntoView({ behavior: 'auto' });
     }, 5*1000);
   </script>
-
+<script>
+  if ('serviceWorker' in navigator)
+    navigator.serviceWorker.register('/sw.js');
+</script>
 </body>
 
 </html>
