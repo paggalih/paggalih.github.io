@@ -1,5 +1,5 @@
 /* sw.js — Ujian PWA Service Worker */
-const CACHE = 'ujian-v1';
+const CACHE = 'ujian-v2';
 
 const SHELL = [
   '/',
