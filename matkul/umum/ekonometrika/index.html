@@ -3549,169 +3549,377 @@ Kasus 5: Pilihan Instrumen Investasi Utama ($Y$)
         <div class="section-title">
           <h2>Pertemuan 11</h2>
         </div>
-
+        <div class="trigger">
+<strong>Analogi Kelas Kursi Pesawat:</strong>
+Bayangkan Anda sedang melihat pilihan tiket pesawat: "Ekonomi" (1), "Bisnis" (2), dan "Kelas Satu" (3). Tingkatan ini memiliki urutan (1 < 2 < 3), tetapi jarak antara Ekonomi ke Bisnis tidak pasti sama dengan jarak Bisnis ke Kelas Satu.
+<br>
+Jika kita ingin memprediksi probabilitas seseorang memilih kelas tiket tersebut berdasarkan pendapatan (X1) dan frekuensi terbang (X2), kita tidak bisa menggunakan regresi linear biasa (OLS) karena jarak antar kelas tidak setara. Di sinilah Ordered Logit (berasumsi distribusi logistik) dan Ordered Probit (berasumsi distribusi normal) digunakan.
+        </div>
         <div class="mermaid text-center">
-          flowchart TD
-          A[Mulai: Identifikasi Masalah & Variabel Y] --> B{Apa Sifat Variabel Y?};
-          B -- "Y = Hitungan (0, 1, 2, 3...)" --> D[Model Count Data];
-          B -- "Y = Kontinu, tapi Terbatas" --> E[Model LDV];
-
-          E -- "Y tersensor di 0 (banyak data 0)" --> F[Model Tobit];
-          E -- "Y terpotong (data 0 hilang)" --> G[Model Truncated];
-
-          D --> H{Apakah Mean ≈ Varians?};
-          H -- Ya --> I[Regresi Poisson];
-          H -- "Tidak (Overdispersion)" --> J["Negative Binomial (NB) / ZIP"];
-
-          K["Proses Estimasi (MLE)"];
-          I --> K;
-          F --> K;
-          J --> K;
-          G --> K;
-
-          K --> O["Selesai: Kesimpulan & Rekomendasi"];
+graph TD
+    A["Mulai"] --> B["Pilih Variabel Dependen Ordinal (Y)"]
+    B --> C["Pilih Variabel Independen (X)"]
+    C --> D["Estimasi Model Ordered Logit/Probit di EViews"]
+    D --> E["Uji Proportional Odds / Parallel Lines"]
+    E --> F{"Apakah Asumsi Terpenuhi?"}
+    F -- "Ya" --> G["Interpretasi Cumulative Odds Ratio dan Koefisien"]
+    F -- "Tidak" --> H["Ganti ke Model Generalized Ordered Logit"]
+    G --> I["Selesai"]
+    H --> I
         </div>
-        <h2>1. Model Tobit (Censored Regression)</h2>
+<h1>Panduan Ekonometrika: Membangun Model Ordered Logit dan Probit dengan EViews</h1>
 
-        <h3>Analogi: Sumbangan Amal</h3>
-        <p>Bayangkan Anda meneliti faktor apa yang memengaruhi <strong>jumlah sumbangan amal</strong> seseorang (Y). Anda mengumpulkan data pendapatan (X1), usia (X2), dan tingkat religiusitas (X3).</p>
-        <p>Masalahnya: Banyak orang memilih untuk <strong>tidak menyumbang sama sekali</strong> (Y=0). Data Anda akan "menggumpal" di angka nol. Jika Anda pakai OLS biasa, OLS akan kesulitan memahami data ini karena OLS mengasumsikan Y bisa bernilai negatif (padahal sumbangan tidak mungkin negatif).</p>
-        <p>Model Tobit adalah solusinya. Model ini memahami bahwa ada dua proses yang terjadi:</p>
-        <ol>
-          <li>Keputusan untuk menyumbang (atau tidak).</li>
-          <li>Keputusan berapa banyak harus menyumbang (jika memutuskan untuk menyumbang).</li>
-        </ol>
-        <p>Model Tobit menangani data yang "tersensor" (censored) atau terpotong pada nilai tertentu (dalam kasus ini, 0).</p>
+    <h2>1. Persamaan Matematis</h2>
+    <p>Model ini mengestimasi variabel laten tak terobservasi \( Y^* \):</p>
+    <p>$$ Y^* = \beta_1 X_1 + \beta_2 X_2 + \varepsilon $$</p>
+    <p>Di mana observasi kita \( Y \) ditentukan oleh ambang batas (threshold/cutpoints) \( \mu \):</p>
+    <ul>
+        <li>\( Y = 1 \) jika \( Y^* \le \mu_1 \)</li>
+        <li>\( Y = 2 \) jika \( \mu_1 < Y^* \le \mu_2 \)</li>
+        <li>\( Y = 3 \) jika \( Y^* > \mu_2 \)</li>
+    </ul>
 
-        <h3>Kapan Digunakan?</h3>
-        <p>Gunakan Model Tobit ketika variabel dependen (Y) Anda memiliki nilai batas (lantai atau langit-langit) di mana data terkonsentrasi. Contoh: Pengeluaran R&D (banyak perusahaan 0), jam kerja (banyak orang 0), atau skor tes (ada nilai maksimal 100).</p>
+    <h2>2. Langkah Analisis di EViews</h2>
+    <ol>
+        <li><strong>Import Data:</strong> Buka EViews, pilih <em>File > Import > Import from file</em>, dan masukkan data CSV Anda.</li>
+        <li><strong>Membangun Model:</strong>
+            <ul>
+                <li>Pilih menu <em>Quick > Estimate Equation</em>.</li>
+                <li>Pada kotak <em>Equation specification</em>, ketik variabel dependen diikuti independen (tanpa konstanta 'c' karena EViews akan menghitung threshold otomatis). Contoh: <code>Y X1 X2</code>.</li>
+                <li>Pada <em>Method</em>, pilih <strong>Ordered - Ordered Choice</strong>.</li>
+                <li>Pada opsi <em>Distribution</em>, pilih <strong>Logistic</strong> (untuk Ordered Logit) atau <strong>Normal</strong> (untuk Ordered Probit). Klik <strong>OK</strong>.</li>
+            </ul>
+        </li>
+        <li><strong>Uji Proportional Odds Assumption:</strong>
+            <ul>
+                <li>Di jendela hasil estimasi (Equation), klik <em>View > Coefficient Diagnostics > Parallel Lines Assumption Test</em>.</li>
+                <li>Jika nilai probabilitas (p-value) dari Chi-Square <strong>&gt; 0.05</strong>, maka asumsi terpenuhi (efek variabel independen sama di setiap kategori).</li>
+            </ul>
+        </li>
+        <li><strong>Mencari Cumulative Odds Ratio (Khusus Logit):</strong>
+            <ul>
+                <li>Odds ratio adalah nilai eksponensial dari koefisien: \( OR = e^{\beta} \).</li>
+                <li>Di EViews, Anda dapat menghitungnya secara manual dengan perintah <code>=exp(c(1))</code> pada command window, di mana <code>c(1)</code> adalah letak koefisien variabel X pertama.</li>
+            </ul>
+        </li>
+    </ol>
+        <p class="soal-latihan">
+<strong>Kasus 1: Kepuasan Pelanggan E-Commerce</strong><br>
+Y: Kepuasan Pelanggan (1=Kecewa, 2=Biasa, 3=Puas)<br>
 
-        <h3>Formula</h3>
-        <p>Model Tobit mengasumsikan ada variabel laten (tidak teramati) $Y^*$:
-          $$ Y_i^* = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} + \epsilon_i $$
-          Namun, yang kita amati adalah $Y_i$:
-          $$ Y_i = \begin{cases} Y_i^* & \text{jika } Y_i^* > L \\ L & \text{jika } Y_i^* \le L \end{cases} $$
-          Di mana $L$ adalah batas sensor (misalnya $L=0$).</p>
-        <h3>Langkah-langkah Analisis di EViews</h3>
-        <ol>
-          <li><strong>Import Data:</strong> Masukkan data Anda (Y, X1, X2, X3) ke EViews.</li>
-          <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
-          <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> (Least Squares) menjadi <code>TOBIT</code> (Censored/Truncated).</li>
-          <li><strong>Tentukan Batas Sensor:</strong> Akan muncul opsi 'Censoring'. Jika data Anda tersensor di nol (paling umum), biarkan 'Left' = 0 dan 'Right' = NA (Not Available/Tidak Ada).</li>
-          <li><strong>Tulis Persamaan:</strong> Di kotak 'Equation Specification', ketik variabel Anda. Contoh: <code>Y C X1 X2 X3</code> (C adalah konstanta/intersep).</li>
-          <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
-          <li><strong>Interpretasi:</strong> Lihat output. Koefisien yang ditampilkan adalah untuk variabel laten $Y^*$. Untuk interpretasi yang lebih mudah (marginal effects), Anda mungkin perlu ke menu <code>View</code> > <code>Marginal Effects</code> setelah estimasi.</li>
-        </ol>
-        <h2>2. Regresi Poisson (Poisson Regression)</h2>
+X1: Kecepatan Pengiriman (Hari)<br>
 
-        <h3>Analogi: Antrian Teller Bank</h3>
-        <p>Bayangkan Anda seorang manajer bank yang ingin memprediksi <strong>jumlah pelanggan</strong> (Y) yang datang ke teller setiap jam. Anda tahu Y adalah "data hitungan" (count data): bisa 0, 1, 2, 10, tapi tidak mungkin 2.5 atau negatif.</p>
-        <p>Anda ingin tahu apakah jumlah kedatangan dipengaruhi oleh jam sibuk (X1), hari (X2=1 jika weekend, 0 jika weekday), dan jumlah promo (X3).</p>
-        <p>OLS tidak cocok karena OLS bisa memprediksi Y = -1 pelanggan, yang tidak masuk akal. Regresi Poisson dirancang khusus untuk memodelkan data hitungan (non-negatif, integer).</p>
-
-        <h3>Kapan Digunakan?</h3>
-        <p>Gunakan Regresi Poisson ketika variabel dependen (Y) Anda adalah <strong>data hitungan</strong> (count) dari suatu kejadian dalam interval waktu atau ruang tertentu. Contoh: Jumlah klaim asuransi per tahun, jumlah gol dalam pertandingan, jumlah cacat produksi per batch.</p>
-
-        <h3>Formula </h3>
-        <p>Regresi Poisson mengasumsikan Y mengikuti distribusi Poisson. Probabilitas Y mengambil nilai $y_i$ adalah:
-          $$ P(Y_i = y_i | X_i) = \frac{e^{-\lambda_i} \lambda_i^{y_i}}{y_i!} $$
-          Di mana $\lambda_i$ (lambda) adalah rata-rata (mean) dan varians dari kejadian, yang dipengaruhi oleh variabel X:
-          $$ \ln(\lambda_i) = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + \beta_3 X_{3i} $$
-          Kita menggunakan $\ln(\lambda_i)$ (log-link) untuk memastikan $\lambda_i$ selalu positif.</p>
-        <h3>Langkah-langkah Analisis di EViews</h3>
-        <ol>
-          <li><strong>Import Data:</strong> Masukkan data hitungan Anda (Y) dan variabel independen (X1, X2, X3).</li>
-          <li><strong>Buka Persamaan:</strong> Klik <code>Quick</code> > <code>Estimate Equation...</code></li>
-          <li><strong>Pilih Metode:</strong> Di dialog 'Equation Estimation', ganti <code>Method</code> dari <code>LS</code> menjadi <code>COUNT</code> (Integer Count Data).</li>
-          <li><strong>Tentukan Distribusi:</strong> Di bawah opsi 'Count Data', pastikan <code>Distribution</code> diatur ke <code>Poisson</code>. (Jika Anda mencurigai <em>overdispersion</em>—varians jauh lebih besar dari mean—Anda bisa memilih <code>Negative Binomial</code>).</li>
-          <li><strong>Tulis Persamaan:</strong> Di kotak 'Specification', ketik: <code>Y C X1 X2 X3</code>.</li>
-          <li><strong>Estimasi:</strong> Klik <code>OK</code>.</li>
-          <li><strong>Interpretasi:</strong> Koefisien $\beta$ menunjukkan perubahan dalam $\ln(\lambda_i)$. Untuk interpretasi yang lebih mudah, lihat nilai $e^\beta$ (exponentiated coefficient). Jika $\beta_1 = 0.1$, maka $e^{0.1} \approx 1.105$. Artinya, kenaikan 1 unit X1 akan meningkatkan jumlah Y (hitungan) sekitar 10.5%, dengan asumsi variabel lain konstan.</li>
-        </ol>
-        <h3>Contoh Kasus dan Data Simulasi (Regresi Terpotong)</h3>
-
-        <div class="data-section">
-          <h4>Kasus 1: Pengeluaran R&D Perusahaan</h4>
-          <ul>
-            <li><strong>Y (Dependen):</strong> RND (Pengeluaran R&D, jutaan USD; tersensor di 0)</li>
-            <li><strong>X1 (Independen):</strong> PROFIT (Keuntungan perusahaan, jutaan USD)</li>
-            <li><strong>X2 (Independen):</strong> ASET (Total aset, miliaran USD)</li>
-            <li><strong>X3 (Independen):</strong> PATEN (Jumlah paten tahun lalu)</li>
-          </ul>
-          <a href="tobit_data_1_rnd.csv" class="csv-link" download>Download Data R&D (N=50)</a>
+X2: Harga Produk (Ratus Ribu Rupiah)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","2","3","5"
+"2","3","1","4"
+"3","1","5","8"
+"4","2","4","6"
+"5","3","2","3"
+"6","1","6","7"
+"7","3","1","2"
+"8","2","3","5"
+"9","1","7","9"
+"10","2","4","4"
+"11","3","2","3"
+"12","2","3","5"
+"13","1","5","7"
+"14","3","1","2"
+"15","2","4","6"
+"16","1","6","8"
+"17","3","2","3"
+"18","2","3","5"
+"19","1","7","9"
+"20","3","1","4"
+"21","2","4","5"
+"22","3","2","2"
+"23","1","5","7"
+"24","2","3","6"
+"25","1","6","8"
+"26","3","1","3"
+"27","2","4","5"
+"28","3","2","4"
+"29","1","5","8"
+"30","2","3","5"
+"31","3","1","2"
+"32","1","6","9"
+"33","2","4","4"
+"34","3","2","3"
+"35","1","7","8"
+"36","2","3","6"
+"37","3","1","3"
+"38","1","5","7"
+"39","2","4","5"
+"40","3","2","2"
+"41","1","6","9"
+"42","2","3","4"
+"43","3","1","3"
+"44","1","5","8"
+"45","2","4","6"
+"46","3","2","2"
+"47","1","7","9"
+"48","2","3","5"
+"49","3","1","3"
+"50","2","4","5"</textarea>
         </div>
+        <p class="soal-latihan">
+<strong>Kasus 2: Peringkat Obligasi Perusahaan</strong><br>
+Y: Peringkat Obligasi (1=Junk, 2=BBB, 3=A, 4=AAA)<br>
 
-        <div class="data-section">
-          <h4>Kasus 2: Jam Kerja Karyawan</h4>
-          <ul>
-            <li><strong>Y (Dependen):</strong> JAM_KERJA (Jam kerja per minggu; tersensor di 0 bagi yang tidak bekerja)</li>
-            <li><strong>X1 (Independen):</strong> PENDIDIKAN (Tahun pendidikan)</li>
-            <li><strong>X2 (Independen):</strong> ANAK_BALITA (Jumlah anak di bawah 5 tahun)</li>
-            <li><strong>X3 (Independen):</strong> INCOME_SUAMI (Pendapatan pasangan, jutaan IDR/bulan)</li>
-          </ul>
-          <a href="tobit_data_2_jamkerja.csv" class="csv-link" download>Download Data Jam Kerja (N=50)</a>
-        </div>
+X1: Rasio Profitabilitas (%)<br>
 
-        <div class="data-section">
-          <h4>Kasus 3: Pembelian Polis Asuransi</h4>
-          <ul>
-            <li><strong>Y (Dependen):</strong> PREMI (Jumlah premi asuransi jiwa yang dibeli per tahun, jutaan IDR; tersensor di 0)</li>
-            <li><strong>X1 (Independen):</strong> PENDAPATAN (Pendapatan tahunan, jutaan IDR)</li>
-            <li><strong>X2 (Independen):</strong> USIA (Usia nasabah)</li>
-            <li><strong>X3 (Independen):</strong> LITERASI_KEU (Skor literasi keuangan, 0-100)</li>
-          </ul>
-          <a href="tobit_data_3_asuransi.csv" class="csv-link" download>Download Data Asuransi (N=50)</a>
+X2: Rasio Utang / Leverage (%)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","3","15","40"
+"2","4","25","20"
+"3","1","5","80"
+"4","2","10","60"
+"5","3","18","35"
+"6","1","4","85"
+"7","4","22","25"
+"8","2","12","55"
+"9","1","3","90"
+"10","3","16","45"
+"11","4","28","15"
+"12","2","11","65"
+"13","1","6","75"
+"14","3","19","30"
+"15","4","26","22"
+"16","2","9","70"
+"17","1","2","95"
+"18","3","17","38"
+"19","4","24","18"
+"20","2","13","50"
+"21","3","20","35"
+"22","1","5","82"
+"23","4","27","12"
+"24","2","10","68"
+"25","3","14","42"
+"26","1","7","78"
+"27","4","30","10"
+"28","2","8","72"
+"29","3","15","40"
+"30","1","4","88"
+"31","4","23","26"
+"32","2","11","58"
+"33","3","18","32"
+"34","1","6","80"
+"35","4","25","20"
+"36","2","12","62"
+"37","3","16","46"
+"38","1","3","92"
+"39","4","29","14"
+"40","2","9","66"
+"41","3","19","36"
+"42","1","5","85"
+"43","4","22","28"
+"44","2","14","52"
+"45","3","17","44"
+"46","1","8","76"
+"47","4","26","16"
+"48","2","10","64"
+"49","3","21","33"
+"50","1","4","89"</textarea>
         </div>
-        <h3>Contoh Kasus dan Data Simulasi (Regresi Poisson)</h3>
+        <p class="soal-latihan">
+<strong>Kasus 3: Tingkat Stres Kerja Karyawan</strong><br>
+Y: Stres (1=Rendah, 2=Sedang, 3=Tinggi)<br>
 
-        <div class="data-section">
-          <h4>Kasus 1: Jumlah Klaim Asuransi Mobil</h4>
-          <ul>
-            <li><strong>Y (Dependen):</strong> JML_KLAIM (Jumlah klaim dalam 1 tahun; 0, 1, 2, ...)</li>
-            <li><strong>X1 (Independen):</strong> USIA (Usia pengemudi)</li>
-            <li><strong>X2 (Independen):</strong> PENGALAMAN (Pengalaman mengemudi, tahun)</li>
-            <li><strong>X3 (Independen):</strong> TIPE_MOBIL (1=Sport, 0=Keluarga)</li>
-          </ul>
-          <a href="poisson_data_1_klaim.csv" class="csv-link" download>Download Data Klaim (N=50)</a>
-        </div>
+X1: Jam Kerja per Minggu<br>
 
-        <div class="data-section">
-          <h4>Kasus 2: Jumlah Pelanggan Restoran</h4>
-          <ul>
-            <li><strong>Y (Dependen):</strong> PELANGGAN (Jumlah pelanggan per jam)</li>
-            <li><strong>X1 (Independen):</strong> JAM_SIBUK (1=Makan Siang/Malam, 0=Lainnya)</li>
-            <li><strong>X2 (Independen):</strong> WEEKEND (1=Ya, 0=Tidak)</li>
-            <li><strong>X3 (Independen):</strong> JML_PROMO (Jumlah promosi aktif)</li>
-          </ul>
-          <a href="poisson_data_2_restoran.csv" class="csv-link" download>Download Data Restoran (N=50)</a>
+X2: Dukungan Atasan (Skala 1-10)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","1","40","8"
+"2","3","60","2"
+"3","2","45","5"
+"4","1","38","9"
+"5","3","55","3"
+"6","2","50","6"
+"7","1","42","7"
+"8","3","65","1"
+"9","2","48","4"
+"10","1","35","9"
+"11","3","58","2"
+"12","2","44","6"
+"13","1","40","8"
+"14","3","62","3"
+"15","2","46","5"
+"16","1","39","7"
+"17","3","70","1"
+"18","2","47","5"
+"19","1","41","8"
+"20","3","55","4"
+"21","2","49","6"
+"22","1","36","9"
+"23","3","60","2"
+"24","2","45","4"
+"25","1","42","7"
+"26","3","63","3"
+"27","2","50","5"
+"28","1","38","8"
+"29","3","59","2"
+"30","2","46","6"
+"31","1","40","9"
+"32","3","64","1"
+"33","2","48","5"
+"34","1","37","8"
+"35","3","61","3"
+"36","2","43","6"
+"37","1","41","7"
+"38","3","66","2"
+"39","2","45","5"
+"40","1","39","9"
+"41","3","57","3"
+"42","2","49","4"
+"43","1","42","8"
+"44","3","68","1"
+"45","2","44","6"
+"46","1","35","9"
+"47","3","55","2"
+"48","2","51","5"
+"49","1","38","8"
+"50","3","62","3"</textarea>
         </div>
+        <p class="soal-latihan">
+<strong>Kasus 4: Intensitas Keputusan Beli Kendaraan</strong><br>
+Y: Minat Beli (1=Ragu, 2=Mungkin, 3=Pasti Beli)<br>
 
-        <div class="data-section">
-          <h4>Kasus 3: Jumlah Cacat Produksi</h4>
-          <ul>
-            <li><strong>Y (Dependen):</strong> CACAT (Jumlah cacat produksi per batch)</li>
-            <li><strong>X1 (Independen):</strong> KEC_MESIN (Kecepatan mesin, RPM)</li>
-            <li><strong>X2 (Independen):</strong> USIA_MESIN (Usia mesin, bulan)</li>
-            <li><strong>X3 (Independen):</strong> SUHU (Suhu ruangan, Celcius)</li>
-          </ul>
-          <a href="poisson_data_3_cacat.csv" class="csv-link" download>Download Data Cacat Produksi (N=50)</a>
-        </div>
+X1: Besaran Diskon (%)<br>
 
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp11">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp11">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep11" aria-expanded="true" aria-controls="collapsep11">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep11" class="accordion-collapse collapse" aria-labelledby="headingp11" data-bs-parent="#accordionp11">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
+X2: Persepsi Kualitas (Skala 1-10)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","3","25","9"
+"2","1","5","4"
+"3","2","15","6"
+"4","3","30","8"
+"5","1","0","3"
+"6","2","10","7"
+"7","3","20","9"
+"8","1","5","5"
+"9","2","12","6"
+"10","3","35","9"
+"11","1","2","2"
+"12","2","18","7"
+"13","3","28","8"
+"14","1","4","4"
+"15","2","15","5"
+"16","3","22","9"
+"17","1","1","3"
+"18","2","14","6"
+"19","3","32","8"
+"20","1","6","5"
+"21","2","11","7"
+"22","3","24","9"
+"23","1","3","4"
+"24","2","16","6"
+"25","3","27","8"
+"26","1","0","2"
+"27","2","13","7"
+"28","3","25","9"
+"29","1","5","3"
+"30","2","19","6"
+"31","3","30","8"
+"32","1","2","4"
+"33","2","15","5"
+"34","3","21","9"
+"35","1","4","2"
+"36","2","17","7"
+"37","3","29","8"
+"38","1","7","5"
+"39","2","12","6"
+"40","3","26","9"
+"41","1","1","3"
+"42","2","10","7"
+"43","3","23","8"
+"44","1","3","4"
+"45","2","14","5"
+"46","3","35","9"
+"47","1","5","2"
+"48","2","18","6"
+"49","3","20","8"
+"50","1","2","3"</textarea>
         </div>
+        <p class="soal-latihan">
+<strong>Kasus 5: Tingkat Kerusakan Jalan Provinsi</strong><br>
+Y: Kerusakan (1=Sangat Ringan, 2=Ringan, 3=Sedang, 4=Berat)<br>
+
+X1: Umur Jalan (Tahun)<br>
+
+X2: Volume Kendaraan Berat (Ribuan/Bulan)
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","1","2","10"
+"2","4","15","50"
+"3","2","5","20"
+"4","3","10","35"
+"5","1","1","5"
+"6","4","20","60"
+"7","2","4","15"
+"8","3","8","40"
+"9","1","3","12"
+"10","4","18","55"
+"11","2","6","25"
+"12","3","12","38"
+"13","1","2","8"
+"14","4","22","65"
+"15","2","5","18"
+"16","3","11","33"
+"17","1","1","9"
+"18","4","16","52"
+"19","2","4","22"
+"20","3","9","36"
+"21","1","3","11"
+"22","4","19","58"
+"23","2","7","24"
+"24","3","13","42"
+"25","1","2","7"
+"26","4","21","62"
+"27","2","5","26"
+"28","3","10","39"
+"29","1","1","10"
+"30","4","17","54"
+"31","2","6","19"
+"32","3","8","37"
+"33","1","4","13"
+"34","4","23","66"
+"35","2","5","21"
+"36","3","12","34"
+"37","1","2","6"
+"38","4","15","53"
+"39","2","7","23"
+"40","3","11","41"
+"41","1","3","9"
+"42","4","20","59"
+"43","2","4","17"
+"44","3","9","35"
+"45","1","1","8"
+"46","4","18","56"
+"47","2","6","20"
+"48","3","13","40"
+"49","1","2","11"
+"50","4","25","70"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
+        
       </div>
     </section>
     <section id="p12">
