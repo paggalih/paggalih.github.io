@@ -1,0 +1,33 @@
+{
+  "name": "Kumpulan Olimpiade – paggalih",
+  "short_name": "Kumolim",
+  "description": "Platform Kumpulan Soal Olimpiade Galih Pradananta",
+  "start_url": "https://paggalih.github.io/ujian/",
+  "scope": "https://paggalih.github.io/ujian/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "theme_color": "#1e3a6e",
+  "background_color": "#f5f4f0",
+  "lang": "id",
+  "icons": [
+    { "src": "https://paggalih.github.io/ujian/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any maskable" },
+    { "src": "https://paggalih.github.io/ujian/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any maskable" }
+
+  ],
+  "screenshots": [
+  {
+    "src": "https://paggalih.github.io/ujian/desktop.png",
+    "sizes": "1280x720",
+    "type": "image/png",
+    "form_factor": "wide",
+    "label": "Halaman Login"
+  },
+      {
+    "src": "https://paggalih.github.io/ujian/mobile.png",
+    "sizes": "390x844",
+    "type": "image/png",
+    "form_factor": "narrow",
+    "label": "Tampilan Mobile"
+  }
+]
+}
