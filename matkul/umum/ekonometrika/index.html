@@ -3590,16 +3590,10 @@ graph TD
                 <li>Pada opsi <em>Distribution</em>, pilih <strong>Logistic</strong> (untuk Ordered Logit) atau <strong>Normal</strong> (untuk Ordered Probit). Klik <strong>OK</strong>.</li>
             </ul>
         </li>
-        <li><strong>Uji Proportional Odds Assumption:</strong>
-            <ul>
-                <li>Di jendela hasil estimasi (Equation), klik <em>View > Coefficient Diagnostics > Parallel Lines Assumption Test</em>.</li>
-                <li>Jika nilai probabilitas (p-value) dari Chi-Square <strong>&gt; 0.05</strong>, maka asumsi terpenuhi (efek variabel independen sama di setiap kategori).</li>
-            </ul>
-        </li>
         <li><strong>Mencari Cumulative Odds Ratio (Khusus Logit):</strong>
             <ul>
                 <li>Odds ratio adalah nilai eksponensial dari koefisien: \( OR = e^{\beta} \).</li>
-                <li>Di EViews, Anda dapat menghitungnya secara manual dengan perintah <code>=exp(c(1))</code> pada command window, di mana <code>c(1)</code> adalah letak koefisien variabel X pertama.</li>
+                <li>Di EViews, Anda dapat menghitungnya secara manual dengan perintah <code>scalar or_x1 = @exp(eq_name.@coef(1))</code> pada command window untuk variabel X1 dan <code>scalar or_x2 = @exp(eq_name.@coef(2))</code> untuk X2.</li>
             </ul>
         </li>
     </ol>
