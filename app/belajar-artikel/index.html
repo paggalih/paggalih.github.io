@@ -27,6 +27,7 @@ body {
 
 <label for="pdfInput">Upload PDF article:</label>
 <input type="file" id="pdfInput" accept=".pdf">
+<input type="password" id="passInput" placeholder="Password">
 <button onclick="analyze()">Analyze</button>
 <p id="status"></p>
 
@@ -39,8 +40,11 @@ body {
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyzqdoi5kfTbqFc9gxZUIU947ljnGF6CtAcyYa9PgfEP9eaNdJTq2n7W-KUBleZ6fpCCw/exec';
 
   window.onload = loadHistory;
+const PASS = 'mestudy';
 
   async function analyze() {
+  const pass = document.getElementById('passInput').value;
+  if (pass !== PASS) { setStatus('Wrong password.'); return; }
     const file = document.getElementById('pdfInput').files[0];
     if (!file) return alert('Select a PDF first.');
 
