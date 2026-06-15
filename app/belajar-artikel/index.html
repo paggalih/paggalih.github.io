@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Article Analyzer</title>
+  <style>
+    body { font-family: sans-serif; max-width: 800px; margin: 2rem auto; padding: 1rem; }
+    .card { border: 1px solid #ddd; border-radius: 8px; padding: 1rem; margin-bottom: 1rem; }
+    .card h3 { margin: 0 0 .5rem; }
+    label { display: block; font-weight: bold; margin-bottom: .25rem; }
+    input[type="file"] { margin-bottom: 1rem; }
+    button { padding: .5rem 1.5rem; cursor: pointer; }
+    #status { color: #555; margin: .5rem 0; font-style: italic; }
+    .tag { display: inline-block; background: #eef; border-radius: 4px; padding: 2px 8px; margin: 2px; font-size: .85rem; }
+  </style>
+</head>
+<body>
+
+<h1>📄 Article Analyzer</h1>
+
+<label for="pdfInput">Upload PDF article:</label>
+<input type="file" id="pdfInput" accept=".pdf">
+<button onclick="analyze()">Analyze</button>
+<p id="status"></p>
+
+<div id="result"></div>
+<hr>
+<h2>All Analyzed Articles</h2>
+<div id="history"></div>
+
+<script>
+  const WEB_APP_URL = 'YOUR_APPS_SCRIPT_WEB_APP_URL';
+
+  window.onload = loadHistory;
+
+  async function analyze() {
+    const file = document.getElementById('pdfInput').files[0];
+    if (!file) return alert('Select a PDF first.');
+
+    setStatus('Reading PDF…');
+    const base64 = await toBase64(file);
+
+    setStatus('Sending to Gemini (may take 10–20s)…');
+    try {
+      // No Content-Type header → avoids CORS preflight
+      const res = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ pdf: base64 }) });
+      const json = await res.json();
+      if (!json.success) throw new Error(json.error);
+      renderCard(json.data, 'result', true);
+      setStatus('Done ✓');
+      loadHistory();
+    } catch (err) {
+      setStatus('Error: ' + err.message);
+    }
+  }
+
+  async function loadHistory() {
+    const res = await fetch(WEB_APP_URL);
+    const json = await res.json();
+    if (!json.success || !json.data.length) {
+      document.getElementById('history').innerHTML = '<p>No articles yet.</p>';
+      return;
+    }
+    document.getElementById('history').innerHTML =
+      json.data.reverse().map(d => cardHTML(d)).join('');
+  }
+
+  function renderCard(data, targetId, highlight = false) {
+    document.getElementById(targetId).innerHTML =
+      `<div class="card" style="${highlight ? 'border-color:#4a90e2;background:#f0f6ff' : ''}">
+        ${cardHTML(data)}
+      </div>`;
+  }
+
+  function cardHTML(d) {
+    const prereqs = d.prerequisites.split(',')
+      .map(p => `<span class="tag">${p.trim()}</span>`).join('');
+    return `
+      <div class="card">
+        <small style="color:#999">${d.timestamp || ''}</small>
+        <h3>${d.title}</h3>
+        <p><strong>Authors:</strong> ${d.authors}</p>
+        <p><strong>Main Result:</strong> ${d.main_result}</p>
+        <p><strong>Prerequisites:</strong><br>${prereqs}</p>
+      </div>`;
+  }
+
+  function toBase64(file) {
+    return new Promise((res, rej) => {
+      const r = new FileReader();
+      r.onload = () => res(r.result.split(',')[1]);
+      r.onerror = rej;
+      r.readAsDataURL(file);
+    });
+  }
+
+  function setStatus(msg) { document.getElementById('status').textContent = msg; }
+</script>
+</body>
+</html>
