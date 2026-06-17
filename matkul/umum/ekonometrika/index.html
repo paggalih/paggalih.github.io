@@ -3921,284 +3921,367 @@ X2: Volume Kendaraan Berat (Ribuan/Bulan)
         <div class="section-title">
           <h2>Pertemuan 12</h2>
         </div>
+        <div class="trigger">
+<strong>Bayangkan Anda sedang mengamati "Perilaku Belanja Online":</strong>
+<br>
+<strong>Censored (Tobit):</strong> Anda mengamati semua orang. Namun, bagi mereka yang tidak belanja sama sekali, nilai belanjanya tercatat sebagai "0". Nilai 0 ini bukan berarti mereka tidak punya keinginan, tapi datanya "tersensor" di batas bawah (Rp0).
+<br>
+<strong>Truncated:</strong> Anda hanya mensurvei orang-orang yang sudah pernah belanja online. Anda membuang semua data orang yang belanjanya 0. Sampel Anda tidak mewakili populasi secara keseluruhan karena "terpotong" di awal.
+        </div>
         <div class="mermaid text-center">
-          flowchart TD
-          A[Mulai: Plot Data Mentah] --> B{Apakah Visual Stabil?}
-          B -- Tidak (Ada Tren) --> C[Uji Akar Unit / Unit Root Test]
-          B -- Ya --> D[Identifikasi Model AR/MA]
-
-          C --> E{Prob < 0.05?} E -- Tidak (Tidak Stasioner) --> F[Lakukan Turunan Pertama / 1st Difference]
-            F --> C
-            E -- Ya (Stasioner) --> D
-
-            D --> G[Estimasi Model ARIMA]
-            G --> H[Uji Diagnostik Residual]
-
-            H --> I{Residual White Noise?}
-            I -- Tidak (Masih ada pola) --> D
-            I -- Ya (Acak sempurna) --> J[Peramalan / Forecasting]
-            J --> K[Selesai]
+graph TD
+    A["Identifikasi Data: Apakah ada batasan (0 atau nilai tertentu)?"] --> B{"Apakah sampel terbatas?"}
+    B -- "Semua populasi, ada nilai 0/batas" --> C["Gunakan Tobit / Censored Regression"]
+    B -- "Hanya sebagian populasi (yang > 0)" --> D["Gunakan Truncated Regression"]
+    C --> E["Estimasi Maximum Likelihood (MLE)"]
+    D --> E
+    E --> F["Interpretasi Marginal Effects"]
         </div>
-        <h1>Pengantar Analisis Deret Waktu (Time Series)</h1>
-        <p>Dalam ekonometrika, data deret waktu adalah sekumpulan observasi pada variabel nilai yang diambil pada waktu yang berbeda. Tantangan utamanya adalah <strong>autokorelasi</strong>, di mana masa lalu mempengaruhi masa kini.</p>
+<h1>Panduan Olah Data Model Terbatas di EViews</h1>
+    
+    <p>Ketika variabel dependen (Y) kita memiliki batasan, regresi OLS biasa akan menghasilkan estimasi yang bias. Model dasarnya sering direpresentasikan dengan variabel laten (tak terobservasi) \( Y^* \):</p>
+    
+    <p>$$ Y_i^* = \beta_0 + \beta_1 X_{1i} + \beta_2 X_{2i} + u_i $$</p>
 
-        <h2>1. Konsep Stasioneritas</h2>
-        <p>Agar model valid, data harus stasioner. Artinya, rata-rata dan variansnya konstan sepanjang waktu. Secara matematis, proses stasioner \( Y_t \) memenuhi:</p>
-        <p>
-          $$ E(Y_t) = \mu $$
-          $$ Var(Y_t) = \sigma^2 $$
-          $$ Cov(Y_t, Y_{t+k}) = \gamma_k $$
+    <p>Pada model <strong>Tobit (Censored di 0)</strong>, apa yang kita amati adalah:</p>
+    <p>$$ Y_i = \begin{cases} Y_i^* & \text{jika } Y_i^* > 0 \\ 0 & \text{jika } Y_i^* \le 0 \end{cases} $$</p>
+
+    <h2>Langkah-Langkah di EViews</h2>
+
+    <div class="step">
+        <h3>Langkah 1: Input Data</h3>
+        <p>Buka EViews, buat workfile baru (<code>File > New > Workfile</code>). Sesuaikan dengan struktur data Anda (misalnya <i>Unstructured / Undated</i> untuk data cross-section sebanyak 50 observasi).</p>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 2: Estimasi Persamaan</h3>
+        <p>Klik menu <strong>Quick</strong> > <strong>Estimate Equation...</strong></p>
+        <p>Di kotak Equation specification, ketikkan persamaan Anda, contoh: <code>Y C X1 X2</code></p>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 3: Memilih Metode Limited Dependent Variable</h3>
+        <p>Pada bagian <em>Method</em> (di bawah kotak spesifikasi), ubah dari <em>LS - Least Squares</em> menjadi <strong>CENSORED - Censored or Truncated Data (Tobit dll)</strong>.</p>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 4: Konfigurasi Batasan (Censoring/Truncation)</h3>
+        <p>Setelah memilih metode tersebut, akan muncul opsi tambahan di sebelah kanan:</p>
+        <ul>
+            <li><strong>Distribution:</strong> Pilih <code>Normal</code>.</li>
+            <li><strong>Model type:</strong> 
+                <ul>
+                    <li>Pilih <code>Tobit (censored)</code> jika data Anda bersifiat tersensor di angka 0.</li>
+                    <li>Pilih <code>Truncated</code> jika sampel yang berada di bawah batas sudah dibuang dari observasi.</li>
+                </ul>
+            </li>
+            <li><strong>Left Limit:</strong> Ketikkan nilai batas bawah (biasanya <code>0</code>).</li>
+            <li><strong>Right Limit:</strong> Kosongkan (Kecuali ada batasan atas).</li>
+        </ul>
+        <p>Klik <strong>OK</strong>.</p>
+    </div>
+
+    <div class="step">
+        <h3>Langkah 5: Interpretasi</h3>
+        <p>Hasil output akan menggunakan metode <em>Maximum Likelihood (ML)</em>. Perhatikan nilai probabilitas (p-value) dari masing-masing koefisien. Catatan penting: Koefisien yang dihasilkan tidak bisa langsung dibaca sebagai probabilitas atau efek marginal murni seperti pada OLS. Anda perlu menghitung <em>Expected Value</em> secara terpisah tergantung apakah Anda memprediksi \( E(Y|X) \) atau \( E(Y|X, Y>0) \).</p>
+    </div>
+        <p class="soal-latihan">
+<strong>Kasus 1: Model Tobit (Pengeluaran Barang Mewah)</strong><br>
+Konteks: Pengeluaran tahunan untuk perhiasan (Y, juta Rupiah) dipengaruhi oleh Pendapatan (X, juta Rupiah). Banyak orang yang pengeluarannya "0". Ini adalah Censored (Tobit).
         </p>
-
-        <h2>2. Model ARIMA (Box-Jenkins)</h2>
-        <p>Model umum yang sering digunakan adalah ARIMA(p,d,q). Jika kita mengambil contoh model AR(1) atau <em>Autoregressive Order 1</em>, persamaannya adalah:</p>
-        <p>
-          $$ Y_t = \beta_0 + \beta_1 Y_{t-1} + \epsilon_t $$
-        </p>
-        <p>Dimana \( \epsilon_t \) adalah <em>white noise</em> (error acak) yang diasumsikan berdistribusi normal \( N(0, \sigma^2) \).</p>
-
-        <h2>3. Langkah Estimasi di EViews</h2>
-        <p>Setelah memastikan data stasioner (misalnya pada tingkat level), kita dapat melakukan estimasi persamaan. Berikut adalah perintah dasar pada <em>command window</em> EViews:</p>
-
-        <code>
-          ls variabel_y c ar(1) ma(1)
-        </code>
-        <h2>Kasus 1: Inflasi (Trend Deterministik)</h2>
-        <p>Kondisi: Data cenderung naik terus menerus seiring waktu (misal: IHK). Analisis: Butuh Detrending atau Differencing.</p>
+        <div class="textarea-container">
         <textarea>
-"obs","inflasi"
-"1","100.5"
-"2","101.2"
-"3","101.8"
-"4","102.5"
-"5","103.1"
-"6","103.9"
-"7","104.5"
-"8","105.2"
-"9","106.0"
-"10","106.8"
-"11","107.5"
-"12","108.1"
-"13","109.0"
-"14","109.8"
-"15","110.5"
-"16","111.2"
-"17","112.0"
-"18","112.7"
-"19","113.5"
-"20","114.2"
-"21","115.0"
-"22","115.9"
-"23","116.5"
-"24","117.2"
-"25","118.0"
-"26","118.8"
-"27","119.5"
-"28","120.2"
-"29","121.0"
-"30","121.8"
-"31","122.5"
-"32","123.3"
-"33","124.0"
-"34","124.8"
-"35","125.5"
-"36","126.2"
-"37","127.0"
-"38","127.9"
-"39","128.5"
-"40","129.2"
-"41","130.0"
-"42","130.8"
-"43","131.5"
-"44","132.3"
-"45","133.0"
-"46","133.9"
-"47","134.5"
-"48","135.2"
-"49","136.0"
-"50","136.8"
-          </textarea>
-        <h2>Kasus 2: Harga Saham (Random Walk)</h2>
-        <p>Kondisi: Pergerakan acak, sulit ditebak, volatilitas tinggi. Analisis: Seringkali tidak stasioner di level, butuh log-return.</p>
-        <textarea>
-"obs","saham"
-"1","5000"
-"2","5050"
-"3","5025"
-"4","5100"
-"5","5080"
-"6","5150"
-"7","5200"
-"8","5180"
-"9","5120"
-"10","5090"
-"11","5110"
-"12","5160"
-"13","5210"
-"14","5250"
-"15","5230"
-"16","5280"
-"17","5300"
-"18","5290"
-"19","5340"
-"20","5380"
-"21","5350"
-"22","5400"
-"23","5420"
-"24","5390"
-"25","5360"
-"26","5380"
-"27","5410"
-"28","5450"
-"29","5480"
-"30","5460"
-"31","5500"
-"32","5520"
-"33","5490"
-"34","5530"
-"35","5580"
-"36","5600"
-"37","5570"
-"38","5620"
-"39","5650"
-"40","5630"
-"41","5680"
-"42","5700"
-"43","5690"
-"44","5720"
-"45","5750"
-"46","5730"
-"47","5780"
-"48","5800"
-"49","5820"
-"50","5790"
-          </textarea>
-        <h2>Kasus 3: Pertumbuhan Ekonomi (Siklus/Cyclical)</h2>
-        <p>Kondisi: Gelombang naik turun tapi periodenya tidak tetap (Boom & Bust). Analisis: Identifikasi titik balik (turning points).</p>
-        <textarea>
-"obs","gdp_growth"
-"1","5.1"
-"2","5.3"
-"3","5.5"
-"4","5.8"
-"5","6.0"
-"6","6.2"
-"7","5.9"
-"8","5.6"
-"9","5.2"
-"10","4.8"
-"11","4.5"
-"12","4.2"
-"13","4.0"
-"14","4.1"
-"15","4.3"
-"16","4.6"
-"17","5.0"
-"18","5.4"
-"19","5.7"
-"20","6.1"
-"21","6.3"
-"22","6.5"
-"23","6.0"
-"24","5.5"
-"25","5.0"
-"26","4.6"
-"27","4.2"
-"28","3.8"
-"29","3.5"
-"30","3.6"
-"31","3.9"
-"32","4.2"
-"33","4.7"
-"34","5.1"
-"35","5.5"
-"36","5.9"
-"37","6.2"
-"38","5.8"
-"39","5.4"
-"40","5.0"
-"41","4.7"
-"42","4.3"
-"43","4.0"
-"44","4.2"
-"45","4.5"
-"46","4.9"
-"47","5.3"
-"48","5.6"
-"49","6.0"
-"50","6.2"
-          </textarea>
-        <h2>Kasus 4: Nilai Tukar (Structural Break)</h2>
-        <p>Kondisi: Stabil, lalu tiba-tiba melonjak karena krisis/kebijakan, lalu stabil di level baru. Analisis: Perlu uji Chow Test atau Dummy Variable.</p>
-        <textarea>
-"obs","kurs"
-"1","14000"
-"2","14010"
-"3","14005"
-"4","14020"
-"5","14015"
-"6","14000"
-"7","14030"
-"8","14025"
-"9","14010"
-"10","14005"
-"11","14020"
-"12","14015"
-"13","14030"
-"14","14025"
-"15","14010"
-"16","14005"
-"17","14020"
-"18","14015"
-"19","14030"
-"20","14025"
-"21","14010"
-"22","14005"
-"23","14020"
-"24","14015"
-"25","15000"
-"26","15050"
-"27","15020"
-"28","15080"
-"29","15100"
-"30","15050"
-"31","15020"
-"32","15090"
-"33","15060"
-"34","15030"
-"35","15080"
-"36","15040"
-"37","15010"
-"38","15070"
-"39","15020"
-"40","15050"
-"41","15030"
-"42","15080"
-"43","15010"
-"44","15040"
-"45","15060"
-"46","15020"
-"47","15090"
-"48","15050"
-"49","15030"
-"50","15080"
-          </textarea>
-
-        <div class="container mt-5">
-          <div class="accordion" id="accordionp12">
-            <div class="accordion-item">
-              <h2 class="accordion-header" id="headingp12">
-                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapsep12" aria-expanded="true" aria-controls="collapsep12">
-                  Soal Latihan
-                </button>
-              </h2>
-              <div id="collapsep12" class="accordion-collapse collapse" aria-labelledby="headingp12" data-bs-parent="#accordionp12">
-                <div class="accordion-body">
-                </div>
-              </div>
-            </div>
-          </div>
+"Y","X"
+"0","40"
+"0","45"
+"2.5","60"
+"0","35"
+"5.0","80"
+"0","50"
+"1.2","55"
+"0","42"
+"8.4","100"
+"0","48"
+"0","38"
+"0","44"
+"3.1","65"
+"0","52"
+"7.5","90"
+"0","46"
+"0","39"
+"4.2","72"
+"0","51"
+"12.0","120"
+"0","43"
+"0","49"
+"2.0","58"
+"0","41"
+"9.1","105"
+"0","47"
+"0","53"
+"6.3","85"
+"0","54"
+"1.5","57"
+"0","36"
+"0","40"
+"10.2","110"
+"0","37"
+"5.5","78"
+"0","45"
+"0","50"
+"3.8","68"
+"0","42"
+"15.0","130"
+"0","34"
+"0","39"
+"2.8","62"
+"0","48"
+"11.5","115"
+"0","46"
+"0","51"
+"4.9","75"
+"0","44"
+"1.8","56"</textarea>
         </div>
+        <p class="soal-latihan">
+<strong>Kasus 2: Model Truncated (Upah Pekerja Wanita)</strong><br>
+Konteks: Upah per jam (Y, ribu Rupiah) berdasarkan Lama Pendidikan (X, tahun). Survei hanya mengambil data wanita yang sedang bekerja (Upah > 0). Wanita yang tidak bekerja (Upah = 0) tidak masuk ke kuesioner. Ini adalah Truncated.
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X"
+"25","12"
+"30","14"
+"45","16"
+"20","9"
+"50","18"
+"28","12"
+"35","15"
+"22","10"
+"60","16"
+"26","12"
+"40","16"
+"32","14"
+"55","18"
+"24","12"
+"38","15"
+"27","12"
+"42","16"
+"31","14"
+"65","20"
+"29","12"
+"48","16"
+"33","14"
+"52","18"
+"23","10"
+"37","15"
+"25","12"
+"44","16"
+"34","14"
+"58","18"
+"21","9"
+"36","15"
+"28","12"
+"46","16"
+"30","14"
+"62","18"
+"26","12"
+"39","15"
+"24","10"
+"41","16"
+"32","14"
+"50","18"
+"27","12"
+"43","16"
+"35","15"
+"56","18"
+"22","10"
+"38","15"
+"25","12"
+"47","16"
+"31","14"</textarea>
+        </div>
+        <p class="soal-latihan">
+<strong>Kasus 3: Model Tobit (Dividen Perusahaan)</strong><br>
+Konteks: Pembagian dividen (Y, miliar Rupiah) berdasarkan Laba Bersih (X, miliar Rupiah). Banyak perusahaan yang memutuskan menahan labanya (Dividen = 0).
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X"
+"0","15"
+"5","40"
+"0","20"
+"12","80"
+"0","10"
+"0","25"
+"8","60"
+"0","18"
+"15","100"
+"0","22"
+"0","30"
+"10","70"
+"0","12"
+"0","28"
+"20","120"
+"0","16"
+"7","50"
+"0","24"
+"18","110"
+"0","14"
+"0","26"
+"9","65"
+"0","19"
+"25","150"
+"0","21"
+"0","32"
+"6","45"
+"0","17"
+"14","90"
+"0","23"
+"0","35"
+"11","75"
+"0","11"
+"0","27"
+"22","130"
+"0","13"
+"4","38"
+"0","29"
+"16","105"
+"0","15"
+"0","33"
+"13","85"
+"0","20"
+"30","180"
+"0","22"
+"0","36"
+"5","42"
+"0","18"
+"17","115"
+"0","25"</textarea>
+        </div>
+        <p class="soal-latihan">
+<strong>Kasus 4: Model Truncated (Harga Lelang Properti)</strong><br>
+Konteks: Harga properti yang laku terjual (Y, ratus juta Rupiah) berdasarkan Luas Tanah (X, meter persegi). Properti yang tidak laku (karena harga penawaran di bawah batas reservasi) tidak dicatat oleh rumah lelang.
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X"
+"15","100"
+"20","120"
+"35","200"
+"12","80"
+"45","250"
+"18","110"
+"25","150"
+"14","90"
+"50","300"
+"16","105"
+"28","160"
+"22","130"
+"60","350"
+"17","115"
+"30","180"
+"19","125"
+"40","220"
+"24","140"
+"70","400"
+"21","135"
+"38","210"
+"26","165"
+"55","320"
+"13","85"
+"32","190"
+"15","100"
+"42","230"
+"23","145"
+"65","380"
+"11","75"
+"29","175"
+"18","110"
+"48","280"
+"20","120"
+"75","450"
+"16","105"
+"34","195"
+"14","90"
+"44","240"
+"25","150"
+"52","310"
+"17","115"
+"36","205"
+"22","130"
+"58","340"
+"12","80"
+"31","185"
+"19","125"
+"46","260"
+"27","170"</textarea>
+        </div>
+        <p class="soal-latihan">
+<strong>Kasus 5: Model Tobit (Ekspor Perusahaan UMKM)</strong><br>
+Konteks: Nilai ekspor (Y, ribu USD) berdasarkan Modal Usaha (X, ribu USD). Banyak UMKM yang hanya menjual di pasar domestik sehingga nilai ekspornya "0".
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"Y","X"
+"0","50"
+"0","55"
+"10","100"
+"0","45"
+"25","150"
+"0","60"
+"5","80"
+"0","48"
+"40","200"
+"0","52"
+"0","58"
+"15","120"
+"0","42"
+"0","65"
+"50","250"
+"0","51"
+"8","90"
+"0","46"
+"35","180"
+"0","49"
+"0","56"
+"12","110"
+"0","53"
+"60","300"
+"0","54"
+"0","62"
+"20","140"
+"0","47"
+"30","170"
+"0","59"
+"0","50"
+"18","130"
+"0","44"
+"0","68"
+"45","220"
+"0","43"
+"6","85"
+"0","57"
+"28","160"
+"0","41"
+"0","61"
+"14","115"
+"0","55"
+"70","350"
+"0","48"
+"0","64"
+"22","145"
+"0","45"
+"38","190"
+"0","63"</textarea>
+        </div>
+        <p class="soal-latihan">
+        </p>
+        <div class="textarea-container">
+        <textarea>
+</textarea>
+        </div>
+        
       </div>
     </section>
     <section id="p13">
