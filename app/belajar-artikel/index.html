@@ -73,7 +73,8 @@ const PASS = 'mestudy';
       return;
     }
     document.getElementById('history').innerHTML =
-      json.data.reverse().map(d => cardHTML(d)).join('');
+      // json.data.reverse().map(d => cardHTML(d)).join('');
+json.data.reverse().map((d, index) => cardHTML(d, total - index)).join('');
   }
 
   function renderCard(data, targetId, highlight = false) {
@@ -83,11 +84,12 @@ const PASS = 'mestudy';
       </div>`;
   }
 
-  function cardHTML(d) {
+  function cardHTML(d, num) {
     const prereqs = d.prerequisites.split(',')
       .map(p => `<span class="tag">${p.trim()}</span>`).join('');
     return `
       <div class="card">
+<small>#${num}</small>
         <small style="color:#999">${d.timestamp || ''}</small>
         <h3>${d.title}</h3>
         <p><strong>Authors:</strong> ${d.authors}</p>
