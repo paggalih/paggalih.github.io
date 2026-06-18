@@ -13,12 +13,12 @@
     button { padding: .5rem 1.5rem; cursor: pointer; }
     #status { color: #555; margin: .5rem 0; font-style: italic; }
     .tag { display: inline-block; background: #eef; border-radius: 4px; padding: 2px 8px; margin: 2px; font-size: .85rem; }
-body {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  line-height: 1.7;
-  color: #1a1a1a;
-}
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.7;
+      color: #1a1a1a;
+    }
   </style>
 </head>
 <body>
@@ -31,7 +31,6 @@ body {
 <button onclick="analyze()">Analyze</button>
 <p id="status"></p>
 
-<!-- <div id="result"></div> -->
 <hr>
 <h2>All Analyzed Articles</h2>
 <div id="history"></div>
@@ -40,11 +39,11 @@ body {
   const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbyzqdoi5kfTbqFc9gxZUIU947ljnGF6CtAcyYa9PgfEP9eaNdJTq2n7W-KUBleZ6fpCCw/exec';
 
   window.onload = loadHistory;
-const PASS = 'mestudy';
+  const PASS = 'mestudy';
 
   async function analyze() {
-  const pass = document.getElementById('passInput').value;
-  if (pass !== PASS) { setStatus('Wrong password.'); return; }
+    const pass = document.getElementById('passInput').value;
+    if (pass !== PASS) { setStatus('Wrong password.'); return; }
     const file = document.getElementById('pdfInput').files[0];
     if (!file) return alert('Select a PDF first.');
 
@@ -53,11 +52,9 @@ const PASS = 'mestudy';
 
     setStatus('Sending to Gemini (may take 10–20s)…');
     try {
-      // No Content-Type header → avoids CORS preflight
       const res = await fetch(WEB_APP_URL, { method: 'POST', body: JSON.stringify({ pdf: base64 }) });
       const json = await res.json();
       if (!json.success) throw new Error(json.error);
-      // renderCard(json.data, 'result', true);
       setStatus('Done ✓');
       loadHistory();
     } catch (err) {
@@ -72,16 +69,10 @@ const PASS = 'mestudy';
       document.getElementById('history').innerHTML = '<p>No articles yet.</p>';
       return;
     }
+    
+    const total = json.data.length;
     document.getElementById('history').innerHTML =
-      // json.data.reverse().map(d => cardHTML(d)).join('');
-json.data.reverse().map((d, index) => cardHTML(d, total - index)).join('');
-  }
-
-  function renderCard(data, targetId, highlight = false) {
-    document.getElementById(targetId).innerHTML =
-      `<div class="card" style="${highlight ? 'border-color:#4a90e2;background:#f0f6ff' : ''}">
-        ${cardHTML(data)}
-      </div>`;
+      json.data.reverse().map((d, index) => cardHTML(d, total - index)).join('');
   }
 
   function cardHTML(d, num) {
@@ -89,8 +80,10 @@ json.data.reverse().map((d, index) => cardHTML(d, total - index)).join('');
       .map(p => `<span class="tag">${p.trim()}</span>`).join('');
     return `
       <div class="card">
-<small>#${num}</small>
-        <small style="color:#999">${d.timestamp || ''}</small>
+        <div style="display: flex; justify-content: space-between; color: #999; font-size: 0.85rem;">
+          <small>#${num}</small>
+          <small>${d.timestamp || ''}</small>
+        </div>
         <h3>${d.title}</h3>
         <p><strong>Authors:</strong> ${d.authors}</p>
         <p><strong>Main Result:</strong> ${d.main_result}</p>
