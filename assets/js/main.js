@@ -431,16 +431,16 @@ document.addEventListener("DOMContentLoaded", function() {
         const creditsList = document.createElement('ul');
         
         const creditItems = [
-            { name: 'Mermaid.JS', url: 'https://mermaid.js.org' },
-			{ name: 'Chart.JS', url: 'https://www.chartjs.org/' },
-			{ name: 'UpMath', url: 'https://i.upmath.me' },
-            { name: 'Bootstrap', url: 'https://getbootstrap.com' },
-            { name: 'MathJax', url: 'https://www.mathjax.org' },
-			{ name: 'CodeMirror', url: 'https://codemirror.net/' },
-			{ name: 'SplitJS', url: 'https://split.js.org/' },
-			{ name: 'Gemini', url: 'https://gemini.google.com' },
-			{ name: 'ChatGPT', url: 'https://chatgpt.com' },
-			{ name: 'Deepseek', url: 'https://deepseek.com' },
+   //          { name: 'Mermaid.JS', url: 'https://mermaid.js.org' },
+			// { name: 'Chart.JS', url: 'https://www.chartjs.org/' },
+			// { name: 'UpMath', url: 'https://i.upmath.me' },
+   //          { name: 'Bootstrap', url: 'https://getbootstrap.com' },
+   //          { name: 'MathJax', url: 'https://www.mathjax.org' },
+			// { name: 'CodeMirror', url: 'https://codemirror.net/' },
+			// { name: 'SplitJS', url: 'https://split.js.org/' },
+			// { name: 'Gemini', url: 'https://gemini.google.com' },
+			// { name: 'ChatGPT', url: 'https://chatgpt.com' },
+			// { name: 'Deepseek', url: 'https://deepseek.com' },
         ];
         
         creditItems.forEach(item => {
