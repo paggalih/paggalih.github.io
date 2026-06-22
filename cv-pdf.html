@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Curriculum Vitae</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400;0,500;0,600;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FAF7F1;
+    --paper:#FDFBF7;
+    --ink:#1C1A17;
+    --accent:#7A2E2E;
+    --muted:#7a7265;
+    --rule:#ddd3c2;
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'EB Garamond', Georgia, serif;
+    font-size:16px;
+    line-height:1.5;
+  }
+  .page{
+    max-width:760px;
+    margin:0 auto;
+    background:var(--paper);
+    padding:56px 64px 80px;
+  }
+  .toolbar{
+    max-width:760px;
+    margin:16px auto 0;
+    padding:0 64px;
+    display:flex;
+    justify-content:flex-end;
+  }
+  .toolbar button{
+    font-family:'EB Garamond', serif;
+    font-size:14px;
+    letter-spacing:.03em;
+    background:var(--accent);
+    color:#fff;
+    border:none;
+    padding:8px 18px;
+    border-radius:3px;
+    cursor:pointer;
+  }
+  .toolbar button:hover{opacity:.9;}
+
+  h1.doctitle{
+    text-align:center;
+    font-size:14px;
+    font-weight:600;
+    letter-spacing:.18em;
+    color:var(--muted);
+    margin:0 0 4px;
+  }
+  h1.name{
+    text-align:center;
+    font-size:30px;
+    font-weight:600;
+    letter-spacing:.04em;
+    color:var(--ink);
+    margin:0 0 18px;
+  }
+  .contact{
+    text-align:center;
+    font-size:15px;
+    color:var(--muted);
+    margin-bottom:6px;
+  }
+  .contact a{color:var(--accent); text-decoration:none;}
+  .hr-accent{
+    height:2px;
+    background:var(--accent);
+    width:64px;
+    margin:22px auto 30px;
+  }
+
+  section{margin-bottom:30px;}
+  h2.section-title{
+    font-variant:small-caps;
+    letter-spacing:.08em;
+    font-size:19px;
+    font-weight:600;
+    color:var(--accent);
+    margin:0 0 4px;
+  }
+  .rule{
+    border:none;
+    border-top:1px solid var(--rule);
+    margin:0 0 14px;
+  }
+  h3.subhead{
+    font-size:15px;
+    font-style:italic;
+    color:var(--ink);
+    margin:14px 0 6px;
+  }
+  p.lead{margin:0 0 10px; text-align:justify;}
+
+  ul.bullets{list-style:none; margin:0; padding:0;}
+  ul.bullets li{
+    position:relative;
+    padding-left:18px;
+    margin-bottom:7px;
+    text-align:justify;
+  }
+  ul.bullets li::before{
+    content:"•";
+    position:absolute;
+    left:0;
+    color:var(--accent);
+  }
+
+  .employment-row{
+    display:grid;
+    grid-template-columns:120px 1fr;
+    gap:10px;
+    margin-bottom:6px;
+  }
+  .employment-row .years{color:var(--muted); font-style:italic;}
+
+  ol.pubs{list-style:none; margin:0; padding:0; counter-reset:pub;}
+  ol.pubs li{
+    counter-increment:pub;
+    position:relative;
+    padding-left:38px;
+    margin-bottom:9px;
+    text-align:justify;
+  }
+  ol.pubs li::before{
+    content:"(" counter(pub) ")";
+    position:absolute;
+    left:0;
+    color:var(--muted);
+  }
+
+  #status{
+    text-align:center;
+    color:var(--muted);
+    font-style:italic;
+    padding:40px 0;
+  }
+  #error{
+    max-width:760px;
+    margin:24px auto;
+    padding:16px 20px;
+    background:#fff3f3;
+    border:1px solid #e0b4b4;
+    color:#7a2e2e;
+    font-size:14px;
+    display:none;
+  }
+
+  @media print{
+    .toolbar{display:none;}
+    body{background:#fff;}
+    .page{box-shadow:none; padding:0; max-width:none;}
+  }
+  @page{ margin: 0.75in; }
+
+  @media (max-width:600px){
+    .page{padding:36px 22px 60px;}
+    .toolbar{padding:0 22px;}
+    .employment-row{grid-template-columns:90px 1fr;}
+  }
+</style>
+</head>
+<body>
+
+<div class="toolbar no-print">
+  <button onclick="window.print()">Download PDF</button>
+</div>
+
+<div id="error"></div>
+<div id="status">Loading CV from spreadsheet…</div>
+
+<div class="page" id="page" style="display:none;">
+
+  <h1 class="doctitle">Curriculum Vitae</h1>
+  <h1 class="name" id="f-name"></h1>
+  <div class="contact" id="f-address"></div>
+  <div class="contact" id="f-contact"></div>
+  <div class="hr-accent"></div>
+
+  <section id="sec-personal">
+    <h2 class="section-title">Personal</h2>
+    <hr class="rule">
+    <ul class="bullets" id="f-personal"></ul>
+  </section>
+
+  <section id="sec-education">
+    <h2 class="section-title">Education</h2>
+    <hr class="rule">
+    <ul class="bullets" id="f-education"></ul>
+  </section>
+
+  <section id="sec-awards">
+    <h2 class="section-title">Awards and Honours</h2>
+    <hr class="rule">
+    <ul class="bullets" id="f-awards"></ul>
+  </section>
+
+  <section id="sec-grants">
+    <h2 class="section-title">Grants</h2>
+    <hr class="rule">
+    <ul class="bullets" id="f-grants"></ul>
+  </section>
+
+  <section id="sec-employment">
+    <h2 class="section-title">Employment</h2>
+    <hr class="rule">
+    <div id="f-employment"></div>
+  </section>
+
+  <section id="sec-research">
+    <h2 class="section-title">Research Interests</h2>
+    <hr class="rule">
+    <ul class="bullets" id="f-research"></ul>
+  </section>
+
+  <section id="sec-editorial">
+    <h2 class="section-title">Editorial Boards</h2>
+    <hr class="rule">
+    <h3 class="subhead">Present</h3>
+    <ul class="bullets" id="f-editorial-present"></ul>
+    <h3 class="subhead">Past</h3>
+    <ul class="bullets" id="f-editorial-past"></ul>
+  </section>
+
+  <section id="sec-conferences">
+    <h2 class="section-title">Organising and Chairing Conferences and Workshops</h2>
+    <hr class="rule">
+    <ul class="bullets" id="f-conferences"></ul>
+  </section>
+
+  <section id="sec-pub-significant">
+    <h2 class="section-title">Most Significant Publications</h2>
+    <hr class="rule">
+    <ol class="pubs" id="f-pub-significant"></ol>
+  </section>
+
+  <section id="sec-pub-books">
+    <h2 class="section-title">Books</h2>
+    <hr class="rule">
+    <ol class="pubs" id="f-pub-books"></ol>
+  </section>
+
+  <section id="sec-pub-other">
+    <h2 class="section-title">Journal and Conference Publications</h2>
+    <hr class="rule">
+    <ol class="pubs" id="f-pub-other"></ol>
+  </section>
+
+</div>
+
+<script>
+/* ====== SET YOUR SHEET ID HERE ====== */
+const SHEET_ID = "1A7BaPRNDNStz-7-x7XVS8i5pEpVkRJnPWHnYiRh23KY";
+/* ===================================== */
+
+const TABS = {
+  profile: "Profile",
+  education: "Education",
+  awards: "Awards",
+  grants: "Grants",
+  employment: "Employment",
+  research: "ResearchInterests",
+  editorialPresent: "EditorialPresent",
+  editorialPast: "EditorialPast",
+  conferences: "Conferences",
+  pubSignificant: "PublicationsSignificant",
+  pubBooks: "PublicationsBooks",
+  pubOther: "PublicationsOther"
+};
+
+async function fetchTab(tabName){
+  const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${encodeURIComponent(tabName)}&headers=1`;
+  const res = await fetch(url);
+  if(!res.ok) throw new Error(`Tab "${tabName}" not reachable`);
+  const text = await res.text();
+  const jsonText = text.substring(text.indexOf('{'), text.lastIndexOf('}') + 1);
+  const data = JSON.parse(jsonText);
+  if(!data.table || !data.table.cols) return [];
+  const cols = data.table.cols.map(c => (c.label || c.id || '').trim());
+  return (data.table.rows || []).map(r => {
+    const obj = {};
+    cols.forEach((col, i) => {
+      const cell = r.c && r.c[i];
+      obj[col] = cell && cell.v !== null && cell.v !== undefined ? String(cell.v) : '';
+    });
+    return obj;
+  }).filter(row => Object.values(row).some(v => v !== ''));
+}
+
+function fillBullets(elId, rows, field='Entry'){
+  const el = document.getElementById(elId);
+  el.innerHTML = '';
+  rows.forEach(r => {
+    if(!r[field]) return;
+    const li = document.createElement('li');
+    li.textContent = r[field];
+    el.appendChild(li);
+  });
+  if(!rows.length || !rows.some(r=>r[field])) el.closest('section').style.display='none';
+}
+
+function fillPubs(elId, rows, field='Entry'){
+  fillBullets(elId, rows, field);
+  document.getElementById(elId).className = 'pubs';
+}
+
+function fillEmployment(rows){
+  const el = document.getElementById('f-employment');
+  el.innerHTML = '';
+  rows.forEach(r => {
+    if(!r.Position) return;
+    const div = document.createElement('div');
+    div.className = 'employment-row';
+    div.innerHTML = `<span class="years">${r.Years||''}</span><span>${r.Position}</span>`;
+    el.appendChild(div);
+  });
+  if(!rows.length) document.getElementById('sec-employment').style.display='none';
+}
+
+function get(obj, key){ return (obj && obj[key]) ? obj[key] : ''; }
+
+async function init(){
+  try{
+    const [profileRows, education, awards, grants, employment, research,
+           editorialPresent, editorialPast, conferences,
+           pubSignificant, pubBooks, pubOther] = await Promise.all([
+      fetchTab(TABS.profile),
+      fetchTab(TABS.education),
+      fetchTab(TABS.awards),
+      fetchTab(TABS.grants),
+      fetchTab(TABS.employment),
+      fetchTab(TABS.research),
+      fetchTab(TABS.editorialPresent),
+      fetchTab(TABS.editorialPast),
+      fetchTab(TABS.conferences),
+      fetchTab(TABS.pubSignificant),
+      fetchTab(TABS.pubBooks),
+      fetchTab(TABS.pubOther)
+    ]);
+
+    const profile = {};
+    profileRows.forEach(r => { if(r.Field) profile[r.Field] = r.Value; });
+
+    document.title = get(profile,'Name') ? `CV — ${profile.Name}` : 'Curriculum Vitae';
+    document.getElementById('f-name').textContent = get(profile,'Name');
+    document.getElementById('f-address').textContent =
+      [get(profile,'Department'), get(profile,'Address1'), get(profile,'Address2')].filter(Boolean).join(', ');
+    document.getElementById('f-contact').innerHTML =
+      [get(profile,'Email') ? `<a href="mailto:${profile.Email}">${profile.Email}</a>` : '',
+       get(profile,'Homepage') ? `<a href="${profile.Homepage}" target="_blank">${profile.Homepage}</a>` : '']
+      .filter(Boolean).join(' &nbsp;·&nbsp; ');
+
+    const personalRows = [];
+    ['DateOfBirth','PlaceOfBirth','Nationality'].forEach(k=>{
+      if(get(profile,k)) personalRows.push({Entry: k.replace(/([A-Z])/g,' $1').trim() + ': ' + profile[k]});
+    });
+    fillBullets('f-personal', personalRows);
+
+    fillBullets('f-education', education);
+    fillBullets('f-awards', awards);
+    fillBullets('f-grants', grants);
+    fillEmployment(employment);
+    fillBullets('f-research', research);
+    fillBullets('f-editorial-present', editorialPresent);
+    fillBullets('f-editorial-past', editorialPast);
+    fillBullets('f-conferences', conferences);
+    fillPubs('f-pub-significant', pubSignificant);
+    fillPubs('f-pub-books', pubBooks);
+    fillPubs('f-pub-other', pubOther);
+
+    document.getElementById('status').style.display='none';
+    document.getElementById('page').style.display='block';
+  }catch(err){
+    document.getElementById('status').style.display='none';
+    const e = document.getElementById('error');
+    e.style.display='block';
+    e.innerHTML = `<strong>Could not load CV data.</strong><br>
+      ${err.message}<br><br>
+      Check: 1) SHEET_ID is set in the script, 2) the sheet is shared as
+      "Anyone with the link – Viewer", 3) tab names match exactly.`;
+  }
+}
+init();
+</script>
+</body>
+</html>
