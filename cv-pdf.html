@@ -79,6 +79,15 @@
     width:64px;
     margin:22px auto 30px;
   }
+  .photo{
+    display:none;
+    width:128px;
+    height:128px;
+    object-fit:cover;
+    border-radius:50%;
+    border:2px solid var(--accent);
+    margin:0 auto 18px;
+  }
 
   section{margin-bottom:30px;}
   h2.section-title{
@@ -181,6 +190,7 @@
 
 <div class="page" id="page" style="display:none;">
 
+  <img id="f-photo" class="photo" alt="">
   <h1 class="doctitle">Curriculum Vitae</h1>
   <h1 class="name" id="f-name"></h1>
   <div class="contact" id="f-address"></div>
@@ -353,6 +363,12 @@ async function init(){
 
     document.title = get(profile,'Name') ? `CV — ${profile.Name}` : 'Curriculum Vitae';
     document.getElementById('f-name').textContent = get(profile,'Name');
+    const photoUrl = get(profile,'Photo');
+    if(photoUrl){
+      const photoEl = document.getElementById('f-photo');
+      photoEl.src = photoUrl;
+      photoEl.style.display = 'block';
+    }
     document.getElementById('f-address').textContent =
       [get(profile,'Department'), get(profile,'Address1'), get(profile,'Address2')].filter(Boolean).join(', ');
     document.getElementById('f-contact').innerHTML =
