@@ -12,17 +12,17 @@
   *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
   :root {
-    --bg: #07070c;
-    --surface: #0e0e16;
-    --border: #1a1a28;
-    --accent: #7efff5;
-    --accent2: #f57eff;
-    --accent3: #7e9fff;
-    --text: #d8d8ee;
-    --muted: #484860;
-    --ok: #6fff6f;
-    --file: #ffce7e;
-    --folder: #7efff5;
+    --bg: #f6f7fb;
+    --surface: #ffffff;
+    --border: #e1e3ee;
+    --accent: #0d9488;
+    --accent2: #b02fbd;
+    --accent3: #3b5bdb;
+    --text: #1b1c26;
+    --muted: #6b6d80;
+    --ok: #17922b;
+    --file: #b26a00;
+    --folder: #0d9488;
   }
 
   body {
@@ -38,7 +38,7 @@
     position: fixed; top: 0; left: 0; right: 0; z-index: 100;
     display: flex; align-items: center; gap: 12px;
     padding: 10px 20px;
-    background: rgba(7,7,12,0.85);
+    background: rgba(255,255,255,0.85);
     backdrop-filter: blur(12px);
     border-bottom: 1px solid var(--border);
   }
@@ -60,7 +60,7 @@
     padding: 4px 10px; border-radius: 5px; cursor: pointer; transition: all 0.2s;
   }
   .ctrl-btn:hover { border-color: var(--accent); color: var(--accent); }
-  .ctrl-btn.active { background: rgba(126,255,245,0.1); border-color: var(--accent); color: var(--accent); }
+  .ctrl-btn.active { background: rgba(13,148,136,0.12); border-color: var(--accent); color: var(--accent); }
 
   /* ── Canvas ── */
   #canvas {
@@ -72,13 +72,13 @@
   /* ── Tooltip ── */
   #tooltip {
     position: fixed; pointer-events: none; z-index: 200;
-    background: rgba(14,14,22,0.95); border: 1px solid var(--border);
+    background: rgba(255,255,255,0.96); border: 1px solid var(--border);
     border-radius: 8px; padding: 10px 14px;
     font-family: 'JetBrains Mono', monospace; font-size: 0.72rem;
     color: var(--text); max-width: 340px;
     backdrop-filter: blur(8px);
     opacity: 0; transition: opacity 0.15s;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.5);
+    box-shadow: 0 8px 32px rgba(20,20,40,0.14);
   }
   #tooltip.show { opacity: 1; }
   #tooltip .tt-path { color: var(--accent); margin-bottom: 4px; word-break: break-all; }
@@ -127,7 +127,7 @@
   #error-overlay .err-icon { font-size: 2rem; margin-bottom: 12px; }
   #error-overlay .err-msg {
     font-family: 'JetBrains Mono', monospace; font-size: 0.82rem;
-    color: #ff6b6b; max-width: 500px; line-height: 1.6;
+    color: #d92626; max-width: 500px; line-height: 1.6;
   }
 </style>
 </head>
@@ -186,13 +186,13 @@ let animT = 0;
 let treeData = null;
 
 const COLORS = {
-  root:   '#7efff5',
-  folder: '#7e9fff',
-  file:   '#ffce7e',
-  edge:   '#1e1e32',
-  edgeHi: '#3a3a5a',
+  root:   '#0d9488',
+  folder: '#3b5bdb',
+  file:   '#b26a00',
+  edge:   '#c6c8d8',
+  edgeHi: '#9698ae',
 };
-const FOLDER_COLORS = ['#7e9fff','#f57eff','#7efff5','#ff7e7e','#7eff9f','#ffce7e','#9f7eff','#7ec8ff'];
+const FOLDER_COLORS = ['#3b5bdb','#b02fbd','#0d9488','#d13b3b','#2f9e44','#b26a00','#6741d9','#1c7ed6'];
 
 /* ═══════════════════════════════════════════
    CANVAS SETUP
@@ -377,8 +377,8 @@ function draw() {
 
   // BG gradient
   const bg = ctx.createRadialGradient(W / 2, H / 2, 0, W / 2, H / 2, W * 0.7);
-  bg.addColorStop(0, '#0c0c18');
-  bg.addColorStop(1, '#07070c');
+  bg.addColorStop(0, '#ffffff');
+  bg.addColorStop(1, '#eceef6');
   ctx.fillStyle = bg;
   ctx.fillRect(0, 0, W, H);
 
@@ -395,7 +395,7 @@ function draw() {
 
     const isHovered = hoveredNode && (hoveredNode.id === e.from || hoveredNode.id === e.to);
     ctx.strokeStyle = isHovered ? (e.color.length > 7 ? e.color.slice(0, 7) : e.color) : (e.color || COLORS.edge);
-    ctx.globalAlpha = isHovered ? 0.9 : 0.3;
+    ctx.globalAlpha = isHovered ? 0.9 : 0.45;
     ctx.beginPath();
     // Curved edge
     const mx = (p1.x + p2.x) / 2 + (p2.y - p1.y) * 0.08;
@@ -430,7 +430,7 @@ function draw() {
     // Node circle
     ctx.beginPath();
     ctx.arc(p.x, p.y, Math.max(r, 2), 0, Math.PI * 2);
-    ctx.fillStyle = isHov ? '#fff' : n.color;
+    ctx.fillStyle = isHov ? '#14141f' : n.color;
     ctx.fill();
 
     if (n.type === 'file' && isHov) {
@@ -451,7 +451,7 @@ function draw() {
         ctx.fillText(n.name, p.x, p.y + r * 0.25);
       } else {
         const label = n.name.length > 18 ? n.name.slice(0, 16) + '…' : n.name;
-        ctx.fillStyle = isHov ? '#fff' : n.color + 'cc';
+        ctx.fillStyle = isHov ? '#14141f' : n.color + 'cc';
         ctx.fillText(label, p.x, p.y + r + fontSize + 2);
       }
     }
