@@ -22,6 +22,15 @@
   .bar-fill{background:#5b8def;height:100%}
   .bar-val{width:24px;color:#9aa0aa}
   footer{padding:8px 24px 20px;color:#6b7280;font-size:11px}
+  #matrix-section{padding:0 16px 24px}
+  #matrix-section h2{font-size:15px;margin:0 0 10px;color:#e8e8e8}
+  .matrix-wrap{overflow-x:auto;background:#161922;border-radius:12px;padding:12px}
+  table.adj{border-collapse:collapse;font-size:11px}
+  table.adj th, table.adj td{width:28px;height:28px;text-align:center;padding:0}
+  table.adj th{color:#9aa0aa;font-weight:500}
+  table.adj th.rowhead{text-align:right;padding-right:6px;white-space:nowrap;color:#c7cad1}
+  table.adj th.colhead{writing-mode:vertical-rl;transform:rotate(180deg);height:70px;vertical-align:bottom}
+  table.adj td{color:#0f1115;font-weight:600}
 </style>
 </head>
 <body>
@@ -36,6 +45,11 @@
     <div id="barchart"></div>
   </div>
 </div>
+<div id="matrix-section">
+  <h2>Adjacency Matrix (co-occurrence count)</h2>
+  <div class="matrix-wrap"><table class="adj" id="adjTable"></table></div>
+</div>
+
 <footer>Sumber: scrape BBC News section environment. Dibuat dengan D3.js.</footer>
 
 <script>
@@ -101,6 +115,51 @@ sim.on('tick', ()=>{
   link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
       .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
   node.attr('transform', d=>`translate(${d.x},${d.y})`);
+});
+
+// --- Adjacency matrix ---
+const words = freqEntries.map(e=>e[0]);
+const idx = Object.fromEntries(words.map((w,i)=>[w,i]));
+const n = words.length;
+const mat = Array.from({length:n}, ()=>Array(n).fill(0));
+data.edges.forEach(e=>{
+  const i = idx[e.source], j = idx[e.target];
+  if(i===undefined || j===undefined) return;
+  mat[i][j] = e.weight;
+  mat[j][i] = e.weight;
+});
+const maxW = d3.max(data.edges, d=>d.weight);
+const cellColor = d3.scaleSequential(d3.interpolateBlues).domain([0,maxW]);
+
+const table = document.getElementById('adjTable');
+const headRow = document.createElement('tr');
+headRow.appendChild(document.createElement('th'));
+words.forEach(w=>{
+  const th = document.createElement('th');
+  th.className = 'colhead';
+  th.textContent = w;
+  headRow.appendChild(th);
+});
+table.appendChild(headRow);
+
+words.forEach((w,i)=>{
+  const tr = document.createElement('tr');
+  const th = document.createElement('th');
+  th.className = 'rowhead';
+  th.textContent = w;
+  tr.appendChild(th);
+  words.forEach((w2,j)=>{
+    const td = document.createElement('td');
+    const v = mat[i][j];
+    if(i===j){ td.style.background = '#232733'; td.textContent=''; }
+    else{
+      td.style.background = v>0 ? cellColor(v) : '#1c1f29';
+      td.textContent = v>0 ? v : '';
+      if(v>0 && v/maxW>0.5) td.style.color='#fff'; else td.style.color = v>0 ? '#0f1115':'transparent';
+    }
+    tr.appendChild(td);
+  });
+  table.appendChild(tr);
 });
 </script>
 </body>
