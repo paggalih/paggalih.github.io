@@ -1,0 +1,273 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Tensor 3D Kesulitan Belajar Matematika</title>
+<script src="https://cdn.plot.ly/plotly-2.35.2.min.js" charset="utf-8"></script>
+<style>
+:root{
+  color-scheme: light;
+  --surface-0:#ffffff; --surface-1:#fcfcfb; --surface-2:#f3f2ef;
+  --border:#e2e1dc;
+  --text-primary:#0b0b0b; --text-secondary:#52514e; --text-muted:#84837d;
+  --accent:#2a78d6;
+  --s100:#cde2fb; --s200:#9ec5f4; --s300:#6da7ec; --s400:#3987e5;
+  --s500:#256abf; --s600:#184f95; --s700:#0d366b;
+  --grid:#e8e7e3; --dim:#c9c8c3;
+}
+:root[data-theme="dark"]{
+  color-scheme: dark;
+  --surface-0:#141413; --surface-1:#1a1a19; --surface-2:#232322;
+  --border:#333331;
+  --text-primary:#ffffff; --text-secondary:#c3c2b7; --text-muted:#8d8c84;
+  --accent:#3987e5;
+  --grid:#2c2c2a; --dim:#4a4a47;
+}
+*{box-sizing:border-box}
+body{
+  margin:0; background:var(--surface-0); color:var(--text-primary);
+  font-family:ui-sans-serif,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  font-size:15px; line-height:1.55;
+}
+.wrap{max-width:1180px;margin:0 auto;padding:32px 20px 72px}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:16px;flex-wrap:wrap}
+h1{font-size:1.55rem;line-height:1.25;margin:0 0 6px;letter-spacing:-.01em}
+.sub{color:var(--text-secondary);margin:0;max-width:62ch;font-size:.94rem}
+button{
+  font:inherit;font-size:.86rem;padding:6px 13px;border-radius:8px;cursor:pointer;
+  border:1px solid var(--border);background:var(--surface-1);color:var(--text-primary);
+}
+button:hover{background:var(--surface-2)}
+button.on{background:var(--accent);border-color:var(--accent);color:#fff}
+.stats{display:flex;gap:10px;flex-wrap:wrap;margin:26px 0 8px}
+.tile{
+  flex:1 1 150px;background:var(--surface-1);border:1px solid var(--border);
+  border-radius:12px;padding:13px 15px;
+}
+.tile .k{font-size:.74rem;text-transform:uppercase;letter-spacing:.06em;color:var(--text-muted)}
+.tile .v{font-size:1.75rem;font-weight:600;letter-spacing:-.02em;margin-top:2px}
+.tile .n{font-size:.78rem;color:var(--text-secondary)}
+section{margin-top:34px}
+h2{font-size:1.02rem;margin:0 0 3px;letter-spacing:-.005em}
+.note{color:var(--text-secondary);font-size:.86rem;margin:0 0 12px;max-width:70ch}
+.card{background:var(--surface-1);border:1px solid var(--border);border-radius:14px;padding:12px}
+.ctrl{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin:0 0 10px;padding:0 2px}
+.ctrl label{font-size:.84rem;color:var(--text-secondary);white-space:nowrap}
+input[type=range]{flex:1 1 260px;min-width:200px;accent-color:var(--accent)}
+.pill{
+  font-variant-numeric:tabular-nums;font-size:.82rem;padding:3px 9px;border-radius:999px;
+  background:var(--surface-2);border:1px solid var(--border);color:var(--text-secondary);white-space:nowrap
+}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+@media(max-width:860px){.grid2{grid-template-columns:1fr}}
+table{border-collapse:collapse;font-size:.8rem;width:100%;font-variant-numeric:tabular-nums}
+th,td{border:1px solid var(--border);padding:5px 7px;text-align:center}
+th{background:var(--surface-2);font-weight:600;color:var(--text-secondary)}
+th.rw{text-align:left;white-space:nowrap}
+td.z{color:var(--text-muted)}
+footer{margin-top:44px;color:var(--text-muted);font-size:.8rem;border-top:1px solid var(--border);padding-top:14px}
+code{background:var(--surface-2);padding:1px 5px;border-radius:5px;font-size:.85em}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<header>
+  <div>
+    <h1>Tensor 3D Kesulitan Belajar Matematika</h1>
+    <p class="sub">Tiap mahasiswa membentuk satu subgraf lengkap dari kesulitan yang dipilihnya.
+    Matriks adjacency-nya ditumpuk menurut urutan responden menjadi tensor
+    <code id="shape"></code>.</p>
+  </div>
+  <div style="display:flex;gap:8px">
+    <button id="theme">Mode gelap</button>
+    <button id="dl">Unduh JSON</button>
+  </div>
+</header>
+
+<div class="stats" id="tiles"></div>
+
+<section>
+  <h2>1 · Tensor 3D</h2>
+  <p class="note">Setiap kubus adalah satu sisi (i, j) pada slice mahasiswa ke-k.
+  Warna menunjukkan berapa banyak mahasiswa yang berbagi pasangan kesulitan tersebut.
+  Putar dengan seret; zoom dengan scroll. Sumbu disingkat 3 huruf — arahkan kursor untuk nama lengkap.</p>
+  <div class="card">
+    <div class="ctrl">
+      <button id="all" class="on">Semua slice</button>
+      <label for="sl">Slice</label>
+      <input type="range" id="sl" min="0" max="22" value="0">
+      <span class="pill" id="slLab"></span>
+    </div>
+    <div id="v3d" style="height:560px"></div>
+  </div>
+</section>
+
+<section class="grid2">
+  <div>
+    <h2>2 · Slice terpilih</h2>
+    <p class="note">Matriks adjacency satu mahasiswa. Biner, simetris, diagonal nol.</p>
+    <div class="card"><div id="slice" style="height:400px"></div></div>
+  </div>
+  <div>
+    <h2>3 · Agregat</h2>
+    <p class="note">Jumlah seluruh slice. Bobot ko-okurensi antar kesulitan.</p>
+    <div class="card"><div id="agg" style="height:400px"></div></div>
+  </div>
+</section>
+
+<section>
+  <h2>4 · Tabel agregat</h2>
+  <p class="note">Nilai yang sama dengan panel 3, untuk pembacaan non-visual.</p>
+  <div class="card" style="overflow-x:auto" id="tbl"></div>
+</section>
+
+<footer>
+  Sumber: kuesioner kesulitan belajar matematika, <span id="nresp"></span> responden.
+  Halaman statis — seluruh perhitungan sudah dilakukan sebelumnya, browser hanya merender.
+</footer>
+
+</div>
+
+<script>
+const D = {"labels": ["Konseptual", "Logika", "Prosedural", "Linguistik", "Kecemasan", "Spasial", "Metakognitif", "Representasi", "Diskalkulia"], "full": ["Kesulitan Konseptual", "Kesulitan Logika", "Kesulitan Prosedural", "Kesulitan Linguistik", "Kecemasan Matematika", "Kesulitan Spasial", "Kesulitan Metakognitif", "Kesulitan Representasi", "Diskalkulia"], "ids": ["1860204232103", "1860204232092", "1860204231006", "1860204231049", "1860204231039", "1860204233133", "1860204231040", "1860204231048", "1860204231051", "1860204231042", "1860204232080", "1860204233139", "1860204231045", "1860204231038", "1860204231043", "1860405252299", "1860402242148", "1860405253316", "1860405253334", "1860402242141", "1860402242130", "1860401243099", "1860402242132"], "tensor": [[[0, 0, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 1, 1, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 1, 0, 0], [1, 0, 1, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 1, 0, 1, 1], [1, 0, 0, 0, 0, 1, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 1, 1], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0, 0, 1], [1, 1, 0, 0, 0, 1, 0, 1, 0]], [[0, 1, 1, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 1, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 1, 1, 0, 0, 0], [1, 0, 0, 0, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 1, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 1, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 1, 0, 0, 0, 0, 1, 0], [1, 0, 1, 0, 0, 0, 0, 1, 0], [1, 1, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 0, 1, 1, 1, 1, 0, 0], [1, 0, 0, 1, 1, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 0, 0, 1, 1, 1, 0, 0], [1, 1, 0, 1, 0, 1, 1, 0, 0], [1, 1, 0, 1, 1, 0, 1, 0, 0], [1, 1, 0, 1, 1, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 1, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0, 1, 0], [1, 0, 1, 0, 0, 0, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 1, 1, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0, 0, 0], [1, 0, 1, 1, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 1, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 1, 1, 0, 1, 0, 0, 0, 0], [1, 0, 1, 0, 1, 0, 0, 0, 0], [1, 1, 0, 0, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 1, 1, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 1, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 1, 0, 0, 1, 0, 0], [1, 0, 0, 1, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 0, 1, 1, 0, 0], [0, 0, 1, 0, 0, 1, 1, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 0, 0, 1, 0, 0], [0, 0, 1, 1, 0, 1, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [1, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]], [[0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 1, 1, 0, 0, 1, 0], [0, 0, 1, 0, 1, 0, 0, 1, 0], [0, 0, 1, 1, 0, 0, 0, 1, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0], [0, 0, 1, 1, 1, 0, 0, 0, 0], [0, 0, 0, 0, 0, 0, 0, 0, 0]]], "agg": [[0, 9, 8, 5, 7, 6, 6, 4, 1], [9, 0, 3, 3, 3, 3, 2, 2, 1], [8, 3, 0, 4, 4, 3, 3, 3, 0], [5, 3, 4, 0, 4, 3, 4, 1, 0], [7, 3, 4, 4, 0, 2, 2, 1, 0], [6, 3, 3, 3, 2, 0, 4, 1, 1], [6, 2, 3, 4, 2, 4, 0, 1, 0], [4, 2, 3, 1, 1, 1, 1, 0, 1], [1, 1, 0, 0, 0, 1, 0, 1, 0]], "counts": [19, 11, 10, 8, 8, 7, 7, 5, 1], "sizes": [4, 4, 1, 5, 3, 2, 2, 1, 4, 4, 2, 3, 4, 6, 4, 2, 4, 3, 4, 4, 4, 2, 4]};
+const L = D.labels, N = L.length, S = D.ids.length;
+const AB = L.map(x=>x.slice(0,3).toUpperCase());
+const SEQ = [[0,'#cde2fb'],[0.2,'#9ec5f4'],[0.4,'#6da7ec'],[0.6,'#2a78d6'],[0.8,'#184f95'],[1,'#0d366b']];
+const cssv = n => getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+
+let mode = 'all', k = 0;
+
+function maxAgg(){ let m=0; for(const r of D.agg) for(const v of r) if(v>m) m=v; return m; }
+const MX = maxAgg();
+
+// ---------- tiles ----------
+const totEdges = D.tensor.flat(2).reduce((a,b)=>a+b,0);
+const avg = (D.sizes.reduce((a,b)=>a+b,0)/S).toFixed(1);
+let topPair = {v:-1,t:''};
+for(let i=0;i<N;i++) for(let j=i+1;j<N;j++) if(D.agg[i][j]>topPair.v) topPair={v:D.agg[i][j],t:L[i]+' + '+L[j]};
+document.getElementById('shape').textContent = S+' x '+N+' x '+N;
+document.getElementById('nresp').textContent = S;
+document.getElementById('tiles').innerHTML = [
+  ['Responden', S, 'slice tensor'],
+  ['Kategori', N, 'simpul graf'],
+  ['Sisi berarah', totEdges, 'entri bernilai 1'],
+  ['Rata-rata kesulitan', avg, 'per mahasiswa'],
+  ['Pasangan terkuat', topPair.v, topPair.t]
+].map(t=>`<div class="tile"><div class="k">${t[0]}</div><div class="v">${t[1]}</div><div class="n">${t[2]}</div></div>`).join('');
+
+// ---------- 3D ----------
+function voxels(filterK){
+  const x=[],y=[],z=[],c=[],tx=[];
+  for(let s=0;s<S;s++){
+    if(filterK!==null && s!==filterK) continue;
+    for(let i=0;i<N;i++) for(let j=0;j<N;j++){
+      if(!D.tensor[s][i][j]) continue;
+      x.push(i); y.push(j); z.push(s); c.push(D.agg[i][j]);
+      tx.push(`Mahasiswa #${s+1} · ${D.ids[s]}<br>${L[i]} — ${L[j]}<br>bobot agregat: ${D.agg[i][j]}`);
+    }
+  }
+  return {x,y,z,c,tx};
+}
+function ghost(){
+  const x=[],y=[],z=[];
+  for(let s=0;s<S;s++) for(let i=0;i<N;i++) for(let j=0;j<N;j++)
+    if(D.tensor[s][i][j]){x.push(i);y.push(j);z.push(s);}
+  return {x,y,z};
+}
+function traces3d(){
+  const out=[];
+  if(mode==='one'){
+    const g=ghost();
+    out.push({type:'scatter3d',mode:'markers',x:g.x,y:g.y,z:g.z,hoverinfo:'skip',
+      marker:{size:4,symbol:'square',color:cssv('--dim'),opacity:0.18},showlegend:false});
+  }
+  const v = voxels(mode==='one'?k:null);
+  out.push({type:'scatter3d',mode:'markers',x:v.x,y:v.y,z:v.z,
+    text:v.tx,hovertemplate:'%{text}<extra></extra>',
+    marker:{size:mode==='one'?11:7,symbol:'square',color:v.c,colorscale:SEQ,cmin:0,cmax:MX,
+      opacity:mode==='one'?1:0.9,
+      line:{width:1,color:cssv('--surface-1')},
+      colorbar:{title:{text:'ko-okurensi',font:{size:11}},thickness:11,len:0.55,
+        outlinewidth:0,tickfont:{size:10,color:cssv('--text-secondary')}}},
+    showlegend:false});
+  return out;
+}
+function ax(title,ticks){
+  return {title:{text:title,font:{size:12,color:cssv('--text-secondary')}},
+    tickvals:ticks?[...Array(N).keys()]:undefined, ticktext:ticks?AB:undefined,
+    tickfont:{size:10,color:cssv('--text-secondary')},
+    gridcolor:cssv('--grid'),zerolinecolor:cssv('--grid'),
+    backgroundcolor:cssv('--surface-1'),showbackground:true,showspikes:false};
+}
+function draw3d(){
+  Plotly.react('v3d', traces3d(), {
+    paper_bgcolor:cssv('--surface-1'), plot_bgcolor:cssv('--surface-1'),
+    margin:{l:0,r:0,t:6,b:6},
+    scene:{xaxis:ax('kesulitan i',true), yaxis:ax('kesulitan j',true),
+      zaxis:{...ax('mahasiswa (slice)',false), tickmode:'linear', dtick:2},
+      camera:{eye:{x:1.7,y:1.45,z:0.95}}, aspectmode:'manual', aspectratio:{x:1,y:1,z:1.35}},
+    hoverlabel:{bgcolor:cssv('--surface-0'),bordercolor:cssv('--border'),
+      font:{color:cssv('--text-primary'),size:12}}
+  }, {responsive:true, displaylogo:false});
+}
+
+// ---------- heatmaps ----------
+function heat(div, z, title, zmax){
+  Plotly.react(div, [{
+    type:'heatmap', z:z, x:L, y:L, colorscale:SEQ, zmin:0, zmax:zmax,
+    xgap:2, ygap:2,
+    hovertemplate:'%{y} — %{x}<br>nilai: %{z}<extra></extra>',
+    colorbar:{thickness:11,len:0.85,outlinewidth:0,
+      tickfont:{size:10,color:cssv('--text-secondary')}}
+  }], {
+    paper_bgcolor:cssv('--surface-1'), plot_bgcolor:cssv('--surface-1'),
+    margin:{l:96,r:8,t:26,b:96},
+    title:{text:title,font:{size:12,color:cssv('--text-secondary')},x:0,xanchor:'left'},
+    xaxis:{tickangle:-45,tickfont:{size:10,color:cssv('--text-secondary')},showgrid:false},
+    yaxis:{autorange:'reversed',tickfont:{size:10,color:cssv('--text-secondary')},showgrid:false},
+    hoverlabel:{bgcolor:cssv('--surface-0'),bordercolor:cssv('--border'),
+      font:{color:cssv('--text-primary'),size:12}}
+  }, {responsive:true, displaylogo:false});
+}
+function drawSlice(){
+  heat('slice', D.tensor[k], `Mahasiswa #${k+1} · ${D.ids[k]} · ${D.sizes[k]} kesulitan`, 1);
+}
+function drawAgg(){ heat('agg', D.agg, `Ditumpuk dari ${S} slice`, MX); }
+
+// ---------- table ----------
+function drawTable(){
+  let h='<table><thead><tr><th class="rw">kesulitan</th>'+L.map(l=>`<th>${l}</th>`).join('')+'<th>total</th></tr></thead><tbody>';
+  for(let i=0;i<N;i++){
+    const tot=D.agg[i].reduce((a,b)=>a+b,0);
+    h+=`<tr><th class="rw">${L[i]} <span style="color:var(--text-muted);font-weight:400">(${D.counts[i]})</span></th>`
+      + D.agg[i].map((v,j)=>`<td class="${v?'':'z'}">${i===j?'—':v}</td>`).join('')
+      + `<td><strong>${tot}</strong></td></tr>`;
+  }
+  document.getElementById('tbl').innerHTML = h+'</tbody></table>';
+}
+
+// ---------- controls ----------
+const sl=document.getElementById('sl'), slLab=document.getElementById('slLab'), allBtn=document.getElementById('all');
+sl.max=S-1;
+function label(){ slLab.textContent = `#${k+1} / ${S} · ${D.ids[k]}`; }
+sl.addEventListener('input', e=>{ k=+e.target.value; mode='one'; allBtn.classList.remove('on'); label(); draw3d(); drawSlice(); });
+allBtn.addEventListener('click', ()=>{ mode='all'; allBtn.classList.add('on'); draw3d(); });
+
+document.getElementById('theme').addEventListener('click', e=>{
+  const dark = document.documentElement.getAttribute('data-theme')==='dark';
+  document.documentElement.setAttribute('data-theme', dark?'light':'dark');
+  e.target.textContent = dark?'Mode gelap':'Mode terang';
+  drawAll();
+});
+document.getElementById('dl').addEventListener('click', ()=>{
+  const b=new Blob([JSON.stringify({labels:D.full,ids:D.ids,tensor:D.tensor},null,1)],{type:'application/json'});
+  const a=document.createElement('a'); a.href=URL.createObjectURL(b); a.download='tensor_kesulitan.json'; a.click();
+});
+
+function drawAll(){ draw3d(); drawSlice(); drawAgg(); }
+label(); drawAll(); drawTable();
+</script>
+</body>
+</html>
