@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="UTF-8">
+<title>BBC Environment — Word Co-occurrence Graph</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.9.0/d3.min.js"></script>
+<style>
+  body{margin:0;font-family:-apple-system,Segoe UI,Roboto,sans-serif;background:#0f1115;color:#e8e8e8}
+  header{padding:20px 24px 8px}
+  h1{font-size:18px;margin:0 0 4px}
+  p.sub{margin:0;color:#9aa0aa;font-size:13px}
+  #wrap{display:flex;gap:16px;padding:16px;flex-wrap:wrap}
+  #graph{flex:2 1 600px;background:#161922;border-radius:12px;min-width:320px}
+  #bar{flex:1 1 280px;background:#161922;border-radius:12px;padding:12px}
+  svg{width:100%;height:600px;display:block}
+  .link{stroke:#4f5666;stroke-opacity:.55}
+  .node text{fill:#e8e8e8;font-size:11px;pointer-events:none}
+  .node circle{stroke:#0f1115;stroke-width:1.5px}
+  .bar-row{display:flex;align-items:center;gap:8px;margin:5px 0;font-size:12px}
+  .bar-label{width:90px;text-align:right;color:#c7cad1}
+  .bar-track{flex:1;background:#232733;border-radius:4px;overflow:hidden;height:14px}
+  .bar-fill{background:#5b8def;height:100%}
+  .bar-val{width:24px;color:#9aa0aa}
+  footer{padding:8px 24px 20px;color:#6b7280;font-size:11px}
+</style>
+</head>
+<body>
+<header>
+  <h1>BBC News — Environment: Word Co-occurrence Graph</h1>
+  <p class="sub">Node = kata, ukuran node = frekuensi. Edge = muncul bersama dalam artikel yang sama, bobot = jumlah kemunculan bersama.</p>
+</header>
+<div id="wrap">
+  <div id="graph"><svg id="svg"></svg></div>
+  <div id="bar">
+    <div style="font-size:13px;color:#c7cad1;margin-bottom:8px;font-weight:600">Top kata</div>
+    <div id="barchart"></div>
+  </div>
+</div>
+<footer>Sumber: scrape BBC News section environment. Dibuat dengan D3.js.</footer>
+
+<script>
+const data = {"freq": {"climate": 22, "wildfires": 14, "heat": 14, "weather": 11, "drought": 10, "extreme": 10, "heatwaves": 10, "heatwave": 9, "wildfire": 9, "record": 9, "summer": 9, "water": 8, "england": 8, "people": 7, "temperatures": 7, "farmers": 7, "south": 6, "west": 6, "hottest": 6, "help": 6, "change": 6, "stop": 6, "cities": 6, "council": 6, "rivers": 6}, "edges": [{"source": "south", "target": "water", "weight": 1}, {"source": "people", "target": "wildfire", "weight": 1}, {"source": "west", "target": "wildfire", "weight": 1}, {"source": "west", "target": "wildfires", "weight": 1}, {"source": "wildfire", "target": "wildfires", "weight": 3}, {"source": "hottest", "target": "record", "weight": 2}, {"source": "hottest", "target": "temperatures", "weight": 3}, {"source": "hottest", "target": "wildfires", "weight": 1}, {"source": "record", "target": "temperatures", "weight": 3}, {"source": "record", "target": "wildfires", "weight": 2}, {"source": "temperatures", "target": "wildfires", "weight": 1}, {"source": "help", "target": "people", "weight": 1}, {"source": "change", "target": "wildfires", "weight": 2}, {"source": "england", "target": "south", "weight": 2}, {"source": "england", "target": "west", "weight": 3}, {"source": "south", "target": "west", "weight": 3}, {"source": "help", "target": "water", "weight": 1}, {"source": "change", "target": "climate", "weight": 5}, {"source": "change", "target": "drought", "weight": 1}, {"source": "climate", "target": "drought", "weight": 2}, {"source": "summer", "target": "wildfire", "weight": 1}, {"source": "summer", "target": "wildfires", "weight": 1}, {"source": "cities", "target": "extreme", "weight": 2}, {"source": "climate", "target": "england", "weight": 1}, {"source": "climate", "target": "west", "weight": 1}, {"source": "drought", "target": "england", "weight": 3}, {"source": "drought", "target": "west", "weight": 1}, {"source": "heatwave", "target": "hottest", "weight": 1}, {"source": "heatwave", "target": "record", "weight": 1}, {"source": "heatwave", "target": "south", "weight": 1}, {"source": "heatwave", "target": "temperatures", "weight": 3}, {"source": "hottest", "target": "south", "weight": 1}, {"source": "record", "target": "south", "weight": 1}, {"source": "south", "target": "temperatures", "weight": 1}, {"source": "change", "target": "weather", "weight": 1}, {"source": "climate", "target": "weather", "weight": 2}, {"source": "farmers", "target": "record", "weight": 1}, {"source": "farmers", "target": "summer", "weight": 2}, {"source": "farmers", "target": "weather", "weight": 2}, {"source": "record", "target": "summer", "weight": 2}, {"source": "record", "target": "weather", "weight": 1}, {"source": "summer", "target": "weather", "weight": 1}, {"source": "change", "target": "wildfire", "weight": 1}, {"source": "climate", "target": "wildfire", "weight": 2}, {"source": "climate", "target": "council", "weight": 3}, {"source": "climate", "target": "stop", "weight": 1}, {"source": "climate", "target": "wildfires", "weight": 3}, {"source": "council", "target": "stop", "weight": 1}, {"source": "council", "target": "wildfire", "weight": 1}, {"source": "council", "target": "wildfires", "weight": 1}, {"source": "stop", "target": "wildfire", "weight": 1}, {"source": "stop", "target": "wildfires", "weight": 1}, {"source": "heatwaves", "target": "temperatures", "weight": 3}, {"source": "extreme", "target": "farmers", "weight": 2}, {"source": "extreme", "target": "heat", "weight": 4}, {"source": "extreme", "target": "summer", "weight": 1}, {"source": "farmers", "target": "heat", "weight": 1}, {"source": "heat", "target": "summer", "weight": 2}, {"source": "heat", "target": "heatwave", "weight": 2}, {"source": "drought", "target": "record", "weight": 2}, {"source": "drought", "target": "rivers", "weight": 3}, {"source": "drought", "target": "water", "weight": 1}, {"source": "record", "target": "rivers", "weight": 1}, {"source": "record", "target": "water", "weight": 1}, {"source": "rivers", "target": "water", "weight": 2}, {"source": "farmers", "target": "south", "weight": 1}, {"source": "farmers", "target": "west", "weight": 2}, {"source": "change", "target": "extreme", "weight": 2}, {"source": "change", "target": "heat", "weight": 2}, {"source": "change", "target": "help", "weight": 1}, {"source": "climate", "target": "extreme", "weight": 4}, {"source": "climate", "target": "heat", "weight": 3}, {"source": "climate", "target": "help", "weight": 1}, {"source": "extreme", "target": "help", "weight": 1}, {"source": "extreme", "target": "wildfires", "weight": 2}, {"source": "heat", "target": "help", "weight": 1}, {"source": "heat", "target": "wildfires", "weight": 3}, {"source": "help", "target": "wildfires", "weight": 1}, {"source": "farmers", "target": "help", "weight": 1}, {"source": "heat", "target": "water", "weight": 1}, {"source": "heatwave", "target": "water", "weight": 1}, {"source": "cities", "target": "heat", "weight": 2}, {"source": "drought", "target": "heatwaves", "weight": 2}, {"source": "heatwaves", "target": "record", "weight": 3}, {"source": "england", "target": "rivers", "weight": 2}, {"source": "heatwave", "target": "heatwaves", "weight": 1}, {"source": "heatwave", "target": "wildfire", "weight": 1}, {"source": "heatwaves", "target": "wildfire", "weight": 1}, {"source": "temperatures", "target": "wildfire", "weight": 1}, {"source": "heatwave", "target": "wildfires", "weight": 1}, {"source": "hottest", "target": "weather", "weight": 1}, {"source": "england", "target": "extreme", "weight": 1}, {"source": "england", "target": "farmers", "weight": 1}, {"source": "england", "target": "weather", "weight": 2}, {"source": "extreme", "target": "weather", "weight": 2}, {"source": "extreme", "target": "west", "weight": 1}, {"source": "weather", "target": "west", "weight": 1}, {"source": "drought", "target": "wildfires", "weight": 1}, {"source": "heatwaves", "target": "wildfires", "weight": 1}, {"source": "farmers", "target": "rivers", "weight": 1}, {"source": "heat", "target": "people", "weight": 3}, {"source": "people", "target": "wildfires", "weight": 1}, {"source": "heatwaves", "target": "help", "weight": 1}, {"source": "heatwaves", "target": "weather", "weight": 2}, {"source": "help", "target": "weather", "weight": 1}, {"source": "cities", "target": "wildfires", "weight": 1}, {"source": "heat", "target": "hottest", "weight": 2}, {"source": "heat", "target": "temperatures", "weight": 1}, {"source": "hottest", "target": "summer", "weight": 1}, {"source": "england", "target": "heat", "weight": 1}, {"source": "england", "target": "heatwaves", "weight": 1}, {"source": "england", "target": "people", "weight": 1}, {"source": "heat", "target": "heatwaves", "weight": 1}, {"source": "heat", "target": "weather", "weight": 2}, {"source": "heatwaves", "target": "people", "weight": 1}, {"source": "people", "target": "weather", "weight": 1}, {"source": "change", "target": "cities", "weight": 1}, {"source": "change", "target": "people", "weight": 1}, {"source": "cities", "target": "climate", "weight": 1}, {"source": "cities", "target": "people", "weight": 1}, {"source": "climate", "target": "people", "weight": 1}, {"source": "extreme", "target": "people", "weight": 1}, {"source": "heat", "target": "south", "weight": 1}, {"source": "heat", "target": "west", "weight": 1}, {"source": "climate", "target": "heatwaves", "weight": 1}, {"source": "climate", "target": "record", "weight": 1}, {"source": "climate", "target": "temperatures", "weight": 1}]}
+;
+
+// --- Bar chart ---
+const freqEntries = Object.entries(data.freq).sort((a,b)=>b[1]-a[1]);
+const maxFreq = freqEntries[0][1];
+const barDiv = document.getElementById('barchart');
+freqEntries.forEach(([w,c])=>{
+  const row = document.createElement('div');
+  row.className = 'bar-row';
+  row.innerHTML = `<div class="bar-label">${w}</div>
+    <div class="bar-track"><div class="bar-fill" style="width:${(c/maxFreq*100).toFixed(0)}%"></div></div>
+    <div class="bar-val">${c}</div>`;
+  barDiv.appendChild(row);
+});
+
+// --- Graph ---
+const nodesMap = {};
+Object.keys(data.freq).forEach(w=>{ nodesMap[w] = {id:w, freq:data.freq[w]}; });
+const nodes = Object.values(nodesMap);
+const links = data.edges.map(e=>({source:e.source, target:e.target, weight:e.weight}));
+
+const svgEl = document.getElementById('svg');
+const width = svgEl.clientWidth || 700, height = 600;
+const svg = d3.select('#svg').attr('viewBox', [0,0,width,height]);
+
+const rScale = d3.scaleSqrt().domain(d3.extent(nodes, d=>d.freq)).range([6,26]);
+const wScale = d3.scaleLinear().domain(d3.extent(links, d=>d.weight)).range([1,6]);
+const color = d3.scaleSequential(d3.interpolateBlues).domain([0, d3.max(nodes,d=>d.freq)]);
+
+const sim = d3.forceSimulation(nodes)
+  .force('link', d3.forceLink(links).id(d=>d.id).distance(70).strength(0.25))
+  .force('charge', d3.forceManyBody().strength(-220))
+  .force('center', d3.forceCenter(width/2, height/2))
+  .force('collide', d3.forceCollide(d=>rScale(d.freq)+12));
+
+const link = svg.append('g').selectAll('line')
+  .data(links).join('line')
+  .attr('class','link')
+  .attr('stroke-width', d=>wScale(d.weight));
+
+const node = svg.append('g').selectAll('g')
+  .data(nodes).join('g')
+  .attr('class','node')
+  .call(d3.drag()
+    .on('start', (e,d)=>{ if(!e.active) sim.alphaTarget(0.3).restart(); d.fx=d.x; d.fy=d.y; })
+    .on('drag', (e,d)=>{ d.fx=e.x; d.fy=e.y; })
+    .on('end', (e,d)=>{ if(!e.active) sim.alphaTarget(0); d.fx=null; d.fy=null; }));
+
+node.append('circle')
+  .attr('r', d=>rScale(d.freq))
+  .attr('fill', d=>color(d.freq));
+
+node.append('text')
+  .attr('text-anchor','middle')
+  .attr('dy', d=>rScale(d.freq)+12)
+  .text(d=>d.id);
+
+sim.on('tick', ()=>{
+  link.attr('x1',d=>d.source.x).attr('y1',d=>d.source.y)
+      .attr('x2',d=>d.target.x).attr('y2',d=>d.target.y);
+  node.attr('transform', d=>`translate(${d.x},${d.y})`);
+});
+</script>
+</body>
+</html>
