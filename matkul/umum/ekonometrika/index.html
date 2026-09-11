@@ -232,7 +232,7 @@
     background:#e0e0e0;
     }
 
-        .command-box { background-color: #333; color: #fff; padding: 15px; border-radius: 5px; font-family: monospace; }
+        .command-box { background-color: #333; color: #fff; padding: 5px; border-radius: 5px; font-family: monospace; }
 
     /* Mengatur kontainer sebagai patokan posisi */
 .textarea-container {
@@ -445,11 +445,11 @@
         </div>
 
         <div class="trigger">
-        <strong>Konsep: Digunakan ketika variabel berubah dalam bentuk persentase atau memiliki efek diminishing returns (kenaikan yang semakin lama semakin kecil).</strong>
+        <strong>Konsep Logaritma: Digunakan ketika variabel berubah dalam bentuk persentase atau memiliki efek diminishing returns (kenaikan yang semakin lama semakin kecil).</strong>
           <p>Analogi: Makan Martabak. Potongan pertama memberikan tingkat kepuasan yang luar biasa tinggi. Potongan kedua memuaskan, tapi tidak setinggi yang pertama. Saat mencapai potongan ke-10, kepuasan yang bertambah hampir tidak ada (bahkan bisa mual). Peningkatannya ada, tapi melandai.</p>
-          <strong>Konsep: Digunakan saat hubungan variabel memiliki titik balik (maksimum atau minimum). Terdapat variabel independen yang dipangkatkan (misal: $X^2$ atau $X^3$).</strong>
+          <strong>Konsep Kuadrat: Digunakan saat hubungan variabel memiliki titik balik (maksimum atau minimum). Terdapat variabel independen yang dipangkatkan (misal: $X^2$ atau $X^3$).</strong>
           <p>Analogi: Siklus Hidup Atlet. Saat remaja (usia muda), stamina dan performa terus naik. Mencapai puncak kejayaan di usia 25-28 tahun. Setelah melewati usia 30, performa mulai menurun. Jika digambar, grafiknya berbentuk huruf "U" terbalik.</p>
-          <strong>Konsep: Digunakan saat variabel $Y$ menurun (atau meningkat) seiring kenaikan $X$, tetapi $Y$ tidak akan pernah melewati batas tertentu (asimtot).</strong>
+          <strong>Konsep Reciprocal: Digunakan saat variabel $Y$ menurun (atau meningkat) seiring kenaikan $X$, tetapi $Y$ tidak akan pernah melewati batas tertentu (asimtot).</strong>
           <p>Analogi: Patungan Sewa Vila. Harga sewa vila adalah Rp 1.000.000. Jika disewa 1 orang, biayanya Rp 1.000.000. Jika 2 orang, biayanya turun drastis jadi Rp 500.000. Jika 100 orang, biayanya Rp 10.000. Semakin banyak orang, biaya per orang makin mendekati nol, tapi tidak akan pernah menjadi negatif.</p>
         </div>
         <div class="mermaid text-center">
@@ -471,7 +471,7 @@
     <p>Model ini berguna untuk melihat elastisitas atau efek persentase. Bentuk persamaannya (misal Log-Log) adalah:</p>
     <p>$$ \ln(Y_i) = \beta_0 + \beta_1 \ln(X_i) + u_i $$</p>
     <p><strong>Cara di Eviews:</strong> Pada menu Eviews, ketikkan perintah berikut di kotak <em>Command</em>:</p>
-    <div class="command-box">ls log(y) c log(x)</div>
+        <p class="command-box">ls log(y) c log(x)</p>
     <p><em>Catatan:</em> Fungsi <code>log()</code> di Eviews secara default adalah logaritma natural (Ln).</p>
 
     <h2>2. Model Regresi Polinomial (Kuadratik)</h2>
@@ -812,25 +812,19 @@ graph TD
 
     <div class="eviews-step">
         <strong>Langkah 1: Import Data</strong><br>
-        Buka EViews. Klik <code>File > Import > Import from file...</code> dan pilih file CSV Anda. Ikuti *wizard* hingga data masuk ke *workfile*.
+        Buka EViews. Klik <strong>File > Import > Import from file...</strong> dan pilih file CSV Anda. Ikuti *wizard* hingga data masuk ke *workfile*.
     </div>
 
     <div class="eviews-step">
-        <strong>Langkah 2: Membuat Variabel Dummy (Jika data masih berbentuk teks)</strong><br>
-        Jika variabel kategori Anda (misal: "Lokasi") masih berupa teks ("Kota", "Desa"), buat variabel baru di *Command Window*: <br>
-        <code>genr d_kota = @recode(lokasi="Kota", 1, 0)</code>
-    </div>
-
-    <div class="eviews-step">
-        <strong>Langkah 3: Estimasi Model (OLS)</strong><br>
-        Di *Command Window*, ketikkan perintah regresi *Least Squares* (LS) dengan format <code>ls y c x dummy</code>. Contoh:<br>
-        <code>ls gaji c pengalaman d_kota</code><br>
+        <strong>Langkah 2: Estimasi Model (OLS)</strong><br>
+        Di *Command Window*, ketikkan perintah regresi *Least Squares* (LS) dengan format <code   class="command-box">ls y c x dummy</code>. Contoh:<br>
+        <code   class="command-box">ls gaji c pengalaman d_kota</code><br>
         Tekan Enter. Jendela hasil estimasi akan muncul.
     </div>
 
     <div class="eviews-step">
-        <strong>Langkah 4: Uji Asumsi Normalitas</strong><br>
-        Pada jendela hasil estimasi regresi (Equation), klik <code>View > Residual Diagnostics > Histogram - Normality Test</code>.<br>
+        <strong>Langkah 3: Uji Asumsi Normalitas</strong><br>
+        Pada jendela hasil estimasi regresi (Equation), klik <strong>View > Residual Diagnostics > Histogram - Normality Test</strong>.<br>
         Lihat nilai probabilitas <strong>Jarque-Bera</strong>. Jika nilai Prob. > 0.05, maka kita gagal menolak H0, yang artinya <strong>residual berdistribusi normal</strong>.
     </div>
         <p class="soal-latihan">
