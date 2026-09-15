@@ -278,7 +278,6 @@
 }
 	    .link-video {
           background-color: beige;
-	      border-left: 5px solid #0563bb; /* Garis tebal di kiri dengan warna utama situs */
 	      padding: 10px 15px; /* Jarak di dalam kotak (vertikal & horizontal) */
 	      margin: 30px 0px;
           border-radius: 8px; /* Sudut yang sedikit membulat */
@@ -462,28 +461,18 @@
           <h2>Pertemuan 2</h2>
         </div>
 
-        <div class="trigger">
-        <strong>Konsep Logaritma: Digunakan ketika variabel berubah dalam bentuk persentase atau memiliki efek diminishing returns (kenaikan yang semakin lama semakin kecil).</strong>
-          <p>Analogi: Makan Martabak. Potongan pertama memberikan tingkat kepuasan yang luar biasa tinggi. Potongan kedua memuaskan, tapi tidak setinggi yang pertama. Saat mencapai potongan ke-10, kepuasan yang bertambah hampir tidak ada (bahkan bisa mual). Peningkatannya ada, tapi melandai.</p>
-          <strong>Konsep Kuadrat: Digunakan saat hubungan variabel memiliki titik balik (maksimum atau minimum). Terdapat variabel independen yang dipangkatkan (misal: $X^2$ atau $X^3$).</strong>
-          <p>Analogi: Siklus Hidup Atlet. Saat remaja (usia muda), stamina dan performa terus naik. Mencapai puncak kejayaan di usia 25-28 tahun. Setelah melewati usia 30, performa mulai menurun. Jika digambar, grafiknya berbentuk huruf "U" terbalik.</p>
-          <strong>Konsep Reciprocal: Digunakan saat variabel $Y$ menurun (atau meningkat) seiring kenaikan $X$, tetapi $Y$ tidak akan pernah melewati batas tertentu (asimtot).</strong>
-          <p>Analogi: Patungan Sewa Vila. Harga sewa vila adalah Rp 1.000.000. Jika disewa 1 orang, biayanya Rp 1.000.000. Jika 2 orang, biayanya turun drastis jadi Rp 500.000. Jika 100 orang, biayanya Rp 10.000. Semakin banyak orang, biaya per orang makin mendekati nol, tapi tidak akan pernah menjadi negatif.</p>
-                  <a class="link-video" href="https://www.youtube.com/watch?v=FYJ295HsBhE">Video Penjelasan</a>        <a class="link-video" href="https://www.youtube.com/watch?v=41W_PHiAFCQ">Video Tutorial</a>
+        <div class="trigger text-center">
+        <a class="link-video" href="https://www.youtube.com/watch?v=igh65uAkUNc">Video</a>        
         </div>
         <div class="mermaid text-center">
         graph TD
-    A["1. Kumpulkan Data (X dan Y)"] --> B["2. Buat Scatter Plot"]
-    B --> C{"3. Identifikasi Pola Hubungan"}
-    C -->|"Pola melengkung tapi searah"| D["regresi logaritma<br>$\log Y = B_1+B_2\log X_1 + B_3\log X_2$"]
-    C -->|"Pola berbelok (U atau U-terbalik)"| E["regresi polinom<br>$Y = B_1+B_2X^2+B_3X+B_4$"]
-    C -->|"Pola menurun mendekati asimtot"| F["regresi reciprocal<br>$Y = B_1+B_2\left(\dfrac{1}{X}\right)$"]
-    D --> G["4. Spesifikasi Model di Eviews"]
-    E --> G
-    F --> G
-    G --> H["5. Estimasi OLS & Cek Signifikansi (Uji t & F)"]
-    H --> I["6. Uji Asumsi Klasik (Normalitas, Heteroskedastisitas, dll)"]
-    I --> J["7. Interpretasi Koefisien Ekonomika"]
+    A["Practice Problem"] --> B["Plot the points <br>(2,5),(1,3),(0,1),(-2,-3),(-3,-5)"]
+    B --> C["Sketch the line <br> $3x-2y=4$"]
+    C --> D["Sketch,<br>find the x-intercept,<br>find the y-intercept<br>$2x+y=5$"]
+    D --> G["Find the intersection of <br> $3x-2y=4$ <br> $x-2y=2$"]
+    G --> H["Solve the following equations <br> $2x+2y-5z=-5$ <br> $x-y+z=3$ <br> $-3x+y+2z=-2$"]
+    H --> I["Sketch $P=-3Q+75$ and determine <br>(a) $P$ when $Q=23$ <br> (b) $Q$ when $P=18$"]
+    I --> J["The demand and supply functions of a good are given by <br> $P=-4Q+120$ <br> $P=\frac{1}{3}Q+29$ <br>(a) calculate the equillibrium price and quantity <br> (b) calculate the new equillibrium after imposition of a fixed tax of 13 per good. Who pays the tax?"]
         </div>
         
       </div>
