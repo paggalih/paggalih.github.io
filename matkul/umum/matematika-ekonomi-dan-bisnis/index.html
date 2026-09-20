@@ -467,24 +467,15 @@
         <div class="section-title">
           <h2>Pertemuan 3</h2>
         </div>
-        <div class="trigger">
-        <p class="fw-bold">Variabel kualitatif adalah data yang menunjukkan kategori, bukan angka ukur (contoh: Gender, Lokasi, Musim). Agar bisa dimasukkan ke dalam model regresi matematis, kita mengubahnya menjadi "Variabel Dummy" yang bernilai 1 atau 0.</p>
-          <p>Analogi: Bayangkan Anda sedang antre masuk ke sebuah konser. Variabel Dummy itu seperti Tiket VIP. Anda hanya punya dua pilihan: Punya tiket VIP (bernilai 1) atau Tidak punya (bernilai 0). Jika Anda punya (1), Anda mendapatkan fasilitas tambahan (dampak pada variabel Y). Model regresi mengukur seberapa besar "fasilitas tambahan" (perbedaan nilai) antara kelompok VIP dan kelompok Reguler.</p>
-          <p class="fw-bold">Dalam regresi OLS (Ordinary Least Squares), kita berasumsi bahwa residual (selisih antara data asli dan prediksi model) berdistribusi normal. Ini penting agar uji statistik (Uji t, Uji F) valid.</p>
-          <p>Analogi: Bayangkan sekelompok pemanah amatir menembakkan panah ke papan target (dimana titik tengah adalah garis regresi prediksi kita). Mayoritas panah akan menancap di dekat titik tengah (error kecil), dan semakin sedikit yang menancap jauh melenceng ke pinggir (error besar). Jika bentuk sebaran panah ini simetris seperti lonceng, maka asumsi normalitas terpenuhi. Jika panahnya lebih banyak melenceng ke satu sisi (miring/skewed), berarti ada masalah dengan bidikan (model) kita.</p>
+        
+        <div class="trigger text-center">
+        <a class="link-video" href="https://www.youtube.com/watch?v=9mYGJJD-3Rc">Video</a>
+
         </div>
         <div class="mermaid text-center">
-graph TD
-    A["Mulai Analisis Data"] --> B["Impor Data ke EViews"]
-    B --> C["Ubah Variabel Kualitatif menjadi Dummy (0 dan 1)"]
-    C --> D["Estimasi Model Regresi (Metode OLS)"]
-    D --> E["Lakukan Uji Normalitas (Histogram-Normality Test)"]
-    E --> F{"Apakah Residual Berdistribusi Normal?"}
-    F -- "Ya (Prob. Jarque-Bera &gt; 0.05)" --> G["Interpretasi Koefisien & Selesai"]
-    F -- "Tidak (Prob. Jarque-Bera &le; 0.05)" --> H["Evaluasi Outlier atau Transformasi Data"]
-    H --> D
+        graph TD
+    A["Practice Problem"] --> B["The demand and supply functions of a good are given by <br> $P= Q +8$ <br> $P= -3Q +80$ <br>(a) calculate the equillibrium price and quantity <br> (b) calculate the new equillibrium after imposition of a fixed tax of 36 per good. Who pays the tax? <br> (c) find the corresponding value of the government's tax revenue."] --> C["The demand and supply functions for two interdependent commodities are given by <br> $Q_1= 40 -5P_1 -P_2$ <br> $Q_2= 50 -2P_1 -4P_2$ <br> $Q_1= -3 +4P_1$ <br> $Q_2= -7 +3P_2$ <br> (a) Determine the equilibrium price and quantity for these two commodities <br> (b) Are these goods substitable or complimentary? "] --> E["The demand and supply functions for three interdependent commodities are given by <br> $Q_1= 15 -P_1 +2P_2 +P_3$ <br> $Q_2= 9 +P_1 -P_2 -P_3$ <br> $Q_3= 8 +2P_1 -P_2 -4P_3$ <br> $Q_1= -7 +P_1$ <br> $Q_2= -4 +4P_2$ <br> $Q_3= -5 +2P_3$ <br> (a) Determine the equilibrium price and quantity for these commodities "] -->D["Determine the savings function that corresponds to the consumption function $C= 0.8Y +25$"] -->  F["Given that <br> $G= 40$ <br> $I= 55$ <br> $C=0.8Y_d +25$ <br> $T= 0.1Y +10$ <br> calculate equilibrium level of national income "]
         </div>
-    
         
       </div>
     </section>
