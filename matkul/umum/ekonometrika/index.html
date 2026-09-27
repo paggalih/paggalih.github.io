@@ -1146,7 +1146,9 @@ Kasus 4: Dampak Jam Belajar (X) dan Keikutsertaan Bimbel (D) terhadap Nilai Ujia
         </div>
           <div class="trigger">
 <div class="fw-bold">Apa itu Multikolinearitas? (Analogi Tim Sukses)</div>
-            Bayangkan kamu sedang mewawancarai dua orang untuk posisi tim sukses.<div>Si A sangat ahli dalam kampanye media sosial.</div><div>Si B ternyata adalah kembaran Si A yang punya keahlian, jaringan, dan cara bicara yang sama persis dengan Si A.</div> Jika kamu memasukkan keduanya ke dalam tim, kamu akan kesulitan menentukan siapa sebenarnya yang paling berjasa menaikkan elektabilitasmu. Mereka "rebutan panggung". Dalam regresi, jika variabel independen ($X_1$ dan $X_2$) terlalu mirip, model akan bingung menentukan kontribusi masing-masing terhadap $Y$. Akibatnya? Standar error membengkak, dan variabel yang seharusnya signifikan malah terlihat tidak signifikan.
+            <p>Bayangkan kamu sedang mewawancarai dua orang untuk posisi tim sukses.<br>Si A sangat ahli dalam kampanye media sosial.<br>Si B ternyata adalah kembaran Si A yang punya keahlian, jaringan, dan cara bicara yang sama persis dengan Si A.<br> Jika kamu memasukkan keduanya ke dalam tim, kamu akan kesulitan menentukan siapa sebenarnya yang paling berjasa menaikkan elektabilitasmu. Mereka "rebutan panggung". Dalam regresi, jika variabel independen ($X_1$ dan $X_2$) terlalu mirip, model akan bingung menentukan kontribusi masing-masing terhadap $Y$. Akibatnya? Standar error membengkak, dan variabel yang seharusnya signifikan malah terlihat tidak signifikan.</p>       
+            <a class="link-video" href="https://youtu.be/oih9xNb1t3s">Video</a>
+
           </div>
         <div class="mermaid text-center">
 graph TD
@@ -1170,7 +1172,7 @@ graph TD
     <h3>Langkah-langkah di EViews:</h3>
     <ol>
         <li>Buka file kerja (Workfile) Anda dan estimasi model: <strong>Quick > Estimate Equation</strong>.</li>
-        <li>Ketik persamaan, contoh: <code>y c x1 x2 x3</code> lalu klik OK.</li>
+        <li>Ketik persamaan, contoh: <code class="command-box">y c x1 x2 x3</code> lalu klik OK.</li>
         <li>Pada jendela Equation, klik menu <strong>View > Coefficient Diagnostics > Variance Inflation Factors</strong>.</li>
         <li>Perhatikan kolom <strong>Centered VIF</strong>. Jika nilainya <strong>> 10</strong>, maka terdapat masalah multikolinearitas yang serius.</li>
     </ol>
@@ -1366,6 +1368,124 @@ Kasus 3: Kesehatan (Kenaikan Berat Badan)
 "84.0","2480","298"
 "84.5","2490","299"
 "85.0","2500","300"</textarea>
+        </div>
+       <p class="soal-latihan">
+Kasus 4: 
+         <br>Nilai Ujian (Y)
+         <br>Dampak Jam Belajar (X1)
+         <br>Keikutsertaan Bimbel (X2)         </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","65","5","1"
+"2","55","5","0"
+"3","72","8","1"
+"4","62","8","0"
+"5","80","12","1"
+"6","70","12","0"
+"7","88","15","1"
+"8","78","15","0"
+"9","95","20","1"
+"10","85","20","0"
+"11","68","6","1"
+"12","58","6","0"
+"13","75","10","1"
+"14","65","10","0"
+"15","82","13","1"
+"16","72","13","0"
+"17","90","18","1"
+"18","80","18","0"
+"19","98","22","1"
+"20","88","22","0"
+"21","62","4","1"
+"22","52","4","0"
+"23","70","7","1"
+"24","60","7","0"
+"25","78","11","1"
+"26","68","11","0"
+"27","85","14","1"
+"28","75","14","0"
+"29","92","19","1"
+"30","82","19","0"
+"31","66","6","1"
+"32","56","6","0"
+"33","73","9","1"
+"34","63","9","0"
+"35","81","12","1"
+"36","71","12","0"
+"37","89","16","1"
+"38","79","16","0"
+"39","96","21","1"
+"40","86","21","0"
+"41","69","7","1"
+"42","59","7","0"
+"43","76","10","1"
+"44","66","10","0"
+"45","83","13","1"
+"46","73","13","0"
+"47","91","17","1"
+"48","81","17","0"
+"49","99","23","1"
+"50","89","23","0"</textarea>
+        </div>
+        <p class="soal-latihan">Kasus 5: 
+          <br>Hasil Panen (Y)
+          <br>Dampak Volume Air (X1)
+          <br>Jenis Varietas (X2) 
+        </p>
+        <div class="textarea-container">
+        <textarea>
+"ID","Y","X1","X2"
+"1","4.5","20","1"
+"2","3.2","20","0"
+"3","5.2","30","1"
+"4","3.9","30","0"
+"5","6.1","40","1"
+"6","4.7","40","0"
+"7","7.0","50","1"
+"8","5.6","50","0"
+"9","8.2","60","1"
+"10","6.5","60","0"
+"11","4.8","25","1"
+"12","3.5","25","0"
+"13","5.6","35","1"
+"14","4.2","35","0"
+"15","6.4","45","1"
+"16","5.0","45","0"
+"17","7.5","55","1"
+"18","6.0","55","0"
+"19","8.6","65","1"
+"20","7.0","65","0"
+"21","4.2","18","1"
+"22","2.9","18","0"
+"23","5.0","28","1"
+"24","3.7","28","0"
+"25","5.9","38","1"
+"26","4.5","38","0"
+"27","6.8","48","1"
+"28","5.4","48","0"
+"29","8.0","58","1"
+"30","6.2","58","0"
+"31","4.6","22","1"
+"32","3.3","22","0"
+"33","5.4","32","1"
+"34","4.1","32","0"
+"35","6.2","42","1"
+"36","4.8","42","0"
+"37","7.2","52","1"
+"38","5.8","52","0"
+"39","8.4","62","1"
+"40","6.7","62","0"
+"41","4.9","26","1"
+"42","3.6","26","0"
+"43","5.7","36","1"
+"44","4.4","36","0"
+"45","6.6","46","1"
+"46","5.2","46","0"
+"47","7.7","56","1"
+"48","6.3","56","0"
+"49","8.9","68","1"
+"50","7.3","68","0"</textarea>
         </div>
         <p class="soal-latihan">
         </p>
