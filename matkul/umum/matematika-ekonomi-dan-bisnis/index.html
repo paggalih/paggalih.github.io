@@ -507,33 +507,17 @@
         <div class="section-title">
           <h2>Pertemuan 5</h2>
         </div>
-        <div class="trigger">
-Jika sebaran error-nya membesar atau mengecil seiring berubahnya nilai variabel independen, maka terjadilah pelanggaran asumsi yang disebut Heteroskedastisitas.<br>
-<strong>Analogi Sederhana:</strong>
-Bayangkan pengeluaran makan siang keluarga berdasarkan tingkat pendapatannya:
-          <ol>
-            <li>Keluarga Berpendapatan Rendah: Pilihan makanan mereka terbatas. Mereka mungkin menghabiskan Rp 15.000 hingga Rp 25.000 per hari. Variasi (sebaran) datanya sempit.
- </li>
-            <li>Keluarga Berpendapatan Tinggi: Pilihan mereka sangat luas. Kadang mereka makan di warteg seharga Rp 20.000, tapi besoknya mereka bisa makan di restoran mewah seharga Rp 500.000. Variasi datanya sangat lebar!
- </li>
-          </ol>
-Bentuk sebaran data pengeluaran ini menyerupai corong (terompet) yang semakin melebar seiring naiknya pendapatan. Inilah wujud nyata dari heteroskedastisitas!
+        
+         <div class="trigger text-center">
+        <a class="link-video" href="https://youtu.be/a43e21szSjc?si=JTVWTk9SbCjydi3o">Video</a>
+
         </div>
         <div class="mermaid text-center">
-graph TD
-    A["Estimasi Model Regresi OLS Awal"] --> B["Uji Diagnostik Residual"]
-    B --> C["Lakukan Uji Formal (White / Breusch-Pagan / Glejser)"]
-    C --> D{"Apakah P-Value &lt; 0.05?"}
-    D -->|"Ya (Ada Heteroskedastisitas)"| E["Lakukan Penanganan"]
-    D -->|"Tidak (Homoskedastisitas)"| F["Model Aman dan Valid"]
-    E --> G["Gunakan White Heteroskedasticity-Consistent Standard Errors (Robust)"]
-    E --> H["Atau Gunakan Weighted Least Squares (WLS)"]
-    G --> I["Interpretasi Model Regresi Final"]
-    H --> I
-    F --> I
-        </div>
-        
-        
+        graph TD
+    A["Practice Problem"]
+          A--> B[" "]
+         
+        </div>        
         
        </div>
     </section>
