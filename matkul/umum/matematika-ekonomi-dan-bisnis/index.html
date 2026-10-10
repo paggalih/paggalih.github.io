@@ -533,25 +533,15 @@
         <div class="section-title">
           <h2>Pertemuan 6</h2>
         </div>
-        <div class="trigger">
-<strong>Analogi Autokorelasi: "Efek Domino di Barisan"</strong><br>
-Bayangkan Anda sedang melihat sekumpulan tentara yang berbaris rapi. Jika semuanya berjalan dengan sempurna, setiap langkah satu prajurit tidak bergantung pada kesalahan langkah prajurit lainnya.
-<br>
-Namun, bagaimana jika prajurit pertama tersandung batu? Prajurit kedua di belakangnya kemungkinan besar akan ikut tersandung karena menabrak prajurit pertama, yang kemudian membuat prajurit ketiga ikut goyah. Inilah yang disebut Autokorelasi.        </div>
+        
+         <div class="trigger text-center">
+        <a class="link-video" href="https://youtu.be/1FazutrwW0Y">Video</a>
+
+        </div>
+        
         <div class="mermaid text-center">
 graph TD
-    A["Mulai Analisis Regresi"] --> B["Estimasi Model OLS (Ordinary Least Squares)"]
-    B --> C["Lakukan Uji Diagnostik Residual"]
-    C --> D["Uji Breusch-Godfrey Serial Correlation LM Test"]
-    D --> E{"Apakah Prob. Chi-Square &lt; 0.05?"}
-    E -- "Tidak (H0 Diterima)" --> F["Bebas Autokorelasi: Gunakan Model OLS Ini"]
-    E -- "Ya (H0 Ditolak)" --> G["Terdeteksi Autokorelasi: Pilih Metode Perbaikan"]
-    G --> H["Metode 1: Generalized Least Squares (GLS)"]
-    G --> I["Metode 2: HAC Newey-West"]
-    H --> J["Tambahkan term AR(1) atau AR(p) di estimasi"]
-    I --> K["Ubah Covariance Method menjadi HAC (Newey-West)"]
-    J --> L["Evaluasi Ulang Model (Selesai)"]
-    K --> L["Evaluasi Ulang Model (Selesai)"]
+    A["Practice Problem"] --> B[" "]
         </div>
         
       </div>
