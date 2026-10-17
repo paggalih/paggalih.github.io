@@ -620,28 +620,13 @@ graph TD
           <h2>Pertemuan 7</h2>
         </div>
 
-        <div class="trigger">
-<strong>1. Ketepatan Mendeteksi Kesalahan Spesifikasi (Uji RESET Ramsey)</strong>
-          <br><strong>Analogi:</strong> Membeli jas yang ukurannya salah. Jika Anda memaksakan tubuh Anda ke dalam jas lurus padahal postur Anda agak membungkuk, jas itu akan berkerut di tempat-tempat yang aneh.
-          <br>Dalam regresi, kita sering berasumsi hubungannya berupa garis lurus (linear). Jika hubungan aslinya melengkung (non-linear) tapi kita paksakan pakai garis lurus, error-nya akan "berkerut". Uji Ramsey RESET (Regression Equation Specification Error Test) berfungsi seperti cermin fitting; ia mengecek apakah kita perlu menambahkan variabel berpangkat (seperti $X^2$ atau $X^3$) agar modelnya pas.
-          <br><strong><br>2. Ketepatan Mengidentifikasi Bias akibat Omitted Variable (Variabel yang Dihilangkan)</strong>
-          <br><strong>Analogi:</strong> Menyalahkan payung sebagai penyebab hujan. Anda melihat data bahwa setiap kali banyak orang membawa payung, jalanan pasti basah. Anda menyimpulkan payung membasahi jalan. Anda lupa memasukkan variabel "Awan Mendung".
-          <br>Omitted Variable Bias (OVB) terjadi ketika kita meninggalkan variabel penting yang mempengaruhi variabel dependen ($Y$) sekaligus berkorelasi dengan variabel independen ($X$). Akibatnya, $X$ yang ada di dalam model akan "merampas" efek dari variabel yang hilang tersebut, membuat estimasinya menjadi bias atau salah arah.
-          <br><br><strong>3. Ketepatan Mengevaluasi dan Memperbaiki Spesifikasi Model</strong>
-          <br><strong>Analogi:</strong> Memasak sup asam pedas. Anda mencicipi supnya (evaluasi). Jika kurang asam, Anda tambah cuka. Jika terlalu asin, Anda tambah air (perbaikan).
-          <br>Evaluasi model dilakukan dengan melihat $R^2$, signifikansi uji-t, uji-F, serta uji diagnostik (seperti RESET). Jika spesifikasinya salah, perbaikannya bisa berupa: menambah/mengurangi variabel, melakukan transformasi logaritma ($\ln$), atau menambahkan bentuk kuadratik.
+        <div class="trigger text-center">
+        <a class="link-video" href="https://www.youtube.com/watch?v=Shr1iVMe700">Video</a>
+
         </div>
         <div class="mermaid text-center">
 graph TD
-    A["Mulai Analisis Data"] --> B["Estimasi Model OLS Dasar"]
-    B --> C["Evaluasi Signifikansi (Uji t dan F)"]
-    C --> D["Uji Omitted Variable Bias"]
-    D --> E["Uji Ramsey RESET"]
-    E --> F{"Apakah Ada Kesalahan Spesifikasi?"}
-    F -- "Ya" --> G["Perbaiki Spesifikasi (Log/Kuadrat/Tambah Variabel)"]
-    G --> B
-    F -- "Tidak" --> H["Model Final Valid"]
-    H --> I["Interpretasi Hasil"]
+    A["Practice Problem"] --> B[" "]
         </div>
         
       </div>
