@@ -3343,356 +3343,405 @@ graph TD
 Bayangkan Regresi Logistik Multinomial itu seperti memprediksi menu makan siang rekan kerja Anda. Kalau pilihannya cuma dua ("Makan siang" vs "Puasa"), itu Logistik Biner. <br>Tapi kalau pilihannya ada tiga atau lebih dan tidak bertingkat—misalnya: "Nasi Padang", "Salad Diet", atau "Mie Instan"—maka di sinilah Regresi Multinomial beraksi. Pilihan mereka ditentukan oleh variabel independen seperti: isi dompet ($X_1$) dan tingkat kelaparan ($X_2$).
         </div>
         <div class="mermaid text-center">
-graph TD
-    A["Mulai Analisis"] --> B["Siapkan Data (Y &gt; 2 Kategori Nominal)"]
-    B --> C["Tentukan Kategori Basis (Base Outcome)"]
-    C --> D["Estimasi Model di EViews (Multinomial Logit)"]
-    D --> E["Evaluasi Log Odds Relatif (Koefisien Beta)"]
-    E --> F["Hitung Nilai Odds Ratio [exp(Beta)]"]
-    F --> G["Uji Ketepatan Klasifikasi (Expectation-Prediction)"]
-    G --> H["Interpretasi & Selesai"]
+flowchart TD
+    A["1. Identifikasi Masalah dan Variabel Y Nominal (>= 3 Kategori)"] --> B["2. Eksplorasi Data dan Cek Distribusi Frekuensi Tiap Kategori Y"]
+    B --> C["3. Uji Multikolinearitas Antar Variabel Independen (VIF < 10)"]
+    C --> D["4. Tetapkan Kategori Referensi / Base Outcome (Misal: Y = 0)"]
+    D --> E["5. Estimasi Model Logit Multinomial (Add-in mlogit atau Objek LogL EViews)"]
+    E --> F["6. Uji Simultan: Likelihood Ratio Test (Prob LR Stat < 0.05)"]
+    F --> G["7. Uji Parsial: Z-Statistic dan P-Value Tiap Variabel X"]
+    G --> H["8. Evaluasi Goodness-of-Fit (McFadden R-Squared dan Akurasi Klasifikasi)"]
+    H --> I["9. Hitung Relative Risk Ratio: RRR = exp(Koefisien Beta)"]
+    I --> J["10. Uji Asumsi IIA (Hausman-McFadden) dan Interpretasi Ekonomi"]
         </div>
-<article>
-    <h2>Panduan Praktis Regresi Logistik Multinomial dengan EViews</h2>
-    <p>Regresi Logistik Multinomial digunakan ketika variabel dependen ($Y$) bersifat kategorikal dengan lebih dari dua opsi tanpa urutan tertentu (nominal).</p>
+<article class="econometrics-post">
+  <h2>Panduan Lengkap Regresi Logistik Multinomial Menggunakan EViews</h2>
 
-    <h3>Langkah-Langkah di EViews</h3>
-    <ol>
-        <li>Enter satu per satu command di bawah ini
-          <br><code>series d0 = (Y = 0)<br>
-series d1 = (Y = 1)<br>
-series d2 = (Y = 2)<br>
-coef(3) b1<br>
-coef(3) b2</code>
-        </li>
-      <li>Klik <strong>Object --> New Object</strong> dari menu utama.</li>
-      <li>Pilih <strong>Log Likelihood</strong>, beri nama <code>mlogit_model</code>, dan klik OK.</li>
-      <li>Pada jendela kosong yang muncul copy kan perintah di bawah ini.
-      <br><code><textarea>
-' Specify the log-likelihood assignment variable
-@logl logl1
+  <p>
+    Dalam penelitian ekonomi dan bisnis, keputusan agen ekonomi sering kali berupa pilihan diskrit yang bersifat nominal (tidak berjenjang), seperti pemilihan moda transportasi, instrumen investasi, atau saluran pemasaran. Ketika variabel dependen \(Y\) memiliki \(J\) kategori nominal (\(j = 0, 1, 2, \dots, J-1\)) dengan \(j = 0\) sebagai <strong>kategori referensi (<em>base outcome</em>)</strong>, probabilitas individu \(i\) memilih kategori \(j\) dirumuskan sebagai:
+  </p>
 
-' Define linear index functions for choices 1 and 2 (Y=0 is the base)
-xb1 = b1(1) + b1(2)*X1 + b1(3)*X2
-xb2 = b2(1) + b2(2)*X1 + b2(3)*X2
+  $$P(Y_i = j \mid \mathbf{X}_i) = \frac{\exp(\mathbf{X}_i'\boldsymbol{\beta}_j)}{1 + \sum_{k=1}^{J-1} \exp(\mathbf{X}_i'\boldsymbol{\beta}_k)}, \quad j = 1, 2, \dots, J-1$$
 
-' Define the common denominator for the probabilities
-denom = 1 + exp(xb1) + exp(xb2)
+  <p>
+    Sementara itu, probabilitas untuk kategori referensi (\(j = 0\)) adalah:
+  </p>
 
-' Define choice probabilities
-pr0 = 1 / denom
-pr1 = exp(xb1) / denom
-pr2 = exp(xb2) / denom
+  $$P(Y_i = 0 \mid \mathbf{X}_i) = \frac{1}{1 + \sum_{k=1}^{J-1} \exp(\mathbf{X}_i'\boldsymbol{\beta}_k)}$$
 
-' Construct the log-likelihood function
-logl1 = d0*log(pr0) + d1*log(pr1) + d2*log(pr2)</textarea>
-        </code>
-      </li>
-      <li>Klik <strong>Estimate</strong> pada jendela LogL, isikan <code>@all</code> pada kotak <strong>Sample</strong> dan klik OK.</li>
-    </ol>
+  <p>
+    Persamaan <em>log-odds</em> (logit) membandingkan probabilitas setiap kategori \(j\) terhadap kategori dasar \(0\):
+  </p>
 
-    <h3>Interpretasi</h3>
+  $$\ln\left(\frac{P(Y_i = j)}{P(Y_i = 0)}\right) = \beta_{j0} + \beta_{j1}X_{1i} + \beta_{j2}X_{2i} + \dots + \beta_{jk}X_{ki}$$
+
+  <h3>Langkah 1: Impor Data CSV ke dalam Workfile EViews</h3>
+  <h3>Langkah 2: Statistik Deskriptif dan Pemeriksaan Multikolinearitas</h3>
   <ol>
-  <li>koefisien b1 ($Y=1$ vs $Y=0$): menunjukkan pengaruh $X1$ dan $X2$ pada pemilihan category 1 daripada category 0. Jadi, positif b1(2) artinya $X1$ lebih mendorong pemilihan 1 daripada 0. Begitupun positif b1(3).
-    </li>
-    <li> koefisien b2 ($Y=2$ vs $Y=0$): menunjukkan pengaruh pemilihan category 2 daripada category 0.
-    </li>
-    <li>Z-Statistics & P-values: untuk cek apakah $X1$ dan $X2$ signifikan secara statistik berpengaruh pada pemilihan categorys.
-    </li>
+    <li>Blok seluruh variabel independen (\(X_1, X_2, X_3, X_4\)), klik kanan, lalu pilih <strong>Open &rarr; as Group</strong>.</li>
+    <li>Klik <strong>View &rarr; Descriptive Stats &rarr; Common Sample</strong> untuk melihat nilai rata-rata, minimum, maksimum, dan standar deviasi.</li>
+    <li>Untuk memastikan tidak ada multikolinearitas berat antarvariabel \(X\), jalankan regresi bantu OLS (<strong>Quick &rarr; Estimate Equation</strong>: <code>y c x1 x2 x3 x4</code>), lalu klik <strong>View &rarr; Coefficient Diagnostics &rarr; Variance Inflation Factors</strong>. Pastikan seluruh nilai <em>Centered VIF</em> \(< 10\).</li>
   </ol>
+
+  <h3>Langkah 3: Estimasi Model Logit Multinomial di EViews</h3>
+  <p>
+    Secara bawaan, opsi <code>BINARY</code> pada menu estimasi EViews hanya menangani 2 kategori, sedangkan <code>ORDERED</code> digunakan untuk kategori berperingkat. Untuk mengestimasi <strong>Multinomial Logit</strong> di EViews, gunakan salah satu dari dua metode resmi berikut:
+  </p>
+  <h4>Metode: Estimasi <em>Maximum Likelihood</em> Bawaan EViews (Objek <code>LogL</code>)</h4>
+  <p>
+    Jika Anda bekerja secara <em>offline</em> tanpa add-in, gunakan fasilitas <strong>Log Likelihood (<code>LogL</code>)</strong> bawaan EViews (sesuai standar <em>EViews User's Guide</em>):
+  </p>
+  <ol>
+    <li>Klik menu <strong>Objects &rarr; New Object...</strong>, pilih <strong>LogL</strong>, beri nama <code>mlogit_model</code>, lalu klik <strong>OK</strong>.</li>
+    <li>Salin dan tempel skrip <em>log-likelihood</em> berikut ke dalam jendela objek <code>LogL</code> (contoh untuk 3 kategori \(Y \in \{0, 1, 2\}\) dengan \(Y=0\) sebagai referensi dan 4 variabel \(X_1, X_2, X_3, X_4\)):</li>
+  </ol>
+
+  <pre><code>@logl logl1
+' Inisialisasi nilai awal parameter (jalankan di Command Window terlebih dahulu):
+' coef(5) b1 = 0
+' coef(5) b2 = 0
+
+xb1 = b1(1) + b1(2)*x1 + b1(3)*x2 + b1(4)*x3 + b1(5)*x4
+xb2 = b2(1) + b2(2)*x1 + b2(3)*x2 + b2(4)*x3 + b2(5)*x4
+
+denom = 1 + @exp(xb1) + @exp(xb2)
+p0 = 1 / denom
+p1 = @exp(xb1) / denom
+p2 = @exp(xb2) / denom
+
+logl1 = (y=0)*@log(p0) + (y=1)*@log(p1) + (y=2)*@log(p2)</code></pre>
+
+  <ol start="3">
+    <li>Ketik <code>coef(5) b1 = 0</code> dan <code>coef(5) b2 = 0</code> pada <em>Command Window</em> di bagian atas EViews dan tekan <strong>Enter</strong>.</li>
+    <li>Kembali ke jendela <code>mlogit_model</code>, klik tombol <strong>Estimate</strong> pada toolbar, pilih metode optimasi <strong>BFGS</strong> atau <strong>Newton-Raphson</strong>, lalu klik <strong>OK</strong>.</li>
+  </ol>
+
+  <h3>Langkah 4: Interpretasi Output EViews</h3>
+  <table>
+    <thead>
+      <tr>
+        <th>Komponen Output</th>
+        <th>Kriteria Statistik</th>
+        <th>Makna Ekonometrika</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>LR Statistic &amp; Prob(LR stat)</strong></td>
+        <td>\(\text{Prob(LR stat)} &lt; 0{,}05\)</td>
+        <td>Minimal terdapat satu variabel independen \(X\) yang berpengaruh signifikan secara simultan terhadap pilihan kategori \(Y\).</td>
+      </tr>
+      <tr>
+        <td><strong>z-Statistic &amp; Prob. (Parsial)</strong></td>
+        <td>\(\text{Prob.} &lt; 0{,}05\)</td>
+        <td>Variabel \(X_k\) berpengaruh signifikan dalam membedakan peluang memilih kategori \(j\) dibanding kategori referensi \(0\).</td>
+      </tr>
+      <tr>
+        <td><strong>McFadden \(R^2\)</strong></td>
+        <td>\(R^2_{\text{McFadden}} = 1 - \frac{\ln L_{\text{model}}}{\ln L_0}\)</td>
+        <td>Mengukur daya jelas model dibanding model tanpa prediktor (nilai \(0{,}20 - 0{,}40\) pada data diskrit tergolong sangat baik).</td>
+      </tr>
+      <tr>
+        <td><strong>Relative Risk Ratio (\(RRR\))</strong></td>
+        <td>\(RRR_{jk} = e^{\beta_{jk}}\)</td>
+        <td>Jika \(RRR &gt; 1\), kenaikan \(X_k\) memperbesar peluang memilih kategori \(j\) dibanding referensi; jika \(RRR &lt; 1\), peluangnya mengecil.</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <blockquote>
+    <strong>Catatan Praktis:</strong> Untuk menghitung nilai \(RRR\) langsung di EViews, ketik perintah <code>scalar rrr_x1 = @exp(b1(2))</code> pada <em>Command Window</em> lalu tekan <strong>Enter</strong>.
+  </blockquote>
 </article>
         <p class="soal-latihan">
-Kasus 1: Pilihan Merek Smartphone ($Y$)<br>Kategori Y: "0" (Xiaomi), "1" (Samsung), "2" (Apple) — Basis: "0" <br> Variabel X: $X_1$ = "Pendapatan" (Juta Rupiah), $X_2$ = "Skor Tech-Savvy" (Skala 1-10)
+<strong>Kasus 1: Pemilihan Moda Transportasi Komuter Perkotaan (Ekonomi Transportasi)</strong>
+          <br>Variabel Dependen (moda): 0 = Angkutan Umum/KRL (Referensi), 1 = Sepeda Motor, 2 = Mobil Pribadi.
         </p>
         <div class="textarea-container">
         <textarea>
-"ID","Y","X1","X2"
-"1","2","3.5","5"
-"2","1","4.0","6"
-"3","1","4.2","4"
-"4","1","6.5","7"
-"5","2","15.0","9"
-"6","1","7.0","6"
-"7","1","12.5","8"
-"8","0","3.8","5"
-"9","1","8.5","7"
-"10","2","18.0","9"
-"11","0","4.5","4"
-"12","1","5.5","6"
-"13","2","14.0","8"
-"14","0","3.9","5"
-"15","1","7.2","7"
-"16","2","16.5","9"
-"17","0","4.1","6"
-"18","1","6.0","6"
-"19","2","13.0","8"
-"20","0","3.6","4"
-"21","1","8.0","7"
-"22","2","19.0","10"
-"23","0","4.3","5"
-"24","1","6.8","6"
-"25","2","11.0","8"
-"26","0","3.7","5"
-"27","1","7.5","7"
-"28","2","17.0","9"
-"29","0","4.6","5"
-"30","1","5.9","6"
-"31","2","15.5","9"
-"32","0","3.2","4"
-"33","1","8.2","7"
-"34","2","20.0","9"
-"35","0","4.4","6"
-"36","1","6.1","6"
-"37","2","12.0","8"
-"38","0","3.4","5"
-"39","1","7.8","7"
-"40","2","16.0","9"
-"41","0","4.7","5"
-"42","1","6.3","6"
-"43","2","14.5","8"
-"44","0","3.3","4"
-"45","1","8.4","8"
-"46","2","18.5","10"
-"47","0","4.8","6"
-"48","1","6.6","7"
-"49","2","13.5","7"
-"50","1","7.1","6"</textarea>
+"moda","pendapatan","jarak","parkir","usia"
+"0","5.2","14.5","35","28"
+"1","7.8","8.2","15","26"
+"2","21.5","24.0","10","45"
+"1","9.4","11.0","20","31"
+"0","4.5","18.5","40","34"
+"2","18.2","28.5","12","49"
+"1","6.8","6.5","10","24"
+"0","8.1","22.0","45","39"
+"2","24.0","19.5","15","52"
+"1","11.2","9.8","18","29"
+"0","5.8","16.0","38","41"
+"2","19.8","31.0","8","44"
+"1","8.5","7.4","12","27"
+"0","6.2","25.0","42","36"
+"2","22.4","21.5","14","47"
+"1","10.1","12.3","22","33"
+"0","4.9","13.8","30","25"
+"2","17.5","26.4","10","42"
+"1","7.2","5.9","15","23"
+"0","9.0","27.5","48","50"
+"2","23.1","18.0","12","46"
+"1","12.0","10.5","25","35"
+"0","5.5","19.2","36","30"
+"2","20.4","29.8","9","51"
+"1","8.9","8.8","14","28"
+"0","6.7","21.4","44","38"
+"2","16.9","23.2","15","40"
+"1","9.8","11.6","19","32"
+"0","4.2","15.1","32","26"
+"2","24.8","33.5","10","54"
+"1","7.5","6.8","12","25"
+"0","8.4","24.6","46","43"
+"2","19.1","20.1","11","48"
+"1","11.5","9.2","20","30"
+"0","5.1","17.9","39","37"
+"2","21.0","27.0","14","45"
+"1","6.5","7.1","10","24"
+"0","7.9","26.2","45","41"
+"2","22.9","22.8","12","53"
+"1","10.6","13.0","24","34"
+"0","4.8","14.2","34","29"
+"2","18.6","25.5","11","43"
+"1","8.2","8.0","16","27"
+"0","6.0","20.8","41","35"
+"2","23.7","30.4","8","50"
+"1","9.2","10.1","18","31"
+"0","5.4","16.7","37","32"
+"2","17.8","24.9","13","46"
+"1","11.8","11.4","21","36"
+"0","7.1","23.5","47","44"</textarea>
         </div>
         <p class="soal-latihan">
-Kasus 2: Pilihan Jalur Karier Lulusan Kuliah ($Y$)
-          <br>Kategori Y: "0" (Karyawan Swasta), "1" (Freelancer), "2" (Wirausaha) — Basis: "0"
-          <br>Variabel X: $X_1$ = "Toleransi Risiko" (Skala 1-10), $X_2$ = "IPK" (Skala 4.00)
+<strong>Kasus 2: Pilihan Instrumen Investasi Investor Ritel (Ekonomi Keuangan)</strong> 
+  <br>Variabel Dependen (instrumen): 0 = Deposito/RDPU (Referensi), 1 = Surat Berharga Negara (SBN), 2 = Saham/Aset Kripto.
         </p>
         <div class="textarea-container">
         <textarea>
-"ID","Y","X1","X2"
-"1","2","3","3.65"
-"2","1","4","3.40"
-"3","0","7","3.10"
-"4","0","9","3.25"
-"5","0","2","3.80"
-"6","1","6","2.95"
-"7","1","8","3.45"
-"8","0","4","3.70"
-"9","1","7","3.20"
-"10","2","9","3.15"
-"11","0","3","3.55"
-"12","1","5","3.00"
-"13","2","8","3.60"
-"14","0","4","3.90"
-"15","1","6","3.12"
-"16","2","9","2.85"
-"17","0","2","3.75"
-"18","1","7","3.40"
-"19","2","8","3.30"
-"20","0","3","3.68"
-"21","1","6","2.90"
-"22","2","10","3.10"
-"23","0","4","3.50"
-"24","1","7","3.05"
-"25","2","8","3.52"
-"26","0","1","3.85"
-"27","1","5","3.25"
-"28","2","9","3.00"
-"29","0","3","3.60"
-"30","1","6","3.15"
-"31","2","9","3.42"
-"32","0","4","3.72"
-"33","1","7","2.98"
-"34","2","8","3.21"
-"35","0","2","3.95"
-"36","1","6","3.35"
-"37","2","9","3.08"
-"38","0","5","3.48"
-"39","1","8","2.80"
-"40","2","9","3.50"
-"41","0","3","3.66"
-"42","1","7","3.18"
-"43","2","8","3.29"
-"44","0","2","3.78"
-"45","1","6","3.02"
-"46","2","10","3.60"
-"47","0","4","3.54"
-"48","1","7","3.11"
-"49","2","9","3.38"
-"50","0","3","3.45"</textarea>
+"instrumen","literasi","aset","toleransi","tanggungan"
+"0","48","35.0","2","4"
+"1","72","180.5","5","2"
+"2","88","290.0","9","0"
+"0","52","42.0","3","3"
+"1","76","240.0","6","2"
+"2","92","410.5","10","1"
+"0","45","28.5","2","5"
+"1","68","155.0","4","3"
+"2","85","215.0","8","1"
+"0","55","60.0","3","4"
+"1","79","310.0","5","1"
+"2","90","365.0","9","0"
+"0","42","22.0","1","4"
+"1","74","195.0","6","2"
+"2","84","175.0","8","1"
+"0","58","75.0","3","3"
+"1","81","280.0","5","2"
+"2","95","440.0","10","0"
+"0","50","48.0","2","5"
+"1","70","165.0","4","2"
+"2","86","260.0","9","1"
+"0","46","31.0","2","3"
+"1","77","225.0","6","1"
+"2","91","390.0","8","0"
+"0","54","55.0","3","4"
+"1","73","205.0","5","2"
+"2","89","320.0","9","1"
+"0","44","25.0","1","5"
+"1","75","250.0","6","3"
+"2","83","190.0","7","0"
+"0","59","82.0","4","4"
+"1","80","295.0","5","2"
+"2","94","425.0","10","1"
+"0","49","38.0","2","3"
+"1","71","170.0","5","2"
+"2","87","275.0","8","0"
+"0","51","45.0","3","4"
+"1","78","265.0","6","1"
+"2","93","405.0","9","1"
+"0","47","33.0","2","5"
+"1","69","160.0","4","2"
+"2","85","230.0","8","0"
+"0","56","68.0","3","3"
+"1","82","330.0","6","2"
+"2","96","450.0","10","0"
+"0","43","20.5","1","4"
+"1","74","210.0","5","1"
+"2","88","300.0","9","1"
+"0","53","52.0","3","3"
+"1","76","235.0","5","2"</textarea>
         </div>
         <p class="soal-latihan">
-Kasus 3: Pilihan Sumber Energi Rumah Tangga ($Y$)
-          <br>Kategori Y: "0" (Gas/LPG), "1" (Listrik PLN), "2" (Panel Surya) — Basis: "0"
-          <br>Variabel X: $X_1$ = "Pendapatan Bulanan" (Juta Rupiah), $X_2$ = "Luas Atap" ($m^2$)
+<strong>Kasus 3: Strategi Adopsi Saluran Pemasaran UMKM (Ekonomi Digital & Bisnis)</strong>
+          <br>Variabel Dependen (saluran): 0 = Toko Fisik Konvensional (Referensi), 1 = Marketplace (Tokopedia/Shopee), 2 = Social Commerce & Website Mandiri.
         </p>
         <div class="textarea-container">
         <textarea>
-"ID","Y","X1","X2"
-"1","1","4.0","30"
-"2","1","4.5","40"
-"3","1","8.0","50"
-"4","1","9.5","60"
-"5","2","16.0","100"
-"6","0","5.0","35"
-"7","1","7.5","45"
-"8","1","14.0","90"
-"9","2","3.8","25"
-"10","1","8.5","70"
-"11","2","18.0","120"
-"12","0","4.2","32"
-"13","1","9.0","55"
-"14","2","15.0","85"
-"15","0","5.2","42"
-"16","1","7.0","50"
-"17","2","13.5","95"
-"18","0","4.7","38"
-"19","1","8.2","65"
-"20","2","17.0","110"
-"21","0","3.9","28"
-"22","1","7.8","48"
-"23","2","19.0","130"
-"24","0","4.6","36"
-"25","1","8.8","60"
-"26","2","14.5","80"
-"27","0","4.1","30"
-"28","1","9.2","75"
-"29","2","16.5","105"
-"30","0","5.5","50"
-"31","1","6.8","40"
-"32","2","12.0","85"
-"33","0","4.3","34"
-"34","1","8.4","68"
-"35","2","15.8","100"
-"36","0","3.7","26"
-"37","1","7.9","52"
-"38","2","20.0","140"
-"39","0","4.9","44"
-"40","1","8.1","62"
-"41","2","13.8","90"
-"42","0","4.4","35"
-"43","1","9.6","78"
-"44","2","17.5","115"
-"45","0","5.1","48"
-"46","1","7.2","46"
-"47","2","12.8","88"
-"48","0","4.0","31"
-"49","1","8.6","66"
-"50","2","15.2","92"</textarea>
+"saluran","omzet","karyawan","usia_bos","iklan"
+"0","14.5","2","54","1.2"
+"1","45.0","6","34","5.5"
+"2","115.0","16","27","11.8"
+"0","18.0","3","51","1.5"
+"1","52.5","8","32","6.2"
+"2","132.0","20","25","13.5"
+"0","11.0","2","58","0.8"
+"1","38.0","5","37","4.8"
+"2","98.5","14","29","10.4"
+"0","22.5","4","49","2.0"
+"1","60.0","9","31","7.0"
+"2","140.0","22","26","14.2"
+"0","9.5","1","56","0.5"
+"1","42.0","6","35","5.1"
+"2","108.0","15","28","11.0"
+"0","25.0","4","47","2.3"
+"1","55.0","7","33","6.5"
+"2","125.0","18","24","12.9"
+"0","16.0","3","53","1.4"
+"1","48.5","7","36","5.8"
+"2","112.0","17","30","11.5"
+"0","12.5","2","55","1.0"
+"1","64.0","10","30","7.4"
+"2","136.5","21","27","13.8"
+"0","20.0","3","50","1.8"
+"1","40.5","5","38","4.9"
+"2","104.0","13","28","10.7"
+"0","8.5","1","59","0.6"
+"1","58.0","8","32","6.8"
+"2","128.5","19","25","13.1"
+"0","24.0","4","48","2.1"
+"1","50.0","7","34","6.0"
+"2","145.0","24","26","14.6"
+"0","15.5","2","52","1.3"
+"1","44.0","6","35","5.4"
+"2","118.0","16","29","12.1"
+"0","19.0","3","51","1.7"
+"1","62.5","9","31","7.2"
+"2","130.0","20","24","13.4"
+"0","13.0","2","57","0.9"
+"1","36.5","5","39","4.5"
+"2","101.5","14","27","10.2"
+"0","21.5","3","49","1.9"
+"1","54.0","8","33","6.4"
+"2","148.0","25","25","14.9"
+"0","10.5","2","55","0.7"
+"1","47.0","6","36","5.7"
+"2","122.0","18","28","12.5"
+"0","17.5","3","50","1.6"
+"1","56.5","8","32","6.6"</textarea>
         </div>
         <p class="soal-latihan">
-Kasus 4: Pilihan Moda Transportasi Kerja ($Y$)
-          <br>Kategori Y: "0" (Sepeda Motor), "1" (Kereta Commuter), "2" (Mobil Pribadi) — Basis: "0"
-          <br>Variabel X: $X_1$ = "Jarak Tempuh" (Km), $X_2$ = "Biaya Parkir/Tol Harian" (Ribu Rupiah)
+<strong>Kasus 4: Pilihan Pembiayaan Ekspansi Perusahaan Manufaktur (Ekonomi Industri)</strong>
+          <br>Variabel Dependen (pembiayaan): 0 = Laba Ditahan / Internal (Referensi), 1 = Kredit Perbankan, 2 = Penerbitan Obligasi/Ekuitas Baru.
         </p>
         <div class="textarea-container">
         <textarea>
-"ID","Y","X1","X2"
-"1","1","5","5"
-"2","1","8","10"
-"3","0","25","15"
-"4","1","30","10"
-"5","2","15","50"
-"6","0","7","5"
-"7","1","22","12"
-"8","2","18","60"
-"9","0","4","0"
-"10","1","35","15"
-"11","1","28","75"
-"12","2","9","10"
-"13","1","20","10"
-"14","2","12","45"
-"15","0","6","5"
-"16","1","26","15"
-"17","2","22","65"
-"18","0","11","10"
-"19","1","19","8"
-"20","2","16","55"
-"21","0","3","0"
-"22","1","40","20"
-"23","2","32","80"
-"24","0","10","5"
-"25","1","24","12"
-"26","2","14","40"
-"27","0","5","5"
-"28","1","27","14"
-"29","2","25","70"
-"30","0","12","15"
-"31","1","18","10"
-"32","2","17","50"
-"33","0","8","5"
-"34","1","32","18"
-"35","2","21","60"
-"36","0","2","0"
-"37","1","23","11"
-"38","2","30","85"
-"39","0","7","10"
-"40","1","21","13"
-"41","2","15","45"
-"42","0","6","5"
-"43","1","29","16"
-"44","2","26","75"
-"45","0","13","15"
-"46","1","17","8"
-"47","2","19","55"
-"48","0","4","5"
-"49","1","31","15"
-"50","2","23","65"</textarea>
+"pembiayaan","roa","der","ln_aset","bunga"
+"0","15.2","0.45","11.20","11.5"
+"1","8.4","0.85","12.80","8.2"
+"2","6.1","1.95","15.40","12.4"
+"0","16.5","0.38","10.95","12.0"
+"1","9.1","0.92","13.10","8.5"
+"2","5.4","2.20","15.85","12.8"
+"0","14.0","0.52","11.50","11.2"
+"1","7.8","0.78","12.55","7.9"
+"2","6.8","1.80","14.95","11.9"
+"0","17.1","0.32","10.80","12.5"
+"1","10.2","1.05","13.40","8.8"
+"2","4.9","2.45","16.10","13.1"
+"0","13.5","0.58","11.65","11.0"
+"1","8.9","0.88","12.95","8.1"
+"2","7.2","1.75","15.15","12.1"
+"0","15.8","0.41","11.10","11.8"
+"1","9.5","0.95","13.25","8.4"
+"2","5.2","2.35","15.95","12.9"
+"0","14.6","0.49","11.35","11.4"
+"1","8.1","0.82","12.70","8.0"
+"2","6.4","2.05","15.55","12.5"
+"0","16.9","0.35","10.90","12.2"
+"1","10.5","1.10","13.55","8.7"
+"2","4.7","2.55","16.25","13.3"
+"0","13.8","0.55","11.60","11.1"
+"1","7.6","0.75","12.45","7.8"
+"2","6.9","1.85","15.05","12.0"
+"0","17.5","0.28","10.70","12.7"
+"1","9.8","0.98","13.30","8.6"
+"2","5.6","2.15","15.75","12.7"
+"0","14.9","0.44","11.25","11.6"
+"1","8.7","0.90","13.00","8.3"
+"2","4.5","2.65","16.40","13.4"
+"0","15.5","0.40","11.05","11.9"
+"1","9.3","0.94","13.15","8.4"
+"2","6.2","2.00","15.45","12.3"
+"0","16.2","0.36","10.85","12.1"
+"1","10.0","1.02","13.45","8.6"
+"2","5.1","2.40","16.05","13.0"
+"0","14.2","0.50","11.45","11.3"
+"1","7.9","0.80","12.60","7.9"
+"2","6.6","1.90","15.25","12.2"
+"0","16.7","0.34","10.92","12.3"
+"1","9.6","0.96","13.28","8.5"
+"2","4.8","2.50","16.20","13.2"
+"0","13.2","0.60","11.75","10.9"
+"1","8.5","0.86","12.85","8.2"
+"2","5.9","2.10","15.65","12.6"
+"0","15.0","0.46","11.30","11.5"
+"1","9.0","0.91","13.05","8.3"</textarea>
         </div>
         <p class="soal-latihan">
-Kasus 5: Pilihan Instrumen Investasi Utama ($Y$)
-          <br>Kategori Y: "0" (Emas/Logam Mulia), "1" (Obligasi/Surat Utang), "2" (Saham) — Basis: "0"
-          <br>Variabel X: $X_1$ = "Usia" (Tahun), $X_2$ = "Skor Literasi Keuangan" (Skala 10-50)
+<strong>Kasus 5: Pilihan Jenis Layanan Kesehatan Masyarakat (Ekonomi Kesehatan & Publik)</strong>
+          <br>Variabel Dependen (faskes): 0 = Puskesmas/Klinik Pratama (Referensi), 1 = Rumah Sakit Swasta Umum, 2 = Rumah Sakit Rujukan/Spesialis.
         </p>
         <div class="textarea-container">
         <textarea>
-"ID","Y","X1","X2"
-"1","1","55","25"
-"2","1","48","30"
-"3","1","40","35"
-"4","2","25","42"
-"5","0","60","22"
-"6","1","35","38"
-"7","2","28","45"
-"8","0","52","28"
-"9","1","42","36"
-"10","1","24","40"
-"11","2","57","26"
-"12","1","38","34"
-"13","2","29","48"
-"14","0","50","31"
-"15","1","45","37"
-"16","2","26","43"
-"17","0","47","29"
-"18","1","36","33"
-"19","2","31","41"
-"20","0","58","24"
-"21","1","41","39"
-"22","2","23","46"
-"23","0","53","27"
-"24","1","39","35"
-"25","2","30","44"
-"26","0","62","20"
-"27","1","44","36"
-"28","2","27","42"
-"29","0","49","32"
-"30","1","37","38"
-"31","2","32","47"
-"32","0","54","25"
-"33","1","43","34"
-"34","2","25","45"
-"35","0","51","30"
-"36","1","34","36"
-"37","2","28","41"
-"38","0","56","23"
-"39","1","40","37"
-"40","2","22","44"
-"41","0","46","28"
-"42","1","35","35"
-"43","2","33","49"
-"44","0","59","26"
-"45","1","42","38"
-"46","2","24","43"
-"47","0","52","31"
-"48","1","38","32"
-"49","2","27","40"
-"50","2","29","46"</textarea>
+"faskes","pengeluaran","gejala","tunggu","jarak_rs"
+"0","1.8","2","35","18.5"
+"1","7.5","5","125","6.2"
+"2","6.2","9","140","9.5"
+"0","2.1","3","40","16.0"
+"1","8.8","6","145","4.5"
+"2","5.4","10","155","11.0"
+"0","1.5","2","25","21.0"
+"1","6.9","4","115","7.8"
+"2","7.1","8","130","8.2"
+"0","2.4","3","45","15.2"
+"1","9.5","5","150","3.8"
+"2","4.8","9","160","12.5"
+"0","1.4","1","20","23.5"
+"1","7.2","5","120","6.8"
+"2","6.5","8","135","9.0"
+"0","2.6","3","50","14.5"
+"1","8.4","6","138","5.0"
+"2","5.9","10","165","10.4"
+"0","1.9","2","30","19.2"
+"1","7.8","4","128","6.0"
+"2","6.8","9","142","8.8"
+"0","1.6","2","28","20.5"
+"1","9.2","6","152","4.2"
+"2","5.1","9","158","11.8"
+"0","2.3","3","42","15.8"
+"1","6.7","4","110","8.0"
+"2","7.4","8","132","7.9"
+"0","1.3","1","22","24.0"
+"1","8.6","5","140","4.8"
+"2","5.6","10","162","10.8"
+"0","2.5","3","48","14.8"
+"1","7.9","5","130","5.6"
+"2","4.6","9","170","13.0"
+"0","1.7","2","32","19.8"
+"1","7.4","4","122","6.5"
+"2","6.3","8","136","9.2"
+"0","2.2","3","38","16.5"
+"1","9.0","6","148","4.0"
+"2","5.7","10","160","10.2"
+"0","1.5","2","26","22.0"
+"1","6.8","4","112","7.5"
+"2","7.0","8","134","8.5"
+"0","2.4","3","44","15.0"
+"1","8.2","5","135","5.2"
+"2","4.9","9","168","12.2"
+"0","1.2","1","18","25.5"
+"1","7.6","5","126","5.8"
+"2","6.1","9","145","9.8"
+"0","2.0","2","36","17.5"
+"1","8.5","6","142","4.9"</textarea>
         </div>
         <p class="soal-latihan">
         </p>
