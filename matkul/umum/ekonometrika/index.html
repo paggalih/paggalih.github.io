@@ -3345,10 +3345,10 @@ graph TD
         <div class="mermaid text-center">
 flowchart TD
     A["1. Identifikasi Masalah dan Variabel Y Nominal (>= 3 Kategori)"] --> B["2. Eksplorasi Data dan Cek Distribusi Frekuensi Tiap Kategori Y"]
-    B --> C["3. Uji Multikolinearitas Antar Variabel Independen (VIF < 10)"]
+    B --> C["3. Uji Multikolinearitas Antar Variabel Independen (VIF &lt; 10)"]
     C --> D["4. Tetapkan Kategori Referensi / Base Outcome (Misal: Y = 0)"]
     D --> E["5. Estimasi Model Logit Multinomial (Add-in mlogit atau Objek LogL EViews)"]
-    E --> F["6. Uji Simultan: Likelihood Ratio Test (Prob LR Stat < 0.05)"]
+    E --> F["6. Uji Simultan: Likelihood Ratio Test (Prob LR Stat &lt; 0.05)"]
     F --> G["7. Uji Parsial: Z-Statistic dan P-Value Tiap Variabel X"]
     G --> H["8. Evaluasi Goodness-of-Fit (McFadden R-Squared dan Akurasi Klasifikasi)"]
     H --> I["9. Hitung Relative Risk Ratio: RRR = exp(Koefisien Beta)"]
