@@ -3340,7 +3340,7 @@ graph TD
           <h2>Pertemuan 10</h2>
         </div>
         <div class="trigger">
-Bayangkan Regresi Logistik Multinomial itu seperti memprediksi menu makan siang rekan kerja Anda. Kalau pilihannya cuma dua ("Makan siang" vs "Puasa"), itu Logistik Biner. <br>Tapi kalau pilihannya ada tiga atau lebih dan tidak bertingkat—misalnya: "Nasi Padang", "Salad Diet", atau "Mie Instan"—maka di sinilah Regresi Multinomial beraksi. Pilihan mereka ditentukan oleh variabel independen seperti: isi dompet ($X_1$) dan tingkat kelaparan ($X_2$).
+<strong>Bayangkan Regresi Logistik Multinomial</strong> itu seperti memprediksi menu makan siang rekan kerja Anda. Kalau pilihannya cuma dua ("Makan siang" vs "Puasa"), itu Logistik Biner. <br>Tapi kalau pilihannya ada tiga atau lebih dan tidak bertingkat—misalnya: "Nasi Padang", "Salad Diet", atau "Mie Instan"—maka di sinilah Regresi Multinomial beraksi. Pilihan mereka ditentukan oleh variabel independen seperti: isi dompet ($X_1$) dan tingkat kelaparan ($X_2$).
         </div>
         <div class="mermaid text-center">
 flowchart TD
@@ -3396,7 +3396,7 @@ flowchart TD
     <li>Salin dan tempel skrip <em>log-likelihood</em> berikut ke dalam jendela objek <code>LogL</code> (contoh untuk 3 kategori \(Y \in \{0, 1, 2\}\) dengan \(Y=0\) sebagai referensi dan 4 variabel \(X_1, X_2, X_3, X_4\)):</li>
   </ol>
 
-  <pre><code>@logl logl1
+  <pre><code class="command-box">@logl logl1
 ' Inisialisasi nilai awal parameter (jalankan di Command Window terlebih dahulu):
 ' coef(5) b1 = 0
 ' coef(5) b2 = 0
@@ -3412,7 +3412,7 @@ p2 = @exp(xb2) / denom
 logl1 = (y=0)*@log(p0) + (y=1)*@log(p1) + (y=2)*@log(p2)</code></pre>
 
   <ol start="3">
-    <li>Ketik <code>coef(5) b1 = 0</code> dan <code>coef(5) b2 = 0</code> pada <em>Command Window</em> di bagian atas EViews dan tekan <strong>Enter</strong>.</li>
+    <li>Ketik <code class="command-box">coef(5) b1 = 0</code> dan <code class="command-box">coef(5) b2 = 0</code> pada <em>Command Window</em> di bagian atas EViews dan tekan <strong>Enter</strong>.</li>
     <li>Kembali ke jendela <code>mlogit_model</code>, klik tombol <strong>Estimate</strong> pada toolbar, isikan <code>1 50</code> pada bagian Sample pilih metode optimasi <strong>BFGS</strong> atau <strong>Newton-Raphson</strong>, lalu klik <strong>OK</strong>.</li>
   </ol>
 
